@@ -1,0 +1,42 @@
+# CI for the bird-sdk-php release mirror. This file is the proof that the
+# exported tree installs, lints, and tests with NO Bird monorepo context — it
+# runs on a GitHub-hosted runner against the checked-in mirror content only.
+#
+# Source of truth: clients/sdk-php/.mirror/ in the Bird monorepo. Do not edit on
+# the mirror; changes are synced from the monorepo.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # The declared floor and a current release: the package must install and
+        # pass on 8.2 (composer.json's `php` constraint) and not rot on newer.
+        php: ["8.2", "8.4"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      # composer has no --frozen-lockfile; `composer validate --strict` is the
+      # equivalent that actually fails: it errors when composer.lock is out of
+      # date with composer.json, so the mirror can't ship an install that
+      # silently resolved a different graph than the committed lock (plain
+      # `composer install` only warns on a stale lock).
+      - run: composer validate --strict
+      - run: composer install --no-interaction --no-progress
+      - run: composer lint --no-interaction
+      - run: composer analyse --no-interaction
+      - run: composer test --no-interaction

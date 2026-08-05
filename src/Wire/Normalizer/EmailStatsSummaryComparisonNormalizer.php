@@ -1,0 +1,104 @@
+<?php
+
+namespace MessageBird\Wire\Normalizer;
+
+use Jane\Component\JsonSchemaRuntime\Reference;
+use MessageBird\Wire\Runtime\Normalizer\CheckArray;
+use MessageBird\Wire\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+class EmailStatsSummaryComparisonNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+    {
+        return $type === \MessageBird\Wire\Model\EmailStatsSummaryComparison::class;
+    }
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\EmailStatsSummaryComparison::class;
+    }
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $object = new \MessageBird\Wire\Model\EmailStatsSummaryComparison();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
+        }
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        }
+        if (\array_key_exists('period', $data) && $data['period'] !== null) {
+            $object->setPeriod($this->denormalizer->denormalize($data['period'], \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class, 'json', $context));
+            unset($data['period']);
+        }
+        elseif (\array_key_exists('period', $data) && $data['period'] === null) {
+            $object->setPeriod(null);
+        }
+        if (\array_key_exists('sends_accepted', $data) && $data['sends_accepted'] !== null) {
+            $object->setSendsAccepted($data['sends_accepted']);
+            unset($data['sends_accepted']);
+        }
+        elseif (\array_key_exists('sends_accepted', $data) && $data['sends_accepted'] === null) {
+            $object->setSendsAccepted(null);
+        }
+        if (\array_key_exists('delivery', $data) && $data['delivery'] !== null) {
+            $object->setDelivery($this->denormalizer->denormalize($data['delivery'], \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class, 'json', $context));
+            unset($data['delivery']);
+        }
+        elseif (\array_key_exists('delivery', $data) && $data['delivery'] === null) {
+            $object->setDelivery(null);
+        }
+        if (\array_key_exists('engagement', $data) && $data['engagement'] !== null) {
+            $object->setEngagement($this->denormalizer->denormalize($data['engagement'], \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class, 'json', $context));
+            unset($data['engagement']);
+        }
+        elseif (\array_key_exists('engagement', $data) && $data['engagement'] === null) {
+            $object->setEngagement(null);
+        }
+        if (\array_key_exists('latency', $data) && $data['latency'] !== null) {
+            $object->setLatency($this->denormalizer->denormalize($data['latency'], \MessageBird\Wire\Model\EmailStatsComparisonLatency::class, 'json', $context));
+            unset($data['latency']);
+        }
+        elseif (\array_key_exists('latency', $data) && $data['latency'] === null) {
+            $object->setLatency(null);
+        }
+        if (\array_key_exists('delta', $data) && $data['delta'] !== null) {
+            $object->setDelta($this->denormalizer->denormalize($data['delta'], \MessageBird\Wire\Model\EmailStatsComparisonDelta::class, 'json', $context));
+            unset($data['delta']);
+        }
+        elseif (\array_key_exists('delta', $data) && $data['delta'] === null) {
+            $object->setDelta(null);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
+            }
+        }
+        return $object;
+    }
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\MessageBird\Wire\Model\EmailStatsSummaryComparison::class => false];
+    }
+}

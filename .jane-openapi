@@ -1,0 +1,19 @@
+<?php
+
+// Wire-layer generation config for jane-php (models + normalizers only).
+// The generate pipeline (scripts/generate.sh) feeds jane the 3.0-compat bundle
+// and strips everything except Model/, Normalizer/, and Runtime/Normalizer/.
+//
+// `whitelisted-paths` is the operation filter: the surfacegen-emitted KEEP list
+// (scripts/surface-paths.php, the analog of clients/sdk-python/scripts/surface_ops.py),
+// regenerated from backend/surfaces/surfaces.yaml. Never hand-edit that list.
+
+return [
+    'openapi-file' => __DIR__ . '/.generated/openapi.public.compat.yaml',
+    'namespace' => 'MessageBird\\Wire',
+    'directory' => __DIR__ . '/src/Wire',
+    'reference' => true,
+    'strict' => false,
+    'use-fixer' => false,
+    'whitelisted-paths' => require __DIR__ . '/scripts/surface-paths.php',
+];

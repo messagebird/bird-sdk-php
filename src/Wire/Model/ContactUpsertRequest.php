@@ -1,0 +1,101 @@
+<?php
+
+namespace MessageBird\Wire\Model;
+
+class ContactUpsertRequest
+{
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+    /**
+     * Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+     *
+     * @var list<ContactCreateRequest>|null
+     */
+    protected $contacts;
+    /**
+     * Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
+     *
+     * @var list<string>|null
+     */
+    protected $audienceIds;
+    /**
+     * How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+     * 
+     *
+     * @var string|null
+     */
+    protected $dataMode = 'merge';
+    /**
+     * Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+     *
+     * @return list<ContactCreateRequest>|null
+     */
+    public function getContacts(): ?array
+    {
+        return $this->contacts;
+    }
+    /**
+     * Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+     *
+     * @param list<ContactCreateRequest>|null $contacts
+     *
+     * @return self
+     */
+    public function setContacts(?array $contacts): self
+    {
+        $this->initialized['contacts'] = true;
+        $this->contacts = $contacts;
+        return $this;
+    }
+    /**
+     * Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
+     *
+     * @return list<string>|null
+     */
+    public function getAudienceIds(): ?array
+    {
+        return $this->audienceIds;
+    }
+    /**
+     * Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
+     *
+     * @param list<string>|null $audienceIds
+     *
+     * @return self
+     */
+    public function setAudienceIds(?array $audienceIds): self
+    {
+        $this->initialized['audienceIds'] = true;
+        $this->audienceIds = $audienceIds;
+        return $this;
+    }
+    /**
+     * How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+     * 
+     *
+     * @return string|null
+     */
+    public function getDataMode(): ?string
+    {
+        return $this->dataMode;
+    }
+    /**
+     * How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+     *
+     * @param string|null $dataMode
+     *
+     * @return self
+     */
+    public function setDataMode(?string $dataMode): self
+    {
+        $this->initialized['dataMode'] = true;
+        $this->dataMode = $dataMode;
+        return $this;
+    }
+}

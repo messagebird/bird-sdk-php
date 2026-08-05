@@ -1,0 +1,57 @@
+# Cuts a GitHub Release when a vX.Y.Z tag is pushed to this mirror, then smoke-
+# tests that the tag is installable from Packagist. Composer has no registry
+# upload: Packagist resolves versions from git tags via its GitHub webhook, so
+# the tag itself is the published artifact (like the Go module proxy) and there
+# is nothing to push here — this workflow makes the release visible and proves
+# the tag installs.
+#
+# Packagist auto-update: a one-time GitHub↔Packagist integration on this repo
+# publishes each new tag; there is no OIDC and no token in this workflow. If the
+# integration is ever replaced by the API route, add a POST to the Packagist
+# update endpoint with a PACKAGIST_TOKEN secret here.
+#
+# Source of truth: clients/sdk-php/.mirror/ in the Bird monorepo — do NOT edit on
+# the mirror; changes are synced from the monorepo by scripts/dev/sdk-release.sh.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # create the GitHub Release
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+
+      # The GitHub Release runs BEFORE the smoke test: the tag is the published
+      # artifact, so once it is pushed the release notes must land regardless of
+      # a Packagist-propagation flake in the smoke step below.
+      - name: GitHub Release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Skip if the release already exists, so a re-run doesn't 422.
+        # --notes-from-tag reuses the annotated tag's message (this version's
+        # CHANGELOG section, set by scripts/dev/sdk-release.sh).
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --notes-from-tag --verify-tag
+
+      - name: Smoke test the published version
+        if: github.event_name == 'push'
+        run: ./scripts/smoke.sh "${GITHUB_REF_NAME#v}"

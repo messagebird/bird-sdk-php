@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        # The example corpus is type-checked so a wrong request-building type (a
+        # model where a request type is wanted) fails at author time, not on the
+        # wire — the same guard the TS SDK gets from compiling its examples.
+        - examples
+    excludePaths:
+        # Generated wire layer (jane-php). Never hand-edited, not our style bar.
+        - src/Wire

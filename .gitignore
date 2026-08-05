@@ -1,0 +1,4 @@
+/vendor/
+/.generated/
+/.php-cs-fixer.cache
+/.phpunit.cache/
