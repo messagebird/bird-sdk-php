@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\EmailThreadUpdateRequest;
 class EmailThreadsBase extends Resource
 {
     /**
-     * List mailbox conversations as a cursor page, most recently active first. `label` selects the view — inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
+     * List mailbox conversations as a cursor page, most recently active first. `label` selects the view: inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -57,7 +57,7 @@ class EmailThreadsBase extends Resource
     }
 
     /**
-     * Add or remove labels on a conversation — adding `spam` files it as spam, adding `archive` clears it out of the inbox, adding `inbox` brings it back — or link/unlink a contact.
+     * Add or remove labels on a conversation, or link and unlink a contact. Adding `spam` files it as spam, `archive` clears it out of the inbox, and `inbox` brings it back.
      *
      * @example Relabel a thread and link it to a contact
      * $bird->email->threads->update(

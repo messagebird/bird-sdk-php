@@ -14,7 +14,23 @@ repo_root="$(cd "$here/../.." && pwd)"
 bundle="$repo_root/backend/openapi/.generated/openapi.public.bundle.yaml"
 gendir="$here/.generated"
 compat="$gendir/openapi.public.compat.yaml"
-wire="$here/src/Wire"
+# Write the wire layer into beak's stage when running under beak, so a failed,
+# interrupted, or killed run never touches the committed tree — beak swaps the
+# staged output in only on success and prunes stale files, exactly like sdk-go.
+# A direct invocation (no stage) regenerates in place.
+if [ -n "${BEAK_STAGE:-}" ]; then
+    wire="$BEAK_STAGE/clients/sdk-php/src/Wire"
+else
+    wire="$here/src/Wire"
+fi
+
+# The wire layer regenerates only with the PHP toolchain (php + the composer-
+# installed jane binary). It is committed and its drift is enforced only on CI,
+# so a machine without PHP skips cleanly rather than running jane below.
+if ! command -v php >/dev/null 2>&1 || [ ! -x "$here/vendor/bin/jane-openapi" ]; then
+    echo "==> php/jane toolchain absent — skipping PHP wire regeneration (src/Wire left as committed; CI enforces drift)"
+    exit 0
+fi
 
 mkdir -p "$gendir"
 
@@ -24,7 +40,10 @@ echo "==> openapi-compat: 3.1 -> 3.0"
 
 echo "==> jane-openapi generate"
 rm -rf "$wire"
-( cd "$here" && php -d error_reporting='E_ALL & ~E_DEPRECATED' \
+mkdir -p "$(dirname "$wire")"
+# .jane-openapi honors BIRD_PHP_WIRE_OUT as its output directory, so models land
+# in the staged path above (it falls back to src/Wire in place when unset).
+( cd "$here" && BIRD_PHP_WIRE_OUT="$wire" php -d error_reporting='E_ALL & ~E_DEPRECATED' \
     vendor/bin/jane-openapi generate )
 
 echo "==> strip non-wire output (keep Model/ Normalizer/ Runtime/Normalizer/)"
@@ -41,7 +60,7 @@ rm -rf \
 # names the one rule and the path explicitly rather than holding generated code
 # to our bar; the CLI path overrides the config's finder.
 echo "==> canonicalize (double) -> (float)"
-( cd "$here" && vendor/bin/php-cs-fixer fix src/Wire \
+( cd "$here" && vendor/bin/php-cs-fixer fix "$wire" \
     --rules=short_scalar_cast --using-cache=no --quiet )
 
 # jane parses every date-time with createFromFormat('Y-m-d\TH:i:sP', …), which

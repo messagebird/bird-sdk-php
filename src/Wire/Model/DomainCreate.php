@@ -27,7 +27,7 @@ class DomainCreate
      */
     protected $returnPath;
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
      * 
      *
      * @var DomainTrackingConfig|null
@@ -93,7 +93,7 @@ class DomainCreate
         return $this;
     }
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
      * 
      *
      * @return DomainTrackingConfig|null
@@ -103,7 +103,7 @@ class DomainCreate
         return $this->tracking;
     }
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
      *
      * @param DomainTrackingConfig|null $tracking
      *

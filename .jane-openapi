@@ -11,7 +11,9 @@
 return [
     'openapi-file' => __DIR__ . '/.generated/openapi.public.compat.yaml',
     'namespace' => 'MessageBird\\Wire',
-    'directory' => __DIR__ . '/src/Wire',
+    // generate.sh sets BIRD_PHP_WIRE_OUT to beak's stage path so a beak run
+    // writes into the stage, not the committed tree (see that script).
+    'directory' => getenv('BIRD_PHP_WIRE_OUT') ?: __DIR__ . '/src/Wire',
     'reference' => true,
     'strict' => false,
     'use-fixer' => false,

@@ -1,10 +1,5 @@
 <?php
 
-// The first send a customer makes from the dashboard's onboarding step. Unlike
-// quickstart-email.php this carries the key inline: the dashboard fills it with
-// the workspace's real key, so the placeholder is what a reader sees before it
-// is substituted, not advice to hardcode a secret.
-
 declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';

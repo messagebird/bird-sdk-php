@@ -43,7 +43,7 @@ class MailboxCreate
      */
     protected $receivePolicy = 'open';
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
      *
      * @var string|null
      */
@@ -165,7 +165,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
      *
      * @return string|null
      */
@@ -174,7 +174,7 @@ class MailboxCreate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
      *
      * @param string|null $retentionTier
      *

@@ -63,7 +63,7 @@ final class EmailMailboxesReceiveRules extends Resource
     }
 
     /**
-     * Remove a receive rule from a mailbox. Delete-and-recreate is how an entry's action is flipped.
+     * Remove a receive rule from a mailbox. Rules have no update operation, so a rule's allow or block action cannot be changed after it is created.
      *
      * @example Delete a receive rule
      * $bird->email->mailboxes->receiveRules->delete(

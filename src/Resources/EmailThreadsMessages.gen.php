@@ -47,7 +47,7 @@ final class EmailThreadsMessages extends Resource
     }
 
     /**
-     * Get one conversation message with its extracted plain text — readable for the mailbox's full retention period, no MIME parsing needed.
+     * Get one conversation message with its extracted plain text, readable for the mailbox's full retention period without MIME parsing.
      *
      * @example Fetch one message in a thread
      * $message = $bird->email->threads->messages->get(

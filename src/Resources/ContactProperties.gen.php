@@ -72,7 +72,7 @@ final class ContactProperties extends Resource
     }
 
     /**
-     * Update a contact property's fallback value. The key and type are immutable; create a new property instead.
+     * Update a contact property's fallback value. Only the fallback value can change; the key and type are fixed at creation, so a different key or type needs a new property.
      *
      * @example Change a property's fallback value
      * $bird->contactProperties->update(

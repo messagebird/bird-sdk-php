@@ -212,7 +212,7 @@ final class EmailStats extends Resource
     }
 
     /**
-     * Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. To track a single template over time, pass `template` to email_stats_daily instead.
+     * Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from email_stats_daily with its `template` filter.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -273,7 +273,7 @@ final class EmailStats extends Resource
     }
 
     /**
-     * Bounce counts grouped by the SMTP error code the receiving server returned, with the hard/soft/admin/block/undetermined split; failure side only. Use it to find what is driving bounces; for bounces by destination use email_stats_by_recipient_domain or email_stats_by_mailbox_provider.
+     * Bounce counts grouped by the SMTP error code the receiving server returned, with the hard/soft/admin/block/undetermined split; failure side only. It shows what is driving bounces, while bounces by destination come from email_stats_by_recipient_domain or email_stats_by_mailbox_provider.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

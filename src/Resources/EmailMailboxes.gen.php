@@ -48,7 +48,7 @@ class EmailMailboxesBase extends Resource
     }
 
     /**
-     * Create a mailbox — a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
+     * Create a mailbox: a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
      *
      * @example Create a mailbox on a verified domain
      * $mailbox = $bird->email->mailboxes->create(
@@ -77,7 +77,7 @@ class EmailMailboxesBase extends Resource
     }
 
     /**
-     * Update a mailbox's display name, reply-to, receive policy, retention tier, contact, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
+     * Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

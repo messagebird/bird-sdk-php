@@ -31,7 +31,7 @@ class MailboxUpdate
      */
     protected $receivePolicy;
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
      *
      * @var string|null
      */
@@ -109,7 +109,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
      *
      * @return string|null
      */
@@ -118,7 +118,7 @@ class MailboxUpdate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
      *
      * @param string|null $retentionTier
      *
