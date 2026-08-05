@@ -13,13 +13,17 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * @var string|null
+     */
+    protected $id;
+    /**
      * The template to send, by its slug (for example `bird_otp`).
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available tags.
      * 
      *
      * @var string|null
@@ -32,6 +36,24 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
      * @var list<WhatsAppMessageTemplateComponent>|null
      */
     protected $components;
+    /**
+     * @return string|null
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+    /**
+     * @param string|null $id
+     *
+     * @return self
+     */
+    public function setId(?string $id): self
+    {
+        $this->initialized['id'] = true;
+        $this->id = $id;
+        return $this;
+    }
     /**
      * The template to send, by its slug (for example `bird_otp`).
      *
@@ -55,7 +77,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available tags.
      * 
      *
      * @return string|null
@@ -65,7 +87,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available tags.
      *
      * @param string|null $language
      *

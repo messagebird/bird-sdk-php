@@ -24,7 +24,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
      */
     protected $name;
     /**
-     * Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
      * 
      *
      * @var string|null
@@ -79,7 +79,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
      * 
      *
      * @return string|null
@@ -89,7 +89,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
      *
      * @param string|null $language
      *

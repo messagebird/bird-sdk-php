@@ -25,7 +25,7 @@ class WhatsAppMessageTemplate extends \ArrayObject
      */
     protected $category;
     /**
-     * The language code of the template variant that was sent (for example `en`).
+     * The canonical BCP-47 tag of the template variant that was sent.
      *
      * @var string|null
      */
@@ -82,7 +82,7 @@ class WhatsAppMessageTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * The language code of the template variant that was sent (for example `en`).
+     * The canonical BCP-47 tag of the template variant that was sent.
      *
      * @return string|null
      */
@@ -91,7 +91,7 @@ class WhatsAppMessageTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * The language code of the template variant that was sent (for example `en`).
+     * The canonical BCP-47 tag of the template variant that was sent.
      *
      * @param string|null $language
      *

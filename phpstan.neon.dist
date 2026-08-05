@@ -9,3 +9,7 @@ parameters:
     excludePaths:
         # Generated wire layer (jane-php). Never hand-edited, not our style bar.
         - src/Wire
+    scanFiles:
+        # WordPress ships no Composer autoloader, so its symbols (used only by the
+        # examples/php/wordpress.php integration example) come from the stubs.
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php

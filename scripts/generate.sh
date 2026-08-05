@@ -39,6 +39,8 @@ echo "==> openapi-compat: 3.1 -> 3.0"
     "openapi/.generated/openapi.public.bundle.yaml" "$compat" )
 
 echo "==> jane-openapi generate"
+# TODO(sdk-php): probe for php/composer + vendor/bin/jane-openapi BEFORE this rm —
+# on a machine without them the wire layer is destroyed and never regenerated.
 rm -rf "$wire"
 mkdir -p "$(dirname "$wire")"
 # .jane-openapi honors BIRD_PHP_WIRE_OUT as its output directory, so models land

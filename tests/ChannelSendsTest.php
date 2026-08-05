@@ -101,6 +101,15 @@ final class ChannelSendsTest extends TestCase
         self::assertSame(['slug' => 'bird_otp', 'language' => 'pt_BR'], $body['template']);
     }
 
+    public function testWhatsappSendAddressesTemplateById(): void
+    {
+        $recording = $this->recording();
+        $this->bird($recording)->whatsapp->send(to: '+15551234567', template: 'wat_01krdgeqcxet5s7t44vh8rt9mg');
+
+        $body = $this->sentBody($recording);
+        self::assertSame(['id' => 'wat_01krdgeqcxet5s7t44vh8rt9mg'], $body['template']);
+    }
+
     public function testEmailSendBatchMergesDefaultsPerMessage(): void
     {
         $recording = $this->recording('{"data":[]}');

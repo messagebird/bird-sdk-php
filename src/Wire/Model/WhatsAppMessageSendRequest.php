@@ -13,7 +13,7 @@ class WhatsAppMessageSendRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The message recipient's phone number in E.164 format (for example `+31612345678`). A value that is not a valid phone number returns a `422` `WhatsAppInvalidRecipient`.
+     * The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
      * 
      *
      * @var string|null
@@ -41,7 +41,7 @@ class WhatsAppMessageSendRequest
      */
     protected $metadata;
     /**
-     * The message recipient's phone number in E.164 format (for example `+31612345678`). A value that is not a valid phone number returns a `422` `WhatsAppInvalidRecipient`.
+     * The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
      * 
      *
      * @return string|null
@@ -51,7 +51,7 @@ class WhatsAppMessageSendRequest
         return $this->to;
     }
     /**
-     * The message recipient's phone number in E.164 format (for example `+31612345678`). A value that is not a valid phone number returns a `422` `WhatsAppInvalidRecipient`.
+     * The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
      *
      * @param string|null $to
      *

@@ -22,7 +22,7 @@ final class Whatsapp extends WhatsappBase
      *
      * $components fills the template's placeholders.
      *
-     * @param string                                     $template   the template's stable handle (e.g. `bird_otp`)
+     * @param string                                     $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
      * @param list<WhatsAppMessageTemplateComponent>|null $components
      */
     public function send(
@@ -32,7 +32,13 @@ final class Whatsapp extends WhatsappBase
         ?array $components = null,
         ?RequestOptions $options = null,
     ): WhatsAppMessage {
-        $tmpl = (new WhatsAppMessageSendRequestTemplate())->setSlug($template);
+        $tmpl = new WhatsAppMessageSendRequestTemplate();
+        // A wat_-prefixed value is the id; anything else is the slug handle.
+        if (str_starts_with($template, 'wat_')) {
+            $tmpl->setId($template);
+        } else {
+            $tmpl->setSlug($template);
+        }
         if ($language !== null) {
             $tmpl->setLanguage($language);
         }
