@@ -46,6 +46,8 @@ final class Bird
     private readonly RequestFactoryInterface $requestFactory;
     private readonly StreamFactoryInterface $streamFactory;
     private readonly Serializer $serializer;
+    /** @var array<string, array{0: string, 1: ?string, 2: string}> */
+    private array $credentials = [];
     private readonly string $baseUrl;
     public readonly ?EmailDefaults $emailDefaults;
     private readonly int $maxRetries;
@@ -97,7 +99,14 @@ final class Bird
         $this->smsTemplates = new SmsTemplates($this);
         $this->whatsapp = new Whatsapp($this);
         $this->verify = new Verify($this);
-        $this->realtime = new Realtime($this, $realtime);
+        // Extra credentials some operations require, keyed by the security scheme that
+        // names them: [header, value, how-to-supply]. A generated method names its
+        // schemes; this client resolves them.
+        $this->credentials = [
+            'RealtimeKey' => ['X-Realtime-Key', $realtime?->key, 'pass realtime: new RealtimeOptions(key: ..., secret: ...) to the Bird constructor'],
+            'RealtimeSecret' => ['X-Realtime-Secret', $realtime?->secret, 'pass realtime: new RealtimeOptions(key: ..., secret: ...) to the Bird constructor'],
+        ];
+        $this->realtime = new Realtime($this);
     }
 
     public function baseUrl(): string
@@ -226,6 +235,7 @@ final class Bird
      * @param array<string, mixed>|null $query
      *
      * @return T
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
     public function dispatch(
         string $method,
@@ -234,8 +244,9 @@ final class Bird
         object|array|null $body = null,
         ?array $query = null,
         ?RequestOptions $options = null,
+        ?array $schemes = null,
     ): object {
-        $response = $this->send($method, $path, $body, $query, $options);
+        $response = $this->send($method, $path, $body, $query, $options, $schemes);
 
         return $this->serializer->decode((string) $response->getBody(), $responseClass);
     }
@@ -247,6 +258,7 @@ final class Bird
      *
      * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
      * @param array<string, mixed>|null $query
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
     public function dispatchVoid(
         string $method,
@@ -254,13 +266,15 @@ final class Bird
         object|array|null $body = null,
         ?array $query = null,
         ?RequestOptions $options = null,
+        ?array $schemes = null,
     ): void {
-        $this->send($method, $path, $body, $query, $options);
+        $this->send($method, $path, $body, $query, $options, $schemes);
     }
 
     /**
      * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
      * @param array<string, mixed>|null $query
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
     private function send(
         string $method,
@@ -268,13 +282,14 @@ final class Bird
         object|array|null $body,
         ?array $query,
         ?RequestOptions $options,
+        ?array $schemes = null,
     ): ResponseInterface {
         $options ??= new RequestOptions();
         $this->validateRequestPath($path);
 
         // Built once so the idempotency key and body are byte-identical across
         // every attempt: a retried mutation never double-applies.
-        $request = $this->buildRequest($method, $path, $body, $query, $options);
+        $request = $this->buildRequest($method, $path, $body, $query, $options, $schemes);
         $retriesLeft = $options->maxRetries ?? $this->maxRetries;
         $attempt = 0;
 
@@ -318,12 +333,53 @@ final class Bird
      * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
      * @param array<string, mixed>|null $query
      */
+    /**
+     * Resolve the credential headers an operation's security schemes require. Throws
+     * before the request when one is unconfigured, so the failure names the fix
+     * rather than surfacing as an opaque 401. A per-call RealtimeOptions in
+     * $options overrides the client config, so one client can address several apps.
+     *
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
+     *
+     * @return array<string, string>
+     */
+    private function credentialHeaders(?array $schemes, RequestOptions $options): array
+    {
+        if ($schemes === null || $schemes === []) {
+            return [];
+        }
+        $override = [
+            'RealtimeKey' => $options->realtime?->key,
+            'RealtimeSecret' => $options->realtime?->secret,
+        ];
+        $out = [];
+        foreach ($schemes as $scheme) {
+            if (!isset($this->credentials[$scheme])) {
+                throw new \InvalidArgumentException(sprintf('Unknown credential scheme "%s".', $scheme));
+            }
+            [$header, $value, $how] = $this->credentials[$scheme];
+            $resolved = $override[$scheme] ?? $value;
+            if ($resolved === null || $resolved === '') {
+                throw new \InvalidArgumentException(sprintf('%s is required for this operation: %s.', $header, $how));
+            }
+            $out[$header] = $resolved;
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
+     * @param array<string, mixed>|null $query
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
+     */
     private function buildRequest(
         string $method,
         string $path,
         object|array|null $body,
         ?array $query,
         RequestOptions $options,
+        ?array $schemes = null,
     ): RequestInterface {
         $url = $this->baseUrl . $path;
         if ($query !== null && $query !== []) {
@@ -353,15 +409,12 @@ final class Bird
             ->withHeader('Bird-Lang', 'php')
             ->withHeader('Accept', 'application/json');
 
-        // Realtime app credentials ride on top of the bearer token. Stamped here
-        // (not from the caller-header loop above, which skips them as reserved) so
-        // they're authoritative — the realtime resource resolved them from config
-        // or a per-call override.
-        $realtime = $options->realtime;
-        if ($realtime !== null && $realtime->key !== null && $realtime->secret !== null) {
-            $request = $request
-                ->withHeader('X-Realtime-Key', $realtime->key)
-                ->withHeader('X-Realtime-Secret', $realtime->secret);
+        // The extra credentials this operation declares, on top of the bearer token.
+        // Stamped here (not from the caller-header loop above, which skips them as
+        // reserved) so they're authoritative, and resolved per operation so a
+        // credential never rides on a request that does not require it.
+        foreach ($this->credentialHeaders($schemes, $options) as $name => $value) {
+            $request = $request->withHeader($name, $value);
         }
 
         // A mutation (including DELETE) carries one idempotency key so a retry

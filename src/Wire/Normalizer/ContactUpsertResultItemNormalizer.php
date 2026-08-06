@@ -37,11 +37,17 @@ class ContactUpsertResultItemNormalizer implements DenormalizerInterface, Normal
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('email', $data) && $data['email'] !== null) {
-            $object->setEmail($data['email']);
+        if (\array_key_exists('entry', $data) && $data['entry'] !== null) {
+            $object->setEntry($this->denormalizer->denormalize($data['entry'], \MessageBird\Wire\Model\ContactUpsertEntry::class, 'json', $context));
         }
-        elseif (\array_key_exists('email', $data) && $data['email'] === null) {
-            $object->setEmail(null);
+        elseif (\array_key_exists('entry', $data) && $data['entry'] === null) {
+            $object->setEntry(null);
+        }
+        if (\array_key_exists('matched_on', $data) && $data['matched_on'] !== null) {
+            $object->setMatchedOn($data['matched_on']);
+        }
+        elseif (\array_key_exists('matched_on', $data) && $data['matched_on'] === null) {
+            $object->setMatchedOn(null);
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
@@ -66,7 +72,8 @@ class ContactUpsertResultItemNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['email'] = $data->getEmail();
+        $dataArray['entry'] = $this->normalizer->normalize($data->getEntry(), 'json', $context);
+        $dataArray['matched_on'] = $data->getMatchedOn();
         $dataArray['status'] = $data->getStatus();
         if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
             $dataArray['contact_id'] = $data->getContactId();

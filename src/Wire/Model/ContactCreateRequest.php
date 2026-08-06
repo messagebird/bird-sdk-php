@@ -13,11 +13,17 @@ class ContactCreateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
+     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
      *
      * @var string|null
      */
     protected $email;
+    /**
+     * The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+     *
+     * @var string|null
+     */
+    protected $phone;
     /**
      * The contact's first name.
      *
@@ -44,7 +50,7 @@ class ContactCreateRequest
      */
     protected $data;
     /**
-     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
+     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
      *
      * @return string|null
      */
@@ -53,7 +59,7 @@ class ContactCreateRequest
         return $this->email;
     }
     /**
-     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
+     * The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
      *
      * @param string|null $email
      *
@@ -63,6 +69,28 @@ class ContactCreateRequest
     {
         $this->initialized['email'] = true;
         $this->email = $email;
+        return $this;
+    }
+    /**
+     * The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+     *
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+    /**
+     * The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+     *
+     * @param string|null $phone
+     *
+     * @return self
+     */
+    public function setPhone(?string $phone): self
+    {
+        $this->initialized['phone'] = true;
+        $this->phone = $phone;
         return $this;
     }
     /**

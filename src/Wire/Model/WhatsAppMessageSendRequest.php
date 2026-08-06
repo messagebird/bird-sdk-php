@@ -20,7 +20,7 @@ class WhatsAppMessageSendRequest
      */
     protected $to;
     /**
-     * The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
+     * The template to send. For a Bird-managed template, Bird selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
      * 
      *
      * @var WhatsAppMessageSendRequestTemplate|null
@@ -64,7 +64,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
+     * The template to send. For a Bird-managed template, Bird selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
      * 
      *
      * @return WhatsAppMessageSendRequestTemplate|null
@@ -74,7 +74,7 @@ class WhatsAppMessageSendRequest
         return $this->template;
     }
     /**
-     * The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
+     * The template to send. For a Bird-managed template, Bird selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
      *
      * @param WhatsAppMessageSendRequestTemplate|null $template
      *

@@ -57,6 +57,12 @@ class ContactUpsertRequestNormalizer implements DenormalizerInterface, Normalize
         elseif (\array_key_exists('audience_ids', $data) && $data['audience_ids'] === null) {
             $object->setAudienceIds(null);
         }
+        if (\array_key_exists('match_on', $data) && $data['match_on'] !== null) {
+            $object->setMatchOn($data['match_on']);
+        }
+        elseif (\array_key_exists('match_on', $data) && $data['match_on'] === null) {
+            $object->setMatchOn(null);
+        }
         if (\array_key_exists('data_mode', $data) && $data['data_mode'] !== null) {
             $object->setDataMode($data['data_mode']);
         }
@@ -79,6 +85,9 @@ class ContactUpsertRequestNormalizer implements DenormalizerInterface, Normalize
                 $values_1[] = $value_1;
             }
             $dataArray['audience_ids'] = $values_1;
+        }
+        if ($data->isInitialized('matchOn') && null !== $data->getMatchOn()) {
+            $dataArray['match_on'] = $data->getMatchOn();
         }
         if ($data->isInitialized('dataMode') && null !== $data->getDataMode()) {
             $dataArray['data_mode'] = $data->getDataMode();

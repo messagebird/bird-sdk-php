@@ -13,11 +13,17 @@ class ContactUpdateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
      *
      * @var string|null
      */
     protected $email;
+    /**
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     *
+     * @var string|null
+     */
+    protected $phone;
     /**
      * The contact's first name. Set to null to clear.
      *
@@ -44,7 +50,7 @@ class ContactUpdateRequest
      */
     protected $data;
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
      *
      * @return string|null
      */
@@ -53,7 +59,7 @@ class ContactUpdateRequest
         return $this->email;
     }
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
      *
      * @param string|null $email
      *
@@ -63,6 +69,28 @@ class ContactUpdateRequest
     {
         $this->initialized['email'] = true;
         $this->email = $email;
+        return $this;
+    }
+    /**
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     *
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+    /**
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     *
+     * @param string|null $phone
+     *
+     * @return self
+     */
+    public function setPhone(?string $phone): self
+    {
+        $this->initialized['phone'] = true;
+        $this->phone = $phone;
         return $this;
     }
     /**

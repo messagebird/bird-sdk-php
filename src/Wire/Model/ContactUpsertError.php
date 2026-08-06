@@ -19,6 +19,12 @@ class ContactUpsertError
      */
     protected $type;
     /**
+     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     *
+     * @var string|null
+     */
+    protected $code;
+    /**
      * Human-readable explanation of why this entry failed.
      *
      * @var string|null
@@ -44,6 +50,28 @@ class ContactUpsertError
     {
         $this->initialized['type'] = true;
         $this->type = $type;
+        return $this;
+    }
+    /**
+     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     *
+     * @return string|null
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+    /**
+     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     *
+     * @param string|null $code
+     *
+     * @return self
+     */
+    public function setCode(?string $code): self
+    {
+        $this->initialized['code'] = true;
+        $this->code = $code;
         return $this;
     }
     /**

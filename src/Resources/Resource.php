@@ -27,6 +27,7 @@ abstract class Resource
      * @param array<string, mixed>|null $query
      *
      * @return T
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
     protected function single(
         string $method,
@@ -35,8 +36,9 @@ abstract class Resource
         object|array|null $body = null,
         ?array $query = null,
         ?RequestOptions $options = null,
+        ?array $schemes = null,
     ): object {
-        return $this->client->dispatch($method, $path, $responseClass, $body, $query, $options);
+        return $this->client->dispatch($method, $path, $responseClass, $body, $query, $options, $schemes);
     }
 
     /**
@@ -44,6 +46,7 @@ abstract class Resource
      *
      * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
      * @param array<string, mixed>|null $query
+     * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
     protected function none(
         string $method,
@@ -51,8 +54,9 @@ abstract class Resource
         object|array|null $body = null,
         ?array $query = null,
         ?RequestOptions $options = null,
+        ?array $schemes = null,
     ): void {
-        $this->client->dispatchVoid($method, $path, $body, $query, $options);
+        $this->client->dispatchVoid($method, $path, $body, $query, $options, $schemes);
     }
 
     /**

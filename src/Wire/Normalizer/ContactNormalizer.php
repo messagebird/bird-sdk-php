@@ -51,6 +51,13 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('email', $data) && $data['email'] === null) {
             $object->setEmail(null);
         }
+        if (\array_key_exists('phone', $data) && $data['phone'] !== null) {
+            $object->setPhone($data['phone']);
+            unset($data['phone']);
+        }
+        elseif (\array_key_exists('phone', $data) && $data['phone'] === null) {
+            $object->setPhone(null);
+        }
         if (\array_key_exists('first_name', $data) && $data['first_name'] !== null) {
             $object->setFirstName($data['first_name']);
             unset($data['first_name']);
@@ -83,17 +90,6 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('data', $data) && $data['data'] === null) {
             $object->setData(null);
         }
-        if (\array_key_exists('channels', $data) && $data['channels'] !== null) {
-            $values_1 = [];
-            foreach ($data['channels'] as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $object->setChannels($values_1);
-            unset($data['channels']);
-        }
-        elseif (\array_key_exists('channels', $data) && $data['channels'] === null) {
-            $object->setChannels(null);
-        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -108,9 +104,9 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
-        foreach ($data as $key_1 => $value_2) {
+        foreach ($data as $key_1 => $value_1) {
             if (preg_match('/.*/', (string) $key_1)) {
-                $object[$key_1] = $value_2;
+                $object[$key_1] = $value_1;
             }
         }
         return $object;
@@ -120,6 +116,7 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $dataArray = [];
         $dataArray['id'] = $data->getId();
         $dataArray['email'] = $data->getEmail();
+        $dataArray['phone'] = $data->getPhone();
         if ($data->isInitialized('firstName')) {
             $dataArray['first_name'] = $data->getFirstName();
         }

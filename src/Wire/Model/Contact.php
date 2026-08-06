@@ -17,11 +17,17 @@ class Contact extends \ArrayObject
      */
     protected $id;
     /**
-     * The contact's email address, stored trimmed and lowercased. Unique within the workspace.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
      *
      * @var string|null
      */
     protected $email;
+    /**
+     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     *
+     * @var string|null
+     */
+    protected $phone;
     /**
      * The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
      *
@@ -47,13 +53,6 @@ class Contact extends \ArrayObject
      * @var array<string, mixed>|null
      */
     protected $data;
-    /**
-     * Channels this contact can be reached on, derived from the identifiers it has. A contact with an email address includes `email`. More values are added as a contact gains identifiers for other channels.
-     * 
-     *
-     * @var list<string>|null
-     */
-    protected $channels;
     /**
      * @var \DateTime|null
      */
@@ -81,7 +80,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * The contact's email address, stored trimmed and lowercased. Unique within the workspace.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
      *
      * @return string|null
      */
@@ -90,7 +89,7 @@ class Contact extends \ArrayObject
         return $this->email;
     }
     /**
-     * The contact's email address, stored trimmed and lowercased. Unique within the workspace.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
      *
      * @param string|null $email
      *
@@ -100,6 +99,28 @@ class Contact extends \ArrayObject
     {
         $this->initialized['email'] = true;
         $this->email = $email;
+        return $this;
+    }
+    /**
+     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     *
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+    /**
+     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     *
+     * @param string|null $phone
+     *
+     * @return self
+     */
+    public function setPhone(?string $phone): self
+    {
+        $this->initialized['phone'] = true;
+        $this->phone = $phone;
         return $this;
     }
     /**
@@ -189,29 +210,6 @@ class Contact extends \ArrayObject
     {
         $this->initialized['data'] = true;
         $this->data = $data;
-        return $this;
-    }
-    /**
-     * Channels this contact can be reached on, derived from the identifiers it has. A contact with an email address includes `email`. More values are added as a contact gains identifiers for other channels.
-     * 
-     *
-     * @return list<string>|null
-     */
-    public function getChannels(): ?array
-    {
-        return $this->channels;
-    }
-    /**
-     * Channels this contact can be reached on, derived from the identifiers it has. A contact with an email address includes `email`. More values are added as a contact gains identifiers for other channels.
-     *
-     * @param list<string>|null $channels
-     *
-     * @return self
-     */
-    public function setChannels(?array $channels): self
-    {
-        $this->initialized['channels'] = true;
-        $this->channels = $channels;
         return $this;
     }
     /**

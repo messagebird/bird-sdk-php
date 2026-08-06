@@ -43,6 +43,12 @@ class ContactUpsertErrorNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
+        if (\array_key_exists('code', $data) && $data['code'] !== null) {
+            $object->setCode($data['code']);
+        }
+        elseif (\array_key_exists('code', $data) && $data['code'] === null) {
+            $object->setCode(null);
+        }
         if (\array_key_exists('message', $data) && $data['message'] !== null) {
             $object->setMessage($data['message']);
         }
@@ -55,6 +61,7 @@ class ContactUpsertErrorNormalizer implements DenormalizerInterface, NormalizerI
     {
         $dataArray = [];
         $dataArray['type'] = $data->getType();
+        $dataArray['code'] = $data->getCode();
         $dataArray['message'] = $data->getMessage();
         return $dataArray;
     }

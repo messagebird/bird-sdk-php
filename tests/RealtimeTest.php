@@ -7,6 +7,7 @@ namespace MessageBird\Tests;
 use Http\Discovery\Psr17FactoryDiscovery;
 use MessageBird\Bird;
 use MessageBird\RealtimeOptions;
+use MessageBird\RequestOptions;
 use MessageBird\Tests\Support\RecordingClient;
 use MessageBird\Wire\Model\RealtimeBatchEvent;
 use MessageBird\Wire\Model\RealtimeBatchPublish;
@@ -106,7 +107,7 @@ final class RealtimeTest extends TestCase
         $recording = $this->recording('{"data":[]}');
         $bird = $this->bird($recording, new RealtimeOptions(key: 'config', secret: 'config'));
 
-        $bird->realtime->publish('rap_1', (new RealtimePublish())->setEvent('e')->setChannels(['c']), new RealtimeOptions(key: 'percall', secret: 'percall'));
+        $bird->realtime->publish('rap_1', (new RealtimePublish())->setEvent('e')->setChannels(['c']), new RequestOptions(realtime: new RealtimeOptions(key: 'percall', secret: 'percall')));
 
         self::assertSame('percall', $recording->lastRequest?->getHeaderLine('X-Realtime-Key'));
     }
@@ -147,5 +148,22 @@ final class RealtimeTest extends TestCase
         $bird->realtime->channels->get('rap_1', 'presence:room 1');
 
         self::assertSame('/v1/realtime/apps/rap_1/channels/presence%3Aroom%201', $recording->lastRequest?->getUri()->getPath());
+    }
+
+    /**
+     * The app secret must reach ONLY the operations that declare the schemes. A
+     * shared header path once put it on every request, so this pins the scope.
+     */
+    public function testCredentialsAreNotSentOnAnUnrelatedResource(): void
+    {
+        $recording = $this->recording('{"data":[],"next_cursor":null}');
+        $bird = $this->bird($recording, new RealtimeOptions(key: 'k', secret: 's'));
+
+        iterator_to_array($bird->contacts->list());
+
+        $request = $recording->lastRequest;
+        self::assertSame('', $request?->getHeaderLine('X-Realtime-Key'));
+        self::assertSame('', $request?->getHeaderLine('X-Realtime-Secret'));
+        self::assertSame('Bearer bk_test', $request?->getHeaderLine('Authorization'));
     }
 }

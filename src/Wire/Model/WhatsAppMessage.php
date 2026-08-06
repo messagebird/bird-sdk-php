@@ -75,7 +75,7 @@ class WhatsAppMessage
      */
     protected $readAt;
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
+     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
      *
      * @var array<string, mixed>|null
      */
@@ -327,7 +327,7 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
+     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
      *
      * @return array<string, mixed>|null
      */
@@ -336,7 +336,7 @@ class WhatsAppMessage
         return $this->cost;
     }
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
+     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
      *
      * @param array<string, mixed>|null $cost
      *

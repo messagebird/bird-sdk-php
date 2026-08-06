@@ -13,11 +13,17 @@ class ContactUpsertResultItem
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Email address this entry refers to, in the normalized (trimmed and lowercased) form it was matched and stored as.
+     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+     *
+     * @var ContactUpsertEntry|null
+     */
+    protected $entry;
+    /**
+     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
      *
      * @var string|null
      */
-    protected $email;
+    protected $matchedOn;
     /**
      * What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
      *
@@ -33,25 +39,47 @@ class ContactUpsertResultItem
      */
     protected $error;
     /**
-     * Email address this entry refers to, in the normalized (trimmed and lowercased) form it was matched and stored as.
+     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
      *
-     * @return string|null
+     * @return ContactUpsertEntry|null
      */
-    public function getEmail(): ?string
+    public function getEntry(): ?ContactUpsertEntry
     {
-        return $this->email;
+        return $this->entry;
     }
     /**
-     * Email address this entry refers to, in the normalized (trimmed and lowercased) form it was matched and stored as.
+     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
      *
-     * @param string|null $email
+     * @param ContactUpsertEntry|null $entry
      *
      * @return self
      */
-    public function setEmail(?string $email): self
+    public function setEntry(?ContactUpsertEntry $entry): self
     {
-        $this->initialized['email'] = true;
-        $this->email = $email;
+        $this->initialized['entry'] = true;
+        $this->entry = $entry;
+        return $this;
+    }
+    /**
+     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+     *
+     * @return string|null
+     */
+    public function getMatchedOn(): ?string
+    {
+        return $this->matchedOn;
+    }
+    /**
+     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+     *
+     * @param string|null $matchedOn
+     *
+     * @return self
+     */
+    public function setMatchedOn(?string $matchedOn): self
+    {
+        $this->initialized['matchedOn'] = true;
+        $this->matchedOn = $matchedOn;
         return $this;
     }
     /**

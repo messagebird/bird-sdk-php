@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class ContactUpdateRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContactUpsertEntryNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class ContactUpdateRequestNormalizer implements DenormalizerInterface, Normalize
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\ContactUpdateRequest::class;
+        return $type === \MessageBird\Wire\Model\ContactUpsertEntry::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\ContactUpdateRequest::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\ContactUpsertEntry::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\ContactUpdateRequest();
+        $object = new \MessageBird\Wire\Model\ContactUpsertEntry();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -49,65 +49,24 @@ class ContactUpdateRequestNormalizer implements DenormalizerInterface, Normalize
         elseif (\array_key_exists('phone', $data) && $data['phone'] === null) {
             $object->setPhone(null);
         }
-        if (\array_key_exists('first_name', $data) && $data['first_name'] !== null) {
-            $object->setFirstName($data['first_name']);
-        }
-        elseif (\array_key_exists('first_name', $data) && $data['first_name'] === null) {
-            $object->setFirstName(null);
-        }
-        if (\array_key_exists('last_name', $data) && $data['last_name'] !== null) {
-            $object->setLastName($data['last_name']);
-        }
-        elseif (\array_key_exists('last_name', $data) && $data['last_name'] === null) {
-            $object->setLastName(null);
-        }
         if (\array_key_exists('external_id', $data) && $data['external_id'] !== null) {
             $object->setExternalId($data['external_id']);
         }
         elseif (\array_key_exists('external_id', $data) && $data['external_id'] === null) {
             $object->setExternalId(null);
         }
-        if (\array_key_exists('data', $data) && $data['data'] !== null) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['data'] as $key => $value) {
-                $values[$key] = $value;
-            }
-            $object->setData($values);
-        }
-        elseif (\array_key_exists('data', $data) && $data['data'] === null) {
-            $object->setData(null);
-        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('email')) {
-            $dataArray['email'] = $data->getEmail();
-        }
-        if ($data->isInitialized('phone')) {
-            $dataArray['phone'] = $data->getPhone();
-        }
-        if ($data->isInitialized('firstName')) {
-            $dataArray['first_name'] = $data->getFirstName();
-        }
-        if ($data->isInitialized('lastName')) {
-            $dataArray['last_name'] = $data->getLastName();
-        }
-        if ($data->isInitialized('externalId')) {
-            $dataArray['external_id'] = $data->getExternalId();
-        }
-        if ($data->isInitialized('data') && null !== $data->getData()) {
-            $values = [];
-            foreach ($data->getData() as $key => $value) {
-                $values[$key] = $value;
-            }
-            $dataArray['data'] = $values;
-        }
+        $dataArray['email'] = $data->getEmail();
+        $dataArray['phone'] = $data->getPhone();
+        $dataArray['external_id'] = $data->getExternalId();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\ContactUpdateRequest::class => false];
+        return [\MessageBird\Wire\Model\ContactUpsertEntry::class => false];
     }
 }
