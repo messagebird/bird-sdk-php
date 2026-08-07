@@ -27,7 +27,7 @@ class WhatsappBase extends Resource
     }
 
     /**
-     * List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, or tag. Use whatsapp_get for one message's current state.
+     * List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, template category, or tag. Use whatsapp_get for one message's current state.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

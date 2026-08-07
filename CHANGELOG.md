@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.4.0
+
+- Listing WhatsApp messages gains a `category` filter, matching the equivalent filter on SMS and email messages.
+
 ## 0.3.0
 
 - Batch contact upsert result items echo what each entry supplied under a nested `entry` object (email, phone, externalId, null where absent, never the contact's current state) plus a top-level `matchedOn`, and the request's `matchOn` accepts `email`, `phone`, or `external_id` with automatic matching when omitted.
