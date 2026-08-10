@@ -86,7 +86,7 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setSegments(null);
         }
         if (\array_key_exists('cost', $data) && $data['cost'] !== null) {
-            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\SMSCost::class, 'json', $context));
+            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\MessageCost::class, 'json', $context));
         }
         elseif (\array_key_exists('cost', $data) && $data['cost'] === null) {
             $object->setCost(null);

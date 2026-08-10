@@ -1,6 +1,6 @@
 # Bird PHP SDK
 
-The official PHP SDK for the [Bird](https://bird.com) platform — email, SMS, WhatsApp, verification, and realtime, over one typed client.
+The official PHP SDK for the [Bird](https://bird.com) API: email, SMS, WhatsApp, verification, and Realtime, over one typed client.
 
 ## Requirements
 

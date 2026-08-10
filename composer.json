@@ -1,9 +1,9 @@
 {
     "name": "messagebird/sdk",
-    "description": "The official PHP SDK for the Bird email platform.",
+    "description": "The official PHP SDK for the Bird API: email, SMS, WhatsApp, verification, and Realtime on one typed client.",
     "type": "library",
     "license": "MIT",
-    "keywords": ["bird", "email", "webhooks", "sdk", "api"],
+    "keywords": ["bird", "api", "sdk", "email", "sms", "whatsapp", "verify", "realtime", "webhooks"],
     "homepage": "https://bird.com",
     "authors": [{ "name": "Bird" }],
     "support": {

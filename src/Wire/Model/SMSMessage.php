@@ -58,9 +58,10 @@ class SMSMessage
      */
     protected $segments;
     /**
-     * Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * 
      *
-     * @var SMSCost|null
+     * @var MessageCost|null
      */
     protected $cost;
     /**
@@ -287,22 +288,23 @@ class SMSMessage
         return $this;
     }
     /**
-     * Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * 
      *
-     * @return SMSCost|null
+     * @return MessageCost|null
      */
-    public function getCost(): ?SMSCost
+    public function getCost(): ?MessageCost
     {
         return $this->cost;
     }
     /**
-     * Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
      *
-     * @param SMSCost|null $cost
+     * @param MessageCost|null $cost
      *
      * @return self
      */
-    public function setCost(?SMSCost $cost): self
+    public function setCost(?MessageCost $cost): self
     {
         $this->initialized['cost'] = true;
         $this->cost = $cost;

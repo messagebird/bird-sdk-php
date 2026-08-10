@@ -128,9 +128,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\SMSSegments::class => \MessageBird\Wire\Normalizer\SMSSegmentsNormalizer::class,
         
-        \MessageBird\Wire\Model\SMSCostBreakdown::class => \MessageBird\Wire\Normalizer\SMSCostBreakdownNormalizer::class,
-        
-        \MessageBird\Wire\Model\SMSCost::class => \MessageBird\Wire\Normalizer\SMSCostNormalizer::class,
+        \MessageBird\Wire\Model\MessageCost::class => \MessageBird\Wire\Normalizer\MessageCostNormalizer::class,
         
         \MessageBird\Wire\Model\SMSError::class => \MessageBird\Wire\Normalizer\SMSErrorNormalizer::class,
         
@@ -541,8 +539,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AudienceContactsAddRequest::class => false,
             \MessageBird\Wire\Model\AudienceContactsRemoveRequest::class => false,
             \MessageBird\Wire\Model\SMSSegments::class => false,
-            \MessageBird\Wire\Model\SMSCostBreakdown::class => false,
-            \MessageBird\Wire\Model\SMSCost::class => false,
+            \MessageBird\Wire\Model\MessageCost::class => false,
             \MessageBird\Wire\Model\SMSError::class => false,
             \MessageBird\Wire\Model\SMSMessage::class => false,
             \MessageBird\Wire\Model\SMSMessageList::class => false,
