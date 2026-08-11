@@ -161,7 +161,9 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         $dataArray['id'] = $data->getId();
         $dataArray['to'] = $data->getTo();
         $dataArray['from'] = $data->getFrom();
-        $dataArray['text'] = $data->getText();
+        if ($data->isInitialized('text') && null !== $data->getText()) {
+            $dataArray['text'] = $data->getText();
+        }
         if ($data->isInitialized('category')) {
             $dataArray['category'] = $data->getCategory();
         }

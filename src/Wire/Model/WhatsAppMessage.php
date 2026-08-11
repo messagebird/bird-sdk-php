@@ -75,9 +75,10 @@ class WhatsAppMessage
      */
     protected $readAt;
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * 
      *
-     * @var array<string, mixed>|null
+     * @var MessageCost|null
      */
     protected $cost;
     /**
@@ -327,22 +328,23 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * 
      *
-     * @return array<string, mixed>|null
+     * @return MessageCost|null
      */
-    public function getCost(): ?iterable
+    public function getCost(): ?MessageCost
     {
         return $this->cost;
     }
     /**
-     * Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
+     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
      *
-     * @param array<string, mixed>|null $cost
+     * @param MessageCost|null $cost
      *
      * @return self
      */
-    public function setCost(?iterable $cost): self
+    public function setCost(?MessageCost $cost): self
     {
         $this->initialized['cost'] = true;
         $this->cost = $cost;

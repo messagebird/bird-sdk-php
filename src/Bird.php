@@ -18,6 +18,7 @@ use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsTemplates;
 use MessageBird\Resources\Verify;
+use MessageBird\Resources\Voice;
 use MessageBird\Resources\Whatsapp;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -61,6 +62,7 @@ final class Bird
     public readonly SmsTemplates $smsTemplates;
     public readonly Whatsapp $whatsapp;
     public readonly Verify $verify;
+    public readonly Voice $voice;
     public readonly Webhooks $webhooks;
     public readonly Realtime $realtime;
 
@@ -99,6 +101,7 @@ final class Bird
         $this->smsTemplates = new SmsTemplates($this);
         $this->whatsapp = new Whatsapp($this);
         $this->verify = new Verify($this);
+        $this->voice = new Voice($this);
         // Extra credentials some operations require, keyed by the security scheme that
         // names them: [header, value, how-to-supply]. A generated method names its
         // schemes; this client resolves them.

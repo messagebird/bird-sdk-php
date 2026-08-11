@@ -36,7 +36,7 @@ class Verification extends \ArrayObject
      */
     protected $to;
     /**
-     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over SMS.
+     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over the phone channels enabled for its destination country, in the order that country's configuration sets.
      *
      * @var list<VerificationChannelEntry>|null
      */
@@ -159,7 +159,7 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over SMS.
+     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over the phone channels enabled for its destination country, in the order that country's configuration sets.
      *
      * @return list<VerificationChannelEntry>|null
      */
@@ -168,7 +168,7 @@ class Verification extends \ArrayObject
         return $this->channels;
     }
     /**
-     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over SMS.
+     * The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over the phone channels enabled for its destination country, in the order that country's configuration sets.
      *
      * @param list<VerificationChannelEntry>|null $channels
      *

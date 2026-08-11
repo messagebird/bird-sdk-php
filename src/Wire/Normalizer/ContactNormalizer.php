@@ -90,6 +90,17 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('data', $data) && $data['data'] === null) {
             $object->setData(null);
         }
+        if (\array_key_exists('audiences', $data) && $data['audiences'] !== null) {
+            $values_1 = [];
+            foreach ($data['audiences'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\AudienceRef::class, 'json', $context);
+            }
+            $object->setAudiences($values_1);
+            unset($data['audiences']);
+        }
+        elseif (\array_key_exists('audiences', $data) && $data['audiences'] === null) {
+            $object->setAudiences(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -104,9 +115,9 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
-        foreach ($data as $key_1 => $value_1) {
+        foreach ($data as $key_1 => $value_2) {
             if (preg_match('/.*/', (string) $key_1)) {
-                $object[$key_1] = $value_1;
+                $object[$key_1] = $value_2;
             }
         }
         return $object;

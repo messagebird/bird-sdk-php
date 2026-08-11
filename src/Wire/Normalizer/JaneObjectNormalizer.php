@@ -82,6 +82,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMessageContent::class => \MessageBird\Wire\Normalizer\EmailMessageContentNormalizer::class,
         
+        \MessageBird\Wire\Model\AudienceRef::class => \MessageBird\Wire\Normalizer\AudienceRefNormalizer::class,
+        
         \MessageBird\Wire\Model\Contact::class => \MessageBird\Wire\Normalizer\ContactNormalizer::class,
         
         \MessageBird\Wire\Model\ContactList::class => \MessageBird\Wire\Normalizer\ContactListNormalizer::class,
@@ -115,8 +117,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AudienceCreateRequest::class => \MessageBird\Wire\Normalizer\AudienceCreateRequestNormalizer::class,
         
         \MessageBird\Wire\Model\AudienceUpdateRequest::class => \MessageBird\Wire\Normalizer\AudienceUpdateRequestNormalizer::class,
-        
-        \MessageBird\Wire\Model\AudienceRef::class => \MessageBird\Wire\Normalizer\AudienceRefNormalizer::class,
         
         \MessageBird\Wire\Model\AudienceMember::class => \MessageBird\Wire\Normalizer\AudienceMemberNormalizer::class,
         
@@ -154,6 +154,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\VerificationChannelEntry::class => \MessageBird\Wire\Normalizer\VerificationChannelEntryNormalizer::class,
         
+        \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
+        
         \MessageBird\Wire\Model\Verification::class => \MessageBird\Wire\Normalizer\VerificationNormalizer::class,
         
         \MessageBird\Wire\Model\VerificationOptions::class => \MessageBird\Wire\Normalizer\VerificationOptionsNormalizer::class,
@@ -163,6 +165,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\VerificationCheckRequest::class => \MessageBird\Wire\Normalizer\VerificationCheckRequestNormalizer::class,
         
         \MessageBird\Wire\Model\VerificationCheckResult::class => \MessageBird\Wire\Normalizer\VerificationCheckResultNormalizer::class,
+        
+        \MessageBird\Wire\Model\VerificationNextChannelRequest::class => \MessageBird\Wire\Normalizer\VerificationNextChannelRequestNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateComponentParameterNormalizer::class,
         
@@ -446,6 +450,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMailboxLabelList::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelListNormalizer::class,
         
+        \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
+        
+        \MessageBird\Wire\Model\VoiceCall::class => \MessageBird\Wire\Normalizer\VoiceCallNormalizer::class,
+        
+        \MessageBird\Wire\Model\VoiceCallActor::class => \MessageBird\Wire\Normalizer\VoiceCallActorNormalizer::class,
+        
+        \MessageBird\Wire\Model\VoiceCallList::class => \MessageBird\Wire\Normalizer\VoiceCallListNormalizer::class,
+        
         \Jane\Component\JsonSchemaRuntime\Reference::class => \MessageBird\Wire\Runtime\Normalizer\ReferenceNormalizer::class,
     ], $normalizersCache = [];
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
@@ -516,6 +528,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEvent::class => false,
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
+            \MessageBird\Wire\Model\AudienceRef::class => false,
             \MessageBird\Wire\Model\Contact::class => false,
             \MessageBird\Wire\Model\ContactList::class => false,
             \MessageBird\Wire\Model\ContactCreateRequest::class => false,
@@ -533,7 +546,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ContactPropertyUpdateRequest::class => false,
             \MessageBird\Wire\Model\AudienceCreateRequest::class => false,
             \MessageBird\Wire\Model\AudienceUpdateRequest::class => false,
-            \MessageBird\Wire\Model\AudienceRef::class => false,
             \MessageBird\Wire\Model\AudienceMember::class => false,
             \MessageBird\Wire\Model\AudienceMemberList::class => false,
             \MessageBird\Wire\Model\AudienceContactsAddRequest::class => false,
@@ -552,11 +564,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSTemplateList::class => false,
             \MessageBird\Wire\Model\VerificationTo::class => false,
             \MessageBird\Wire\Model\VerificationChannelEntry::class => false,
+            \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\Verification::class => false,
             \MessageBird\Wire\Model\VerificationOptions::class => false,
             \MessageBird\Wire\Model\VerificationCreateRequest::class => false,
             \MessageBird\Wire\Model\VerificationCheckRequest::class => false,
             \MessageBird\Wire\Model\VerificationCheckResult::class => false,
+            \MessageBird\Wire\Model\VerificationNextChannelRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplate::class => false,
@@ -698,6 +712,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabel::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabelList::class => false,
+            \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
+            \MessageBird\Wire\Model\VoiceCall::class => false,
+            \MessageBird\Wire\Model\VoiceCallActor::class => false,
+            \MessageBird\Wire\Model\VoiceCallList::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

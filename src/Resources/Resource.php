@@ -20,6 +20,40 @@ abstract class Resource
     }
 
     /**
+     * Comma-joins the query keys the spec declares `explode: false`, whose
+     * elements travel as one value rather than a repeated key. Named per
+     * operation rather than applied to every array: the two forms sit side by
+     * side on the wire, so joining wholesale would break a repeated filter.
+     *
+     * @param array<string, mixed>|null $query
+     * @param list<string> $keys
+     *
+     * @return array<string, mixed>|null
+     */
+    protected static function joinCsv(?array $query, array $keys): ?array
+    {
+        if ($query === null) {
+            return null;
+        }
+        foreach ($keys as $key) {
+            if (!isset($query[$key]) || !\is_array($query[$key])) {
+                continue;
+            }
+            // An empty array drops the key. Imploding it yields "", and a filter
+            // present-but-empty is a different request from an absent one — the
+            // repeated encoding this replaces emitted no key at all for it.
+            if ($query[$key] === []) {
+                unset($query[$key]);
+
+                continue;
+            }
+            $query[$key] = implode(',', $query[$key]);
+        }
+
+        return $query;
+    }
+
+    /**
      * @template T of object
      *
      * @param class-string<T> $responseClass

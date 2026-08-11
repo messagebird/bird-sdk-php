@@ -27,19 +27,21 @@ class SMSMessage
      */
     protected $status;
     /**
-     * Recipient phone number in E.164 format.
+     * Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+     * 
      *
      * @var string|null
      */
     protected $to;
     /**
-     * Sender the message was sent from: an E.164 number, an alphanumeric sender ID, or a short code.
+     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+     * 
      *
      * @var string|null
      */
     protected $from;
     /**
-     * The message body as sent. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
      * 
      *
      * @var string|null
@@ -83,13 +85,13 @@ class SMSMessage
      */
     protected $validityPeriod;
     /**
-     * Carrier that handled the message, when known. Populated once a delivery receipt identifies it.
+     * Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
      *
      * @var string|null
      */
     protected $carrier;
     /**
-     * Mobile country code and mobile network code of the carrier, when known.
+     * Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
      *
      * @var string|null
      */
@@ -177,7 +179,8 @@ class SMSMessage
         return $this;
     }
     /**
-     * Recipient phone number in E.164 format.
+     * Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+     * 
      *
      * @return string|null
      */
@@ -186,7 +189,7 @@ class SMSMessage
         return $this->to;
     }
     /**
-     * Recipient phone number in E.164 format.
+     * Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
      *
      * @param string|null $to
      *
@@ -199,7 +202,8 @@ class SMSMessage
         return $this;
     }
     /**
-     * Sender the message was sent from: an E.164 number, an alphanumeric sender ID, or a short code.
+     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+     * 
      *
      * @return string|null
      */
@@ -208,7 +212,7 @@ class SMSMessage
         return $this->from;
     }
     /**
-     * Sender the message was sent from: an E.164 number, an alphanumeric sender ID, or a short code.
+     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
      *
      * @param string|null $from
      *
@@ -221,7 +225,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The message body as sent. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
      * 
      *
      * @return string|null
@@ -231,7 +235,7 @@ class SMSMessage
         return $this->text;
     }
     /**
-     * The message body as sent. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
      *
      * @param string|null $text
      *
@@ -377,7 +381,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Carrier that handled the message, when known. Populated once a delivery receipt identifies it.
+     * Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
      *
      * @return string|null
      */
@@ -386,7 +390,7 @@ class SMSMessage
         return $this->carrier;
     }
     /**
-     * Carrier that handled the message, when known. Populated once a delivery receipt identifies it.
+     * Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
      *
      * @param string|null $carrier
      *
@@ -399,7 +403,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Mobile country code and mobile network code of the carrier, when known.
+     * Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
      *
      * @return string|null
      */
@@ -408,7 +412,7 @@ class SMSMessage
         return $this->mccMnc;
     }
     /**
-     * Mobile country code and mobile network code of the carrier, when known.
+     * Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
      *
      * @param string|null $mccMnc
      *

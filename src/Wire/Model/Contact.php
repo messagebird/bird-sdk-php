@@ -54,6 +54,12 @@ class Contact extends \ArrayObject
      */
     protected $data;
     /**
+     * The audiences this contact belongs to, most-recently-joined first. Only present when listing contacts; omitted from every other contact operation.
+     *
+     * @var list<AudienceRef>|null
+     */
+    protected $audiences;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -210,6 +216,28 @@ class Contact extends \ArrayObject
     {
         $this->initialized['data'] = true;
         $this->data = $data;
+        return $this;
+    }
+    /**
+     * The audiences this contact belongs to, most-recently-joined first. Only present when listing contacts; omitted from every other contact operation.
+     *
+     * @return list<AudienceRef>|null
+     */
+    public function getAudiences(): ?array
+    {
+        return $this->audiences;
+    }
+    /**
+     * The audiences this contact belongs to, most-recently-joined first. Only present when listing contacts; omitted from every other contact operation.
+     *
+     * @param list<AudienceRef>|null $audiences
+     *
+     * @return self
+     */
+    public function setAudiences(?array $audiences): self
+    {
+        $this->initialized['audiences'] = true;
+        $this->audiences = $audiences;
         return $this;
     }
     /**
