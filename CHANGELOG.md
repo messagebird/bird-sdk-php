@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.7.1
+
+- A verification attempt can now report `delivery_timeout` as its failure reason, meaning no delivery confirmation arrived before the channel's timeout and the verification failed over to the next channel.
+
 ## 0.7.0
 
 - An SMS error `code` is documented as an open enum: Bird adds reasons over time, so match it with a fallback branch rather than treating the listed values as the complete set.
