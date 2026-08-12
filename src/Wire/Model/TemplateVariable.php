@@ -13,7 +13,7 @@ class TemplateVariable
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The parameters key this slot is filled with.
+     * The parameter key this slot is filled with.
      *
      * @var string|null
      */
@@ -26,7 +26,7 @@ class TemplateVariable
      */
     protected $type;
     /**
-     * Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
+     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
      * 
      *
      * @var bool|null
@@ -46,7 +46,7 @@ class TemplateVariable
      */
     protected $sensitive = false;
     /**
-     * The parameters key this slot is filled with.
+     * The parameter key this slot is filled with.
      *
      * @return string|null
      */
@@ -55,7 +55,7 @@ class TemplateVariable
         return $this->key;
     }
     /**
-     * The parameters key this slot is filled with.
+     * The parameter key this slot is filled with.
      *
      * @param string|null $key
      *
@@ -91,7 +91,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
+     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
      * 
      *
      * @return bool|null
@@ -101,7 +101,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
+     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
      *
      * @param bool|null $required
      *

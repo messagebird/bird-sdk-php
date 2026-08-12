@@ -13,17 +13,24 @@ class WhatsAppMessageTemplateComponentParameter
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The kind of value this parameter carries. `text` is the only kind today.
+     * The kind of value this parameter carries, which decides which of the fields below to send.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The value substituted into the placeholder, as a plain string.
+     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
      *
      * @var string|null
      */
     protected $text;
+    /**
+     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     * 
+     *
+     * @var string|null
+     */
+    protected $url;
     /**
      * Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
      * 
@@ -32,7 +39,7 @@ class WhatsAppMessageTemplateComponentParameter
      */
     protected $name;
     /**
-     * The kind of value this parameter carries. `text` is the only kind today.
+     * The kind of value this parameter carries, which decides which of the fields below to send.
      *
      * @return string|null
      */
@@ -41,7 +48,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->type;
     }
     /**
-     * The kind of value this parameter carries. `text` is the only kind today.
+     * The kind of value this parameter carries, which decides which of the fields below to send.
      *
      * @param string|null $type
      *
@@ -54,7 +61,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * The value substituted into the placeholder, as a plain string.
+     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
      *
      * @return string|null
      */
@@ -63,7 +70,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->text;
     }
     /**
-     * The value substituted into the placeholder, as a plain string.
+     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
      *
      * @param string|null $text
      *
@@ -73,6 +80,29 @@ class WhatsAppMessageTemplateComponentParameter
     {
         $this->initialized['text'] = true;
         $this->text = $text;
+        return $this;
+    }
+    /**
+     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     * 
+     *
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+    /**
+     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     *
+     * @param string|null $url
+     *
+     * @return self
+     */
+    public function setUrl(?string $url): self
+    {
+        $this->initialized['url'] = true;
+        $this->url = $url;
         return $this;
     }
     /**

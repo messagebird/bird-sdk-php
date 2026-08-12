@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class WhatsAppMessageTemplateComponentParameterNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class WhatsAppMessageTemplateCardComponentNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class WhatsAppMessageTemplateComponentParameterNormalizer implements Denormalize
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class;
+        return $type === \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter();
+        $object = new \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -43,23 +43,15 @@ class WhatsAppMessageTemplateComponentParameterNormalizer implements Denormalize
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
-        if (\array_key_exists('text', $data) && $data['text'] !== null) {
-            $object->setText($data['text']);
+        if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
+            $values = [];
+            foreach ($data['parameters'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class, 'json', $context);
+            }
+            $object->setParameters($values);
         }
-        elseif (\array_key_exists('text', $data) && $data['text'] === null) {
-            $object->setText(null);
-        }
-        if (\array_key_exists('url', $data) && $data['url'] !== null) {
-            $object->setUrl($data['url']);
-        }
-        elseif (\array_key_exists('url', $data) && $data['url'] === null) {
-            $object->setUrl(null);
-        }
-        if (\array_key_exists('name', $data) && $data['name'] !== null) {
-            $object->setName($data['name']);
-        }
-        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
-            $object->setName(null);
+        elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
+            $object->setParameters(null);
         }
         return $object;
     }
@@ -67,19 +59,17 @@ class WhatsAppMessageTemplateComponentParameterNormalizer implements Denormalize
     {
         $dataArray = [];
         $dataArray['type'] = $data->getType();
-        if ($data->isInitialized('text') && null !== $data->getText()) {
-            $dataArray['text'] = $data->getText();
-        }
-        if ($data->isInitialized('url') && null !== $data->getUrl()) {
-            $dataArray['url'] = $data->getUrl();
-        }
-        if ($data->isInitialized('name') && null !== $data->getName()) {
-            $dataArray['name'] = $data->getName();
+        if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
+            $values = [];
+            foreach ($data->getParameters() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['parameters'] = $values;
         }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => false];
+        return [\MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class => false];
     }
 }

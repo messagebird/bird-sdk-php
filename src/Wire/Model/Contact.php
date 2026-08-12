@@ -29,13 +29,13 @@ class Contact extends \ArrayObject
      */
     protected $phone;
     /**
-     * The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
+     * The contact's first name. Available in broadcast templates as `bird.contact.first_name`.
      *
      * @var string|null
      */
     protected $firstName;
     /**
-     * The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
+     * The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
      *
      * @var string|null
      */
@@ -47,7 +47,7 @@ class Contact extends \ArrayObject
      */
     protected $externalId;
     /**
-     * Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      * 
      *
      * @var array<string, mixed>|null
@@ -130,7 +130,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
+     * The contact's first name. Available in broadcast templates as `bird.contact.first_name`.
      *
      * @return string|null
      */
@@ -139,7 +139,7 @@ class Contact extends \ArrayObject
         return $this->firstName;
     }
     /**
-     * The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
+     * The contact's first name. Available in broadcast templates as `bird.contact.first_name`.
      *
      * @param string|null $firstName
      *
@@ -152,7 +152,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
+     * The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
      *
      * @return string|null
      */
@@ -161,7 +161,7 @@ class Contact extends \ArrayObject
         return $this->lastName;
     }
     /**
-     * The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
+     * The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
      *
      * @param string|null $lastName
      *
@@ -196,7 +196,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      * 
      *
      * @return array<string, mixed>|null
@@ -206,7 +206,7 @@ class Contact extends \ArrayObject
         return $this->data;
     }
     /**
-     * Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      *
      * @param array<string, mixed>|null $data
      *

@@ -17,7 +17,7 @@ class ContactProperty extends \ArrayObject
      */
     protected $id;
     /**
-     * The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+     * The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
      *
      * @var string|null
      */
@@ -70,7 +70,7 @@ class ContactProperty extends \ArrayObject
         return $this;
     }
     /**
-     * The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+     * The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
      *
      * @return string|null
      */
@@ -79,7 +79,7 @@ class ContactProperty extends \ArrayObject
         return $this->key;
     }
     /**
-     * The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+     * The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
      *
      * @param string|null $key
      *

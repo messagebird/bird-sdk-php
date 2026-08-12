@@ -170,6 +170,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateComponentParameterNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateCardComponentNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateCardNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateComponentNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplate::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateNormalizer::class,
@@ -572,6 +576,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VerificationCheckResult::class => false,
             \MessageBird\Wire\Model\VerificationNextChannelRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplate::class => false,
             \MessageBird\Wire\Model\WhatsAppError::class => false,

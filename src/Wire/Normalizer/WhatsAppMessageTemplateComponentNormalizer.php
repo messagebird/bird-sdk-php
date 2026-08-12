@@ -53,6 +53,16 @@ class WhatsAppMessageTemplateComponentNormalizer implements DenormalizerInterfac
         elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
             $object->setParameters(null);
         }
+        if (\array_key_exists('cards', $data) && $data['cards'] !== null) {
+            $values_1 = [];
+            foreach ($data['cards'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class, 'json', $context);
+            }
+            $object->setCards($values_1);
+        }
+        elseif (\array_key_exists('cards', $data) && $data['cards'] === null) {
+            $object->setCards(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -65,6 +75,13 @@ class WhatsAppMessageTemplateComponentNormalizer implements DenormalizerInterfac
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $dataArray['parameters'] = $values;
+        }
+        if ($data->isInitialized('cards') && null !== $data->getCards()) {
+            $values_1 = [];
+            foreach ($data->getCards() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            }
+            $dataArray['cards'] = $values_1;
         }
         return $dataArray;
     }
