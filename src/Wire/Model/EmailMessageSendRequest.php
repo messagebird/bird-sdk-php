@@ -13,32 +13,32 @@ class EmailMessageSendRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
+     * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 
      *
      * @var mixed|null
      */
     protected $from;
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
     protected $to;
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
     protected $cc;
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
     protected $bcc;
     /**
-     * Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
+     * Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
      *
      * @var string|null
      */
@@ -56,28 +56,34 @@ class EmailMessageSendRequest
      */
     protected $text;
     /**
-     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
+     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
      * 
      *
      * @var list<mixed>|null
      */
     protected $replyTo;
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`: set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and headers the platform generates for you — `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path` — cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends; on `marketing` sends the platform sets a compliant unsubscribe header for you, so supplying them there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      * 
      *
      * @var array<string, string>|null
      */
     protected $headers;
     /**
-     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics rollups by tag, and surface in webhook payloads. Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
+     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
+     * 
+     * - Filter the list endpoint by tag name.
+     * - Slice analytics rollups by tag.
+     * - Surface in webhook payloads.
+     * 
+     * Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
      * 
      *
      * @var list<Tag>|null
      */
     protected $tags;
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
      * 
      *
      * @var array<string, mixed>|null
@@ -91,7 +97,7 @@ class EmailMessageSendRequest
      */
     protected $parameters;
     /**
-     * Send a stored template instead of inline content. When set, omit `subject`/`html`/`text` — the template supplies them; personalize with `template.parameters`.
+     * Send a stored template instead of inline content. When set, omit `subject`, `html` and `text`, because the template supplies them. Personalize with `template.parameters`. A template send goes out immediately: `template` and `scheduled_at` are mutually exclusive, and combining them is rejected with a `422`.
      * 
      *
      * @var EmailMessageSendRequestTemplate|null
@@ -117,45 +123,31 @@ class EmailMessageSendRequest
      */
     protected $ipPoolId;
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @var string|null
      */
     protected $category;
     /**
-     * @var string|null
-     */
-    protected $inReplyToMessageId;
-    /**
-     * File attachments. Bird rejects sends whose estimated generated message size exceeds 20 MB. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. Keep total raw attachment content at or below 15 MB for reliable headroom. In batch sends, this per-message cap still applies and the serialized JSON request body for the whole batch has a hard 20 MB cap. See the EmailAttachment schema for the full field contract.
+     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
      * 
      *
      * @var list<EmailAttachment>|null
      */
     protected $attachments;
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead — outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends; cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance; exceeding it is rejected with a `422`.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
      * 
      *
      * @var \DateTime|null
      */
     protected $scheduledAt;
     /**
-     * Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`.
-     *
-     * @var string|null
-     */
-    protected $contactId;
-    /**
-     * Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
-     * 
-     *
-     * @var string|null
-     */
-    protected $topicId;
-    /**
-     * A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
+     * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 
      *
      * @return mixed
@@ -165,7 +157,7 @@ class EmailMessageSendRequest
         return $this->from;
     }
     /**
-     * A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
+     * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      *
      * @param mixed $from
      *
@@ -178,7 +170,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -187,7 +179,7 @@ class EmailMessageSendRequest
         return $this->to;
     }
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $to
      *
@@ -200,7 +192,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -209,7 +201,7 @@ class EmailMessageSendRequest
         return $this->cc;
     }
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $cc
      *
@@ -222,7 +214,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -231,7 +223,7 @@ class EmailMessageSendRequest
         return $this->bcc;
     }
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $bcc
      *
@@ -244,7 +236,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
+     * Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
      *
      * @return string|null
      */
@@ -253,7 +245,7 @@ class EmailMessageSendRequest
         return $this->subject;
     }
     /**
-     * Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
+     * Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
      *
      * @param string|null $subject
      *
@@ -310,7 +302,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
+     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
      * 
      *
      * @return list<mixed>|null
@@ -320,7 +312,7 @@ class EmailMessageSendRequest
         return $this->replyTo;
     }
     /**
-     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
+     * Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
      *
      * @param list<mixed>|null $replyTo
      *
@@ -333,7 +325,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`: set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and headers the platform generates for you — `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path` — cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends; on `marketing` sends the platform sets a compliant unsubscribe header for you, so supplying them there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      * 
      *
      * @return array<string, string>|null
@@ -343,7 +335,7 @@ class EmailMessageSendRequest
         return $this->headers;
     }
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`: set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and headers the platform generates for you — `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path` — cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends; on `marketing` sends the platform sets a compliant unsubscribe header for you, so supplying them there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      *
      * @param array<string, string>|null $headers
      *
@@ -356,7 +348,13 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics rollups by tag, and surface in webhook payloads. Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
+     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
+     * 
+     * - Filter the list endpoint by tag name.
+     * - Slice analytics rollups by tag.
+     * - Surface in webhook payloads.
+     * 
+     * Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
      * 
      *
      * @return list<Tag>|null
@@ -366,12 +364,19 @@ class EmailMessageSendRequest
         return $this->tags;
     }
     /**
-     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics rollups by tag, and surface in webhook payloads. Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
-     *
-     * @param list<Tag>|null $tags
-     *
-     * @return self
-     */
+    * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
+    
+    - Filter the list endpoint by tag name.
+    - Slice analytics rollups by tag.
+    - Surface in webhook payloads.
+    
+    Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
+    
+    *
+    * @param list<Tag>|null $tags
+    *
+    * @return self
+    */
     public function setTags(?array $tags): self
     {
         $this->initialized['tags'] = true;
@@ -379,7 +384,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
      * 
      *
      * @return array<string, mixed>|null
@@ -389,7 +394,7 @@ class EmailMessageSendRequest
         return $this->metadata;
     }
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -425,7 +430,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Send a stored template instead of inline content. When set, omit `subject`/`html`/`text` — the template supplies them; personalize with `template.parameters`.
+     * Send a stored template instead of inline content. When set, omit `subject`, `html` and `text`, because the template supplies them. Personalize with `template.parameters`. A template send goes out immediately: `template` and `scheduled_at` are mutually exclusive, and combining them is rejected with a `422`.
      * 
      *
      * @return EmailMessageSendRequestTemplate|null
@@ -435,7 +440,7 @@ class EmailMessageSendRequest
         return $this->template;
     }
     /**
-     * Send a stored template instead of inline content. When set, omit `subject`/`html`/`text` — the template supplies them; personalize with `template.parameters`.
+     * Send a stored template instead of inline content. When set, omit `subject`, `html` and `text`, because the template supplies them. Personalize with `template.parameters`. A template send goes out immediately: `template` and `scheduled_at` are mutually exclusive, and combining them is rejected with a `422`.
      *
      * @param EmailMessageSendRequestTemplate|null $template
      *
@@ -515,7 +520,10 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @return string|null
@@ -525,12 +533,16 @@ class EmailMessageSendRequest
         return $this->category;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
-     *
-     * @param string|null $category
-     *
-     * @return self
-     */
+    * Content classification, which controls suppression policy:
+    
+    - `marketing`: Blocks on all suppression reasons.
+    - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+    
+    *
+    * @param string|null $category
+    *
+    * @return self
+    */
     public function setCategory(?string $category): self
     {
         $this->initialized['category'] = true;
@@ -538,25 +550,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * @return string|null
-     */
-    public function getInReplyToMessageId(): ?string
-    {
-        return $this->inReplyToMessageId;
-    }
-    /**
-     * @param string|null $inReplyToMessageId
-     *
-     * @return self
-     */
-    public function setInReplyToMessageId(?string $inReplyToMessageId): self
-    {
-        $this->initialized['inReplyToMessageId'] = true;
-        $this->inReplyToMessageId = $inReplyToMessageId;
-        return $this;
-    }
-    /**
-     * File attachments. Bird rejects sends whose estimated generated message size exceeds 20 MB. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. Keep total raw attachment content at or below 15 MB for reliable headroom. In batch sends, this per-message cap still applies and the serialized JSON request body for the whole batch has a hard 20 MB cap. See the EmailAttachment schema for the full field contract.
+     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
      * 
      *
      * @return list<EmailAttachment>|null
@@ -566,7 +560,7 @@ class EmailMessageSendRequest
         return $this->attachments;
     }
     /**
-     * File attachments. Bird rejects sends whose estimated generated message size exceeds 20 MB. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. Keep total raw attachment content at or below 15 MB for reliable headroom. In batch sends, this per-message cap still applies and the serialized JSON request body for the whole batch has a hard 20 MB cap. See the EmailAttachment schema for the full field contract.
+     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
      *
      * @param list<EmailAttachment>|null $attachments
      *
@@ -579,7 +573,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead — outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends; cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance; exceeding it is rejected with a `422`.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
      * 
      *
      * @return \DateTime|null
@@ -589,7 +583,7 @@ class EmailMessageSendRequest
         return $this->scheduledAt;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead — outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends; cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance; exceeding it is rejected with a `422`.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
      *
      * @param \DateTime|null $scheduledAt
      *
@@ -599,51 +593,6 @@ class EmailMessageSendRequest
     {
         $this->initialized['scheduledAt'] = true;
         $this->scheduledAt = $scheduledAt;
-        return $this;
-    }
-    /**
-     * Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`.
-     *
-     * @return string|null
-     */
-    public function getContactId(): ?string
-    {
-        return $this->contactId;
-    }
-    /**
-     * Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`.
-     *
-     * @param string|null $contactId
-     *
-     * @return self
-     */
-    public function setContactId(?string $contactId): self
-    {
-        $this->initialized['contactId'] = true;
-        $this->contactId = $contactId;
-        return $this;
-    }
-    /**
-     * Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
-     * 
-     *
-     * @return string|null
-     */
-    public function getTopicId(): ?string
-    {
-        return $this->topicId;
-    }
-    /**
-     * Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
-     *
-     * @param string|null $topicId
-     *
-     * @return self
-     */
-    public function setTopicId(?string $topicId): self
-    {
-        $this->initialized['topicId'] = true;
-        $this->topicId = $topicId;
         return $this;
     }
 }

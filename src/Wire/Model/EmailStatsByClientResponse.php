@@ -13,7 +13,7 @@ class EmailStatsByClientResponse
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      * 
      *
      * @var EmailStatsPeriod|null
@@ -26,14 +26,14 @@ class EmailStatsByClientResponse
      */
     protected $data;
     /**
-     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
      * 
      *
      * @var int|null
      */
     protected $total;
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      * 
      *
      * @return EmailStatsPeriod|null
@@ -43,7 +43,7 @@ class EmailStatsByClientResponse
         return $this->period;
     }
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      *
      * @param EmailStatsPeriod|null $period
      *
@@ -78,7 +78,7 @@ class EmailStatsByClientResponse
         return $this;
     }
     /**
-     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
      * 
      *
      * @return int|null
@@ -88,7 +88,7 @@ class EmailStatsByClientResponse
         return $this->total;
     }
     /**
-     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
      *
      * @param int|null $total
      *

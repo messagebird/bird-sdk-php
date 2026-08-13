@@ -35,13 +35,22 @@ class Mailbox
      */
     protected $defaultReplyTo;
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule. Replies to
+     *   prior outbound mail are always admitted unless blocked.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @var string|null
      */
     protected $receivePolicy;
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
      *
      * @var string|null
      */
@@ -63,7 +72,7 @@ class Mailbox
      */
     protected $inboundAddressId;
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
      *
      * @var string|null
      */
@@ -88,13 +97,13 @@ class Mailbox
      */
     protected $unreadThreadCount;
     /**
-     * Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @var array<string, mixed>|null
      */
     protected $metadata;
     /**
-     * Whether Bird generated the local part of the address. `false` means a custom handle was chosen at creation; on the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
+     * Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
      *
      * @var bool|null
      */
@@ -202,7 +211,16 @@ class Mailbox
         return $this;
     }
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule. Replies to
+     *   prior outbound mail are always admitted unless blocked.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @return string|null
      */
@@ -211,12 +229,21 @@ class Mailbox
         return $this->receivePolicy;
     }
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
-     *
-     * @param string|null $receivePolicy
-     *
-     * @return self
-     */
+    * Which inbound mail the mailbox accepts:
+    
+    - `open`: Accepts everything not blocked by a rule.
+    - `replies_only`: Accepts only replies to messages this mailbox has
+     sent. A reply must match a message the mailbox sent. Landing in an
+     existing thread by itself does not count.
+    - `allowlist`: Accepts only senders matching an allow rule. Replies to
+     prior outbound mail are always admitted unless blocked.
+    - `drop`: Stores nothing.
+    
+    *
+    * @param string|null $receivePolicy
+    *
+    * @return self
+    */
     public function setReceivePolicy(?string $receivePolicy): self
     {
         $this->initialized['receivePolicy'] = true;
@@ -224,7 +251,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
      *
      * @return string|null
      */
@@ -233,7 +260,7 @@ class Mailbox
         return $this->state;
     }
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
      *
      * @param string|null $state
      *
@@ -308,7 +335,7 @@ class Mailbox
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
      *
      * @return string|null
      */
@@ -317,7 +344,7 @@ class Mailbox
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
      *
      * @param string|null $retentionTier
      *
@@ -397,7 +424,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @return array<string, mixed>|null
      */
@@ -406,7 +433,7 @@ class Mailbox
         return $this->metadata;
     }
     /**
-     * Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -419,7 +446,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Whether Bird generated the local part of the address. `false` means a custom handle was chosen at creation; on the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
+     * Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
      *
      * @return bool|null
      */
@@ -428,7 +455,7 @@ class Mailbox
         return $this->localPartGenerated;
     }
     /**
-     * Whether Bird generated the local part of the address. `false` means a custom handle was chosen at creation; on the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
+     * Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
      *
      * @param bool|null $localPartGenerated
      *

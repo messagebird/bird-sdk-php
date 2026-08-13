@@ -29,7 +29,11 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
      */
     protected $language;
     /**
-     * Values for the template's parameters, keyed by parameter name. A parameter name is a single word, and every parameter the template's `variables` lists needs a value here: a send that omits one is rejected rather than delivered with a blank. Send everything `variables` lists rather than only what you expect the chosen language to use, since languages need not reference the same parameters and a value no language uses is ignored. Cap: 16 KB serialized.
+     * Values for the template's variables, keyed by the variable name. A variable name is a single word.
+     * 
+     * Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+     * 
+     * `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
      * 
      *
      * @var array<string, mixed>|null
@@ -98,7 +102,11 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Values for the template's parameters, keyed by parameter name. A parameter name is a single word, and every parameter the template's `variables` lists needs a value here: a send that omits one is rejected rather than delivered with a blank. Send everything `variables` lists rather than only what you expect the chosen language to use, since languages need not reference the same parameters and a value no language uses is ignored. Cap: 16 KB serialized.
+     * Values for the template's variables, keyed by the variable name. A variable name is a single word.
+     * 
+     * Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+     * 
+     * `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
      * 
      *
      * @return array<string, mixed>|null
@@ -108,12 +116,17 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
         return $this->parameters;
     }
     /**
-     * Values for the template's parameters, keyed by parameter name. A parameter name is a single word, and every parameter the template's `variables` lists needs a value here: a send that omits one is rejected rather than delivered with a blank. Send everything `variables` lists rather than only what you expect the chosen language to use, since languages need not reference the same parameters and a value no language uses is ignored. Cap: 16 KB serialized.
-     *
-     * @param array<string, mixed>|null $parameters
-     *
-     * @return self
-     */
+    * Values for the template's variables, keyed by the variable name. A variable name is a single word.
+    
+    Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+    
+    `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
+    
+    *
+    * @param array<string, mixed>|null $parameters
+    *
+    * @return self
+    */
     public function setParameters(?iterable $parameters): self
     {
         $this->initialized['parameters'] = true;

@@ -41,14 +41,15 @@ class EmailRecipient
      */
     protected $name;
     /**
-     * Delivery status for this recipient. `accepted` means Bird has the send and is
-     * preparing to deliver; `processed` means the message was handed to the delivery
-     * pipeline for this recipient; `deferred` means the recipient's mailbox provider
-     * asked Bird to retry and delivery attempts continue; `delivered` means the
-     * recipient's mail server accepted the message; `bounced` means delivery permanently
-     * failed (see `bounce_type` for hard vs soft); `complained` means the recipient
-     * reported the message as spam; `rejected` means Bird did not attempt delivery (see
-     * `rejection_reason` for why).
+     * Delivery status for this recipient:
+     * 
+     * - `accepted`: The send has been taken and is being prepared for delivery.
+     * - `processed`: This recipient's message is on its way out.
+     * - `deferred`: The recipient's mailbox provider asked for a retry, and delivery attempts continue.
+     * - `delivered`: The recipient's mail server accepted the message.
+     * - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
+     * - `complained`: The recipient reported the message as spam.
+     * - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
      * 
      *
      * @var string|null
@@ -57,15 +58,15 @@ class EmailRecipient
     /**
      * Present on `status: rejected` rows. Specifies why the recipient was rejected:
      * 
-     * - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
-     *   did not attempt delivery.
-     * - `transmission_failed`: the message could not be transmitted for delivery.
-     * - `generation_failure`: the message could not be built for delivery (template or
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+     *   delivery was never attempted.
+     * - `transmission_failed`: The message could not be transmitted for delivery.
+     * - `generation_failure`: The message could not be built for delivery (template or
      *   content issue).
-     * - `policy_rejection`: the message was refused by sending policy.
-     * - `domain_unverified`: the sending domain was not verified.
-     * - `quota_exceeded`: the organization's send quota was reached.
-     * - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+     * - `policy_rejection`: The message was refused by sending policy.
+     * - `domain_unverified`: The sending domain was not verified.
+     * - `quota_exceeded`: The organization's send quota was reached.
+     * - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      *   onboarding-domain sends, recipients must be verified workspace members).
      * 
      *
@@ -92,7 +93,7 @@ class EmailRecipient
      */
     protected $bounceDescription;
     /**
-     * When Bird processed the message and queued it for delivery to the recipient's mail server, or null if not yet processed.
+     * When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
      *
      * @var \DateTime|null
      */
@@ -104,13 +105,13 @@ class EmailRecipient
      */
     protected $deliveredAt;
     /**
-     * Time between Bird accepting the send and processing the message for delivery, in milliseconds. Null until processed.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds. Null until processed.
      *
      * @var int|null
      */
     protected $processingLatencyMs;
     /**
-     * Time between Bird processing the message and the receiving mail server accepting it, in milliseconds. Null until delivered.
+     * Time between the message being prepared and the receiving mail server accepting it, in milliseconds. Null until delivered.
      *
      * @var int|null
      */
@@ -240,14 +241,15 @@ class EmailRecipient
         return $this;
     }
     /**
-     * Delivery status for this recipient. `accepted` means Bird has the send and is
-     * preparing to deliver; `processed` means the message was handed to the delivery
-     * pipeline for this recipient; `deferred` means the recipient's mailbox provider
-     * asked Bird to retry and delivery attempts continue; `delivered` means the
-     * recipient's mail server accepted the message; `bounced` means delivery permanently
-     * failed (see `bounce_type` for hard vs soft); `complained` means the recipient
-     * reported the message as spam; `rejected` means Bird did not attempt delivery (see
-     * `rejection_reason` for why).
+     * Delivery status for this recipient:
+     * 
+     * - `accepted`: The send has been taken and is being prepared for delivery.
+     * - `processed`: This recipient's message is on its way out.
+     * - `deferred`: The recipient's mailbox provider asked for a retry, and delivery attempts continue.
+     * - `delivered`: The recipient's mail server accepted the message.
+     * - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
+     * - `complained`: The recipient reported the message as spam.
+     * - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
      * 
      *
      * @return string|null
@@ -257,14 +259,15 @@ class EmailRecipient
         return $this->status;
     }
     /**
-    * Delivery status for this recipient. `accepted` means Bird has the send and is
-    preparing to deliver; `processed` means the message was handed to the delivery
-    pipeline for this recipient; `deferred` means the recipient's mailbox provider
-    asked Bird to retry and delivery attempts continue; `delivered` means the
-    recipient's mail server accepted the message; `bounced` means delivery permanently
-    failed (see `bounce_type` for hard vs soft); `complained` means the recipient
-    reported the message as spam; `rejected` means Bird did not attempt delivery (see
-    `rejection_reason` for why).
+    * Delivery status for this recipient:
+    
+    - `accepted`: The send has been taken and is being prepared for delivery.
+    - `processed`: This recipient's message is on its way out.
+    - `deferred`: The recipient's mailbox provider asked for a retry, and delivery attempts continue.
+    - `delivered`: The recipient's mail server accepted the message.
+    - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
+    - `complained`: The recipient reported the message as spam.
+    - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
     
     *
     * @param string|null $status
@@ -280,15 +283,15 @@ class EmailRecipient
     /**
      * Present on `status: rejected` rows. Specifies why the recipient was rejected:
      * 
-     * - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
-     *   did not attempt delivery.
-     * - `transmission_failed`: the message could not be transmitted for delivery.
-     * - `generation_failure`: the message could not be built for delivery (template or
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+     *   delivery was never attempted.
+     * - `transmission_failed`: The message could not be transmitted for delivery.
+     * - `generation_failure`: The message could not be built for delivery (template or
      *   content issue).
-     * - `policy_rejection`: the message was refused by sending policy.
-     * - `domain_unverified`: the sending domain was not verified.
-     * - `quota_exceeded`: the organization's send quota was reached.
-     * - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+     * - `policy_rejection`: The message was refused by sending policy.
+     * - `domain_unverified`: The sending domain was not verified.
+     * - `quota_exceeded`: The organization's send quota was reached.
+     * - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      *   onboarding-domain sends, recipients must be verified workspace members).
      * 
      *
@@ -301,15 +304,15 @@ class EmailRecipient
     /**
     * Present on `status: rejected` rows. Specifies why the recipient was rejected:
     
-    - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
-     did not attempt delivery.
-    - `transmission_failed`: the message could not be transmitted for delivery.
-    - `generation_failure`: the message could not be built for delivery (template or
+    - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+     delivery was never attempted.
+    - `transmission_failed`: The message could not be transmitted for delivery.
+    - `generation_failure`: The message could not be built for delivery (template or
      content issue).
-    - `policy_rejection`: the message was refused by sending policy.
-    - `domain_unverified`: the sending domain was not verified.
-    - `quota_exceeded`: the organization's send quota was reached.
-    - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+    - `policy_rejection`: The message was refused by sending policy.
+    - `domain_unverified`: The sending domain was not verified.
+    - `quota_exceeded`: The organization's send quota was reached.
+    - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      onboarding-domain sends, recipients must be verified workspace members).
     
     *
@@ -391,7 +394,7 @@ class EmailRecipient
         return $this;
     }
     /**
-     * When Bird processed the message and queued it for delivery to the recipient's mail server, or null if not yet processed.
+     * When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
      *
      * @return \DateTime|null
      */
@@ -400,7 +403,7 @@ class EmailRecipient
         return $this->processedAt;
     }
     /**
-     * When Bird processed the message and queued it for delivery to the recipient's mail server, or null if not yet processed.
+     * When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
      *
      * @param \DateTime|null $processedAt
      *
@@ -435,7 +438,7 @@ class EmailRecipient
         return $this;
     }
     /**
-     * Time between Bird accepting the send and processing the message for delivery, in milliseconds. Null until processed.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds. Null until processed.
      *
      * @return int|null
      */
@@ -444,7 +447,7 @@ class EmailRecipient
         return $this->processingLatencyMs;
     }
     /**
-     * Time between Bird accepting the send and processing the message for delivery, in milliseconds. Null until processed.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds. Null until processed.
      *
      * @param int|null $processingLatencyMs
      *
@@ -457,7 +460,7 @@ class EmailRecipient
         return $this;
     }
     /**
-     * Time between Bird processing the message and the receiving mail server accepting it, in milliseconds. Null until delivered.
+     * Time between the message being prepared and the receiving mail server accepting it, in milliseconds. Null until delivered.
      *
      * @return int|null
      */
@@ -466,7 +469,7 @@ class EmailRecipient
         return $this->deliveryLatencyMs;
     }
     /**
-     * Time between Bird processing the message and the receiving mail server accepting it, in milliseconds. Null until delivered.
+     * Time between the message being prepared and the receiving mail server accepting it, in milliseconds. Null until delivered.
      *
      * @param int|null $deliveryLatencyMs
      *

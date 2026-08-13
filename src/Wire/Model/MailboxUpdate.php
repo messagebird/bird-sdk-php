@@ -31,13 +31,13 @@ class MailboxUpdate
      */
     protected $receivePolicy;
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
      *
      * @var string|null
      */
     protected $retentionTier;
     /**
-     * Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @var array<string, mixed>|null
      */
@@ -109,7 +109,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
      *
      * @return string|null
      */
@@ -118,7 +118,7 @@ class MailboxUpdate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
      *
      * @param string|null $retentionTier
      *
@@ -131,7 +131,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @return array<string, mixed>|null
      */
@@ -140,7 +140,7 @@ class MailboxUpdate
         return $this->metadata;
     }
     /**
-     * Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @param array<string, mixed>|null $metadata
      *

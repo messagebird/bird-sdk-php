@@ -13,7 +13,7 @@ class EmailCategoryStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action. `marketing` is bulk sending. New categories may be added over time.
      *
      * @var string|null
      */
@@ -37,7 +37,7 @@ class EmailCategoryStatsPoint
      */
     protected $trend;
     /**
-     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action. `marketing` is bulk sending. New categories may be added over time.
      *
      * @return string|null
      */
@@ -46,7 +46,7 @@ class EmailCategoryStatsPoint
         return $this->category;
     }
     /**
-     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+     * The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action. `marketing` is bulk sending. New categories may be added over time.
      *
      * @param string|null $category
      *

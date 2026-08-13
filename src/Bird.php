@@ -14,6 +14,7 @@ use MessageBird\Resources\ContactProperties;
 use MessageBird\Resources\Contacts;
 use MessageBird\Resources\Domains;
 use MessageBird\Resources\Email;
+use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsTemplates;
@@ -63,6 +64,7 @@ final class Bird
     public readonly Whatsapp $whatsapp;
     public readonly Verify $verify;
     public readonly Voice $voice;
+    public readonly Lookup $lookup;
     public readonly Webhooks $webhooks;
     public readonly Realtime $realtime;
 
@@ -102,6 +104,7 @@ final class Bird
         $this->whatsapp = new Whatsapp($this);
         $this->verify = new Verify($this);
         $this->voice = new Voice($this);
+        $this->lookup = new Lookup($this);
         // Extra credentials some operations require, keyed by the security scheme that
         // names them: [header, value, how-to-supply]. A generated method names its
         // schemes; this client resolves them.

@@ -13,19 +13,19 @@ class EmailMailboxComposeRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
     protected $to;
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
     protected $cc;
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @var list<mixed>|null
      */
@@ -56,7 +56,7 @@ class EmailMailboxComposeRequest
      */
     protected $replyTo;
     /**
-     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      * 
      *
      * @var list<EmailAttachment>|null
@@ -77,14 +77,17 @@ class EmailMailboxComposeRequest
      */
     protected $metadata;
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @var string|null
      */
     protected $category;
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -93,7 +96,7 @@ class EmailMailboxComposeRequest
         return $this->to;
     }
     /**
-     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $to
      *
@@ -106,7 +109,7 @@ class EmailMailboxComposeRequest
         return $this;
     }
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -115,7 +118,7 @@ class EmailMailboxComposeRequest
         return $this->cc;
     }
     /**
-     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $cc
      *
@@ -128,7 +131,7 @@ class EmailMailboxComposeRequest
         return $this;
     }
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @return list<mixed>|null
      */
@@ -137,7 +140,7 @@ class EmailMailboxComposeRequest
         return $this->bcc;
     }
     /**
-     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+     * BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
      *
      * @param list<mixed>|null $bcc
      *
@@ -239,7 +242,7 @@ class EmailMailboxComposeRequest
         return $this;
     }
     /**
-     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      * 
      *
      * @return list<EmailAttachment>|null
@@ -249,7 +252,7 @@ class EmailMailboxComposeRequest
         return $this->attachments;
     }
     /**
-     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      *
      * @param list<EmailAttachment>|null $attachments
      *
@@ -308,7 +311,10 @@ class EmailMailboxComposeRequest
         return $this;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @return string|null
@@ -318,12 +324,16 @@ class EmailMailboxComposeRequest
         return $this->category;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
-     *
-     * @param string|null $category
-     *
-     * @return self
-     */
+    * Content classification, which controls suppression policy:
+    
+    - `marketing`: Blocks on all suppression reasons.
+    - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+    
+    *
+    * @param string|null $category
+    *
+    * @return self
+    */
     public function setCategory(?string $category): self
     {
         $this->initialized['category'] = true;

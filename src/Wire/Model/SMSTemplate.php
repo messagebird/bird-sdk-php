@@ -29,7 +29,7 @@ class SMSTemplate
      */
     protected $description;
     /**
-     * Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      *
      * @var string|null
      */
@@ -159,7 +159,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      *
      * @return string|null
      */
@@ -168,7 +168,7 @@ class SMSTemplate
         return $this->scope;
     }
     /**
-     * Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      *
      * @param string|null $scope
      *

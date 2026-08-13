@@ -13,7 +13,7 @@ class EmailBroadcastStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The broadcast this row aggregates, the same identifier returned by the broadcast endpoints. Only messages sent as part of a broadcast carry a broadcast identifier; one-off and transactional sends are not included in this breakdown.
+     * The broadcast this row covers, the same ID the broadcast endpoints return. Only mail sent as part of a broadcast has a broadcast ID, so one-off and transactional sends do not appear in this breakdown at all.
      *
      * @var string|null
      */
@@ -31,7 +31,7 @@ class EmailBroadcastStatsPoint
      */
     protected $latency;
     /**
-     * The broadcast this row aggregates, the same identifier returned by the broadcast endpoints. Only messages sent as part of a broadcast carry a broadcast identifier; one-off and transactional sends are not included in this breakdown.
+     * The broadcast this row covers, the same ID the broadcast endpoints return. Only mail sent as part of a broadcast has a broadcast ID, so one-off and transactional sends do not appear in this breakdown at all.
      *
      * @return string|null
      */
@@ -40,7 +40,7 @@ class EmailBroadcastStatsPoint
         return $this->broadcastId;
     }
     /**
-     * The broadcast this row aggregates, the same identifier returned by the broadcast endpoints. Only messages sent as part of a broadcast carry a broadcast identifier; one-off and transactional sends are not included in this breakdown.
+     * The broadcast this row covers, the same ID the broadcast endpoints return. Only mail sent as part of a broadcast has a broadcast ID, so one-off and transactional sends do not appear in this breakdown at all.
      *
      * @param string|null $broadcastId
      *

@@ -27,7 +27,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
      */
     protected $soft;
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain). Triage usually focuses on content or sender configuration rather than recipient cleanup.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
      * 
      *
      * @var int|null
@@ -94,7 +94,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain). Triage usually focuses on content or sender configuration rather than recipient cleanup.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
      * 
      *
      * @return int|null
@@ -104,7 +104,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
         return $this->admin;
     }
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain). Triage usually focuses on content or sender configuration rather than recipient cleanup.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
      *
      * @param int|null $admin
      *

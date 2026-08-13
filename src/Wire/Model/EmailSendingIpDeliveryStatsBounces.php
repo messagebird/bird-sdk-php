@@ -25,7 +25,7 @@ class EmailSendingIpDeliveryStatsBounces extends \ArrayObject
      */
     protected $soft;
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain).
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain.
      *
      * @var int|null
      */
@@ -122,7 +122,7 @@ class EmailSendingIpDeliveryStatsBounces extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain).
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain.
      *
      * @return int|null
      */
@@ -131,7 +131,7 @@ class EmailSendingIpDeliveryStatsBounces extends \ArrayObject
         return $this->admin;
     }
     /**
-     * Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain).
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain.
      *
      * @param int|null $admin
      *

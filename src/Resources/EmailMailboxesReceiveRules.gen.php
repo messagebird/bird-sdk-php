@@ -45,7 +45,7 @@ final class EmailMailboxesReceiveRules extends Resource
     }
 
     /**
-     * Add an allow or block rule for a sender address or domain to a mailbox. Block always wins; up to 200 rules per mailbox.
+     * Add an allow or block rule for a sender address or domain to a mailbox. Block always wins. Up to 200 rules per mailbox.
      *
      * @example Block a sender from a mailbox
      * $rule = $bird->email->mailboxes->receiveRules->create(

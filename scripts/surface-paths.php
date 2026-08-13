@@ -38,6 +38,8 @@ return [
     "/v1/verify/verifications",
     "/v1/verify/verifications/check",
     "/v1/verify/verifications/next-channel",
+    "/v1/lookup/phone-number",
+    "/v1/lookup/email",
     "/v1/email/domains",
     "/v1/email/domains/{domain_id}",
     "/v1/email/domains/{domain_id}/verify",

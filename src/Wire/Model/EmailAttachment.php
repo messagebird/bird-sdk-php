@@ -13,41 +13,31 @@ class EmailAttachment
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Filename shown to the recipient. Required.
+     * The name the recipient sees on the attachment.
      *
      * @var string|null
      */
     protected $filename;
     /**
-     * Base64-encoded attachment bytes. Required. Counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-     * 
+     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
      *
      * @var string|null
      */
     protected $content;
     /**
-     * Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `UnsupportedEmailFeature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-     * 
-     *
-     * @var string|null
-     */
-    protected $path;
-    /**
-     * MIME type. Inferred from `filename` extension when omitted. Used to enforce the blocklist of disallowed executable / script types.
-     * 
+     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
      *
      * @var string|null
      */
     protected $contentType;
     /**
-     * RFC 2392 Content-ID. When set, the attachment is rendered inline and can be referenced from the HTML body as `<img src="cid:{content_id}"/>`. When omitted, the attachment is rendered as a regular file attachment.
-     * 
+     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
      *
      * @var string|null
      */
     protected $contentId;
     /**
-     * Filename shown to the recipient. Required.
+     * The name the recipient sees on the attachment.
      *
      * @return string|null
      */
@@ -56,7 +46,7 @@ class EmailAttachment
         return $this->filename;
     }
     /**
-     * Filename shown to the recipient. Required.
+     * The name the recipient sees on the attachment.
      *
      * @param string|null $filename
      *
@@ -69,8 +59,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * Base64-encoded attachment bytes. Required. Counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-     * 
+     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
      *
      * @return string|null
      */
@@ -79,7 +68,7 @@ class EmailAttachment
         return $this->content;
     }
     /**
-     * Base64-encoded attachment bytes. Required. Counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
+     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
      *
      * @param string|null $content
      *
@@ -92,31 +81,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `UnsupportedEmailFeature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-     * 
-     *
-     * @return string|null
-     */
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-    /**
-     * Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `UnsupportedEmailFeature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-     *
-     * @param string|null $path
-     *
-     * @return self
-     */
-    public function setPath(?string $path): self
-    {
-        $this->initialized['path'] = true;
-        $this->path = $path;
-        return $this;
-    }
-    /**
-     * MIME type. Inferred from `filename` extension when omitted. Used to enforce the blocklist of disallowed executable / script types.
-     * 
+     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
      *
      * @return string|null
      */
@@ -125,7 +90,7 @@ class EmailAttachment
         return $this->contentType;
     }
     /**
-     * MIME type. Inferred from `filename` extension when omitted. Used to enforce the blocklist of disallowed executable / script types.
+     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
      *
      * @param string|null $contentType
      *
@@ -138,8 +103,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * RFC 2392 Content-ID. When set, the attachment is rendered inline and can be referenced from the HTML body as `<img src="cid:{content_id}"/>`. When omitted, the attachment is rendered as a regular file attachment.
-     * 
+     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
      *
      * @return string|null
      */
@@ -148,7 +112,7 @@ class EmailAttachment
         return $this->contentId;
     }
     /**
-     * RFC 2392 Content-ID. When set, the attachment is rendered inline and can be referenced from the HTML body as `<img src="cid:{content_id}"/>`. When omitted, the attachment is rendered as a regular file attachment.
+     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
      *
      * @param string|null $contentId
      *

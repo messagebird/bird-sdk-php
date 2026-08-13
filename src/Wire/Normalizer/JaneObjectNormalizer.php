@@ -154,6 +154,32 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\SMSTemplateList::class => \MessageBird\Wire\Normalizer\SMSTemplateListNormalizer::class,
         
+        \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\LookupPortingEvent::class => \MessageBird\Wire\Normalizer\LookupPortingEventNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookup::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupNetworkInfo::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupNetworkInfoNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupOriginalNetworkInfo::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupOriginalNetworkInfoNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupClassification::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupClassificationNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupPresence::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupPresenceNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupRoaming::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRoamingNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupSimSwap::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupSimSwapNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupPorting::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupPortingNormalizer::class,
+        
+        \MessageBird\Wire\Model\PhoneNumberLookupScore::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupScoreNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailLookupRequest::class => \MessageBird\Wire\Normalizer\EmailLookupRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailLookup::class => \MessageBird\Wire\Normalizer\EmailLookupNormalizer::class,
+        
         \MessageBird\Wire\Model\VerificationTo::class => \MessageBird\Wire\Normalizer\VerificationToNormalizer::class,
         
         \MessageBird\Wire\Model\VerificationChannelEntry::class => \MessageBird\Wire\Normalizer\VerificationChannelEntryNormalizer::class,
@@ -572,6 +598,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\TemplateVariable::class => false,
             \MessageBird\Wire\Model\SMSTemplate::class => false,
             \MessageBird\Wire\Model\SMSTemplateList::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,
+            \MessageBird\Wire\Model\LookupPortingEvent::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookup::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupNetworkInfo::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupOriginalNetworkInfo::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupClassification::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupPresence::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupRoaming::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupSimSwap::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupPorting::class => false,
+            \MessageBird\Wire\Model\PhoneNumberLookupScore::class => false,
+            \MessageBird\Wire\Model\EmailLookupRequest::class => false,
+            \MessageBird\Wire\Model\EmailLookup::class => false,
             \MessageBird\Wire\Model\VerificationTo::class => false,
             \MessageBird\Wire\Model\VerificationChannelEntry::class => false,
             \MessageBird\Wire\Model\Money::class => false,

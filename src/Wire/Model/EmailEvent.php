@@ -19,7 +19,25 @@ class EmailEvent
      */
     protected $id;
     /**
-     * Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+     * Type of an event in a message's per-recipient delivery timeline.
+     * 
+     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+     * - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
+     * - `email.processed`: We queued the message for delivery to the recipient's mail server.
+     * - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+     * - `email.delivered`: The recipient's mail server accepted the message.
+     * - `email.bounced`: Delivery permanently failed at the recipient's mail server.
+     * - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
+     * - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
+     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+     * - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
+     * - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
+     * - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
+     * - `email.list_unsubscribed`: The recipient opted out through the one-click unsubscribe control in their mail client.
+     * - `email.complained`: The recipient reported the message as spam through their mailbox provider.
+     * 
+     * We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
+     * 
      *
      * @var string|null
      */
@@ -42,7 +60,7 @@ class EmailEvent
      */
     protected $bounceType;
     /**
-     * Numeric bounce classification for fine-grained deliverability triage. Lets you distinguish, for example, a DNS failure from a spam block when both would be `bounce_type: soft` or `bounce_type: block`. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred`.
+     * A more detailed numeric bounce code, useful for telling apart failures that share the same `bounce_type`. For example, a DNS failure and a spam block can both come through as `bounce_type: soft` or `bounce_type: block`; this field tells you which one actually happened. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      * 
      *
      * @var int|null
@@ -56,27 +74,35 @@ class EmailEvent
      */
     protected $bounceCode;
     /**
-     * Human-readable bounce reason. Present on `email.bounced` and `email.deferred` events.
+     * The bounce reason, in plain language, as reported by the mail server. Present on `email.bounced` and `email.deferred` events.
      *
      * @var string|null
      */
     protected $bounceDescription;
     /**
-     * Specific cause of rejection. Present on `email.rejected` events only. See `EmailRecipient.rejection_reason` for the meaning of each value.
+     * Specific cause of rejection. Present on `email.rejected` events only.
+     * 
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * - `transmission_failed`: The message could not be transmitted for delivery.
+     * - `generation_failure`: The message could not be built for delivery, because of a template or content issue.
+     * - `policy_rejection`: The message was refused by sending policy.
+     * - `domain_unverified`: The sending domain was not verified.
+     * - `quota_exceeded`: The organization's send quota was reached.
+     * - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
      * 
      *
      * @var string|null
      */
     protected $rejectionReason;
     /**
-     * The IP address Bird used to send this message. Useful when investigating deliverability issues that correlate with specific IPs. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
+     * The IP address used to send this message. Useful for spotting a deliverability problem that is tied to one specific sending IP rather than affecting all of them. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      * 
      *
      * @var string|null
      */
     protected $sendingIp;
     /**
-     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, Gmail image proxy) rather than a real user action. Useful for accurate open-rate calculation. Present on `email.opened` only.
+     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
      * 
      *
      * @var bool|null
@@ -129,7 +155,25 @@ class EmailEvent
         return $this;
     }
     /**
-     * Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+     * Type of an event in a message's per-recipient delivery timeline.
+     * 
+     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+     * - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
+     * - `email.processed`: We queued the message for delivery to the recipient's mail server.
+     * - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+     * - `email.delivered`: The recipient's mail server accepted the message.
+     * - `email.bounced`: Delivery permanently failed at the recipient's mail server.
+     * - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
+     * - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
+     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+     * - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
+     * - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
+     * - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
+     * - `email.list_unsubscribed`: The recipient opted out through the one-click unsubscribe control in their mail client.
+     * - `email.complained`: The recipient reported the message as spam through their mailbox provider.
+     * 
+     * We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
+     * 
      *
      * @return string|null
      */
@@ -138,12 +182,30 @@ class EmailEvent
         return $this->type;
     }
     /**
-     * Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
-     *
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * Type of an event in a message's per-recipient delivery timeline.
+    
+    - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+    - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
+    - `email.processed`: We queued the message for delivery to the recipient's mail server.
+    - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+    - `email.delivered`: The recipient's mail server accepted the message.
+    - `email.bounced`: Delivery permanently failed at the recipient's mail server.
+    - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
+    - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
+    - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+    - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
+    - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
+    - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
+    - `email.list_unsubscribed`: The recipient opted out through the one-click unsubscribe control in their mail client.
+    - `email.complained`: The recipient reported the message as spam through their mailbox provider.
+    
+    We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
+    
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;
@@ -214,7 +276,7 @@ class EmailEvent
         return $this;
     }
     /**
-     * Numeric bounce classification for fine-grained deliverability triage. Lets you distinguish, for example, a DNS failure from a spam block when both would be `bounce_type: soft` or `bounce_type: block`. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred`.
+     * A more detailed numeric bounce code, useful for telling apart failures that share the same `bounce_type`. For example, a DNS failure and a spam block can both come through as `bounce_type: soft` or `bounce_type: block`; this field tells you which one actually happened. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      * 
      *
      * @return int|null
@@ -224,7 +286,7 @@ class EmailEvent
         return $this->bounceClass;
     }
     /**
-     * Numeric bounce classification for fine-grained deliverability triage. Lets you distinguish, for example, a DNS failure from a spam block when both would be `bounce_type: soft` or `bounce_type: block`. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred`.
+     * A more detailed numeric bounce code, useful for telling apart failures that share the same `bounce_type`. For example, a DNS failure and a spam block can both come through as `bounce_type: soft` or `bounce_type: block`; this field tells you which one actually happened. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      *
      * @param int|null $bounceClass
      *
@@ -260,7 +322,7 @@ class EmailEvent
         return $this;
     }
     /**
-     * Human-readable bounce reason. Present on `email.bounced` and `email.deferred` events.
+     * The bounce reason, in plain language, as reported by the mail server. Present on `email.bounced` and `email.deferred` events.
      *
      * @return string|null
      */
@@ -269,7 +331,7 @@ class EmailEvent
         return $this->bounceDescription;
     }
     /**
-     * Human-readable bounce reason. Present on `email.bounced` and `email.deferred` events.
+     * The bounce reason, in plain language, as reported by the mail server. Present on `email.bounced` and `email.deferred` events.
      *
      * @param string|null $bounceDescription
      *
@@ -282,7 +344,15 @@ class EmailEvent
         return $this;
     }
     /**
-     * Specific cause of rejection. Present on `email.rejected` events only. See `EmailRecipient.rejection_reason` for the meaning of each value.
+     * Specific cause of rejection. Present on `email.rejected` events only.
+     * 
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * - `transmission_failed`: The message could not be transmitted for delivery.
+     * - `generation_failure`: The message could not be built for delivery, because of a template or content issue.
+     * - `policy_rejection`: The message was refused by sending policy.
+     * - `domain_unverified`: The sending domain was not verified.
+     * - `quota_exceeded`: The organization's send quota was reached.
+     * - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
      * 
      *
      * @return string|null
@@ -292,12 +362,21 @@ class EmailEvent
         return $this->rejectionReason;
     }
     /**
-     * Specific cause of rejection. Present on `email.rejected` events only. See `EmailRecipient.rejection_reason` for the meaning of each value.
-     *
-     * @param string|null $rejectionReason
-     *
-     * @return self
-     */
+    * Specific cause of rejection. Present on `email.rejected` events only.
+    
+    - `recipient_suppressed`: The recipient is on the workspace suppression list.
+    - `transmission_failed`: The message could not be transmitted for delivery.
+    - `generation_failure`: The message could not be built for delivery, because of a template or content issue.
+    - `policy_rejection`: The message was refused by sending policy.
+    - `domain_unverified`: The sending domain was not verified.
+    - `quota_exceeded`: The organization's send quota was reached.
+    - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+    
+    *
+    * @param string|null $rejectionReason
+    *
+    * @return self
+    */
     public function setRejectionReason(?string $rejectionReason): self
     {
         $this->initialized['rejectionReason'] = true;
@@ -305,7 +384,7 @@ class EmailEvent
         return $this;
     }
     /**
-     * The IP address Bird used to send this message. Useful when investigating deliverability issues that correlate with specific IPs. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
+     * The IP address used to send this message. Useful for spotting a deliverability problem that is tied to one specific sending IP rather than affecting all of them. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      * 
      *
      * @return string|null
@@ -315,7 +394,7 @@ class EmailEvent
         return $this->sendingIp;
     }
     /**
-     * The IP address Bird used to send this message. Useful when investigating deliverability issues that correlate with specific IPs. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
+     * The IP address used to send this message. Useful for spotting a deliverability problem that is tied to one specific sending IP rather than affecting all of them. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
      *
      * @param string|null $sendingIp
      *
@@ -328,7 +407,7 @@ class EmailEvent
         return $this;
     }
     /**
-     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, Gmail image proxy) rather than a real user action. Useful for accurate open-rate calculation. Present on `email.opened` only.
+     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
      * 
      *
      * @return bool|null
@@ -338,7 +417,7 @@ class EmailEvent
         return $this->isPrefetched;
     }
     /**
-     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, Gmail image proxy) rather than a real user action. Useful for accurate open-rate calculation. Present on `email.opened` only.
+     * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
      *
      * @param bool|null $isPrefetched
      *

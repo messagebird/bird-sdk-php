@@ -13,27 +13,28 @@ class EmailStatsByTemplateResponse
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      * 
      *
      * @var EmailStatsPeriod|null
      */
     protected $period;
     /**
-     * Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
+     * One row per template, ranked by the `sort` metric (`processed` by default) descending. Empty when no messages were sent with a template during the period.
+     * 
      *
      * @var list<EmailTemplateStatsPoint>|null
      */
     protected $data;
     /**
-     * Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * How many distinct templates had activity in the period, regardless of `limit`. When this is higher than the number of rows in `data`, the ranking got cut off. Raise `limit` (up to 200), or narrow the date range, to see the rest.
      * 
      *
      * @var int|null
      */
     protected $total;
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      * 
      *
      * @return EmailStatsPeriod|null
@@ -43,7 +44,7 @@ class EmailStatsByTemplateResponse
         return $this->period;
     }
     /**
-     * The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+     * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      *
      * @param EmailStatsPeriod|null $period
      *
@@ -56,7 +57,8 @@ class EmailStatsByTemplateResponse
         return $this;
     }
     /**
-     * Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
+     * One row per template, ranked by the `sort` metric (`processed` by default) descending. Empty when no messages were sent with a template during the period.
+     * 
      *
      * @return list<EmailTemplateStatsPoint>|null
      */
@@ -65,7 +67,7 @@ class EmailStatsByTemplateResponse
         return $this->data;
     }
     /**
-     * Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
+     * One row per template, ranked by the `sort` metric (`processed` by default) descending. Empty when no messages were sent with a template during the period.
      *
      * @param list<EmailTemplateStatsPoint>|null $data
      *
@@ -78,7 +80,7 @@ class EmailStatsByTemplateResponse
         return $this;
     }
     /**
-     * Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * How many distinct templates had activity in the period, regardless of `limit`. When this is higher than the number of rows in `data`, the ranking got cut off. Raise `limit` (up to 200), or narrow the date range, to see the rest.
      * 
      *
      * @return int|null
@@ -88,7 +90,7 @@ class EmailStatsByTemplateResponse
         return $this->total;
     }
     /**
-     * Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+     * How many distinct templates had activity in the period, regardless of `limit`. When this is higher than the number of rows in `data`, the ranking got cut off. Raise `limit` (up to 200), or narrow the date range, to see the rest.
      *
      * @param int|null $total
      *

@@ -23,7 +23,7 @@ class EmailMessage
      */
     protected $from;
     /**
-     * Primary recipients. Length is the recipient count; use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
+     * Primary recipients. Length is the recipient count. Use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
      *
      * @var list<EmailAddress>|null
      */
@@ -48,7 +48,10 @@ class EmailMessage
      */
     protected $subject;
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @var string|null
@@ -61,26 +64,23 @@ class EmailMessage
      */
     protected $replyTo;
     /**
-     * Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
-     * 
-     *
      * @var string|null
      */
     protected $status;
     /**
-     * Number of recipients currently in the `accepted` state — Bird has the send and is preparing to deliver.
+     * How many recipients are in the `accepted` state, meaning we have the message and are getting ready to deliver it.
      *
      * @var int|null
      */
     protected $acceptedCount = 0;
     /**
-     * Number of recipients for whom Bird has processed the message and queued it for delivery.
+     * How many recipients the message has been prepared for and queued for delivery.
      *
      * @var int|null
      */
     protected $processedCount = 0;
     /**
-     * Number of recipients whose messages were accepted by the remote MTA.
+     * How many recipients' messages were accepted by their mail server.
      *
      * @var int|null
      */
@@ -98,20 +98,20 @@ class EmailMessage
      */
     protected $complainedCount = 0;
     /**
-     * Number of recipients in transient delivery deferral; the provider is retrying.
+     * Number of recipients in transient delivery deferral. Their mail server asked for a retry, and delivery attempts continue.
      *
      * @var int|null
      */
     protected $deferredCount = 0;
     /**
-     * Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
+     * Number of recipients rejected before delivery. Read the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause.
      * 
      *
      * @var int|null
      */
     protected $rejectedCount = 0;
     /**
-     * Time between Bird accepting the send and the message being processed for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
      * 
      *
      * @var int|null
@@ -172,13 +172,13 @@ class EmailMessage
      */
     protected $templateVersionId;
     /**
-     * Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Labels on this message, each one a `name` and a `value`, that you can filter and search messages by. Use tags for anything you want to find messages by later, and `metadata` for data you only want handed back to you.
      *
      * @var list<Tag>|null
      */
     protected $tags;
     /**
-     * Arbitrary JSON metadata stored on the message object and echoed in webhook payloads. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Any JSON you kept on the message. We store it and hand it back in webhook payloads, and that is all it does. If you want to search or filter by it, use `tags` instead.
      *
      * @var array<string, mixed>|null
      */
@@ -191,7 +191,7 @@ class EmailMessage
      */
     protected $parameters;
     /**
-     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; when content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
+     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed. When content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
      *
      * @var list<EmailAttachmentRef>|null
      */
@@ -215,7 +215,7 @@ class EmailMessage
      */
     protected $createdAt;
     /**
-     * Thread this message belongs to. Null until threading is enabled.
+     * Thread this message belongs to, or null when the message is not part of one.
      *
      * @var string|null
      */
@@ -279,7 +279,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Primary recipients. Length is the recipient count; use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
+     * Primary recipients. Length is the recipient count. Use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
      *
      * @return list<EmailAddress>|null
      */
@@ -288,7 +288,7 @@ class EmailMessage
         return $this->to;
     }
     /**
-     * Primary recipients. Length is the recipient count; use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
+     * Primary recipients. Length is the recipient count. Use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
      *
      * @param list<EmailAddress>|null $to
      *
@@ -368,7 +368,10 @@ class EmailMessage
         return $this;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @return string|null
@@ -378,12 +381,16 @@ class EmailMessage
         return $this->category;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
-     *
-     * @param string|null $category
-     *
-     * @return self
-     */
+    * Content classification, which controls suppression policy:
+    
+    - `marketing`: Blocks on all suppression reasons.
+    - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+    
+    *
+    * @param string|null $category
+    *
+    * @return self
+    */
     public function setCategory(?string $category): self
     {
         $this->initialized['category'] = true;
@@ -413,9 +420,6 @@ class EmailMessage
         return $this;
     }
     /**
-     * Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
-     * 
-     *
      * @return string|null
      */
     public function getStatus(): ?string
@@ -423,8 +427,6 @@ class EmailMessage
         return $this->status;
     }
     /**
-     * Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
-     *
      * @param string|null $status
      *
      * @return self
@@ -436,7 +438,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Number of recipients currently in the `accepted` state — Bird has the send and is preparing to deliver.
+     * How many recipients are in the `accepted` state, meaning we have the message and are getting ready to deliver it.
      *
      * @return int|null
      */
@@ -445,7 +447,7 @@ class EmailMessage
         return $this->acceptedCount;
     }
     /**
-     * Number of recipients currently in the `accepted` state — Bird has the send and is preparing to deliver.
+     * How many recipients are in the `accepted` state, meaning we have the message and are getting ready to deliver it.
      *
      * @param int|null $acceptedCount
      *
@@ -458,7 +460,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Number of recipients for whom Bird has processed the message and queued it for delivery.
+     * How many recipients the message has been prepared for and queued for delivery.
      *
      * @return int|null
      */
@@ -467,7 +469,7 @@ class EmailMessage
         return $this->processedCount;
     }
     /**
-     * Number of recipients for whom Bird has processed the message and queued it for delivery.
+     * How many recipients the message has been prepared for and queued for delivery.
      *
      * @param int|null $processedCount
      *
@@ -480,7 +482,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Number of recipients whose messages were accepted by the remote MTA.
+     * How many recipients' messages were accepted by their mail server.
      *
      * @return int|null
      */
@@ -489,7 +491,7 @@ class EmailMessage
         return $this->deliveredCount;
     }
     /**
-     * Number of recipients whose messages were accepted by the remote MTA.
+     * How many recipients' messages were accepted by their mail server.
      *
      * @param int|null $deliveredCount
      *
@@ -546,7 +548,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Number of recipients in transient delivery deferral; the provider is retrying.
+     * Number of recipients in transient delivery deferral. Their mail server asked for a retry, and delivery attempts continue.
      *
      * @return int|null
      */
@@ -555,7 +557,7 @@ class EmailMessage
         return $this->deferredCount;
     }
     /**
-     * Number of recipients in transient delivery deferral; the provider is retrying.
+     * Number of recipients in transient delivery deferral. Their mail server asked for a retry, and delivery attempts continue.
      *
      * @param int|null $deferredCount
      *
@@ -568,7 +570,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
+     * Number of recipients rejected before delivery. Read the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause.
      * 
      *
      * @return int|null
@@ -578,7 +580,7 @@ class EmailMessage
         return $this->rejectedCount;
     }
     /**
-     * Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
+     * Number of recipients rejected before delivery. Read the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause.
      *
      * @param int|null $rejectedCount
      *
@@ -591,7 +593,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Time between Bird accepting the send and the message being processed for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
      * 
      *
      * @return int|null
@@ -601,7 +603,7 @@ class EmailMessage
         return $this->processingLatencyMs;
     }
     /**
-     * Time between Bird accepting the send and the message being processed for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
+     * Time between the send being accepted and the message being prepared for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
      *
      * @param int|null $processingLatencyMs
      *
@@ -796,7 +798,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Labels on this message, each one a `name` and a `value`, that you can filter and search messages by. Use tags for anything you want to find messages by later, and `metadata` for data you only want handed back to you.
      *
      * @return list<Tag>|null
      */
@@ -805,7 +807,7 @@ class EmailMessage
         return $this->tags;
     }
     /**
-     * Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Labels on this message, each one a `name` and a `value`, that you can filter and search messages by. Use tags for anything you want to find messages by later, and `metadata` for data you only want handed back to you.
      *
      * @param list<Tag>|null $tags
      *
@@ -818,7 +820,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Arbitrary JSON metadata stored on the message object and echoed in webhook payloads. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Any JSON you kept on the message. We store it and hand it back in webhook payloads, and that is all it does. If you want to search or filter by it, use `tags` instead.
      *
      * @return array<string, mixed>|null
      */
@@ -827,7 +829,7 @@ class EmailMessage
         return $this->metadata;
     }
     /**
-     * Arbitrary JSON metadata stored on the message object and echoed in webhook payloads. See EmailMessageSendRequest for the tags vs metadata distinction.
+     * Any JSON you kept on the message. We store it and hand it back in webhook payloads, and that is all it does. If you want to search or filter by it, use `tags` instead.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -863,7 +865,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; when content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
+     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed. When content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
      *
      * @return list<EmailAttachmentRef>|null
      */
@@ -872,7 +874,7 @@ class EmailMessage
         return $this->attachments;
     }
     /**
-     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; when content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
+     * Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed. When content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
      *
      * @param list<EmailAttachmentRef>|null $attachments
      *
@@ -951,7 +953,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * Thread this message belongs to. Null until threading is enabled.
+     * Thread this message belongs to, or null when the message is not part of one.
      *
      * @return string|null
      */
@@ -960,7 +962,7 @@ class EmailMessage
         return $this->threadId;
     }
     /**
-     * Thread this message belongs to. Null until threading is enabled.
+     * Thread this message belongs to, or null when the message is not part of one.
      *
      * @param string|null $threadId
      *

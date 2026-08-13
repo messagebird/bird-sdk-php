@@ -13,7 +13,8 @@ class EmailTemplateStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The template this row aggregates, the same identifier returned by the email-template endpoints. Only messages sent with a template appear in this breakdown; a template deleted after sending still appears by its ID.
+     * The template this row is about, using the same `id` the email template endpoints return. Only messages sent with a template appear in this breakdown at all. If the template was deleted after it was used to send, this row still appears, keyed by that same `id`.
+     * 
      *
      * @var string|null
      */
@@ -31,13 +32,15 @@ class EmailTemplateStatsPoint
      */
     protected $latency;
     /**
-     * Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
+     * A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
+     * 
      *
      * @var list<EmailStatsSeriesPoint>|null
      */
     protected $trend;
     /**
-     * The template this row aggregates, the same identifier returned by the email-template endpoints. Only messages sent with a template appear in this breakdown; a template deleted after sending still appears by its ID.
+     * The template this row is about, using the same `id` the email template endpoints return. Only messages sent with a template appear in this breakdown at all. If the template was deleted after it was used to send, this row still appears, keyed by that same `id`.
+     * 
      *
      * @return string|null
      */
@@ -46,7 +49,7 @@ class EmailTemplateStatsPoint
         return $this->templateId;
     }
     /**
-     * The template this row aggregates, the same identifier returned by the email-template endpoints. Only messages sent with a template appear in this breakdown; a template deleted after sending still appears by its ID.
+     * The template this row is about, using the same `id` the email template endpoints return. Only messages sent with a template appear in this breakdown at all. If the template was deleted after it was used to send, this row still appears, keyed by that same `id`.
      *
      * @param string|null $templateId
      *
@@ -113,7 +116,8 @@ class EmailTemplateStatsPoint
         return $this;
     }
     /**
-     * Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
+     * A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
+     * 
      *
      * @return list<EmailStatsSeriesPoint>|null
      */
@@ -122,7 +126,7 @@ class EmailTemplateStatsPoint
         return $this->trend;
     }
     /**
-     * Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
+     * A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
      *
      * @param list<EmailStatsSeriesPoint>|null $trend
      *

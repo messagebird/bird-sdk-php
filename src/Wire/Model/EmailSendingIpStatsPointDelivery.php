@@ -19,13 +19,13 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
      */
     protected $delivered;
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two are computed independently, so they can differ slightly.
      *
      * @var int|null
      */
     protected $bounced;
     /**
-     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown; read complaint counts from the summary or time-series statistics instead.
+     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown. Read complaint counts from the summary or time-series statistics instead.
      *
      * @var int|null
      */
@@ -37,7 +37,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
      */
     protected $deferred;
     /**
-     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0; workspace-wide out-of-band counts are on the summary and time-series statistics.
+     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0. Workspace-wide out-of-band counts are on the summary and time-series statistics.
      * 
      *
      * @var int|null
@@ -109,7 +109,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two are computed independently, so they can differ slightly.
      *
      * @return int|null
      */
@@ -118,7 +118,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this->bounced;
     }
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two are computed independently, so they can differ slightly.
      *
      * @param int|null $bounced
      *
@@ -131,7 +131,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown; read complaint counts from the summary or time-series statistics instead.
+     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown. Read complaint counts from the summary or time-series statistics instead.
      *
      * @return int|null
      */
@@ -140,7 +140,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this->complained;
     }
     /**
-     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown; read complaint counts from the summary or time-series statistics instead.
+     * Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown. Read complaint counts from the summary or time-series statistics instead.
      *
      * @param int|null $complained
      *
@@ -175,7 +175,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0; workspace-wide out-of-band counts are on the summary and time-series statistics.
+     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0. Workspace-wide out-of-band counts are on the summary and time-series statistics.
      * 
      *
      * @return int|null
@@ -185,7 +185,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this->oobBounces;
     }
     /**
-     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0; workspace-wide out-of-band counts are on the summary and time-series statistics.
+     * Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0. Workspace-wide out-of-band counts are on the summary and time-series statistics.
      *
      * @param int|null $oobBounces
      *

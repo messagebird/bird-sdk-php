@@ -13,19 +13,19 @@ class EmailClientStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`; null otherwise.
+     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`. Null otherwise.
      *
      * @var string|null
      */
     protected $emailClient;
     /**
-     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`; null otherwise.
+     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`. Null otherwise.
      *
      * @var string|null
      */
     protected $os;
     /**
-     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`; null otherwise.
+     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
      *
      * @var string|null
      */
@@ -35,7 +35,7 @@ class EmailClientStatsPoint
      */
     protected $engagement;
     /**
-     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`; null otherwise.
+     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`. Null otherwise.
      *
      * @return string|null
      */
@@ -44,7 +44,7 @@ class EmailClientStatsPoint
         return $this->emailClient;
     }
     /**
-     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`; null otherwise.
+     * The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`. Null otherwise.
      *
      * @param string|null $emailClient
      *
@@ -57,7 +57,7 @@ class EmailClientStatsPoint
         return $this;
     }
     /**
-     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`; null otherwise.
+     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`. Null otherwise.
      *
      * @return string|null
      */
@@ -66,7 +66,7 @@ class EmailClientStatsPoint
         return $this->os;
     }
     /**
-     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`; null otherwise.
+     * The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`. Null otherwise.
      *
      * @param string|null $os
      *
@@ -79,7 +79,7 @@ class EmailClientStatsPoint
         return $this;
     }
     /**
-     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`; null otherwise.
+     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
      *
      * @return string|null
      */
@@ -88,7 +88,7 @@ class EmailClientStatsPoint
         return $this->deviceType;
     }
     /**
-     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`; null otherwise.
+     * The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
      *
      * @param string|null $deviceType
      *

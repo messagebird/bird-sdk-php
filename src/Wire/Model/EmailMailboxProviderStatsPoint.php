@@ -13,7 +13,7 @@ class EmailMailboxProviderStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorised.
+     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorized.
      *
      * @var string|null
      */
@@ -37,7 +37,7 @@ class EmailMailboxProviderStatsPoint
      */
     protected $trend;
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorised.
+     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorized.
      *
      * @return string|null
      */
@@ -46,7 +46,7 @@ class EmailMailboxProviderStatsPoint
         return $this->mailboxProvider;
     }
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorised.
+     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorized.
      *
      * @param string|null $mailboxProvider
      *

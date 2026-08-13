@@ -13,7 +13,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary; omitted on breakdown rows, whose rollups do not carry it.
+     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary. Breakdown rows leave it out, because their rollups do not have it.
      *
      * @var int|null
      */
@@ -31,7 +31,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
      */
     protected $delivered;
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two totals are worked out independently, so they can differ slightly.
      * 
      *
      * @var int|null
@@ -94,7 +94,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
      */
     protected $deliveryRate;
     /**
-     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count; the rate is clamped to 1. Null when there were no attempts.
+     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count. The rate is clamped to 1. Null when there were no attempts.
      * 
      *
      * @var float|null
@@ -108,7 +108,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
      */
     protected $complaintRate;
     /**
-     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary; omitted on breakdown rows, whose rollups do not carry it.
+     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary. Breakdown rows leave it out, because their rollups do not have it.
      *
      * @return int|null
      */
@@ -117,7 +117,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return $this->accepted;
     }
     /**
-     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary; omitted on breakdown rows, whose rollups do not carry it.
+     * Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary. Breakdown rows leave it out, because their rollups do not have it.
      *
      * @param int|null $accepted
      *
@@ -174,7 +174,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two totals are worked out independently, so they can differ slightly.
      * 
      *
      * @return int|null
@@ -184,7 +184,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return $this->bounced;
     }
     /**
-     * Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two totals are worked out independently, so they can differ slightly.
      *
      * @param int|null $bounced
      *
@@ -395,7 +395,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count; the rate is clamped to 1. Null when there were no attempts.
+     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count. The rate is clamped to 1. Null when there were no attempts.
      * 
      *
      * @return float|null
@@ -405,7 +405,7 @@ class EmailSendingDomainStatsPointDelivery extends \ArrayObject
         return $this->bounceRate;
     }
     /**
-     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count; the rate is clamped to 1. Null when there were no attempts.
+     * Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count. The rate is clamped to 1. Null when there were no attempts.
      *
      * @param float|null $bounceRate
      *

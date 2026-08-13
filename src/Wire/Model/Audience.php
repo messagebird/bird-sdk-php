@@ -29,8 +29,7 @@ class Audience extends \ArrayObject
      */
     protected $description;
     /**
-     * How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
-     * 
+     * How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
      *
      * @var string|null
      */
@@ -106,8 +105,7 @@ class Audience extends \ArrayObject
         return $this;
     }
     /**
-     * How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
-     * 
+     * How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
      *
      * @return string|null
      */
@@ -116,7 +114,7 @@ class Audience extends \ArrayObject
         return $this->type;
     }
     /**
-     * How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+     * How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
      *
      * @param string|null $type
      *

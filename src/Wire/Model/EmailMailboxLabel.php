@@ -19,7 +19,17 @@ class EmailMailboxLabel
      */
     protected $name;
     /**
-     * `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+     * `system` labels are the built-in placements a message can be in:
+     * 
+     * - Inbox.
+     * - Archive.
+     * - Spam.
+     * - Blocked.
+     * - Sent.
+     * - Trash.
+     * - Unread.
+     * 
+     * `custom` labels are the workspace's own tags.
      *
      * @var string|null
      */
@@ -47,7 +57,17 @@ class EmailMailboxLabel
         return $this;
     }
     /**
-     * `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+     * `system` labels are the built-in placements a message can be in:
+     * 
+     * - Inbox.
+     * - Archive.
+     * - Spam.
+     * - Blocked.
+     * - Sent.
+     * - Trash.
+     * - Unread.
+     * 
+     * `custom` labels are the workspace's own tags.
      *
      * @return string|null
      */
@@ -56,12 +76,22 @@ class EmailMailboxLabel
         return $this->type;
     }
     /**
-     * `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
-     *
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * `system` labels are the built-in placements a message can be in:
+    
+    - Inbox.
+    - Archive.
+    - Spam.
+    - Blocked.
+    - Sent.
+    - Trash.
+    - Unread.
+    
+    `custom` labels are the workspace's own tags.
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;

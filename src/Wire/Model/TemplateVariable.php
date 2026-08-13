@@ -13,40 +13,40 @@ class TemplateVariable
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The parameter key this slot is filled with.
+     * The variable's name, the key you use for it in `parameters` when you send.
      *
      * @var string|null
      */
     protected $key;
     /**
-     * The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
+     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
      * 
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
+     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
      * 
      *
      * @var bool|null
      */
     protected $required;
     /**
-     * A human-readable description of the accepted values.
+     * A plain-language description of what values this variable accepts.
      *
      * @var string|null
      */
     protected $constraint;
     /**
-     * Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
      * 
      *
      * @var bool|null
      */
     protected $sensitive = false;
     /**
-     * The parameter key this slot is filled with.
+     * The variable's name, the key you use for it in `parameters` when you send.
      *
      * @return string|null
      */
@@ -55,7 +55,7 @@ class TemplateVariable
         return $this->key;
     }
     /**
-     * The parameter key this slot is filled with.
+     * The variable's name, the key you use for it in `parameters` when you send.
      *
      * @param string|null $key
      *
@@ -68,7 +68,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
+     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
      * 
      *
      * @return string|null
@@ -78,7 +78,7 @@ class TemplateVariable
         return $this->type;
     }
     /**
-     * The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
+     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
      *
      * @param string|null $type
      *
@@ -91,7 +91,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
+     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
      * 
      *
      * @return bool|null
@@ -101,7 +101,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
+     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
      *
      * @param bool|null $required
      *
@@ -114,7 +114,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * A human-readable description of the accepted values.
+     * A plain-language description of what values this variable accepts.
      *
      * @return string|null
      */
@@ -123,7 +123,7 @@ class TemplateVariable
         return $this->constraint;
     }
     /**
-     * A human-readable description of the accepted values.
+     * A plain-language description of what values this variable accepts.
      *
      * @param string|null $constraint
      *
@@ -136,7 +136,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
      * 
      *
      * @return bool|null
@@ -146,7 +146,7 @@ class TemplateVariable
         return $this->sensitive;
     }
     /**
-     * Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
      *
      * @param bool|null $sensitive
      *

@@ -63,13 +63,20 @@ class EmailThread
      */
     protected $lastMessageAt;
     /**
-     * Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+     * Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
      *
      * @var string|null
      */
     protected $lastDirection;
     /**
-     * Labels on this conversation. Exactly one system placement label is always present — `inbox`, `archive` (filed away, done for now), `spam` (the opening message failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — set by the message that started the conversation. Move a conversation by updating its labels: add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox` — or remove `spam`, `blocked`, or `archive` — to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list; a conversation carries at most 20.
+     * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
+     * 
+     * - `inbox`: The conversation is in the inbox.
+     * - `archive`: The conversation was filed away and is done for now.
+     * - `spam`: The conversation's opening message failed sender authentication.
+     * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
+     * 
+     * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
      * 
      *
      * @var list<string>|null
@@ -285,7 +292,7 @@ class EmailThread
         return $this;
     }
     /**
-     * Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+     * Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
      *
      * @return string|null
      */
@@ -294,7 +301,7 @@ class EmailThread
         return $this->lastDirection;
     }
     /**
-     * Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+     * Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
      *
      * @param string|null $lastDirection
      *
@@ -307,7 +314,14 @@ class EmailThread
         return $this;
     }
     /**
-     * Labels on this conversation. Exactly one system placement label is always present — `inbox`, `archive` (filed away, done for now), `spam` (the opening message failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — set by the message that started the conversation. Move a conversation by updating its labels: add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox` — or remove `spam`, `blocked`, or `archive` — to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list; a conversation carries at most 20.
+     * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
+     * 
+     * - `inbox`: The conversation is in the inbox.
+     * - `archive`: The conversation was filed away and is done for now.
+     * - `spam`: The conversation's opening message failed sender authentication.
+     * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
+     * 
+     * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
      * 
      *
      * @return list<string>|null
@@ -317,12 +331,20 @@ class EmailThread
         return $this->labels;
     }
     /**
-     * Labels on this conversation. Exactly one system placement label is always present — `inbox`, `archive` (filed away, done for now), `spam` (the opening message failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — set by the message that started the conversation. Move a conversation by updating its labels: add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox` — or remove `spam`, `blocked`, or `archive` — to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list; a conversation carries at most 20.
-     *
-     * @param list<string>|null $labels
-     *
-     * @return self
-     */
+    * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
+    
+    - `inbox`: The conversation is in the inbox.
+    - `archive`: The conversation was filed away and is done for now.
+    - `spam`: The conversation's opening message failed sender authentication.
+    - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
+    
+    Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
+    
+    *
+    * @param list<string>|null $labels
+    *
+    * @return self
+    */
     public function setLabels(?array $labels): self
     {
         $this->initialized['labels'] = true;

@@ -49,12 +49,6 @@ class EmailAttachmentNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('content', $data) && $data['content'] === null) {
             $object->setContent(null);
         }
-        if (\array_key_exists('path', $data) && $data['path'] !== null) {
-            $object->setPath($data['path']);
-        }
-        elseif (\array_key_exists('path', $data) && $data['path'] === null) {
-            $object->setPath(null);
-        }
         if (\array_key_exists('content_type', $data) && $data['content_type'] !== null) {
             $object->setContentType($data['content_type']);
         }
@@ -74,9 +68,6 @@ class EmailAttachmentNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray = [];
         $dataArray['filename'] = $data->getFilename();
         $dataArray['content'] = $data->getContent();
-        if ($data->isInitialized('path') && null !== $data->getPath()) {
-            $dataArray['path'] = $data->getPath();
-        }
         if ($data->isInitialized('contentType') && null !== $data->getContentType()) {
             $dataArray['content_type'] = $data->getContentType();
         }

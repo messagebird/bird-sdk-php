@@ -177,12 +177,6 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
-        if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
-            $object->setInReplyToMessageId($data['in_reply_to_message_id']);
-        }
-        elseif (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] === null) {
-            $object->setInReplyToMessageId(null);
-        }
         if (\array_key_exists('attachments', $data) && $data['attachments'] !== null) {
             $values_8 = [];
             foreach ($data['attachments'] as $value_8) {
@@ -198,18 +192,6 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
         }
         elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
             $object->setScheduledAt(null);
-        }
-        if (\array_key_exists('contact_id', $data) && $data['contact_id'] !== null) {
-            $object->setContactId($data['contact_id']);
-        }
-        elseif (\array_key_exists('contact_id', $data) && $data['contact_id'] === null) {
-            $object->setContactId(null);
-        }
-        if (\array_key_exists('topic_id', $data) && $data['topic_id'] !== null) {
-            $object->setTopicId($data['topic_id']);
-        }
-        elseif (\array_key_exists('topic_id', $data) && $data['topic_id'] === null) {
-            $object->setTopicId(null);
         }
         return $object;
     }
@@ -295,9 +277,6 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
         }
-        if ($data->isInitialized('inReplyToMessageId') && null !== $data->getInReplyToMessageId()) {
-            $dataArray['in_reply_to_message_id'] = $data->getInReplyToMessageId();
-        }
         if ($data->isInitialized('attachments') && null !== $data->getAttachments()) {
             $values_8 = [];
             foreach ($data->getAttachments() as $value_8) {
@@ -307,12 +286,6 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
         }
         if ($data->isInitialized('scheduledAt') && null !== $data->getScheduledAt()) {
             $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
-        }
-        if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
-            $dataArray['contact_id'] = $data->getContactId();
-        }
-        if ($data->isInitialized('topicId') && null !== $data->getTopicId()) {
-            $dataArray['topic_id'] = $data->getTopicId();
         }
         return $dataArray;
     }

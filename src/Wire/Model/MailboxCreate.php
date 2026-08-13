@@ -13,13 +13,13 @@ class MailboxCreate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
      *
      * @var string|null
      */
     protected $localPart;
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
      *
      * @var string|null
      */
@@ -37,25 +37,33 @@ class MailboxCreate
      */
     protected $defaultReplyTo;
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @var string|null
      */
     protected $receivePolicy = 'open';
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
      *
      * @var string|null
      */
     protected $retentionTier = '30d';
     /**
-     * Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @var array<string, mixed>|null
      */
     protected $metadata;
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
      *
      * @return string|null
      */
@@ -64,7 +72,7 @@ class MailboxCreate
         return $this->localPart;
     }
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
      *
      * @param string|null $localPart
      *
@@ -77,7 +85,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
      *
      * @return string|null
      */
@@ -86,7 +94,7 @@ class MailboxCreate
         return $this->domain;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
      *
      * @param string|null $domain
      *
@@ -143,7 +151,15 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @return string|null
      */
@@ -152,12 +168,20 @@ class MailboxCreate
         return $this->receivePolicy;
     }
     /**
-     * Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
-     *
-     * @param string|null $receivePolicy
-     *
-     * @return self
-     */
+    * Which inbound mail the mailbox accepts:
+    
+    - `open`: Accepts everything not blocked by a rule.
+    - `replies_only`: Accepts only replies to messages this mailbox has
+     sent. A reply must match a message the mailbox sent. Landing in an
+     existing thread by itself does not count.
+    - `allowlist`: Accepts only senders matching an allow rule.
+    - `drop`: Stores nothing.
+    
+    *
+    * @param string|null $receivePolicy
+    *
+    * @return self
+    */
     public function setReceivePolicy(?string $receivePolicy): self
     {
         $this->initialized['receivePolicy'] = true;
@@ -165,7 +189,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
      *
      * @return string|null
      */
@@ -174,7 +198,7 @@ class MailboxCreate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+     * How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
      *
      * @param string|null $retentionTier
      *
@@ -187,7 +211,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @return array<string, mixed>|null
      */
@@ -196,7 +220,7 @@ class MailboxCreate
         return $this->metadata;
     }
     /**
-     * Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+     * Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
      *
      * @param array<string, mixed>|null $metadata
      *

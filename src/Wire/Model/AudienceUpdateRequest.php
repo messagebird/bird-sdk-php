@@ -13,7 +13,7 @@ class AudienceUpdateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
+     * New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
      *
      * @var string|null
      */
@@ -25,7 +25,7 @@ class AudienceUpdateRequest
      */
     protected $description;
     /**
-     * New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
+     * New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
      *
      * @return string|null
      */
@@ -34,7 +34,7 @@ class AudienceUpdateRequest
         return $this->name;
     }
     /**
-     * New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
+     * New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
      *
      * @param string|null $name
      *

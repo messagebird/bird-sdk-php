@@ -45,14 +45,17 @@ class EmailThreadMessageReplyRequest
      */
     protected $metadata;
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @var string|null
      */
     protected $category;
     /**
-     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      * 
      *
      * @var list<EmailAttachment>|null
@@ -171,7 +174,10 @@ class EmailThreadMessageReplyRequest
         return $this;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+     * Content classification, which controls suppression policy:
+     * 
+     * - `marketing`: Blocks on all suppression reasons.
+     * - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
      * 
      *
      * @return string|null
@@ -181,12 +187,16 @@ class EmailThreadMessageReplyRequest
         return $this->category;
     }
     /**
-     * Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
-     *
-     * @param string|null $category
-     *
-     * @return self
-     */
+    * Content classification, which controls suppression policy:
+    
+    - `marketing`: Blocks on all suppression reasons.
+    - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+    
+    *
+    * @param string|null $category
+    *
+    * @return self
+    */
     public function setCategory(?string $category): self
     {
         $this->initialized['category'] = true;
@@ -194,7 +204,7 @@ class EmailThreadMessageReplyRequest
         return $this;
     }
     /**
-     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      * 
      *
      * @return list<EmailAttachment>|null
@@ -204,7 +214,7 @@ class EmailThreadMessageReplyRequest
         return $this->attachments;
     }
     /**
-     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+     * File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
      *
      * @param list<EmailAttachment>|null $attachments
      *

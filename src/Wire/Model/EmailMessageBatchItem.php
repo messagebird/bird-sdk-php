@@ -36,7 +36,7 @@ class EmailMessageBatchItem
      */
     protected $requestedLanguage;
     /**
-     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not carry the language asked for and its `on_missing_language` policy chose this one.
+     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not have the language asked for and its `on_missing_language` policy chose this one.
      * 
      *
      * @var string|null
@@ -142,7 +142,7 @@ class EmailMessageBatchItem
         return $this;
     }
     /**
-     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not carry the language asked for and its `on_missing_language` policy chose this one.
+     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not have the language asked for and its `on_missing_language` policy chose this one.
      * 
      *
      * @return string|null
@@ -152,7 +152,7 @@ class EmailMessageBatchItem
         return $this->resolvedLanguage;
     }
     /**
-     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not carry the language asked for and its `on_missing_language` policy chose this one.
+     * The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not have the language asked for and its `on_missing_language` policy chose this one.
      *
      * @param string|null $resolvedLanguage
      *

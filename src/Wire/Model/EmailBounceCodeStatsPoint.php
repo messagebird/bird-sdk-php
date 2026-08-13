@@ -19,7 +19,7 @@ class EmailBounceCodeStatsPoint
      */
     protected $smtpErrorCode;
     /**
-     * Distinct recipients whose delivery failed with this SMTP status code. Approximately the sum of the five `bounces.*` sub-counts; the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed with this SMTP status code, approximately equal to the sum of the five `bounces.*` sub-counts. The two are computed independently, so they can differ slightly because of approximation.
      *
      * @var int|null
      */
@@ -51,7 +51,7 @@ class EmailBounceCodeStatsPoint
         return $this;
     }
     /**
-     * Distinct recipients whose delivery failed with this SMTP status code. Approximately the sum of the five `bounces.*` sub-counts; the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed with this SMTP status code, approximately equal to the sum of the five `bounces.*` sub-counts. The two are computed independently, so they can differ slightly because of approximation.
      *
      * @return int|null
      */
@@ -60,7 +60,7 @@ class EmailBounceCodeStatsPoint
         return $this->bounced;
     }
     /**
-     * Distinct recipients whose delivery failed with this SMTP status code. Approximately the sum of the five `bounces.*` sub-counts; the totals are computed independently so they may differ slightly at the approximation error.
+     * Distinct recipients whose delivery failed with this SMTP status code, approximately equal to the sum of the five `bounces.*` sub-counts. The two are computed independently, so they can differ slightly because of approximation.
      *
      * @param int|null $bounced
      *

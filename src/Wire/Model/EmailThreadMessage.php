@@ -13,20 +13,20 @@ class EmailThreadMessage
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
+     * Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
      * 
      *
      * @var string|null
      */
     protected $id;
     /**
-     * Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+     * Which way the message went. `inbound` means you received it, `outbound` means you sent it.
      *
      * @var string|null
      */
     protected $direction;
     /**
-     * Channel this message was carried on. Always `email`.
+     * Channel this message lives on. Always `email`.
      *
      * @var string|null
      */
@@ -73,63 +73,77 @@ class EmailThreadMessage
      */
     protected $preview;
     /**
-     * Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
+     * Plain-text content of the message with quoted history stripped. Readable for the mailbox's full retention tier, in both directions. Always present when fetching a single message. On list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
      * 
      *
      * @var string|null
      */
     protected $extractedText;
     /**
-     * Labels on this message. System labels carry its state: a received message holds exactly one placement label — `inbox` for accepted mail, `archive` when its conversation was filed away, `spam` (failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — plus `unread` until it is read. `trash` marks a message in the trash, either direction. Custom labels share the same list; a message carries at most 20.
+     * Labels on this message. A received message always has exactly one placement label:
+     * 
+     * - `inbox`: Accepted mail.
+     * - `archive`: The message's conversation was filed away.
+     * - `spam`: The message failed sender authentication.
+     * - `blocked`: The message was rejected by the mailbox's receive policy or rules.
+     * 
+     * A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
      * 
      *
      * @var list<string>|null
      */
     protected $labels;
     /**
-     * Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
+     * Folded delivery status of a sent message:
+     * 
+     * - `accepted`: Accepted for sending.
+     * - `sent`: Handed off to the provider.
+     * - `delivered`: All attempted recipients delivered.
+     * - `failed`: Terminal failure.
+     * 
+     * Null for received messages.
      * 
      *
      * @var string|null
      */
     protected $status;
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      * 
      *
      * @var list<EmailThreadMessageRecipient>|null
      */
     protected $recipients;
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
      * 
      *
      * @var string|null
      */
     protected $authentication;
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @var bool|null
      */
     protected $spfPass;
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @var bool|null
      */
     protected $dkimPass;
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @var bool|null
      */
     protected $dmarcPass;
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention period, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @var \DateTime|null
@@ -142,7 +156,7 @@ class EmailThreadMessage
      */
     protected $attachmentCount;
     /**
-     * Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
      * 
      *
      * @var list<EmailThreadMessageAttachment>|null
@@ -161,7 +175,7 @@ class EmailThreadMessage
      */
     protected $contactId;
     /**
-     * Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+     * Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
      * 
      *
      * @var EmailThreadMessageSource|null
@@ -174,7 +188,7 @@ class EmailThreadMessage
      */
     protected $occurredAt;
     /**
-     * Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
+     * Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
      * 
      *
      * @return string|null
@@ -184,7 +198,7 @@ class EmailThreadMessage
         return $this->id;
     }
     /**
-     * Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
+     * Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
      *
      * @param string|null $id
      *
@@ -197,7 +211,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+     * Which way the message went. `inbound` means you received it, `outbound` means you sent it.
      *
      * @return string|null
      */
@@ -206,7 +220,7 @@ class EmailThreadMessage
         return $this->direction;
     }
     /**
-     * Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+     * Which way the message went. `inbound` means you received it, `outbound` means you sent it.
      *
      * @param string|null $direction
      *
@@ -219,7 +233,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Channel this message was carried on. Always `email`.
+     * Channel this message lives on. Always `email`.
      *
      * @return string|null
      */
@@ -228,7 +242,7 @@ class EmailThreadMessage
         return $this->channel;
     }
     /**
-     * Channel this message was carried on. Always `email`.
+     * Channel this message lives on. Always `email`.
      *
      * @param string|null $channel
      *
@@ -392,7 +406,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
+     * Plain-text content of the message with quoted history stripped. Readable for the mailbox's full retention tier, in both directions. Always present when fetching a single message. On list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
      * 
      *
      * @return string|null
@@ -402,7 +416,7 @@ class EmailThreadMessage
         return $this->extractedText;
     }
     /**
-     * Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
+     * Plain-text content of the message with quoted history stripped. Readable for the mailbox's full retention tier, in both directions. Always present when fetching a single message. On list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
      *
      * @param string|null $extractedText
      *
@@ -415,7 +429,14 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Labels on this message. System labels carry its state: a received message holds exactly one placement label — `inbox` for accepted mail, `archive` when its conversation was filed away, `spam` (failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — plus `unread` until it is read. `trash` marks a message in the trash, either direction. Custom labels share the same list; a message carries at most 20.
+     * Labels on this message. A received message always has exactly one placement label:
+     * 
+     * - `inbox`: Accepted mail.
+     * - `archive`: The message's conversation was filed away.
+     * - `spam`: The message failed sender authentication.
+     * - `blocked`: The message was rejected by the mailbox's receive policy or rules.
+     * 
+     * A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
      * 
      *
      * @return list<string>|null
@@ -425,12 +446,20 @@ class EmailThreadMessage
         return $this->labels;
     }
     /**
-     * Labels on this message. System labels carry its state: a received message holds exactly one placement label — `inbox` for accepted mail, `archive` when its conversation was filed away, `spam` (failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — plus `unread` until it is read. `trash` marks a message in the trash, either direction. Custom labels share the same list; a message carries at most 20.
-     *
-     * @param list<string>|null $labels
-     *
-     * @return self
-     */
+    * Labels on this message. A received message always has exactly one placement label:
+    
+    - `inbox`: Accepted mail.
+    - `archive`: The message's conversation was filed away.
+    - `spam`: The message failed sender authentication.
+    - `blocked`: The message was rejected by the mailbox's receive policy or rules.
+    
+    A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
+    
+    *
+    * @param list<string>|null $labels
+    *
+    * @return self
+    */
     public function setLabels(?array $labels): self
     {
         $this->initialized['labels'] = true;
@@ -438,7 +467,14 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
+     * Folded delivery status of a sent message:
+     * 
+     * - `accepted`: Accepted for sending.
+     * - `sent`: Handed off to the provider.
+     * - `delivered`: All attempted recipients delivered.
+     * - `failed`: Terminal failure.
+     * 
+     * Null for received messages.
      * 
      *
      * @return string|null
@@ -448,12 +484,20 @@ class EmailThreadMessage
         return $this->status;
     }
     /**
-     * Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
-     *
-     * @param string|null $status
-     *
-     * @return self
-     */
+    * Folded delivery status of a sent message:
+    
+    - `accepted`: Accepted for sending.
+    - `sent`: Handed off to the provider.
+    - `delivered`: All attempted recipients delivered.
+    - `failed`: Terminal failure.
+    
+    Null for received messages.
+    
+    *
+    * @param string|null $status
+    *
+    * @return self
+    */
     public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;
@@ -461,7 +505,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      * 
      *
      * @return list<EmailThreadMessageRecipient>|null
@@ -471,7 +515,7 @@ class EmailThreadMessage
         return $this->recipients;
     }
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      *
      * @param list<EmailThreadMessageRecipient>|null $recipients
      *
@@ -484,7 +528,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
      * 
      *
      * @return string|null
@@ -494,7 +538,7 @@ class EmailThreadMessage
         return $this->authentication;
     }
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
      *
      * @param string|null $authentication
      *
@@ -507,7 +551,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @return bool|null
@@ -517,7 +561,7 @@ class EmailThreadMessage
         return $this->spfPass;
     }
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      *
      * @param bool|null $spfPass
      *
@@ -530,7 +574,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @return bool|null
@@ -540,7 +584,7 @@ class EmailThreadMessage
         return $this->dkimPass;
     }
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      *
      * @param bool|null $dkimPass
      *
@@ -553,7 +597,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      * 
      *
      * @return bool|null
@@ -563,7 +607,7 @@ class EmailThreadMessage
         return $this->dmarcPass;
     }
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
      *
      * @param bool|null $dmarcPass
      *
@@ -576,7 +620,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention period, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @return \DateTime|null
@@ -586,7 +630,7 @@ class EmailThreadMessage
         return $this->purgeAt;
     }
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention period, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      *
      * @param \DateTime|null $purgeAt
      *
@@ -621,7 +665,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
      * 
      *
      * @return list<EmailThreadMessageAttachment>|null
@@ -631,7 +675,7 @@ class EmailThreadMessage
         return $this->attachmentManifest;
     }
     /**
-     * Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
      *
      * @param list<EmailThreadMessageAttachment>|null $attachmentManifest
      *
@@ -688,7 +732,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+     * Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
      * 
      *
      * @return EmailThreadMessageSource|null
@@ -698,7 +742,7 @@ class EmailThreadMessage
         return $this->source;
     }
     /**
-     * Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+     * Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
      *
      * @param EmailThreadMessageSource|null $source
      *
