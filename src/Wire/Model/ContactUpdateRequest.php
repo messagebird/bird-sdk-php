@@ -23,7 +23,7 @@ class ContactUpdateRequest
      *
      * @var string|null
      */
-    protected $phone;
+    protected $phoneNumber;
     /**
      * The contact's first name. Set to null to clear.
      *
@@ -76,21 +76,21 @@ class ContactUpdateRequest
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
     /**
      * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
      *
-     * @param string|null $phone
+     * @param string|null $phoneNumber
      *
      * @return self
      */
-    public function setPhone(?string $phone): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->initialized['phone'] = true;
-        $this->phone = $phone;
+        $this->initialized['phoneNumber'] = true;
+        $this->phoneNumber = $phoneNumber;
         return $this;
     }
     /**

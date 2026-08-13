@@ -17,7 +17,7 @@ class VerificationTo
      *
      * @var string|null
      */
-    protected $emailAddress;
+    protected $email;
     /**
      * The recipient's phone number in E.164 format, with the leading `+` and country code (for example `+15551234567`). A number in any other format is rejected as an invalid recipient (`422`).
      *
@@ -29,21 +29,21 @@ class VerificationTo
      *
      * @return string|null
      */
-    public function getEmailAddress(): ?string
+    public function getEmail(): ?string
     {
-        return $this->emailAddress;
+        return $this->email;
     }
     /**
      * The recipient's email address. Case does not matter; the address is lowercased before use.
      *
-     * @param string|null $emailAddress
+     * @param string|null $email
      *
      * @return self
      */
-    public function setEmailAddress(?string $emailAddress): self
+    public function setEmail(?string $email): self
     {
-        $this->initialized['emailAddress'] = true;
-        $this->emailAddress = $emailAddress;
+        $this->initialized['email'] = true;
+        $this->email = $email;
         return $this;
     }
     /**

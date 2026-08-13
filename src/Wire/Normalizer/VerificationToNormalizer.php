@@ -37,11 +37,11 @@ class VerificationToNormalizer implements DenormalizerInterface, NormalizerInter
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('email_address', $data) && $data['email_address'] !== null) {
-            $object->setEmailAddress($data['email_address']);
+        if (\array_key_exists('email', $data) && $data['email'] !== null) {
+            $object->setEmail($data['email']);
         }
-        elseif (\array_key_exists('email_address', $data) && $data['email_address'] === null) {
-            $object->setEmailAddress(null);
+        elseif (\array_key_exists('email', $data) && $data['email'] === null) {
+            $object->setEmail(null);
         }
         if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
             $object->setPhoneNumber($data['phone_number']);
@@ -54,8 +54,8 @@ class VerificationToNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('emailAddress') && null !== $data->getEmailAddress()) {
-            $dataArray['email_address'] = $data->getEmailAddress();
+        if ($data->isInitialized('email') && null !== $data->getEmail()) {
+            $dataArray['email'] = $data->getEmail();
         }
         if ($data->isInitialized('phoneNumber') && null !== $data->getPhoneNumber()) {
             $dataArray['phone_number'] = $data->getPhoneNumber();

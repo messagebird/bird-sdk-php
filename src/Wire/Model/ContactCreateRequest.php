@@ -23,7 +23,7 @@ class ContactCreateRequest
      *
      * @var string|null
      */
-    protected $phone;
+    protected $phoneNumber;
     /**
      * The contact's first name.
      *
@@ -76,21 +76,21 @@ class ContactCreateRequest
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
     /**
      * The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
      *
-     * @param string|null $phone
+     * @param string|null $phoneNumber
      *
      * @return self
      */
-    public function setPhone(?string $phone): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->initialized['phone'] = true;
-        $this->phone = $phone;
+        $this->initialized['phoneNumber'] = true;
+        $this->phoneNumber = $phoneNumber;
         return $this;
     }
     /**

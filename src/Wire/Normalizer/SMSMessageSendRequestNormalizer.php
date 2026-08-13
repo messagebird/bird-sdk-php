@@ -37,12 +37,6 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('max_price_per_segment', $data) && \is_int($data['max_price_per_segment'])) {
-            $data['max_price_per_segment'] = (float) $data['max_price_per_segment'];
-        }
-        if (\array_key_exists('track_clicks', $data) && \is_int($data['track_clicks'])) {
-            $data['track_clicks'] = (bool) $data['track_clicks'];
-        }
         if (\array_key_exists('to', $data) && $data['to'] !== null) {
             $object->setTo($data['to']);
         }
@@ -92,6 +86,12 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
+        }
+        if (\array_key_exists('options', $data) && $data['options'] !== null) {
+            $object->setOptions($this->denormalizer->denormalize($data['options'], \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class, 'json', $context));
+        }
+        elseif (\array_key_exists('options', $data) && $data['options'] === null) {
+            $object->setOptions(null);
         }
         if (\array_key_exists('media_urls', $data) && $data['media_urls'] !== null) {
             $values_2 = [];
@@ -151,12 +151,6 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('topic_id', $data) && $data['topic_id'] === null) {
             $object->setTopicId(null);
         }
-        if (\array_key_exists('max_price_per_segment', $data) && $data['max_price_per_segment'] !== null) {
-            $object->setMaxPricePerSegment($data['max_price_per_segment']);
-        }
-        elseif (\array_key_exists('max_price_per_segment', $data) && $data['max_price_per_segment'] === null) {
-            $object->setMaxPricePerSegment(null);
-        }
         if (\array_key_exists('personalization', $data) && $data['personalization'] !== null) {
             $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['personalization'] as $key_1 => $value_3) {
@@ -166,12 +160,6 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         }
         elseif (\array_key_exists('personalization', $data) && $data['personalization'] === null) {
             $object->setPersonalization(null);
-        }
-        if (\array_key_exists('track_clicks', $data) && $data['track_clicks'] !== null) {
-            $object->setTrackClicks($data['track_clicks']);
-        }
-        elseif (\array_key_exists('track_clicks', $data) && $data['track_clicks'] === null) {
-            $object->setTrackClicks(null);
         }
         return $object;
     }
@@ -205,6 +193,9 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
             }
             $dataArray['metadata'] = $values_1;
         }
+        if ($data->isInitialized('options') && null !== $data->getOptions()) {
+            $dataArray['options'] = $this->normalizer->normalize($data->getOptions(), 'json', $context);
+        }
         if ($data->isInitialized('mediaUrls') && null !== $data->getMediaUrls()) {
             $values_2 = [];
             foreach ($data->getMediaUrls() as $value_2) {
@@ -236,18 +227,12 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         if ($data->isInitialized('topicId') && null !== $data->getTopicId()) {
             $dataArray['topic_id'] = $data->getTopicId();
         }
-        if ($data->isInitialized('maxPricePerSegment') && null !== $data->getMaxPricePerSegment()) {
-            $dataArray['max_price_per_segment'] = $data->getMaxPricePerSegment();
-        }
         if ($data->isInitialized('personalization') && null !== $data->getPersonalization()) {
             $values_3 = [];
             foreach ($data->getPersonalization() as $key_1 => $value_3) {
                 $values_3[$key_1] = $value_3;
             }
             $dataArray['personalization'] = $values_3;
-        }
-        if ($data->isInitialized('trackClicks') && null !== $data->getTrackClicks()) {
-            $dataArray['track_clicks'] = $data->getTrackClicks();
         }
         return $dataArray;
     }

@@ -43,11 +43,11 @@ class ContactCreateRequestNormalizer implements DenormalizerInterface, Normalize
         elseif (\array_key_exists('email', $data) && $data['email'] === null) {
             $object->setEmail(null);
         }
-        if (\array_key_exists('phone', $data) && $data['phone'] !== null) {
-            $object->setPhone($data['phone']);
+        if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
+            $object->setPhoneNumber($data['phone_number']);
         }
-        elseif (\array_key_exists('phone', $data) && $data['phone'] === null) {
-            $object->setPhone(null);
+        elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
+            $object->setPhoneNumber(null);
         }
         if (\array_key_exists('first_name', $data) && $data['first_name'] !== null) {
             $object->setFirstName($data['first_name']);
@@ -85,8 +85,8 @@ class ContactCreateRequestNormalizer implements DenormalizerInterface, Normalize
         if ($data->isInitialized('email') && null !== $data->getEmail()) {
             $dataArray['email'] = $data->getEmail();
         }
-        if ($data->isInitialized('phone') && null !== $data->getPhone()) {
-            $dataArray['phone'] = $data->getPhone();
+        if ($data->isInitialized('phoneNumber') && null !== $data->getPhoneNumber()) {
+            $dataArray['phone_number'] = $data->getPhoneNumber();
         }
         if ($data->isInitialized('firstName') && null !== $data->getFirstName()) {
             $dataArray['first_name'] = $data->getFirstName();

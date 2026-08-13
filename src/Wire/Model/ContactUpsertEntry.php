@@ -23,7 +23,7 @@ class ContactUpsertEntry
      *
      * @var string|null
      */
-    protected $phone;
+    protected $phoneNumber;
     /**
      * Your own identifier for this entry, when the entry supplied one.
      *
@@ -57,21 +57,21 @@ class ContactUpsertEntry
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
     /**
      * Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
      *
-     * @param string|null $phone
+     * @param string|null $phoneNumber
      *
      * @return self
      */
-    public function setPhone(?string $phone): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->initialized['phone'] = true;
-        $this->phone = $phone;
+        $this->initialized['phoneNumber'] = true;
+        $this->phoneNumber = $phoneNumber;
         return $this;
     }
     /**

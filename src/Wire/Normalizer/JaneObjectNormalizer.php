@@ -134,9 +134,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\SMSMessage::class => \MessageBird\Wire\Normalizer\SMSMessageNormalizer::class,
         
+        \MessageBird\Wire\Model\SMSMessageOptions::class => \MessageBird\Wire\Normalizer\SMSMessageOptionsNormalizer::class,
+        
         \MessageBird\Wire\Model\SMSMessageList::class => \MessageBird\Wire\Normalizer\SMSMessageListNormalizer::class,
         
         \MessageBird\Wire\Model\SMSMessageSendRequest::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestOptionsNormalizer::class,
         
         \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestTemplateNormalizer::class,
         
@@ -558,8 +562,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\MessageCost::class => false,
             \MessageBird\Wire\Model\SMSError::class => false,
             \MessageBird\Wire\Model\SMSMessage::class => false,
+            \MessageBird\Wire\Model\SMSMessageOptions::class => false,
             \MessageBird\Wire\Model\SMSMessageList::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequest::class => false,
+            \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\SMSBatchSummary::class => false,
             \MessageBird\Wire\Model\SMSMessageBatchResponse::class => false,

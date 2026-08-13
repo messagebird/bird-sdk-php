@@ -8,6 +8,7 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSMessage;
 use MessageBird\Wire\Model\SMSMessageBatchResponse;
 use MessageBird\Wire\Model\SMSMessageSendRequest;
+use MessageBird\Wire\Model\SMSMessageSendRequestOptions;
 use MessageBird\Wire\Model\SMSMessageSendRequestTemplate;
 use MessageBird\Wire\Model\Tag;
 
@@ -29,6 +30,7 @@ final class Sms extends SmsBase
      * @param array<string, mixed>|null  $parameters template variable values; template sends only
      * @param list<Tag>|null             $tags
      * @param array<string, mixed>|null  $metadata
+     * @param bool|null                  $smartEncoding replace non-GSM-7 characters with their closest equivalent, lowering the segment count; off unless set
      */
     public function send(
         string $to,
@@ -40,6 +42,7 @@ final class Sms extends SmsBase
         ?array $parameters = null,
         ?array $tags = null,
         ?array $metadata = null,
+        ?bool $smartEncoding = null,
         ?RequestOptions $options = null,
     ): SMSMessage {
         $request = (new SMSMessageSendRequest())->setTo($to);
@@ -71,6 +74,9 @@ final class Sms extends SmsBase
         }
         if ($metadata !== null) {
             $request->setMetadata($metadata);
+        }
+        if ($smartEncoding !== null) {
+            $request->setOptions((new SMSMessageSendRequestOptions())->setSmartEncoding($smartEncoding));
         }
 
         return $this->single('POST', '/v1/sms/messages', SMSMessage::class, $request, null, $options);

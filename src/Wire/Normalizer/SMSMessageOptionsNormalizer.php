@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class ContactUpsertEntryNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class SMSMessageOptionsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class ContactUpsertEntryNormalizer implements DenormalizerInterface, NormalizerI
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\ContactUpsertEntry::class;
+        return $type === \MessageBird\Wire\Model\SMSMessageOptions::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\ContactUpsertEntry::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\SMSMessageOptions::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\ContactUpsertEntry();
+        $object = new \MessageBird\Wire\Model\SMSMessageOptions();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,36 +37,36 @@ class ContactUpsertEntryNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('email', $data) && $data['email'] !== null) {
-            $object->setEmail($data['email']);
+        if (\array_key_exists('smart_encoding', $data) && \is_int($data['smart_encoding'])) {
+            $data['smart_encoding'] = (bool) $data['smart_encoding'];
         }
-        elseif (\array_key_exists('email', $data) && $data['email'] === null) {
-            $object->setEmail(null);
+        if (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] !== null) {
+            $object->setSmartEncoding($data['smart_encoding']);
+            unset($data['smart_encoding']);
         }
-        if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
-            $object->setPhoneNumber($data['phone_number']);
+        elseif (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] === null) {
+            $object->setSmartEncoding(null);
         }
-        elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
-            $object->setPhoneNumber(null);
-        }
-        if (\array_key_exists('external_id', $data) && $data['external_id'] !== null) {
-            $object->setExternalId($data['external_id']);
-        }
-        elseif (\array_key_exists('external_id', $data) && $data['external_id'] === null) {
-            $object->setExternalId(null);
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
+            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['email'] = $data->getEmail();
-        $dataArray['phone_number'] = $data->getPhoneNumber();
-        $dataArray['external_id'] = $data->getExternalId();
+        $dataArray['smart_encoding'] = $data->getSmartEncoding();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\ContactUpsertEntry::class => false];
+        return [\MessageBird\Wire\Model\SMSMessageOptions::class => false];
     }
 }

@@ -12,7 +12,7 @@ $bird = new Bird('bk_XXXXXXXXXXXXXXXXXXXXXXXX');
 
 $result = $bird->verify->verifications->check(
     (new VerificationCheckRequest())
-        ->setTo((new VerificationTo())->setEmailAddress('user@example.com'))
+        ->setTo((new VerificationTo())->setEmail('user@example.com'))
         ->setCode('123456'),
 );
 

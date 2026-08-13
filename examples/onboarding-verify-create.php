@@ -12,7 +12,7 @@ $bird = new Bird('bk_XXXXXXXXXXXXXXXXXXXXXXXX');
 
 $verification = $bird->verify->verifications->create(
     (new VerificationCreateRequest())
-        ->setTo((new VerificationTo())->setEmailAddress('user@example.com')),
+        ->setTo((new VerificationTo())->setEmail('user@example.com')),
 );
 
 echo $verification->getId(), ' ', $verification->getStatus(), "\n";

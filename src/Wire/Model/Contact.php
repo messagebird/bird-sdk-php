@@ -27,7 +27,7 @@ class Contact extends \ArrayObject
      *
      * @var string|null
      */
-    protected $phone;
+    protected $phoneNumber;
     /**
      * The contact's first name. Available in broadcast templates as `bird.contact.first_name`.
      *
@@ -112,21 +112,21 @@ class Contact extends \ArrayObject
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
     /**
      * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
      *
-     * @param string|null $phone
+     * @param string|null $phoneNumber
      *
      * @return self
      */
-    public function setPhone(?string $phone): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->initialized['phone'] = true;
-        $this->phone = $phone;
+        $this->initialized['phoneNumber'] = true;
+        $this->phoneNumber = $phoneNumber;
         return $this;
     }
     /**

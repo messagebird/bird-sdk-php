@@ -79,6 +79,13 @@ class SMSMessage
      */
     protected $metadata;
     /**
+     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     * 
+     *
+     * @var SMSMessageOptions|null
+     */
+    protected $options;
+    /**
      * How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
      *
      * @var int|null
@@ -356,6 +363,29 @@ class SMSMessage
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     * 
+     *
+     * @return SMSMessageOptions|null
+     */
+    public function getOptions(): ?SMSMessageOptions
+    {
+        return $this->options;
+    }
+    /**
+     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     *
+     * @param SMSMessageOptions|null $options
+     *
+     * @return self
+     */
+    public function setOptions(?SMSMessageOptions $options): self
+    {
+        $this->initialized['options'] = true;
+        $this->options = $options;
         return $this;
     }
     /**

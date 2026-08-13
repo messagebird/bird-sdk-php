@@ -29,7 +29,7 @@ class Verification extends \ArrayObject
      */
     protected $reason;
     /**
-     * The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+     * The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
      * 
      *
      * @var VerificationTo|null
@@ -136,7 +136,7 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+     * The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
      * 
      *
      * @return VerificationTo|null
@@ -146,7 +146,7 @@ class Verification extends \ArrayObject
         return $this->to;
     }
     /**
-     * The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+     * The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
      *
      * @param VerificationTo|null $to
      *

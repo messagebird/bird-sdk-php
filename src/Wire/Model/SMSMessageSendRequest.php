@@ -61,6 +61,13 @@ class SMSMessageSendRequest
      */
     protected $metadata;
     /**
+     * What Bird does to this message on its way out, such as `smart_encoding`. The message being relayed stays at the top level: its recipient, sender, content, and the delivery instructions the carrier acts on.
+     * 
+     *
+     * @var SMSMessageSendRequestOptions|null
+     */
+    protected $options;
+    /**
      * Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
      *
      * @var list<string>|null
@@ -116,23 +123,11 @@ class SMSMessageSendRequest
      */
     protected $topicId;
     /**
-     * Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
-     *
-     * @var float|null
-     */
-    protected $maxPricePerSegment;
-    /**
      * Preview feature: per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
      *
      * @var array<string, mixed>|null
      */
     protected $personalization;
-    /**
-     * Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
-     *
-     * @var bool|null
-     */
-    protected $trackClicks;
     /**
      * Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
      *
@@ -291,6 +286,29 @@ class SMSMessageSendRequest
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * What Bird does to this message on its way out, such as `smart_encoding`. The message being relayed stays at the top level: its recipient, sender, content, and the delivery instructions the carrier acts on.
+     * 
+     *
+     * @return SMSMessageSendRequestOptions|null
+     */
+    public function getOptions(): ?SMSMessageSendRequestOptions
+    {
+        return $this->options;
+    }
+    /**
+     * What Bird does to this message on its way out, such as `smart_encoding`. The message being relayed stays at the top level: its recipient, sender, content, and the delivery instructions the carrier acts on.
+     *
+     * @param SMSMessageSendRequestOptions|null $options
+     *
+     * @return self
+     */
+    public function setOptions(?SMSMessageSendRequestOptions $options): self
+    {
+        $this->initialized['options'] = true;
+        $this->options = $options;
         return $this;
     }
     /**
@@ -493,28 +511,6 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
-     *
-     * @return float|null
-     */
-    public function getMaxPricePerSegment(): ?float
-    {
-        return $this->maxPricePerSegment;
-    }
-    /**
-     * Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
-     *
-     * @param float|null $maxPricePerSegment
-     *
-     * @return self
-     */
-    public function setMaxPricePerSegment(?float $maxPricePerSegment): self
-    {
-        $this->initialized['maxPricePerSegment'] = true;
-        $this->maxPricePerSegment = $maxPricePerSegment;
-        return $this;
-    }
-    /**
      * Preview feature: per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
      *
      * @return array<string, mixed>|null
@@ -534,28 +530,6 @@ class SMSMessageSendRequest
     {
         $this->initialized['personalization'] = true;
         $this->personalization = $personalization;
-        return $this;
-    }
-    /**
-     * Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
-     *
-     * @return bool|null
-     */
-    public function getTrackClicks(): ?bool
-    {
-        return $this->trackClicks;
-    }
-    /**
-     * Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
-     *
-     * @param bool|null $trackClicks
-     *
-     * @return self
-     */
-    public function setTrackClicks(?bool $trackClicks): self
-    {
-        $this->initialized['trackClicks'] = true;
-        $this->trackClicks = $trackClicks;
         return $this;
     }
 }

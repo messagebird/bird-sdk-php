@@ -51,12 +51,12 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('email', $data) && $data['email'] === null) {
             $object->setEmail(null);
         }
-        if (\array_key_exists('phone', $data) && $data['phone'] !== null) {
-            $object->setPhone($data['phone']);
-            unset($data['phone']);
+        if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
+            $object->setPhoneNumber($data['phone_number']);
+            unset($data['phone_number']);
         }
-        elseif (\array_key_exists('phone', $data) && $data['phone'] === null) {
-            $object->setPhone(null);
+        elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
+            $object->setPhoneNumber(null);
         }
         if (\array_key_exists('first_name', $data) && $data['first_name'] !== null) {
             $object->setFirstName($data['first_name']);
@@ -127,7 +127,7 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $dataArray = [];
         $dataArray['id'] = $data->getId();
         $dataArray['email'] = $data->getEmail();
-        $dataArray['phone'] = $data->getPhone();
+        $dataArray['phone_number'] = $data->getPhoneNumber();
         if ($data->isInitialized('firstName')) {
             $dataArray['first_name'] = $data->getFirstName();
         }

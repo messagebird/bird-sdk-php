@@ -111,6 +111,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
+        if (\array_key_exists('options', $data) && $data['options'] !== null) {
+            $object->setOptions($this->denormalizer->denormalize($data['options'], \MessageBird\Wire\Model\SMSMessageOptions::class, 'json', $context));
+        }
+        elseif (\array_key_exists('options', $data) && $data['options'] === null) {
+            $object->setOptions(null);
+        }
         if (\array_key_exists('validity_period', $data) && $data['validity_period'] !== null) {
             $object->setValidityPeriod($data['validity_period']);
         }
