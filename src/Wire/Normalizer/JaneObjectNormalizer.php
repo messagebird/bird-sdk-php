@@ -20,7 +20,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\ErrorDetail::class => \MessageBird\Wire\Normalizer\ErrorDetailNormalizer::class,
         
-        \MessageBird\Wire\Model\ErrorNextAction::class => \MessageBird\Wire\Normalizer\ErrorNextActionNormalizer::class,
+        \MessageBird\Wire\Model\NextAction::class => \MessageBird\Wire\Normalizer\NextActionNormalizer::class,
         
         \MessageBird\Wire\Model\UnmetGate::class => \MessageBird\Wire\Normalizer\UnmetGateNormalizer::class,
         
@@ -149,6 +149,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSMessageBatchResponse::class => \MessageBird\Wire\Normalizer\SMSMessageBatchResponseNormalizer::class,
         
         \MessageBird\Wire\Model\TemplateVariable::class => \MessageBird\Wire\Normalizer\TemplateVariableNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSTemplateLanguageState::class => \MessageBird\Wire\Normalizer\SMSTemplateLanguageStateNormalizer::class,
         
         \MessageBird\Wire\Model\SMSTemplate::class => \MessageBird\Wire\Normalizer\SMSTemplateNormalizer::class,
         
@@ -531,7 +533,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         return [
             
             \MessageBird\Wire\Model\ErrorDetail::class => false,
-            \MessageBird\Wire\Model\ErrorNextAction::class => false,
+            \MessageBird\Wire\Model\NextAction::class => false,
             \MessageBird\Wire\Model\UnmetGate::class => false,
             \MessageBird\Wire\Model\ErrorBody::class => false,
             \MessageBird\Wire\Model\Error::class => false,
@@ -596,6 +598,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSBatchSummary::class => false,
             \MessageBird\Wire\Model\SMSMessageBatchResponse::class => false,
             \MessageBird\Wire\Model\TemplateVariable::class => false,
+            \MessageBird\Wire\Model\SMSTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\SMSTemplate::class => false,
             \MessageBird\Wire\Model\SMSTemplateList::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,

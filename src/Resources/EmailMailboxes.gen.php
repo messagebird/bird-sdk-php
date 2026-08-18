@@ -50,11 +50,9 @@ class EmailMailboxesBase extends Resource
     /**
      * Create a mailbox: a durable agent identity that owns an email address, groups mail into conversations, and remembers conversations for its retention tier.
      *
-     * @example Create a mailbox on a verified domain
+     * @example Create a mailbox, letting Bird mint the address
      * $mailbox = $bird->email->mailboxes->create(
      *     (new MailboxCreate())
-     *         ->setLocalPart('support')
-     *         ->setDomain('messagebird.dev')
      *         ->setDisplayName('Acme Support'),
      * );
      * echo $mailbox->getId(), ' ', $mailbox->getAddress();

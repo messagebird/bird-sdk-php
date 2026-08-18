@@ -13,20 +13,21 @@ class TemplateVariable
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The variable's name, the key you use for it in `parameters` when you send.
+     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+     * 
      *
      * @var string|null
      */
     protected $key;
     /**
-     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
+     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
      * 
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
+     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
      * 
      *
      * @var bool|null
@@ -39,14 +40,15 @@ class TemplateVariable
      */
     protected $constraint;
     /**
-     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
+     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
      * 
      *
      * @var bool|null
      */
     protected $sensitive = false;
     /**
-     * The variable's name, the key you use for it in `parameters` when you send.
+     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+     * 
      *
      * @return string|null
      */
@@ -55,7 +57,7 @@ class TemplateVariable
         return $this->key;
     }
     /**
-     * The variable's name, the key you use for it in `parameters` when you send.
+     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
      *
      * @param string|null $key
      *
@@ -68,7 +70,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
+     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
      * 
      *
      * @return string|null
@@ -78,7 +80,7 @@ class TemplateVariable
         return $this->type;
     }
     /**
-     * The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
+     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
      *
      * @param string|null $type
      *
@@ -91,7 +93,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
+     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
      * 
      *
      * @return bool|null
@@ -101,7 +103,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
+     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
      *
      * @param bool|null $required
      *
@@ -136,7 +138,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
+     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
      * 
      *
      * @return bool|null
@@ -146,7 +148,7 @@ class TemplateVariable
         return $this->sensitive;
     }
     /**
-     * Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
+     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
      *
      * @param bool|null $sensitive
      *

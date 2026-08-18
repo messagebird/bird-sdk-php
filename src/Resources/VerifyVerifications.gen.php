@@ -16,7 +16,7 @@ use MessageBird\Wire\Model\VerificationNextChannelRequest;
 final class VerifyVerifications extends Resource
 {
     /**
-     * Start a verification: generate a one-time passcode and send it to the recipient in `to` (a phone number over the phone channels enabled for its destination country; an email address over email; or both). It is sent over one channel at a time and fails over to the next in the plan, never over two at once. Calling again for the same recipient reuses the in-progress verification and sends a fresh code after the resend cooldown; it does not start a second one, so use this both to send and to resend. The passcode is never returned; submit what the recipient enters with verify_verifications_check. SMS delivery draws on the workspace's SMS balance.
+     * Start a verification: generate a one-time passcode and send it to the recipient in `to` (a phone number over the phone channels enabled for its destination country; an email address over email; or both). It is sent over one channel at a time and fails over to the next in the plan, never over two at once. Calling again for the same recipient reuses the in-progress verification and sends a fresh code after the resend cooldown; it does not start a second one, so use this both to send and to resend. The passcode is never returned; submit what the recipient enters with verify_verifications_check. SMS, WhatsApp and Telegram delivery all draw on the workspace's balance.
      *
      * @example Start a verification over SMS
      * $verification = $bird->verify->verifications->create(
@@ -47,6 +47,12 @@ final class VerifyVerifications extends Resource
 
     /**
      * Advance an in-progress verification to the next channel in its plan and send a fresh passcode there: the "I didn't receive my code" action. The verification is identified by the same `to` recipient used to start it, with no verification id needed. The send bypasses the resend cooldown, and earlier passcodes stay valid. Returns the verification with `last_channel` set to the channel the new code went to; when concurrent advances race for the same recipient, the response reflects committed state: `last_channel` names the most recent completed send, and the racing call that completed the newer send is authoritative. A plan with no further channel returns a 422 named NoNextChannel, after which only re-creating the verification will resend.
+     *
+     * @example Retry on the next channel
+     * $verification = $bird->verify->verifications->nextChannel(
+     *     (new VerificationNextChannelRequest())->setTo((new VerificationTo())->setPhoneNumber('+15551234567')),
+     * );
+     * echo $verification->getLastChannel();
      */
     public function nextChannel(VerificationNextChannelRequest $params, ?RequestOptions $options = null): Verification
     {

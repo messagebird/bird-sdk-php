@@ -15,18 +15,18 @@ use MessageBird\Wire\Model\Tag;
 /**
  * The SMS channel. get and list are generated on SmsBase; this parent hand-writes
  * the flagship `send` with ergonomic named arguments — folding a template handle
- * (id or name) into the nested template object — and `sendBatch`.
+ * (id or slug) into the nested template object — and `sendBatch`.
  */
 final class Sms extends SmsBase
 {
     /**
      * Send an SMS and return the created message.
      *
-     * Provide either $text (with $category) or a $template (by id `smt_…` or name,
+     * Provide either $text (with $category) or a $template (by id `smt_…` or slug,
      * with $parameters) — the two are mutually exclusive. An unset optional
      * argument is omitted from the request.
      *
-     * @param string|null                $template   stored template id (`smt_…`) or name
+     * @param string|null                $template   stored template id (`smt_…`) or slug
      * @param array<string, mixed>|null  $parameters template variable values; template sends only
      * @param list<Tag>|null             $tags
      * @param array<string, mixed>|null  $metadata
@@ -58,8 +58,8 @@ final class Sms extends SmsBase
         if ($template !== null || $language !== null || $parameters !== null) {
             $tmpl = new SMSMessageSendRequestTemplate();
             if ($template !== null) {
-                // An `smt_`-prefixed value is the stored id; anything else is the name handle.
-                str_starts_with($template, 'smt_') ? $tmpl->setId($template) : $tmpl->setName($template);
+                // An `smt_`-prefixed value is the stored id; anything else is the slug handle.
+                str_starts_with($template, 'smt_') ? $tmpl->setId($template) : $tmpl->setSlug($template);
             }
             if ($language !== null) {
                 $tmpl->setLanguage($language);

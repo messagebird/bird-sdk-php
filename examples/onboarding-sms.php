@@ -9,7 +9,7 @@ use MessageBird\Bird;
 $bird = new Bird('bk_XXXXXXXXXXXXXXXXXXXXXXXX');
 
 $message = $bird->sms->send(
-    to: '+15551234567',
+    to: '+14155550100',
     template: 'bird_otp_verification',
     parameters: ['code' => '493021'],
 );

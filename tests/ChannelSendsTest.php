@@ -62,7 +62,7 @@ final class ChannelSendsTest extends TestCase
         self::assertArrayNotHasKey('from', $body);
     }
 
-    public function testSmsSendFoldsTemplateIdAndName(): void
+    public function testSmsSendFoldsTemplateIdAndSlug(): void
     {
         $recording = $this->recording();
         $this->bird($recording)->sms->send(to: '+15551234567', template: 'smt_abc', language: 'en');
@@ -70,7 +70,7 @@ final class ChannelSendsTest extends TestCase
 
         $recording2 = $this->recording();
         $this->bird($recording2)->sms->send(to: '+15551234567', template: 'welcome');
-        self::assertSame(['name' => 'welcome'], $this->sentBody($recording2)['template']);
+        self::assertSame(['slug' => 'welcome'], $this->sentBody($recording2)['template']);
     }
 
     public function testSmsSendBatchIsBareArray(): void

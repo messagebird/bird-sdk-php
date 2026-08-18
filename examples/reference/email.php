@@ -24,6 +24,7 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailLabelsUpdate;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
+use MessageBird\Wire\Model\EmailMessageSendRequestTemplate;
 use MessageBird\Wire\Model\EmailThreadMessageReplyRequest;
 use MessageBird\Wire\Model\EmailThreadUpdateRequest;
 use MessageBird\Wire\Model\MailboxCreate;
@@ -37,6 +38,24 @@ $message = $bird->email->send(
     to: ['delivered@messagebird.dev'],
     subject: 'Hello from Bird',
     html: '<p>My first Bird email.</p>',
+);
+echo $message->getId(), ' ', $message->getStatus();
+
+$message = $bird->email->send(
+    from: 'Bird <onboarding@messagebird.dev>',
+    to: ['delivered@messagebird.dev'],
+    category: 'transactional',
+    template: (new EmailMessageSendRequestTemplate())
+        ->setSlug('welcome-email')
+        ->setParameters(['first_name' => 'Jane']),
+);
+echo $message->getId(), ' ', $message->getStatus();
+
+$message = $bird->email->send(
+    from: 'Bird <onboarding@messagebird.dev>',
+    to: ['bounce+signup-flow@messagebird.dev'],
+    subject: 'Sandbox bounce test',
+    html: '<p>This message will hard-bounce.</p>',
 );
 echo $message->getId(), ' ', $message->getStatus();
 
@@ -202,8 +221,6 @@ foreach ($stats->getData() ?? [] as $row) {
 
 $mailbox = $bird->email->mailboxes->create(
     (new MailboxCreate())
-        ->setLocalPart('support')
-        ->setDomain('messagebird.dev')
         ->setDisplayName('Acme Support'),
 );
 echo $mailbox->getId(), ' ', $mailbox->getAddress();

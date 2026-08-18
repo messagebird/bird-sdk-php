@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class ErrorNextActionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class SMSTemplateLanguageStateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class ErrorNextActionNormalizer implements DenormalizerInterface, NormalizerInte
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\ErrorNextAction::class;
+        return $type === \MessageBird\Wire\Model\SMSTemplateLanguageState::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\ErrorNextAction::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\SMSTemplateLanguageState::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\ErrorNextAction();
+        $object = new \MessageBird\Wire\Model\SMSTemplateLanguageState();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,31 +37,21 @@ class ErrorNextActionNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('operation', $data) && $data['operation'] !== null) {
-            $object->setOperation($data['operation']);
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
+            $object->setStatus($data['status']);
         }
-        elseif (\array_key_exists('operation', $data) && $data['operation'] === null) {
-            $object->setOperation(null);
-        }
-        if (\array_key_exists('description', $data) && $data['description'] !== null) {
-            $object->setDescription($data['description']);
-        }
-        elseif (\array_key_exists('description', $data) && $data['description'] === null) {
-            $object->setDescription(null);
+        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
+            $object->setStatus(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['operation'] = $data->getOperation();
-        if ($data->isInitialized('description') && null !== $data->getDescription()) {
-            $dataArray['description'] = $data->getDescription();
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\ErrorNextAction::class => false];
+        return [\MessageBird\Wire\Model\SMSTemplateLanguageState::class => false];
     }
 }

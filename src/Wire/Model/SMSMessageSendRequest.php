@@ -13,7 +13,8 @@ class SMSMessageSendRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
+     * Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
+     * 
      *
      * @var string|null
      */
@@ -129,7 +130,8 @@ class SMSMessageSendRequest
      */
     protected $personalization;
     /**
-     * Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
+     * Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
+     * 
      *
      * @return string|null
      */
@@ -138,7 +140,7 @@ class SMSMessageSendRequest
         return $this->to;
     }
     /**
-     * Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
+     * Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
      *
      * @param string|null $to
      *

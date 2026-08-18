@@ -15,7 +15,7 @@ $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
 $templates = $bird->smsTemplates->list(['scope' => 'system']);
 foreach ($templates->getData() ?? [] as $template) {
-    echo $template->getId(), ' ', $template->getName(), "\n";
+    echo $template->getId(), ' ', $template->getSlug(), "\n";
 }
 
 $template = $bird->smsTemplates->get('bird_otp_verification');

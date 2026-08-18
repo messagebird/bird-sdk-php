@@ -22,6 +22,13 @@ $message = $bird->sms->send(
 );
 echo $message->getId(), ' ', $message->getStatus();
 
+$message = $bird->sms->send(
+    to: '+15551234567',
+    template: 'bird_otp_verification',
+    parameters: ['code' => '123456'],
+);
+echo $message->getId(), ' ', $message->getStatus();
+
 $batch = $bird->sms->sendBatch([
     (new SMSMessageSendRequest())->setTo('+15551111111')->setText('Hi Alice!')->setCategory('marketing'),
     (new SMSMessageSendRequest())->setTo('+15552222222')->setText('Hi Bob!')->setCategory('marketing'),

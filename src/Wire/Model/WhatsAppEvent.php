@@ -17,7 +17,7 @@ class WhatsAppEvent
      */
     protected $id;
     /**
-     * Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+     * Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      * 
      *
      * @var string|null
@@ -54,7 +54,7 @@ class WhatsAppEvent
         return $this;
     }
     /**
-     * Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+     * Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      * 
      *
      * @return string|null
@@ -64,7 +64,7 @@ class WhatsAppEvent
         return $this->type;
     }
     /**
-     * Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+     * Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      *
      * @param string|null $type
      *

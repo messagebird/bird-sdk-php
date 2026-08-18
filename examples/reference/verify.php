@@ -12,6 +12,7 @@ declare(strict_types=1);
 use MessageBird\Bird;
 use MessageBird\Wire\Model\VerificationCheckRequest;
 use MessageBird\Wire\Model\VerificationCreateRequest;
+use MessageBird\Wire\Model\VerificationNextChannelRequest;
 use MessageBird\Wire\Model\VerificationTo;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
@@ -27,3 +28,8 @@ $result = $bird->verify->verifications->check(
         ->setCode('123456'),
 );
 echo $result->getSuccess() ? 'verified' : 'failed';
+
+$verification = $bird->verify->verifications->nextChannel(
+    (new VerificationNextChannelRequest())->setTo((new VerificationTo())->setPhoneNumber('+15551234567')),
+);
+echo $verification->getLastChannel();

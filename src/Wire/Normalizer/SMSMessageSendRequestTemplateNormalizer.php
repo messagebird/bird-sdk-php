@@ -44,6 +44,13 @@ class SMSMessageSendRequestTemplateNormalizer implements DenormalizerInterface, 
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
+        if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
+            $object->setSlug($data['slug']);
+            unset($data['slug']);
+        }
+        elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
+            $object->setSlug(null);
+        }
         if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
             unset($data['name']);
@@ -81,6 +88,9 @@ class SMSMessageSendRequestTemplateNormalizer implements DenormalizerInterface, 
         $dataArray = [];
         if ($data->isInitialized('id') && null !== $data->getId()) {
             $dataArray['id'] = $data->getId();
+        }
+        if ($data->isInitialized('slug') && null !== $data->getSlug()) {
+            $dataArray['slug'] = $data->getSlug();
         }
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

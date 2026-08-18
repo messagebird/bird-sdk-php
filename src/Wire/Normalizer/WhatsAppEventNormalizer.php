@@ -67,6 +67,7 @@ class WhatsAppEventNormalizer implements DenormalizerInterface, NormalizerInterf
     {
         $dataArray = [];
         $dataArray['id'] = $data->getId();
+        $dataArray['type'] = $data->getType();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

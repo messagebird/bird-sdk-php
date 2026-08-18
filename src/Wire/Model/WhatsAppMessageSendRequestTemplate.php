@@ -17,13 +17,13 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
      */
     protected $id;
     /**
-     * The template to send, by its slug (for example `bird_otp`).
+     * The template to send, by its slug handle (for example `bird_otp`).
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted, in which case the template's default language is sent. A language the template is not stocked in returns a `422` that names the available tags.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
      * 
      *
      * @var string|null
@@ -55,7 +55,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * The template to send, by its slug (for example `bird_otp`).
+     * The template to send, by its slug handle (for example `bird_otp`).
      *
      * @return string|null
      */
@@ -64,7 +64,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this->slug;
     }
     /**
-     * The template to send, by its slug (for example `bird_otp`).
+     * The template to send, by its slug handle (for example `bird_otp`).
      *
      * @param string|null $slug
      *
@@ -77,7 +77,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted, in which case the template's default language is sent. A language the template is not stocked in returns a `422` that names the available tags.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
      * 
      *
      * @return string|null
@@ -87,7 +87,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted, in which case the template's default language is sent. A language the template is not stocked in returns a `422` that names the available tags.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
      *
      * @param string|null $language
      *

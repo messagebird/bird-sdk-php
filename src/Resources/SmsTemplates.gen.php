@@ -20,7 +20,7 @@ final class SmsTemplates extends Resource
      * @example List the built-in templates
      * $templates = $bird->smsTemplates->list(['scope' => 'system']);
      * foreach ($templates->getData() ?? [] as $template) {
-     *     echo $template->getId(), ' ', $template->getName(), "\n";
+     *     echo $template->getId(), ' ', $template->getSlug(), "\n";
      * }
      */
     public function list(?array $query = null, ?RequestOptions $options = null): SMSTemplateList
@@ -29,9 +29,9 @@ final class SmsTemplates extends Resource
     }
 
     /**
-     * Get one SMS template by its name or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
+     * Get one SMS template by its slug or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
      *
-     * @example Read one template by name or id
+     * @example Read one template by slug or id
      * $template = $bird->smsTemplates->get('bird_otp_verification');
      * echo $template->getBody();
      */

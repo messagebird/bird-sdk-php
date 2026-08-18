@@ -104,7 +104,7 @@ class ErrorBodyNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (\array_key_exists('next', $data) && $data['next'] !== null) {
             $values_1 = [];
             foreach ($data['next'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\ErrorNextAction::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
             }
             $object->setNext($values_1);
         }

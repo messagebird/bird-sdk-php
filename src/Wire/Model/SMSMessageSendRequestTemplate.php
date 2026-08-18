@@ -17,14 +17,23 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
      */
     protected $id;
     /**
-     * The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
      * 
+     *
+     * @var string|null
+     */
+    protected $slug;
+    /**
+     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+     * 
+     *
+     * @deprecated
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
      * 
      *
      * @var string|null
@@ -56,8 +65,33 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
      * 
+     *
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+    /**
+     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     *
+     * @param string|null $slug
+     *
+     * @return self
+     */
+    public function setSlug(?string $slug): self
+    {
+        $this->initialized['slug'] = true;
+        $this->slug = $slug;
+        return $this;
+    }
+    /**
+     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+     * 
+     *
+     * @deprecated
      *
      * @return string|null
      */
@@ -66,9 +100,11 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->name;
     }
     /**
-     * The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
      *
      * @param string|null $name
+     *
+     * @deprecated
      *
      * @return self
      */
@@ -79,7 +115,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
      * 
      *
      * @return string|null
@@ -89,7 +125,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+     * Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
      *
      * @param string|null $language
      *

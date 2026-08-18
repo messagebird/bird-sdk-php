@@ -76,6 +76,7 @@ final class Email extends EmailBase
         // TODO(sdk-php): flatten to $template (id/slug string) + $language + $parameters and build the
         // model here, matching Python/Go; the EmailMessageSendRequestTemplate param is a stopgap.
         ?EmailMessageSendRequestTemplate $template = null,
+        ?\DateTimeInterface $scheduledAt = null,
         ?RequestOptions $options = null,
     ): EmailMessage {
         $defaults = $this->client->emailDefaults;
@@ -144,6 +145,13 @@ final class Email extends EmailBase
         }
         if ($template !== null) {
             $request->setTemplate($template);
+        }
+        if ($scheduledAt !== null) {
+            // The generated setter takes a mutable \DateTime, so a caller's
+            // DateTimeImmutable (the usual choice) has to be converted.
+            $request->setScheduledAt(
+                $scheduledAt instanceof \DateTime ? $scheduledAt : \DateTime::createFromInterface($scheduledAt),
+            );
         }
 
         return $this->single('POST', '/v1/email/messages', EmailMessage::class, $request, null, $options);

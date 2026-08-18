@@ -13,7 +13,7 @@ class PhoneNumberLookupRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+     * The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
      *
      * @var string|null
      */
@@ -28,7 +28,7 @@ class PhoneNumberLookupRequest
      */
     protected $type;
     /**
-     * The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+     * The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
      *
      * @return string|null
      */
@@ -37,7 +37,7 @@ class PhoneNumberLookupRequest
         return $this->phoneNumber;
     }
     /**
-     * The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+     * The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
      *
      * @param string|null $phoneNumber
      *

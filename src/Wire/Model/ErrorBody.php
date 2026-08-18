@@ -74,9 +74,10 @@ class ErrorBody
      */
     protected $remediation;
     /**
-     * Operations that resolve this error, in the order to try them. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+     * The steps that resolve this error. Perform them in order, re-reading after each; a `wait` or `terminal` step is always last. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+     * 
      *
-     * @var list<ErrorNextAction>|null
+     * @var list<NextAction>|null
      */
     protected $next;
     /**
@@ -307,18 +308,19 @@ class ErrorBody
         return $this;
     }
     /**
-     * Operations that resolve this error, in the order to try them. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+     * The steps that resolve this error. Perform them in order, re-reading after each; a `wait` or `terminal` step is always last. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+     * 
      *
-     * @return list<ErrorNextAction>|null
+     * @return list<NextAction>|null
      */
     public function getNext(): ?array
     {
         return $this->next;
     }
     /**
-     * Operations that resolve this error, in the order to try them. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+     * The steps that resolve this error. Perform them in order, re-reading after each; a `wait` or `terminal` step is always last. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
      *
-     * @param list<ErrorNextAction>|null $next
+     * @param list<NextAction>|null $next
      *
      * @return self
      */
