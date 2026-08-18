@@ -112,7 +112,9 @@ final class Bird
             'RealtimeKey' => ['X-Realtime-Key', $realtime?->key, 'pass realtime: new RealtimeOptions(key: ..., secret: ...) to the Bird constructor'],
             'RealtimeSecret' => ['X-Realtime-Secret', $realtime?->secret, 'pass realtime: new RealtimeOptions(key: ..., secret: ...) to the Bird constructor'],
         ];
-        $this->realtime = new Realtime($this);
+        // The realtime options also carry the encryption master key, which stays
+        // in the resource: it never becomes a header, unlike the app credentials.
+        $this->realtime = new Realtime($this, $realtime);
     }
 
     public function baseUrl(): string

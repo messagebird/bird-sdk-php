@@ -19,7 +19,7 @@ class RealtimePublish
      */
     protected $event;
     /**
-     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
+     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels. A `private-encrypted-` channel must be the only channel in its publish: each encrypted channel has its own key, so a fan-out would hand the other channels unreadable ciphertext.
      * 
      *
      * @var list<string>|null
@@ -66,7 +66,7 @@ class RealtimePublish
         return $this;
     }
     /**
-     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
+     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels. A `private-encrypted-` channel must be the only channel in its publish: each encrypted channel has its own key, so a fan-out would hand the other channels unreadable ciphertext.
      * 
      *
      * @return list<string>|null
@@ -76,7 +76,7 @@ class RealtimePublish
         return $this->channels;
     }
     /**
-     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
+     * The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels. A `private-encrypted-` channel must be the only channel in its publish: each encrypted channel has its own key, so a fan-out would hand the other channels unreadable ciphertext.
      *
      * @param list<string>|null $channels
      *

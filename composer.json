@@ -23,6 +23,9 @@
         "symfony/http-client": "^7.0 || ^8.0",
         "symfony/serializer": "^7.0 || ^8.0"
     },
+    "suggest": {
+        "ext-sodium": "Required to publish to Realtime private-encrypted- channels (XSalsa20-Poly1305 sealing). Bundled with PHP 8.2+, but some builds disable it."
+    },
     "require-dev": {
         "jane-php/open-api-3": "^7.12",
         "guzzlehttp/guzzle": "^7.8",

@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.12.0
+
+- An error now carries the recovery the API sends with it: `ApiException` exposes `remediation`, `next` — the steps to take, each stating a `kind` of `operation`, `external`, `wait` or `terminal` — and `unmetGates`. Read `getKind()` before `getOperation()`, since only an `operation` step carries one, and treat a `kind` you do not recognise as display-only.
+
 ## 0.11.0
 
 - **Breaking:** an SMS template is referenced by its `slug`, not its `name`. On a send, `template.name` becomes `template.slug` (unchanged if you pass an id). On a template read, `slug` is the handle you send by and `name` is now the display label the old `description` carried, so `description` reads null for Bird's built-in templates.

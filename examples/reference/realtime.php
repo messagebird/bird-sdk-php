@@ -21,6 +21,8 @@ $bird = new Bird(
     realtime: new RealtimeOptions(
         key: getenv('BIRD_REALTIME_KEY') ?: '',
         secret: getenv('BIRD_REALTIME_SECRET') ?: '',
+        // 32 random bytes, base64-encoded. Only needed for private-encrypted- channels.
+        encryptionMasterKey: getenv('BIRD_REALTIME_ENCRYPTION_MASTER_KEY') ?: null,
     ),
 );
 
@@ -39,6 +41,13 @@ $batch = $bird->realtime->publishBatch($appId, (new RealtimeBatchPublish())
     ]));
 echo count($batch->getData() ?? []), ' event(s)';
 
+// The payload is sealed under encryptionMasterKey before the request leaves this
+// process, so Bird only ever moves the ciphertext. One channel per publish.
+$bird->realtime->publish($appId, (new RealtimePublish())
+    ->setEvent('order.updated')
+    ->setChannels(['private-encrypted-orders'])
+    ->setData(['order_id' => 'ord_123', 'status' => 'shipped']));
+
 foreach ($bird->realtime->channels->list($appId, ['prefix' => 'room-'])->getData() ?? [] as $channel) {
     echo $channel->getName(), ' ', $channel->getMemberCount(), "\n";
 }
@@ -55,3 +64,18 @@ $bird->realtime->members->send($appId, 'usr_01krdgeqcxet5s7t44vh8rt9mg', (new Re
     ->setData(['order_id' => 'ord_123']));
 
 $bird->realtime->members->disconnect($appId, 'usr_01krdgeqcxet5s7t44vh8rt9mg');
+
+// The endpoint your client's authorizer POSTs to before it joins a private,
+// presence, or encrypted channel. Signing is local — no call to Bird.
+$connectionId = (string) ($_POST['connection_id'] ?? '');
+$channelName = (string) ($_POST['channel_name'] ?? '');
+
+// Your own rule for who may join this channel goes here.
+if (!str_starts_with($channelName, 'private-encrypted-orders')) {
+    http_response_code(403);
+
+    return;
+}
+
+header('Content-Type: application/json');
+echo json_encode($bird->realtime->authorizeChannel($connectionId, $channelName));

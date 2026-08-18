@@ -82,4 +82,21 @@ final class Serializer
     {
         return $this->inner->deserialize($json, $class, 'json');
     }
+
+    /**
+     * Denormalize an already-decoded array into a wire model. The error path
+     * decodes the envelope itself, tolerating a body that is not the shape the
+     * API documents, and needs to type only the nested recovery steps.
+     *
+     * @template T of object
+     *
+     * @param array<mixed>    $data
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
+    public function denormalize(array $data, string $class): object
+    {
+        return $this->inner->denormalize($data, $class, 'json');
+    }
 }

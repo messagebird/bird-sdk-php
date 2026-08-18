@@ -19,7 +19,7 @@ class RealtimeBatchEvent
      */
     protected $event;
     /**
-     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
      *
      * @var string|null
      */
@@ -65,7 +65,7 @@ class RealtimeBatchEvent
         return $this;
     }
     /**
-     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
      *
      * @return string|null
      */
@@ -74,7 +74,7 @@ class RealtimeBatchEvent
         return $this->channel;
     }
     /**
-     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+     * A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
      *
      * @param string|null $channel
      *
