@@ -27,7 +27,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
      */
     protected $soft;
     /**
-     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fix these by changing your content or sender configuration. Cleaning the recipient list does not usually help.
      * 
      *
      * @var int|null
@@ -94,7 +94,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
         return $this;
     }
     /**
-     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fix these by changing your content or sender configuration. Cleaning the recipient list does not usually help.
      * 
      *
      * @return int|null
@@ -104,7 +104,7 @@ class EmailBounceCodeStatsPointBounces extends \ArrayObject
         return $this->admin;
     }
     /**
-     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
+     * Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fix these by changing your content or sender configuration. Cleaning the recipient list does not usually help.
      *
      * @param int|null $admin
      *

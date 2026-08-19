@@ -67,6 +67,54 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('template', $data) && $data['template'] === null) {
             $object->setTemplate(null);
         }
+        if (\array_key_exists('text', $data) && $data['text'] !== null) {
+            $object->setText($this->denormalizer->denormalize($data['text'], \MessageBird\Wire\Model\WhatsAppMessageText::class, 'json', $context));
+        }
+        elseif (\array_key_exists('text', $data) && $data['text'] === null) {
+            $object->setText(null);
+        }
+        if (\array_key_exists('image', $data) && $data['image'] !== null) {
+            $object->setImage($this->denormalizer->denormalize($data['image'], \MessageBird\Wire\Model\WhatsAppMessageImage::class, 'json', $context));
+        }
+        elseif (\array_key_exists('image', $data) && $data['image'] === null) {
+            $object->setImage(null);
+        }
+        if (\array_key_exists('video', $data) && $data['video'] !== null) {
+            $object->setVideo($this->denormalizer->denormalize($data['video'], \MessageBird\Wire\Model\WhatsAppMessageVideo::class, 'json', $context));
+        }
+        elseif (\array_key_exists('video', $data) && $data['video'] === null) {
+            $object->setVideo(null);
+        }
+        if (\array_key_exists('audio', $data) && $data['audio'] !== null) {
+            $object->setAudio($this->denormalizer->denormalize($data['audio'], \MessageBird\Wire\Model\WhatsAppMessageAudio::class, 'json', $context));
+        }
+        elseif (\array_key_exists('audio', $data) && $data['audio'] === null) {
+            $object->setAudio(null);
+        }
+        if (\array_key_exists('sticker', $data) && $data['sticker'] !== null) {
+            $object->setSticker($this->denormalizer->denormalize($data['sticker'], \MessageBird\Wire\Model\WhatsAppMessageSticker::class, 'json', $context));
+        }
+        elseif (\array_key_exists('sticker', $data) && $data['sticker'] === null) {
+            $object->setSticker(null);
+        }
+        if (\array_key_exists('document', $data) && $data['document'] !== null) {
+            $object->setDocument($this->denormalizer->denormalize($data['document'], \MessageBird\Wire\Model\WhatsAppMessageDocument::class, 'json', $context));
+        }
+        elseif (\array_key_exists('document', $data) && $data['document'] === null) {
+            $object->setDocument(null);
+        }
+        if (\array_key_exists('location', $data) && $data['location'] !== null) {
+            $object->setLocation($this->denormalizer->denormalize($data['location'], \MessageBird\Wire\Model\WhatsAppMessageLocation::class, 'json', $context));
+        }
+        elseif (\array_key_exists('location', $data) && $data['location'] === null) {
+            $object->setLocation(null);
+        }
+        if (\array_key_exists('unsupported', $data) && $data['unsupported'] !== null) {
+            $object->setUnsupported($this->denormalizer->denormalize($data['unsupported'], \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class, 'json', $context));
+        }
+        elseif (\array_key_exists('unsupported', $data) && $data['unsupported'] === null) {
+            $object->setUnsupported(null);
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }

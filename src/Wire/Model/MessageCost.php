@@ -26,14 +26,14 @@ class MessageCost
      */
     protected $currencyCode;
     /**
-     * What Bird charged to carry the message, as a decimal string. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * What we charged to carry the message, as a decimal string. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      * 
      *
      * @var string|null
      */
     protected $transactionAmount;
     /**
-     * Third-party fees Bird passes on, as a decimal string, such as US 10DLC carrier surcharges. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * Third-party fees we pass on, as a decimal string, such as US 10DLC carrier surcharges. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      * 
      *
      * @var string|null
@@ -85,7 +85,7 @@ class MessageCost
         return $this;
     }
     /**
-     * What Bird charged to carry the message, as a decimal string. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * What we charged to carry the message, as a decimal string. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      * 
      *
      * @return string|null
@@ -95,7 +95,7 @@ class MessageCost
         return $this->transactionAmount;
     }
     /**
-     * What Bird charged to carry the message, as a decimal string. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * What we charged to carry the message, as a decimal string. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      *
      * @param string|null $transactionAmount
      *
@@ -108,7 +108,7 @@ class MessageCost
         return $this;
     }
     /**
-     * Third-party fees Bird passes on, as a decimal string, such as US 10DLC carrier surcharges. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * Third-party fees we pass on, as a decimal string, such as US 10DLC carrier surcharges. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      * 
      *
      * @return string|null
@@ -118,7 +118,7 @@ class MessageCost
         return $this->passthroughAmount;
     }
     /**
-     * Third-party fees Bird passes on, as a decimal string, such as US 10DLC carrier surcharges. Null when this component was not priced; `"0.00000"` when it priced at zero.
+     * Third-party fees we pass on, as a decimal string, such as US 10DLC carrier surcharges. `null` when this component was not priced; `"0.00000"` when it priced at zero.
      *
      * @param string|null $passthroughAmount
      *

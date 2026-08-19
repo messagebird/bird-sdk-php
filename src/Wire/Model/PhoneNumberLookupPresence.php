@@ -17,7 +17,7 @@ class PhoneNumberLookupPresence extends \ArrayObject
      */
     protected $status;
     /**
-     * Whether the number is registered on a network and able to receive traffic. False means the network answered and reported the number as not currently reachable, which is different from us being unable to find out. Present only when `status` is `ok`.
+     * Whether the number is registered on a network and able to receive traffic. A `false` value means the network answered and reported the number as currently unreachable. This differs from the API being unable to find out. Present only when `status` is `ok`.
      * 
      *
      * @var bool|null
@@ -42,7 +42,7 @@ class PhoneNumberLookupPresence extends \ArrayObject
         return $this;
     }
     /**
-     * Whether the number is registered on a network and able to receive traffic. False means the network answered and reported the number as not currently reachable, which is different from us being unable to find out. Present only when `status` is `ok`.
+     * Whether the number is registered on a network and able to receive traffic. A `false` value means the network answered and reported the number as currently unreachable. This differs from the API being unable to find out. Present only when `status` is `ok`.
      * 
      *
      * @return bool|null
@@ -52,7 +52,7 @@ class PhoneNumberLookupPresence extends \ArrayObject
         return $this->reachable;
     }
     /**
-     * Whether the number is registered on a network and able to receive traffic. False means the network answered and reported the number as not currently reachable, which is different from us being unable to find out. Present only when `status` is `ok`.
+     * Whether the number is registered on a network and able to receive traffic. A `false` value means the network answered and reported the number as currently unreachable. This differs from the API being unable to find out. Present only when `status` is `ok`.
      *
      * @param bool|null $reachable
      *

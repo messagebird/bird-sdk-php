@@ -13,19 +13,27 @@ class MailboxUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. Null clears it.
+     * Display name used as the sender name on mail from this mailbox. `null` clears it.
      *
      * @var string|null
      */
     protected $displayName;
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
      *
      * @var string|null
      */
     protected $defaultReplyTo;
     /**
-     * Which inbound mail the mailbox accepts.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @var string|null
      */
@@ -43,7 +51,7 @@ class MailboxUpdate
      */
     protected $metadata;
     /**
-     * Display name used as the sender name on mail from this mailbox. Null clears it.
+     * Display name used as the sender name on mail from this mailbox. `null` clears it.
      *
      * @return string|null
      */
@@ -52,7 +60,7 @@ class MailboxUpdate
         return $this->displayName;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. Null clears it.
+     * Display name used as the sender name on mail from this mailbox. `null` clears it.
      *
      * @param string|null $displayName
      *
@@ -65,7 +73,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
      *
      * @return string|null
      */
@@ -74,7 +82,7 @@ class MailboxUpdate
         return $this->defaultReplyTo;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
      *
      * @param string|null $defaultReplyTo
      *
@@ -87,7 +95,15 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * Which inbound mail the mailbox accepts.
+     * Which inbound mail the mailbox accepts:
+     * 
+     * - `open`: Accepts everything not blocked by a rule.
+     * - `replies_only`: Accepts only replies to messages this mailbox has
+     *   sent. A reply must match a message the mailbox sent. Landing in an
+     *   existing thread by itself does not count.
+     * - `allowlist`: Accepts only senders matching an allow rule.
+     * - `drop`: Stores nothing.
+     * 
      *
      * @return string|null
      */
@@ -96,12 +112,20 @@ class MailboxUpdate
         return $this->receivePolicy;
     }
     /**
-     * Which inbound mail the mailbox accepts.
-     *
-     * @param string|null $receivePolicy
-     *
-     * @return self
-     */
+    * Which inbound mail the mailbox accepts:
+    
+    - `open`: Accepts everything not blocked by a rule.
+    - `replies_only`: Accepts only replies to messages this mailbox has
+     sent. A reply must match a message the mailbox sent. Landing in an
+     existing thread by itself does not count.
+    - `allowlist`: Accepts only senders matching an allow rule.
+    - `drop`: Stores nothing.
+    
+    *
+    * @param string|null $receivePolicy
+    *
+    * @return self
+    */
     public function setReceivePolicy(?string $receivePolicy): self
     {
         $this->initialized['receivePolicy'] = true;

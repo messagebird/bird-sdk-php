@@ -13,26 +13,26 @@ class VoiceCallActor extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Actor identifier.
+     * ID of the user, API key, or system process that performed the action.
      *
      * @var string|null
      */
     protected $id;
     /**
-     * Actor type (e.g. user, api_key, system).
+     * Type of actor, such as `user`, `api_key`, or `system`.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Display name of the actor — the user's email address for user actors, or the API key's name for API-key actors. Absent when it could not be resolved.
+     * Display name of the actor. This is the user's email address for a `user` actor or the API key name for an `api_key` actor. Absent when it could not be resolved.
      * 
      *
      * @var string|null
      */
     protected $displayName;
     /**
-     * Actor identifier.
+     * ID of the user, API key, or system process that performed the action.
      *
      * @return string|null
      */
@@ -41,7 +41,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->id;
     }
     /**
-     * Actor identifier.
+     * ID of the user, API key, or system process that performed the action.
      *
      * @param string|null $id
      *
@@ -54,7 +54,7 @@ class VoiceCallActor extends \ArrayObject
         return $this;
     }
     /**
-     * Actor type (e.g. user, api_key, system).
+     * Type of actor, such as `user`, `api_key`, or `system`.
      *
      * @return string|null
      */
@@ -63,7 +63,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->type;
     }
     /**
-     * Actor type (e.g. user, api_key, system).
+     * Type of actor, such as `user`, `api_key`, or `system`.
      *
      * @param string|null $type
      *
@@ -76,7 +76,7 @@ class VoiceCallActor extends \ArrayObject
         return $this;
     }
     /**
-     * Display name of the actor — the user's email address for user actors, or the API key's name for API-key actors. Absent when it could not be resolved.
+     * Display name of the actor. This is the user's email address for a `user` actor or the API key name for an `api_key` actor. Absent when it could not be resolved.
      * 
      *
      * @return string|null
@@ -86,7 +86,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->displayName;
     }
     /**
-     * Display name of the actor — the user's email address for user actors, or the API key's name for API-key actors. Absent when it could not be resolved.
+     * Display name of the actor. This is the user's email address for a `user` actor or the API key name for an `api_key` actor. Absent when it could not be resolved.
      *
      * @param string|null $displayName
      *

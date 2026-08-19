@@ -32,6 +32,7 @@ final class EmailDefaults
         public readonly ?array $headers = null,
         public readonly ?array $tags = null,
         public readonly ?array $metadata = null,
+        public readonly ?string $ipPoolId = null,
     ) {
     }
 }

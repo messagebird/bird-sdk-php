@@ -13,7 +13,7 @@ class EmailMailboxProviderRegionStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`).
+     * The recipient mailbox provider this row aggregates, as a lowercase classifier such as `gmail`, `yahoo`, `microsoft`, or `apple`.
      *
      * @var string|null
      */
@@ -43,7 +43,7 @@ class EmailMailboxProviderRegionStatsPoint
      */
     protected $trend;
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`).
+     * The recipient mailbox provider this row aggregates, as a lowercase classifier such as `gmail`, `yahoo`, `microsoft`, or `apple`.
      *
      * @return string|null
      */
@@ -52,7 +52,7 @@ class EmailMailboxProviderRegionStatsPoint
         return $this->mailboxProvider;
     }
     /**
-     * The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`).
+     * The recipient mailbox provider this row aggregates, as a lowercase classifier such as `gmail`, `yahoo`, `microsoft`, or `apple`.
      *
      * @param string|null $mailboxProvider
      *

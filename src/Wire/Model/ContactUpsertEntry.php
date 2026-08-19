@@ -13,13 +13,13 @@ class ContactUpsertEntry
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Email address this entry carried, trimmed and lowercased. Null when the entry carried none.
+     * Email address this entry carried, trimmed and lowercased. `null` when the entry carried none.
      *
      * @var string|null
      */
     protected $email;
     /**
-     * Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+     * Phone number this entry carried, in its normalized international form. `null` when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
      *
      * @var string|null
      */
@@ -31,7 +31,7 @@ class ContactUpsertEntry
      */
     protected $externalId;
     /**
-     * Email address this entry carried, trimmed and lowercased. Null when the entry carried none.
+     * Email address this entry carried, trimmed and lowercased. `null` when the entry carried none.
      *
      * @return string|null
      */
@@ -40,7 +40,7 @@ class ContactUpsertEntry
         return $this->email;
     }
     /**
-     * Email address this entry carried, trimmed and lowercased. Null when the entry carried none.
+     * Email address this entry carried, trimmed and lowercased. `null` when the entry carried none.
      *
      * @param string|null $email
      *
@@ -53,7 +53,7 @@ class ContactUpsertEntry
         return $this;
     }
     /**
-     * Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+     * Phone number this entry carried, in its normalized international form. `null` when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
      *
      * @return string|null
      */
@@ -62,7 +62,7 @@ class ContactUpsertEntry
         return $this->phoneNumber;
     }
     /**
-     * Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+     * Phone number this entry carried, in its normalized international form. `null` when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
      *
      * @param string|null $phoneNumber
      *

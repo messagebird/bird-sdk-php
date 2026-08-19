@@ -62,14 +62,14 @@ class EmailStatsComparisonDelivery extends \ArrayObject
      */
     protected $rejected;
     /**
-     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. Counted as deduplicated events, not unique recipients.
+     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. The count represents deduplicated events rather than unique recipients.
      * 
      *
      * @var int|null
      */
     protected $oobBounces;
     /**
-     * Recipients who remain in-inbox in this scope after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @var int|null
      */
@@ -87,7 +87,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
      */
     protected $oobRate;
     /**
-     * Share of this scope's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
+     * Share of this scope's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
      * 
      *
      * @var float|null
@@ -283,7 +283,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. Counted as deduplicated events, not unique recipients.
+     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. The count represents deduplicated events rather than unique recipients.
      * 
      *
      * @return int|null
@@ -293,7 +293,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this->oobBounces;
     }
     /**
-     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. Counted as deduplicated events, not unique recipients.
+     * Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. The count represents deduplicated events rather than unique recipients.
      *
      * @param int|null $oobBounces
      *
@@ -306,7 +306,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Recipients who remain in-inbox in this scope after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @return int|null
      */
@@ -315,7 +315,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this->effectiveDelivered;
     }
     /**
-     * Recipients who remain in-inbox in this scope after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @param int|null $effectiveDelivered
      *
@@ -372,7 +372,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Share of this scope's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
+     * Share of this scope's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
      * 
      *
      * @return float|null
@@ -382,7 +382,7 @@ class EmailStatsComparisonDelivery extends \ArrayObject
         return $this->deliveryRate;
     }
     /**
-     * Share of this scope's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
+     * Share of this scope's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
      *
      * @param float|null $deliveryRate
      *

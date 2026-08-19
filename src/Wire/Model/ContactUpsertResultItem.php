@@ -13,19 +13,25 @@ class ContactUpsertResultItem
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+     * The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
      *
      * @var ContactUpsertEntry|null
      */
     protected $entry;
     /**
-     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+     * Which identifier matched a batch entry to an existing contact. `null` when the entry created a new contact.
      *
      * @var string|null
      */
     protected $matchedOn;
     /**
-     * What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
+     * What happened to this contact.
+     * 
+     * - `created`: a new contact was created for the address.
+     * - `updated`: an existing contact with the address was updated.
+     * - `failed`: the entry was rejected and `error` explains why. A failed entry
+     *   does not affect the other entries in the request.
+     * 
      *
      * @var string|null
      */
@@ -39,7 +45,7 @@ class ContactUpsertResultItem
      */
     protected $error;
     /**
-     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+     * The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
      *
      * @return ContactUpsertEntry|null
      */
@@ -48,7 +54,7 @@ class ContactUpsertResultItem
         return $this->entry;
     }
     /**
-     * The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+     * The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
      *
      * @param ContactUpsertEntry|null $entry
      *
@@ -61,7 +67,7 @@ class ContactUpsertResultItem
         return $this;
     }
     /**
-     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+     * Which identifier matched a batch entry to an existing contact. `null` when the entry created a new contact.
      *
      * @return string|null
      */
@@ -70,7 +76,7 @@ class ContactUpsertResultItem
         return $this->matchedOn;
     }
     /**
-     * Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+     * Which identifier matched a batch entry to an existing contact. `null` when the entry created a new contact.
      *
      * @param string|null $matchedOn
      *
@@ -83,7 +89,13 @@ class ContactUpsertResultItem
         return $this;
     }
     /**
-     * What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
+     * What happened to this contact.
+     * 
+     * - `created`: a new contact was created for the address.
+     * - `updated`: an existing contact with the address was updated.
+     * - `failed`: the entry was rejected and `error` explains why. A failed entry
+     *   does not affect the other entries in the request.
+     * 
      *
      * @return string|null
      */
@@ -92,12 +104,18 @@ class ContactUpsertResultItem
         return $this->status;
     }
     /**
-     * What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
-     *
-     * @param string|null $status
-     *
-     * @return self
-     */
+    * What happened to this contact.
+    
+    - `created`: a new contact was created for the address.
+    - `updated`: an existing contact with the address was updated.
+    - `failed`: the entry was rejected and `error` explains why. A failed entry
+     does not affect the other entries in the request.
+    
+    *
+    * @param string|null $status
+    *
+    * @return self
+    */
     public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;

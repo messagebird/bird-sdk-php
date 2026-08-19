@@ -17,7 +17,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
      */
     protected $status;
     /**
-     * Whether the number has ever moved network. False is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
+     * Whether the number has ever moved network. `false` is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
      * 
      *
      * @var bool|null
@@ -30,7 +30,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
      */
     protected $lastPortedAt;
     /**
-     * Whether `last_ported_at` is an approximation. Some registries record only the period a move happened in, not the day.
+     * Whether `last_ported_at` is an approximation. Some registries record the period of a move without its exact day.
      *
      * @var bool|null
      */
@@ -60,7 +60,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
         return $this;
     }
     /**
-     * Whether the number has ever moved network. False is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
+     * Whether the number has ever moved network. `false` is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
      * 
      *
      * @return bool|null
@@ -70,7 +70,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
         return $this->ported;
     }
     /**
-     * Whether the number has ever moved network. False is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
+     * Whether the number has ever moved network. `false` is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
      *
      * @param bool|null $ported
      *
@@ -105,7 +105,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
         return $this;
     }
     /**
-     * Whether `last_ported_at` is an approximation. Some registries record only the period a move happened in, not the day.
+     * Whether `last_ported_at` is an approximation. Some registries record the period of a move without its exact day.
      *
      * @return bool|null
      */
@@ -114,7 +114,7 @@ class PhoneNumberLookupPorting extends \ArrayObject
         return $this->lastPortedAtIsApproximate;
     }
     /**
-     * Whether `last_ported_at` is an approximation. Some registries record only the period a move happened in, not the day.
+     * Whether `last_ported_at` is an approximation. Some registries record the period of a move without its exact day.
      *
      * @param bool|null $lastPortedAtIsApproximate
      *

@@ -110,6 +110,32 @@ final class ChannelSendsTest extends TestCase
         self::assertSame(['id' => 'wat_01krdgeqcxet5s7t44vh8rt9mg'], $body['template']);
     }
 
+    public function testWhatsappSendCarriesFreeFormTextAndSender(): void
+    {
+        $recording = $this->recording();
+        $text = (new \MessageBird\Wire\Model\WhatsAppMessageSendRequestText())
+            ->setBody('Your driver is 2 minutes away.');
+        $this->bird($recording)->whatsapp->send(to: '+14155552671', from: '+14155552672', text: $text);
+
+        $body = $this->sentBody($recording);
+        self::assertSame('+14155552672', $body['from']);
+        self::assertSame(['body' => 'Your driver is 2 minutes away.'], $body['text']);
+        self::assertArrayNotHasKey('template', $body);
+    }
+
+    public function testWhatsappSendCarriesDocumentWithFilename(): void
+    {
+        $recording = $this->recording();
+        $document = (new \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument())
+            ->setUrl('https://cdn.example.com/invoices/a1b2c3.pdf')
+            ->setFilename('invoice-a1b2c3.pdf');
+        $this->bird($recording)->whatsapp->send(to: '+14155552671', from: '+14155552672', document: $document);
+
+        $body = $this->sentBody($recording);
+        self::assertSame('invoice-a1b2c3.pdf', $body['document']['filename']);
+        self::assertArrayNotHasKey('image', $body);
+    }
+
     public function testEmailSendBatchMergesDefaultsPerMessage(): void
     {
         $recording = $this->recording('{"data":[]}');

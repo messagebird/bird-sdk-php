@@ -22,8 +22,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\NextAction::class => \MessageBird\Wire\Normalizer\NextActionNormalizer::class,
         
-        \MessageBird\Wire\Model\UnmetGate::class => \MessageBird\Wire\Normalizer\UnmetGateNormalizer::class,
-        
         \MessageBird\Wire\Model\ErrorBody::class => \MessageBird\Wire\Normalizer\ErrorBodyNormalizer::class,
         
         \MessageBird\Wire\Model\Error::class => \MessageBird\Wire\Normalizer\ErrorNormalizer::class,
@@ -148,6 +146,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\SMSMessageBatchResponse::class => \MessageBird\Wire\Normalizer\SMSMessageBatchResponseNormalizer::class,
         
+        \MessageBird\Wire\Model\SMSEvent::class => \MessageBird\Wire\Normalizer\SMSEventNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSEventList::class => \MessageBird\Wire\Normalizer\SMSEventListNormalizer::class,
+        
         \MessageBird\Wire\Model\TemplateVariable::class => \MessageBird\Wire\Normalizer\TemplateVariableNormalizer::class,
         
         \MessageBird\Wire\Model\SMSTemplateLanguageState::class => \MessageBird\Wire\Normalizer\SMSTemplateLanguageStateNormalizer::class,
@@ -155,6 +157,120 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSTemplate::class => \MessageBird\Wire\Normalizer\SMSTemplateNormalizer::class,
         
         \MessageBird\Wire\Model\SMSTemplateList::class => \MessageBird\Wire\Normalizer\SMSTemplateListNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSSuppression::class => \MessageBird\Wire\Normalizer\SMSSuppressionNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSSuppressionList::class => \MessageBird\Wire\Normalizer\SMSSuppressionListNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSSuppressionCreate::class => \MessageBird\Wire\Normalizer\SMSSuppressionCreateNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSKeywordRule::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSKeywordRuleList::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleListNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSKeywordRuleCreate::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleCreateNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleUpdateNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSLatencyQuantiles::class => \MessageBird\Wire\Normalizer\SMSLatencyQuantilesNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSummary::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryComparisonNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSeriesPeriodNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsResponse::class => \MessageBird\Wire\Normalizer\SMSStatsResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSOriginatorStatsPoint::class => \MessageBird\Wire\Normalizer\SMSOriginatorStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSOriginatorStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSOriginatorStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSOriginatorStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSOriginatorStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByOriginatorResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCountryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCategoryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByErrorCodeResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCarrierResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSTagStatsPoint::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByTagResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByTagResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatusStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatusStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByStatusResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseComparisonNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundCountryStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByCountryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundOperatorStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByOperatorResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundNumberStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByNumberResponseNormalizer::class,
         
         \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRequestNormalizer::class,
         
@@ -202,6 +318,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateComponentParameterNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameterLocation::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateComponentParameterLocationNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateCardComponentNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateCardNormalizer::class,
@@ -218,11 +336,41 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageTo::class => \MessageBird\Wire\Normalizer\WhatsAppMessageToNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppMessageText::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTextNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageImage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageImageNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageVideo::class => \MessageBird\Wire\Normalizer\WhatsAppMessageVideoNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageAudio::class => \MessageBird\Wire\Normalizer\WhatsAppMessageAudioNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSticker::class => \MessageBird\Wire\Normalizer\WhatsAppMessageStickerNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageDocument::class => \MessageBird\Wire\Normalizer\WhatsAppMessageDocumentNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageLocation::class => \MessageBird\Wire\Normalizer\WhatsAppMessageLocationNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class => \MessageBird\Wire\Normalizer\WhatsAppMessageUnsupportedNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppMessageList::class => \MessageBird\Wire\Normalizer\WhatsAppMessageListNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestText::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestTextNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestImage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestImageNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestVideo::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestVideoNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestAudio::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestAudioNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestSticker::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestStickerNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestDocumentNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestLocationNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppEvent::class => \MessageBird\Wire\Normalizer\WhatsAppEventNormalizer::class,
         
@@ -534,7 +682,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             
             \MessageBird\Wire\Model\ErrorDetail::class => false,
             \MessageBird\Wire\Model\NextAction::class => false,
-            \MessageBird\Wire\Model\UnmetGate::class => false,
             \MessageBird\Wire\Model\ErrorBody::class => false,
             \MessageBird\Wire\Model\Error::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
@@ -597,10 +744,69 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\SMSBatchSummary::class => false,
             \MessageBird\Wire\Model\SMSMessageBatchResponse::class => false,
+            \MessageBird\Wire\Model\SMSEvent::class => false,
+            \MessageBird\Wire\Model\SMSEventList::class => false,
             \MessageBird\Wire\Model\TemplateVariable::class => false,
             \MessageBird\Wire\Model\SMSTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\SMSTemplate::class => false,
             \MessageBird\Wire\Model\SMSTemplateList::class => false,
+            \MessageBird\Wire\Model\SMSSuppression::class => false,
+            \MessageBird\Wire\Model\SMSSuppressionList::class => false,
+            \MessageBird\Wire\Model\SMSSuppressionCreate::class => false,
+            \MessageBird\Wire\Model\SMSKeywordRule::class => false,
+            \MessageBird\Wire\Model\SMSKeywordRuleList::class => false,
+            \MessageBird\Wire\Model\SMSKeywordRuleCreate::class => false,
+            \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummary::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => false,
+            \MessageBird\Wire\Model\SMSStatsSeriesPeriod::class => false,
+            \MessageBird\Wire\Model\SMSStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSStatsResponse::class => false,
+            \MessageBird\Wire\Model\SMSOriginatorStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSOriginatorStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSOriginatorStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\SMSStatusStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,
             \MessageBird\Wire\Model\LookupPortingEvent::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookup::class => false,
@@ -624,6 +830,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VerificationCheckResult::class => false,
             \MessageBird\Wire\Model\VerificationNextChannelRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameterLocation::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateCardComponent::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class => false,
@@ -632,9 +839,24 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessage::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageFrom::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTo::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageText::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageImage::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageVideo::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageAudio::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSticker::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageDocument::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageLocation::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageList::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestText::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestImage::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestVideo::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestAudio::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestSticker::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation::class => false,
             \MessageBird\Wire\Model\WhatsAppEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppEventList::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,

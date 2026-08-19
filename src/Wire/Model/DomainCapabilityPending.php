@@ -13,20 +13,26 @@ class DomainCapabilityPending
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Hostname the capability will use once the staged change verifies.
+     * Hostname the capability uses after the staged change verifies.
      *
      * @var string|null
      */
     protected $domain;
     /**
-     * Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+     * Verification status of the staged change.
+     * 
+     * - `pending`: the DNS records have not been detected yet.
+     * - `failed`: the records resolved with wrong values; correct them
+     *   or submit a different change.
+     * - `temporary_failure`: the DNS lookup failed transiently and is
+     *   queued for retry.
      * 
      *
      * @var string|null
      */
     protected $status;
     /**
-     * Hostname the capability will use once the staged change verifies.
+     * Hostname the capability uses after the staged change verifies.
      *
      * @return string|null
      */
@@ -35,7 +41,7 @@ class DomainCapabilityPending
         return $this->domain;
     }
     /**
-     * Hostname the capability will use once the staged change verifies.
+     * Hostname the capability uses after the staged change verifies.
      *
      * @param string|null $domain
      *
@@ -48,7 +54,13 @@ class DomainCapabilityPending
         return $this;
     }
     /**
-     * Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+     * Verification status of the staged change.
+     * 
+     * - `pending`: the DNS records have not been detected yet.
+     * - `failed`: the records resolved with wrong values; correct them
+     *   or submit a different change.
+     * - `temporary_failure`: the DNS lookup failed transiently and is
+     *   queued for retry.
      * 
      *
      * @return string|null
@@ -58,12 +70,19 @@ class DomainCapabilityPending
         return $this->status;
     }
     /**
-     * Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
-     *
-     * @param string|null $status
-     *
-     * @return self
-     */
+    * Verification status of the staged change.
+    
+    - `pending`: the DNS records have not been detected yet.
+    - `failed`: the records resolved with wrong values; correct them
+     or submit a different change.
+    - `temporary_failure`: the DNS lookup failed transiently and is
+     queued for retry.
+    
+    *
+    * @param string|null $status
+    *
+    * @return self
+    */
     public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;

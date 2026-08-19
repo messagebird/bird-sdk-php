@@ -13,13 +13,13 @@ class SMSTemplateList
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The templates available to your workspace. The catalogue is small and returned in full; this list is not paginated.
+     * The templates available to your workspace. The catalog is returned in full and is not paginated.
      *
      * @var list<SMSTemplate>|null
      */
     protected $data;
     /**
-     * The templates available to your workspace. The catalogue is small and returned in full; this list is not paginated.
+     * The templates available to your workspace. The catalog is returned in full and is not paginated.
      *
      * @return list<SMSTemplate>|null
      */
@@ -28,7 +28,7 @@ class SMSTemplateList
         return $this->data;
     }
     /**
-     * The templates available to your workspace. The catalogue is small and returned in full; this list is not paginated.
+     * The templates available to your workspace. The catalog is returned in full and is not paginated.
      *
      * @param list<SMSTemplate>|null $data
      *

@@ -20,14 +20,14 @@ class DomainUpdate
      */
     protected $settings;
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      * 
      *
      * @var DomainReturnPathConfig|null
      */
     protected $returnPath;
     /**
-     * Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+     * Set or change the tracking name part, or remove tracking by passing `null`. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
      * 
      *
      * @var DomainUpdateTracking|null
@@ -40,7 +40,7 @@ class DomainUpdate
      */
     protected $dkim;
     /**
-     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
      * 
      *
      * @var DomainInboundConfig|null
@@ -70,7 +70,7 @@ class DomainUpdate
         return $this;
     }
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      * 
      *
      * @return DomainReturnPathConfig|null
@@ -80,7 +80,7 @@ class DomainUpdate
         return $this->returnPath;
     }
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      *
      * @param DomainReturnPathConfig|null $returnPath
      *
@@ -93,7 +93,7 @@ class DomainUpdate
         return $this;
     }
     /**
-     * Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+     * Set or change the tracking name part, or remove tracking by passing `null`. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
      * 
      *
      * @return DomainUpdateTracking|null
@@ -103,7 +103,7 @@ class DomainUpdate
         return $this->tracking;
     }
     /**
-     * Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+     * Set or change the tracking name part, or remove tracking by passing `null`. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
      *
      * @param DomainUpdateTracking|null $tracking
      *
@@ -138,7 +138,7 @@ class DomainUpdate
         return $this;
     }
     /**
-     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
      * 
      *
      * @return DomainInboundConfig|null
@@ -148,7 +148,7 @@ class DomainUpdate
         return $this->inbound;
     }
     /**
-     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+     * Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
      *
      * @param DomainInboundConfig|null $inbound
      *

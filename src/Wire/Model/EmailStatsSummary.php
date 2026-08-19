@@ -20,7 +20,7 @@ class EmailStatsSummary
      */
     protected $period;
     /**
-     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
+     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
      *
      * @var int|null
      */
@@ -65,7 +65,7 @@ class EmailStatsSummary
         return $this;
     }
     /**
-     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
+     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
      *
      * @return int|null
      */
@@ -74,7 +74,7 @@ class EmailStatsSummary
         return $this->sendsAccepted;
     }
     /**
-     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
+     * Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
      *
      * @param int|null $sendsAccepted
      *

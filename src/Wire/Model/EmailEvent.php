@@ -21,15 +21,15 @@ class EmailEvent
     /**
      * Type of an event in a message's per-recipient delivery timeline.
      * 
-     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once for each message regardless of its recipient count.
      * - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
      * - `email.processed`: We queued the message for delivery to the recipient's mail server.
-     * - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+     * - `email.deferred`: The recipient's mail server temporarily refused the message. Delivery remains pending and is retried. Can fire more than once per recipient.
      * - `email.delivered`: The recipient's mail server accepted the message.
      * - `email.bounced`: Delivery permanently failed at the recipient's mail server.
      * - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
      * - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
-     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
      * - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
      * - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
      * - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
@@ -53,7 +53,14 @@ class EmailEvent
      */
     protected $recipientId;
     /**
-     * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+     * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and
+     * `email.deferred` events.
+     * 
+     * - `hard`: a permanent failure (invalid address or non-existent domain).
+     * - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+     * - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+     * - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+     * - `undetermined`: the receiving server's response is ambiguous.
      * 
      *
      * @var string|null
@@ -157,15 +164,15 @@ class EmailEvent
     /**
      * Type of an event in a message's per-recipient delivery timeline.
      * 
-     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+     * - `email.scheduled`: We accepted a send scheduled for a future time. Fires once for each message regardless of its recipient count.
      * - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
      * - `email.processed`: We queued the message for delivery to the recipient's mail server.
-     * - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+     * - `email.deferred`: The recipient's mail server temporarily refused the message. Delivery remains pending and is retried. Can fire more than once per recipient.
      * - `email.delivered`: The recipient's mail server accepted the message.
      * - `email.bounced`: Delivery permanently failed at the recipient's mail server.
      * - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
      * - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
-     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+     * - `email.canceled`: A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
      * - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
      * - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
      * - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
@@ -184,15 +191,15 @@ class EmailEvent
     /**
     * Type of an event in a message's per-recipient delivery timeline.
     
-    - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+    - `email.scheduled`: We accepted a send scheduled for a future time. Fires once for each message regardless of its recipient count.
     - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
     - `email.processed`: We queued the message for delivery to the recipient's mail server.
-    - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+    - `email.deferred`: The recipient's mail server temporarily refused the message. Delivery remains pending and is retried. Can fire more than once per recipient.
     - `email.delivered`: The recipient's mail server accepted the message.
     - `email.bounced`: Delivery permanently failed at the recipient's mail server.
     - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
     - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
-    - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+    - `email.canceled`: A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
     - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
     - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
     - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
@@ -253,7 +260,14 @@ class EmailEvent
         return $this;
     }
     /**
-     * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+     * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and
+     * `email.deferred` events.
+     * 
+     * - `hard`: a permanent failure (invalid address or non-existent domain).
+     * - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+     * - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+     * - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+     * - `undetermined`: the receiving server's response is ambiguous.
      * 
      *
      * @return string|null
@@ -263,12 +277,20 @@ class EmailEvent
         return $this->bounceType;
     }
     /**
-     * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
-     *
-     * @param string|null $bounceType
-     *
-     * @return self
-     */
+    * Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and
+    `email.deferred` events.
+    
+    - `hard`: a permanent failure (invalid address or non-existent domain).
+    - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+    - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+    - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+    - `undetermined`: the receiving server's response is ambiguous.
+    
+    *
+    * @param string|null $bounceType
+    *
+    * @return self
+    */
     public function setBounceType(?string $bounceType): self
     {
         $this->initialized['bounceType'] = true;

@@ -13,7 +13,7 @@ class DomainDKIM
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+     * How the DKIM public key is published in your DNS. `txt`: you publish the key as a TXT record. `delegated`: you publish a single CNAME and we host and rotate the key.
      * 
      *
      * @var string|null
@@ -32,7 +32,7 @@ class DomainDKIM
      */
     protected $keySize;
     /**
-     * How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+     * How the DKIM public key is published in your DNS. `txt`: you publish the key as a TXT record. `delegated`: you publish a single CNAME and we host and rotate the key.
      * 
      *
      * @return string|null
@@ -42,7 +42,7 @@ class DomainDKIM
         return $this->mode;
     }
     /**
-     * How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+     * How the DKIM public key is published in your DNS. `txt`: you publish the key as a TXT record. `delegated`: you publish a single CNAME and we host and rotate the key.
      *
      * @param string|null $mode
      *

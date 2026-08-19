@@ -19,7 +19,14 @@ class VerificationCheckResult
      */
     protected $success;
     /**
-     * Why the check did not succeed, or null when `success` is true: `incorrect_code` means the passcode was wrong and attempts remain; `expired` means the time window elapsed; `attempts_exhausted` means too many incorrect attempts. Open enum; treat any unrecognized value as a future reason.
+     * Why the check did not succeed:
+     * 
+     * - `incorrect_code`: The passcode was wrong and attempts remain.
+     * - `expired`: The validity window elapsed.
+     * - `attempts_exhausted`: Too many incorrect attempts were submitted.
+     * 
+     * `null` when `success` is `true`. Treat unrecognized values as reasons added
+     * later.
      *
      * @var string|null
      */
@@ -29,7 +36,7 @@ class VerificationCheckResult
      */
     protected $verification;
     /**
-     * The number of check attempts left while the verification is still pending, or null once it has reached a final state.
+     * The number of check attempts left while the verification is still pending, or `null` once it has reached a final state.
      *
      * @var int|null
      */
@@ -57,7 +64,14 @@ class VerificationCheckResult
         return $this;
     }
     /**
-     * Why the check did not succeed, or null when `success` is true: `incorrect_code` means the passcode was wrong and attempts remain; `expired` means the time window elapsed; `attempts_exhausted` means too many incorrect attempts. Open enum; treat any unrecognized value as a future reason.
+     * Why the check did not succeed:
+     * 
+     * - `incorrect_code`: The passcode was wrong and attempts remain.
+     * - `expired`: The validity window elapsed.
+     * - `attempts_exhausted`: Too many incorrect attempts were submitted.
+     * 
+     * `null` when `success` is `true`. Treat unrecognized values as reasons added
+     * later.
      *
      * @return string|null
      */
@@ -66,12 +80,19 @@ class VerificationCheckResult
         return $this->reason;
     }
     /**
-     * Why the check did not succeed, or null when `success` is true: `incorrect_code` means the passcode was wrong and attempts remain; `expired` means the time window elapsed; `attempts_exhausted` means too many incorrect attempts. Open enum; treat any unrecognized value as a future reason.
-     *
-     * @param string|null $reason
-     *
-     * @return self
-     */
+    * Why the check did not succeed:
+    
+    - `incorrect_code`: The passcode was wrong and attempts remain.
+    - `expired`: The validity window elapsed.
+    - `attempts_exhausted`: Too many incorrect attempts were submitted.
+    
+    `null` when `success` is `true`. Treat unrecognized values as reasons added
+    later.
+    *
+    * @param string|null $reason
+    *
+    * @return self
+    */
     public function setReason(?string $reason): self
     {
         $this->initialized['reason'] = true;
@@ -97,7 +118,7 @@ class VerificationCheckResult
         return $this;
     }
     /**
-     * The number of check attempts left while the verification is still pending, or null once it has reached a final state.
+     * The number of check attempts left while the verification is still pending, or `null` once it has reached a final state.
      *
      * @return int|null
      */
@@ -106,7 +127,7 @@ class VerificationCheckResult
         return $this->attemptsRemaining;
     }
     /**
-     * The number of check attempts left while the verification is still pending, or null once it has reached a final state.
+     * The number of check attempts left while the verification is still pending, or `null` once it has reached a final state.
      *
      * @param int|null $attemptsRemaining
      *

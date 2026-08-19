@@ -13,25 +13,32 @@ class DNSRecord
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * The DNS record type to publish, determined by `purpose`.
+     * 
+     * - `TXT`: used for the `dkim` and `dmarc` purposes.
+     * - `CNAME`: used for the `return_path` and `tracking` purposes.
+     * - `MX`: used for the `inbound_mx` purpose.
+     * 
+     *
      * @var string|null
      */
     protected $type;
     /**
-     * The record name — the part you enter in your DNS provider's "Name" or "Host" field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
+     * The record name: the part you enter in your DNS provider's `Name` or `Host` field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
      * 
      *
      * @var string|null
      */
     protected $name;
     /**
-     * The fully qualified hostname for this record (e.g. `bird1._domainkey.mail.acme.com`).
+     * The fully qualified hostname for this record (for example, `bird1._domainkey.mail.acme.com`).
      * 
      *
      * @var string|null
      */
     protected $host;
     /**
-     * The value to publish, as entered in your DNS provider's "Value" or "Content" field: the full record content for `TXT`, the target hostname for `CNAME`, and the priority followed by the mail server hostname for `MX`.
+     * The value to publish, as entered in your DNS provider's `Value` or `Content` field. For `TXT`, enter the full record content. For `CNAME`, enter the target hostname. For `MX`, enter the priority followed by the mail server hostname.
      * 
      *
      * @var string|null
@@ -39,10 +46,15 @@ class DNSRecord
     protected $value;
     /**
      * What this record is for.
-     * - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
-     *   present wherever inbound is available, as a regional reference,
+     * 
+     * - `dkim`: signs outbound mail and proves domain ownership.
+     * - `return_path`: identifies the return-path (bounce) CNAME for sending.
+     * - `tracking`: identifies the optional branded open/click tracking CNAME.
+     * - `inbound_mx`: identifies the MX record routing mail to us for receiving.
+     *   Always present wherever inbound is available, as a regional reference,
      *   regardless of whether receiving is enabled; publishing it does not
-     *   enable receiving on its own — see `DomainUpdate.inbound`.
+     *   enable receiving on its own: see `DomainUpdate.inbound`.
+     * - `dmarc`: identifies the advisory DMARC policy record.
      * 
      *
      * @var string|null
@@ -50,9 +62,11 @@ class DNSRecord
     protected $purpose;
     /**
      * Lifecycle state of this record.
-     * - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+     * 
+     * - `active`: the record backs the domain's current configuration.
+     * - `pending`: the record belongs to a staged configuration change;
      *   publish it to complete the change.
-     * - `deprecated` — the record belonged to a previous configuration.
+     * - `deprecated`: the record belonged to a previous configuration.
      *   Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
      *   previously sent tracked links may still resolve through it.
      * 
@@ -61,7 +75,7 @@ class DNSRecord
      */
     protected $state;
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (e.g. tracking) but are not required for sending.
+     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
      * 
      *
      * @var bool|null
@@ -69,13 +83,15 @@ class DNSRecord
     protected $optional;
     /**
      * Verification status of this record's most recent DNS check.
-     * - `pending` — the record has not verified yet; publish it (or correct it)
-     *   and it will verify on the next check.
-     * - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+     * 
+     * - `pending`: the record has not verified yet; publish it (or correct it)
+     *   and it verifies on the next check.
+     * - `verified`: the most recent check matched the expected value.
+     * - `warning`: the record verified before and a recent check no longer
      *   matched, but it is still within the grace period. Sending is not yet
      *   affected; fix the record before the grace period ends to avoid it
      *   being blocked.
-     * - `failed` — the record verified before but later checks kept failing
+     * - `failed`: the record verified before but later checks kept failing
      *   past the grace period; the configuration has regressed and needs
      *   attention.
      * 
@@ -84,20 +100,27 @@ class DNSRecord
      */
     protected $status;
     /**
-     * Human-readable detail for a failed check on this record — what was found in DNS and why it did not match. Null when the record is verified or not yet checked.
+     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
      * 
      *
      * @var string|null
      */
     protected $error;
     /**
-     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. Null on `active` and `pending` records.
+     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. `null` on `active` and `pending` records.
      * 
      *
      * @var bool|null
      */
     protected $safeToRemove;
     /**
+     * The DNS record type to publish, determined by `purpose`.
+     * 
+     * - `TXT`: used for the `dkim` and `dmarc` purposes.
+     * - `CNAME`: used for the `return_path` and `tracking` purposes.
+     * - `MX`: used for the `inbound_mx` purpose.
+     * 
+     *
      * @return string|null
      */
     public function getType(): ?string
@@ -105,10 +128,17 @@ class DNSRecord
         return $this->type;
     }
     /**
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * The DNS record type to publish, determined by `purpose`.
+    
+    - `TXT`: used for the `dkim` and `dmarc` purposes.
+    - `CNAME`: used for the `return_path` and `tracking` purposes.
+    - `MX`: used for the `inbound_mx` purpose.
+    
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;
@@ -116,7 +146,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * The record name — the part you enter in your DNS provider's "Name" or "Host" field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
+     * The record name: the part you enter in your DNS provider's `Name` or `Host` field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
      * 
      *
      * @return string|null
@@ -126,7 +156,7 @@ class DNSRecord
         return $this->name;
     }
     /**
-     * The record name — the part you enter in your DNS provider's "Name" or "Host" field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
+     * The record name: the part you enter in your DNS provider's `Name` or `Host` field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
      *
      * @param string|null $name
      *
@@ -139,7 +169,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * The fully qualified hostname for this record (e.g. `bird1._domainkey.mail.acme.com`).
+     * The fully qualified hostname for this record (for example, `bird1._domainkey.mail.acme.com`).
      * 
      *
      * @return string|null
@@ -149,7 +179,7 @@ class DNSRecord
         return $this->host;
     }
     /**
-     * The fully qualified hostname for this record (e.g. `bird1._domainkey.mail.acme.com`).
+     * The fully qualified hostname for this record (for example, `bird1._domainkey.mail.acme.com`).
      *
      * @param string|null $host
      *
@@ -162,7 +192,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * The value to publish, as entered in your DNS provider's "Value" or "Content" field: the full record content for `TXT`, the target hostname for `CNAME`, and the priority followed by the mail server hostname for `MX`.
+     * The value to publish, as entered in your DNS provider's `Value` or `Content` field. For `TXT`, enter the full record content. For `CNAME`, enter the target hostname. For `MX`, enter the priority followed by the mail server hostname.
      * 
      *
      * @return string|null
@@ -172,7 +202,7 @@ class DNSRecord
         return $this->value;
     }
     /**
-     * The value to publish, as entered in your DNS provider's "Value" or "Content" field: the full record content for `TXT`, the target hostname for `CNAME`, and the priority followed by the mail server hostname for `MX`.
+     * The value to publish, as entered in your DNS provider's `Value` or `Content` field. For `TXT`, enter the full record content. For `CNAME`, enter the target hostname. For `MX`, enter the priority followed by the mail server hostname.
      *
      * @param string|null $value
      *
@@ -186,10 +216,15 @@ class DNSRecord
     }
     /**
      * What this record is for.
-     * - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
-     *   present wherever inbound is available, as a regional reference,
+     * 
+     * - `dkim`: signs outbound mail and proves domain ownership.
+     * - `return_path`: identifies the return-path (bounce) CNAME for sending.
+     * - `tracking`: identifies the optional branded open/click tracking CNAME.
+     * - `inbound_mx`: identifies the MX record routing mail to us for receiving.
+     *   Always present wherever inbound is available, as a regional reference,
      *   regardless of whether receiving is enabled; publishing it does not
-     *   enable receiving on its own — see `DomainUpdate.inbound`.
+     *   enable receiving on its own: see `DomainUpdate.inbound`.
+     * - `dmarc`: identifies the advisory DMARC policy record.
      * 
      *
      * @return string|null
@@ -200,10 +235,15 @@ class DNSRecord
     }
     /**
     * What this record is for.
-    - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
-     present wherever inbound is available, as a regional reference,
+    
+    - `dkim`: signs outbound mail and proves domain ownership.
+    - `return_path`: identifies the return-path (bounce) CNAME for sending.
+    - `tracking`: identifies the optional branded open/click tracking CNAME.
+    - `inbound_mx`: identifies the MX record routing mail to us for receiving.
+     Always present wherever inbound is available, as a regional reference,
      regardless of whether receiving is enabled; publishing it does not
-     enable receiving on its own — see `DomainUpdate.inbound`.
+     enable receiving on its own: see `DomainUpdate.inbound`.
+    - `dmarc`: identifies the advisory DMARC policy record.
     
     *
     * @param string|null $purpose
@@ -218,9 +258,11 @@ class DNSRecord
     }
     /**
      * Lifecycle state of this record.
-     * - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+     * 
+     * - `active`: the record backs the domain's current configuration.
+     * - `pending`: the record belongs to a staged configuration change;
      *   publish it to complete the change.
-     * - `deprecated` — the record belonged to a previous configuration.
+     * - `deprecated`: the record belonged to a previous configuration.
      *   Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
      *   previously sent tracked links may still resolve through it.
      * 
@@ -233,9 +275,11 @@ class DNSRecord
     }
     /**
     * Lifecycle state of this record.
-    - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+    
+    - `active`: the record backs the domain's current configuration.
+    - `pending`: the record belongs to a staged configuration change;
      publish it to complete the change.
-    - `deprecated` — the record belonged to a previous configuration.
+    - `deprecated`: the record belonged to a previous configuration.
      Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
      previously sent tracked links may still resolve through it.
     
@@ -251,7 +295,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (e.g. tracking) but are not required for sending.
+     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
      * 
      *
      * @return bool|null
@@ -261,7 +305,7 @@ class DNSRecord
         return $this->optional;
     }
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (e.g. tracking) but are not required for sending.
+     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
      *
      * @param bool|null $optional
      *
@@ -275,13 +319,15 @@ class DNSRecord
     }
     /**
      * Verification status of this record's most recent DNS check.
-     * - `pending` — the record has not verified yet; publish it (or correct it)
-     *   and it will verify on the next check.
-     * - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+     * 
+     * - `pending`: the record has not verified yet; publish it (or correct it)
+     *   and it verifies on the next check.
+     * - `verified`: the most recent check matched the expected value.
+     * - `warning`: the record verified before and a recent check no longer
      *   matched, but it is still within the grace period. Sending is not yet
      *   affected; fix the record before the grace period ends to avoid it
      *   being blocked.
-     * - `failed` — the record verified before but later checks kept failing
+     * - `failed`: the record verified before but later checks kept failing
      *   past the grace period; the configuration has regressed and needs
      *   attention.
      * 
@@ -294,13 +340,15 @@ class DNSRecord
     }
     /**
     * Verification status of this record's most recent DNS check.
-    - `pending` — the record has not verified yet; publish it (or correct it)
-     and it will verify on the next check.
-    - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+    
+    - `pending`: the record has not verified yet; publish it (or correct it)
+     and it verifies on the next check.
+    - `verified`: the most recent check matched the expected value.
+    - `warning`: the record verified before and a recent check no longer
      matched, but it is still within the grace period. Sending is not yet
      affected; fix the record before the grace period ends to avoid it
      being blocked.
-    - `failed` — the record verified before but later checks kept failing
+    - `failed`: the record verified before but later checks kept failing
      past the grace period; the configuration has regressed and needs
      attention.
     
@@ -316,7 +364,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * Human-readable detail for a failed check on this record — what was found in DNS and why it did not match. Null when the record is verified or not yet checked.
+     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
      * 
      *
      * @return string|null
@@ -326,7 +374,7 @@ class DNSRecord
         return $this->error;
     }
     /**
-     * Human-readable detail for a failed check on this record — what was found in DNS and why it did not match. Null when the record is verified or not yet checked.
+     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
      *
      * @param string|null $error
      *
@@ -339,7 +387,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. Null on `active` and `pending` records.
+     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. `null` on `active` and `pending` records.
      * 
      *
      * @return bool|null
@@ -349,7 +397,7 @@ class DNSRecord
         return $this->safeToRemove;
     }
     /**
-     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. Null on `active` and `pending` records.
+     * Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. `null` on `active` and `pending` records.
      *
      * @param bool|null $safeToRemove
      *

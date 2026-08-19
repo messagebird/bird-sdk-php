@@ -31,9 +31,12 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
     /**
      * Values for the template's variables, keyed by the variable name. A variable name is a single word.
      * 
-     * Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+     * Every variable in the template's `variables` list needs a value. A send
+     * that omits one is rejected. Languages can use different variables, and a
+     * value unused by the selected language is ignored.
      * 
-     * `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
+     * The API supplies values under the reserved `bird` key, so a send that sets
+     * it is rejected. `parameters` is capped at 16 KB once serialized.
      * 
      *
      * @var array<string, mixed>|null
@@ -104,9 +107,12 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
     /**
      * Values for the template's variables, keyed by the variable name. A variable name is a single word.
      * 
-     * Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+     * Every variable in the template's `variables` list needs a value. A send
+     * that omits one is rejected. Languages can use different variables, and a
+     * value unused by the selected language is ignored.
      * 
-     * `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
+     * The API supplies values under the reserved `bird` key, so a send that sets
+     * it is rejected. `parameters` is capped at 16 KB once serialized.
      * 
      *
      * @return array<string, mixed>|null
@@ -118,9 +124,12 @@ class EmailMessageSendRequestTemplate extends \ArrayObject
     /**
     * Values for the template's variables, keyed by the variable name. A variable name is a single word.
     
-    Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+    Every variable in the template's `variables` list needs a value. A send
+    that omits one is rejected. Languages can use different variables, and a
+    value unused by the selected language is ignored.
     
-    `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
+    The API supplies values under the reserved `bird` key, so a send that sets
+    it is rejected. `parameters` is capped at 16 KB once serialized.
     
     *
     * @param array<string, mixed>|null $parameters

@@ -20,14 +20,14 @@ class SMSMessageSendRequest
      */
     protected $to;
     /**
-     * Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. Use an E.164 number such as `+15557654321`, or a short code of 5-6 digits. You can also use an alphanumeric sender ID of 1-11 letters, digits, spaces, dashes, or underscores. It must contain at least one letter, for example `MyBrand`. A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
      * 
      *
      * @var string|null
      */
     protected $from;
     /**
-     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
+     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
      * 
      *
      * @var string|null
@@ -153,7 +153,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. Use an E.164 number such as `+15557654321`, or a short code of 5-6 digits. You can also use an alphanumeric sender ID of 1-11 letters, digits, spaces, dashes, or underscores. It must contain at least one letter, for example `MyBrand`. A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
      * 
      *
      * @return string|null
@@ -163,7 +163,7 @@ class SMSMessageSendRequest
         return $this->from;
     }
     /**
-     * Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. Use an E.164 number such as `+15557654321`, or a short code of 5-6 digits. You can also use an alphanumeric sender ID of 1-11 letters, digits, spaces, dashes, or underscores. It must contain at least one letter, for example `MyBrand`. A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
      *
      * @param string|null $from
      *
@@ -176,7 +176,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
+     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
      * 
      *
      * @return string|null
@@ -186,7 +186,7 @@ class SMSMessageSendRequest
         return $this->text;
     }
     /**
-     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
+     * Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
      *
      * @param string|null $text
      *

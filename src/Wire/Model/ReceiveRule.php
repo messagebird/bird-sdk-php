@@ -21,7 +21,7 @@ class ReceiveRule
      */
     protected $mailboxId;
     /**
-     * What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+     * What the rule does when it matches. Block rules always win: over allow rules and over the reply admission on allowlist mailboxes.
      *
      * @var string|null
      */
@@ -39,7 +39,7 @@ class ReceiveRule
      */
     protected $entryType;
     /**
-     * Your own note about why the rule exists. Null when unset.
+     * Your own note about why the rule exists. `null` when unset.
      *
      * @var string|null
      */
@@ -87,7 +87,7 @@ class ReceiveRule
         return $this;
     }
     /**
-     * What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+     * What the rule does when it matches. Block rules always win: over allow rules and over the reply admission on allowlist mailboxes.
      *
      * @return string|null
      */
@@ -96,7 +96,7 @@ class ReceiveRule
         return $this->action;
     }
     /**
-     * What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+     * What the rule does when it matches. Block rules always win: over allow rules and over the reply admission on allowlist mailboxes.
      *
      * @param string|null $action
      *
@@ -153,7 +153,7 @@ class ReceiveRule
         return $this;
     }
     /**
-     * Your own note about why the rule exists. Null when unset.
+     * Your own note about why the rule exists. `null` when unset.
      *
      * @return string|null
      */
@@ -162,7 +162,7 @@ class ReceiveRule
         return $this->note;
     }
     /**
-     * Your own note about why the rule exists. Null when unset.
+     * Your own note about why the rule exists. `null` when unset.
      *
      * @param string|null $note
      *

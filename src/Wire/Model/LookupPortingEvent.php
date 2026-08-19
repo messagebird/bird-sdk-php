@@ -13,7 +13,7 @@ class LookupPortingEvent
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * When the move was recorded, null when the record carries no date.
+     * When the move was recorded, `null` when the record carries no date.
      *
      * @var \DateTime|null
      */
@@ -25,7 +25,7 @@ class LookupPortingEvent
      */
     protected $action;
     /**
-     * When the move was recorded, null when the record carries no date.
+     * When the move was recorded, `null` when the record carries no date.
      *
      * @return \DateTime|null
      */
@@ -34,7 +34,7 @@ class LookupPortingEvent
         return $this->occurredAt;
     }
     /**
-     * When the move was recorded, null when the record carries no date.
+     * When the move was recorded, `null` when the record carries no date.
      *
      * @param \DateTime|null $occurredAt
      *

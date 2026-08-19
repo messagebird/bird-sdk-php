@@ -111,16 +111,6 @@ class ErrorBodyNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('next', $data) && $data['next'] === null) {
             $object->setNext(null);
         }
-        if (\array_key_exists('unmet_gates', $data) && $data['unmet_gates'] !== null) {
-            $values_2 = [];
-            foreach ($data['unmet_gates'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\UnmetGate::class, 'json', $context);
-            }
-            $object->setUnmetGates($values_2);
-        }
-        elseif (\array_key_exists('unmet_gates', $data) && $data['unmet_gates'] === null) {
-            $object->setUnmetGates(null);
-        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -154,13 +144,6 @@ class ErrorBodyNormalizer implements DenormalizerInterface, NormalizerInterface,
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['next'] = $values_1;
-        }
-        if ($data->isInitialized('unmetGates') && null !== $data->getUnmetGates()) {
-            $values_2 = [];
-            foreach ($data->getUnmetGates() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
-            }
-            $dataArray['unmet_gates'] = $values_2;
         }
         return $dataArray;
     }

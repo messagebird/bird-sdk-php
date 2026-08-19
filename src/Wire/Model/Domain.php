@@ -27,22 +27,27 @@ class Domain
      */
     protected $domain;
     /**
-     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns `other` when the provider has not been detected or is not recognized.
      * 
      *
      * @var string|null
      */
     protected $vendor;
     /**
-     * Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
-     * - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+     * Domain ownership verification, proven by the DKIM record. Readiness to
+     * send or track is reported separately per capability under
+     * `capabilities.*.status`.
+     * 
+     * - `pending`: the DKIM record has not been published yet.
+     * - `verified`: the DKIM record is in place; ownership is confirmed.
+     * - `failed`: a DKIM record exists but does not match the expected
      *   value (for example a stale record from an earlier setup), or a
      *   previously verified record was removed. Correct the record to
      *   recover.
-     * - `temporary_failure` — DNS resolution failed transiently (timeout,
-     *   unreachable nameserver). Verification is queued for retry on a 72h
-     *   cadence; customer should not edit DNS records before the retry runs.
-     * - `rejected` — the domain was refused for policy reasons and cannot be
+     * - `temporary_failure`: DNS resolution failed transiently, such as from a
+     *   timeout or unreachable nameserver. Verification retries automatically;
+     *   do not change the DNS records unless they are incorrect.
+     * - `rejected`: the domain was refused for policy reasons and cannot be
      *   used for sending. Contact support if you believe this is an error.
      * 
      *
@@ -57,6 +62,20 @@ class Domain
      */
     protected $settings;
     /**
+     * What to do next about this domain, given the state it is in. Each entry names one action and says
+     * why it is worth taking, so you can act on this response without working out the order
+     * yourself. Present on reads that compute it: an empty list means there is nothing to do,
+     * and the field is absent entirely on responses that do not report next actions.
+     * 
+     * This answers whether you own the domain, which is what `status` reports. What each
+     * capability still needs before it can send or receive is reported separately under
+     * `capabilities`, so an empty list here does not on its own mean the domain is ready.
+     * 
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * Active DKIM signing configuration for the domain.
      *
      * @var DomainDKIM|null
@@ -67,21 +86,21 @@ class Domain
      */
     protected $capabilities;
     /**
-     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off (`capabilities.inbound.status` is `not_configured`) — their presence alone does not mean receiving is enabled (see `DomainUpdate.inbound`).
+     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off and `capabilities.inbound.status` is `not_configured`. Their presence alone does not mean receiving is enabled; see `DomainUpdate.inbound`.
      * 
      *
      * @var list<DNSRecord>|null
      */
     protected $dnsRecords;
     /**
-     * When Bird last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification — your manual refresh and the periodic automatic re-checks alike. Null if the domain has never been checked.
+     * When we last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification: your manual refresh and the periodic automatic re-checks alike. `null` if the domain has never been checked.
      * 
      *
      * @var \DateTime|null
      */
     protected $lastCheckedAt;
     /**
-     * When the domain's ownership was confirmed — the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. Null if the domain has never been verified.
+     * When the domain's ownership was confirmed: the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. `null` if the domain has never been verified.
      * 
      *
      * @var \DateTime|null
@@ -159,7 +178,7 @@ class Domain
         return $this;
     }
     /**
-     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns `other` when the provider has not been detected or is not recognized.
      * 
      *
      * @return string|null
@@ -169,7 +188,7 @@ class Domain
         return $this->vendor;
     }
     /**
-     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+     * The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns `other` when the provider has not been detected or is not recognized.
      *
      * @param string|null $vendor
      *
@@ -182,15 +201,20 @@ class Domain
         return $this;
     }
     /**
-     * Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
-     * - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+     * Domain ownership verification, proven by the DKIM record. Readiness to
+     * send or track is reported separately per capability under
+     * `capabilities.*.status`.
+     * 
+     * - `pending`: the DKIM record has not been published yet.
+     * - `verified`: the DKIM record is in place; ownership is confirmed.
+     * - `failed`: a DKIM record exists but does not match the expected
      *   value (for example a stale record from an earlier setup), or a
      *   previously verified record was removed. Correct the record to
      *   recover.
-     * - `temporary_failure` — DNS resolution failed transiently (timeout,
-     *   unreachable nameserver). Verification is queued for retry on a 72h
-     *   cadence; customer should not edit DNS records before the retry runs.
-     * - `rejected` — the domain was refused for policy reasons and cannot be
+     * - `temporary_failure`: DNS resolution failed transiently, such as from a
+     *   timeout or unreachable nameserver. Verification retries automatically;
+     *   do not change the DNS records unless they are incorrect.
+     * - `rejected`: the domain was refused for policy reasons and cannot be
      *   used for sending. Contact support if you believe this is an error.
      * 
      *
@@ -201,15 +225,20 @@ class Domain
         return $this->status;
     }
     /**
-    * Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
-    - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+    * Domain ownership verification, proven by the DKIM record. Readiness to
+    send or track is reported separately per capability under
+    `capabilities.*.status`.
+    
+    - `pending`: the DKIM record has not been published yet.
+    - `verified`: the DKIM record is in place; ownership is confirmed.
+    - `failed`: a DKIM record exists but does not match the expected
      value (for example a stale record from an earlier setup), or a
      previously verified record was removed. Correct the record to
      recover.
-    - `temporary_failure` — DNS resolution failed transiently (timeout,
-     unreachable nameserver). Verification is queued for retry on a 72h
-     cadence; customer should not edit DNS records before the retry runs.
-    - `rejected` — the domain was refused for policy reasons and cannot be
+    - `temporary_failure`: DNS resolution failed transiently, such as from a
+     timeout or unreachable nameserver. Verification retries automatically;
+     do not change the DNS records unless they are incorrect.
+    - `rejected`: the domain was refused for policy reasons and cannot be
      used for sending. Contact support if you believe this is an error.
     
     *
@@ -244,6 +273,44 @@ class Domain
     {
         $this->initialized['settings'] = true;
         $this->settings = $settings;
+        return $this;
+    }
+    /**
+     * What to do next about this domain, given the state it is in. Each entry names one action and says
+     * why it is worth taking, so you can act on this response without working out the order
+     * yourself. Present on reads that compute it: an empty list means there is nothing to do,
+     * and the field is absent entirely on responses that do not report next actions.
+     * 
+     * This answers whether you own the domain, which is what `status` reports. What each
+     * capability still needs before it can send or receive is reported separately under
+     * `capabilities`, so an empty list here does not on its own mean the domain is ready.
+     * 
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+    * What to do next about this domain, given the state it is in. Each entry names one action and says
+    why it is worth taking, so you can act on this response without working out the order
+    yourself. Present on reads that compute it: an empty list means there is nothing to do,
+    and the field is absent entirely on responses that do not report next actions.
+    
+    This answers whether you own the domain, which is what `status` reports. What each
+    capability still needs before it can send or receive is reported separately under
+    `capabilities`, so an empty list here does not on its own mean the domain is ready.
+    
+    *
+    * @param list<NextAction>|null $next
+    *
+    * @return self
+    */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
     /**
@@ -287,7 +354,7 @@ class Domain
         return $this;
     }
     /**
-     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off (`capabilities.inbound.status` is `not_configured`) — their presence alone does not mean receiving is enabled (see `DomainUpdate.inbound`).
+     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off and `capabilities.inbound.status` is `not_configured`. Their presence alone does not mean receiving is enabled; see `DomainUpdate.inbound`.
      * 
      *
      * @return list<DNSRecord>|null
@@ -297,7 +364,7 @@ class Domain
         return $this->dnsRecords;
     }
     /**
-     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off (`capabilities.inbound.status` is `not_configured`) — their presence alone does not mean receiving is enabled (see `DomainUpdate.inbound`).
+     * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off and `capabilities.inbound.status` is `not_configured`. Their presence alone does not mean receiving is enabled; see `DomainUpdate.inbound`.
      *
      * @param list<DNSRecord>|null $dnsRecords
      *
@@ -310,7 +377,7 @@ class Domain
         return $this;
     }
     /**
-     * When Bird last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification — your manual refresh and the periodic automatic re-checks alike. Null if the domain has never been checked.
+     * When we last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification: your manual refresh and the periodic automatic re-checks alike. `null` if the domain has never been checked.
      * 
      *
      * @return \DateTime|null
@@ -320,7 +387,7 @@ class Domain
         return $this->lastCheckedAt;
     }
     /**
-     * When Bird last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification — your manual refresh and the periodic automatic re-checks alike. Null if the domain has never been checked.
+     * When we last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification: your manual refresh and the periodic automatic re-checks alike. `null` if the domain has never been checked.
      *
      * @param \DateTime|null $lastCheckedAt
      *
@@ -333,7 +400,7 @@ class Domain
         return $this;
     }
     /**
-     * When the domain's ownership was confirmed — the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. Null if the domain has never been verified.
+     * When the domain's ownership was confirmed: the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. `null` if the domain has never been verified.
      * 
      *
      * @return \DateTime|null
@@ -343,7 +410,7 @@ class Domain
         return $this->verifiedAt;
     }
     /**
-     * When the domain's ownership was confirmed — the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. Null if the domain has never been verified.
+     * When the domain's ownership was confirmed: the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. `null` if the domain has never been verified.
      *
      * @param \DateTime|null $verifiedAt
      *

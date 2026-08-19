@@ -13,28 +13,28 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @var EmailLatencyQuantiles|null
      */
     protected $processing;
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @var EmailLatencyQuantiles|null
      */
     protected $delivery;
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @var EmailLatencyQuantiles|null
      */
     protected $total;
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @return EmailLatencyQuantiles|null
@@ -44,7 +44,7 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return $this->processing;
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      *
      * @param EmailLatencyQuantiles|null $processing
      *
@@ -57,7 +57,7 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return $this;
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @return EmailLatencyQuantiles|null
@@ -67,7 +67,7 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return $this->delivery;
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      *
      * @param EmailLatencyQuantiles|null $delivery
      *
@@ -80,7 +80,7 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return $this;
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      * 
      *
      * @return EmailLatencyQuantiles|null
@@ -90,7 +90,7 @@ class EmailCategoryStatsPointLatency extends \ArrayObject
         return $this->total;
     }
     /**
-     * p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+     * Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
      *
      * @param EmailLatencyQuantiles|null $total
      *

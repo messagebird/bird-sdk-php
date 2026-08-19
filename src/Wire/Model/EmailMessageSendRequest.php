@@ -63,7 +63,7 @@ class EmailMessageSendRequest
      */
     protected $replyTo;
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields: `from`, `to`, `cc`, `bcc`, `reply_to`, and `subject`. The API automatically generates `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`. You cannot override these generated headers. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. Marketing sends receive a compliant unsubscribe header, so supplying either one is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      * 
      *
      * @var array<string, string>|null
@@ -83,7 +83,7 @@ class EmailMessageSendRequest
      */
     protected $tags;
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
      * 
      *
      * @var array<string, mixed>|null
@@ -140,7 +140,7 @@ class EmailMessageSendRequest
      */
     protected $attachments;
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is accepted only on a single send. Batch items reject it.
      * 
      *
      * @var \DateTime|null
@@ -325,7 +325,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields: `from`, `to`, `cc`, `bcc`, `reply_to`, and `subject`. The API automatically generates `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`. You cannot override these generated headers. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. Marketing sends receive a compliant unsubscribe header, so supplying either one is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      * 
      *
      * @return array<string, string>|null
@@ -335,7 +335,7 @@ class EmailMessageSendRequest
         return $this->headers;
     }
     /**
-     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
+     * Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields: `from`, `to`, `cc`, `bcc`, `reply_to`, and `subject`. The API automatically generates `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`. You cannot override these generated headers. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. Marketing sends receive a compliant unsubscribe header, so supplying either one is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
      *
      * @param array<string, string>|null $headers
      *
@@ -384,7 +384,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
      * 
      *
      * @return array<string, mixed>|null
@@ -394,7 +394,7 @@ class EmailMessageSendRequest
         return $this->metadata;
     }
     /**
-     * Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -573,7 +573,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is accepted only on a single send. Batch items reject it.
      * 
      *
      * @return \DateTime|null
@@ -583,7 +583,7 @@ class EmailMessageSendRequest
         return $this->scheduledAt;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
+     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is accepted only on a single send. Batch items reject it.
      *
      * @param \DateTime|null $scheduledAt
      *

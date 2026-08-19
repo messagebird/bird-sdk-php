@@ -17,7 +17,7 @@ class SMSTemplate
      */
     protected $id;
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for Bird's built-in templates.
+     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
      * 
      *
      * @var string|null
@@ -37,7 +37,8 @@ class SMSTemplate
      */
     protected $description;
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * 
      *
      * @var string|null
      */
@@ -51,10 +52,9 @@ class SMSTemplate
      * - `rejected`: it was reviewed and every language was refused.
      * - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
      * 
-     * This is a summary. It answers whether the template is usable at all, not
-     * whether every language is: a template with one language live is `active` even
-     * while another is still drafted or refused. Read `languages` for per-language
-     * state, which is what says which language is where and why.
+     * This summary answers whether the template is usable at all. A template with
+     * one language live is `active` even while another is still drafted or refused.
+     * Read `languages` to determine the state of each language and its reason.
      * 
      * Which of the five a template can reach follows its channel's review model. A
      * channel whose content a third party reviews reaches all five; one whose
@@ -153,7 +153,7 @@ class SMSTemplate
      */
     protected $revision;
     /**
-     * When this template was last submitted. Null for a built-in `system` template: Bird ships it ready to send, so there is nothing submitted to date.
+     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
      * 
      *
      * @var \DateTime|null
@@ -192,7 +192,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for Bird's built-in templates.
+     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
      * 
      *
      * @return string|null
@@ -202,7 +202,7 @@ class SMSTemplate
         return $this->slug;
     }
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for Bird's built-in templates.
+     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
      *
      * @param string|null $slug
      *
@@ -260,7 +260,8 @@ class SMSTemplate
         return $this;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * 
      *
      * @return string|null
      */
@@ -269,7 +270,7 @@ class SMSTemplate
         return $this->scope;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
      *
      * @param string|null $scope
      *
@@ -290,10 +291,9 @@ class SMSTemplate
      * - `rejected`: it was reviewed and every language was refused.
      * - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
      * 
-     * This is a summary. It answers whether the template is usable at all, not
-     * whether every language is: a template with one language live is `active` even
-     * while another is still drafted or refused. Read `languages` for per-language
-     * state, which is what says which language is where and why.
+     * This summary answers whether the template is usable at all. A template with
+     * one language live is `active` even while another is still drafted or refused.
+     * Read `languages` to determine the state of each language and its reason.
      * 
      * Which of the five a template can reach follows its channel's review model. A
      * channel whose content a third party reviews reaches all five; one whose
@@ -318,10 +318,9 @@ class SMSTemplate
     - `rejected`: it was reviewed and every language was refused.
     - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
     
-    This is a summary. It answers whether the template is usable at all, not
-    whether every language is: a template with one language live is `active` even
-    while another is still drafted or refused. Read `languages` for per-language
-    state, which is what says which language is where and why.
+    This summary answers whether the template is usable at all. A template with
+    one language live is `active` even while another is still drafted or refused.
+    Read `languages` to determine the state of each language and its reason.
     
     Which of the five a template can reach follows its channel's review model. A
     channel whose content a third party reviews reaches all five; one whose
@@ -621,7 +620,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * When this template was last submitted. Null for a built-in `system` template: Bird ships it ready to send, so there is nothing submitted to date.
+     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
      * 
      *
      * @return \DateTime|null
@@ -631,7 +630,7 @@ class SMSTemplate
         return $this->lastSubmittedAt;
     }
     /**
-     * When this template was last submitted. Null for a built-in `system` template: Bird ships it ready to send, so there is nothing submitted to date.
+     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
      *
      * @param \DateTime|null $lastSubmittedAt
      *

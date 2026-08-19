@@ -27,7 +27,7 @@ class TemplateVariable
      */
     protected $type;
     /**
-     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
      * 
      *
      * @var bool|null
@@ -93,7 +93,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
      * 
      *
      * @return bool|null
@@ -103,7 +103,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
      *
      * @param bool|null $required
      *

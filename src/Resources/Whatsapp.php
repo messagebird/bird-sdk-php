@@ -5,47 +5,103 @@ declare(strict_types=1);
 namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\Tag;
 use MessageBird\Wire\Model\WhatsAppMessage;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequest;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestAudio;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestImage;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestSticker;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestText;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestVideo;
 use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
 
 /**
  * The WhatsApp channel. get, list, and listEvents are generated on WhatsappBase;
  * this parent hand-writes the flagship `send`, sugaring the template handle into
- * the nested template object. Templates are currently the only supported content.
+ * the nested template object.
  */
 final class Whatsapp extends WhatsappBase
 {
     /**
-     * Send a WhatsApp template message and return the created message.
+     * Send one WhatsApp message and return the created message.
      *
-     * $components fills the template's placeholders.
+     * A send carries exactly one kind of content: a template, or one free-form
+     * arm. Free-form content is deliverable only inside an open 24-hour
+     * customer service window, and every send but a Bird-managed template
+     * needs $from.
      *
-     * @param string                                     $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
-     * @param list<WhatsAppMessageTemplateComponent>|null $components
+     * @param string|null                                 $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
+     * @param list<WhatsAppMessageTemplateComponent>|null $components fills the template's placeholders
+     * @param list<Tag>|null                              $tags
+     * @param array<string, mixed>|null                   $metadata
      */
     public function send(
         string $to,
-        string $template,
+        ?string $template = null,
         ?string $language = null,
         ?array $components = null,
+        ?string $from = null,
+        ?WhatsAppMessageSendRequestText $text = null,
+        ?WhatsAppMessageSendRequestImage $image = null,
+        ?WhatsAppMessageSendRequestVideo $video = null,
+        ?WhatsAppMessageSendRequestAudio $audio = null,
+        ?WhatsAppMessageSendRequestSticker $sticker = null,
+        ?WhatsAppMessageSendRequestDocument $document = null,
+        ?WhatsAppMessageSendRequestLocation $location = null,
+        ?array $tags = null,
+        ?array $metadata = null,
         ?RequestOptions $options = null,
     ): WhatsAppMessage {
-        $tmpl = new WhatsAppMessageSendRequestTemplate();
-        // A wat_-prefixed value is the id; anything else is the slug handle.
-        if (str_starts_with($template, 'wat_')) {
-            $tmpl->setId($template);
-        } else {
-            $tmpl->setSlug($template);
+        $request = (new WhatsAppMessageSendRequest())->setTo($to);
+        if ($template !== null) {
+            $tmpl = new WhatsAppMessageSendRequestTemplate();
+            // A wat_-prefixed value is the id; anything else is the slug handle.
+            if (str_starts_with($template, 'wat_')) {
+                $tmpl->setId($template);
+            } else {
+                $tmpl->setSlug($template);
+            }
+            if ($language !== null) {
+                $tmpl->setLanguage($language);
+            }
+            if ($components !== null) {
+                $tmpl->setComponents($components);
+            }
+            $request->setTemplate($tmpl);
         }
-        if ($language !== null) {
-            $tmpl->setLanguage($language);
+        if ($from !== null) {
+            $request->setFrom($from);
         }
-        if ($components !== null) {
-            $tmpl->setComponents($components);
+        if ($text !== null) {
+            $request->setText($text);
         }
-        $request = (new WhatsAppMessageSendRequest())->setTo($to)->setTemplate($tmpl);
+        if ($image !== null) {
+            $request->setImage($image);
+        }
+        if ($video !== null) {
+            $request->setVideo($video);
+        }
+        if ($audio !== null) {
+            $request->setAudio($audio);
+        }
+        if ($sticker !== null) {
+            $request->setSticker($sticker);
+        }
+        if ($document !== null) {
+            $request->setDocument($document);
+        }
+        if ($location !== null) {
+            $request->setLocation($location);
+        }
+        if ($tags !== null) {
+            $request->setTags($tags);
+        }
+        if ($metadata !== null) {
+            $request->setMetadata($metadata);
+        }
 
         return $this->single('POST', '/v1/whatsapp/messages', WhatsAppMessage::class, $request, null, $options);
     }

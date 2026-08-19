@@ -13,7 +13,11 @@ class WhatsAppMessageTemplateCardComponent
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Which part of the card this fills in: `header` for the card's image or video, `body` for its text, `button` for a button's variable.
+     * Which part of the card this fills in.
+     * 
+     * - `header`: the card's image or video.
+     * - `body`: its text.
+     * - `button`: a button's variable.
      * 
      *
      * @var string|null
@@ -26,7 +30,11 @@ class WhatsAppMessageTemplateCardComponent
      */
     protected $parameters;
     /**
-     * Which part of the card this fills in: `header` for the card's image or video, `body` for its text, `button` for a button's variable.
+     * Which part of the card this fills in.
+     * 
+     * - `header`: the card's image or video.
+     * - `body`: its text.
+     * - `button`: a button's variable.
      * 
      *
      * @return string|null
@@ -36,12 +44,17 @@ class WhatsAppMessageTemplateCardComponent
         return $this->type;
     }
     /**
-     * Which part of the card this fills in: `header` for the card's image or video, `body` for its text, `button` for a button's variable.
-     *
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * Which part of the card this fills in.
+    
+    - `header`: the card's image or video.
+    - `body`: its text.
+    - `button`: a button's variable.
+    
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;

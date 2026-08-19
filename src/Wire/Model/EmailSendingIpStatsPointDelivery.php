@@ -44,7 +44,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
      */
     protected $oobBounces;
     /**
-     * Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients on this IP who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @var int|null
      */
@@ -66,7 +66,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
      */
     protected $bounces;
     /**
-     * Share of this IP's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+     * Share of this IP's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero.
      * 
      *
      * @var float|null
@@ -198,7 +198,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients on this IP who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @return int|null
      */
@@ -207,7 +207,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this->effectiveDelivered;
     }
     /**
-     * Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+     * Recipients on this IP who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
      *
      * @param int|null $effectiveDelivered
      *
@@ -282,7 +282,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this;
     }
     /**
-     * Share of this IP's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+     * Share of this IP's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero.
      * 
      *
      * @return float|null
@@ -292,7 +292,7 @@ class EmailSendingIpStatsPointDelivery extends \ArrayObject
         return $this->deliveryRate;
     }
     /**
-     * Share of this IP's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+     * Share of this IP's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero.
      *
      * @param float|null $deliveryRate
      *

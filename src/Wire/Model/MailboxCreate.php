@@ -13,13 +13,13 @@ class MailboxCreate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
      *
      * @var string|null
      */
     protected $localPart;
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
      *
      * @var string|null
      */
@@ -31,7 +31,7 @@ class MailboxCreate
      */
     protected $displayName;
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox.
+     * Default `Reply-To` address stamped on mail sent from this mailbox.
      *
      * @var string|null
      */
@@ -63,7 +63,7 @@ class MailboxCreate
      */
     protected $metadata;
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
      *
      * @return string|null
      */
@@ -72,7 +72,7 @@ class MailboxCreate
         return $this->localPart;
     }
     /**
-     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
+     * The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
      *
      * @param string|null $localPart
      *
@@ -85,7 +85,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
      *
      * @return string|null
      */
@@ -94,7 +94,7 @@ class MailboxCreate
         return $this->domain;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
      *
      * @param string|null $domain
      *
@@ -129,7 +129,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox.
+     * Default `Reply-To` address stamped on mail sent from this mailbox.
      *
      * @return string|null
      */
@@ -138,7 +138,7 @@ class MailboxCreate
         return $this->defaultReplyTo;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox.
+     * Default `Reply-To` address stamped on mail sent from this mailbox.
      *
      * @param string|null $defaultReplyTo
      *

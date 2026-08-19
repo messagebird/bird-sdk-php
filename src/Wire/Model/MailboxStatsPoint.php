@@ -13,7 +13,7 @@ class MailboxStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
+     * The day (`YYYY-MM-DD`) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
      *
      * @var string|null
      */
@@ -44,7 +44,7 @@ class MailboxStatsPoint
      */
     protected $received;
     /**
-     * The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
+     * The day (`YYYY-MM-DD`) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
      *
      * @return string|null
      */
@@ -53,7 +53,7 @@ class MailboxStatsPoint
         return $this->bucket;
     }
     /**
-     * The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
+     * The day (`YYYY-MM-DD`) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
      *
      * @param string|null $bucket
      *

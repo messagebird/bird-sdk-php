@@ -73,6 +73,16 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
         elseif (\array_key_exists('settings', $data) && $data['settings'] === null) {
             $object->setSettings(null);
         }
+        if (\array_key_exists('next', $data) && $data['next'] !== null) {
+            $values = [];
+            foreach ($data['next'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
+            }
+            $object->setNext($values);
+        }
+        elseif (\array_key_exists('next', $data) && $data['next'] === null) {
+            $object->setNext(null);
+        }
         if (\array_key_exists('dkim', $data) && $data['dkim'] !== null) {
             $object->setDkim($this->denormalizer->denormalize($data['dkim'], \MessageBird\Wire\Model\DomainDKIM::class, 'json', $context));
         }
@@ -86,11 +96,11 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setCapabilities(null);
         }
         if (\array_key_exists('dns_records', $data) && $data['dns_records'] !== null) {
-            $values = [];
-            foreach ($data['dns_records'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\DNSRecord::class, 'json', $context);
+            $values_1 = [];
+            foreach ($data['dns_records'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\DNSRecord::class, 'json', $context);
             }
-            $object->setDnsRecords($values);
+            $object->setDnsRecords($values_1);
         }
         elseif (\array_key_exists('dns_records', $data) && $data['dns_records'] === null) {
             $object->setDnsRecords(null);

@@ -19,19 +19,19 @@ class EmailAttachment
      */
     protected $filename;
     /**
-     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
+     * Base64-encoded file bytes. The encoded value and MIME wrapping count toward the 20 MB message limit.
      *
      * @var string|null
      */
     protected $content;
     /**
-     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
+     * The file's MIME type. If omitted, the API infers it from the extension in `filename`. The API rejects executable and script types based on this value.
      *
      * @var string|null
      */
     protected $contentType;
     /**
-     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
+     * An RFC 2392 Content-ID for an inline file. Reference it from the HTML body with `<img src="cid:{content_id}"/>`. Omit it to send a downloadable attachment.
      *
      * @var string|null
      */
@@ -59,7 +59,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
+     * Base64-encoded file bytes. The encoded value and MIME wrapping count toward the 20 MB message limit.
      *
      * @return string|null
      */
@@ -68,7 +68,7 @@ class EmailAttachment
         return $this->content;
     }
     /**
-     * The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
+     * Base64-encoded file bytes. The encoded value and MIME wrapping count toward the 20 MB message limit.
      *
      * @param string|null $content
      *
@@ -81,7 +81,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
+     * The file's MIME type. If omitted, the API infers it from the extension in `filename`. The API rejects executable and script types based on this value.
      *
      * @return string|null
      */
@@ -90,7 +90,7 @@ class EmailAttachment
         return $this->contentType;
     }
     /**
-     * The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
+     * The file's MIME type. If omitted, the API infers it from the extension in `filename`. The API rejects executable and script types based on this value.
      *
      * @param string|null $contentType
      *
@@ -103,7 +103,7 @@ class EmailAttachment
         return $this;
     }
     /**
-     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
+     * An RFC 2392 Content-ID for an inline file. Reference it from the HTML body with `<img src="cid:{content_id}"/>`. Omit it to send a downloadable attachment.
      *
      * @return string|null
      */
@@ -112,7 +112,7 @@ class EmailAttachment
         return $this->contentId;
     }
     /**
-     * An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
+     * An RFC 2392 Content-ID for an inline file. Reference it from the HTML body with `<img src="cid:{content_id}"/>`. Omit it to send a downloadable attachment.
      *
      * @param string|null $contentId
      *

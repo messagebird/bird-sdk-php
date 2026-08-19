@@ -49,13 +49,13 @@ class ErrorBody
      */
     protected $docUrl;
     /**
-     * Request correlation ID. Also returned as the X-Request-Id response header.
+     * Request correlation ID for support and troubleshooting. Also returned in the `X-Request-Id` response header.
      *
      * @var string|null
      */
     protected $requestId;
     /**
-     * Verbatim error code returned by a downstream system (for example, an SMTP response code from a recipient's mail server, or a payment-provider decline code). Present only when Bird is surfacing a code from an external system that the caller may want to act on directly.
+     * Verbatim error code from an external system, such as an SMTP response code or a payment decline code. Present only when the code may help you resolve the error.
      * 
      *
      * @var string|null
@@ -80,12 +80,6 @@ class ErrorBody
      * @var list<NextAction>|null
      */
     protected $next;
-    /**
-     * The verification requirements blocking this action, each with the flow that resolves it. Present only when an action is blocked pending verification.
-     *
-     * @var list<UnmetGate>|null
-     */
-    protected $unmetGates;
     /**
      * Broad category for coarse client branching.
      *
@@ -219,7 +213,7 @@ class ErrorBody
         return $this;
     }
     /**
-     * Request correlation ID. Also returned as the X-Request-Id response header.
+     * Request correlation ID for support and troubleshooting. Also returned in the `X-Request-Id` response header.
      *
      * @return string|null
      */
@@ -228,7 +222,7 @@ class ErrorBody
         return $this->requestId;
     }
     /**
-     * Request correlation ID. Also returned as the X-Request-Id response header.
+     * Request correlation ID for support and troubleshooting. Also returned in the `X-Request-Id` response header.
      *
      * @param string|null $requestId
      *
@@ -241,7 +235,7 @@ class ErrorBody
         return $this;
     }
     /**
-     * Verbatim error code returned by a downstream system (for example, an SMTP response code from a recipient's mail server, or a payment-provider decline code). Present only when Bird is surfacing a code from an external system that the caller may want to act on directly.
+     * Verbatim error code from an external system, such as an SMTP response code or a payment decline code. Present only when the code may help you resolve the error.
      * 
      *
      * @return string|null
@@ -251,7 +245,7 @@ class ErrorBody
         return $this->vendorCode;
     }
     /**
-     * Verbatim error code returned by a downstream system (for example, an SMTP response code from a recipient's mail server, or a payment-provider decline code). Present only when Bird is surfacing a code from an external system that the caller may want to act on directly.
+     * Verbatim error code from an external system, such as an SMTP response code or a payment decline code. Present only when the code may help you resolve the error.
      *
      * @param string|null $vendorCode
      *
@@ -328,28 +322,6 @@ class ErrorBody
     {
         $this->initialized['next'] = true;
         $this->next = $next;
-        return $this;
-    }
-    /**
-     * The verification requirements blocking this action, each with the flow that resolves it. Present only when an action is blocked pending verification.
-     *
-     * @return list<UnmetGate>|null
-     */
-    public function getUnmetGates(): ?array
-    {
-        return $this->unmetGates;
-    }
-    /**
-     * The verification requirements blocking this action, each with the flow that resolves it. Present only when an action is blocked pending verification.
-     *
-     * @param list<UnmetGate>|null $unmetGates
-     *
-     * @return self
-     */
-    public function setUnmetGates(?array $unmetGates): self
-    {
-        $this->initialized['unmetGates'] = true;
-        $this->unmetGates = $unmetGates;
         return $this;
     }
 }

@@ -13,7 +13,17 @@ class NextAction
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * What you do about this step. `operation` means call the operation named in `operation`, then read again. `external` means act somewhere this API does not reach, then read again. `wait` means nothing is asked of you, so read again later. `terminal` means nothing you do resolves this, so stop retrying. Tolerate a value you do not recognize: show the `description` and offer no action.
+     * What you do about this step.
+     * 
+     * - `operation`: call the operation named in `operation`, then
+     *   read again.
+     * - `external`: act somewhere this API does not reach, then read
+     *   again.
+     * - `wait`: nothing is asked of you, so read again later.
+     * - `terminal`: nothing you do resolves this, so stop retrying.
+     * 
+     * Tolerate a value you do not recognize: show the `description` and
+     * offer no action.
      * 
      *
      * @var string|null
@@ -47,7 +57,17 @@ class NextAction
      */
     protected $url;
     /**
-     * What you do about this step. `operation` means call the operation named in `operation`, then read again. `external` means act somewhere this API does not reach, then read again. `wait` means nothing is asked of you, so read again later. `terminal` means nothing you do resolves this, so stop retrying. Tolerate a value you do not recognize: show the `description` and offer no action.
+     * What you do about this step.
+     * 
+     * - `operation`: call the operation named in `operation`, then
+     *   read again.
+     * - `external`: act somewhere this API does not reach, then read
+     *   again.
+     * - `wait`: nothing is asked of you, so read again later.
+     * - `terminal`: nothing you do resolves this, so stop retrying.
+     * 
+     * Tolerate a value you do not recognize: show the `description` and
+     * offer no action.
      * 
      *
      * @return string|null
@@ -57,12 +77,23 @@ class NextAction
         return $this->kind;
     }
     /**
-     * What you do about this step. `operation` means call the operation named in `operation`, then read again. `external` means act somewhere this API does not reach, then read again. `wait` means nothing is asked of you, so read again later. `terminal` means nothing you do resolves this, so stop retrying. Tolerate a value you do not recognize: show the `description` and offer no action.
-     *
-     * @param string|null $kind
-     *
-     * @return self
-     */
+    * What you do about this step.
+    
+    - `operation`: call the operation named in `operation`, then
+     read again.
+    - `external`: act somewhere this API does not reach, then read
+     again.
+    - `wait`: nothing is asked of you, so read again later.
+    - `terminal`: nothing you do resolves this, so stop retrying.
+    
+    Tolerate a value you do not recognize: show the `description` and
+    offer no action.
+    
+    *
+    * @param string|null $kind
+    *
+    * @return self
+    */
     public function setKind(?string $kind): self
     {
         $this->initialized['kind'] = true;

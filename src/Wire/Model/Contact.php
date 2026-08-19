@@ -17,13 +17,13 @@ class Contact extends \ArrayObject
      */
     protected $id;
     /**
-     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. `null` when the contact has no email address.
      *
      * @var string|null
      */
     protected $email;
     /**
-     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     * The contact's phone number in normalized international form: a leading `+` and four to 15 digits. We normalize formatting but do not verify the number against numbering-plan metadata. The number is unique within the workspace. Because carriers recycle disconnected numbers, use `external_id` as the durable key for your own records. `null` when the contact has no phone number.
      *
      * @var string|null
      */
@@ -47,7 +47,7 @@ class Contact extends \ArrayObject
      */
     protected $externalId;
     /**
-     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to `500` characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      * 
      *
      * @var array<string, mixed>|null
@@ -86,7 +86,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. `null` when the contact has no email address.
      *
      * @return string|null
      */
@@ -95,7 +95,7 @@ class Contact extends \ArrayObject
         return $this->email;
     }
     /**
-     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
+     * The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. `null` when the contact has no email address.
      *
      * @param string|null $email
      *
@@ -108,7 +108,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     * The contact's phone number in normalized international form: a leading `+` and four to 15 digits. We normalize formatting but do not verify the number against numbering-plan metadata. The number is unique within the workspace. Because carriers recycle disconnected numbers, use `external_id` as the durable key for your own records. `null` when the contact has no phone number.
      *
      * @return string|null
      */
@@ -117,7 +117,7 @@ class Contact extends \ArrayObject
         return $this->phoneNumber;
     }
     /**
-     * The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+     * The contact's phone number in normalized international form: a leading `+` and four to 15 digits. We normalize formatting but do not verify the number against numbering-plan metadata. The number is unique within the workspace. Because carriers recycle disconnected numbers, use `external_id` as the durable key for your own records. `null` when the contact has no phone number.
      *
      * @param string|null $phoneNumber
      *
@@ -196,7 +196,7 @@ class Contact extends \ArrayObject
         return $this;
     }
     /**
-     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to `500` characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      * 
      *
      * @return array<string, mixed>|null
@@ -206,7 +206,7 @@ class Contact extends \ArrayObject
         return $this->data;
     }
     /**
-     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+     * Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to `500` characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
      *
      * @param array<string, mixed>|null $data
      *

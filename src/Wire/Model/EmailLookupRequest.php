@@ -13,14 +13,14 @@ class EmailLookupRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+     * The email address to look up. Send it exactly as you hold it. The part before the `@` is case-sensitive, so the API does not lowercase it. A display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
      * 
      *
      * @var string|null
      */
     protected $email;
     /**
-     * The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+     * The email address to look up. Send it exactly as you hold it. The part before the `@` is case-sensitive, so the API does not lowercase it. A display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
      * 
      *
      * @return string|null
@@ -30,7 +30,7 @@ class EmailLookupRequest
         return $this->email;
     }
     /**
-     * The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+     * The email address to look up. Send it exactly as you hold it. The part before the `@` is case-sensitive, so the API does not lowercase it. A display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
      *
      * @param string|null $email
      *

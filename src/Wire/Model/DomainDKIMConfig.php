@@ -14,11 +14,12 @@ class DomainDKIMConfig
     }
     /**
      * How the DKIM public key is published in your DNS.
-     * - `txt` — you publish the DKIM public key as a TXT record. Key
+     * 
+     * - `txt` (default): you publish the DKIM public key as a TXT record. Key
      *   rotation requires updating the record.
-     * - `delegated` — preview, currently unavailable; supplying it returns
-     *   `422`. When available, you publish a single CNAME and Bird hosts
-     *   and rotates the key with no further DNS changes on your side.
+     * - `delegated`: you publish a CNAME that points to a DKIM key we host and
+     *   rotate. This mode is unavailable for new configurations; supplying it
+     *   returns `422`.
      * 
      *
      * @var string|null
@@ -26,11 +27,12 @@ class DomainDKIMConfig
     protected $mode = 'txt';
     /**
      * How the DKIM public key is published in your DNS.
-     * - `txt` — you publish the DKIM public key as a TXT record. Key
+     * 
+     * - `txt` (default): you publish the DKIM public key as a TXT record. Key
      *   rotation requires updating the record.
-     * - `delegated` — preview, currently unavailable; supplying it returns
-     *   `422`. When available, you publish a single CNAME and Bird hosts
-     *   and rotates the key with no further DNS changes on your side.
+     * - `delegated`: you publish a CNAME that points to a DKIM key we host and
+     *   rotate. This mode is unavailable for new configurations; supplying it
+     *   returns `422`.
      * 
      *
      * @return string|null
@@ -41,11 +43,12 @@ class DomainDKIMConfig
     }
     /**
     * How the DKIM public key is published in your DNS.
-    - `txt` — you publish the DKIM public key as a TXT record. Key
+    
+    - `txt` (default): you publish the DKIM public key as a TXT record. Key
      rotation requires updating the record.
-    - `delegated` — preview, currently unavailable; supplying it returns
-     `422`. When available, you publish a single CNAME and Bird hosts
-     and rotates the key with no further DNS changes on your side.
+    - `delegated`: you publish a CNAME that points to a DKIM key we host and
+     rotate. This mode is unavailable for new configurations; supplying it
+     returns `422`.
     
     *
     * @param string|null $mode

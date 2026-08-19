@@ -108,6 +108,8 @@ foreach ($bird->sms->list(['direction' => 'outbound']) as $message) {
 
 ## WhatsApp
 
+A send carries exactly one kind of content: a template, or one free-form arm. Free-form content is deliverable only inside an open 24-hour customer service window, and every send but a Bird-managed template needs `from`.
+
 ```php
 // Send a template message
 $message = $bird->whatsapp->send(
@@ -115,6 +117,10 @@ $message = $bird->whatsapp->send(
     template: 'bird_otp',
     language: 'en',
 );
+
+// Send free-form text
+$text = (new WhatsAppMessageSendRequestText())->setBody('Your order has shipped!');
+$message = $bird->whatsapp->send(to: '+15551234567', from: '+15557654321', text: $text);
 
 // Fetch / list, and read one message's delivery timeline
 $message = $bird->whatsapp->get('wamid_01krdgeqcxet5s7t44vh8rt9mg');

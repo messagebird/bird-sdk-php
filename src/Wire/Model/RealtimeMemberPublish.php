@@ -19,7 +19,7 @@ class RealtimeMemberPublish
      */
     protected $event;
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @var mixed|null
      */
@@ -47,7 +47,7 @@ class RealtimeMemberPublish
         return $this;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @return mixed
      */
@@ -56,7 +56,7 @@ class RealtimeMemberPublish
         return $this->data;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @param mixed $data
      *

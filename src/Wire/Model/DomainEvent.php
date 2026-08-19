@@ -17,7 +17,7 @@ class DomainEvent
      */
     protected $id;
     /**
-     * Type of domain event. `domain.status_changed` tracks ownership verification (the domain-level `status`); `domain.sending_status_changed` tracks readiness to send (`capabilities.sending`); the remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+     * Type of domain event. `domain.status_changed` tracks ownership verification through the domain-level `status`. `domain.sending_status_changed` tracks readiness to send through `capabilities.sending`. The remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      *
      * @var string|null
      */
@@ -59,7 +59,7 @@ class DomainEvent
         return $this;
     }
     /**
-     * Type of domain event. `domain.status_changed` tracks ownership verification (the domain-level `status`); `domain.sending_status_changed` tracks readiness to send (`capabilities.sending`); the remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+     * Type of domain event. `domain.status_changed` tracks ownership verification through the domain-level `status`. `domain.sending_status_changed` tracks readiness to send through `capabilities.sending`. The remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      *
      * @return string|null
      */
@@ -68,7 +68,7 @@ class DomainEvent
         return $this->type;
     }
     /**
-     * Type of domain event. `domain.status_changed` tracks ownership verification (the domain-level `status`); `domain.sending_status_changed` tracks readiness to send (`capabilities.sending`); the remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+     * Type of domain event. `domain.status_changed` tracks ownership verification through the domain-level `status`. `domain.sending_status_changed` tracks readiness to send through `capabilities.sending`. The remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
      *
      * @param string|null $type
      *

@@ -13,7 +13,12 @@ class WhatsAppMessageTemplateComponent
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header's text, media or location, `carousel` for the cards.
+     * Which part of the template this fills in.
+     * 
+     * - `body`: the main text.
+     * - `button`: a button's variable.
+     * - `header`: the header's text, media or location.
+     * - `carousel`: the cards.
      * 
      *
      * @var string|null
@@ -34,7 +39,12 @@ class WhatsAppMessageTemplateComponent
      */
     protected $cards;
     /**
-     * Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header's text, media or location, `carousel` for the cards.
+     * Which part of the template this fills in.
+     * 
+     * - `body`: the main text.
+     * - `button`: a button's variable.
+     * - `header`: the header's text, media or location.
+     * - `carousel`: the cards.
      * 
      *
      * @return string|null
@@ -44,12 +54,18 @@ class WhatsAppMessageTemplateComponent
         return $this->type;
     }
     /**
-     * Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header's text, media or location, `carousel` for the cards.
-     *
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * Which part of the template this fills in.
+    
+    - `body`: the main text.
+    - `button`: a button's variable.
+    - `header`: the header's text, media or location.
+    - `carousel`: the cards.
+    
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;

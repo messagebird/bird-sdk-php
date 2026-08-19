@@ -76,7 +76,7 @@ final class Audiences extends Resource
     }
 
     /**
-     * Update an audience's name or description. Omitted fields are unchanged; a null description clears it.
+     * Update an audience's name or description. Omitted fields are unchanged; a `null` description clears it.
      *
      * @example Rename an audience
      * $bird->audiences->update(

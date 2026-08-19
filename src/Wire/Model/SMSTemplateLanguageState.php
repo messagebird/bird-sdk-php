@@ -13,14 +13,26 @@ class SMSTemplateLanguageState
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+     * Status of one template language on channels without third-party review.
+     * 
+     * - `draft`: it has never been published.
+     * - `live`: it is available to sends.
+     * - `superseded`: a later version replaced it.
+     * 
+     * Treat an unknown value as not sendable.
      * 
      *
      * @var string|null
      */
     protected $status;
     /**
-     * Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+     * Status of one template language on channels without third-party review.
+     * 
+     * - `draft`: it has never been published.
+     * - `live`: it is available to sends.
+     * - `superseded`: a later version replaced it.
+     * 
+     * Treat an unknown value as not sendable.
      * 
      *
      * @return string|null
@@ -30,12 +42,19 @@ class SMSTemplateLanguageState
         return $this->status;
     }
     /**
-     * Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
-     *
-     * @param string|null $status
-     *
-     * @return self
-     */
+    * Status of one template language on channels without third-party review.
+    
+    - `draft`: it has never been published.
+    - `live`: it is available to sends.
+    - `superseded`: a later version replaced it.
+    
+    Treat an unknown value as not sendable.
+    
+    *
+    * @param string|null $status
+    *
+    * @return self
+    */
     public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;

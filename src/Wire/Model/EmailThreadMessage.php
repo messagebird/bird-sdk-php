@@ -94,7 +94,7 @@ class EmailThreadMessage
      */
     protected $labels;
     /**
-     * Folded delivery status of a sent message:
+     * Aggregate delivery status of a sent message:
      * 
      * - `accepted`: Accepted for sending.
      * - `sent`: Handed off to the provider.
@@ -115,7 +115,16 @@ class EmailThreadMessage
      */
     protected $recipients;
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
+     * Whether the sender of a received message was authenticated.
+     * 
+     * - `pass`: the sender's identity was verified.
+     * - `fail`: it was checked and did not verify.
+     * - `unknown`: no verdict could be determined, so do not treat the
+     *   sender as verified.
+     * 
+     * Null for sent messages. This field is readable for the mailbox's full
+     * retention tier, so the verdict is still available after the 30-day
+     * received-message log has expired.
      * 
      *
      * @var string|null
@@ -143,7 +152,7 @@ class EmailThreadMessage
      */
     protected $dmarcPass;
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @var \DateTime|null
@@ -467,7 +476,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Folded delivery status of a sent message:
+     * Aggregate delivery status of a sent message:
      * 
      * - `accepted`: Accepted for sending.
      * - `sent`: Handed off to the provider.
@@ -484,7 +493,7 @@ class EmailThreadMessage
         return $this->status;
     }
     /**
-    * Folded delivery status of a sent message:
+    * Aggregate delivery status of a sent message:
     
     - `accepted`: Accepted for sending.
     - `sent`: Handed off to the provider.
@@ -528,7 +537,16 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
+     * Whether the sender of a received message was authenticated.
+     * 
+     * - `pass`: the sender's identity was verified.
+     * - `fail`: it was checked and did not verify.
+     * - `unknown`: no verdict could be determined, so do not treat the
+     *   sender as verified.
+     * 
+     * Null for sent messages. This field is readable for the mailbox's full
+     * retention tier, so the verdict is still available after the 30-day
+     * received-message log has expired.
      * 
      *
      * @return string|null
@@ -538,12 +556,22 @@ class EmailThreadMessage
         return $this->authentication;
     }
     /**
-     * Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
-     *
-     * @param string|null $authentication
-     *
-     * @return self
-     */
+    * Whether the sender of a received message was authenticated.
+    
+    - `pass`: the sender's identity was verified.
+    - `fail`: it was checked and did not verify.
+    - `unknown`: no verdict could be determined, so do not treat the
+     sender as verified.
+    
+    Null for sent messages. This field is readable for the mailbox's full
+    retention tier, so the verdict is still available after the 30-day
+    received-message log has expired.
+    
+    *
+    * @param string|null $authentication
+    *
+    * @return self
+    */
     public function setAuthentication(?string $authentication): self
     {
         $this->initialized['authentication'] = true;
@@ -620,7 +648,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @return \DateTime|null
@@ -630,7 +658,7 @@ class EmailThreadMessage
         return $this->purgeAt;
     }
     /**
-     * When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      *
      * @param \DateTime|null $purgeAt
      *

@@ -26,7 +26,7 @@ class RealtimePublish
      */
     protected $channels;
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @var mixed|null
      */
@@ -38,7 +38,7 @@ class RealtimePublish
      */
     protected $excludeConnectionId;
     /**
-     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
+     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time. `member_count` is available only for presence channels. `connection_count` requires the app's connection-counting flag. Requesting attributes counts as one additional message toward usage.
      *
      * @var list<string>|null
      */
@@ -89,7 +89,7 @@ class RealtimePublish
         return $this;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @return mixed
      */
@@ -98,7 +98,7 @@ class RealtimePublish
         return $this->data;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @param mixed $data
      *
@@ -133,7 +133,7 @@ class RealtimePublish
         return $this;
     }
     /**
-     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
+     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time. `member_count` is available only for presence channels. `connection_count` requires the app's connection-counting flag. Requesting attributes counts as one additional message toward usage.
      *
      * @return list<string>|null
      */
@@ -142,7 +142,7 @@ class RealtimePublish
         return $this->include;
     }
     /**
-     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
+     * Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time. `member_count` is available only for presence channels. `connection_count` requires the app's connection-counting flag. Requesting attributes counts as one additional message toward usage.
      *
      * @param list<string>|null $include
      *

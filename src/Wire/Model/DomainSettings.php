@@ -13,21 +13,21 @@ class DomainSettings
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified; it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      * 
      *
      * @var bool|null
      */
     protected $clickTracking = false;
     /**
-     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified: it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      * 
      *
      * @var bool|null
      */
     protected $openTracking = false;
     /**
-     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified; it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      * 
      *
      * @return bool|null
@@ -37,7 +37,7 @@ class DomainSettings
         return $this->clickTracking;
     }
     /**
-     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified; it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      *
      * @param bool|null $clickTracking
      *
@@ -50,7 +50,7 @@ class DomainSettings
         return $this;
     }
     /**
-     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified: it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      * 
      *
      * @return bool|null
@@ -60,7 +60,7 @@ class DomainSettings
         return $this->openTracking;
     }
     /**
-     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+     * Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified: it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
      *
      * @param bool|null $openTracking
      *

@@ -89,6 +89,7 @@ final class Email extends EmailBase
             $headers ??= $defaults->headers;
             $tags ??= $defaults->tags;
             $metadata ??= $defaults->metadata;
+            $ipPoolId ??= $defaults->ipPoolId;
         }
         if ($from === null) {
             throw new \InvalidArgumentException('email send requires a "from" address: pass from:, or configure EmailDefaults(from: …) on the client');
@@ -208,6 +209,9 @@ final class Email extends EmailBase
         }
         if (!$message->isInitialized('metadata') && $defaults->metadata !== null) {
             $message->setMetadata($defaults->metadata);
+        }
+        if (!$message->isInitialized('ipPoolId') && $defaults->ipPoolId !== null) {
+            $message->setIpPoolId($defaults->ipPoolId);
         }
     }
 }

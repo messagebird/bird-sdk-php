@@ -32,7 +32,7 @@ class VoiceMediaQuality
      */
     protected $packetLossPct;
     /**
-     * Round-trip time between the two ends, in milliseconds. It does not distort the audio, but above roughly 300 ms the two parties start talking over each other.
+     * Round-trip time between the two ends, in milliseconds. It does not distort the audio. Above roughly 300 ms, the two parties start talking over each other.
      *
      * @var int|null
      */
@@ -105,7 +105,7 @@ class VoiceMediaQuality
         return $this;
     }
     /**
-     * Round-trip time between the two ends, in milliseconds. It does not distort the audio, but above roughly 300 ms the two parties start talking over each other.
+     * Round-trip time between the two ends, in milliseconds. It does not distort the audio. Above roughly 300 ms, the two parties start talking over each other.
      *
      * @return int|null
      */
@@ -114,7 +114,7 @@ class VoiceMediaQuality
         return $this->roundTripTimeMs;
     }
     /**
-     * Round-trip time between the two ends, in milliseconds. It does not distort the audio, but above roughly 300 ms the two parties start talking over each other.
+     * Round-trip time between the two ends, in milliseconds. It does not distort the audio. Above roughly 300 ms, the two parties start talking over each other.
      *
      * @param int|null $roundTripTimeMs
      *

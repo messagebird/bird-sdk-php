@@ -17,7 +17,7 @@ class EmailRecipient
      */
     protected $id;
     /**
-     * ID of the parent message (em_ prefix) or broadcast (eb_ prefix) this recipient belongs to.
+     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
      *
      * @var string|null
      */
@@ -74,7 +74,14 @@ class EmailRecipient
      */
     protected $rejectionReason;
     /**
-     * Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+     * Bounce classification for `bounced` and `deferred` rows, or null when the recipient
+     * has not bounced or the receiving server's response has not been classified.
+     * 
+     * - `hard`: a permanent failure (invalid address or non-existent domain).
+     * - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+     * - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+     * - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+     * - `undetermined`: the receiving server's response is ambiguous.
      * 
      *
      * @var string|null
@@ -153,7 +160,7 @@ class EmailRecipient
         return $this;
     }
     /**
-     * ID of the parent message (em_ prefix) or broadcast (eb_ prefix) this recipient belongs to.
+     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
      *
      * @return string|null
      */
@@ -162,7 +169,7 @@ class EmailRecipient
         return $this->parentId;
     }
     /**
-     * ID of the parent message (em_ prefix) or broadcast (eb_ prefix) this recipient belongs to.
+     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
      *
      * @param string|null $parentId
      *
@@ -327,7 +334,14 @@ class EmailRecipient
         return $this;
     }
     /**
-     * Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+     * Bounce classification for `bounced` and `deferred` rows, or null when the recipient
+     * has not bounced or the receiving server's response has not been classified.
+     * 
+     * - `hard`: a permanent failure (invalid address or non-existent domain).
+     * - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+     * - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+     * - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+     * - `undetermined`: the receiving server's response is ambiguous.
      * 
      *
      * @return string|null
@@ -337,12 +351,20 @@ class EmailRecipient
         return $this->bounceType;
     }
     /**
-     * Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
-     *
-     * @param string|null $bounceType
-     *
-     * @return self
-     */
+    * Bounce classification for `bounced` and `deferred` rows, or null when the recipient
+    has not bounced or the receiving server's response has not been classified.
+    
+    - `hard`: a permanent failure (invalid address or non-existent domain).
+    - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+    - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+    - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+    - `undetermined`: the receiving server's response is ambiguous.
+    
+    *
+    * @param string|null $bounceType
+    *
+    * @return self
+    */
     public function setBounceType(?string $bounceType): self
     {
         $this->initialized['bounceType'] = true;

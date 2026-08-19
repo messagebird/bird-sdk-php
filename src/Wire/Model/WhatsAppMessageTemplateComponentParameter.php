@@ -32,6 +32,12 @@ class WhatsAppMessageTemplateComponentParameter
      */
     protected $url;
     /**
+     * The point on the map a location header opens. Send it on a `location` parameter.
+     *
+     * @var WhatsAppMessageTemplateComponentParameterLocation|null
+     */
+    protected $location;
+    /**
      * Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
      * 
      *
@@ -103,6 +109,28 @@ class WhatsAppMessageTemplateComponentParameter
     {
         $this->initialized['url'] = true;
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * The point on the map a location header opens. Send it on a `location` parameter.
+     *
+     * @return WhatsAppMessageTemplateComponentParameterLocation|null
+     */
+    public function getLocation(): ?WhatsAppMessageTemplateComponentParameterLocation
+    {
+        return $this->location;
+    }
+    /**
+     * The point on the map a location header opens. Send it on a `location` parameter.
+     *
+     * @param WhatsAppMessageTemplateComponentParameterLocation|null $location
+     *
+     * @return self
+     */
+    public function setLocation(?WhatsAppMessageTemplateComponentParameterLocation $location): self
+    {
+        $this->initialized['location'] = true;
+        $this->location = $location;
         return $this;
     }
     /**

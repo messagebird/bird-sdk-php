@@ -17,7 +17,7 @@ class EmailBase extends Resource
      * Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`.
      *
      * @example Fetch a message by id
-     * $message = $bird->email->get('eml_01krdgeqcxet5s7t44vh8rt9mg');
+     * $message = $bird->email->get('em_01krdgeqcxet5s7t44vh8rt9mg');
      * echo $message->getStatus();
      */
     public function get(string $messageId, ?RequestOptions $options = null): EmailMessage
@@ -59,7 +59,7 @@ class EmailBase extends Resource
      * Cancel a scheduled email before it sends. Only works while the message's `status` is still `scheduled`. Once it starts sending, or was already canceled, the call returns a conflict error. Canceling does not return consumed scheduled-send quota.
      *
      * @example Cancel a scheduled message
-     * $bird->email->cancel('eml_01krdgeqcxet5s7t44vh8rt9mg');
+     * $bird->email->cancel('em_01krdgeqcxet5s7t44vh8rt9mg');
      */
     public function cancel(string $messageId, ?RequestOptions $options = null): void
     {

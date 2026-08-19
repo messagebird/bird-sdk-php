@@ -13,21 +13,21 @@ class DomainCreate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+     * The domain you send from: the domain of your `from` addresses. Use a dedicated subdomain (for example, `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
      * 
      *
      * @var string|null
      */
     protected $domain;
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      * 
      *
      * @var DomainReturnPathConfig|null
      */
     protected $returnPath;
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
      * 
      *
      * @var DomainTrackingConfig|null
@@ -47,7 +47,7 @@ class DomainCreate
      */
     protected $settings;
     /**
-     * The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+     * The domain you send from: the domain of your `from` addresses. Use a dedicated subdomain (for example, `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
      * 
      *
      * @return string|null
@@ -57,7 +57,7 @@ class DomainCreate
         return $this->domain;
     }
     /**
-     * The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+     * The domain you send from: the domain of your `from` addresses. Use a dedicated subdomain (for example, `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
      *
      * @param string|null $domain
      *
@@ -70,7 +70,7 @@ class DomainCreate
         return $this;
     }
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      * 
      *
      * @return DomainReturnPathConfig|null
@@ -80,7 +80,7 @@ class DomainCreate
         return $this->returnPath;
     }
     /**
-     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+     * Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
      *
      * @param DomainReturnPathConfig|null $returnPath
      *
@@ -93,7 +93,7 @@ class DomainCreate
         return $this;
     }
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
      * 
      *
      * @return DomainTrackingConfig|null
@@ -103,7 +103,7 @@ class DomainCreate
         return $this->tracking;
     }
     /**
-     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+     * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
      *
      * @param DomainTrackingConfig|null $tracking
      *

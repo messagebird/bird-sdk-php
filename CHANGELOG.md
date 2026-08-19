@@ -2,6 +2,20 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.13.0
+
+- Add $bird->sms->stats and $bird->smsSuppressions: SMS statistics (outbound, inbound breakdowns) and the suppression list, plus sms->listEvents for a message's timeline.
+- Add $bird->smsKeywordRules: read Bird's SMS keyword catalogue and manage a workspace's own overrides of it.
+- Add end-to-end encrypted channels: `publish` and `publishBatch` seal `private-encrypted-` payloads under `RealtimeOptions(encryptionMasterKey:)` (needs ext-sodium), and the new `authorizeChannel` signs channel subscriptions, adding the channel's `shared_secret` on encrypted channels.
+- A sending domain read now says what to do next. `next` carries the steps that get the domain verified, in the order to take them: an `external` step for a DNS record only you can publish, then the operation that re-checks it. An empty list means nothing is asked of you on that axis, and `capabilities` still reports what each capability needs before the domain can send or receive.
+- Email defaults now cover `ipPoolId`, applied to every send that does not name a pool.
+- Optional fields on a WhatsApp message's content — a media caption, a location's name and address — are omitted when unset rather than returned as null.
+- Getting or listing a WhatsApp message now returns the free-form `text`, `image`, `video`, `audio`, `sticker`, `document` or `location` content it carried.
+- The `whatsapp.received` webhook event is now available, delivering an inbound WhatsApp message's content as it arrives.
+- `whatsapp->send` now accepts free-form `$text`, `$image`, `$video`, `$audio`, `$sticker`, `$document` and `$location` content, `$from` for the business number every send but a Bird-managed template requires, and per-message `$tags` and `$metadata`. `$template` is now optional, since a send may carry free-form content instead.
+- **Breaking:** `whatsapp->send` takes the new content parameters before `$options`, so a call passing `$options` positionally must name it (`options: $options`).
+- Method, parameter and field documentation now states what each call does and what each value accepts, including its default, its units, and the fields it depends on.
+
 ## 0.12.0
 
 - An error now carries the recovery the API sends with it: `ApiException` exposes `remediation`, `next` — the steps to take, each stating a `kind` of `operation`, `external`, `wait` or `terminal` — and `unmetGates`. Read `getKind()` before `getOperation()`, since only an `operation` step carries one, and treat a `kind` you do not recognise as display-only.

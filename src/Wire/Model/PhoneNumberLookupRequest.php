@@ -19,9 +19,12 @@ class PhoneNumberLookupRequest
      */
     protected $phoneNumber;
     /**
-     * The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
+     * Properties to add to the base lookup. Omit this field or send an empty
+     * array to request only the base lookup.
      * 
-     * Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+     * Each delivered property is billed in addition to the base lookup. A
+     * property that could not be answered is returned with its status and is
+     * not billed.
      * 
      *
      * @var list<string>|null
@@ -50,9 +53,12 @@ class PhoneNumberLookupRequest
         return $this;
     }
     /**
-     * The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
+     * Properties to add to the base lookup. Omit this field or send an empty
+     * array to request only the base lookup.
      * 
-     * Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+     * Each delivered property is billed in addition to the base lookup. A
+     * property that could not be answered is returned with its status and is
+     * not billed.
      * 
      *
      * @return list<string>|null
@@ -62,9 +68,12 @@ class PhoneNumberLookupRequest
         return $this->type;
     }
     /**
-    * The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
+    * Properties to add to the base lookup. Omit this field or send an empty
+    array to request only the base lookup.
     
-    Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+    Each delivered property is billed in addition to the base lookup. A
+    property that could not be answered is returned with its status and is
+    not billed.
     
     *
     * @param list<string>|null $type

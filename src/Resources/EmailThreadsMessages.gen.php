@@ -17,7 +17,7 @@ use MessageBird\Wire\Model\EmailThreadMessageReplyRequest;
 final class EmailThreadsMessages extends Resource
 {
     /**
-     * List the messages in a conversation newest first, both directions. Page older messages with starting_after, and pass include=extracted_text to inline each message's extracted plain text.
+     * List the messages in a conversation newest first, both directions. Page older messages with `starting_after`, and pass `include=extracted_text` to inline each message's extracted plain text.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -52,7 +52,7 @@ final class EmailThreadsMessages extends Resource
      * @example Fetch one message in a thread
      * $message = $bird->email->threads->messages->get(
      *     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-     *     'ems_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'rem_01krdgeqcxet5s7t44vh8rt9mg',
      * );
      * echo $message->getFrom(), ' ', $message->getSubject();
      */
@@ -67,7 +67,7 @@ final class EmailThreadsMessages extends Resource
      * @example Read a message's rendered body
      * $body = $bird->email->threads->messages->body(
      *     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-     *     'ems_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'rem_01krdgeqcxet5s7t44vh8rt9mg',
      * );
      * echo $body->getText() ?? $body->getHtml();
      */
@@ -82,9 +82,9 @@ final class EmailThreadsMessages extends Resource
      * @example Reply to everyone on a message
      * $reply = $bird->email->threads->messages->reply(
      *     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-     *     'ems_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'rem_01krdgeqcxet5s7t44vh8rt9mg',
      *     (new EmailThreadMessageReplyRequest())
-     *         ->setText('Thanks — looking into it now.')
+     *         ->setText('Thanks, looking into it now.')
      *         ->setReplyAll(true),
      * );
      * echo $reply->getId();
@@ -100,7 +100,7 @@ final class EmailThreadsMessages extends Resource
      * @example List a message's attachments
      * $attachments = $bird->email->threads->messages->attachments(
      *     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-     *     'ems_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'rem_01krdgeqcxet5s7t44vh8rt9mg',
      * );
      * foreach ($attachments->getData() ?? [] as $attachment) {
      *     echo $attachment->getFilename(), "\n";

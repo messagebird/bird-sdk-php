@@ -41,6 +41,55 @@ class WhatsAppMessage
      */
     protected $template;
     /**
+     * Text the message carried.
+     *
+     * @var WhatsAppMessageText|null
+     */
+    protected $text;
+    /**
+     * Image the message carried.
+     *
+     * @var WhatsAppMessageImage|null
+     */
+    protected $image;
+    /**
+     * Video the message carried.
+     *
+     * @var WhatsAppMessageVideo|null
+     */
+    protected $video;
+    /**
+     * Audio the message carried.
+     *
+     * @var WhatsAppMessageAudio|null
+     */
+    protected $audio;
+    /**
+     * Sticker the message carried.
+     *
+     * @var WhatsAppMessageSticker|null
+     */
+    protected $sticker;
+    /**
+     * Document the message carried.
+     *
+     * @var WhatsAppMessageDocument|null
+     */
+    protected $document;
+    /**
+     * Location the message carried.
+     *
+     * @var WhatsAppMessageLocation|null
+     */
+    protected $location;
+    /**
+     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     * 
+     *
+     * @var WhatsAppMessageUnsupported|null
+     */
+    protected $unsupported;
+    /**
      * @var string|null
      */
     protected $status;
@@ -75,7 +124,7 @@ class WhatsAppMessage
      */
     protected $readAt;
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      * 
      *
      * @var MessageCost|null
@@ -197,6 +246,183 @@ class WhatsAppMessage
     {
         $this->initialized['template'] = true;
         $this->template = $template;
+        return $this;
+    }
+    /**
+     * Text the message carried.
+     *
+     * @return WhatsAppMessageText|null
+     */
+    public function getText(): ?WhatsAppMessageText
+    {
+        return $this->text;
+    }
+    /**
+     * Text the message carried.
+     *
+     * @param WhatsAppMessageText|null $text
+     *
+     * @return self
+     */
+    public function setText(?WhatsAppMessageText $text): self
+    {
+        $this->initialized['text'] = true;
+        $this->text = $text;
+        return $this;
+    }
+    /**
+     * Image the message carried.
+     *
+     * @return WhatsAppMessageImage|null
+     */
+    public function getImage(): ?WhatsAppMessageImage
+    {
+        return $this->image;
+    }
+    /**
+     * Image the message carried.
+     *
+     * @param WhatsAppMessageImage|null $image
+     *
+     * @return self
+     */
+    public function setImage(?WhatsAppMessageImage $image): self
+    {
+        $this->initialized['image'] = true;
+        $this->image = $image;
+        return $this;
+    }
+    /**
+     * Video the message carried.
+     *
+     * @return WhatsAppMessageVideo|null
+     */
+    public function getVideo(): ?WhatsAppMessageVideo
+    {
+        return $this->video;
+    }
+    /**
+     * Video the message carried.
+     *
+     * @param WhatsAppMessageVideo|null $video
+     *
+     * @return self
+     */
+    public function setVideo(?WhatsAppMessageVideo $video): self
+    {
+        $this->initialized['video'] = true;
+        $this->video = $video;
+        return $this;
+    }
+    /**
+     * Audio the message carried.
+     *
+     * @return WhatsAppMessageAudio|null
+     */
+    public function getAudio(): ?WhatsAppMessageAudio
+    {
+        return $this->audio;
+    }
+    /**
+     * Audio the message carried.
+     *
+     * @param WhatsAppMessageAudio|null $audio
+     *
+     * @return self
+     */
+    public function setAudio(?WhatsAppMessageAudio $audio): self
+    {
+        $this->initialized['audio'] = true;
+        $this->audio = $audio;
+        return $this;
+    }
+    /**
+     * Sticker the message carried.
+     *
+     * @return WhatsAppMessageSticker|null
+     */
+    public function getSticker(): ?WhatsAppMessageSticker
+    {
+        return $this->sticker;
+    }
+    /**
+     * Sticker the message carried.
+     *
+     * @param WhatsAppMessageSticker|null $sticker
+     *
+     * @return self
+     */
+    public function setSticker(?WhatsAppMessageSticker $sticker): self
+    {
+        $this->initialized['sticker'] = true;
+        $this->sticker = $sticker;
+        return $this;
+    }
+    /**
+     * Document the message carried.
+     *
+     * @return WhatsAppMessageDocument|null
+     */
+    public function getDocument(): ?WhatsAppMessageDocument
+    {
+        return $this->document;
+    }
+    /**
+     * Document the message carried.
+     *
+     * @param WhatsAppMessageDocument|null $document
+     *
+     * @return self
+     */
+    public function setDocument(?WhatsAppMessageDocument $document): self
+    {
+        $this->initialized['document'] = true;
+        $this->document = $document;
+        return $this;
+    }
+    /**
+     * Location the message carried.
+     *
+     * @return WhatsAppMessageLocation|null
+     */
+    public function getLocation(): ?WhatsAppMessageLocation
+    {
+        return $this->location;
+    }
+    /**
+     * Location the message carried.
+     *
+     * @param WhatsAppMessageLocation|null $location
+     *
+     * @return self
+     */
+    public function setLocation(?WhatsAppMessageLocation $location): self
+    {
+        $this->initialized['location'] = true;
+        $this->location = $location;
+        return $this;
+    }
+    /**
+     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     * 
+     *
+     * @return WhatsAppMessageUnsupported|null
+     */
+    public function getUnsupported(): ?WhatsAppMessageUnsupported
+    {
+        return $this->unsupported;
+    }
+    /**
+     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     *
+     * @param WhatsAppMessageUnsupported|null $unsupported
+     *
+     * @return self
+     */
+    public function setUnsupported(?WhatsAppMessageUnsupported $unsupported): self
+    {
+        $this->initialized['unsupported'] = true;
+        $this->unsupported = $unsupported;
         return $this;
     }
     /**
@@ -328,7 +554,7 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      * 
      *
      * @return MessageCost|null
@@ -338,7 +564,7 @@ class WhatsAppMessage
         return $this->cost;
     }
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      *
      * @param MessageCost|null $cost
      *

@@ -13,7 +13,17 @@ class WhatsAppError
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+     * Standardized failure reason:
+     * 
+     * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `price_not_found`: No price was configured for the destination and template.
+     * - `internal_error`: An unexpected service failure occurred.
+     * - `undeliverable`: The recipient could not be reached.
+     * - `service_window_expired`: The 24-hour service window closed; send a template.
+     * - `rate_limited`: The send was throttled.
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * 
+     * This is an open enum. Accept unrecognized values.
      * 
      *
      * @var string|null
@@ -38,7 +48,17 @@ class WhatsAppError
      */
     protected $occurredAt;
     /**
-     * Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+     * Standardized failure reason:
+     * 
+     * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `price_not_found`: No price was configured for the destination and template.
+     * - `internal_error`: An unexpected service failure occurred.
+     * - `undeliverable`: The recipient could not be reached.
+     * - `service_window_expired`: The 24-hour service window closed; send a template.
+     * - `rate_limited`: The send was throttled.
+     * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * 
+     * This is an open enum. Accept unrecognized values.
      * 
      *
      * @return string|null
@@ -48,12 +68,23 @@ class WhatsAppError
         return $this->code;
     }
     /**
-     * Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
-     *
-     * @param string|null $code
-     *
-     * @return self
-     */
+    * Standardized failure reason:
+    
+    - `insufficient_balance`: The workspace wallet could not fund the send.
+    - `price_not_found`: No price was configured for the destination and template.
+    - `internal_error`: An unexpected service failure occurred.
+    - `undeliverable`: The recipient could not be reached.
+    - `service_window_expired`: The 24-hour service window closed; send a template.
+    - `rate_limited`: The send was throttled.
+    - `recipient_suppressed`: The recipient is on the workspace suppression list.
+    
+    This is an open enum. Accept unrecognized values.
+    
+    *
+    * @param string|null $code
+    *
+    * @return self
+    */
     public function setCode(?string $code): self
     {
         $this->initialized['code'] = true;

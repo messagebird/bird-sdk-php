@@ -20,7 +20,7 @@ class MailboxStatsResponse
      */
     protected $period;
     /**
-     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
      * 
      *
      * @var MailboxStatsSummary|null
@@ -56,7 +56,7 @@ class MailboxStatsResponse
         return $this;
     }
     /**
-     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
      * 
      *
      * @return MailboxStatsSummary|null
@@ -66,7 +66,7 @@ class MailboxStatsResponse
         return $this->summary;
     }
     /**
-     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+     * Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
      *
      * @param MailboxStatsSummary|null $summary
      *

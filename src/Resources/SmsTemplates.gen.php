@@ -13,7 +13,7 @@ use MessageBird\Wire\Model\SMSTemplateList;
 final class SmsTemplates extends Resource
 {
     /**
-     * List the SMS templates available to your workspace, including Bird's built-in templates. Filter by scope, category, or language. The catalogue is small and returned in full; this list is not paginated. Use sms_templates_get to read one template's variables before sending with it.
+     * List the SMS templates available to your workspace, including our built-in templates. Filter by scope, category, or language. The catalog is small and returned in full; this list is not paginated. Use `sms_templates.get` to read one template's variables before sending with it.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -29,7 +29,7 @@ final class SmsTemplates extends Resource
     }
 
     /**
-     * Get one SMS template by its slug or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
+     * Get one SMS template by its slug or ID, including its body and the variables it expects. Fetch it before `sms.send` to see which parameter keys a template send requires.
      *
      * @example Read one template by slug or id
      * $template = $bird->smsTemplates->get('bird_otp_verification');

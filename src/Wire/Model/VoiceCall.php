@@ -17,7 +17,7 @@ class VoiceCall
      */
     protected $id;
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
      *
      * @var string|null
      */
@@ -43,13 +43,13 @@ class VoiceCall
      */
     protected $to;
     /**
-     * Who placed the call. Either the API key whose credentials it used, or the user who placed it from a browser or the Bird CLI. Absent when the call was admitted by its source IP address alone, since no credential identifies a caller there, and for calls placed before Bird started recording this.
+     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @var VoiceCallActor|null
      */
     protected $actor;
     /**
-     * Identifier of the SIP trunk that originated this call. Null when no trunk is associated.
+     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
      *
      * @var string|null
      */
@@ -59,13 +59,13 @@ class VoiceCall
      */
     protected $status;
     /**
-     * Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @var int|null
      */
     protected $sipResponseCode;
     /**
-     * Why Bird refused the call before dialing a carrier. Absent when Bird did not refuse it, meaning the call either connected or it failed at the carrier, where `sip_response_code` is the whole story.
+     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
      *
      * @var string|null
      */
@@ -77,32 +77,32 @@ class VoiceCall
      */
     protected $startedAt;
     /**
-     * When the call was answered (200 OK received). Null for unanswered calls.
+     * When the call was answered (`200` OK received). `null` for unanswered calls.
      *
      * @var \DateTime|null
      */
     protected $answeredAt;
     /**
-     * When the call ended (BYE or final non-2xx response). Null for calls that ended abnormally without a recorded end event.
+     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
      *
      * @var \DateTime|null
      */
     protected $endedAt;
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. Null while the call is still in progress and has no final duration yet.
+     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
      *
      * @var int|null
      */
     protected $durationMs;
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call "not going through". Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
      * 
      *
      * @var int|null
      */
     protected $pddMs;
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and null while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
      *
      * @var int|null
      */
@@ -134,7 +134,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
      *
      * @return string|null
      */
@@ -143,7 +143,7 @@ class VoiceCall
         return $this->sessionId;
     }
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
      *
      * @param string|null $sessionId
      *
@@ -236,7 +236,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Who placed the call. Either the API key whose credentials it used, or the user who placed it from a browser or the Bird CLI. Absent when the call was admitted by its source IP address alone, since no credential identifies a caller there, and for calls placed before Bird started recording this.
+     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @return VoiceCallActor|null
      */
@@ -245,7 +245,7 @@ class VoiceCall
         return $this->actor;
     }
     /**
-     * Who placed the call. Either the API key whose credentials it used, or the user who placed it from a browser or the Bird CLI. Absent when the call was admitted by its source IP address alone, since no credential identifies a caller there, and for calls placed before Bird started recording this.
+     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @param VoiceCallActor|null $actor
      *
@@ -258,7 +258,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Identifier of the SIP trunk that originated this call. Null when no trunk is associated.
+     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
      *
      * @return string|null
      */
@@ -267,7 +267,7 @@ class VoiceCall
         return $this->sipTrunkId;
     }
     /**
-     * Identifier of the SIP trunk that originated this call. Null when no trunk is associated.
+     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
      *
      * @param string|null $sipTrunkId
      *
@@ -298,7 +298,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @return int|null
      */
@@ -307,7 +307,7 @@ class VoiceCall
         return $this->sipResponseCode;
     }
     /**
-     * Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @param int|null $sipResponseCode
      *
@@ -320,7 +320,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Why Bird refused the call before dialing a carrier. Absent when Bird did not refuse it, meaning the call either connected or it failed at the carrier, where `sip_response_code` is the whole story.
+     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
      *
      * @return string|null
      */
@@ -329,7 +329,7 @@ class VoiceCall
         return $this->rejectionReason;
     }
     /**
-     * Why Bird refused the call before dialing a carrier. Absent when Bird did not refuse it, meaning the call either connected or it failed at the carrier, where `sip_response_code` is the whole story.
+     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
      *
      * @param string|null $rejectionReason
      *
@@ -364,7 +364,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * When the call was answered (200 OK received). Null for unanswered calls.
+     * When the call was answered (`200` OK received). `null` for unanswered calls.
      *
      * @return \DateTime|null
      */
@@ -373,7 +373,7 @@ class VoiceCall
         return $this->answeredAt;
     }
     /**
-     * When the call was answered (200 OK received). Null for unanswered calls.
+     * When the call was answered (`200` OK received). `null` for unanswered calls.
      *
      * @param \DateTime|null $answeredAt
      *
@@ -386,7 +386,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * When the call ended (BYE or final non-2xx response). Null for calls that ended abnormally without a recorded end event.
+     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
      *
      * @return \DateTime|null
      */
@@ -395,7 +395,7 @@ class VoiceCall
         return $this->endedAt;
     }
     /**
-     * When the call ended (BYE or final non-2xx response). Null for calls that ended abnormally without a recorded end event.
+     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
      *
      * @param \DateTime|null $endedAt
      *
@@ -408,7 +408,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. Null while the call is still in progress and has no final duration yet.
+     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
      *
      * @return int|null
      */
@@ -417,7 +417,7 @@ class VoiceCall
         return $this->durationMs;
     }
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. Null while the call is still in progress and has no final duration yet.
+     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
      *
      * @param int|null $durationMs
      *
@@ -430,7 +430,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call "not going through". Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
      * 
      *
      * @return int|null
@@ -440,7 +440,7 @@ class VoiceCall
         return $this->pddMs;
     }
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call "not going through". Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
      *
      * @param int|null $pddMs
      *
@@ -453,7 +453,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and null while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
      *
      * @return int|null
      */
@@ -462,7 +462,7 @@ class VoiceCall
         return $this->billableMs;
     }
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and null while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
      *
      * @param int|null $billableMs
      *

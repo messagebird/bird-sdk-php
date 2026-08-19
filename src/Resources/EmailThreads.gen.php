@@ -73,7 +73,7 @@ class EmailThreadsBase extends Resource
     }
 
     /**
-     * Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with ?permanent=true.
+     * Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with `?permanent=true`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

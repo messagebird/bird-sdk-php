@@ -17,7 +17,7 @@ class PhoneNumberLookupScore extends \ArrayObject
      */
     protected $status;
     /**
-     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range; it is a signal to weigh, not a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
+     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range. Treat it as one signal instead of a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
      * 
      *
      * @var int|null
@@ -42,7 +42,7 @@ class PhoneNumberLookupScore extends \ArrayObject
         return $this;
     }
     /**
-     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range; it is a signal to weigh, not a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
+     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range. Treat it as one signal instead of a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
      * 
      *
      * @return int|null
@@ -52,7 +52,7 @@ class PhoneNumberLookupScore extends \ArrayObject
         return $this->value;
     }
     /**
-     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range; it is a signal to weigh, not a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
+     * Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range. Treat it as one signal instead of a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
      *
      * @param int|null $value
      *

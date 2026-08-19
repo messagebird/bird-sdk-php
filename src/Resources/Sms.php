@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
+use MessageBird\Bird;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSMessage;
 use MessageBird\Wire\Model\SMSMessageBatchResponse;
@@ -13,18 +14,26 @@ use MessageBird\Wire\Model\SMSMessageSendRequestTemplate;
 use MessageBird\Wire\Model\Tag;
 
 /**
- * The SMS channel. get and list are generated on SmsBase; this parent hand-writes
- * the flagship `send` with ergonomic named arguments — folding a template handle
- * (id or slug) into the nested template object — and `sendBatch`.
+ * The SMS channel. Use `send` for a single free-text or template message,
+ * `sendBatch` for multiple messages, and `$bird->sms->stats` for aggregate
+ * statistics.
  */
 final class Sms extends SmsBase
 {
+    public readonly SmsStats $stats;
+
+    public function __construct(Bird $client)
+    {
+        parent::__construct($client);
+        $this->stats = new SmsStats($client);
+    }
+
     /**
      * Send an SMS and return the created message.
      *
-     * Provide either $text (with $category) or a $template (by id `smt_…` or slug,
-     * with $parameters) — the two are mutually exclusive. An unset optional
-     * argument is omitted from the request.
+     * Provide either $text (with $category and $from) or a $template (by id
+     * `smt_…` or slug, with $parameters). The two are mutually exclusive. An
+     * unset optional argument is omitted from the request.
      *
      * @param string|null                $template   stored template id (`smt_…`) or slug
      * @param array<string, mixed>|null  $parameters template variable values; template sends only

@@ -23,13 +23,13 @@ class Mailbox
      */
     protected $address;
     /**
-     * Display name used as the sender name on mail from this mailbox. Null when unset.
+     * Display name used as the sender name on mail from this mailbox. `null` when unset.
      *
      * @var string|null
      */
     protected $displayName;
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
      *
      * @var string|null
      */
@@ -90,7 +90,7 @@ class Mailbox
      */
     protected $threadCount;
     /**
-     * Number of threads with unread messages in this mailbox, excluding trash. Null on create/update responses.
+     * Number of threads with unread messages in this mailbox, excluding trash. `null` on create/update responses.
      * 
      *
      * @var int|null
@@ -121,7 +121,7 @@ class Mailbox
      */
     protected $updatedAt;
     /**
-     * When the mailbox was deleted, or null if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
      *
      * @var \DateTime|null
      */
@@ -167,7 +167,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. Null when unset.
+     * Display name used as the sender name on mail from this mailbox. `null` when unset.
      *
      * @return string|null
      */
@@ -176,7 +176,7 @@ class Mailbox
         return $this->displayName;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. Null when unset.
+     * Display name used as the sender name on mail from this mailbox. `null` when unset.
      *
      * @param string|null $displayName
      *
@@ -189,7 +189,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
      *
      * @return string|null
      */
@@ -198,7 +198,7 @@ class Mailbox
         return $this->defaultReplyTo;
     }
     /**
-     * Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
+     * Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
      *
      * @param string|null $defaultReplyTo
      *
@@ -401,7 +401,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Number of threads with unread messages in this mailbox, excluding trash. Null on create/update responses.
+     * Number of threads with unread messages in this mailbox, excluding trash. `null` on create/update responses.
      * 
      *
      * @return int|null
@@ -411,7 +411,7 @@ class Mailbox
         return $this->unreadThreadCount;
     }
     /**
-     * Number of threads with unread messages in this mailbox, excluding trash. Null on create/update responses.
+     * Number of threads with unread messages in this mailbox, excluding trash. `null` on create/update responses.
      *
      * @param int|null $unreadThreadCount
      *
@@ -512,7 +512,7 @@ class Mailbox
         return $this;
     }
     /**
-     * When the mailbox was deleted, or null if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
      *
      * @return \DateTime|null
      */
@@ -521,7 +521,7 @@ class Mailbox
         return $this->deletedAt;
     }
     /**
-     * When the mailbox was deleted, or null if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
      *
      * @param \DateTime|null $deletedAt
      *

@@ -13,13 +13,13 @@ class RealtimeBatchPublishResultItem extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Distinct members (presence channels only; requires include=member_count).
+     * Distinct members (presence channels only; requires `include=member_count`).
      *
      * @var int|null
      */
     protected $memberCount;
     /**
-     * Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+     * Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
      *
      * @var int|null
      */
@@ -31,7 +31,7 @@ class RealtimeBatchPublishResultItem extends \ArrayObject
      */
     protected $channel;
     /**
-     * Distinct members (presence channels only; requires include=member_count).
+     * Distinct members (presence channels only; requires `include=member_count`).
      *
      * @return int|null
      */
@@ -40,7 +40,7 @@ class RealtimeBatchPublishResultItem extends \ArrayObject
         return $this->memberCount;
     }
     /**
-     * Distinct members (presence channels only; requires include=member_count).
+     * Distinct members (presence channels only; requires `include=member_count`).
      *
      * @param int|null $memberCount
      *
@@ -53,7 +53,7 @@ class RealtimeBatchPublishResultItem extends \ArrayObject
         return $this;
     }
     /**
-     * Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+     * Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
      *
      * @return int|null
      */
@@ -62,7 +62,7 @@ class RealtimeBatchPublishResultItem extends \ArrayObject
         return $this->connectionCount;
     }
     /**
-     * Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+     * Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
      *
      * @param int|null $connectionCount
      *

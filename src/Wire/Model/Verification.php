@@ -17,13 +17,20 @@ class Verification extends \ArrayObject
      */
     protected $id;
     /**
-     * The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
+     * The verification's current state:
+     * 
+     * - `pending`: Awaiting a correct passcode.
+     * - `verified`: A correct passcode was submitted.
+     * - `failed`: Too many incorrect attempts were submitted.
+     * - `expired`: The validity window elapsed before a correct passcode.
+     * - `canceled`: The verification was canceled before completion.
+     * - `blocked`: A fraud or abuse control stopped the verification.
      *
      * @var string|null
      */
     protected $status;
     /**
-     * Why the verification reached its final state, or null while `pending` and once `verified`. See the enum for the values it can take.
+     * Why the verification reached its final state, or `null` while `pending` and once `verified`. See the enum for the values it can take.
      *
      * @var string|null
      */
@@ -42,7 +49,7 @@ class Verification extends \ArrayObject
      */
     protected $channels;
     /**
-     * The channel the most recent passcode was sent on, or null before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+     * The channel the most recent passcode was sent on, or `null` before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
      *
      * @var string|null
      */
@@ -60,7 +67,7 @@ class Verification extends \ArrayObject
      */
     protected $expiresAt;
     /**
-     * When the verification was completed, or null if it is not yet verified.
+     * When the verification was completed, or `null` if it is not yet verified.
      *
      * @var \DateTime|null
      */
@@ -92,7 +99,14 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
+     * The verification's current state:
+     * 
+     * - `pending`: Awaiting a correct passcode.
+     * - `verified`: A correct passcode was submitted.
+     * - `failed`: Too many incorrect attempts were submitted.
+     * - `expired`: The validity window elapsed before a correct passcode.
+     * - `canceled`: The verification was canceled before completion.
+     * - `blocked`: A fraud or abuse control stopped the verification.
      *
      * @return string|null
      */
@@ -101,12 +115,19 @@ class Verification extends \ArrayObject
         return $this->status;
     }
     /**
-     * The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
-     *
-     * @param string|null $status
-     *
-     * @return self
-     */
+    * The verification's current state:
+    
+    - `pending`: Awaiting a correct passcode.
+    - `verified`: A correct passcode was submitted.
+    - `failed`: Too many incorrect attempts were submitted.
+    - `expired`: The validity window elapsed before a correct passcode.
+    - `canceled`: The verification was canceled before completion.
+    - `blocked`: A fraud or abuse control stopped the verification.
+    *
+    * @param string|null $status
+    *
+    * @return self
+    */
     public function setStatus(?string $status): self
     {
         $this->initialized['status'] = true;
@@ -114,7 +135,7 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * Why the verification reached its final state, or null while `pending` and once `verified`. See the enum for the values it can take.
+     * Why the verification reached its final state, or `null` while `pending` and once `verified`. See the enum for the values it can take.
      *
      * @return string|null
      */
@@ -123,7 +144,7 @@ class Verification extends \ArrayObject
         return $this->reason;
     }
     /**
-     * Why the verification reached its final state, or null while `pending` and once `verified`. See the enum for the values it can take.
+     * Why the verification reached its final state, or `null` while `pending` and once `verified`. See the enum for the values it can take.
      *
      * @param string|null $reason
      *
@@ -181,7 +202,7 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * The channel the most recent passcode was sent on, or null before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+     * The channel the most recent passcode was sent on, or `null` before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
      *
      * @return string|null
      */
@@ -190,7 +211,7 @@ class Verification extends \ArrayObject
         return $this->lastChannel;
     }
     /**
-     * The channel the most recent passcode was sent on, or null before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+     * The channel the most recent passcode was sent on, or `null` before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
      *
      * @param string|null $lastChannel
      *
@@ -247,7 +268,7 @@ class Verification extends \ArrayObject
         return $this;
     }
     /**
-     * When the verification was completed, or null if it is not yet verified.
+     * When the verification was completed, or `null` if it is not yet verified.
      *
      * @return \DateTime|null
      */
@@ -256,7 +277,7 @@ class Verification extends \ArrayObject
         return $this->verifiedAt;
     }
     /**
-     * When the verification was completed, or null if it is not yet verified.
+     * When the verification was completed, or `null` if it is not yet verified.
      *
      * @param \DateTime|null $verifiedAt
      *

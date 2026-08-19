@@ -11,8 +11,8 @@ use MessageBird\Exception\WebhookVerificationError;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '', webhookSecret: getenv('BIRD_WEBHOOK_SECRET') ?: null);
 
-// In your web handler: pass the RAW request body — the signature is over the
-// raw bytes, so parsing before verifying is the classic webhook bug.
+// Pass the raw request body because parsing changes the bytes used to compute
+// the signature.
 $rawBody = file_get_contents('php://input') ?: '';
 try {
     $event = $bird->webhooks->unwrap($rawBody, getallheaders());

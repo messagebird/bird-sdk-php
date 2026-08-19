@@ -8,13 +8,14 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\SMSEventList;
 use MessageBird\Wire\Model\SMSMessage;
 use MessageBird\Wire\Model\SMSMessageList;
 
 class SmsBase extends Resource
 {
     /**
-     * Get one SMS message by id: its current delivery status, segment breakdown, cost, and failure detail if it failed.
+     * Get one SMS message by ID: its current delivery status, segment breakdown, cost, and failure detail if it failed.
      *
      * @example Read a message back
      * $message = $bird->sms->get('sms_01krdgeqcxet5s7t44vh8rt9mg');
@@ -26,7 +27,7 @@ class SmsBase extends Resource
     }
 
     /**
-     * List SMS messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
+     * List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -53,5 +54,21 @@ class SmsBase extends Resource
                 return $page->getNextCursor();
             },
         );
+    }
+
+    /**
+     * The lifecycle event timeline for one SMS, oldest first: what happened to it and when. Filter with `type` (for example `sms.delivered`) to keep one kind of event. Use `sms.get` for the message's current state and `sms.list` to find its ID.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Read one message's lifecycle timeline
+     * $events = $bird->sms->listEvents('sms_abc123');
+     * foreach ($events->getData() ?? [] as $event) {
+     *     echo $event->getType(), ' ', $event->getOccurredAt()?->format(DATE_ATOM), PHP_EOL;
+     * }
+     */
+    public function listEvents(string $messageId, ?array $query = null, ?RequestOptions $options = null): SMSEventList
+    {
+        return $this->single('GET', '/v1/sms/messages/' . rawurlencode($messageId) . '/events', SMSEventList::class, null, $query, $options);
     }
 }

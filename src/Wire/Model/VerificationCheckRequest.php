@@ -20,7 +20,7 @@ class VerificationCheckRequest
      */
     protected $to;
     /**
-     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
+     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`. It does not return an error.
      *
      * @var string|null
      */
@@ -49,7 +49,7 @@ class VerificationCheckRequest
         return $this;
     }
     /**
-     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
+     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`. It does not return an error.
      *
      * @return string|null
      */
@@ -58,7 +58,7 @@ class VerificationCheckRequest
         return $this->code;
     }
     /**
-     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
+     * The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`. It does not return an error.
      *
      * @param string|null $code
      *

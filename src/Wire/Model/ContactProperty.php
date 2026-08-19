@@ -25,14 +25,14 @@ class ContactProperty extends \ArrayObject
     /**
      * The value type every contact must use for a property. Cannot be changed after creation.
      * 
-     * `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+     * `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
      * 
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null when no fallback is set.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` when no fallback is set.
      *
      * @var mixed|null
      */
@@ -94,7 +94,7 @@ class ContactProperty extends \ArrayObject
     /**
      * The value type every contact must use for a property. Cannot be changed after creation.
      * 
-     * `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+     * `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
      * 
      *
      * @return string|null
@@ -106,7 +106,7 @@ class ContactProperty extends \ArrayObject
     /**
     * The value type every contact must use for a property. Cannot be changed after creation.
     
-    `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+    `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
     
     *
     * @param string|null $type
@@ -120,7 +120,7 @@ class ContactProperty extends \ArrayObject
         return $this;
     }
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null when no fallback is set.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` when no fallback is set.
      *
      * @return mixed
      */
@@ -129,7 +129,7 @@ class ContactProperty extends \ArrayObject
         return $this->fallbackValue;
     }
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null when no fallback is set.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` when no fallback is set.
      *
      * @param mixed $fallbackValue
      *

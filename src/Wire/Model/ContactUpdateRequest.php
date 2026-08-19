@@ -13,44 +13,43 @@ class ContactUpdateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to `null` to remove it, as long as the contact keeps at least one identifier.
      *
      * @var string|null
      */
     protected $email;
     /**
-     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to `null` to remove it, as long as the contact keeps at least one identifier. An empty string behaves as `null`.
      *
      * @var string|null
      */
     protected $phoneNumber;
     /**
-     * The contact's first name. Set to null to clear.
+     * The contact's first name. Set to `null` to clear.
      *
      * @var string|null
      */
     protected $firstName;
     /**
-     * The contact's last name. Set to null to clear.
+     * The contact's last name. Set to `null` to clear.
      *
      * @var string|null
      */
     protected $lastName;
     /**
-     * Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+     * Your own identifier for this contact. Unique within the workspace when set. Set to `null` to clear.
      *
      * @var string|null
      */
     protected $externalId;
     /**
-     * Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
-     * 
+     * Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
      *
      * @var array<string, mixed>|null
      */
     protected $data;
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to `null` to remove it, as long as the contact keeps at least one identifier.
      *
      * @return string|null
      */
@@ -59,7 +58,7 @@ class ContactUpdateRequest
         return $this->email;
     }
     /**
-     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+     * New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to `null` to remove it, as long as the contact keeps at least one identifier.
      *
      * @param string|null $email
      *
@@ -72,7 +71,7 @@ class ContactUpdateRequest
         return $this;
     }
     /**
-     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to `null` to remove it, as long as the contact keeps at least one identifier. An empty string behaves as `null`.
      *
      * @return string|null
      */
@@ -81,7 +80,7 @@ class ContactUpdateRequest
         return $this->phoneNumber;
     }
     /**
-     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+     * New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to `null` to remove it, as long as the contact keeps at least one identifier. An empty string behaves as `null`.
      *
      * @param string|null $phoneNumber
      *
@@ -94,7 +93,7 @@ class ContactUpdateRequest
         return $this;
     }
     /**
-     * The contact's first name. Set to null to clear.
+     * The contact's first name. Set to `null` to clear.
      *
      * @return string|null
      */
@@ -103,7 +102,7 @@ class ContactUpdateRequest
         return $this->firstName;
     }
     /**
-     * The contact's first name. Set to null to clear.
+     * The contact's first name. Set to `null` to clear.
      *
      * @param string|null $firstName
      *
@@ -116,7 +115,7 @@ class ContactUpdateRequest
         return $this;
     }
     /**
-     * The contact's last name. Set to null to clear.
+     * The contact's last name. Set to `null` to clear.
      *
      * @return string|null
      */
@@ -125,7 +124,7 @@ class ContactUpdateRequest
         return $this->lastName;
     }
     /**
-     * The contact's last name. Set to null to clear.
+     * The contact's last name. Set to `null` to clear.
      *
      * @param string|null $lastName
      *
@@ -138,7 +137,7 @@ class ContactUpdateRequest
         return $this;
     }
     /**
-     * Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+     * Your own identifier for this contact. Unique within the workspace when set. Set to `null` to clear.
      *
      * @return string|null
      */
@@ -147,7 +146,7 @@ class ContactUpdateRequest
         return $this->externalId;
     }
     /**
-     * Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+     * Your own identifier for this contact. Unique within the workspace when set. Set to `null` to clear.
      *
      * @param string|null $externalId
      *
@@ -160,8 +159,7 @@ class ContactUpdateRequest
         return $this;
     }
     /**
-     * Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
-     * 
+     * Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
      *
      * @return array<string, mixed>|null
      */
@@ -170,7 +168,7 @@ class ContactUpdateRequest
         return $this->data;
     }
     /**
-     * Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
+     * Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
      *
      * @param array<string, mixed>|null $data
      *

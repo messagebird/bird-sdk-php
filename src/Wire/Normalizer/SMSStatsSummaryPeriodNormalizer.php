@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class UnmetGateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class SMSStatsSummaryPeriodNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class UnmetGateNormalizer implements DenormalizerInterface, NormalizerInterface,
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\UnmetGate::class;
+        return $type === \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\UnmetGate::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\UnmetGate();
+        $object = new \MessageBird\Wire\Model\SMSStatsSummaryPeriod();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,29 +37,23 @@ class UnmetGateNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
-            $object->setSlug($data['slug']);
+        if (\array_key_exists('from', $data) && $data['from'] !== null) {
+            $object->setFrom($data['from']);
         }
-        elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
-            $object->setSlug(null);
+        elseif (\array_key_exists('from', $data) && $data['from'] === null) {
+            $object->setFrom(null);
         }
-        if (\array_key_exists('name', $data) && $data['name'] !== null) {
-            $object->setName($data['name']);
+        if (\array_key_exists('to', $data) && $data['to'] !== null) {
+            $object->setTo($data['to']);
         }
-        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
-            $object->setName(null);
+        elseif (\array_key_exists('to', $data) && $data['to'] === null) {
+            $object->setTo(null);
         }
-        if (\array_key_exists('status', $data) && $data['status'] !== null) {
-            $object->setStatus($data['status']);
+        if (\array_key_exists('data_as_of', $data) && $data['data_as_of'] !== null) {
+            $object->setDataAsOf(new \DateTime($data['data_as_of']));
         }
-        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
-            $object->setStatus(null);
-        }
-        if (\array_key_exists('remediation_kind', $data) && $data['remediation_kind'] !== null) {
-            $object->setRemediationKind($data['remediation_kind']);
-        }
-        elseif (\array_key_exists('remediation_kind', $data) && $data['remediation_kind'] === null) {
-            $object->setRemediationKind(null);
+        elseif (\array_key_exists('data_as_of', $data) && $data['data_as_of'] === null) {
+            $object->setDataAsOf(null);
         }
         return $object;
     }
@@ -70,6 +64,6 @@ class UnmetGateNormalizer implements DenormalizerInterface, NormalizerInterface,
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\UnmetGate::class => false];
+        return [\MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false];
     }
 }

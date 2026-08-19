@@ -23,7 +23,6 @@ final class ErrorRecoveryTest extends TestCase
         'message' => 'message',
         'remediation' => 'remediation',
         'next' => 'next',
-        'unmetGates' => 'unmetGates',
     ];
 
     /**
@@ -101,9 +100,6 @@ final class ErrorRecoveryTest extends TestCase
                         'url' => 'https://example.test/dns',
                     ],
                 ],
-                'unmet_gates' => [
-                    ['slug' => 'business_verification', 'name' => 'Business verification', 'status' => 'pending', 'remediation_kind' => 'submit_form'],
-                ],
             ],
         ], JSON_THROW_ON_ERROR);
 
@@ -122,9 +118,6 @@ final class ErrorRecoveryTest extends TestCase
         self::assertSame('external', $external->getKind());
         self::assertSame('https://example.test/dns', $external->getUrl());
         self::assertNull($external->getOperation());
-
-        self::assertCount(1, $e->unmetGates);
-        self::assertSame('business_verification', $e->unmetGates[0]->getSlug());
     }
 
     /**
@@ -166,7 +159,6 @@ final class ErrorRecoveryTest extends TestCase
         $e = ApiException::fromResponse(409, $body);
 
         self::assertSame([], $e->next);
-        self::assertSame([], $e->unmetGates);
     }
 
     /**

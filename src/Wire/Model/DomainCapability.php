@@ -14,24 +14,26 @@ class DomainCapability
     }
     /**
      * Capability verification status.
-     * - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+     * 
+     * - `pending`: verification has not run, or is currently running.
+     * - `verified`: all DNS records for this capability resolved with the
      *   expected values.
-     * - `warning` — a record for this capability verified before and a recent
+     * - `warning`: a record for this capability verified before and a recent
      *   check no longer matches, but it is still within the grace period.
      *   Sending is not yet affected; fix it before the grace period ends.
-     * - `failed` — DNS records resolved but at least one value is wrong.
+     * - `failed`: DNS records resolved but at least one value is wrong.
      *   Update your DNS to recover.
-     * - `temporary_failure` — DNS lookup failed transiently. Verification is
-     *   queued for retry; don't change DNS records yet.
-     * - `not_configured` — the capability is not set up on this domain
-     *   (e.g. no tracking domain configured).
+     * - `temporary_failure`: DNS lookup failed transiently. Verification retries
+     *   automatically; do not change DNS records unless they are incorrect.
+     * - `not_configured`: the capability is not set up on this domain
+     *   (for example, no tracking domain configured).
      * 
      *
      * @var string|null
      */
     protected $status;
     /**
-     * Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+     * Hostname this capability is configured with: the return-path domain, the tracking domain, or the domain where the DMARC policy was found. `null` when not applicable or not configured.
      * 
      *
      * @var string|null
@@ -45,8 +47,11 @@ class DomainCapability
      */
     protected $pending;
     /**
-     * Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-     * - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+     * Machine-readable reason code for a failed capability status. Only set when
+     * `status` is `failed`. Use this to display a specific message to users rather
+     * than a generic failure message.
+     * 
+     * - `tracking_domain_in_use`: the link tracking subdomain is already claimed
      *   by another organization.
      * 
      *
@@ -55,17 +60,19 @@ class DomainCapability
     protected $reason;
     /**
      * Capability verification status.
-     * - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+     * 
+     * - `pending`: verification has not run, or is currently running.
+     * - `verified`: all DNS records for this capability resolved with the
      *   expected values.
-     * - `warning` — a record for this capability verified before and a recent
+     * - `warning`: a record for this capability verified before and a recent
      *   check no longer matches, but it is still within the grace period.
      *   Sending is not yet affected; fix it before the grace period ends.
-     * - `failed` — DNS records resolved but at least one value is wrong.
+     * - `failed`: DNS records resolved but at least one value is wrong.
      *   Update your DNS to recover.
-     * - `temporary_failure` — DNS lookup failed transiently. Verification is
-     *   queued for retry; don't change DNS records yet.
-     * - `not_configured` — the capability is not set up on this domain
-     *   (e.g. no tracking domain configured).
+     * - `temporary_failure`: DNS lookup failed transiently. Verification retries
+     *   automatically; do not change DNS records unless they are incorrect.
+     * - `not_configured`: the capability is not set up on this domain
+     *   (for example, no tracking domain configured).
      * 
      *
      * @return string|null
@@ -76,17 +83,19 @@ class DomainCapability
     }
     /**
     * Capability verification status.
-    - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+    
+    - `pending`: verification has not run, or is currently running.
+    - `verified`: all DNS records for this capability resolved with the
      expected values.
-    - `warning` — a record for this capability verified before and a recent
+    - `warning`: a record for this capability verified before and a recent
      check no longer matches, but it is still within the grace period.
      Sending is not yet affected; fix it before the grace period ends.
-    - `failed` — DNS records resolved but at least one value is wrong.
+    - `failed`: DNS records resolved but at least one value is wrong.
      Update your DNS to recover.
-    - `temporary_failure` — DNS lookup failed transiently. Verification is
-     queued for retry; don't change DNS records yet.
-    - `not_configured` — the capability is not set up on this domain
-     (e.g. no tracking domain configured).
+    - `temporary_failure`: DNS lookup failed transiently. Verification retries
+     automatically; do not change DNS records unless they are incorrect.
+    - `not_configured`: the capability is not set up on this domain
+     (for example, no tracking domain configured).
     
     *
     * @param string|null $status
@@ -100,7 +109,7 @@ class DomainCapability
         return $this;
     }
     /**
-     * Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+     * Hostname this capability is configured with: the return-path domain, the tracking domain, or the domain where the DMARC policy was found. `null` when not applicable or not configured.
      * 
      *
      * @return string|null
@@ -110,7 +119,7 @@ class DomainCapability
         return $this->domain;
     }
     /**
-     * Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+     * Hostname this capability is configured with: the return-path domain, the tracking domain, or the domain where the DMARC policy was found. `null` when not applicable or not configured.
      *
      * @param string|null $domain
      *
@@ -146,8 +155,11 @@ class DomainCapability
         return $this;
     }
     /**
-     * Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-     * - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+     * Machine-readable reason code for a failed capability status. Only set when
+     * `status` is `failed`. Use this to display a specific message to users rather
+     * than a generic failure message.
+     * 
+     * - `tracking_domain_in_use`: the link tracking subdomain is already claimed
      *   by another organization.
      * 
      *
@@ -158,8 +170,11 @@ class DomainCapability
         return $this->reason;
     }
     /**
-    * Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-    - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+    * Machine-readable reason code for a failed capability status. Only set when
+    `status` is `failed`. Use this to display a specific message to users rather
+    than a generic failure message.
+    
+    - `tracking_domain_in_use`: the link tracking subdomain is already claimed
      by another organization.
     
     *

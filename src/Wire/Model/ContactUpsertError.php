@@ -19,7 +19,7 @@ class ContactUpsertError
      */
     protected $type;
     /**
-     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     * Specific error code for this entry, from the same catalog as the top-level error `code`. `E04058` means the entry matched two contacts and requires review. `E04055` means the phone number belongs to another contact and you must retry with different data. Both are `conflict_error` errors; the code distinguishes them.
      *
      * @var string|null
      */
@@ -53,7 +53,7 @@ class ContactUpsertError
         return $this;
     }
     /**
-     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     * Specific error code for this entry, from the same catalog as the top-level error `code`. `E04058` means the entry matched two contacts and requires review. `E04055` means the phone number belongs to another contact and you must retry with different data. Both are `conflict_error` errors; the code distinguishes them.
      *
      * @return string|null
      */
@@ -62,7 +62,7 @@ class ContactUpsertError
         return $this->code;
     }
     /**
-     * The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+     * Specific error code for this entry, from the same catalog as the top-level error `code`. `E04058` means the entry matched two contacts and requires review. `E04055` means the phone number belongs to another contact and you must retry with different data. Both are `conflict_error` errors; the code distinguishes them.
      *
      * @param string|null $code
      *

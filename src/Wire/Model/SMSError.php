@@ -13,7 +13,21 @@ class SMSError
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+     * Standardized failure reason:
+     * 
+     * - `invalid_destination`: The number is unassigned, ported out, or malformed.
+     * - `unreachable`: The handset is off or outside coverage.
+     * - `blocked_by_carrier`: The carrier filtered the message.
+     * - `blocked_by_recipient`: The recipient device blocked the sender.
+     * - `landline_unreachable`: The destination is a landline that does not accept SMS.
+     * - `content_rejected`: The carrier rejected the content.
+     * - `sender_unregistered`: The sender is not registered for the destination.
+     * - `recipient_opted_out`: The recipient is on a suppression list.
+     * - `provider_unavailable`: The provider remained unavailable after retries.
+     * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `unknown`: The failure could not be classified.
+     * 
+     * This is an open enum. Accept unrecognized values.
      * 
      *
      * @var string|null
@@ -38,7 +52,21 @@ class SMSError
      */
     protected $occurredAt;
     /**
-     * Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+     * Standardized failure reason:
+     * 
+     * - `invalid_destination`: The number is unassigned, ported out, or malformed.
+     * - `unreachable`: The handset is off or outside coverage.
+     * - `blocked_by_carrier`: The carrier filtered the message.
+     * - `blocked_by_recipient`: The recipient device blocked the sender.
+     * - `landline_unreachable`: The destination is a landline that does not accept SMS.
+     * - `content_rejected`: The carrier rejected the content.
+     * - `sender_unregistered`: The sender is not registered for the destination.
+     * - `recipient_opted_out`: The recipient is on a suppression list.
+     * - `provider_unavailable`: The provider remained unavailable after retries.
+     * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `unknown`: The failure could not be classified.
+     * 
+     * This is an open enum. Accept unrecognized values.
      * 
      *
      * @return string|null
@@ -48,12 +76,27 @@ class SMSError
         return $this->code;
     }
     /**
-     * Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
-     *
-     * @param string|null $code
-     *
-     * @return self
-     */
+    * Standardized failure reason:
+    
+    - `invalid_destination`: The number is unassigned, ported out, or malformed.
+    - `unreachable`: The handset is off or outside coverage.
+    - `blocked_by_carrier`: The carrier filtered the message.
+    - `blocked_by_recipient`: The recipient device blocked the sender.
+    - `landline_unreachable`: The destination is a landline that does not accept SMS.
+    - `content_rejected`: The carrier rejected the content.
+    - `sender_unregistered`: The sender is not registered for the destination.
+    - `recipient_opted_out`: The recipient is on a suppression list.
+    - `provider_unavailable`: The provider remained unavailable after retries.
+    - `insufficient_balance`: The workspace wallet could not fund the send.
+    - `unknown`: The failure could not be classified.
+    
+    This is an open enum. Accept unrecognized values.
+    
+    *
+    * @param string|null $code
+    *
+    * @return self
+    */
     public function setCode(?string $code): self
     {
         $this->initialized['code'] = true;

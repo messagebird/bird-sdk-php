@@ -17,6 +17,8 @@ use MessageBird\Resources\Email;
 use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Sms;
+use MessageBird\Resources\SmsKeywordRules;
+use MessageBird\Resources\SmsSuppressions;
 use MessageBird\Resources\SmsTemplates;
 use MessageBird\Resources\Verify;
 use MessageBird\Resources\Voice;
@@ -61,6 +63,8 @@ final class Bird
     public readonly Email $email;
     public readonly Sms $sms;
     public readonly SmsTemplates $smsTemplates;
+    public readonly SmsSuppressions $smsSuppressions;
+    public readonly SmsKeywordRules $smsKeywordRules;
     public readonly Whatsapp $whatsapp;
     public readonly Verify $verify;
     public readonly Voice $voice;
@@ -101,6 +105,8 @@ final class Bird
         $this->email = new Email($this);
         $this->sms = new Sms($this);
         $this->smsTemplates = new SmsTemplates($this);
+        $this->smsSuppressions = new SmsSuppressions($this);
+        $this->smsKeywordRules = new SmsKeywordRules($this);
         $this->whatsapp = new Whatsapp($this);
         $this->verify = new Verify($this);
         $this->voice = new Voice($this);

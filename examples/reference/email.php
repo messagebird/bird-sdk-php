@@ -9,8 +9,8 @@
 //
 // An address (from/to/cc/bcc/reply_to) accepts any of: a plain string
 // ("jane@x.com"), an RFC 5322 mailbox string ("Jane <jane@x.com>"), an
-// ["email" => ..., "name" => ...] array, or an EmailAddress model — the core
-// serializer normalizes all of them to the same wire object.
+// ["email" => ..., "name" => ...] array, or an EmailAddress model. The core
+// serializer normalizes every form to the same wire object.
 //
 // Every stats read takes its window as an untyped query array: jane emits no
 // query type, so `from`/`to`/`sort`/`limit` are plain keys here.
@@ -75,7 +75,7 @@ foreach ($batch->getData() ?? [] as $item) {
     echo $item->getId(), ' ', $item->getStatus(), "\n";
 }
 
-$message = $bird->email->get('eml_01krdgeqcxet5s7t44vh8rt9mg');
+$message = $bird->email->get('em_01krdgeqcxet5s7t44vh8rt9mg');
 echo $message->getStatus();
 
 foreach ($bird->email->list(['status' => 'delivered']) as $message) {
@@ -88,7 +88,7 @@ foreach ($page->data as $message) {
 }
 $next = $page->nextCursor; // pass back as starting_after to fetch the next page
 
-$bird->email->cancel('eml_01krdgeqcxet5s7t44vh8rt9mg');
+$bird->email->cancel('em_01krdgeqcxet5s7t44vh8rt9mg');
 
 $summary = $bird->email->stats->summary(['from' => '2026-05-01', 'to' => '2026-05-31']);
 echo $summary->getSendsAccepted(), ' ', $summary->getDelivery()?->getDelivered();
@@ -296,19 +296,19 @@ foreach ($bird->email->threads->messages->list('thr_01krdgeqcxet5s7t44vh8rt9mg')
 
 $message = $bird->email->threads->messages->get(
     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-    'ems_01krdgeqcxet5s7t44vh8rt9mg',
+    'rem_01krdgeqcxet5s7t44vh8rt9mg',
 );
 echo $message->getFrom(), ' ', $message->getSubject();
 
 $body = $bird->email->threads->messages->body(
     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-    'ems_01krdgeqcxet5s7t44vh8rt9mg',
+    'rem_01krdgeqcxet5s7t44vh8rt9mg',
 );
 echo $body->getText() ?? $body->getHtml();
 
 $attachments = $bird->email->threads->messages->attachments(
     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-    'ems_01krdgeqcxet5s7t44vh8rt9mg',
+    'rem_01krdgeqcxet5s7t44vh8rt9mg',
 );
 foreach ($attachments->getData() ?? [] as $attachment) {
     echo $attachment->getFilename(), "\n";
@@ -316,9 +316,9 @@ foreach ($attachments->getData() ?? [] as $attachment) {
 
 $reply = $bird->email->threads->messages->reply(
     'thr_01krdgeqcxet5s7t44vh8rt9mg',
-    'ems_01krdgeqcxet5s7t44vh8rt9mg',
+    'rem_01krdgeqcxet5s7t44vh8rt9mg',
     (new EmailThreadMessageReplyRequest())
-        ->setText('Thanks — looking into it now.')
+        ->setText('Thanks, looking into it now.')
         ->setReplyAll(true),
 );
 echo $reply->getId();
@@ -335,7 +335,7 @@ try {
     // the coarse category, $errorCode the stable E##### code.
     echo $e->status, ' ', $e->errorCode ?? $e->type ?? 'error';
 } catch (ConnectionException $e) {
-    // The transport failed and the retry budget was exhausted — no HTTP response.
+    // All retry attempts failed, so no HTTP response is available.
     echo 'transport error: ', $e->getMessage();
 }
 

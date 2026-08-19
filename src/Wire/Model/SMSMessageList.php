@@ -19,19 +19,19 @@ class SMSMessageList extends \ArrayObject
      */
     protected $data;
     /**
-     * Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
      *
      * @var string|null
      */
     protected $nextCursor;
     /**
-     * Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
      *
      * @var string|null
      */
     protected $prevCursor;
     /**
-     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
      *
      * @var string|null
      */
@@ -59,7 +59,7 @@ class SMSMessageList extends \ArrayObject
         return $this;
     }
     /**
-     * Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
      *
      * @return string|null
      */
@@ -68,7 +68,7 @@ class SMSMessageList extends \ArrayObject
         return $this->nextCursor;
     }
     /**
-     * Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
      *
      * @param string|null $nextCursor
      *
@@ -81,7 +81,7 @@ class SMSMessageList extends \ArrayObject
         return $this;
     }
     /**
-     * Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
      *
      * @return string|null
      */
@@ -90,7 +90,7 @@ class SMSMessageList extends \ArrayObject
         return $this->prevCursor;
     }
     /**
-     * Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
      *
      * @param string|null $prevCursor
      *
@@ -103,7 +103,7 @@ class SMSMessageList extends \ArrayObject
         return $this;
     }
     /**
-     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
      *
      * @return string|null
      */
@@ -112,7 +112,7 @@ class SMSMessageList extends \ArrayObject
         return $this->refreshCursor;
     }
     /**
-     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+     * Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
      *
      * @param string|null $refreshCursor
      *

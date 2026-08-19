@@ -6,7 +6,6 @@ namespace MessageBird\Exception;
 
 use MessageBird\Core\Serializer;
 use MessageBird\Wire\Model\NextAction;
-use MessageBird\Wire\Model\UnmetGate;
 
 /**
  * An error the API returned. The error `type` is read from the response body,
@@ -23,8 +22,6 @@ final class ApiException extends BirdException
      *                                     Read `getKind()` before `getOperation()`: only an
      *                                     `operation` step carries one, and a kind this
      *                                     version does not know is display-only.
-     * @param list<UnmetGate>  $unmetGates the verification requirements blocking this
-     *                                     action, each with the flow that resolves it
      */
     public function __construct(
         string $message,
@@ -34,7 +31,6 @@ final class ApiException extends BirdException
         public readonly ?string $errorCode = null,
         public readonly ?string $remediation = null,
         public readonly array $next = [],
-        public readonly array $unmetGates = [],
     ) {
         parent::__construct($message);
     }
@@ -46,7 +42,6 @@ final class ApiException extends BirdException
         $message = "HTTP {$status}";
         $remediation = null;
         $next = [];
-        $unmetGates = [];
 
         $decoded = json_decode($body, true);
         if (is_array($decoded) && isset($decoded['error']) && is_array($decoded['error'])) {
@@ -60,10 +55,9 @@ final class ApiException extends BirdException
 
             $serializer = new Serializer();
             $next = self::wireList($serializer, $error['next'] ?? null, NextAction::class);
-            $unmetGates = self::wireList($serializer, $error['unmet_gates'] ?? null, UnmetGate::class);
         }
 
-        return new self($message, $status, $type, $errorCode, $remediation, $next, $unmetGates);
+        return new self($message, $status, $type, $errorCode, $remediation, $next);
     }
 
     /**

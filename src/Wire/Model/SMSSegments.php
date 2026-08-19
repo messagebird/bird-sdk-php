@@ -19,7 +19,7 @@ class SMSSegments
      */
     protected $count;
     /**
-     * Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+     * Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
      * 
      *
      * @var string|null
@@ -54,7 +54,7 @@ class SMSSegments
         return $this;
     }
     /**
-     * Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+     * Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
      * 
      *
      * @return string|null
@@ -64,7 +64,7 @@ class SMSSegments
         return $this->encoding;
     }
     /**
-     * Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+     * Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
      *
      * @param string|null $encoding
      *

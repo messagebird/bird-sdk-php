@@ -47,6 +47,32 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->sms->list(...),
             $bird->smsTemplates->list(...),
             $bird->smsTemplates->get(...),
+            $bird->sms->listEvents(...),
+            $bird->sms->stats->summary(...),
+            $bird->sms->stats->daily(...),
+            $bird->sms->stats->hourly(...),
+            $bird->sms->stats->byCountry(...),
+            $bird->sms->stats->byCarrier(...),
+            $bird->sms->stats->byCategory(...),
+            $bird->sms->stats->byOriginator(...),
+            $bird->sms->stats->byStatus(...),
+            $bird->sms->stats->byErrorCode(...),
+            $bird->sms->stats->byTag(...),
+            $bird->sms->stats->inbound->summary(...),
+            $bird->sms->stats->inbound->daily(...),
+            $bird->sms->stats->inbound->hourly(...),
+            $bird->sms->stats->inbound->byCountry(...),
+            $bird->sms->stats->inbound->byOperator(...),
+            $bird->sms->stats->inbound->byNumber(...),
+            $bird->smsSuppressions->list(...),
+            $bird->smsSuppressions->get(...),
+            $bird->smsSuppressions->add(...),
+            $bird->smsSuppressions->remove(...),
+            $bird->smsKeywordRules->list(...),
+            $bird->smsKeywordRules->get(...),
+            $bird->smsKeywordRules->create(...),
+            $bird->smsKeywordRules->update(...),
+            $bird->smsKeywordRules->delete(...),
             $bird->whatsapp->send(...),
             $bird->whatsapp->get(...),
             $bird->whatsapp->list(...),
@@ -117,7 +143,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->realtime->members->disconnect(...),
         ];
 
-        self::assertCount(95, $surface);
+        self::assertCount(121, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

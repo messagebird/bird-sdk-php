@@ -43,8 +43,7 @@ class ContactCreateRequest
      */
     protected $externalId;
     /**
-     * Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
-     * 
+     * Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
      *
      * @var array<string, mixed>|null
      */
@@ -160,8 +159,7 @@ class ContactCreateRequest
         return $this;
     }
     /**
-     * Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
-     * 
+     * Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
      *
      * @return array<string, mixed>|null
      */
@@ -170,7 +168,7 @@ class ContactCreateRequest
         return $this->data;
     }
     /**
-     * Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
+     * Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
      *
      * @param array<string, mixed>|null $data
      *

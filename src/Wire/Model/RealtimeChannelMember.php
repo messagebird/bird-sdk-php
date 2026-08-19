@@ -13,13 +13,13 @@ class RealtimeChannelMember
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+     * An app-defined member ID for your application's end user, assigned when your auth server authorizes them. Use up to 128 URL-safe characters because member IDs appear directly in API request paths. The value can include `+ : @ . _ -`, but not `/ ? # %` or whitespace.
      *
      * @var string|null
      */
     protected $memberId;
     /**
-     * An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+     * An app-defined member ID for your application's end user, assigned when your auth server authorizes them. Use up to 128 URL-safe characters because member IDs appear directly in API request paths. The value can include `+ : @ . _ -`, but not `/ ? # %` or whitespace.
      *
      * @return string|null
      */
@@ -28,7 +28,7 @@ class RealtimeChannelMember
         return $this->memberId;
     }
     /**
-     * An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+     * An app-defined member ID for your application's end user, assigned when your auth server authorizes them. Use up to 128 URL-safe characters because member IDs appear directly in API request paths. The value can include `+ : @ . _ -`, but not `/ ? # %` or whitespace.
      *
      * @param string|null $memberId
      *

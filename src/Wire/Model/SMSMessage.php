@@ -34,14 +34,14 @@ class SMSMessage
      */
     protected $to;
     /**
-     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+     * Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound message, this is the phone number that sent it to you.
      * 
      *
      * @var string|null
      */
     protected $from;
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      * 
      *
      * @var string|null
@@ -60,7 +60,7 @@ class SMSMessage
      */
     protected $segments;
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      * 
      *
      * @var MessageCost|null
@@ -209,7 +209,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+     * Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound message, this is the phone number that sent it to you.
      * 
      *
      * @return string|null
@@ -219,7 +219,7 @@ class SMSMessage
         return $this->from;
     }
     /**
-     * Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+     * Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound message, this is the phone number that sent it to you.
      *
      * @param string|null $from
      *
@@ -232,7 +232,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      * 
      *
      * @return string|null
@@ -242,7 +242,7 @@ class SMSMessage
         return $this->text;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      *
      * @param string|null $text
      *
@@ -299,7 +299,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      * 
      *
      * @return MessageCost|null
@@ -309,7 +309,7 @@ class SMSMessage
         return $this->cost;
     }
     /**
-     * What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+     * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      *
      * @param MessageCost|null $cost
      *

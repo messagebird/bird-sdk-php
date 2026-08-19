@@ -13,7 +13,7 @@ class ErrorDetail
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Dotted field path (e.g. "to[0].email", "subject", ".").
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
      *
      * @var string|null
      */
@@ -25,7 +25,7 @@ class ErrorDetail
      */
     protected $message;
     /**
-     * Dotted field path (e.g. "to[0].email", "subject", ".").
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
      *
      * @return string|null
      */
@@ -34,7 +34,7 @@ class ErrorDetail
         return $this->param;
     }
     /**
-     * Dotted field path (e.g. "to[0].email", "subject", ".").
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
      *
      * @param string|null $param
      *

@@ -25,7 +25,7 @@ class RealtimeBatchEvent
      */
     protected $channel;
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @var mixed|null
      */
@@ -87,7 +87,7 @@ class RealtimeBatchEvent
         return $this;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @return mixed
      */
@@ -96,7 +96,7 @@ class RealtimeBatchEvent
         return $this->data;
     }
     /**
-     * Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+     * Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
      *
      * @param mixed $data
      *
