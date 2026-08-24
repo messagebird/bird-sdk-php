@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.16.1
+
+- `VoiceCallActor`'s `type` now documents its known values: `user`, `oauth_token`, `api_key`, `system`, `sso`, and `service_account`. The enum stays open, so treat an unrecognized value as a newer type rather than an error.
+
 ## 0.16.0
 
 - Add the `verify.verification.failed` webhook event, which fires when no planned channel could deliver a verification's passcode, plus the `undeliverable` session reason and the `not_billable` attempt reason that say why it could not.

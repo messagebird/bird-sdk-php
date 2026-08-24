@@ -13,26 +13,26 @@ class VoiceCallActor extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * ID of the user, API key, integration, or system process that performed the action.
+     * Actor identifier.
      *
      * @var string|null
      */
     protected $id;
     /**
-     * Type of actor, such as `user`, `api_key`, `service_account`, or `system`.
+     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Display name of the actor. This is the user's email address for a `user` actor, or the name of the API key or integration that acted. Absent when it could not be resolved.
+     * The label the actor is shown under: typically a member's name or email address, or the API key's name. Null when it could not be resolved.
      * 
      *
      * @var string|null
      */
     protected $displayName;
     /**
-     * ID of the user, API key, integration, or system process that performed the action.
+     * Actor identifier.
      *
      * @return string|null
      */
@@ -41,7 +41,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->id;
     }
     /**
-     * ID of the user, API key, integration, or system process that performed the action.
+     * Actor identifier.
      *
      * @param string|null $id
      *
@@ -54,7 +54,7 @@ class VoiceCallActor extends \ArrayObject
         return $this;
     }
     /**
-     * Type of actor, such as `user`, `api_key`, `service_account`, or `system`.
+     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
      *
      * @return string|null
      */
@@ -63,7 +63,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->type;
     }
     /**
-     * Type of actor, such as `user`, `api_key`, `service_account`, or `system`.
+     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
      *
      * @param string|null $type
      *
@@ -76,7 +76,7 @@ class VoiceCallActor extends \ArrayObject
         return $this;
     }
     /**
-     * Display name of the actor. This is the user's email address for a `user` actor, or the name of the API key or integration that acted. Absent when it could not be resolved.
+     * The label the actor is shown under: typically a member's name or email address, or the API key's name. Null when it could not be resolved.
      * 
      *
      * @return string|null
@@ -86,7 +86,7 @@ class VoiceCallActor extends \ArrayObject
         return $this->displayName;
     }
     /**
-     * Display name of the actor. This is the user's email address for a `user` actor, or the name of the API key or integration that acted. Absent when it could not be resolved.
+     * The label the actor is shown under: typically a member's name or email address, or the API key's name. Null when it could not be resolved.
      *
      * @param string|null $displayName
      *
