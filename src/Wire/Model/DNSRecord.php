@@ -53,7 +53,10 @@ class DNSRecord
      * - `inbound_mx`: identifies the MX record routing mail to us for receiving.
      *   Always present wherever inbound is available, as a regional reference,
      *   regardless of whether receiving is enabled; publishing it does not
-     *   enable receiving on its own: see `DomainUpdate.inbound`.
+     *   enable receiving on its own: see `DomainUpdate.inbound`. It is
+     *   `optional` until receiving is enabled, and publishing it before then
+     *   is destructive: on a domain at the zone apex it replaces the MX
+     *   records that carry the domain's existing mail.
      * - `dmarc`: identifies the advisory DMARC policy record.
      * 
      *
@@ -75,7 +78,7 @@ class DNSRecord
      */
     protected $state;
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
+     * Whether this record can be skipped. An optional record enables extra functionality (branded tracking, or receiving) rather than sending, so publish one only when you want what it enables. The `inbound_mx` records are optional until you enable receiving on the domain, and publishing one before then changes where mail to the domain is delivered.
      * 
      *
      * @var bool|null
@@ -223,7 +226,10 @@ class DNSRecord
      * - `inbound_mx`: identifies the MX record routing mail to us for receiving.
      *   Always present wherever inbound is available, as a regional reference,
      *   regardless of whether receiving is enabled; publishing it does not
-     *   enable receiving on its own: see `DomainUpdate.inbound`.
+     *   enable receiving on its own: see `DomainUpdate.inbound`. It is
+     *   `optional` until receiving is enabled, and publishing it before then
+     *   is destructive: on a domain at the zone apex it replaces the MX
+     *   records that carry the domain's existing mail.
      * - `dmarc`: identifies the advisory DMARC policy record.
      * 
      *
@@ -242,7 +248,10 @@ class DNSRecord
     - `inbound_mx`: identifies the MX record routing mail to us for receiving.
      Always present wherever inbound is available, as a regional reference,
      regardless of whether receiving is enabled; publishing it does not
-     enable receiving on its own: see `DomainUpdate.inbound`.
+     enable receiving on its own: see `DomainUpdate.inbound`. It is
+     `optional` until receiving is enabled, and publishing it before then
+     is destructive: on a domain at the zone apex it replaces the MX
+     records that carry the domain's existing mail.
     - `dmarc`: identifies the advisory DMARC policy record.
     
     *
@@ -295,7 +304,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
+     * Whether this record can be skipped. An optional record enables extra functionality (branded tracking, or receiving) rather than sending, so publish one only when you want what it enables. The `inbound_mx` records are optional until you enable receiving on the domain, and publishing one before then changes where mail to the domain is delivered.
      * 
      *
      * @return bool|null
@@ -305,7 +314,7 @@ class DNSRecord
         return $this->optional;
     }
     /**
-     * Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
+     * Whether this record can be skipped. An optional record enables extra functionality (branded tracking, or receiving) rather than sending, so publish one only when you want what it enables. The `inbound_mx` records are optional until you enable receiving on the domain, and publishing one before then changes where mail to the domain is delivered.
      *
      * @param bool|null $optional
      *

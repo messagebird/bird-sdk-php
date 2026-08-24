@@ -151,6 +151,35 @@ $result = $bird->verify->verifications->check(
 echo $result->getSuccess() ? 'verified' : 'failed';
 ```
 
+## Lookup
+
+Every answer is billed. A phone number lookup bills once for the base answer plus once per **delivered** property; an email lookup bills once per answered address. Nothing is billed for a failed lookup or an unanswered property, so read the status before you read a value.
+
+```php
+use MessageBird\Wire\Model\EmailLookupRequest;
+use MessageBird\Wire\Model\PhoneNumberLookupRequest;
+
+// What is this number? The base answer is always present and always billed.
+$number = $bird->lookup->phoneNumber(
+    (new PhoneNumberLookupRequest())->setPhoneNumber('+31612345678')->setType(['score']),
+);
+echo $number->getCountryCode(), ' ', $number->getLineType(), "\n";
+
+// Only a block whose status is 'ok' carries a value, and only that one is billed.
+if ($number->getScore()?->getStatus() === 'ok') {
+    echo $number->getScore()->getValue(), "\n";
+}
+
+// Is this address worth sending to? The result is an open vocabulary, so fall
+// back on delivery confidence (0-100, always present) for a verdict you don't know.
+$address = $bird->lookup->email(
+    (new EmailLookupRequest())->setEmail('aisha.khan@example.com'),
+);
+echo $address->getResult(), ' ', $address->getDeliveryConfidence(), "\n";
+```
+
+Pass an idempotency key so a retry replays the stored answer instead of buying a second one.
+
 ## Realtime
 
 Publish events to a Realtime app's channels and inspect its live channels and members. Every call authenticates with the app's own key/secret (shown once at creation) **on top of** the workspace API key — set them as client config, or pass a per-call override to reach a second app. Each method takes the app id (`rap_…`) first.

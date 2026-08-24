@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class MoneyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class MoneyNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\Money::class;
+        return $type === \MessageBird\Wire\Model\NumbersOrderCreate::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\Money::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\NumbersOrderCreate::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\Money();
+        $object = new \MessageBird\Wire\Model\NumbersOrderCreate();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,29 +37,22 @@ class MoneyNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('amount', $data) && $data['amount'] !== null) {
-            $object->setAmount($data['amount']);
+        if (\array_key_exists('number', $data) && $data['number'] !== null) {
+            $object->setNumber($data['number']);
         }
-        elseif (\array_key_exists('amount', $data) && $data['amount'] === null) {
-            $object->setAmount(null);
-        }
-        if (\array_key_exists('currency_code', $data) && $data['currency_code'] !== null) {
-            $object->setCurrencyCode($data['currency_code']);
-        }
-        elseif (\array_key_exists('currency_code', $data) && $data['currency_code'] === null) {
-            $object->setCurrencyCode(null);
+        elseif (\array_key_exists('number', $data) && $data['number'] === null) {
+            $object->setNumber(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['amount'] = $data->getAmount();
-        $dataArray['currency_code'] = $data->getCurrencyCode();
+        $dataArray['number'] = $data->getNumber();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\Money::class => false];
+        return [\MessageBird\Wire\Model\NumbersOrderCreate::class => false];
     }
 }

@@ -11,6 +11,8 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
+use MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
@@ -18,6 +20,13 @@ $message = $bird->whatsapp->send(
     to: '+15551234567',
     template: 'bird_otp',
     language: 'en',
+    components: [
+        (new WhatsAppMessageTemplateComponent())
+            ->setType('body')
+            ->setParameters([
+                (new WhatsAppMessageTemplateComponentParameter())->setType('text')->setText('123456'),
+            ]),
+    ],
 );
 echo $message->getId(), ' ', $message->getStatus();
 

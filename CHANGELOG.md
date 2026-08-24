@@ -2,6 +2,22 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.14.0
+
+- Email click events now carry `link_name`, the name of the clicked link when the message named it.
+- Numbers are now available on the public API. Search a country's available numbers, order one, list and read the numbers your workspace holds, and release a dedicated number you no longer want.
+- **Breaking:** a voice call's `cost` is its own call-cost type rather than the shared money type, so a caller that names the money type for that field changes it to the call-cost type — reading `cost.amount` and `cost.currency_code` needs no change. The money type is gone from the package, having been reachable only through that field.
+- A voice call's `cost` gains `outbound_amount`, `inbound_amount` and `call_handling_amount`, naming the components behind the total so a call charged for more than one thing can report which amount is which. Each reads `null` until that component is priced. Every amount on a voice call's cost now renders at six decimal places, the scale the reference documents.
+- A WhatsApp message that failed because WhatsApp could not fetch the media URL, or refused the file it found there, now reports `media_rejected` on `last_error.code` instead of `undeliverable`, with WhatsApp's own reason in `last_error.description`.
+- Email events now report the recipient's mailbox provider and provider region (for example `gmail`, `NA`), when the receiving mail system could be classified.
+- A runnable lookup quickstart now ships with the SDK, covering both `lookup->phoneNumber()` and `lookup->email()` and the rule that decides what a paid property actually returned: read its status before its value, because only `ok` carries one and only `ok` is billed.
+- A sending domain's inbound MX records now report `optional` as `true` until you enable receiving on that domain, so the records you must publish to send are no longer listed alongside ones that would reroute the domain's existing mail.
+- The numbers reference and examples describe a number as allocated to a workspace, the same word the API reference and the dashboard use.
+- The numbers methods document what each one does to a carrier and to your balance — that a search can go stale before an order lands, that an order may settle after the call returns, and that a release is irreversible.
+- The WhatsApp send examples now fill the template body placeholder that bird_otp declares, so the example they show is one the API accepts rather than a 422 WhatsAppTemplateParameterMismatch.
+- A voice call's `actor.type` can be `service_account`, meaning the call was placed by an integration acting for the workspace rather than by a user or an API key. Documented on the actor's `id` and `type`, and on the call's own `actor` field, which previously described only users and API keys.
+- Sending a WhatsApp message from a number whose setup has not finished now returns a `422` `WhatsAppSenderNotConnected`, rather than an unknown-number error or an accepted send that later fails.
+
 ## 0.13.0
 
 - Add $bird->sms->stats and $bird->smsSuppressions: SMS statistics (outbound, inbound breakdowns) and the suppression list, plus sms->listEvents for a message's timeline.

@@ -100,6 +100,18 @@ class EmailEventNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('sending_ip', $data) && $data['sending_ip'] === null) {
             $object->setSendingIp(null);
         }
+        if (\array_key_exists('mailbox_provider', $data) && $data['mailbox_provider'] !== null) {
+            $object->setMailboxProvider($data['mailbox_provider']);
+        }
+        elseif (\array_key_exists('mailbox_provider', $data) && $data['mailbox_provider'] === null) {
+            $object->setMailboxProvider(null);
+        }
+        if (\array_key_exists('mailbox_provider_region', $data) && $data['mailbox_provider_region'] !== null) {
+            $object->setMailboxProviderRegion($data['mailbox_provider_region']);
+        }
+        elseif (\array_key_exists('mailbox_provider_region', $data) && $data['mailbox_provider_region'] === null) {
+            $object->setMailboxProviderRegion(null);
+        }
         if (\array_key_exists('is_prefetched', $data) && $data['is_prefetched'] !== null) {
             $object->setIsPrefetched($data['is_prefetched']);
         }
@@ -111,6 +123,12 @@ class EmailEventNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
+        }
+        if (\array_key_exists('link_name', $data) && $data['link_name'] !== null) {
+            $object->setLinkName($data['link_name']);
+        }
+        elseif (\array_key_exists('link_name', $data) && $data['link_name'] === null) {
+            $object->setLinkName(null);
         }
         if (\array_key_exists('country', $data) && $data['country'] !== null) {
             $object->setCountry($data['country']);
@@ -156,11 +174,20 @@ class EmailEventNormalizer implements DenormalizerInterface, NormalizerInterface
         if ($data->isInitialized('sendingIp')) {
             $dataArray['sending_ip'] = $data->getSendingIp();
         }
+        if ($data->isInitialized('mailboxProvider')) {
+            $dataArray['mailbox_provider'] = $data->getMailboxProvider();
+        }
+        if ($data->isInitialized('mailboxProviderRegion')) {
+            $dataArray['mailbox_provider_region'] = $data->getMailboxProviderRegion();
+        }
         if ($data->isInitialized('isPrefetched')) {
             $dataArray['is_prefetched'] = $data->getIsPrefetched();
         }
         if ($data->isInitialized('url')) {
             $dataArray['url'] = $data->getUrl();
+        }
+        if ($data->isInitialized('linkName')) {
+            $dataArray['link_name'] = $data->getLinkName();
         }
         if ($data->isInitialized('country')) {
             $dataArray['country'] = $data->getCountry();

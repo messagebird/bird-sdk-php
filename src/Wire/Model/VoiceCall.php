@@ -43,7 +43,7 @@ class VoiceCall
      */
     protected $to;
     /**
-     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @var VoiceCallActor|null
      */
@@ -112,7 +112,10 @@ class VoiceCall
      */
     protected $mediaQuality;
     /**
-     * @var Money|null
+     * What was charged for a call, split into the components that make it up.
+     * 
+     *
+     * @var VoiceCallCost|null
      */
     protected $cost;
     /**
@@ -236,7 +239,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @return VoiceCallActor|null
      */
@@ -245,7 +248,7 @@ class VoiceCall
         return $this->actor;
     }
     /**
-     * Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
      *
      * @param VoiceCallActor|null $actor
      *
@@ -493,18 +496,23 @@ class VoiceCall
         return $this;
     }
     /**
-     * @return Money|null
+     * What was charged for a call, split into the components that make it up.
+     * 
+     *
+     * @return VoiceCallCost|null
      */
-    public function getCost(): ?Money
+    public function getCost(): ?VoiceCallCost
     {
         return $this->cost;
     }
     /**
-     * @param Money|null $cost
+     * What was charged for a call, split into the components that make it up.
+     *
+     * @param VoiceCallCost|null $cost
      *
      * @return self
      */
-    public function setCost(?Money $cost): self
+    public function setCost(?VoiceCallCost $cost): self
     {
         $this->initialized['cost'] = true;
         $this->cost = $cost;

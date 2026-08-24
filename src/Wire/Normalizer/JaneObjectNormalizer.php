@@ -302,8 +302,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\VerificationChannelEntry::class => \MessageBird\Wire\Normalizer\VerificationChannelEntryNormalizer::class,
         
-        \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
-        
         \MessageBird\Wire\Model\Verification::class => \MessageBird\Wire\Normalizer\VerificationNormalizer::class,
         
         \MessageBird\Wire\Model\VerificationOptions::class => \MessageBird\Wire\Normalizer\VerificationOptionsNormalizer::class,
@@ -634,7 +632,25 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMailboxLabelList::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelListNormalizer::class,
         
+        \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
+        
+        \MessageBird\Wire\Model\Number::class => \MessageBird\Wire\Normalizer\NumberNormalizer::class,
+        
+        \MessageBird\Wire\Model\NumberList::class => \MessageBird\Wire\Normalizer\NumberListNormalizer::class,
+        
+        \MessageBird\Wire\Model\AvailableNumber::class => \MessageBird\Wire\Normalizer\AvailableNumberNormalizer::class,
+        
+        \MessageBird\Wire\Model\AvailableNumberList::class => \MessageBird\Wire\Normalizer\AvailableNumberListNormalizer::class,
+        
+        \MessageBird\Wire\Model\NumbersOrder::class => \MessageBird\Wire\Normalizer\NumbersOrderNormalizer::class,
+        
+        \MessageBird\Wire\Model\NumbersOrderList::class => \MessageBird\Wire\Normalizer\NumbersOrderListNormalizer::class,
+        
+        \MessageBird\Wire\Model\NumbersOrderCreate::class => \MessageBird\Wire\Normalizer\NumbersOrderCreateNormalizer::class,
+        
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
+        
+        \MessageBird\Wire\Model\VoiceCallCost::class => \MessageBird\Wire\Normalizer\VoiceCallCostNormalizer::class,
         
         \MessageBird\Wire\Model\VoiceCall::class => \MessageBird\Wire\Normalizer\VoiceCallNormalizer::class,
         
@@ -822,7 +838,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailLookup::class => false,
             \MessageBird\Wire\Model\VerificationTo::class => false,
             \MessageBird\Wire\Model\VerificationChannelEntry::class => false,
-            \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\Verification::class => false,
             \MessageBird\Wire\Model\VerificationOptions::class => false,
             \MessageBird\Wire\Model\VerificationCreateRequest::class => false,
@@ -988,7 +1003,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabel::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabelList::class => false,
+            \MessageBird\Wire\Model\NumberOwnership::class => false,
+            \MessageBird\Wire\Model\Number::class => false,
+            \MessageBird\Wire\Model\NumberList::class => false,
+            \MessageBird\Wire\Model\AvailableNumber::class => false,
+            \MessageBird\Wire\Model\AvailableNumberList::class => false,
+            \MessageBird\Wire\Model\NumbersOrder::class => false,
+            \MessageBird\Wire\Model\NumbersOrderList::class => false,
+            \MessageBird\Wire\Model\NumbersOrderCreate::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
+            \MessageBird\Wire\Model\VoiceCallCost::class => false,
             \MessageBird\Wire\Model\VoiceCall::class => false,
             \MessageBird\Wire\Model\VoiceCallActor::class => false,
             \MessageBird\Wire\Model\VoiceCallList::class => false,

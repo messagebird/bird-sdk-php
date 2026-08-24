@@ -22,6 +22,7 @@ class WhatsAppError
      * - `service_window_expired`: The 24-hour service window closed; send a template.
      * - `rate_limited`: The send was throttled.
      * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -57,6 +58,7 @@ class WhatsAppError
      * - `service_window_expired`: The 24-hour service window closed; send a template.
      * - `rate_limited`: The send was throttled.
      * - `recipient_suppressed`: The recipient is on the workspace suppression list.
+     * - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -77,6 +79,7 @@ class WhatsAppError
     - `service_window_expired`: The 24-hour service window closed; send a template.
     - `rate_limited`: The send was throttled.
     - `recipient_suppressed`: The recipient is on the workspace suppression list.
+    - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
     
     This is an open enum. Accept unrecognized values.
     

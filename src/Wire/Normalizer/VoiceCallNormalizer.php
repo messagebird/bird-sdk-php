@@ -146,7 +146,7 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setMediaQuality(null);
         }
         if (\array_key_exists('cost', $data) && $data['cost'] !== null) {
-            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\Money::class, 'json', $context));
+            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\VoiceCallCost::class, 'json', $context));
         }
         elseif (\array_key_exists('cost', $data) && $data['cost'] === null) {
             $object->setCost(null);

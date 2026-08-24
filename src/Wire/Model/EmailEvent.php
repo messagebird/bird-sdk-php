@@ -109,6 +109,20 @@ class EmailEvent
      */
     protected $sendingIp;
     /**
+     * The recipient mailbox provider, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when the receiving mail system could be classified; null when it could not.
+     * 
+     *
+     * @var string|null
+     */
+    protected $mailboxProvider;
+    /**
+     * The provider region, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific. Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when reported; null otherwise.
+     * 
+     *
+     * @var string|null
+     */
+    protected $mailboxProviderRegion;
+    /**
      * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
      * 
      *
@@ -116,11 +130,17 @@ class EmailEvent
      */
     protected $isPrefetched;
     /**
-     * The clicked URL. Present on `email.clicked` events.
+     * The clicked URL. Present on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link in the message.
      *
      * @var string|null
      */
     protected $url;
+    /**
+     * The clicked link's own name, when the link in the message carried one, so a click can be reported by what the link said rather than where it pointed. Absent when the link had no name. Appears alongside `url` on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link.
+     *
+     * @var string|null
+     */
+    protected $linkName;
     /**
      * ISO 3166-1 alpha-2 country code derived from the client IP. Present on `email.opened` and `email.clicked` events when available.
      *
@@ -429,6 +449,52 @@ class EmailEvent
         return $this;
     }
     /**
+     * The recipient mailbox provider, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when the receiving mail system could be classified; null when it could not.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMailboxProvider(): ?string
+    {
+        return $this->mailboxProvider;
+    }
+    /**
+     * The recipient mailbox provider, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when the receiving mail system could be classified; null when it could not.
+     *
+     * @param string|null $mailboxProvider
+     *
+     * @return self
+     */
+    public function setMailboxProvider(?string $mailboxProvider): self
+    {
+        $this->initialized['mailboxProvider'] = true;
+        $this->mailboxProvider = $mailboxProvider;
+        return $this;
+    }
+    /**
+     * The provider region, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific. Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when reported; null otherwise.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMailboxProviderRegion(): ?string
+    {
+        return $this->mailboxProviderRegion;
+    }
+    /**
+     * The provider region, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific. Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when reported; null otherwise.
+     *
+     * @param string|null $mailboxProviderRegion
+     *
+     * @return self
+     */
+    public function setMailboxProviderRegion(?string $mailboxProviderRegion): self
+    {
+        $this->initialized['mailboxProviderRegion'] = true;
+        $this->mailboxProviderRegion = $mailboxProviderRegion;
+        return $this;
+    }
+    /**
      * True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
      * 
      *
@@ -452,7 +518,7 @@ class EmailEvent
         return $this;
     }
     /**
-     * The clicked URL. Present on `email.clicked` events.
+     * The clicked URL. Present on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link in the message.
      *
      * @return string|null
      */
@@ -461,7 +527,7 @@ class EmailEvent
         return $this->url;
     }
     /**
-     * The clicked URL. Present on `email.clicked` events.
+     * The clicked URL. Present on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link in the message.
      *
      * @param string|null $url
      *
@@ -471,6 +537,28 @@ class EmailEvent
     {
         $this->initialized['url'] = true;
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * The clicked link's own name, when the link in the message carried one, so a click can be reported by what the link said rather than where it pointed. Absent when the link had no name. Appears alongside `url` on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link.
+     *
+     * @return string|null
+     */
+    public function getLinkName(): ?string
+    {
+        return $this->linkName;
+    }
+    /**
+     * The clicked link's own name, when the link in the message carried one, so a click can be reported by what the link said rather than where it pointed. Absent when the link had no name. Appears alongside `url` on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link.
+     *
+     * @param string|null $linkName
+     *
+     * @return self
+     */
+    public function setLinkName(?string $linkName): self
+    {
+        $this->initialized['linkName'] = true;
+        $this->linkName = $linkName;
         return $this;
     }
     /**
