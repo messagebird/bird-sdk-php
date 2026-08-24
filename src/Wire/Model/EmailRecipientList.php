@@ -19,6 +19,15 @@ class EmailRecipientList extends \ArrayObject
      */
     protected $data;
     /**
+     * What to do next, given what this page reports. Present only where the read computes it: an
+     * empty list means the answer you were looking for is here and there is nothing further to
+     * do. Absent entirely on reads that do not report next actions.
+     * 
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
      *
      * @var string|null
@@ -56,6 +65,34 @@ class EmailRecipientList extends \ArrayObject
     {
         $this->initialized['data'] = true;
         $this->data = $data;
+        return $this;
+    }
+    /**
+     * What to do next, given what this page reports. Present only where the read computes it: an
+     * empty list means the answer you were looking for is here and there is nothing further to
+     * do. Absent entirely on reads that do not report next actions.
+     * 
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+    * What to do next, given what this page reports. Present only where the read computes it: an
+    empty list means the answer you were looking for is here and there is nothing further to
+    do. Absent entirely on reads that do not report next actions.
+    
+    *
+    * @param list<NextAction>|null $next
+    *
+    * @return self
+    */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
     /**

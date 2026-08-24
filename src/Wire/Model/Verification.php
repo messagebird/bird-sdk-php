@@ -21,7 +21,9 @@ class Verification extends \ArrayObject
      * 
      * - `pending`: Awaiting a correct passcode.
      * - `verified`: A correct passcode was submitted.
-     * - `failed`: Too many incorrect attempts were submitted.
+     * - `failed`: The verification cannot be completed. Either too many
+     *   incorrect passcodes were submitted, or no planned channel could
+     *   deliver one. Read `reason` to tell those apart.
      * - `expired`: The validity window elapsed before a correct passcode.
      * - `canceled`: The verification was canceled before completion.
      * - `blocked`: A fraud or abuse control stopped the verification.
@@ -103,7 +105,9 @@ class Verification extends \ArrayObject
      * 
      * - `pending`: Awaiting a correct passcode.
      * - `verified`: A correct passcode was submitted.
-     * - `failed`: Too many incorrect attempts were submitted.
+     * - `failed`: The verification cannot be completed. Either too many
+     *   incorrect passcodes were submitted, or no planned channel could
+     *   deliver one. Read `reason` to tell those apart.
      * - `expired`: The validity window elapsed before a correct passcode.
      * - `canceled`: The verification was canceled before completion.
      * - `blocked`: A fraud or abuse control stopped the verification.
@@ -119,7 +123,9 @@ class Verification extends \ArrayObject
     
     - `pending`: Awaiting a correct passcode.
     - `verified`: A correct passcode was submitted.
-    - `failed`: Too many incorrect attempts were submitted.
+    - `failed`: The verification cannot be completed. Either too many
+     incorrect passcodes were submitted, or no planned channel could
+     deliver one. Read `reason` to tell those apart.
     - `expired`: The validity window elapsed before a correct passcode.
     - `canceled`: The verification was canceled before completion.
     - `blocked`: A fraud or abuse control stopped the verification.
