@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.15.0
+
+- Email broadcasts report `started_at` and `canceled_at`: when sending began, and when cancellation was requested.
+
 ## 0.14.0
 
 - Email click events now carry `link_name`, the name of the clicked link when the message named it.
