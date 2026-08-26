@@ -13,7 +13,8 @@ class ErrorDetail
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`. When the request was rejected for a query parameter the endpoint does not declare, this carries that parameter's name instead of a field path.
+     * 
      *
      * @var string|null
      */
@@ -25,7 +26,8 @@ class ErrorDetail
      */
     protected $message;
     /**
-     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`. When the request was rejected for a query parameter the endpoint does not declare, this carries that parameter's name instead of a field path.
+     * 
      *
      * @return string|null
      */
@@ -34,7 +36,7 @@ class ErrorDetail
         return $this->param;
     }
     /**
-     * Dotted field path, such as `to[0].email`, `subject`, or `.`.
+     * Dotted field path, such as `to[0].email`, `subject`, or `.`. When the request was rejected for a query parameter the endpoint does not declare, this carries that parameter's name instead of a field path.
      *
      * @param string|null $param
      *
