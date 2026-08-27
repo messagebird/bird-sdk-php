@@ -49,7 +49,7 @@ foreach ($page as $order) {
 
 $page = $bird->numbers->list(['country_code' => 'GB']);
 foreach ($page as $allocated) {
-    // kind tells a number you bought from one Bird manages for several workspaces.
+    // kind distinguishes a number you bought from one Bird manages.
     echo $allocated->getNumber(), ' ', $allocated->getKind(), ' ', $allocated->getStatus(), "\n";
 }
 

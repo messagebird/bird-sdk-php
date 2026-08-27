@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.19.1
+
+- `Number.kind` documentation now distinguishes workspace-owned subscriptions from Bird-managed shared numbers.
+
 ## 0.19.0
 
 - Voice call records carry a `tags` array, and the voice call list takes a repeatable `tag` filter (`name` or `name:value`). On the CLI that is `bird voice list --tag campaign:spring --tag queue`.
