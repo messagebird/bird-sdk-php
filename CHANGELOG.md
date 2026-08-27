@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.19.2
+
+- `refresh_cursor` fetches the items that sort before a response's first row in the current sort order. Those are the items added since the response only when new items sort first, so a list sorted another way is refreshed by re-fetching it.
+
 ## 0.19.1
 
 - `Number.kind` documentation now distinguishes workspace-owned subscriptions from Bird-managed shared numbers.
