@@ -71,6 +71,12 @@ class VoiceCall
      */
     protected $rejectionReason;
     /**
+     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     *
+     * @var list<Tag>|null
+     */
+    protected $tags;
+    /**
      * When the call was initiated.
      *
      * @var \DateTime|null
@@ -342,6 +348,28 @@ class VoiceCall
     {
         $this->initialized['rejectionReason'] = true;
         $this->rejectionReason = $rejectionReason;
+        return $this;
+    }
+    /**
+     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     *
+     * @return list<Tag>|null
+     */
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+    /**
+     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     *
+     * @param list<Tag>|null $tags
+     *
+     * @return self
+     */
+    public function setTags(?array $tags): self
+    {
+        $this->initialized['tags'] = true;
+        $this->tags = $tags;
         return $this;
     }
     /**

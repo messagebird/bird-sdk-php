@@ -41,7 +41,7 @@ class Number
      */
     protected $numberType;
     /**
-     * Channel capabilities supported by this number.
+     * Capabilities supported by this number.
      *
      * @var list<string>|null
      */
@@ -189,7 +189,7 @@ class Number
         return $this;
     }
     /**
-     * Channel capabilities supported by this number.
+     * Capabilities supported by this number.
      *
      * @return list<string>|null
      */
@@ -198,7 +198,7 @@ class Number
         return $this->capabilities;
     }
     /**
-     * Channel capabilities supported by this number.
+     * Capabilities supported by this number.
      *
      * @param list<string>|null $capabilities
      *

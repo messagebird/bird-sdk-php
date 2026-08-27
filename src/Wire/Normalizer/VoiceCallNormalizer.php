@@ -103,6 +103,16 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('rejection_reason', $data) && $data['rejection_reason'] === null) {
             $object->setRejectionReason(null);
         }
+        if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
+            $values = [];
+            foreach ($data['tags'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            }
+            $object->setTags($values);
+        }
+        elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
+            $object->setTags(null);
+        }
         if (\array_key_exists('started_at', $data) && $data['started_at'] !== null) {
             $object->setStartedAt(new \DateTime($data['started_at']));
         }

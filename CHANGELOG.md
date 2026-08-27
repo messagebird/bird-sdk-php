@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.19.0
+
+- Voice call records carry a `tags` array, and the voice call list takes a repeatable `tag` filter (`name` or `name:value`). On the CLI that is `bird voice list --tag campaign:spring --tag queue`.
+
 ## 0.18.0
 
 - The `operation` field on the SMS keyword-rule models accepts two more values: `info`, a new operation that answers INFO separately from HELP, and `confirm`, which the API already accepted but did not document.
