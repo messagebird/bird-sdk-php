@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.20.1
+
+- Sending a WhatsApp template: the `parameters` field now documents which button types take no value, so no component is sent for them.
+
 ## 0.20.0
 
 - Add the `preferences` resource — list, get, create, and delete stated messaging preferences — plus `contacts->preferences->list`, and the `Preference`/`PreferenceList`/`PreferenceWriteResult` wire models for API responses. Webhook `unwrap` still returns the verified event as an array; the models type API calls, not webhook payloads.

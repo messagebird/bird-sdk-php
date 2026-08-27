@@ -34,49 +34,49 @@ class WhatsAppMessageSendRequest
      */
     protected $template;
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestText|null
      */
     protected $text;
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestImage|null
      */
     protected $image;
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestVideo|null
      */
     protected $video;
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestAudio|null
      */
     protected $audio;
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestSticker|null
      */
     protected $sticker;
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestDocument|null
      */
     protected $document;
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @var WhatsAppMessageSendRequestLocation|null
@@ -166,7 +166,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestText|null
@@ -176,7 +176,7 @@ class WhatsAppMessageSendRequest
         return $this->text;
     }
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestText|null $text
      *
@@ -189,7 +189,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestImage|null
@@ -199,7 +199,7 @@ class WhatsAppMessageSendRequest
         return $this->image;
     }
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestImage|null $image
      *
@@ -212,7 +212,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestVideo|null
@@ -222,7 +222,7 @@ class WhatsAppMessageSendRequest
         return $this->video;
     }
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestVideo|null $video
      *
@@ -235,7 +235,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestAudio|null
@@ -245,7 +245,7 @@ class WhatsAppMessageSendRequest
         return $this->audio;
     }
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestAudio|null $audio
      *
@@ -258,7 +258,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestSticker|null
@@ -268,7 +268,7 @@ class WhatsAppMessageSendRequest
         return $this->sticker;
     }
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestSticker|null $sticker
      *
@@ -281,7 +281,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestDocument|null
@@ -291,7 +291,7 @@ class WhatsAppMessageSendRequest
         return $this->document;
     }
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestDocument|null $document
      *
@@ -304,7 +304,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      * 
      *
      * @return WhatsAppMessageSendRequestLocation|null
@@ -314,7 +314,7 @@ class WhatsAppMessageSendRequest
         return $this->location;
     }
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
      * @param WhatsAppMessageSendRequestLocation|null $location
      *
