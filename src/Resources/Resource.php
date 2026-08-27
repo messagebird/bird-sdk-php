@@ -76,6 +76,23 @@ abstract class Resource
     }
 
     /**
+     * Denormalize an already-decoded array into a wire model, for a hand
+     * override that must retype a field the generated normalizer left as a
+     * raw array instead of the nested model it actually holds.
+     *
+     * @template T of object
+     *
+     * @param array<mixed> $data
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
+    protected function denormalize(array $data, string $class): object
+    {
+        return $this->client->denormalize($data, $class);
+    }
+
+    /**
      * A request whose response body is discarded (a delete or a 204 write).
      *
      * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body

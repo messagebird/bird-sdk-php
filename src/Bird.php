@@ -16,6 +16,7 @@ use MessageBird\Resources\Domains;
 use MessageBird\Resources\Email;
 use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Numbers;
+use MessageBird\Resources\Preferences;
 use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsKeywordRules;
@@ -57,6 +58,7 @@ final class Bird
     public readonly ?EmailDefaults $emailDefaults;
     private readonly int $maxRetries;
 
+    public readonly Preferences $preferences;
     public readonly Contacts $contacts;
     public readonly ContactProperties $contactProperties;
     public readonly Audiences $audiences;
@@ -101,6 +103,7 @@ final class Bird
         $this->streamFactory = Psr17FactoryDiscovery::findStreamFactory();
         $this->serializer = new Serializer();
 
+        $this->preferences = new Preferences($this);
         $this->contacts = new Contacts($this);
         $this->contactProperties = new ContactProperties($this);
         $this->audiences = new Audiences($this);
@@ -267,6 +270,27 @@ final class Bird
         $response = $this->send($method, $path, $body, $query, $options, $schemes);
 
         return $this->serializer->decode((string) $response->getBody(), $responseClass);
+    }
+
+    /**
+     * Denormalize an already-decoded array into a wire model, through the same
+     * serializer `dispatch()` decodes a response with. For a hand resource
+     * whose generated model leaves a nested object untyped (`mixed`) because
+     * its normalizer does not recurse into it, so a caller has to retype the
+     * fragment itself rather than re-decode the whole response.
+     *
+     * @internal called by the resource facade, not part of the public surface
+     *
+     * @template T of object
+     *
+     * @param array<mixed> $data
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
+    public function denormalize(array $data, string $class): object
+    {
+        return $this->serializer->denormalize($data, $class);
     }
 
     /**

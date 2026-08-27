@@ -43,3 +43,7 @@ printf("%d contacts upserted\n", count($result->getData() ?? []));
 foreach ($bird->contacts->list(['q' => 'acme.com']) as $contact) {
     echo $contact->getId(), ' ', $contact->getEmail(), "\n";
 }
+
+foreach ($bird->contacts->preferences->list('con_01krdgeqcxet5s7t44vh8rt9mg') as $preference) {
+    echo $preference->getChannel(), ' ', $preference->getStatus(), "\n";
+}
