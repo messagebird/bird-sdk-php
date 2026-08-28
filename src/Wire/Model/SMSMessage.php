@@ -79,14 +79,14 @@ class SMSMessage
      */
     protected $metadata;
     /**
-     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
      * 
      *
      * @var SMSMessageOptions|null
      */
     protected $options;
     /**
-     * How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
+     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
      *
      * @var int|null
      */
@@ -366,7 +366,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
      * 
      *
      * @return SMSMessageOptions|null
@@ -376,7 +376,7 @@ class SMSMessage
         return $this->options;
     }
     /**
-     * Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
      *
      * @param SMSMessageOptions|null $options
      *
@@ -389,7 +389,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
+     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
      *
      * @return int|null
      */
@@ -398,7 +398,7 @@ class SMSMessage
         return $this->validityPeriod;
     }
     /**
-     * How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
+     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
      *
      * @param int|null $validityPeriod
      *

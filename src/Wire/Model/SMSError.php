@@ -34,7 +34,7 @@ class SMSError
      */
     protected $code;
     /**
-     * Human-readable explanation of the failure.
+     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
      *
      * @var string|null
      */
@@ -104,7 +104,7 @@ class SMSError
         return $this;
     }
     /**
-     * Human-readable explanation of the failure.
+     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
      *
      * @return string|null
      */
@@ -113,7 +113,7 @@ class SMSError
         return $this->description;
     }
     /**
-     * Human-readable explanation of the failure.
+     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
      *
      * @param string|null $description
      *

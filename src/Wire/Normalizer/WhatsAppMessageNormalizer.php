@@ -109,6 +109,16 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('location', $data) && $data['location'] === null) {
             $object->setLocation(null);
         }
+        if (\array_key_exists('contact_cards', $data) && $data['contact_cards'] !== null) {
+            $values = [];
+            foreach ($data['contact_cards'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppContactCard::class, 'json', $context);
+            }
+            $object->setContactCards($values);
+        }
+        elseif (\array_key_exists('contact_cards', $data) && $data['contact_cards'] === null) {
+            $object->setContactCards(null);
+        }
         if (\array_key_exists('unsupported', $data) && $data['unsupported'] !== null) {
             $object->setUnsupported($this->denormalizer->denormalize($data['unsupported'], \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class, 'json', $context));
         }
@@ -158,21 +168,21 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setCost(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
-            $values = [];
-            foreach ($data['tags'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            $values_1 = [];
+            foreach ($data['tags'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\Tag::class, 'json', $context);
             }
-            $object->setTags($values);
+            $object->setTags($values_1);
         }
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value_1) {
-                $values_1[$key] = $value_1;
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['metadata'] as $key => $value_2) {
+                $values_2[$key] = $value_2;
             }
-            $object->setMetadata($values_1);
+            $object->setMetadata($values_2);
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);

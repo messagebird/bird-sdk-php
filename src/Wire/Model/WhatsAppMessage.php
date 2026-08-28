@@ -83,6 +83,13 @@ class WhatsAppMessage
      */
     protected $location;
     /**
+     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     * 
+     *
+     * @var list<WhatsAppContactCard>|null
+     */
+    protected $contactCards;
+    /**
      * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
      * 
      *
@@ -400,6 +407,29 @@ class WhatsAppMessage
     {
         $this->initialized['location'] = true;
         $this->location = $location;
+        return $this;
+    }
+    /**
+     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     * 
+     *
+     * @return list<WhatsAppContactCard>|null
+     */
+    public function getContactCards(): ?array
+    {
+        return $this->contactCards;
+    }
+    /**
+     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     *
+     * @param list<WhatsAppContactCard>|null $contactCards
+     *
+     * @return self
+     */
+    public function setContactCards(?array $contactCards): self
+    {
+        $this->initialized['contactCards'] = true;
+        $this->contactCards = $contactCards;
         return $this;
     }
     /**

@@ -334,6 +334,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageTemplate::class => \MessageBird\Wire\Normalizer\WhatsAppMessageTemplateNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppContactPhone::class => \MessageBird\Wire\Normalizer\WhatsAppContactPhoneNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactEmail::class => \MessageBird\Wire\Normalizer\WhatsAppContactEmailNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactUrl::class => \MessageBird\Wire\Normalizer\WhatsAppContactUrlNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactAddress::class => \MessageBird\Wire\Normalizer\WhatsAppContactAddressNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCard::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCardName::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardNameNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCardOrg::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardOrgNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppError::class => \MessageBird\Wire\Normalizer\WhatsAppErrorNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageNormalizer::class,
@@ -862,6 +876,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageTemplateCard::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplate::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactPhone::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactEmail::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactUrl::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactAddress::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCard::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCardName::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCardOrg::class => false,
             \MessageBird\Wire\Model\WhatsAppError::class => false,
             \MessageBird\Wire\Model\WhatsAppMessage::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageFrom::class => false,

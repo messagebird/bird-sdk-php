@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.21.0
+
+- A WhatsApp message carrying contact cards a contact shared now reads them back on `contact_cards`, where it previously reported `unsupported` with type `contacts`.
+- `undelivered` now documents as a final status, `validity_period` as bounding the carrier's delivery attempts rather than ours, and `scheduled` and `canceled` as reserved for send-later scheduling. `category` no longer describes per-country compliance rules that are not implemented.
+
 ## 0.20.1
 
 - Sending a WhatsApp template: the `parameters` field now documents which button types take no value, so no component is sent for them.
