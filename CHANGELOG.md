@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.22.0
+
+- A `404` from checking or advancing a verification now says that no verification matched the recipient: either none exists for the exact recipient given, or the most recent one is already resolved as verified, expired, or out of attempts. It also says when to create another — create one when the recipient has no verification, or the last one expired or ran out of attempts, and not when the recipient already passed. The error code is unchanged, so match it exactly as before; a `404` is not evidence the recipient failed to verify, so treat your own record of an earlier `success: true` as the outcome.
+
 ## 0.21.0
 
 - A WhatsApp message carrying contact cards a contact shared now reads them back on `contact_cards`, where it previously reported `unsupported` with type `contacts`.
