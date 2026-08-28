@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.23.1
+
+- SMS segment docs: the UCS2 limit is 70 UTF-16 code units, not 70 characters, so 35 non-BMP emoji fill one segment.
+
 ## 0.23.0
 
 - Add the `workspace` resource: `get()` returns the workspace the credential is scoped to, including its id, name, owning organization's id, and notification and logo settings.

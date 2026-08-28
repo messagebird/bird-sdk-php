@@ -4,8 +4,9 @@
 install:  ## install dependencies (creates vendor/ + composer.lock)
 	composer install
 
-generate:  ## regenerate src/Wire from the OpenAPI public bundle
-	composer generate
+# Not a composer script any more: generation left the PHP toolchain.
+generate:  ## regenerate src/Wire from the OpenAPI public bundle (in-process Go)
+	../../tools/bin/beak run clients:sdk-php-generate
 
 test:
 	composer test

@@ -50,7 +50,6 @@
         "sort-packages": true
     },
     "scripts": {
-        "generate": "scripts/generate.sh",
         "lint": "php-cs-fixer fix --dry-run --diff --allow-unsupported-php-version=yes",
         "fmt": "php-cs-fixer fix --allow-unsupported-php-version=yes",
         "analyse": "phpstan analyse --memory-limit=1G",

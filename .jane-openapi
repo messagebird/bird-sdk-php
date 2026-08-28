@@ -1,8 +1,9 @@
 <?php
 
-// Wire-layer generation config for jane-php (models + normalizers only).
-// The generate pipeline (scripts/generate.sh) feeds jane the 3.0-compat bundle
-// and strips everything except Model/, Normalizer/, and Runtime/Normalizer/.
+// Wire-layer config for jane-php, which is now the parity ORACLE rather than
+// the generator: beak emits src/Wire in-process (tools/beak/gens/sdkphp.go).
+// scripts/generate.sh feeds jane the 3.0-compat bundle and strips everything
+// except Model/, Normalizer/, and Runtime/Normalizer/.
 //
 // `whitelisted-paths` is the operation filter: the surfacegen-emitted KEEP list
 // (scripts/surface-paths.php, the analog of clients/sdk-python/scripts/surface_ops.py),
