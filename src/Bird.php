@@ -17,6 +17,7 @@ use MessageBird\Resources\Email;
 use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Numbers;
 use MessageBird\Resources\Preferences;
+use MessageBird\Resources\WorkspaceResource;
 use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsKeywordRules;
@@ -59,6 +60,8 @@ final class Bird
     private readonly int $maxRetries;
 
     public readonly Preferences $preferences;
+
+    public readonly WorkspaceResource $workspace;
     public readonly Contacts $contacts;
     public readonly ContactProperties $contactProperties;
     public readonly Audiences $audiences;
@@ -104,6 +107,7 @@ final class Bird
         $this->serializer = new Serializer();
 
         $this->preferences = new Preferences($this);
+        $this->workspace = new WorkspaceResource($this);
         $this->contacts = new Contacts($this);
         $this->contactProperties = new ContactProperties($this);
         $this->audiences = new Audiences($this);

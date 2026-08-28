@@ -70,6 +70,7 @@ return [
     "/v1/email/domains",
     "/v1/email/domains/{domain_id}",
     "/v1/email/domains/{domain_id}/verify",
+    "/v1/workspace",
     "/v1/preferences",
     "/v1/preferences/{preference_id}",
     "/v1/contacts",

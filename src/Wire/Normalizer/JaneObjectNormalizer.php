@@ -26,6 +26,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\Error::class => \MessageBird\Wire\Normalizer\ErrorNormalizer::class,
         
+        \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => \MessageBird\Wire\Normalizer\WorkspaceNotificationEmailsNormalizer::class,
+        
+        \MessageBird\Wire\Model\Workspace::class => \MessageBird\Wire\Normalizer\WorkspaceNormalizer::class,
+        
         \MessageBird\Wire\Model\RealtimePublish::class => \MessageBird\Wire\Normalizer\RealtimePublishNormalizer::class,
         
         \MessageBird\Wire\Model\RealtimeChannelListItem::class => \MessageBird\Wire\Normalizer\RealtimeChannelListItemNormalizer::class,
@@ -722,6 +726,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\NextAction::class => false,
             \MessageBird\Wire\Model\ErrorBody::class => false,
             \MessageBird\Wire\Model\Error::class => false,
+            \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => false,
+            \MessageBird\Wire\Model\Workspace::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
             \MessageBird\Wire\Model\RealtimeChannelListItem::class => false,
             \MessageBird\Wire\Model\RealtimePublishResult::class => false,
