@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace MessageBird;
 
 use MessageBird\Exception\WebhookVerificationError;
+use MessageBird\Resources\WebhooksBase;
 use StandardWebhooks\Exception\WebhookVerificationException;
 use StandardWebhooks\Webhook as StandardWebhook;
 
 /**
- * Verifies a delivered webhook's Standard Webhooks signature and returns the
- * decoded event. Pure crypto — it never touches the transport, so it carries no
- * core dependency. Reached as `$bird->webhooks`; mirrors the TS SDK's
- * `bird.webhooks.unwrap`.
+ * Manages webhook endpoints (generated base) and verifies a delivered webhook's
+ * Standard Webhooks signature, returning the decoded event. `unwrap` itself is
+ * pure crypto — it never touches the transport. Reached as `$bird->webhooks`;
+ * mirrors the TS SDK's `bird.webhooks.unwrap`.
  */
-final class Webhooks
+final class Webhooks extends WebhooksBase
 {
     public function __construct(
+        Bird $client,
         #[\SensitiveParameter] private readonly ?string $secret = null,
     ) {
+        parent::__construct($client);
     }
 
     /**

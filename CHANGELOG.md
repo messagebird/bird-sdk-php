@@ -2,6 +2,12 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.24.0
+
+- **Breaking:** `new Webhooks($bird, $secret)` takes the client first; a receiver verifies through `new Bird(webhookSecret: $secret)` — no API key required.
+- The client is constructible with only the webhook secret — no API key — for receiver-only deployments; an API call on such a client fails with a missing-API-key error before any request is sent.
+- `webhooks` now manages endpoints: list, get, create, update, delete, send a test event, inspect delivery attempts, and rotate the signing secret.
+
 ## 0.23.1
 
 - SMS segment docs: the UCS2 limit is 70 UTF-16 code units, not 70 characters, so 35 non-BMP emoji fill one segment.

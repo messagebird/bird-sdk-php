@@ -9,6 +9,7 @@ use Http\Discovery\Psr18ClientDiscovery;
 use MessageBird\Core\Serializer;
 use MessageBird\Exception\ApiException;
 use MessageBird\Exception\ConnectionException;
+use MessageBird\Exception\MissingApiKeyException;
 use MessageBird\Resources\Audiences;
 use MessageBird\Resources\ContactProperties;
 use MessageBird\Resources\Contacts;
@@ -55,7 +56,9 @@ final class Bird
     private readonly Serializer $serializer;
     /** @var array<string, array{0: string, 1: ?string, 2: string}> */
     private array $credentials = [];
-    private readonly string $baseUrl;
+    private readonly ?string $baseUrl;
+
+    private readonly ?string $apiKey;
     public readonly ?EmailDefaults $emailDefaults;
     private readonly int $maxRetries;
 
@@ -85,10 +88,12 @@ final class Bird
      * $httpClient so the transport-injection seam the conformance driver binds
      * to keeps its position. A key without a `bk_{region}_` prefix needs an
      * explicit $region or $baseUrl. $email carries channel-level send defaults;
-     * $webhookSecret is the signing secret `$bird->webhooks->unwrap()` verifies with.
+     * $webhookSecret is the signing secret `$bird->webhooks->unwrap()` verifies with;
+     * alone (no $apiKey) it constructs a receiver-only client that can verify but not
+     * call the API.
      */
     public function __construct(
-        #[\SensitiveParameter] private readonly string $apiKey,
+        #[\SensitiveParameter] ?string $apiKey = null,
         ?string $baseUrl = null,
         ?ClientInterface $httpClient = null,
         ?string $region = null,
@@ -97,9 +102,20 @@ final class Bird
         #[\SensitiveParameter] ?string $webhookSecret = null,
         ?RealtimeOptions $realtime = null,
     ) {
+        // The documented pattern `getenv('BIRD_API_KEY') ?: ''` hands an empty
+        // string when the env is unset; every SDK treats that as absent.
+        $apiKey = $apiKey === '' ? null : $apiKey;
+        $webhookSecret = $webhookSecret === '' ? null : $webhookSecret;
+        $this->apiKey = $apiKey;
+        if ($apiKey === null && $webhookSecret === null) {
+            throw new \InvalidArgumentException('configure $apiKey for API calls, or webhookSecret for a receiver-only client');
+        }
         $this->emailDefaults = $email;
-        $this->webhooks = new Webhooks($webhookSecret);
-        $this->baseUrl = rtrim(self::resolveBaseUrl($apiKey, $baseUrl, $region), '/');
+        // A receiver-only client (no key, no explicit host) never makes a
+        // request, so the region error moves to the first API call.
+        $this->baseUrl = $apiKey === null && $baseUrl === null && $region === null
+            ? null
+            : rtrim(self::resolveBaseUrl($apiKey, $baseUrl, $region), '/');
         $this->maxRetries = $maxRetries;
         $this->httpClient = $httpClient ?? Psr18ClientDiscovery::find();
         $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
@@ -122,6 +138,7 @@ final class Bird
         $this->voice = new Voice($this);
         $this->lookup = new Lookup($this);
         $this->numbers = new Numbers($this);
+        $this->webhooks = new Webhooks($this, $webhookSecret);
         // Extra credentials some operations require, keyed by the security scheme that
         // names them: [header, value, how-to-supply]. A generated method names its
         // schemes; this client resolves them.
@@ -136,6 +153,10 @@ final class Bird
 
     public function baseUrl(): string
     {
+        if ($this->baseUrl === null) {
+            throw new MissingApiKeyException('this client has no API key (webhook verification only); pass $apiKey to new Bird(...) to call the API');
+        }
+
         return $this->baseUrl;
     }
 
@@ -330,6 +351,9 @@ final class Bird
         ?RequestOptions $options,
         ?array $schemes = null,
     ): ResponseInterface {
+        if ($this->apiKey === null) {
+            throw new MissingApiKeyException('this client has no API key (webhook verification only); pass $apiKey to new Bird(...) to call the API');
+        }
         $options ??= new RequestOptions();
         $this->validateRequestPath($path);
 
@@ -495,6 +519,9 @@ final class Bird
                 sprintf('request path must be an absolute path starting with a single "/": got "%s"', $path),
             );
         }
+        if ($this->baseUrl === null) {
+            throw new MissingApiKeyException('this client has no API key (webhook verification only); pass $apiKey to new Bird(...) to call the API');
+        }
 
         $base = parse_url($this->baseUrl);
         $full = parse_url($this->baseUrl . $path);
@@ -607,14 +634,14 @@ final class Bird
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
     }
 
-    private static function resolveBaseUrl(string $apiKey, ?string $baseUrl, ?string $region): string
+    private static function resolveBaseUrl(?string $apiKey, ?string $baseUrl, ?string $region): string
     {
         if ($baseUrl !== null && $baseUrl !== '') {
             return $baseUrl;
         }
 
         if ($region === null || $region === '') {
-            $region = self::regionFromApiKey($apiKey);
+            $region = $apiKey === null ? null : self::regionFromApiKey($apiKey);
         }
         if ($region === null) {
             throw new \InvalidArgumentException(

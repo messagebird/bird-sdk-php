@@ -98,6 +98,14 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->domains->verify(...),
             $bird->domains->update(...),
             $bird->domains->delete(...),
+            $bird->webhooks->list(...),
+            $bird->webhooks->get(...),
+            $bird->webhooks->create(...),
+            $bird->webhooks->test(...),
+            $bird->webhooks->delete(...),
+            $bird->webhooks->attempts(...),
+            $bird->webhooks->rotateSecret(...),
+            $bird->webhooks->update(...),
             $bird->workspace->get(...),
             $bird->webhooks->unwrap(...),
             $bird->preferences->list(...),
@@ -157,7 +165,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->realtime->members->disconnect(...),
         ];
 
-        self::assertCount(135, $surface);
+        self::assertCount(143, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

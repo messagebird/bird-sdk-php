@@ -658,6 +658,28 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMailboxLabelList::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelListNormalizer::class,
         
+        \MessageBird\Wire\Model\WebhookEndpoint::class => \MessageBird\Wire\Normalizer\WebhookEndpointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookEndpointList::class => \MessageBird\Wire\Normalizer\WebhookEndpointListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookEndpointCreate::class => \MessageBird\Wire\Normalizer\WebhookEndpointCreateNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookEndpointCreated::class => \MessageBird\Wire\Normalizer\WebhookEndpointCreatedNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookEndpointUpdate::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => \MessageBird\Wire\Normalizer\WebhookRotateSecretResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookTestRequest::class => \MessageBird\Wire\Normalizer\WebhookTestRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookTestResponse::class => \MessageBird\Wire\Normalizer\WebhookTestResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookReplayRequest::class => \MessageBird\Wire\Normalizer\WebhookReplayRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookAttempt::class => \MessageBird\Wire\Normalizer\WebhookAttemptNormalizer::class,
+        
+        \MessageBird\Wire\Model\WebhookAttemptList::class => \MessageBird\Wire\Normalizer\WebhookAttemptListNormalizer::class,
+        
         \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
         
         \MessageBird\Wire\Model\Number::class => \MessageBird\Wire\Normalizer\NumberNormalizer::class,
@@ -1042,6 +1064,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabel::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabelList::class => false,
+            \MessageBird\Wire\Model\WebhookEndpoint::class => false,
+            \MessageBird\Wire\Model\WebhookEndpointList::class => false,
+            \MessageBird\Wire\Model\WebhookEndpointCreate::class => false,
+            \MessageBird\Wire\Model\WebhookEndpointCreated::class => false,
+            \MessageBird\Wire\Model\WebhookEndpointUpdate::class => false,
+            \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => false,
+            \MessageBird\Wire\Model\WebhookTestRequest::class => false,
+            \MessageBird\Wire\Model\WebhookTestResponse::class => false,
+            \MessageBird\Wire\Model\WebhookReplayRequest::class => false,
+            \MessageBird\Wire\Model\WebhookAttempt::class => false,
+            \MessageBird\Wire\Model\WebhookAttemptList::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
             \MessageBird\Wire\Model\Number::class => false,
             \MessageBird\Wire\Model\NumberList::class => false,
