@@ -95,7 +95,7 @@ final class EmailThreadsMessages extends Resource
     }
 
     /**
-     * List the attachments on a conversation message. Bytes are downloadable for 30 days, and the metadata stays readable afterward on the message's attachment_manifest.
+     * List the attachments on a conversation message. Bytes are downloadable for the mailbox's retention tier, and the metadata stays readable afterward on the message's attachment_manifest.
      *
      * @example List a message's attachments
      * $attachments = $bird->email->threads->messages->attachments(

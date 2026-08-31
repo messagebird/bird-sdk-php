@@ -72,7 +72,7 @@ class Mailbox
      */
     protected $inboundAddressId;
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
+     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
      *
      * @var string|null
      */
@@ -335,7 +335,7 @@ class Mailbox
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
+     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
      *
      * @return string|null
      */
@@ -344,7 +344,7 @@ class Mailbox
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
+     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
      *
      * @param string|null $retentionTier
      *

@@ -165,7 +165,7 @@ class EmailThreadMessage
      */
     protected $attachmentCount;
     /**
-     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
      * 
      *
      * @var list<EmailThreadMessageAttachment>|null
@@ -693,7 +693,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
      * 
      *
      * @return list<EmailThreadMessageAttachment>|null
@@ -703,7 +703,7 @@ class EmailThreadMessage
         return $this->attachmentManifest;
     }
     /**
-     * Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
+     * Attachment metadata (filename, content type, size). Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
      *
      * @param list<EmailThreadMessageAttachment>|null $attachmentManifest
      *

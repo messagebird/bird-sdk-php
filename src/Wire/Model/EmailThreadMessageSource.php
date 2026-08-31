@@ -19,7 +19,7 @@ class EmailThreadMessageSource
      */
     protected $resource;
     /**
-     * When the log entry (and the message's original rendered source) expires.
+     * When the log entry (and the message's body and raw MIME) expires.
      *
      * @var \DateTime|null
      */
@@ -47,7 +47,7 @@ class EmailThreadMessageSource
         return $this;
     }
     /**
-     * When the log entry (and the message's original rendered source) expires.
+     * When the log entry (and the message's body and raw MIME) expires.
      *
      * @return \DateTime|null
      */
@@ -56,7 +56,7 @@ class EmailThreadMessageSource
         return $this->availableUntil;
     }
     /**
-     * When the log entry (and the message's original rendered source) expires.
+     * When the log entry (and the message's body and raw MIME) expires.
      *
      * @param \DateTime|null $availableUntil
      *

@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.25.0
+
+- Mailbox `retention_tier` now accepts `90d` and `1y` on create and update, gated by the organization's plan; a tier the plan does not include is rejected with `E17048`.
+
 ## 0.24.0
 
 - **Breaking:** `new Webhooks($bird, $secret)` takes the client first; a receiver verifies through `new Bird(webhookSecret: $secret)` — no API key required.
