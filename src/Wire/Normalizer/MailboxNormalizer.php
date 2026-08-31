@@ -112,6 +112,12 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('thread_count', $data) && $data['thread_count'] === null) {
             $object->setThreadCount(null);
         }
+        if (\array_key_exists('size_bytes', $data) && $data['size_bytes'] !== null) {
+            $object->setSizeBytes($data['size_bytes']);
+        }
+        elseif (\array_key_exists('size_bytes', $data) && $data['size_bytes'] === null) {
+            $object->setSizeBytes(null);
+        }
         if (\array_key_exists('unread_thread_count', $data) && $data['unread_thread_count'] !== null) {
             $object->setUnreadThreadCount($data['unread_thread_count']);
         }

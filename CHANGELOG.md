@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.26.0
+
+- Mailboxes now report `size_bytes`: the stored bytes of their retained messages (the metadata and extracted text kept for the retention tier plus attachment bytes). Plans can cap it per mailbox; a send from a mailbox at its cap is rejected with `E17049`.
+
 ## 0.25.0
 
 - Mailbox `retention_tier` now accepts `90d` and `1y` on create and update, gated by the organization's plan; a tier the plan does not include is rejected with `E17048`.

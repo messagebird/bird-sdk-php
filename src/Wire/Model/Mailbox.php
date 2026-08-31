@@ -90,6 +90,12 @@ class Mailbox
      */
     protected $threadCount;
     /**
+     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     *
+     * @var int|null
+     */
+    protected $sizeBytes;
+    /**
      * Number of threads with unread messages in this mailbox, excluding trash. `null` on create/update responses.
      * 
      *
@@ -398,6 +404,28 @@ class Mailbox
     {
         $this->initialized['threadCount'] = true;
         $this->threadCount = $threadCount;
+        return $this;
+    }
+    /**
+     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     *
+     * @return int|null
+     */
+    public function getSizeBytes(): ?int
+    {
+        return $this->sizeBytes;
+    }
+    /**
+     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     *
+     * @param int|null $sizeBytes
+     *
+     * @return self
+     */
+    public function setSizeBytes(?int $sizeBytes): self
+    {
+        $this->initialized['sizeBytes'] = true;
+        $this->sizeBytes = $sizeBytes;
         return $this;
     }
     /**
