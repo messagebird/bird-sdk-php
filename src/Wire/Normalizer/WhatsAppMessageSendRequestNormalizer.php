@@ -97,6 +97,18 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('location', $data) && $data['location'] === null) {
             $object->setLocation(null);
         }
+        if (\array_key_exists('interactive', $data) && $data['interactive'] !== null) {
+            $object->setInteractive($this->denormalizer->denormalize($data['interactive'], \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
+            $object->setInteractive(null);
+        }
+        if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
+            $object->setInReplyToMessageId($data['in_reply_to_message_id']);
+        }
+        elseif (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] === null) {
+            $object->setInReplyToMessageId(null);
+        }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
             $values = [];
             foreach ($data['tags'] as $value) {
@@ -149,6 +161,12 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
         }
         if ($data->isInitialized('location') && null !== $data->getLocation()) {
             $dataArray['location'] = $this->normalizer->normalize($data->getLocation(), 'json', $context);
+        }
+        if ($data->isInitialized('interactive') && null !== $data->getInteractive()) {
+            $dataArray['interactive'] = $this->normalizer->normalize($data->getInteractive(), 'json', $context);
+        }
+        if ($data->isInitialized('inReplyToMessageId') && null !== $data->getInReplyToMessageId()) {
+            $dataArray['in_reply_to_message_id'] = $data->getInReplyToMessageId();
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
             $values = [];

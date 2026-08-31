@@ -11,6 +11,7 @@ use MessageBird\Wire\Model\WhatsAppMessageSendRequest;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestAudio;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestImage;
+use MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestSticker;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate;
@@ -29,9 +30,11 @@ final class Whatsapp extends WhatsappBase
      * Send one WhatsApp message and return the created message.
      *
      * A send carries exactly one kind of content: a template, or one free-form
-     * arm. Free-form content is deliverable only inside an open 24-hour
+     * arm — $interactive being the arm that gives the recipient something to
+     * tap. Free-form content is deliverable only inside an open 24-hour
      * customer service window, and every send but a Bird-managed template
-     * needs $from.
+     * needs $from. Pass $inReplyToMessageId to quote an earlier message from
+     * the same conversation.
      *
      * @param string|null                                 $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
      * @param list<WhatsAppMessageTemplateComponent>|null $components fills the template's placeholders
@@ -51,6 +54,8 @@ final class Whatsapp extends WhatsappBase
         ?WhatsAppMessageSendRequestSticker $sticker = null,
         ?WhatsAppMessageSendRequestDocument $document = null,
         ?WhatsAppMessageSendRequestLocation $location = null,
+        ?WhatsAppMessageSendRequestInteractive $interactive = null,
+        ?string $inReplyToMessageId = null,
         ?array $tags = null,
         ?array $metadata = null,
         ?RequestOptions $options = null,
@@ -95,6 +100,12 @@ final class Whatsapp extends WhatsappBase
         }
         if ($location !== null) {
             $request->setLocation($location);
+        }
+        if ($interactive !== null) {
+            $request->setInteractive($interactive);
+        }
+        if ($inReplyToMessageId !== null) {
+            $request->setInReplyToMessageId($inReplyToMessageId);
         }
         if ($tags !== null) {
             $request->setTags($tags);

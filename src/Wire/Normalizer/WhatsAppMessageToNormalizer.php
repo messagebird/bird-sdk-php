@@ -51,6 +51,20 @@ class WhatsAppMessageToNormalizer implements DenormalizerInterface, NormalizerIn
         elseif (\array_key_exists('bsuid', $data) && $data['bsuid'] === null) {
             $object->setBsuid(null);
         }
+        if (\array_key_exists('username', $data) && $data['username'] !== null) {
+            $object->setUsername($data['username']);
+            unset($data['username']);
+        }
+        elseif (\array_key_exists('username', $data) && $data['username'] === null) {
+            $object->setUsername(null);
+        }
+        if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
+            $object->setDisplayName($data['display_name']);
+            unset($data['display_name']);
+        }
+        elseif (\array_key_exists('display_name', $data) && $data['display_name'] === null) {
+            $object->setDisplayName(null);
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value;
@@ -66,6 +80,12 @@ class WhatsAppMessageToNormalizer implements DenormalizerInterface, NormalizerIn
         }
         if ($data->isInitialized('bsuid') && null !== $data->getBsuid()) {
             $dataArray['bsuid'] = $data->getBsuid();
+        }
+        if ($data->isInitialized('username') && null !== $data->getUsername()) {
+            $dataArray['username'] = $data->getUsername();
+        }
+        if ($data->isInitialized('displayName') && null !== $data->getDisplayName()) {
+            $dataArray['display_name'] = $data->getDisplayName();
         }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -103,6 +103,12 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('rejection_reason', $data) && $data['rejection_reason'] === null) {
             $object->setRejectionReason(null);
         }
+        if (\array_key_exists('route', $data) && $data['route'] !== null) {
+            $object->setRoute($data['route']);
+        }
+        elseif (\array_key_exists('route', $data) && $data['route'] === null) {
+            $object->setRoute(null);
+        }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
             $values = [];
             foreach ($data['tags'] as $value) {

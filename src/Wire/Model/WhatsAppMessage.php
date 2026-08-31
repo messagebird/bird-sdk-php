@@ -90,6 +90,27 @@ class WhatsAppMessage
      */
     protected $contactCards;
     /**
+     * Interactive content the message carried. Outbound only: a contact cannot send one. A tap on a reply button or a list row reads back as `interactive_reply` on the contact's inbound message; a `cta_url` link sends nothing back, and the two request kinds are answered by an inbound `location` or `contact_cards` message.
+     * 
+     *
+     * @var WhatsAppMessageInteractive|null
+     */
+    protected $interactive;
+    /**
+     * The message this one answers. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. An outbound message echoes the `in_reply_to_message_id` it was sent with. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+     * 
+     *
+     * @var string|null
+     */
+    protected $inReplyToMessageId;
+    /**
+     * What the contact tapped, on a message answering an interactive message or a template's quick-reply button. Inbound only.
+     * 
+     *
+     * @var WhatsAppMessageInteractiveReply|null
+     */
+    protected $interactiveReply;
+    /**
      * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
      * 
      *
@@ -430,6 +451,75 @@ class WhatsAppMessage
     {
         $this->initialized['contactCards'] = true;
         $this->contactCards = $contactCards;
+        return $this;
+    }
+    /**
+     * Interactive content the message carried. Outbound only: a contact cannot send one. A tap on a reply button or a list row reads back as `interactive_reply` on the contact's inbound message; a `cta_url` link sends nothing back, and the two request kinds are answered by an inbound `location` or `contact_cards` message.
+     * 
+     *
+     * @return WhatsAppMessageInteractive|null
+     */
+    public function getInteractive(): ?WhatsAppMessageInteractive
+    {
+        return $this->interactive;
+    }
+    /**
+     * Interactive content the message carried. Outbound only: a contact cannot send one. A tap on a reply button or a list row reads back as `interactive_reply` on the contact's inbound message; a `cta_url` link sends nothing back, and the two request kinds are answered by an inbound `location` or `contact_cards` message.
+     *
+     * @param WhatsAppMessageInteractive|null $interactive
+     *
+     * @return self
+     */
+    public function setInteractive(?WhatsAppMessageInteractive $interactive): self
+    {
+        $this->initialized['interactive'] = true;
+        $this->interactive = $interactive;
+        return $this;
+    }
+    /**
+     * The message this one answers. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. An outbound message echoes the `in_reply_to_message_id` it was sent with. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+     * 
+     *
+     * @return string|null
+     */
+    public function getInReplyToMessageId(): ?string
+    {
+        return $this->inReplyToMessageId;
+    }
+    /**
+     * The message this one answers. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. An outbound message echoes the `in_reply_to_message_id` it was sent with. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+     *
+     * @param string|null $inReplyToMessageId
+     *
+     * @return self
+     */
+    public function setInReplyToMessageId(?string $inReplyToMessageId): self
+    {
+        $this->initialized['inReplyToMessageId'] = true;
+        $this->inReplyToMessageId = $inReplyToMessageId;
+        return $this;
+    }
+    /**
+     * What the contact tapped, on a message answering an interactive message or a template's quick-reply button. Inbound only.
+     * 
+     *
+     * @return WhatsAppMessageInteractiveReply|null
+     */
+    public function getInteractiveReply(): ?WhatsAppMessageInteractiveReply
+    {
+        return $this->interactiveReply;
+    }
+    /**
+     * What the contact tapped, on a message answering an interactive message or a template's quick-reply button. Inbound only.
+     *
+     * @param WhatsAppMessageInteractiveReply|null $interactiveReply
+     *
+     * @return self
+     */
+    public function setInteractiveReply(?WhatsAppMessageInteractiveReply $interactiveReply): self
+    {
+        $this->initialized['interactiveReply'] = true;
+        $this->interactiveReply = $interactiveReply;
         return $this;
     }
     /**

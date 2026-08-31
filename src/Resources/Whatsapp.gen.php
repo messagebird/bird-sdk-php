@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\WhatsAppMessageList;
 class WhatsappBase extends Resource
 {
     /**
-     * Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the one content it was built from (a template, or free-form text, image, video, audio, sticker, document or location), and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
+     * Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the one content it was built from (a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards, or interactive_reply on an inbound tap), and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
      *
      * @example Read a message back
      * $message = $bird->whatsapp->get('wamid_01krdgeqcxet5s7t44vh8rt9mg');
@@ -27,7 +27,7 @@ class WhatsappBase extends Resource
     }
 
     /**
-     * List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document or location. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, recipient (to), sender (from), business-scoped user ID (bsuid), template category, or tag. to and from each accept a phone number or a business-scoped user ID; pair either with direction to search a single side of the message. Use whatsapp_get for one message's current state.
+     * List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards. An inbound tap on a reply button or list row carries interactive_reply instead. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, recipient (to), sender (from), business-scoped user ID (bsuid), template category, or tag. to and from each accept a phone number or a business-scoped user ID; pair either with direction to search a single side of the message. Use whatsapp_get for one message's current state.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

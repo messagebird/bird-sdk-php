@@ -119,6 +119,24 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('contact_cards', $data) && $data['contact_cards'] === null) {
             $object->setContactCards(null);
         }
+        if (\array_key_exists('interactive', $data) && $data['interactive'] !== null) {
+            $object->setInteractive($this->denormalizer->denormalize($data['interactive'], \MessageBird\Wire\Model\WhatsAppMessageInteractive::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
+            $object->setInteractive(null);
+        }
+        if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
+            $object->setInReplyToMessageId($data['in_reply_to_message_id']);
+        }
+        elseif (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] === null) {
+            $object->setInReplyToMessageId(null);
+        }
+        if (\array_key_exists('interactive_reply', $data) && $data['interactive_reply'] !== null) {
+            $object->setInteractiveReply($this->denormalizer->denormalize($data['interactive_reply'], \MessageBird\Wire\Model\WhatsAppMessageInteractiveReply::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive_reply', $data) && $data['interactive_reply'] === null) {
+            $object->setInteractiveReply(null);
+        }
         if (\array_key_exists('unsupported', $data) && $data['unsupported'] !== null) {
             $object->setUnsupported($this->denormalizer->denormalize($data['unsupported'], \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class, 'json', $context));
         }

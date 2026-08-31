@@ -83,6 +83,20 @@ class WhatsAppMessageSendRequest
      */
     protected $location;
     /**
+     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * 
+     *
+     * @var WhatsAppMessageSendRequestInteractive|null
+     */
+    protected $interactive;
+    /**
+     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
+     * 
+     *
+     * @var string|null
+     */
+    protected $inReplyToMessageId;
+    /**
      * Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
      * 
      *
@@ -324,6 +338,52 @@ class WhatsAppMessageSendRequest
     {
         $this->initialized['location'] = true;
         $this->location = $location;
+        return $this;
+    }
+    /**
+     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * 
+     *
+     * @return WhatsAppMessageSendRequestInteractive|null
+     */
+    public function getInteractive(): ?WhatsAppMessageSendRequestInteractive
+    {
+        return $this->interactive;
+    }
+    /**
+     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     *
+     * @param WhatsAppMessageSendRequestInteractive|null $interactive
+     *
+     * @return self
+     */
+    public function setInteractive(?WhatsAppMessageSendRequestInteractive $interactive): self
+    {
+        $this->initialized['interactive'] = true;
+        $this->interactive = $interactive;
+        return $this;
+    }
+    /**
+     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
+     * 
+     *
+     * @return string|null
+     */
+    public function getInReplyToMessageId(): ?string
+    {
+        return $this->inReplyToMessageId;
+    }
+    /**
+     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
+     *
+     * @param string|null $inReplyToMessageId
+     *
+     * @return self
+     */
+    public function setInReplyToMessageId(?string $inReplyToMessageId): self
+    {
+        $this->initialized['inReplyToMessageId'] = true;
+        $this->inReplyToMessageId = $inReplyToMessageId;
         return $this;
     }
     /**

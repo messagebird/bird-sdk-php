@@ -65,11 +65,17 @@ class VoiceCall
      */
     protected $sipResponseCode;
     /**
-     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
+     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
      *
      * @var string|null
      */
     protected $rejectionReason;
+    /**
+     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     *
+     * @var mixed|null
+     */
+    protected $route;
     /**
      * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
      *
@@ -329,7 +335,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
+     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
      *
      * @return string|null
      */
@@ -338,7 +344,7 @@ class VoiceCall
         return $this->rejectionReason;
     }
     /**
-     * Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
+     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
      *
      * @param string|null $rejectionReason
      *
@@ -348,6 +354,28 @@ class VoiceCall
     {
         $this->initialized['rejectionReason'] = true;
         $this->rejectionReason = $rejectionReason;
+        return $this;
+    }
+    /**
+     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     *
+     * @return mixed
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+    /**
+     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     *
+     * @param mixed $route
+     *
+     * @return self
+     */
+    public function setRoute($route): self
+    {
+        $this->initialized['route'] = true;
+        $this->route = $route;
         return $this;
     }
     /**

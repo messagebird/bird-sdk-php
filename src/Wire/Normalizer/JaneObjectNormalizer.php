@@ -352,6 +352,30 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppContactCardOrg::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardOrgNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppInteractiveHeader::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveHeaderNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrl::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveCtaUrlNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButton::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButtonQuickReply::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonQuickReplyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButtonCtaUrl::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonCtaUrlNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveListRow::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveListRowNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveListSection::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveListSectionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveList::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveCard::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveCardNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveCardHeader::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveCardHeaderNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveReplyButton::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveReplyButtonNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveReplyList::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveReplyListNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppError::class => \MessageBird\Wire\Normalizer\WhatsAppErrorNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageNormalizer::class,
@@ -374,9 +398,33 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageLocation::class => \MessageBird\Wire\Normalizer\WhatsAppMessageLocationNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppMessageInteractive::class => \MessageBird\Wire\Normalizer\WhatsAppMessageInteractiveNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageInteractiveReply::class => \MessageBird\Wire\Normalizer\WhatsAppMessageInteractiveReplyNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class => \MessageBird\Wire\Normalizer\WhatsAppMessageUnsupportedNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageList::class => \MessageBird\Wire\Normalizer\WhatsAppMessageListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButtonSend::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButtonSendQuickReply::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonSendQuickReplyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveButtonSendCtaUrl::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveButtonSendCtaUrlNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveListRowSend::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveListRowSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveListSectionSend::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveListSectionSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveCardSend::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveCardSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveCardSendHeader::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveCardSendHeaderNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveSendHeader::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveSendHeaderNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveSendList::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveSendListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInteractiveSendCtaUrl::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveSendCtaUrlNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestNormalizer::class,
         
@@ -395,6 +443,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestDocumentNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestLocationNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestInteractiveNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppEvent::class => \MessageBird\Wire\Normalizer\WhatsAppEventNormalizer::class,
         
@@ -911,6 +961,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppContactCard::class => false,
             \MessageBird\Wire\Model\WhatsAppContactCardName::class => false,
             \MessageBird\Wire\Model\WhatsAppContactCardOrg::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveHeader::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrl::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButton::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButtonQuickReply::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButtonCtaUrl::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveListRow::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveListSection::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveList::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveCard::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveCardHeader::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveReplyButton::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveReplyList::class => false,
             \MessageBird\Wire\Model\WhatsAppError::class => false,
             \MessageBird\Wire\Model\WhatsAppMessage::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageFrom::class => false,
@@ -922,8 +984,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageSticker::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageDocument::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageLocation::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageInteractive::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageInteractiveReply::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageUnsupported::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageList::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButtonSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButtonSendQuickReply::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveButtonSendCtaUrl::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveListRowSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveListSectionSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveCardSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveCardSendHeader::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveSendHeader::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveSendList::class => false,
+            \MessageBird\Wire\Model\WhatsAppInteractiveSendCtaUrl::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestText::class => false,
@@ -933,6 +1007,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestSticker::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation::class => false,
+            \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class => false,
             \MessageBird\Wire\Model\WhatsAppEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppEventList::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
