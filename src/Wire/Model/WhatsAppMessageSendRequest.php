@@ -90,6 +90,13 @@ class WhatsAppMessageSendRequest
      */
     protected $interactive;
     /**
+     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     * 
+     *
+     * @var list<WhatsAppContactCardSend>|null
+     */
+    protected $contactCards;
+    /**
      * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
      * 
      *
@@ -361,6 +368,29 @@ class WhatsAppMessageSendRequest
     {
         $this->initialized['interactive'] = true;
         $this->interactive = $interactive;
+        return $this;
+    }
+    /**
+     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     * 
+     *
+     * @return list<WhatsAppContactCardSend>|null
+     */
+    public function getContactCards(): ?array
+    {
+        return $this->contactCards;
+    }
+    /**
+     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     *
+     * @param list<WhatsAppContactCardSend>|null $contactCards
+     *
+     * @return self
+     */
+    public function setContactCards(?array $contactCards): self
+    {
+        $this->initialized['contactCards'] = true;
+        $this->contactCards = $contactCards;
         return $this;
     }
     /**

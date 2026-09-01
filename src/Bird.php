@@ -319,6 +319,31 @@ final class Bird
     }
 
     /**
+     * A read whose success may be a redirect: hands back the response itself so
+     * the caller can read Location and fetch it with a request of its own.
+     *
+     * @internal called by the resource facade, not part of the public surface
+     */
+    public function dispatchRaw(string $method, string $path, ?RequestOptions $options = null): ResponseInterface
+    {
+        return $this->send($method, $path, null, null, $options, null);
+    }
+
+    /**
+     * Fetch a pre-authorized URL with no credentials, no client meta and no
+     * retry lifecycle. The URL carries its own credential and refuses a second
+     * auth mechanism, so nothing this client normally adds may ride along.
+     *
+     * @internal called by the resource facade, not part of the public surface
+     *
+     * @throws ClientExceptionInterface
+     */
+    public function sendUnauthenticated(string $url): ResponseInterface
+    {
+        return $this->httpClient->sendRequest($this->requestFactory->createRequest('GET', $url));
+    }
+
+    /**
      * Send a request whose response body is discarded (a delete or a 204 write).
      *
      * @internal called by the resource facade, not part of the public surface

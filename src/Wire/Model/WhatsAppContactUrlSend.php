@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppContactUrl
+class WhatsAppContactUrlSend
 {
     /**
      * @var array
@@ -13,21 +13,21 @@ class WhatsAppContactUrl
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The address as the card holds it, which is often bare rather than a full URL, so it is passed through as text rather than validated.
+     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
      * 
      *
      * @var string|null
      */
     protected $url;
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the website, shown beside it. Free text, sent exactly as written.
      * 
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The address as the card holds it, which is often bare rather than a full URL, so it is passed through as text rather than validated.
+     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
      * 
      *
      * @return string|null
@@ -37,7 +37,7 @@ class WhatsAppContactUrl
         return $this->url;
     }
     /**
-     * The address as the card holds it, which is often bare rather than a full URL, so it is passed through as text rather than validated.
+     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
      *
      * @param string|null $url
      *
@@ -50,7 +50,7 @@ class WhatsAppContactUrl
         return $this;
     }
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the website, shown beside it. Free text, sent exactly as written.
      * 
      *
      * @return string|null
@@ -60,7 +60,7 @@ class WhatsAppContactUrl
         return $this->type;
     }
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the website, shown beside it. Free text, sent exactly as written.
      *
      * @param string|null $type
      *

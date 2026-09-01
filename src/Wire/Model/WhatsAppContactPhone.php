@@ -20,7 +20,7 @@ class WhatsAppContactPhone
      */
     protected $phoneNumber;
     /**
-     * The label the contact's device attached, for example `CELL`, `Home` or `iPhone`. Free text passed through verbatim: WhatsApp declares no vocabulary here and does not normalize the casing, so neither do we.
+     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
      * 
      *
      * @var string|null
@@ -50,7 +50,7 @@ class WhatsAppContactPhone
         return $this;
     }
     /**
-     * The label the contact's device attached, for example `CELL`, `Home` or `iPhone`. Free text passed through verbatim: WhatsApp declares no vocabulary here and does not normalize the casing, so neither do we.
+     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
      * 
      *
      * @return string|null
@@ -60,7 +60,7 @@ class WhatsAppContactPhone
         return $this->type;
     }
     /**
-     * The label the contact's device attached, for example `CELL`, `Home` or `iPhone`. Free text passed through verbatim: WhatsApp declares no vocabulary here and does not normalize the casing, so neither do we.
+     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
      *
      * @param string|null $type
      *

@@ -426,6 +426,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppInteractiveSendCtaUrl::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveSendCtaUrlNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppContactPhoneSend::class => \MessageBird\Wire\Normalizer\WhatsAppContactPhoneSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactEmailSend::class => \MessageBird\Wire\Normalizer\WhatsAppContactEmailSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactUrlSend::class => \MessageBird\Wire\Normalizer\WhatsAppContactUrlSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactAddressSend::class => \MessageBird\Wire\Normalizer\WhatsAppContactAddressSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCardSend::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardSendNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCardSendName::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardSendNameNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppContactCardSendOrg::class => \MessageBird\Wire\Normalizer\WhatsAppContactCardSendOrgNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestTemplateNormalizer::class,
@@ -998,6 +1012,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppInteractiveSendHeader::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveSendList::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveSendCtaUrl::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactPhoneSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactEmailSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactUrlSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactAddressSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCardSend::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCardSendName::class => false,
+            \MessageBird\Wire\Model\WhatsAppContactCardSendOrg::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestText::class => false,

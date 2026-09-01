@@ -103,6 +103,16 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
             $object->setInteractive(null);
         }
+        if (\array_key_exists('contact_cards', $data) && $data['contact_cards'] !== null) {
+            $values = [];
+            foreach ($data['contact_cards'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppContactCardSend::class, 'json', $context);
+            }
+            $object->setContactCards($values);
+        }
+        elseif (\array_key_exists('contact_cards', $data) && $data['contact_cards'] === null) {
+            $object->setContactCards(null);
+        }
         if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
             $object->setInReplyToMessageId($data['in_reply_to_message_id']);
         }
@@ -110,21 +120,21 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
             $object->setInReplyToMessageId(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
-            $values = [];
-            foreach ($data['tags'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            $values_1 = [];
+            foreach ($data['tags'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\Tag::class, 'json', $context);
             }
-            $object->setTags($values);
+            $object->setTags($values_1);
         }
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value_1) {
-                $values_1[$key] = $value_1;
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['metadata'] as $key => $value_2) {
+                $values_2[$key] = $value_2;
             }
-            $object->setMetadata($values_1);
+            $object->setMetadata($values_2);
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
@@ -165,22 +175,29 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
         if ($data->isInitialized('interactive') && null !== $data->getInteractive()) {
             $dataArray['interactive'] = $this->normalizer->normalize($data->getInteractive(), 'json', $context);
         }
+        if ($data->isInitialized('contactCards') && null !== $data->getContactCards()) {
+            $values = [];
+            foreach ($data->getContactCards() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['contact_cards'] = $values;
+        }
         if ($data->isInitialized('inReplyToMessageId') && null !== $data->getInReplyToMessageId()) {
             $dataArray['in_reply_to_message_id'] = $data->getInReplyToMessageId();
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
-            $values = [];
-            foreach ($data->getTags() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values_1 = [];
+            foreach ($data->getTags() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
-            $dataArray['tags'] = $values;
+            $dataArray['tags'] = $values_1;
         }
         if ($data->isInitialized('metadata') && null !== $data->getMetadata()) {
-            $values_1 = [];
-            foreach ($data->getMetadata() as $key => $value_1) {
-                $values_1[$key] = $value_1;
+            $values_2 = [];
+            foreach ($data->getMetadata() as $key => $value_2) {
+                $values_2[$key] = $value_2;
             }
-            $dataArray['metadata'] = $values_1;
+            $dataArray['metadata'] = $values_2;
         }
         return $dataArray;
     }

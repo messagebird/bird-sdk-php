@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
+use MessageBird\Bird;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\Tag;
+use MessageBird\Wire\Model\WhatsAppContactCardSend;
 use MessageBird\Wire\Model\WhatsAppMessage;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequest;
 use MessageBird\Wire\Model\WhatsAppMessageSendRequestAudio;
@@ -22,22 +24,34 @@ use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
 /**
  * The WhatsApp channel. get, list, and listEvents are generated on WhatsappBase;
  * this parent hand-writes the flagship `send`, sugaring the template handle into
- * the nested template object.
+ * the nested template object, and adds the nested `$bird->whatsapp->messages`.
  */
 final class Whatsapp extends WhatsappBase
 {
+    public readonly WhatsappMessages $messages;
+
+    public function __construct(Bird $client)
+    {
+        parent::__construct($client);
+        $this->messages = new WhatsappMessages($client);
+    }
+
     /**
      * Send one WhatsApp message and return the created message.
      *
      * A send carries exactly one kind of content: a template, or one free-form
      * arm — $interactive being the arm that gives the recipient something to
-     * tap. Free-form content is deliverable only inside an open 24-hour
-     * customer service window, and every send but a Bird-managed template
-     * needs $from. Pass $inReplyToMessageId to quote an earlier message from
-     * the same conversation.
+     * tap, $contactCards up to five contact cards, where a card's name needs
+     * formattedName plus at least one other part and a phone number in E.164
+     * earns the card a button that opens a chat. Free-form content is
+     * deliverable only inside an open 24-hour customer service window, and
+     * every send but a Bird-managed template needs $from. Pass
+     * $inReplyToMessageId to quote an earlier message from the same
+     * conversation.
      *
      * @param string|null                                 $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
      * @param list<WhatsAppMessageTemplateComponent>|null $components fills the template's placeholders
+     * @param list<WhatsAppContactCardSend>|null          $contactCards
      * @param list<Tag>|null                              $tags
      * @param array<string, mixed>|null                   $metadata
      */
@@ -55,6 +69,7 @@ final class Whatsapp extends WhatsappBase
         ?WhatsAppMessageSendRequestDocument $document = null,
         ?WhatsAppMessageSendRequestLocation $location = null,
         ?WhatsAppMessageSendRequestInteractive $interactive = null,
+        ?array $contactCards = null,
         ?string $inReplyToMessageId = null,
         ?array $tags = null,
         ?array $metadata = null,
@@ -103,6 +118,9 @@ final class Whatsapp extends WhatsappBase
         }
         if ($interactive !== null) {
             $request->setInteractive($interactive);
+        }
+        if ($contactCards !== null) {
+            $request->setContactCards($contactCards);
         }
         if ($inReplyToMessageId !== null) {
             $request->setInReplyToMessageId($inReplyToMessageId);

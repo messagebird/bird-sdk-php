@@ -13,14 +13,14 @@ class WhatsAppContactCard
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since.
+     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since. Set on a card the contact shared; absent on one this workspace sent.
      * 
      *
      * @var string|null
      */
     protected $origin;
     /**
-     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone.
+     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone. Set on a card the contact shared; absent on one this workspace sent.
      * 
      *
      * @var string|null
@@ -65,7 +65,7 @@ class WhatsAppContactCard
      */
     protected $addresses;
     /**
-     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since.
+     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since. Set on a card the contact shared; absent on one this workspace sent.
      * 
      *
      * @return string|null
@@ -75,7 +75,7 @@ class WhatsAppContactCard
         return $this->origin;
     }
     /**
-     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since.
+     * Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since. Set on a card the contact shared; absent on one this workspace sent.
      *
      * @param string|null $origin
      *
@@ -88,7 +88,7 @@ class WhatsAppContactCard
         return $this;
     }
     /**
-     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone.
+     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone. Set on a card the contact shared; absent on one this workspace sent.
      * 
      *
      * @return string|null
@@ -98,7 +98,7 @@ class WhatsAppContactCard
         return $this->vcard;
     }
     /**
-     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone.
+     * The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone. Set on a card the contact shared; absent on one this workspace sent.
      *
      * @param string|null $vcard
      *

@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppContactEmail
+class WhatsAppContactEmailSend
 {
     /**
      * @var array
@@ -17,7 +17,7 @@ class WhatsAppContactEmail
      */
     protected $email;
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the address, shown beside it. Free text, sent exactly as written.
      * 
      *
      * @var string|null
@@ -42,7 +42,7 @@ class WhatsAppContactEmail
         return $this;
     }
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the address, shown beside it. Free text, sent exactly as written.
      * 
      *
      * @return string|null
@@ -52,7 +52,7 @@ class WhatsAppContactEmail
         return $this->type;
     }
     /**
-     * The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+     * A label for the address, shown beside it. Free text, sent exactly as written.
      *
      * @param string|null $type
      *

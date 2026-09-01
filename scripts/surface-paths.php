@@ -54,6 +54,7 @@ return [
     "/v1/whatsapp/messages",
     "/v1/whatsapp/messages/{message_id}",
     "/v1/whatsapp/messages/{message_id}/events",
+    "/v1/whatsapp/messages/{message_id}/media/{media_id}",
     "/v1/voice/calls",
     "/v1/voice/calls/{call_id}",
     "/v1/verify/verifications",

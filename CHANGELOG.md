@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.28.0
+
+- A WhatsApp send can carry up to five contact cards, as `--contact-cards` on `bird whatsapp send` and `contact_cards` on the `whatsapp_send` tool and each SDK's send. A card's name needs `formatted_name` plus at least one other part, and a phone number in E.164 earns the card a button that opens a chat with it.
+- Add `whatsapp.messages.media`, which downloads a received WhatsApp message's media and returns the bytes with the content type storage declared. It takes the redirect hop for you, without sending your API key to the pre-authorized storage URL.
+
 ## 0.27.0
 
 - A voice call record now carries `route`: what your number did with an incoming call, whether it went to a SIP trunk, was forwarded, or was refused. Absent on outbound calls, and on calls recorded before this release, so treat a missing `route` as unknown rather than as proof the call was outbound.

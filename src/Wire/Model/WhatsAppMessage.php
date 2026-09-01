@@ -83,7 +83,7 @@ class WhatsAppMessage
      */
     protected $location;
     /**
-     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     * Contact cards on this message: cards the contact shared, either by tapping a button that asked for their number or by sending one from their address book, or the cards this workspace sent.
      * 
      *
      * @var list<WhatsAppContactCard>|null
@@ -431,7 +431,7 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     * Contact cards on this message: cards the contact shared, either by tapping a button that asked for their number or by sending one from their address book, or the cards this workspace sent.
      * 
      *
      * @return list<WhatsAppContactCard>|null
@@ -441,7 +441,7 @@ class WhatsAppMessage
         return $this->contactCards;
     }
     /**
-     * Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+     * Contact cards on this message: cards the contact shared, either by tapping a button that asked for their number or by sending one from their address book, or the cards this workspace sent.
      *
      * @param list<WhatsAppContactCard>|null $contactCards
      *

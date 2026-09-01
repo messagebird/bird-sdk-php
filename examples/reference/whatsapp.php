@@ -41,3 +41,7 @@ $events = $bird->whatsapp->listEvents('wamid_01krdgeqcxet5s7t44vh8rt9mg');
 foreach ($events->getData() ?? [] as $event) {
     echo $event->getType(), ' ', $event->getId(), "\n";
 }
+
+$media = $bird->whatsapp->messages->media('wam_01kya19eknftrs2s6p82asmvnh', 'waf_01kyb2m4xq7whs0d8n3prv6tez');
+file_put_contents('photo.jpg', $media->data);
+echo $media->contentType, ' ', $media->contentLength;
