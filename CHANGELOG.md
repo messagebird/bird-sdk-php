@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.29.0
+
+- Batch email sends now take `scheduled_at` on each item, so one batch can mix scheduled and immediate messages.
+
 ## 0.28.0
 
 - A WhatsApp send can carry up to five contact cards, as `--contact-cards` on `bird whatsapp send` and `contact_cards` on the `whatsapp_send` tool and each SDK's send. A card's name needs `formatted_name` plus at least one other part, and a phone number in E.164 earns the card a button that opens a chat with it.
