@@ -50,7 +50,7 @@ class Mailbox
      */
     protected $receivePolicy;
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
+     * Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
      *
      * @var string|null
      */
@@ -90,7 +90,7 @@ class Mailbox
      */
     protected $threadCount;
     /**
-     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     * Stored bytes across the mailbox's retained messages: subject, preview, extracted text, and attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
      *
      * @var int|null
      */
@@ -127,7 +127,7 @@ class Mailbox
      */
     protected $updatedAt;
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
      *
      * @var \DateTime|null
      */
@@ -257,7 +257,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
+     * Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
      *
      * @return string|null
      */
@@ -266,7 +266,7 @@ class Mailbox
         return $this->state;
     }
     /**
-     * Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
+     * Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
      *
      * @param string|null $state
      *
@@ -407,7 +407,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     * Stored bytes across the mailbox's retained messages: subject, preview, extracted text, and attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
      *
      * @return int|null
      */
@@ -416,7 +416,7 @@ class Mailbox
         return $this->sizeBytes;
     }
     /**
-     * Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+     * Stored bytes across the mailbox's retained messages: subject, preview, extracted text, and attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
      *
      * @param int|null $sizeBytes
      *
@@ -540,7 +540,7 @@ class Mailbox
         return $this;
     }
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
      *
      * @return \DateTime|null
      */
@@ -549,7 +549,7 @@ class Mailbox
         return $this->deletedAt;
     }
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
      *
      * @param \DateTime|null $deletedAt
      *
