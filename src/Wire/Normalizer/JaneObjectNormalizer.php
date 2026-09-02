@@ -70,6 +70,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\EmailMessageSendRequestTemplateNormalizer::class,
         
+        \MessageBird\Wire\Model\EmailMessageBatchRequest::class => \MessageBird\Wire\Normalizer\EmailMessageBatchRequestNormalizer::class,
+        
         \MessageBird\Wire\Model\EmailMessageBatchItem::class => \MessageBird\Wire\Normalizer\EmailMessageBatchItemNormalizer::class,
         
         \MessageBird\Wire\Model\EmailMessageBatchResponse::class => \MessageBird\Wire\Normalizer\EmailMessageBatchResponseNormalizer::class,
@@ -153,6 +155,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestOptionsNormalizer::class,
         
         \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\SMSMessageBatchRequest::class => \MessageBird\Wire\Normalizer\SMSMessageBatchRequestNormalizer::class,
         
         \MessageBird\Wire\Model\SMSBatchSummary::class => \MessageBird\Wire\Normalizer\SMSBatchSummaryNormalizer::class,
         
@@ -834,6 +838,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailAttachment::class => false,
             \MessageBird\Wire\Model\EmailMessageSendRequest::class => false,
             \MessageBird\Wire\Model\EmailMessageSendRequestTemplate::class => false,
+            \MessageBird\Wire\Model\EmailMessageBatchRequest::class => false,
             \MessageBird\Wire\Model\EmailMessageBatchItem::class => false,
             \MessageBird\Wire\Model\EmailMessageBatchResponse::class => false,
             \MessageBird\Wire\Model\EmailRecipient::class => false,
@@ -876,6 +881,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSMessageSendRequest::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => false,
+            \MessageBird\Wire\Model\SMSMessageBatchRequest::class => false,
             \MessageBird\Wire\Model\SMSBatchSummary::class => false,
             \MessageBird\Wire\Model\SMSMessageBatchResponse::class => false,
             \MessageBird\Wire\Model\SMSEvent::class => false,

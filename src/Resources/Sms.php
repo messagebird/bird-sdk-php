@@ -7,6 +7,7 @@ namespace MessageBird\Resources;
 use MessageBird\Bird;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSMessage;
+use MessageBird\Wire\Model\SMSMessageBatchRequest;
 use MessageBird\Wire\Model\SMSMessageBatchResponse;
 use MessageBird\Wire\Model\SMSMessageSendRequest;
 use MessageBird\Wire\Model\SMSMessageSendRequestOptions;
@@ -100,6 +101,8 @@ final class Sms extends SmsBase
      */
     public function sendBatch(array $messages, ?RequestOptions $options = null): SMSMessageBatchResponse
     {
-        return $this->single('POST', '/v1/sms/batches', SMSMessageBatchResponse::class, $messages, null, $options);
+        $request = (new SMSMessageBatchRequest())->setMessages($messages);
+
+        return $this->single('POST', '/v1/sms/batches', SMSMessageBatchResponse::class, $request, null, $options);
     }
 }

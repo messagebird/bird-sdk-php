@@ -59,7 +59,7 @@ $message = $bird->email->send(
 );
 echo $message->getId(), ' ', $message->getStatus();
 
-$batch = $bird->email->sendBatch([
+$batch = $bird->email->sendBatch(messages: [
     (new EmailMessageSendRequest())
         ->setFrom((new EmailAddress())->setEmail('onboarding@messagebird.dev')->setName('Bird'))
         ->setTo([(new EmailAddress())->setEmail('delivered@messagebird.dev')])

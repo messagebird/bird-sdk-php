@@ -10,6 +10,7 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailAttachment;
 use MessageBird\Wire\Model\EmailMessage;
+use MessageBird\Wire\Model\EmailMessageBatchRequest;
 use MessageBird\Wire\Model\EmailMessageBatchResponse;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
 use MessageBird\Wire\Model\EmailMessageSendRequestTemplate;
@@ -175,7 +176,9 @@ final class Email extends EmailBase
             }
         }
 
-        return $this->single('POST', '/v1/email/batches', EmailMessageBatchResponse::class, $messages, null, $options);
+        $request = (new EmailMessageBatchRequest())->setMessages($messages);
+
+        return $this->single('POST', '/v1/email/batches', EmailMessageBatchResponse::class, $request, null, $options);
     }
 
     /**

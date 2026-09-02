@@ -33,7 +33,7 @@ $message = $bird->sms->send(
 );
 echo $message->getId(), ' ', $message->getStatus();
 
-$batch = $bird->sms->sendBatch([
+$batch = $bird->sms->sendBatch(messages: [
     (new SMSMessageSendRequest())
         ->setFrom('+15557654321')
         ->setTo('+15551111111')

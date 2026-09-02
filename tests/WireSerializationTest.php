@@ -73,9 +73,9 @@ final class WireSerializationTest extends TestCase
     }
 
     /**
-     * A batch request body is a top-level array of wire models. The core
-     * serializer must encode it as a JSON list (each element normalized), the
-     * path the generated `sendBatch(array $params)` methods send.
+     * The core serializer encodes a top-level array of wire models as a JSON
+     * list (each element normalized) — the shape a list-valued model field
+     * (a batch envelope's messages) relies on.
      */
     public function testEncodesArrayBodyAsJsonList(): void
     {

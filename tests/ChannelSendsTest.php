@@ -73,7 +73,7 @@ final class ChannelSendsTest extends TestCase
         self::assertSame(['slug' => 'welcome'], $this->sentBody($recording2)['template']);
     }
 
-    public function testSmsSendBatchIsBareArray(): void
+    public function testSmsSendBatchWrapsMessagesEnvelope(): void
     {
         $recording = $this->recording();
         $messages = [
@@ -85,7 +85,7 @@ final class ChannelSendsTest extends TestCase
         self::assertNotNull($request);
         self::assertSame('/v1/sms/batches', $request->getUri()->getPath());
         $body = json_decode((string) $request->getBody(), true);
-        self::assertSame([['to' => '+15551111111', 'text' => 'Hi', 'category' => 'marketing']], $body);
+        self::assertSame(['messages' => [['to' => '+15551111111', 'text' => 'Hi', 'category' => 'marketing']]], $body);
     }
 
     public function testWhatsappSendSugarsTemplate(): void
@@ -152,8 +152,8 @@ final class ChannelSendsTest extends TestCase
         self::assertSame('/v1/email/batches', $request->getUri()->getPath());
         $body = json_decode((string) $request->getBody(), true);
         // First message had no from: default fills it. Second set its own: it wins.
-        self::assertSame('default@bird.com', $body[0]['from']);
-        self::assertSame('transactional', $body[0]['category']);
-        self::assertSame('override@bird.com', $body[1]['from']);
+        self::assertSame('default@bird.com', $body['messages'][0]['from']);
+        self::assertSame('transactional', $body['messages'][0]['category']);
+        self::assertSame('override@bird.com', $body['messages'][1]['from']);
     }
 }
