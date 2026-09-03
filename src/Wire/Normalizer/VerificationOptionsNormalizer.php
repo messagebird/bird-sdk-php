@@ -53,6 +53,12 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('channels', $data) && $data['channels'] === null) {
             $object->setChannels(null);
         }
+        if (\array_key_exists('language', $data) && $data['language'] !== null) {
+            $object->setLanguage($data['language']);
+        }
+        elseif (\array_key_exists('language', $data) && $data['language'] === null) {
+            $object->setLanguage(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -67,6 +73,9 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
                 $values[] = $value;
             }
             $dataArray['channels'] = $values;
+        }
+        if ($data->isInitialized('language') && null !== $data->getLanguage()) {
+            $dataArray['language'] = $data->getLanguage();
         }
         return $dataArray;
     }

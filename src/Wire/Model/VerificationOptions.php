@@ -25,6 +25,12 @@ class VerificationOptions
      */
     protected $channels;
     /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @var string|null
+     */
+    protected $language;
+    /**
      * Passcode length for this verification. Omit to use the configured length.
      *
      * @return int|null
@@ -66,6 +72,28 @@ class VerificationOptions
     {
         $this->initialized['channels'] = true;
         $this->channels = $channels;
+        return $this;
+    }
+    /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @return string|null
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+    /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @param string|null $language
+     *
+     * @return self
+     */
+    public function setLanguage(?string $language): self
+    {
+        $this->initialized['language'] = true;
+        $this->language = $language;
         return $this;
     }
 }
