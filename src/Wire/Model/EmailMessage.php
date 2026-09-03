@@ -233,7 +233,7 @@ class EmailMessage
      */
     protected $deliveredAt;
     /**
-     * When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
+     * When this message is scheduled to send, for a send created with a future send time. Absent for an immediate send. Stays set after the scheduled send fires.
      *
      * @var \DateTime|null
      */
@@ -1019,7 +1019,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
+     * When this message is scheduled to send, for a send created with a future send time. Absent for an immediate send. Stays set after the scheduled send fires.
      *
      * @return \DateTime|null
      */
@@ -1028,7 +1028,7 @@ class EmailMessage
         return $this->scheduledAt;
     }
     /**
-     * When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
+     * When this message is scheduled to send, for a send created with a future send time. Absent for an immediate send. Stays set after the scheduled send fires.
      *
      * @param \DateTime|null $scheduledAt
      *

@@ -57,6 +57,13 @@ class EmailMessageBatchItem
      */
     protected $templateVersionId;
     /**
+     * When this item is scheduled to send, for an item created with a future send time. Absent for an item that sends immediately.
+     * 
+     *
+     * @var \DateTime|null
+     */
+    protected $scheduledAt;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -208,6 +215,29 @@ class EmailMessageBatchItem
     {
         $this->initialized['templateVersionId'] = true;
         $this->templateVersionId = $templateVersionId;
+        return $this;
+    }
+    /**
+     * When this item is scheduled to send, for an item created with a future send time. Absent for an item that sends immediately.
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getScheduledAt(): ?\DateTime
+    {
+        return $this->scheduledAt;
+    }
+    /**
+     * When this item is scheduled to send, for an item created with a future send time. Absent for an item that sends immediately.
+     *
+     * @param \DateTime|null $scheduledAt
+     *
+     * @return self
+     */
+    public function setScheduledAt(?\DateTime $scheduledAt): self
+    {
+        $this->initialized['scheduledAt'] = true;
+        $this->scheduledAt = $scheduledAt;
         return $this;
     }
 }

@@ -79,6 +79,12 @@ class EmailMessageBatchItemNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('template_version_id', $data) && $data['template_version_id'] === null) {
             $object->setTemplateVersionId(null);
         }
+        if (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] !== null) {
+            $object->setScheduledAt(new \DateTime($data['scheduled_at']));
+        }
+        elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
+            $object->setScheduledAt(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
