@@ -47,6 +47,20 @@ class VoiceCallCost
      */
     protected $callHandlingAmount;
     /**
+     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     * 
+     *
+     * @var string|null
+     */
+    protected $recordingAmount;
+    /**
+     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     * 
+     *
+     * @var string|null
+     */
+    protected $transcriptionAmount;
+    /**
      * Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
      * 
      *
@@ -158,6 +172,52 @@ class VoiceCallCost
     {
         $this->initialized['callHandlingAmount'] = true;
         $this->callHandlingAmount = $callHandlingAmount;
+        return $this;
+    }
+    /**
+     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     * 
+     *
+     * @return string|null
+     */
+    public function getRecordingAmount(): ?string
+    {
+        return $this->recordingAmount;
+    }
+    /**
+     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     *
+     * @param string|null $recordingAmount
+     *
+     * @return self
+     */
+    public function setRecordingAmount(?string $recordingAmount): self
+    {
+        $this->initialized['recordingAmount'] = true;
+        $this->recordingAmount = $recordingAmount;
+        return $this;
+    }
+    /**
+     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     * 
+     *
+     * @return string|null
+     */
+    public function getTranscriptionAmount(): ?string
+    {
+        return $this->transcriptionAmount;
+    }
+    /**
+     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     *
+     * @param string|null $transcriptionAmount
+     *
+     * @return self
+     */
+    public function setTranscriptionAmount(?string $transcriptionAmount): self
+    {
+        $this->initialized['transcriptionAmount'] = true;
+        $this->transcriptionAmount = $transcriptionAmount;
         return $this;
     }
 }

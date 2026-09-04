@@ -67,6 +67,18 @@ class VoiceCallCostNormalizer implements DenormalizerInterface, NormalizerInterf
         elseif (\array_key_exists('call_handling_amount', $data) && $data['call_handling_amount'] === null) {
             $object->setCallHandlingAmount(null);
         }
+        if (\array_key_exists('recording_amount', $data) && $data['recording_amount'] !== null) {
+            $object->setRecordingAmount($data['recording_amount']);
+        }
+        elseif (\array_key_exists('recording_amount', $data) && $data['recording_amount'] === null) {
+            $object->setRecordingAmount(null);
+        }
+        if (\array_key_exists('transcription_amount', $data) && $data['transcription_amount'] !== null) {
+            $object->setTranscriptionAmount($data['transcription_amount']);
+        }
+        elseif (\array_key_exists('transcription_amount', $data) && $data['transcription_amount'] === null) {
+            $object->setTranscriptionAmount(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
