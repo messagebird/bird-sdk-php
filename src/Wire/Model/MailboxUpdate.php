@@ -39,7 +39,7 @@ class MailboxUpdate
      */
     protected $receivePolicy;
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
      *
      * @var string|null
      */
@@ -133,7 +133,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
      *
      * @return string|null
      */
@@ -142,7 +142,7 @@ class MailboxUpdate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
      *
      * @param string|null $retentionTier
      *

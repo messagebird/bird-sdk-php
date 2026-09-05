@@ -72,7 +72,7 @@ class Mailbox
      */
     protected $inboundAddressId;
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier.
      *
      * @var string|null
      */
@@ -127,7 +127,7 @@ class Mailbox
      */
     protected $updatedAt;
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
      *
      * @var \DateTime|null
      */
@@ -341,7 +341,7 @@ class Mailbox
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier.
      *
      * @return string|null
      */
@@ -350,7 +350,7 @@ class Mailbox
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier.
      *
      * @param string|null $retentionTier
      *
@@ -540,7 +540,7 @@ class Mailbox
         return $this;
     }
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
      *
      * @return \DateTime|null
      */
@@ -549,7 +549,7 @@ class Mailbox
         return $this->deletedAt;
     }
     /**
-     * When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
+     * When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
      *
      * @param \DateTime|null $deletedAt
      *

@@ -102,7 +102,7 @@ class EmailMailboxesBase extends Resource
     }
 
     /**
-     * Restore a mailbox deleted less than 30 days ago: the address starts receiving again and its remaining remembered messages are available. Normal message-retention expiry continues while a mailbox is deleted. Past the restore window the mailbox is permanently deleted and returns `404`. A mailbox that is not deleted returns `409`.
+     * Restore receiving and access to unexpired messages. Returns `404` if deletion was 30 or more days ago or permanent erasure has started, and `409` if the mailbox is not deleted or its address is unavailable.
      *
      * @example Restore a deleted mailbox before its retention window closes
      * $mailbox = $bird->email->mailboxes->restore('mbx_01krdgeqcxet5s7t44vh8rt9mg');

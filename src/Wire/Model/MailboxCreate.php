@@ -51,7 +51,7 @@ class MailboxCreate
      */
     protected $receivePolicy = 'open';
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
      *
      * @var string|null
      */
@@ -189,7 +189,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
      *
      * @return string|null
      */
@@ -198,7 +198,7 @@ class MailboxCreate
         return $this->retentionTier;
     }
     /**
-     * How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+     * How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
      *
      * @param string|null $retentionTier
      *
