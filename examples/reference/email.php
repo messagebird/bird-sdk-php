@@ -346,3 +346,7 @@ $bird->email->send(
     html: '<p>My first Bird email.</p>',
     options: new RequestOptions(idempotencyKey: 'order-1234', maxRetries: 0),
 );
+
+foreach ($bird->email->templates->list(['scope' => 'workspace']) as $template) {
+    echo $template->getSlug(), ' ', $template->getName(), "\n";
+}

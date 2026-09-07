@@ -658,6 +658,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\ShareDomainDnsRequest::class => \MessageBird\Wire\Normalizer\ShareDomainDnsRequestNormalizer::class,
         
+        \MessageBird\Wire\Model\EmailTemplateLanguageState::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageStateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateSummary::class => \MessageBird\Wire\Normalizer\EmailTemplateSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateList::class => \MessageBird\Wire\Normalizer\EmailTemplateListNormalizer::class,
+        
         \MessageBird\Wire\Model\MailboxOwner::class => \MessageBird\Wire\Normalizer\MailboxOwnerNormalizer::class,
         
         \MessageBird\Wire\Model\Mailbox::class => \MessageBird\Wire\Normalizer\MailboxNormalizer::class,
@@ -1132,6 +1138,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\DomainEvent::class => false,
             \MessageBird\Wire\Model\DomainEventList::class => false,
             \MessageBird\Wire\Model\ShareDomainDnsRequest::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageState::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSummary::class => false,
+            \MessageBird\Wire\Model\EmailTemplateList::class => false,
             \MessageBird\Wire\Model\MailboxOwner::class => false,
             \MessageBird\Wire\Model\Mailbox::class => false,
             \MessageBird\Wire\Model\MailboxList::class => false,

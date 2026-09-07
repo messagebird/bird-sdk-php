@@ -47,7 +47,7 @@ rm -rf "$wire"
 mkdir -p "$(dirname "$wire")"
 # .jane-openapi honors BIRD_PHP_WIRE_OUT as its output directory, so models land
 # in the staged path above (it falls back to src/Wire in place when unset).
-( cd "$here" && BIRD_PHP_WIRE_OUT="$wire" php -d error_reporting='E_ALL & ~E_DEPRECATED' \
+( cd "$here" && BIRD_PHP_WIRE_OUT="$wire" php -d memory_limit=-1 -d error_reporting='E_ALL & ~E_DEPRECATED' \
     vendor/bin/jane-openapi generate )
 
 echo "==> strip non-wire output (keep Model/ Normalizer/ Runtime/Normalizer/)"

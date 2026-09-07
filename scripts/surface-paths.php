@@ -25,6 +25,7 @@ return [
     "/v1/email/stats/bounce-codes",
     "/v1/email/stats/complaint-types",
     "/v1/email/stats/broadcasts",
+    "/v1/email/templates",
     "/v1/sms/messages",
     "/v1/sms/batches",
     "/v1/sms/messages/{message_id}",

@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.35.0
+
+- Add a read-only list method for the workspace's email templates, so a template can be chosen from the workspace's own list before a send.
+
 ## 0.34.1
 
 - Mailbox restore help now states that `404` also applies once permanent erasure has started.
