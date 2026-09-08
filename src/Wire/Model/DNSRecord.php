@@ -103,7 +103,7 @@ class DNSRecord
      */
     protected $status;
     /**
-     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
+     * Human-readable detail for a check that did not pass on this record: what was found in DNS and why it did not match. Also set while `pending` when the record is published but does not match the expected value, which is the case you can act on. `null` when the record is `verified`, when nothing is published at this name yet, or before the first check.
      * 
      *
      * @var string|null
@@ -373,7 +373,7 @@ class DNSRecord
         return $this;
     }
     /**
-     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
+     * Human-readable detail for a check that did not pass on this record: what was found in DNS and why it did not match. Also set while `pending` when the record is published but does not match the expected value, which is the case you can act on. `null` when the record is `verified`, when nothing is published at this name yet, or before the first check.
      * 
      *
      * @return string|null
@@ -383,7 +383,7 @@ class DNSRecord
         return $this->error;
     }
     /**
-     * Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
+     * Human-readable detail for a check that did not pass on this record: what was found in DNS and why it did not match. Also set while `pending` when the record is published but does not match the expected value, which is the case you can act on. `null` when the record is `verified`, when nothing is published at this name yet, or before the first check.
      *
      * @param string|null $error
      *

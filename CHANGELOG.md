@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.36.0
+
+- A sending domain's DNS record now sets `error` while its status is still `pending`, reporting that the record published in DNS does not match the expected value.
+- **Breaking:** a send that quotes a message Bird does not hold now fails with `404` `WhatsAppReferencedMessageNotFound` instead of `422` `WhatsAppInReplyToNotFound`; one Bird holds but cannot quote answers `422` `WhatsAppMessageNotQuotable`, and a quote Bird cannot look up answers `503` `WhatsAppMessageLookupUnavailable`, which is worth retrying. Update anything matching the old codes.
+
 ## 0.35.0
 
 - Add a read-only list method for the workspace's email templates, so a template can be chosen from the workspace's own list before a send.

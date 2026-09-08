@@ -52,16 +52,15 @@ class SMSTemplate
      * - `rejected`: it was reviewed and every language was refused.
      * - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
      * 
-     * This summary answers whether the template is usable at all. A template with
-     * one language live is `active` even while another is still drafted or refused.
-     * Read `languages` to determine the state of each language and its reason.
+     * A template with one language live is `active` even while another is still
+     * drafted or refused. Read `languages` for the state of each language and its
+     * reason.
      * 
-     * Which of the five a template can reach follows its channel's review model. A
-     * channel whose content a third party reviews reaches all five; one whose
-     * content goes live on publish moves between `draft`, `active` and `inactive`.
-     * 
-     * Open enum: treat a value you do not recognize as a new one rather than as
-     * an error.
+     * Which values a channel reports follows its review model. A channel whose
+     * content a third party reviews uses all five. On email and SMS, where content
+     * goes live on publish, a template is `draft`, `active` or `inactive`, and
+     * `pending` and `rejected` are reserved for the review stage coming to both, so
+     * a template reaching either is not a breaking change.
      * 
      *
      * @var string|null
@@ -291,16 +290,15 @@ class SMSTemplate
      * - `rejected`: it was reviewed and every language was refused.
      * - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
      * 
-     * This summary answers whether the template is usable at all. A template with
-     * one language live is `active` even while another is still drafted or refused.
-     * Read `languages` to determine the state of each language and its reason.
+     * A template with one language live is `active` even while another is still
+     * drafted or refused. Read `languages` for the state of each language and its
+     * reason.
      * 
-     * Which of the five a template can reach follows its channel's review model. A
-     * channel whose content a third party reviews reaches all five; one whose
-     * content goes live on publish moves between `draft`, `active` and `inactive`.
-     * 
-     * Open enum: treat a value you do not recognize as a new one rather than as
-     * an error.
+     * Which values a channel reports follows its review model. A channel whose
+     * content a third party reviews uses all five. On email and SMS, where content
+     * goes live on publish, a template is `draft`, `active` or `inactive`, and
+     * `pending` and `rejected` are reserved for the review stage coming to both, so
+     * a template reaching either is not a breaking change.
      * 
      *
      * @return string|null
@@ -318,16 +316,15 @@ class SMSTemplate
     - `rejected`: it was reviewed and every language was refused.
     - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
     
-    This summary answers whether the template is usable at all. A template with
-    one language live is `active` even while another is still drafted or refused.
-    Read `languages` to determine the state of each language and its reason.
+    A template with one language live is `active` even while another is still
+    drafted or refused. Read `languages` for the state of each language and its
+    reason.
     
-    Which of the five a template can reach follows its channel's review model. A
-    channel whose content a third party reviews reaches all five; one whose
-    content goes live on publish moves between `draft`, `active` and `inactive`.
-    
-    Open enum: treat a value you do not recognize as a new one rather than as
-    an error.
+    Which values a channel reports follows its review model. A channel whose
+    content a third party reviews uses all five. On email and SMS, where content
+    goes live on publish, a template is `draft`, `active` or `inactive`, and
+    `pending` and `rejected` are reserved for the review stage coming to both, so
+    a template reaching either is not a breaking change.
     
     *
     * @param string|null $status
