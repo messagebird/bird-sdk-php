@@ -24,16 +24,20 @@ use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
 /**
  * The WhatsApp channel. get, list, and listEvents are generated on WhatsappBase;
  * this parent hand-writes the flagship `send`, sugaring the template handle into
- * the nested template object, and adds the nested `$bird->whatsapp->messages`.
+ * the nested template object, and adds the nested `$bird->whatsapp->messages`
+ * and `$bird->whatsapp->templates`.
  */
 final class Whatsapp extends WhatsappBase
 {
     public readonly WhatsappMessages $messages;
 
+    public readonly WhatsappTemplates $templates;
+
     public function __construct(Bird $client)
     {
         parent::__construct($client);
         $this->messages = new WhatsappMessages($client);
+        $this->templates = new WhatsappTemplates($client);
     }
 
     /**

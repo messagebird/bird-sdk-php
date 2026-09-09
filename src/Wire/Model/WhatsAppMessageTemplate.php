@@ -19,7 +19,8 @@ class WhatsAppMessageTemplate extends \ArrayObject
      */
     protected $slug;
     /**
-     * Content classification applied to messages sent from this template.
+     * The category this message was priced at, recorded as it stood when the message was sent. For a template you authored this is the category Meta applies to the language the send resolved to, which can differ from the category declared on the template: Meta categorizes each language separately and may move one. A built-in `bird_` template is priced at the single category the built-in declares, the same in every language.
+     * 
      *
      * @var string|null
      */
@@ -60,7 +61,8 @@ class WhatsAppMessageTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Content classification applied to messages sent from this template.
+     * The category this message was priced at, recorded as it stood when the message was sent. For a template you authored this is the category Meta applies to the language the send resolved to, which can differ from the category declared on the template: Meta categorizes each language separately and may move one. A built-in `bird_` template is priced at the single category the built-in declares, the same in every language.
+     * 
      *
      * @return string|null
      */
@@ -69,7 +71,7 @@ class WhatsAppMessageTemplate extends \ArrayObject
         return $this->category;
     }
     /**
-     * Content classification applied to messages sent from this template.
+     * The category this message was priced at, recorded as it stood when the message was sent. For a template you authored this is the category Meta applies to the language the send resolved to, which can differ from the category declared on the template: Meta categorizes each language separately and may move one. A built-in `bird_` template is priced at the single category the built-in declares, the same in every language.
      *
      * @param string|null $category
      *

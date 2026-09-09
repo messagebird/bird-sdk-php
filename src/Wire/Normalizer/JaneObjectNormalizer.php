@@ -468,6 +468,50 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppEventList::class => \MessageBird\Wire\Normalizer\WhatsAppEventListNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateExampleParameterNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateButton::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateButtonNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCardComponent::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCardComponentNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCard::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCardNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateComponent::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateComponentNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageState::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageStateNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageStateRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageStateRejectionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageStateError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageStateErrorNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageRejectionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageErrorNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateQualityNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageRejectionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageErrorNormalizer::class,
+        
         \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPeriodNormalizer::class,
         
         \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsBouncesNormalizer::class,
@@ -1043,6 +1087,28 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class => false,
             \MessageBird\Wire\Model\WhatsAppEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppEventList::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateButton::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCardComponent::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCard::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateComponent::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageState::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageStateRejection::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageStateError::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplate::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateList::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionList::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageRejection::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageError::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageSummary::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageList::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
             \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => false,
             \MessageBird\Wire\Model\EmailLatencyQuantiles::class => false,

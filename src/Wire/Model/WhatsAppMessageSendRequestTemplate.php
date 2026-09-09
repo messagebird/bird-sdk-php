@@ -23,7 +23,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
      */
     protected $slug;
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
      * 
      *
      * @var string|null
@@ -77,7 +77,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
      * 
      *
      * @return string|null
@@ -87,7 +87,7 @@ class WhatsAppMessageSendRequestTemplate extends \ArrayObject
         return $this->language;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
      *
      * @param string|null $language
      *

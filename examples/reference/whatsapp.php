@@ -45,3 +45,27 @@ foreach ($events->getData() ?? [] as $event) {
 $media = $bird->whatsapp->messages->media('wam_01kya19eknftrs2s6p82asmvnh', 'waf_01kyb2m4xq7whs0d8n3prv6tez');
 file_put_contents('photo.jpg', $media->data);
 echo $media->contentType, ' ', $media->contentLength;
+
+foreach ($bird->whatsapp->templates->list() as $template) {
+    echo $template->getSlug(), ' ', $template->getStatus(), "\n";
+}
+
+$template = $bird->whatsapp->templates->get('bird_otp');
+echo $template->getDefaultLanguage();
+
+foreach ($bird->whatsapp->templates->versions->list('bird_otp') as $version) {
+    echo $version->getId(), ' ', $version->getVersionNumber(), "\n";
+}
+
+$version = $bird->whatsapp->templates->versions->get('bird_otp', 'wav_01ky4x8e4genzb7way45txfkm1');
+echo $version->getVersionNumber();
+
+$languages = $bird->whatsapp->templates->versions->languages->list('bird_otp', 'wav_01ky4x8e4genzb7way45txfkm1');
+foreach ($languages->getData() ?? [] as $language) {
+    echo $language->getLanguage(), ' ', $language->getStatus(), "\n";
+}
+
+$language = $bird->whatsapp->templates->versions->languages->get('bird_otp', 'wav_01ky4x8e4genzb7way45txfkm1', 'nl-BE');
+foreach ($language->getComponents() ?? [] as $component) {
+    echo $component->getType(), "\n";
+}

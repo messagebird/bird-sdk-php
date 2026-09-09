@@ -41,7 +41,7 @@ class EmailTemplateSummary
      */
     protected $description;
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      * 
      *
      * @var string|null
@@ -262,7 +262,7 @@ class EmailTemplateSummary
         return $this;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      * 
      *
      * @return string|null
@@ -272,7 +272,7 @@ class EmailTemplateSummary
         return $this->scope;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      *
      * @param string|null $scope
      *
