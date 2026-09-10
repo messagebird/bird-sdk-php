@@ -29,6 +29,7 @@ use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
  */
 final class Whatsapp extends WhatsappBase
 {
+    public readonly WhatsappStats $stats;
     public readonly WhatsappMessages $messages;
 
     public readonly WhatsappTemplates $templates;
@@ -38,6 +39,7 @@ final class Whatsapp extends WhatsappBase
     public function __construct(Bird $client)
     {
         parent::__construct($client);
+        $this->stats = new WhatsappStats($client);
         $this->messages = new WhatsappMessages($client);
         $this->templates = new WhatsappTemplates($client);
         $this->reaction = new WhatsappReaction($client);

@@ -530,6 +530,108 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageErrorNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryPeriodNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => \MessageBird\Wire\Normalizer\WhatsAppLatencyQuantilesNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeltaNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSummary::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryComparisonNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSeriesPeriodNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppErrorCodeStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByErrorCodeResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByTemplateResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTemplateResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTemplateCategoryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTagResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByPhoneNumberResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByPhoneNumberResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointDeliveryNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointEngagementNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointLatencyNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByCountryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseComparisonNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsResponseNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundPhoneNumberStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppInboundPhoneNumberStatsPointNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsByPhoneNumberResponseNormalizer::class,
+        
         \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPeriodNormalizer::class,
         
         \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsBouncesNormalizer::class,
@@ -1136,6 +1238,57 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummary::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSeriesPeriod::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByTemplateResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByPhoneNumberResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundPhoneNumberStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
             \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => false,
             \MessageBird\Wire\Model\EmailLatencyQuantiles::class => false,

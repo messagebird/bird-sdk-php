@@ -44,6 +44,74 @@ foreach ($events->getData() ?? [] as $event) {
     echo $event->getType(), ' ', $event->getId(), "\n";
 }
 
+$summary = $bird->whatsapp->stats->summary([
+    'from' => '2026-08-01',
+    'to' => '2026-08-31',
+    'timezone' => 'Europe/Amsterdam',
+]);
+echo $summary->getDelivery()?->getAccepted(), ' ', $summary->getDelivery()?->getDelivered();
+
+$daily = $bird->whatsapp->stats->daily(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($daily->getData() ?? [] as $point) {
+    echo $point->getBucket(), ' ', $point->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$hourly = $bird->whatsapp->stats->hourly(['from' => '2026-08-30T00:00:00Z', 'to' => '2026-08-31T00:00:00Z']);
+foreach ($hourly->getData() ?? [] as $point) {
+    echo $point->getBucket(), ' ', $point->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$byErrorCode = $bird->whatsapp->stats->byErrorCode(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byErrorCode->getData() ?? [] as $row) {
+    echo $row->getErrorCode(), ' ', $row->getCount(), PHP_EOL;
+}
+
+$byTemplate = $bird->whatsapp->stats->byTemplate(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byTemplate->getData() ?? [] as $row) {
+    echo $row->getTemplateId(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$byTemplateCategory = $bird->whatsapp->stats->byTemplateCategory(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byTemplateCategory->getData() ?? [] as $row) {
+    echo $row->getCategory(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$byTag = $bird->whatsapp->stats->byTag(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byTag->getData() ?? [] as $row) {
+    echo $row->getTag(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$byPhoneNumber = $bird->whatsapp->stats->byPhoneNumber(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byPhoneNumber->getData() ?? [] as $row) {
+    echo $row->getPhoneNumber(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$byCountry = $bird->whatsapp->stats->byCountry(['from' => '2026-08-01', 'to' => '2026-08-31']);
+foreach ($byCountry->getData() ?? [] as $row) {
+    echo $row->getCountry(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
+$inbound = $bird->whatsapp->stats->inbound->summary(['from' => '2026-05-01', 'to' => '2026-05-31']);
+echo $inbound->getReceived();
+
+$inboundDaily = $bird->whatsapp->stats->inbound->daily(['from' => '2026-05-01', 'to' => '2026-05-31']);
+foreach ($inboundDaily->getData() ?? [] as $point) {
+    echo $point->getBucket(), ' ', $point->getReceived(), PHP_EOL;
+}
+
+$inboundHourly = $bird->whatsapp->stats->inbound->hourly([
+    'from' => '2026-05-30T00:00:00Z',
+    'to' => '2026-05-31T00:00:00Z',
+]);
+foreach ($inboundHourly->getData() ?? [] as $point) {
+    echo $point->getBucket(), ' ', $point->getReceived(), PHP_EOL;
+}
+
+$inboundByPhoneNumber = $bird->whatsapp->stats->inbound->byPhoneNumber(['from' => '2026-05-01', 'to' => '2026-05-31']);
+foreach ($inboundByPhoneNumber->getData() ?? [] as $row) {
+    echo $row->getPhoneNumber(), ' ', $row->getReceived(), PHP_EOL;
+}
+
 $media = $bird->whatsapp->messages->media('wam_01kya19eknftrs2s6p82asmvnh', 'waf_01kyb2m4xq7whs0d8n3prv6tez');
 file_put_contents('photo.jpg', $media->data);
 echo $media->contentType, ' ', $media->contentLength;

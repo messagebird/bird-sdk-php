@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.39.0
+
+- Add `whatsapp.stats` reads over the workspace's own WhatsApp traffic: the period summary, the daily and hourly series, and breakdowns by template, template category, phone number, error code, tag, and destination country, with received-message counts under `whatsapp.stats.inbound`.
+
 ## 0.38.0
 
 - Acknowledge and react to WhatsApp messages a contact sent you: mark one read, optionally showing a typing indicator while you compose a reply, place or replace an emoji reaction, take yours back, and read the log of every change to a message's reactions. A message's standing `reactions` are now returned alongside it.
