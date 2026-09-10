@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class DomainEventNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class WhatsAppReactionEventNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class DomainEventNormalizer implements DenormalizerInterface, NormalizerInterfac
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\DomainEvent::class;
+        return $type === \MessageBird\Wire\Model\WhatsAppReactionEvent::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\DomainEvent::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppReactionEvent::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\DomainEvent();
+        $object = new \MessageBird\Wire\Model\WhatsAppReactionEvent();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -43,33 +43,35 @@ class DomainEventNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('type', $data) && $data['type'] !== null) {
-            $object->setType($data['type']);
+        if (\array_key_exists('emoji', $data) && $data['emoji'] !== null) {
+            $object->setEmoji($data['emoji']);
         }
-        elseif (\array_key_exists('type', $data) && $data['type'] === null) {
-            $object->setType(null);
+        elseif (\array_key_exists('emoji', $data) && $data['emoji'] === null) {
+            $object->setEmoji(null);
         }
-        if (\array_key_exists('summary', $data) && $data['summary'] !== null) {
-            $object->setSummary($data['summary']);
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
+            $object->setStatus($data['status']);
         }
-        elseif (\array_key_exists('summary', $data) && $data['summary'] === null) {
-            $object->setSummary(null);
+        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
+            $object->setStatus(null);
         }
-        if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value) {
-                $values[$key] = $value;
-            }
-            $object->setMetadata($values);
+        if (\array_key_exists('from', $data) && $data['from'] !== null) {
+            $object->setFrom($this->denormalizer->denormalize($data['from'], \MessageBird\Wire\Model\WhatsAppReactionEventFrom::class, 'json', $context));
         }
-        elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
-            $object->setMetadata(null);
+        elseif (\array_key_exists('from', $data) && $data['from'] === null) {
+            $object->setFrom(null);
         }
-        if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(new \DateTime($data['created_at']));
+        if (\array_key_exists('error', $data) && $data['error'] !== null) {
+            $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppError::class, 'json', $context));
         }
-        elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
-            $object->setCreatedAt(null);
+        elseif (\array_key_exists('error', $data) && $data['error'] === null) {
+            $object->setError(null);
+        }
+        if (\array_key_exists('occurred_at', $data) && $data['occurred_at'] !== null) {
+            $object->setOccurredAt(new \DateTime($data['occurred_at']));
+        }
+        elseif (\array_key_exists('occurred_at', $data) && $data['occurred_at'] === null) {
+            $object->setOccurredAt(null);
         }
         return $object;
     }
@@ -77,18 +79,10 @@ class DomainEventNormalizer implements DenormalizerInterface, NormalizerInterfac
     {
         $dataArray = [];
         $dataArray['id'] = $data->getId();
-        $dataArray['type'] = $data->getType();
-        $dataArray['summary'] = $data->getSummary();
-        $values = [];
-        foreach ($data->getMetadata() as $key => $value) {
-            $values[$key] = $value;
-        }
-        $dataArray['metadata'] = (object) $values;
-        $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\DomainEvent::class => false];
+        return [\MessageBird\Wire\Model\WhatsAppReactionEvent::class => false];
     }
 }

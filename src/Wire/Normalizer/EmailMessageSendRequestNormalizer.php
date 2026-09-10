@@ -239,7 +239,7 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
             foreach ($data->getHeaders() as $key => $value_4) {
                 $values_4[$key] = $value_4;
             }
-            $dataArray['headers'] = $values_4;
+            $dataArray['headers'] = (object) $values_4;
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
             $values_5 = [];
@@ -253,14 +253,14 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
             foreach ($data->getMetadata() as $key_1 => $value_6) {
                 $values_6[$key_1] = $value_6;
             }
-            $dataArray['metadata'] = $values_6;
+            $dataArray['metadata'] = (object) $values_6;
         }
         if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
             $values_7 = [];
             foreach ($data->getParameters() as $key_2 => $value_7) {
                 $values_7[$key_2] = $value_7;
             }
-            $dataArray['parameters'] = $values_7;
+            $dataArray['parameters'] = (object) $values_7;
         }
         if ($data->isInitialized('template') && null !== $data->getTemplate()) {
             $dataArray['template'] = $this->normalizer->normalize($data->getTemplate(), 'json', $context);

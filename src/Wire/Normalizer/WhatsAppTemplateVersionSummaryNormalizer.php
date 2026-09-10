@@ -98,7 +98,7 @@ class WhatsAppTemplateVersionSummaryNormalizer implements DenormalizerInterface,
         foreach ($data->getLanguages() as $key => $value) {
             $values[$key] = $this->normalizer->normalize($value, 'json', $context);
         }
-        $dataArray['languages'] = $values;
+        $dataArray['languages'] = (object) $values;
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

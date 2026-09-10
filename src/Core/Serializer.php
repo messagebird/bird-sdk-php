@@ -54,6 +54,14 @@ final class Serializer
      */
     private function completeObjects(mixed $value): mixed
     {
+        if ($value instanceof \stdClass) {
+            $completed = new \stdClass();
+            foreach (get_object_vars($value) as $key => $item) {
+                $completed->{$key} = $this->completeObjects($item);
+            }
+
+            return $completed;
+        }
         if (is_object($value)) {
             $normalized = $this->completeObjects($this->inner->normalize($value, 'json'));
 

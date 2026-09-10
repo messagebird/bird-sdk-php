@@ -102,7 +102,7 @@ class ContactUpdateRequestNormalizer implements DenormalizerInterface, Normalize
             foreach ($data->getData() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['data'] = $values;
+            $dataArray['data'] = (object) $values;
         }
         return $dataArray;
     }

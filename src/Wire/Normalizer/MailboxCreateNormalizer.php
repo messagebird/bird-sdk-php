@@ -111,7 +111,7 @@ class MailboxCreateNormalizer implements DenormalizerInterface, NormalizerInterf
             foreach ($data->getMetadata() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['metadata'] = $values;
+            $dataArray['metadata'] = (object) $values;
         }
         return $dataArray;
     }

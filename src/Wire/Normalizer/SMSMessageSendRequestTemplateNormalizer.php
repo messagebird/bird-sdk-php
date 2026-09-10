@@ -103,7 +103,7 @@ class SMSMessageSendRequestTemplateNormalizer implements DenormalizerInterface, 
             foreach ($data->getParameters() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['parameters'] = $values;
+            $dataArray['parameters'] = (object) $values;
         }
         foreach ($data as $key_1 => $value_1) {
             if (preg_match('/.*/', (string) $key_1)) {

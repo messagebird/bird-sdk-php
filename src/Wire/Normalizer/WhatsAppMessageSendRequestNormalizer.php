@@ -197,7 +197,7 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
             foreach ($data->getMetadata() as $key => $value_2) {
                 $values_2[$key] = $value_2;
             }
-            $dataArray['metadata'] = $values_2;
+            $dataArray['metadata'] = (object) $values_2;
         }
         return $dataArray;
     }

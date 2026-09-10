@@ -118,6 +118,13 @@ class WhatsAppMessage
      */
     protected $unsupported;
     /**
+     * Emoji reactions standing on this message right now, one per sender. Absent when the message has none. A reaction that was replaced by a different emoji, or taken back, is not listed; the message's reaction log keeps that history. WhatsApp accepts a reaction on a message up to 30 days old, and we keep provider ids for 15, so a reaction placed on a message older than that cannot be matched to it and does not appear here.
+     * 
+     *
+     * @var list<WhatsAppReaction>|null
+     */
+    protected $reactions;
+    /**
      * @var string|null
      */
     protected $status;
@@ -146,7 +153,8 @@ class WhatsAppMessage
      */
     protected $deliveredAt;
     /**
-     * When the message was read by the recipient. Null until then.
+     * When the message was read. On an outbound message this is the recipient opening it. On an inbound one it is when Bird acknowledged the message to WhatsApp for the business, which a read receipt sets. Null until then.
+     * 
      *
      * @var \DateTime|null
      */
@@ -546,6 +554,29 @@ class WhatsAppMessage
         return $this;
     }
     /**
+     * Emoji reactions standing on this message right now, one per sender. Absent when the message has none. A reaction that was replaced by a different emoji, or taken back, is not listed; the message's reaction log keeps that history. WhatsApp accepts a reaction on a message up to 30 days old, and we keep provider ids for 15, so a reaction placed on a message older than that cannot be matched to it and does not appear here.
+     * 
+     *
+     * @return list<WhatsAppReaction>|null
+     */
+    public function getReactions(): ?array
+    {
+        return $this->reactions;
+    }
+    /**
+     * Emoji reactions standing on this message right now, one per sender. Absent when the message has none. A reaction that was replaced by a different emoji, or taken back, is not listed; the message's reaction log keeps that history. WhatsApp accepts a reaction on a message up to 30 days old, and we keep provider ids for 15, so a reaction placed on a message older than that cannot be matched to it and does not appear here.
+     *
+     * @param list<WhatsAppReaction>|null $reactions
+     *
+     * @return self
+     */
+    public function setReactions(?array $reactions): self
+    {
+        $this->initialized['reactions'] = true;
+        $this->reactions = $reactions;
+        return $this;
+    }
+    /**
      * @return string|null
      */
     public function getStatus(): ?string
@@ -652,7 +683,8 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * When the message was read by the recipient. Null until then.
+     * When the message was read. On an outbound message this is the recipient opening it. On an inbound one it is when Bird acknowledged the message to WhatsApp for the business, which a read receipt sets. Null until then.
+     * 
      *
      * @return \DateTime|null
      */
@@ -661,7 +693,7 @@ class WhatsAppMessage
         return $this->readAt;
     }
     /**
-     * When the message was read by the recipient. Null until then.
+     * When the message was read. On an outbound message this is the recipient opening it. On an inbound one it is when Bird acknowledged the message to WhatsApp for the business, which a read receipt sets. Null until then.
      *
      * @param \DateTime|null $readAt
      *

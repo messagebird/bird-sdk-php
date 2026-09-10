@@ -65,7 +65,14 @@ class VoiceCall
      */
     protected $sipResponseCode;
     /**
-     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
+     * Why we rejected the call. Absent on connected calls and calls rejected
+     * by the carrier or recipient. For carrier or recipient rejections, see
+     * `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+     * 
+     * Read alongside `route` when present. A refusal caused by the number's
+     * configuration has no rejection reason; the route records that
+     * configuration.
+     * 
      *
      * @var string|null
      */
@@ -335,7 +342,14 @@ class VoiceCall
         return $this;
     }
     /**
-     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
+     * Why we rejected the call. Absent on connected calls and calls rejected
+     * by the carrier or recipient. For carrier or recipient rejections, see
+     * `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+     * 
+     * Read alongside `route` when present. A refusal caused by the number's
+     * configuration has no rejection reason; the route records that
+     * configuration.
+     * 
      *
      * @return string|null
      */
@@ -344,12 +358,19 @@ class VoiceCall
         return $this->rejectionReason;
     }
     /**
-     * Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
-     *
-     * @param string|null $rejectionReason
-     *
-     * @return self
-     */
+    * Why we rejected the call. Absent on connected calls and calls rejected
+    by the carrier or recipient. For carrier or recipient rejections, see
+    `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+    
+    Read alongside `route` when present. A refusal caused by the number's
+    configuration has no rejection reason; the route records that
+    configuration.
+    
+    *
+    * @param string|null $rejectionReason
+    *
+    * @return self
+    */
     public function setRejectionReason(?string $rejectionReason): self
     {
         $this->initialized['rejectionReason'] = true;

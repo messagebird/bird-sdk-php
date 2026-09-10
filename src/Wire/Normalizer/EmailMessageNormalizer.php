@@ -338,7 +338,7 @@ class EmailMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
             foreach ($data->getMetadata() as $key => $value_5) {
                 $values_5[$key] = $value_5;
             }
-            $dataArray['metadata'] = $values_5;
+            $dataArray['metadata'] = (object) $values_5;
         }
         if ($data->isInitialized('attachments') && null !== $data->getAttachments()) {
             $values_6 = [];

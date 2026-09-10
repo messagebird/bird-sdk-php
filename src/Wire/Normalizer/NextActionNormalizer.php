@@ -86,7 +86,7 @@ class NextActionNormalizer implements DenormalizerInterface, NormalizerInterface
             foreach ($data->getParams() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['params'] = $values;
+            $dataArray['params'] = (object) $values;
         }
         if ($data->isInitialized('url') && null !== $data->getUrl()) {
             $dataArray['url'] = $data->getUrl();

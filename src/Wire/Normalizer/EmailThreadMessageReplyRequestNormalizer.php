@@ -120,7 +120,7 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
             foreach ($data->getMetadata() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
-            $dataArray['metadata'] = $values_1;
+            $dataArray['metadata'] = (object) $values_1;
         }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();

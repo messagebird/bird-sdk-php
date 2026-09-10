@@ -11,6 +11,8 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\WhatsAppEventList;
 use MessageBird\Wire\Model\WhatsAppMessage;
 use MessageBird\Wire\Model\WhatsAppMessageList;
+use MessageBird\Wire\Model\WhatsAppReadReceipt;
+use MessageBird\Wire\Model\WhatsAppReadReceiptRequest;
 
 class WhatsappBase extends Resource
 {
@@ -70,5 +72,20 @@ class WhatsappBase extends Resource
     public function listEvents(string $messageId, ?array $query = null, ?RequestOptions $options = null): WhatsAppEventList
     {
         return $this->single('GET', '/v1/whatsapp/messages/' . rawurlencode($messageId) . '/events', WhatsAppEventList::class, null, $query, $options);
+    }
+
+    /**
+     * Mark one inbound WhatsApp message as read, optionally showing a typing indicator at the same time. Accepted asynchronously (202); there is no status to poll and no webhook.
+     *
+     * @example Acknowledge a received message and start typing
+     * $ack = $bird->whatsapp->markRead(
+     *     'wam_01krdgeqcxet5s7t44vh8rt9mg',
+     *     (new WhatsAppReadReceiptRequest())->setTypingIndicator(true),
+     * );
+     * var_dump($ack->getTypingIndicator());
+     */
+    public function markRead(string $messageId, WhatsAppReadReceiptRequest $params, ?RequestOptions $options = null): WhatsAppReadReceipt
+    {
+        return $this->single('POST', '/v1/whatsapp/messages/' . rawurlencode($messageId) . '/read', WhatsAppReadReceipt::class, $params, null, $options);
     }
 }

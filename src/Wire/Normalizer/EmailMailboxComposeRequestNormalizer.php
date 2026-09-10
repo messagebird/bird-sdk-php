@@ -188,7 +188,7 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
             foreach ($data->getMetadata() as $key => $value_6) {
                 $values_6[$key] = $value_6;
             }
-            $dataArray['metadata'] = $values_6;
+            $dataArray['metadata'] = (object) $values_6;
         }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();

@@ -22,7 +22,9 @@ class WhatsAppEvent
      * - `whatsapp.accepted`: The API accepted the request.
      * - `whatsapp.sent`: The message reached the WhatsApp network.
      * - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
-     * - `whatsapp.read`: The recipient opened the message.
+     * - `whatsapp.read`: The message was read. On an outbound message the recipient
+     *   opened it; on an inbound one Bird acknowledged it to WhatsApp for the
+     *   business, which is what a read receipt records.
      * - `whatsapp.failed`: Delivery failed permanently.
      * - `whatsapp.rejected`: The message was refused before sending and not charged.
      * - `whatsapp.received`: An inbound message arrived from the contact.
@@ -69,7 +71,9 @@ class WhatsAppEvent
      * - `whatsapp.accepted`: The API accepted the request.
      * - `whatsapp.sent`: The message reached the WhatsApp network.
      * - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
-     * - `whatsapp.read`: The recipient opened the message.
+     * - `whatsapp.read`: The message was read. On an outbound message the recipient
+     *   opened it; on an inbound one Bird acknowledged it to WhatsApp for the
+     *   business, which is what a read receipt records.
      * - `whatsapp.failed`: Delivery failed permanently.
      * - `whatsapp.rejected`: The message was refused before sending and not charged.
      * - `whatsapp.received`: An inbound message arrived from the contact.
@@ -89,7 +93,9 @@ class WhatsAppEvent
     - `whatsapp.accepted`: The API accepted the request.
     - `whatsapp.sent`: The message reached the WhatsApp network.
     - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
-    - `whatsapp.read`: The recipient opened the message.
+    - `whatsapp.read`: The message was read. On an outbound message the recipient
+     opened it; on an inbound one Bird acknowledged it to WhatsApp for the
+     business, which is what a read receipt records.
     - `whatsapp.failed`: Delivery failed permanently.
     - `whatsapp.rejected`: The message was refused before sending and not charged.
     - `whatsapp.received`: An inbound message arrived from the contact.

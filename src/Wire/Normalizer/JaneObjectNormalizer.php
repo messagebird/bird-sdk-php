@@ -380,6 +380,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppInteractiveReplyList::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveReplyListNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppReaction::class => \MessageBird\Wire\Normalizer\WhatsAppReactionNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionFrom::class => \MessageBird\Wire\Normalizer\WhatsAppReactionFromNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppError::class => \MessageBird\Wire\Normalizer\WhatsAppErrorNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppMessage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageNormalizer::class,
@@ -464,9 +468,23 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class => \MessageBird\Wire\Normalizer\WhatsAppMessageSendRequestInteractiveNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppReadReceiptRequest::class => \MessageBird\Wire\Normalizer\WhatsAppReadReceiptRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReadReceipt::class => \MessageBird\Wire\Normalizer\WhatsAppReadReceiptNormalizer::class,
+        
         \MessageBird\Wire\Model\WhatsAppEvent::class => \MessageBird\Wire\Normalizer\WhatsAppEventNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppEventList::class => \MessageBird\Wire\Normalizer\WhatsAppEventListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionUpsert::class => \MessageBird\Wire\Normalizer\WhatsAppReactionUpsertNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionAccepted::class => \MessageBird\Wire\Normalizer\WhatsAppReactionAcceptedNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionEvent::class => \MessageBird\Wire\Normalizer\WhatsAppReactionEventNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionEventFrom::class => \MessageBird\Wire\Normalizer\WhatsAppReactionEventFromNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppReactionEventList::class => \MessageBird\Wire\Normalizer\WhatsAppReactionEventListNormalizer::class,
         
         \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateExampleParameterNormalizer::class,
         
@@ -1043,6 +1061,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppInteractiveCardHeader::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveReplyButton::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveReplyList::class => false,
+            \MessageBird\Wire\Model\WhatsAppReaction::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionFrom::class => false,
             \MessageBird\Wire\Model\WhatsAppError::class => false,
             \MessageBird\Wire\Model\WhatsAppMessage::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageFrom::class => false,
@@ -1085,8 +1105,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestLocation::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageSendRequestInteractive::class => false,
+            \MessageBird\Wire\Model\WhatsAppReadReceiptRequest::class => false,
+            \MessageBird\Wire\Model\WhatsAppReadReceipt::class => false,
             \MessageBird\Wire\Model\WhatsAppEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppEventList::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionUpsert::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionAccepted::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionEvent::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionEventFrom::class => false,
+            \MessageBird\Wire\Model\WhatsAppReactionEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateButton::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCardComponent::class => false,

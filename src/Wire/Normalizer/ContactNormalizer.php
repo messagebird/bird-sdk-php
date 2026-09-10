@@ -142,7 +142,7 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
             foreach ($data->getData() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['data'] = $values;
+            $dataArray['data'] = (object) $values;
         }
         foreach ($data as $key_1 => $value_1) {
             if (preg_match('/.*/', (string) $key_1)) {

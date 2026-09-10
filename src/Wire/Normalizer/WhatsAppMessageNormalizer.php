@@ -143,6 +143,16 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('unsupported', $data) && $data['unsupported'] === null) {
             $object->setUnsupported(null);
         }
+        if (\array_key_exists('reactions', $data) && $data['reactions'] !== null) {
+            $values_1 = [];
+            foreach ($data['reactions'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppReaction::class, 'json', $context);
+            }
+            $object->setReactions($values_1);
+        }
+        elseif (\array_key_exists('reactions', $data) && $data['reactions'] === null) {
+            $object->setReactions(null);
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }
@@ -186,21 +196,21 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setCost(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
-            $values_1 = [];
-            foreach ($data['tags'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            $values_2 = [];
+            foreach ($data['tags'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\Tag::class, 'json', $context);
             }
-            $object->setTags($values_1);
+            $object->setTags($values_2);
         }
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value_2) {
-                $values_2[$key] = $value_2;
+            $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['metadata'] as $key => $value_3) {
+                $values_3[$key] = $value_3;
             }
-            $object->setMetadata($values_2);
+            $object->setMetadata($values_3);
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
@@ -226,7 +236,7 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
             foreach ($data->getMetadata() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
-            $dataArray['metadata'] = $values_1;
+            $dataArray['metadata'] = (object) $values_1;
         }
         return $dataArray;
     }

@@ -80,4 +80,10 @@ echo "==> lenient date-time parsing (fractional seconds)"
 find "$wire" -name '*.php' -exec perl -0pi \
     -e "s/\\\\DateTime::createFromFormat\('Y-m-d\\\\TH:i:sP', ([^)]+)\)/new \\\\DateTime(\$1)/g" {} +
 
+# Schema maps must stay JSON objects; PHP otherwise emits empty or numeric-key
+# maps as lists.
+echo "==> canonicalize schema maps as JSON objects"
+find "$wire/Normalizer" -name '*Normalizer.php' -exec perl -0pi -e \
+    's{((^[ \t]*)(\$\w+) = \[\];\n\2foreach \([^\n]+ as \$\w+ => \$\w+\) \{\n\2    \3\[[^\n]+\] = [^\n]+;\n\2\}\n\2\$dataArray\[\x27[^\x27]+\x27\] = )\3;}{$1(object) $3;}gm' {} +
+
 echo "==> done: $(find "$wire" -name '*.php' | wc -l | tr -d ' ') wire files"

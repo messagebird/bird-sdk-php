@@ -91,6 +91,22 @@ final class WireSerializationTest extends TestCase
         self::assertSame('b@example.com', $decoded[1]['email']);
     }
 
+    public function testEmptyMapStaysObjectWhileEmptyListStaysArray(): void
+    {
+        $request = (new EmailMessageSendRequest())
+            ->setTo([])
+            ->setParameters([])
+            ->setMetadata(['0' => 'zero', '1' => 'one']);
+
+        $decoded = json_decode((new CoreSerializer())->encode($request));
+
+        self::assertSame([], $decoded->to);
+        self::assertInstanceOf(\stdClass::class, $decoded->parameters);
+        self::assertInstanceOf(\stdClass::class, $decoded->metadata);
+        self::assertSame('zero', $decoded->metadata->{'0'});
+        self::assertSame('one', $decoded->metadata->{'1'});
+    }
+
     /**
      * A union body field (email from/to accepts a string or an address object)
      * is left unnormalized by jane, so the core serializer completes it: a string,

@@ -191,7 +191,7 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
             foreach ($data->getMetadata() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
-            $dataArray['metadata'] = $values_1;
+            $dataArray['metadata'] = (object) $values_1;
         }
         if ($data->isInitialized('options') && null !== $data->getOptions()) {
             $dataArray['options'] = $this->normalizer->normalize($data->getOptions(), 'json', $context);
@@ -232,7 +232,7 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
             foreach ($data->getPersonalization() as $key_1 => $value_3) {
                 $values_3[$key_1] = $value_3;
             }
-            $dataArray['personalization'] = $values_3;
+            $dataArray['personalization'] = (object) $values_3;
         }
         return $dataArray;
     }

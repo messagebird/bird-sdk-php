@@ -73,7 +73,7 @@ class VerificationCreateRequestNormalizer implements DenormalizerInterface, Norm
             foreach ($data->getMetadata() as $key => $value) {
                 $values[$key] = $value;
             }
-            $dataArray['metadata'] = $values;
+            $dataArray['metadata'] = (object) $values;
         }
         return $dataArray;
     }
