@@ -8,10 +8,15 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\EmailTemplate;
+use MessageBird\Wire\Model\EmailTemplateDuplicate;
 use MessageBird\Wire\Model\EmailTemplateList;
+use MessageBird\Wire\Model\EmailTemplatePreview;
+use MessageBird\Wire\Model\EmailTemplatePreviewRequest;
 use MessageBird\Wire\Model\EmailTemplateSummary;
+use MessageBird\Wire\Model\EmailTemplateUpdate;
 
-final class EmailTemplates extends Resource
+class EmailTemplatesBase extends Resource
 {
     /**
      * List email templates as a cursor page. The list covers both the workspace's own templates and our built-in `system` templates. Filter to one tier with `scope`, and filter further by category, source, theme, or a search across slug, name, and description. A theme narrows the built-in catalog to one of its five visual themes, so naming one returns built-ins alone.
@@ -41,5 +46,45 @@ final class EmailTemplates extends Resource
                 return $page->getNextCursor();
             },
         );
+    }
+
+    /**
+     * Read one template's metadata: the state of every language it has, the languages it can send today, the draft revision, and its draft and published version IDs. The response omits content; read a version's language to retrieve it. Accepts a workspace template ID (`emt_…`) or a built-in `system` template's `bird_` slug.
+     */
+    public function get(string $templateRef, ?RequestOptions $options = null): EmailTemplate
+    {
+        return $this->single('GET', '/v1/email/templates/' . rawurlencode($templateRef), EmailTemplate::class, null, null, $options);
+    }
+
+    /**
+     * Change a template's metadata and draft settings without editing its content. Save content on the draft version. Pass the last-read draft `revision`; a concurrent edit returns a conflict.
+     */
+    public function update(string $templateRef, EmailTemplateUpdate $params, ?RequestOptions $options = null): EmailTemplate
+    {
+        return $this->single('PATCH', '/v1/email/templates/' . rawurlencode($templateRef), EmailTemplate::class, $params, null, $options);
+    }
+
+    /**
+     * Delete a template and every version it holds, freeing its slug for reuse in the workspace. The deletion cannot be undone, and a later send naming the template is rejected. A template a `scheduled` or `accepted` broadcast still references cannot be deleted, and returns a conflict.
+     */
+    public function delete(string $templateRef, ?RequestOptions $options = null): void
+    {
+        $this->none('DELETE', '/v1/email/templates/' . rawurlencode($templateRef), null, null, $options);
+    }
+
+    /**
+     * Copy a workspace or built-in `system` template into a new unpublished template. Its editable draft inherits the source's current content, category, authoring format, and description. Supply `slug` or use the derived `-copy` slug. A slug already in use returns a conflict.
+     */
+    public function duplicate(string $templateRef, EmailTemplateDuplicate $params, ?RequestOptions $options = null): EmailTemplate
+    {
+        return $this->single('POST', '/v1/email/templates/' . rawurlencode($templateRef) . '/duplicate', EmailTemplate::class, $params, null, $options);
+    }
+
+    /**
+     * Render a template with sample values and return the resulting subject, HTML, and plain-text bodies: the personalized email as it will send. Renders the draft by default. Pass `version` to select a published version instead; built-in `system` templates have no versions, so `version` on one returns a validation error. Pass `contact` to fill the personalization from a real contact's record. Sample `parameters` cap at 16 KB serialized. Personalization that is invalid or unsupported returns a validation error naming what to fix. The response also carries `compatibility`: what the HTML uses that mail clients remove, ignore, or render inconsistently, each finding naming the pattern, the line and column it sits on, and what to use instead. Advisory, and the preview renders either way.
+     */
+    public function preview(string $templateRef, EmailTemplatePreviewRequest $params, ?RequestOptions $options = null): EmailTemplatePreview
+    {
+        return $this->single('POST', '/v1/email/templates/' . rawurlencode($templateRef) . '/preview', EmailTemplatePreview::class, $params, null, $options);
     }
 }

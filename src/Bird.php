@@ -11,6 +11,7 @@ use MessageBird\Exception\ApiException;
 use MessageBird\Exception\ConnectionException;
 use MessageBird\Exception\MissingApiKeyException;
 use MessageBird\Resources\Audiences;
+use MessageBird\Resources\Broadcasts;
 use MessageBird\Resources\ContactProperties;
 use MessageBird\Resources\Contacts;
 use MessageBird\Resources\Domains;
@@ -63,6 +64,8 @@ final class Bird
     private readonly int $maxRetries;
 
     public readonly Preferences $preferences;
+
+    public readonly Broadcasts $broadcasts;
 
     public readonly WorkspaceResource $workspace;
     public readonly Contacts $contacts;
@@ -123,6 +126,7 @@ final class Bird
         $this->serializer = new Serializer();
 
         $this->preferences = new Preferences($this);
+        $this->broadcasts = new Broadcasts($this);
         $this->workspace = new WorkspaceResource($this);
         $this->contacts = new Contacts($this);
         $this->contactProperties = new ContactProperties($this);

@@ -124,4 +124,35 @@ abstract class Resource
     {
         return new Page($itemClass, $fetchPage, $items, $nextCursor);
     }
+
+    /**
+     * RFC 3339, with "Z" for a UTC offset instead of PHP's default "+00:00" —
+     * the form every other surface writes for the same instant, and the one a
+     * shared conformance vector pins. Lives here rather than on one resource
+     * because the generated Wire normalizers all format a date as
+     * `Y-m-d\TH:i:sP`, so every hand facade carrying a date-time needs it.
+     * Fractional seconds are included only when non-zero and trimmed of
+     * trailing zeros, since a truncated instant can order differently from the
+     * one the caller supplied.
+     */
+    protected static function formatRfc3339(\DateTimeInterface $value): string
+    {
+        $offset = $value->getOffset() === 0 ? 'Z' : $value->format('P');
+
+        return $value->format('Y-m-d\TH:i:s') . self::formatFraction($value) . $offset;
+    }
+
+    /**
+     * The leading dot plus trimmed microseconds, or "" when the value carries
+     * no sub-second component.
+     */
+    private static function formatFraction(\DateTimeInterface $value): string
+    {
+        $micros = $value->format('u');
+        if ($micros === '000000') {
+            return '';
+        }
+
+        return '.' . rtrim($micros, '0');
+    }
 }

@@ -41,7 +41,36 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->stats->byBounceCode(...),
             $bird->email->stats->byComplaintType(...),
             $bird->email->stats->byBroadcast(...),
+            $bird->email->templates->create(...),
             $bird->email->templates->list(...),
+            $bird->email->templates->get(...),
+            $bird->email->templates->update(...),
+            $bird->email->templates->delete(...),
+            $bird->email->templates->duplicate(...),
+            $bird->email->templates->preview(...),
+            $bird->email->templates->versions->list(...),
+            $bird->email->templates->versions->get(...),
+            $bird->email->templates->versions->delete(...),
+            $bird->email->templates->versions->submit(...),
+            $bird->email->templates->versions->rollback(...),
+            $bird->email->templates->versions->languages->list(...),
+            $bird->email->templates->versions->languages->get(...),
+            $bird->email->templates->versions->languages->set(...),
+            $bird->email->templates->versions->languages->update(...),
+            $bird->email->templates->versions->languages->delete(...),
+            $bird->email->templates->broadcasts->list(...),
+            $bird->broadcasts->create(...),
+            $bird->broadcasts->list(...),
+            $bird->broadcasts->get(...),
+            $bird->broadcasts->update(...),
+            $bird->broadcasts->delete(...),
+            $bird->broadcasts->send(...),
+            $bird->broadcasts->cancel(...),
+            $bird->broadcasts->listEvents(...),
+            $bird->broadcasts->listRecipients(...),
+            $bird->broadcasts->counts(...),
+            $bird->broadcasts->listClickedLinks(...),
+            $bird->broadcasts->sendQuota(...),
             $bird->sms->send(...),
             $bird->sms->sendBatch(...),
             $bird->sms->get(...),
@@ -196,7 +225,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->realtime->members->disconnect(...),
         ];
 
-        self::assertCount(174, $surface);
+        self::assertCount(203, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

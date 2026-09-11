@@ -73,37 +73,6 @@ final class Preferences extends PreferencesBase
     }
 
     /**
-     * RFC 3339, with "Z" for a UTC offset instead of PHP's default "+00:00" —
-     * the form every other surface writes for the same instant. Fractional
-     * seconds are included only when non-zero and trimmed of trailing zeros:
-     * `consented_at` causally orders a grant against an opt-out at whatever
-     * precision the caller supplied, so truncating it to the whole second
-     * could turn a later grant into an equal-or-earlier one and get it
-     * refused. A zero fraction stays byte-identical to the pre-fix literal,
-     * which a conformance vector pins.
-     */
-    private static function formatRfc3339(\DateTimeInterface $value): string
-    {
-        $offset = $value->getOffset() === 0 ? 'Z' : $value->format('P');
-
-        return $value->format('Y-m-d\TH:i:s') . self::formatFraction($value) . $offset;
-    }
-
-    /**
-     * The leading dot plus trimmed microseconds, or "" when the value carries
-     * no sub-second component.
-     */
-    private static function formatFraction(\DateTimeInterface $value): string
-    {
-        $micros = $value->format('u');
-        if ($micros === '000000') {
-            return '';
-        }
-
-        return '.' . rtrim($micros, '0');
-    }
-
-    /**
      * The generated normalizer leaves `preference` as a raw array: its
      * declared type is `mixed` because the model's normalizer does not
      * recurse into it, unlike a top-level response. Every other SDK returns

@@ -54,13 +54,17 @@ final class Serializer
      */
     private function completeObjects(mixed $value): mixed
     {
+        // A caller's own empty-object marker. It is what this method returns for a
+        // model that normalizes to nothing, and the only way a request body can say
+        // "an empty JSON object" where PHP would otherwise write an empty list, so
+        // it passes through rather than going to a normalizer that has no case for it.
+        // Only when it is empty: the escape-hatch verbs take an object body, so a
+        // wire model nested under a non-empty one still needs completing or it
+        // encodes as `{}` from its protected properties.
         if ($value instanceof \stdClass) {
-            $completed = new \stdClass();
-            foreach (get_object_vars($value) as $key => $item) {
-                $completed->{$key} = $this->completeObjects($item);
-            }
+            $properties = get_object_vars($value);
 
-            return $completed;
+            return $properties === [] ? $value : (object) $this->completeObjects($properties);
         }
         if (is_object($value)) {
             $normalized = $this->completeObjects($this->inner->normalize($value, 'json'));

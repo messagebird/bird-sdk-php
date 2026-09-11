@@ -86,6 +86,28 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailMessageContent::class => \MessageBird\Wire\Normalizer\EmailMessageContentNormalizer::class,
         
+        \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcast::class => \MessageBird\Wire\Normalizer\EmailBroadcastNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastList::class => \MessageBird\Wire\Normalizer\EmailBroadcastListNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastCreateRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastCounts::class => \MessageBird\Wire\Normalizer\EmailBroadcastCountsNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastSendQuota::class => \MessageBird\Wire\Normalizer\EmailBroadcastSendQuotaNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => \MessageBird\Wire\Normalizer\EmailBroadcastClickedLinkNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastClickedLinkList::class => \MessageBird\Wire\Normalizer\EmailBroadcastClickedLinkListNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailBroadcastSendNowRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastSendNowRequestNormalizer::class,
+        
         \MessageBird\Wire\Model\AudienceRef::class => \MessageBird\Wire\Normalizer\AudienceRefNormalizer::class,
         
         \MessageBird\Wire\Model\Contact::class => \MessageBird\Wire\Normalizer\ContactNormalizer::class,
@@ -848,6 +870,62 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\EmailTemplateList::class => \MessageBird\Wire\Normalizer\EmailTemplateListNormalizer::class,
         
+        \MessageBird\Wire\Model\EmailTemplateLanguageContent::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageContentNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateCreate::class => \MessageBird\Wire\Normalizer\EmailTemplateCreateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplate::class => \MessageBird\Wire\Normalizer\EmailTemplateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateUpdate::class => \MessageBird\Wire\Normalizer\EmailTemplateUpdateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateDuplicate::class => \MessageBird\Wire\Normalizer\EmailTemplateDuplicateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplatePreviewRequest::class => \MessageBird\Wire\Normalizer\EmailTemplatePreviewRequestNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplatePreviewRequestContent::class => \MessageBird\Wire\Normalizer\EmailTemplatePreviewRequestContentNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailClientSupport::class => \MessageBird\Wire\Normalizer\EmailClientSupportNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailCompatibilityFinding::class => \MessageBird\Wire\Normalizer\EmailCompatibilityFindingNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplatePreview::class => \MessageBird\Wire\Normalizer\EmailTemplatePreviewNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateVersionSummary::class => \MessageBird\Wire\Normalizer\EmailTemplateVersionSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateVersionSummaryUpdatedBy::class => \MessageBird\Wire\Normalizer\EmailTemplateVersionSummaryUpdatedByNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateVersionList::class => \MessageBird\Wire\Normalizer\EmailTemplateVersionListNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateBroadcastSummary::class => \MessageBird\Wire\Normalizer\EmailTemplateBroadcastSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateBroadcastList::class => \MessageBird\Wire\Normalizer\EmailTemplateBroadcastListNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateVersion::class => \MessageBird\Wire\Normalizer\EmailTemplateVersionNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateVersionUpdatedBy::class => \MessageBird\Wire\Normalizer\EmailTemplateVersionUpdatedByNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageSummaryNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguageList::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageListNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguage::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguageUpsert::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageUpsertNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguageSaved::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageSavedNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateLanguageUpdate::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageUpdateNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateRollback::class => \MessageBird\Wire\Normalizer\EmailTemplateRollbackNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateSubmit::class => \MessageBird\Wire\Normalizer\EmailTemplateSubmitNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateSubmitProblem::class => \MessageBird\Wire\Normalizer\EmailTemplateSubmitProblemNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateSubmitResult::class => \MessageBird\Wire\Normalizer\EmailTemplateSubmitResultNormalizer::class,
+        
+        \MessageBird\Wire\Model\EmailTemplateSubmitResultVersion::class => \MessageBird\Wire\Normalizer\EmailTemplateSubmitResultVersionNormalizer::class,
+        
         \MessageBird\Wire\Model\MailboxOwner::class => \MessageBird\Wire\Normalizer\MailboxOwnerNormalizer::class,
         
         \MessageBird\Wire\Model\Mailbox::class => \MessageBird\Wire\Normalizer\MailboxNormalizer::class,
@@ -1036,6 +1114,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEvent::class => false,
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
+            \MessageBird\Wire\Model\EmailBroadcast::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastList::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastCounts::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastSendQuota::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastClickedLinkList::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastSendNowRequest::class => false,
             \MessageBird\Wire\Model\AudienceRef::class => false,
             \MessageBird\Wire\Model\Contact::class => false,
             \MessageBird\Wire\Model\ContactList::class => false,
@@ -1417,6 +1506,34 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\EmailTemplateSummary::class => false,
             \MessageBird\Wire\Model\EmailTemplateList::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageContent::class => false,
+            \MessageBird\Wire\Model\EmailTemplateCreate::class => false,
+            \MessageBird\Wire\Model\EmailTemplate::class => false,
+            \MessageBird\Wire\Model\EmailTemplateUpdate::class => false,
+            \MessageBird\Wire\Model\EmailTemplateDuplicate::class => false,
+            \MessageBird\Wire\Model\EmailTemplatePreviewRequest::class => false,
+            \MessageBird\Wire\Model\EmailTemplatePreviewRequestContent::class => false,
+            \MessageBird\Wire\Model\EmailClientSupport::class => false,
+            \MessageBird\Wire\Model\EmailCompatibilityFinding::class => false,
+            \MessageBird\Wire\Model\EmailTemplatePreview::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVersionSummary::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVersionSummaryUpdatedBy::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVersionList::class => false,
+            \MessageBird\Wire\Model\EmailTemplateBroadcastSummary::class => false,
+            \MessageBird\Wire\Model\EmailTemplateBroadcastList::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVersion::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVersionUpdatedBy::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageSummary::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageList::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguage::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageUpsert::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageSaved::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageUpdate::class => false,
+            \MessageBird\Wire\Model\EmailTemplateRollback::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSubmit::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSubmitProblem::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSubmitResult::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSubmitResultVersion::class => false,
             \MessageBird\Wire\Model\MailboxOwner::class => false,
             \MessageBird\Wire\Model\Mailbox::class => false,
             \MessageBird\Wire\Model\MailboxList::class => false,
