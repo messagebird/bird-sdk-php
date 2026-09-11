@@ -1,5 +1,10 @@
 parameters:
     level: 8
+    # Every other tool here caches inside the package. PHPStan alone defaults to
+    # the shared system temp, so parallel worktrees poison each other's cache with
+    # phar paths into a `vendor/` that is not theirs, and it fails as an internal
+    # error about a missing stub rather than as a cache problem.
+    tmpDir: .phpstan.cache
     paths:
         - src
         # The example corpus is type-checked so a wrong request-building type (a

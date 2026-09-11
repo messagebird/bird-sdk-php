@@ -632,6 +632,26 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         
         \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsByPhoneNumberResponseNormalizer::class,
         
+        \MessageBird\Wire\Model\WhatsAppNumberError::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppNumber::class => \MessageBird\Wire\Normalizer\WhatsAppNumberNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppNumberList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppNumberEvent::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppNumberEventList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventListNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppNumberProfile::class => \MessageBird\Wire\Normalizer\WhatsAppNumberProfileNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppBusinessAccount::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountPortfolioNormalizer::class,
+        
+        \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountListNormalizer::class,
+        
         \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPeriodNormalizer::class,
         
         \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsBouncesNormalizer::class,
@@ -1289,6 +1309,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundPhoneNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberError::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumber::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberList::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberEvent::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberProfile::class => false,
+            \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
+            \MessageBird\Wire\Model\WhatsAppBusinessAccount::class => false,
+            \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => false,
+            \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
             \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => false,
             \MessageBird\Wire\Model\EmailLatencyQuantiles::class => false,

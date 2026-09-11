@@ -157,3 +157,24 @@ $language = $bird->whatsapp->templates->versions->languages->get('bird_otp', 'wa
 foreach ($language->getComponents() ?? [] as $component) {
     echo $component->getType(), "\n";
 }
+
+foreach ($bird->whatsapp->numbers->list(['status' => ['connected']]) as $number) {
+    echo $number->getId(), ' ', $number->getPhoneNumber(), ' ', $number->getStatus(), "\n";
+}
+
+$number = $bird->whatsapp->numbers->get('wan_01krdgeqcxet5s7t44vh8rt9mg');
+echo $number->getStatus(), ' ', $number->getQualityRating(), "\n";
+
+$profile = $bird->whatsapp->numbers->profile->get('wan_01krdgeqcxet5s7t44vh8rt9mg');
+echo $profile->getDisplayName(), ' ', $profile->getDescription(), "\n";
+
+foreach ($bird->whatsapp->numbers->listEvents('wan_01krdgeqcxet5s7t44vh8rt9mg') as $event) {
+    echo $event->getCreatedAt()?->format(DATE_ATOM), ' ', $event->getType(), "\n";
+}
+
+foreach ($bird->whatsapp->businessAccounts->list() as $account) {
+    echo $account->getId(), ' ', $account->getName(), ' ', $account->getStatus(), "\n";
+}
+
+$account = $bird->whatsapp->businessAccounts->get('waa_01krdgeqcxet5s7t44vh8rt9mg');
+echo $account->getAccountReviewStatus(), ' ', $account->getBusinessVerificationStatus(), "\n";
