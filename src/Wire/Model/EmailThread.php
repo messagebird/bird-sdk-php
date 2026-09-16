@@ -73,7 +73,7 @@ class EmailThread
      * 
      * - `inbox`: The conversation is in the inbox.
      * - `archive`: The conversation was filed away and is done for now.
-     * - `spam`: The conversation's opening message failed sender authentication.
+     * - `spam`: The conversation's opening message is filed in Spam.
      * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
      * 
      * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
@@ -318,7 +318,7 @@ class EmailThread
      * 
      * - `inbox`: The conversation is in the inbox.
      * - `archive`: The conversation was filed away and is done for now.
-     * - `spam`: The conversation's opening message failed sender authentication.
+     * - `spam`: The conversation's opening message is filed in Spam.
      * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
      * 
      * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
@@ -335,7 +335,7 @@ class EmailThread
     
     - `inbox`: The conversation is in the inbox.
     - `archive`: The conversation was filed away and is done for now.
-    - `spam`: The conversation's opening message failed sender authentication.
+    - `spam`: The conversation's opening message is filed in Spam.
     - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
     
     Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.

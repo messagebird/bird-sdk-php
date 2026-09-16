@@ -27,7 +27,7 @@ $message = $bird->sms->send(
 echo $message->getId(), ' ', $message->getStatus();
 
 $message = $bird->sms->send(
-    to: '+15551234567',
+    to: '+14155550100',
     template: 'bird_otp_verification',
     parameters: ['code' => '123456'],
 );

@@ -57,7 +57,7 @@ final class WhatsappReaction extends Resource
     {
         return $this->paginate(
             WhatsAppReactionEvent::class,
-            fn (?string $cursor): WhatsAppReactionEventList => $this->single('GET', '/v1/whatsapp/messages/' . rawurlencode($messageId) . '/reaction-events', WhatsAppReactionEventList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppReactionEventList => $this->single('GET', '/v1/whatsapp/messages/' . rawurlencode($messageId) . '/reaction-events', WhatsAppReactionEventList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppReactionEventList);
 

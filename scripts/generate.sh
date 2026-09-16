@@ -42,12 +42,15 @@ echo "==> openapi-compat: 3.1 -> 3.0"
 ( cd "$repo_root/backend" && go run -trimpath scripts/openapi-compat.go \
     "openapi/.generated/openapi.public.bundle.yaml" "$compat" )
 
+# Jane resolves parameter defaults, then reads them from the unresolved reference and crashes.
+php "$here/scripts/prepare-jane.php" "$compat" "$gendir/openapi.public.jane.json"
+
 echo "==> jane-openapi generate"
 rm -rf "$wire"
 mkdir -p "$(dirname "$wire")"
 # .jane-openapi honors BIRD_PHP_WIRE_OUT as its output directory, so models land
 # in the staged path above (it falls back to src/Wire in place when unset).
-( cd "$here" && BIRD_PHP_WIRE_OUT="$wire" php -d memory_limit=-1 -d error_reporting='E_ALL & ~E_DEPRECATED' \
+( cd "$here" && BIRD_PHP_WIRE_OUT="$wire" BIRD_PHP_OPENAPI_FILE="$gendir/openapi.public.jane.json" php -d memory_limit=-1 -d error_reporting='E_ALL & ~E_DEPRECATED' \
     vendor/bin/jane-openapi generate )
 
 echo "==> strip non-wire output (keep Model/ Normalizer/ Runtime/Normalizer/)"
@@ -65,7 +68,7 @@ rm -rf \
 # to our bar; the CLI path overrides the config's finder.
 echo "==> canonicalize (double) -> (float)"
 ( cd "$here" && vendor/bin/php-cs-fixer fix "$wire" \
-    --rules=short_scalar_cast --using-cache=no --quiet )
+    --rules=short_scalar_cast,no_trailing_whitespace,no_whitespace_in_blank_line --using-cache=no --quiet )
 
 # jane parses every date-time with createFromFormat('Y-m-d\TH:i:sP', …), which
 # returns FALSE on fractional seconds — and the API always sends them

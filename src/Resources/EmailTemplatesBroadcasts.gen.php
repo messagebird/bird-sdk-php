@@ -24,7 +24,7 @@ final class EmailTemplatesBroadcasts extends Resource
     {
         return $this->paginate(
             EmailTemplateBroadcastSummary::class,
-            fn (?string $cursor): EmailTemplateBroadcastList => $this->single('GET', '/v1/email/templates/' . rawurlencode($templateRef) . '/broadcasts', EmailTemplateBroadcastList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailTemplateBroadcastList => $this->single('GET', '/v1/email/templates/' . rawurlencode($templateRef) . '/broadcasts', EmailTemplateBroadcastList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailTemplateBroadcastList);
 

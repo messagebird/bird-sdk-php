@@ -37,11 +37,20 @@ class SMSTemplateLanguageStateNormalizer implements DenormalizerInterface, Norma
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('draft', $data) && \is_int($data['draft'])) {
+            $data['draft'] = (bool) $data['draft'];
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
+        }
+        if (\array_key_exists('draft', $data) && $data['draft'] !== null) {
+            $object->setDraft($data['draft']);
+        }
+        elseif (\array_key_exists('draft', $data) && $data['draft'] === null) {
+            $object->setDraft(null);
         }
         return $object;
     }

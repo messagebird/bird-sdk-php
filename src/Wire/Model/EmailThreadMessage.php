@@ -84,7 +84,7 @@ class EmailThreadMessage
      * 
      * - `inbox`: Accepted mail.
      * - `archive`: The message's conversation was filed away.
-     * - `spam`: The message failed sender authentication.
+     * - `spam`: The message is filed in Spam.
      * - `blocked`: The message was rejected by the mailbox's receive policy or rules.
      * 
      * A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
@@ -115,12 +115,13 @@ class EmailThreadMessage
      */
     protected $recipients;
     /**
-     * Whether the sender of a received message was authenticated.
+     * DMARC result for the domain in the received message's `From` header.
      * 
-     * - `pass`: the sender's identity was verified.
-     * - `fail`: it was checked and did not verify.
-     * - `unknown`: no verdict could be determined, so do not treat the
-     *   sender as verified.
+     * - `pass`: SPF or DKIM passed and aligned with that domain.
+     * - `fail`: DMARC was evaluated and did not pass.
+     * - `unknown`: no trustworthy verdict is available.
+     * 
+     * This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
      * 
      * Null for sent messages. This field is readable for the mailbox's full
      * retention tier, so the verdict is still available after the 30-day
@@ -131,22 +132,19 @@ class EmailThreadMessage
      */
     protected $authentication;
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @var bool|null
      */
     protected $spfPass;
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @var bool|null
      */
     protected $dkimPass;
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @var bool|null
      */
@@ -442,7 +440,7 @@ class EmailThreadMessage
      * 
      * - `inbox`: Accepted mail.
      * - `archive`: The message's conversation was filed away.
-     * - `spam`: The message failed sender authentication.
+     * - `spam`: The message is filed in Spam.
      * - `blocked`: The message was rejected by the mailbox's receive policy or rules.
      * 
      * A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
@@ -459,7 +457,7 @@ class EmailThreadMessage
     
     - `inbox`: Accepted mail.
     - `archive`: The message's conversation was filed away.
-    - `spam`: The message failed sender authentication.
+    - `spam`: The message is filed in Spam.
     - `blocked`: The message was rejected by the mailbox's receive policy or rules.
     
     A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
@@ -537,12 +535,13 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether the sender of a received message was authenticated.
+     * DMARC result for the domain in the received message's `From` header.
      * 
-     * - `pass`: the sender's identity was verified.
-     * - `fail`: it was checked and did not verify.
-     * - `unknown`: no verdict could be determined, so do not treat the
-     *   sender as verified.
+     * - `pass`: SPF or DKIM passed and aligned with that domain.
+     * - `fail`: DMARC was evaluated and did not pass.
+     * - `unknown`: no trustworthy verdict is available.
+     * 
+     * This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
      * 
      * Null for sent messages. This field is readable for the mailbox's full
      * retention tier, so the verdict is still available after the 30-day
@@ -556,12 +555,13 @@ class EmailThreadMessage
         return $this->authentication;
     }
     /**
-    * Whether the sender of a received message was authenticated.
+    * DMARC result for the domain in the received message's `From` header.
     
-    - `pass`: the sender's identity was verified.
-    - `fail`: it was checked and did not verify.
-    - `unknown`: no verdict could be determined, so do not treat the
-     sender as verified.
+    - `pass`: SPF or DKIM passed and aligned with that domain.
+    - `fail`: DMARC was evaluated and did not pass.
+    - `unknown`: no trustworthy verdict is available.
+    
+    This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
     
     Null for sent messages. This field is readable for the mailbox's full
     retention tier, so the verdict is still available after the 30-day
@@ -579,8 +579,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @return bool|null
      */
@@ -589,7 +588,7 @@ class EmailThreadMessage
         return $this->spfPass;
     }
     /**
-     * Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+     * Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @param bool|null $spfPass
      *
@@ -602,8 +601,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @return bool|null
      */
@@ -612,7 +610,7 @@ class EmailThreadMessage
         return $this->dkimPass;
     }
     /**
-     * Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+     * Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @param bool|null $dkimPass
      *
@@ -625,8 +623,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
-     * 
+     * Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @return bool|null
      */
@@ -635,7 +632,7 @@ class EmailThreadMessage
         return $this->dmarcPass;
     }
     /**
-     * Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+     * Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
      *
      * @param bool|null $dmarcPass
      *

@@ -30,7 +30,7 @@ class WhatsappTemplatesVersionsBase extends Resource
     {
         return $this->paginate(
             WhatsAppTemplateVersionSummary::class,
-            fn (?string $cursor): WhatsAppTemplateVersionList => $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions', WhatsAppTemplateVersionList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppTemplateVersionList => $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions', WhatsAppTemplateVersionList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppTemplateVersionList);
 

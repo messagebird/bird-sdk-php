@@ -48,11 +48,44 @@ class SMSMessage
      */
     protected $text;
     /**
-     * Content classification supplied on the send. Null for inbound messages.
+     * Content classification supplied for free text or derived from the template. Null for inbound messages.
      *
      * @var string|null
      */
     protected $category;
+    /**
+     * The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+     * 
+     *
+     * @var string|null
+     */
+    protected $requestedLanguage;
+    /**
+     * The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
+     * 
+     *
+     * @var string|null
+     */
+    protected $resolvedLanguage;
+    /**
+     * The template rendered for this message, or null for a free-text message.
+     *
+     * @var string|null
+     */
+    protected $templateId;
+    /**
+     * The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+     * 
+     *
+     * @var string|null
+     */
+    protected $templateVersionId;
+    /**
+     * The rendered language's source fingerprint, or null for a free-text message.
+     *
+     * @var string|null
+     */
+    protected $templateContentHash;
     /**
      * Segment breakdown for the message body. Segment count drives billing.
      *
@@ -255,7 +288,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Content classification supplied on the send. Null for inbound messages.
+     * Content classification supplied for free text or derived from the template. Null for inbound messages.
      *
      * @return string|null
      */
@@ -264,7 +297,7 @@ class SMSMessage
         return $this->category;
     }
     /**
-     * Content classification supplied on the send. Null for inbound messages.
+     * Content classification supplied for free text or derived from the template. Null for inbound messages.
      *
      * @param string|null $category
      *
@@ -274,6 +307,119 @@ class SMSMessage
     {
         $this->initialized['category'] = true;
         $this->category = $category;
+        return $this;
+    }
+    /**
+     * The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+     * 
+     *
+     * @return string|null
+     */
+    public function getRequestedLanguage(): ?string
+    {
+        return $this->requestedLanguage;
+    }
+    /**
+     * The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+     *
+     * @param string|null $requestedLanguage
+     *
+     * @return self
+     */
+    public function setRequestedLanguage(?string $requestedLanguage): self
+    {
+        $this->initialized['requestedLanguage'] = true;
+        $this->requestedLanguage = $requestedLanguage;
+        return $this;
+    }
+    /**
+     * The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
+     * 
+     *
+     * @return string|null
+     */
+    public function getResolvedLanguage(): ?string
+    {
+        return $this->resolvedLanguage;
+    }
+    /**
+     * The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
+     *
+     * @param string|null $resolvedLanguage
+     *
+     * @return self
+     */
+    public function setResolvedLanguage(?string $resolvedLanguage): self
+    {
+        $this->initialized['resolvedLanguage'] = true;
+        $this->resolvedLanguage = $resolvedLanguage;
+        return $this;
+    }
+    /**
+     * The template rendered for this message, or null for a free-text message.
+     *
+     * @return string|null
+     */
+    public function getTemplateId(): ?string
+    {
+        return $this->templateId;
+    }
+    /**
+     * The template rendered for this message, or null for a free-text message.
+     *
+     * @param string|null $templateId
+     *
+     * @return self
+     */
+    public function setTemplateId(?string $templateId): self
+    {
+        $this->initialized['templateId'] = true;
+        $this->templateId = $templateId;
+        return $this;
+    }
+    /**
+     * The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+     * 
+     *
+     * @return string|null
+     */
+    public function getTemplateVersionId(): ?string
+    {
+        return $this->templateVersionId;
+    }
+    /**
+     * The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+     *
+     * @param string|null $templateVersionId
+     *
+     * @return self
+     */
+    public function setTemplateVersionId(?string $templateVersionId): self
+    {
+        $this->initialized['templateVersionId'] = true;
+        $this->templateVersionId = $templateVersionId;
+        return $this;
+    }
+    /**
+     * The rendered language's source fingerprint, or null for a free-text message.
+     *
+     * @return string|null
+     */
+    public function getTemplateContentHash(): ?string
+    {
+        return $this->templateContentHash;
+    }
+    /**
+     * The rendered language's source fingerprint, or null for a free-text message.
+     *
+     * @param string|null $templateContentHash
+     *
+     * @return self
+     */
+    public function setTemplateContentHash(?string $templateContentHash): self
+    {
+        $this->initialized['templateContentHash'] = true;
+        $this->templateContentHash = $templateContentHash;
         return $this;
     }
     /**

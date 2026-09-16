@@ -10,7 +10,7 @@
 // regenerated from backend/surfaces/surfaces.yaml. Never hand-edit that list.
 
 return [
-    'openapi-file' => __DIR__ . '/.generated/openapi.public.compat.yaml',
+    'openapi-file' => getenv('BIRD_PHP_OPENAPI_FILE') ?: __DIR__ . '/.generated/openapi.public.compat.yaml',
     'namespace' => 'MessageBird\\Wire',
     // generate.sh sets BIRD_PHP_WIRE_OUT to beak's stage path so a beak run
     // writes into the stage, not the committed tree (see that script).

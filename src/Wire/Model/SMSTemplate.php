@@ -17,27 +17,32 @@ class SMSTemplate
      */
     protected $id;
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
+     * The workspace that owns the template. Null for a built-in `system` template.
+     *
+     * @var string|null
+     */
+    protected $workspaceId;
+    /**
+     * The immutable handle used to address and send the template. A built-in template's slug starts with `bird_`.
      * 
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * The template's display name, shown wherever the template is listed. Nothing resolves through it, so it is safe to show wherever a human reads the template.
-     * 
+     * The template's display name. It defaults to the slug and can be changed on workspace templates.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * What the template is for. Null when unset.
+     * What the template is for. Null if it has no description.
      *
      * @var string|null
      */
     protected $description;
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      * 
      *
      * @var string|null
@@ -67,77 +72,27 @@ class SMSTemplate
      */
     protected $status;
     /**
-     * Content classification applied to messages sent from this template.
+     * Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
+     * 
      *
      * @var string|null
      */
     protected $category;
     /**
-     * The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`). Name a `language` on the send to have another one served.
-     * 
-     *
-     * @var string|null
-     */
-    protected $body;
-    /**
-     * The typed slots this template fills in from the values you supply in `parameters` when sending. Every language of a template declares the same slots, so this list holds for whichever one a send resolves to.
-     * 
-     *
-     * @var list<TemplateVariable>|null
-     */
-    protected $variables;
-    /**
-     * The language a send uses when it names none, and the last resort when `on_missing_language` is `fallback` and the language asked for is not available.
-     * 
-     *
-     * @var string|null
-     */
-    protected $defaultLanguage;
-    /**
-     * The languages a send can resolve right now, as BCP-47 tags. The set may shrink for reasons other than editing, so read it rather than assuming it matches what you last saw.
-     * 
-     *
-     * @var list<string>|null
-     */
-    protected $availableLanguages;
-    /**
-     * Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
-     * 
-     *
-     * @var array<string, SMSTemplateLanguageState>|null
-     */
-    protected $languages;
-    /**
-     * What a send does when it asks for a language this template does not carry. Defaults to `fallback` on SMS.
-     * 
-     *
-     * @var string|null
-     */
-    protected $onMissingLanguage;
-    /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language.
-     * 
-     *
-     * @var bool|null
-     */
-    protected $languageSourceRequired;
-    /**
-     * The current editable draft version, or null for a built-in `system` template, which has no draft.
-     * 
+     * The permanent editable draft version. Null for a built-in template.
      *
      * @var string|null
      */
     protected $draftVersionId;
     /**
-     * The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
+     * The version sends resolve to, or null before a workspace template is first published. A built-in template points to a synthetic published version that projects its current catalogue content.
      * 
      *
      * @var string|null
      */
     protected $liveVersionId;
     /**
-     * Deprecated: use `live_version_id` instead, which carries the same value.
-     * 
+     * Deprecated. Use `live_version_id`, which carries the same value.
      *
      * @deprecated
      *
@@ -145,29 +100,57 @@ class SMSTemplate
      */
     protected $publishedVersionId;
     /**
-     * The draft's revision counter. Null for a built-in `system` template, which is unversioned.
-     * 
+     * The draft revision to use for concurrent-edit checks. Null for a built-in template.
      *
      * @var int|null
      */
     protected $revision;
     /**
-     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
+     * Each language the template has, keyed by canonical BCP-47 tag, with its live state and whether the draft contains unpublished changes. Content is available from version reads.
      * 
+     *
+     * @var array<string, SMSTemplateLanguageState>|null
+     */
+    protected $languages;
+    /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @var string|null
+     */
+    protected $defaultLanguage;
+    /**
+     * Languages the live version can currently send. Empty before first publication.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $availableLanguages;
+    /**
+     * How a send handles a requested language that the live version does not have.
+     *
+     * @var string|null
+     */
+    protected $onMissingLanguage;
+    /**
+     * Whether each send must name a language instead of using the live version's default.
+     *
+     * @var bool|null
+     */
+    protected $languageSourceRequired;
+    /**
+     * When the template was last published. Null before first publication and for built-in templates.
      *
      * @var \DateTime|null
      */
     protected $lastSubmittedAt;
     /**
-     * When the template was created. Null for a built-in `system` template, which Bird ships rather than stores.
-     * 
+     * When the template was created. Null for built-in templates.
      *
      * @var \DateTime|null
      */
     protected $createdAt;
     /**
-     * When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
-     * 
+     * When the template was last modified. Null for built-in templates.
      *
      * @var \DateTime|null
      */
@@ -191,7 +174,29 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
+     * The workspace that owns the template. Null for a built-in `system` template.
+     *
+     * @return string|null
+     */
+    public function getWorkspaceId(): ?string
+    {
+        return $this->workspaceId;
+    }
+    /**
+     * The workspace that owns the template. Null for a built-in `system` template.
+     *
+     * @param string|null $workspaceId
+     *
+     * @return self
+     */
+    public function setWorkspaceId(?string $workspaceId): self
+    {
+        $this->initialized['workspaceId'] = true;
+        $this->workspaceId = $workspaceId;
+        return $this;
+    }
+    /**
+     * The immutable handle used to address and send the template. A built-in template's slug starts with `bird_`.
      * 
      *
      * @return string|null
@@ -201,7 +206,7 @@ class SMSTemplate
         return $this->slug;
     }
     /**
-     * The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
+     * The immutable handle used to address and send the template. A built-in template's slug starts with `bird_`.
      *
      * @param string|null $slug
      *
@@ -214,8 +219,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The template's display name, shown wherever the template is listed. Nothing resolves through it, so it is safe to show wherever a human reads the template.
-     * 
+     * The template's display name. It defaults to the slug and can be changed on workspace templates.
      *
      * @return string|null
      */
@@ -224,7 +228,7 @@ class SMSTemplate
         return $this->name;
     }
     /**
-     * The template's display name, shown wherever the template is listed. Nothing resolves through it, so it is safe to show wherever a human reads the template.
+     * The template's display name. It defaults to the slug and can be changed on workspace templates.
      *
      * @param string|null $name
      *
@@ -237,7 +241,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * What the template is for. Null when unset.
+     * What the template is for. Null if it has no description.
      *
      * @return string|null
      */
@@ -246,7 +250,7 @@ class SMSTemplate
         return $this->description;
     }
     /**
-     * What the template is for. Null when unset.
+     * What the template is for. Null if it has no description.
      *
      * @param string|null $description
      *
@@ -259,7 +263,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      * 
      *
      * @return string|null
@@ -269,7 +273,7 @@ class SMSTemplate
         return $this->scope;
     }
     /**
-     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+     * Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
      *
      * @param string|null $scope
      *
@@ -338,7 +342,8 @@ class SMSTemplate
         return $this;
     }
     /**
-     * Content classification applied to messages sent from this template.
+     * Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
+     * 
      *
      * @return string|null
      */
@@ -347,7 +352,7 @@ class SMSTemplate
         return $this->category;
     }
     /**
-     * Content classification applied to messages sent from this template.
+     * Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
      *
      * @param string|null $category
      *
@@ -360,169 +365,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`). Name a `language` on the send to have another one served.
-     * 
-     *
-     * @return string|null
-     */
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-    /**
-     * The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`). Name a `language` on the send to have another one served.
-     *
-     * @param string|null $body
-     *
-     * @return self
-     */
-    public function setBody(?string $body): self
-    {
-        $this->initialized['body'] = true;
-        $this->body = $body;
-        return $this;
-    }
-    /**
-     * The typed slots this template fills in from the values you supply in `parameters` when sending. Every language of a template declares the same slots, so this list holds for whichever one a send resolves to.
-     * 
-     *
-     * @return list<TemplateVariable>|null
-     */
-    public function getVariables(): ?array
-    {
-        return $this->variables;
-    }
-    /**
-     * The typed slots this template fills in from the values you supply in `parameters` when sending. Every language of a template declares the same slots, so this list holds for whichever one a send resolves to.
-     *
-     * @param list<TemplateVariable>|null $variables
-     *
-     * @return self
-     */
-    public function setVariables(?array $variables): self
-    {
-        $this->initialized['variables'] = true;
-        $this->variables = $variables;
-        return $this;
-    }
-    /**
-     * The language a send uses when it names none, and the last resort when `on_missing_language` is `fallback` and the language asked for is not available.
-     * 
-     *
-     * @return string|null
-     */
-    public function getDefaultLanguage(): ?string
-    {
-        return $this->defaultLanguage;
-    }
-    /**
-     * The language a send uses when it names none, and the last resort when `on_missing_language` is `fallback` and the language asked for is not available.
-     *
-     * @param string|null $defaultLanguage
-     *
-     * @return self
-     */
-    public function setDefaultLanguage(?string $defaultLanguage): self
-    {
-        $this->initialized['defaultLanguage'] = true;
-        $this->defaultLanguage = $defaultLanguage;
-        return $this;
-    }
-    /**
-     * The languages a send can resolve right now, as BCP-47 tags. The set may shrink for reasons other than editing, so read it rather than assuming it matches what you last saw.
-     * 
-     *
-     * @return list<string>|null
-     */
-    public function getAvailableLanguages(): ?array
-    {
-        return $this->availableLanguages;
-    }
-    /**
-     * The languages a send can resolve right now, as BCP-47 tags. The set may shrink for reasons other than editing, so read it rather than assuming it matches what you last saw.
-     *
-     * @param list<string>|null $availableLanguages
-     *
-     * @return self
-     */
-    public function setAvailableLanguages(?array $availableLanguages): self
-    {
-        $this->initialized['availableLanguages'] = true;
-        $this->availableLanguages = $availableLanguages;
-        return $this;
-    }
-    /**
-     * Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
-     * 
-     *
-     * @return array<string, SMSTemplateLanguageState>|null
-     */
-    public function getLanguages(): ?iterable
-    {
-        return $this->languages;
-    }
-    /**
-     * Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
-     *
-     * @param array<string, SMSTemplateLanguageState>|null $languages
-     *
-     * @return self
-     */
-    public function setLanguages(?iterable $languages): self
-    {
-        $this->initialized['languages'] = true;
-        $this->languages = $languages;
-        return $this;
-    }
-    /**
-     * What a send does when it asks for a language this template does not carry. Defaults to `fallback` on SMS.
-     * 
-     *
-     * @return string|null
-     */
-    public function getOnMissingLanguage(): ?string
-    {
-        return $this->onMissingLanguage;
-    }
-    /**
-     * What a send does when it asks for a language this template does not carry. Defaults to `fallback` on SMS.
-     *
-     * @param string|null $onMissingLanguage
-     *
-     * @return self
-     */
-    public function setOnMissingLanguage(?string $onMissingLanguage): self
-    {
-        $this->initialized['onMissingLanguage'] = true;
-        $this->onMissingLanguage = $onMissingLanguage;
-        return $this;
-    }
-    /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language.
-     * 
-     *
-     * @return bool|null
-     */
-    public function getLanguageSourceRequired(): ?bool
-    {
-        return $this->languageSourceRequired;
-    }
-    /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language.
-     *
-     * @param bool|null $languageSourceRequired
-     *
-     * @return self
-     */
-    public function setLanguageSourceRequired(?bool $languageSourceRequired): self
-    {
-        $this->initialized['languageSourceRequired'] = true;
-        $this->languageSourceRequired = $languageSourceRequired;
-        return $this;
-    }
-    /**
-     * The current editable draft version, or null for a built-in `system` template, which has no draft.
-     * 
+     * The permanent editable draft version. Null for a built-in template.
      *
      * @return string|null
      */
@@ -531,7 +374,7 @@ class SMSTemplate
         return $this->draftVersionId;
     }
     /**
-     * The current editable draft version, or null for a built-in `system` template, which has no draft.
+     * The permanent editable draft version. Null for a built-in template.
      *
      * @param string|null $draftVersionId
      *
@@ -544,7 +387,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
+     * The version sends resolve to, or null before a workspace template is first published. A built-in template points to a synthetic published version that projects its current catalogue content.
      * 
      *
      * @return string|null
@@ -554,7 +397,7 @@ class SMSTemplate
         return $this->liveVersionId;
     }
     /**
-     * The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
+     * The version sends resolve to, or null before a workspace template is first published. A built-in template points to a synthetic published version that projects its current catalogue content.
      *
      * @param string|null $liveVersionId
      *
@@ -567,8 +410,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * Deprecated: use `live_version_id` instead, which carries the same value.
-     * 
+     * Deprecated. Use `live_version_id`, which carries the same value.
      *
      * @deprecated
      *
@@ -579,7 +421,7 @@ class SMSTemplate
         return $this->publishedVersionId;
     }
     /**
-     * Deprecated: use `live_version_id` instead, which carries the same value.
+     * Deprecated. Use `live_version_id`, which carries the same value.
      *
      * @param string|null $publishedVersionId
      *
@@ -594,8 +436,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * The draft's revision counter. Null for a built-in `system` template, which is unversioned.
-     * 
+     * The draft revision to use for concurrent-edit checks. Null for a built-in template.
      *
      * @return int|null
      */
@@ -604,7 +445,7 @@ class SMSTemplate
         return $this->revision;
     }
     /**
-     * The draft's revision counter. Null for a built-in `system` template, which is unversioned.
+     * The draft revision to use for concurrent-edit checks. Null for a built-in template.
      *
      * @param int|null $revision
      *
@@ -617,8 +458,119 @@ class SMSTemplate
         return $this;
     }
     /**
-     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
+     * Each language the template has, keyed by canonical BCP-47 tag, with its live state and whether the draft contains unpublished changes. Content is available from version reads.
      * 
+     *
+     * @return array<string, SMSTemplateLanguageState>|null
+     */
+    public function getLanguages(): ?iterable
+    {
+        return $this->languages;
+    }
+    /**
+     * Each language the template has, keyed by canonical BCP-47 tag, with its live state and whether the draft contains unpublished changes. Content is available from version reads.
+     *
+     * @param array<string, SMSTemplateLanguageState>|null $languages
+     *
+     * @return self
+     */
+    public function setLanguages(?iterable $languages): self
+    {
+        $this->initialized['languages'] = true;
+        $this->languages = $languages;
+        return $this;
+    }
+    /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @return string|null
+     */
+    public function getDefaultLanguage(): ?string
+    {
+        return $this->defaultLanguage;
+    }
+    /**
+     * A language tag in BCP-47 form, for example `en` or `pt-BR`.
+     *
+     * @param string|null $defaultLanguage
+     *
+     * @return self
+     */
+    public function setDefaultLanguage(?string $defaultLanguage): self
+    {
+        $this->initialized['defaultLanguage'] = true;
+        $this->defaultLanguage = $defaultLanguage;
+        return $this;
+    }
+    /**
+     * Languages the live version can currently send. Empty before first publication.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getAvailableLanguages(): ?array
+    {
+        return $this->availableLanguages;
+    }
+    /**
+     * Languages the live version can currently send. Empty before first publication.
+     *
+     * @param list<string>|null $availableLanguages
+     *
+     * @return self
+     */
+    public function setAvailableLanguages(?array $availableLanguages): self
+    {
+        $this->initialized['availableLanguages'] = true;
+        $this->availableLanguages = $availableLanguages;
+        return $this;
+    }
+    /**
+     * How a send handles a requested language that the live version does not have.
+     *
+     * @return string|null
+     */
+    public function getOnMissingLanguage(): ?string
+    {
+        return $this->onMissingLanguage;
+    }
+    /**
+     * How a send handles a requested language that the live version does not have.
+     *
+     * @param string|null $onMissingLanguage
+     *
+     * @return self
+     */
+    public function setOnMissingLanguage(?string $onMissingLanguage): self
+    {
+        $this->initialized['onMissingLanguage'] = true;
+        $this->onMissingLanguage = $onMissingLanguage;
+        return $this;
+    }
+    /**
+     * Whether each send must name a language instead of using the live version's default.
+     *
+     * @return bool|null
+     */
+    public function getLanguageSourceRequired(): ?bool
+    {
+        return $this->languageSourceRequired;
+    }
+    /**
+     * Whether each send must name a language instead of using the live version's default.
+     *
+     * @param bool|null $languageSourceRequired
+     *
+     * @return self
+     */
+    public function setLanguageSourceRequired(?bool $languageSourceRequired): self
+    {
+        $this->initialized['languageSourceRequired'] = true;
+        $this->languageSourceRequired = $languageSourceRequired;
+        return $this;
+    }
+    /**
+     * When the template was last published. Null before first publication and for built-in templates.
      *
      * @return \DateTime|null
      */
@@ -627,7 +579,7 @@ class SMSTemplate
         return $this->lastSubmittedAt;
     }
     /**
-     * When this template was last submitted. Null for a built-in `system` template, which is already available to send.
+     * When the template was last published. Null before first publication and for built-in templates.
      *
      * @param \DateTime|null $lastSubmittedAt
      *
@@ -640,8 +592,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * When the template was created. Null for a built-in `system` template, which Bird ships rather than stores.
-     * 
+     * When the template was created. Null for built-in templates.
      *
      * @return \DateTime|null
      */
@@ -650,7 +601,7 @@ class SMSTemplate
         return $this->createdAt;
     }
     /**
-     * When the template was created. Null for a built-in `system` template, which Bird ships rather than stores.
+     * When the template was created. Null for built-in templates.
      *
      * @param \DateTime|null $createdAt
      *
@@ -663,8 +614,7 @@ class SMSTemplate
         return $this;
     }
     /**
-     * When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
-     * 
+     * When the template was last modified. Null for built-in templates.
      *
      * @return \DateTime|null
      */
@@ -673,7 +623,7 @@ class SMSTemplate
         return $this->updatedAt;
     }
     /**
-     * When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
+     * When the template was last modified. Null for built-in templates.
      *
      * @param \DateTime|null $updatedAt
      *

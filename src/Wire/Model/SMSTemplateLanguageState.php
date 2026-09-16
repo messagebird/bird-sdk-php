@@ -26,6 +26,13 @@ class SMSTemplateLanguageState
      */
     protected $status;
     /**
+     * Whether the draft has an unpublished change for this language. When true beside `live`, sends keep using the older published text until submit.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $draft;
+    /**
      * Status of one template language on channels without third-party review.
      * 
      * - `draft`: it has never been published.
@@ -59,6 +66,29 @@ class SMSTemplateLanguageState
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * Whether the draft has an unpublished change for this language. When true beside `live`, sends keep using the older published text until submit.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getDraft(): ?bool
+    {
+        return $this->draft;
+    }
+    /**
+     * Whether the draft has an unpublished change for this language. When true beside `live`, sends keep using the older published text until submit.
+     *
+     * @param bool|null $draft
+     *
+     * @return self
+     */
+    public function setDraft(?bool $draft): self
+    {
+        $this->initialized['draft'] = true;
+        $this->draft = $draft;
         return $this;
     }
 }

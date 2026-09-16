@@ -20,7 +20,7 @@ class SMSMessageSendRequest
      */
     protected $to;
     /**
-     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template. Omitting it in either case returns `422`. A built-in template selects its sender automatically and rejects `from`.
      * 
      *
      * @var string|null
@@ -87,7 +87,7 @@ class SMSMessageSendRequest
      */
     protected $scheduledAt;
     /**
-     * Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      * 
      *
      * @var SMSMessageSendRequestTemplate|null
@@ -153,7 +153,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template. Omitting it in either case returns `422`. A built-in template selects its sender automatically and rejects `from`.
      * 
      *
      * @return string|null
@@ -163,7 +163,7 @@ class SMSMessageSendRequest
         return $this->from;
     }
     /**
-     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+     * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template. Omitting it in either case returns `422`. A built-in template selects its sender automatically and rejects `from`.
      *
      * @param string|null $from
      *
@@ -380,7 +380,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      * 
      *
      * @return SMSMessageSendRequestTemplate|null
@@ -390,7 +390,7 @@ class SMSMessageSendRequest
         return $this->template;
     }
     /**
-     * Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      *
      * @param SMSMessageSendRequestTemplate|null $template
      *

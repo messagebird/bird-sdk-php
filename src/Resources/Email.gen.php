@@ -8,6 +8,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\EmailHealth;
 use MessageBird\Wire\Model\EmailMessage;
 use MessageBird\Wire\Model\EmailMessageList;
 
@@ -41,7 +42,7 @@ class EmailBase extends Resource
     {
         return $this->paginate(
             EmailMessage::class,
-            fn (?string $cursor): EmailMessageList => $this->single('GET', '/v1/email/messages', EmailMessageList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailMessageList => $this->single('GET', '/v1/email/messages', EmailMessageList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailMessageList);
 
@@ -64,5 +65,22 @@ class EmailBase extends Resource
     public function cancel(string $messageId, ?RequestOptions $options = null): void
     {
         $this->none('POST', '/v1/email/messages/' . rawurlencode($messageId) . '/cancel', null, null, $options);
+    }
+
+    /**
+     * Deliverability verdict for one window: an overall `healthy`, `watching`, or `throttled` status, plus signals for delivery, opens, bounces, and complaints. Each signal carries its rate and verdict. Delivery, bounce, and complaint signals include the thresholds that set their verdicts; open rate has no risk thresholds. Reports risk only and never pauses sending. Window defaults to the 7 days before today (UTC), maximum 365 days. For the counts and rates behind the verdict use `email.stats.summary`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Sending-health verdict for a month
+     * $health = $bird->email->health(['from' => '2026-05-01', 'to' => '2026-05-31']);
+     * echo $health->getStatus(), "\n";
+     * foreach ($health->getSignals() ?? [] as $signal) {
+     *     echo $signal->getMetric(), ' ', $signal->getValue(), ' ', $signal->getStatus(), "\n";
+     * }
+     */
+    public function health(?array $query = null, ?RequestOptions $options = null): EmailHealth
+    {
+        return $this->single('GET', '/v1/email/health', EmailHealth::class, null, $query, $options);
     }
 }

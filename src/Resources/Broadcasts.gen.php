@@ -36,7 +36,7 @@ class BroadcastsBase extends Resource
     {
         return $this->paginate(
             EmailBroadcast::class,
-            fn (?string $cursor): EmailBroadcastList => $this->single('GET', '/v1/email/broadcasts', EmailBroadcastList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailBroadcastList => $this->single('GET', '/v1/email/broadcasts', EmailBroadcastList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailBroadcastList);
 
@@ -102,7 +102,7 @@ class BroadcastsBase extends Resource
     {
         return $this->paginate(
             EmailEvent::class,
-            fn (?string $cursor): EmailEventList => $this->single('GET', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/events', EmailEventList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailEventList => $this->single('GET', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/events', EmailEventList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailEventList);
 
@@ -132,7 +132,7 @@ class BroadcastsBase extends Resource
     {
         return $this->paginate(
             EmailRecipient::class,
-            fn (?string $cursor): EmailRecipientList => $this->single('GET', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/recipients', EmailRecipientList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailRecipientList => $this->single('GET', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/recipients', EmailRecipientList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailRecipientList);
 

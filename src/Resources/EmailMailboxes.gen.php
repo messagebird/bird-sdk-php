@@ -33,7 +33,7 @@ class EmailMailboxesBase extends Resource
     {
         return $this->paginate(
             Mailbox::class,
-            fn (?string $cursor): MailboxList => $this->single('GET', '/v1/email/mailboxes', MailboxList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): MailboxList => $this->single('GET', '/v1/email/mailboxes', MailboxList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof MailboxList);
 

@@ -20,7 +20,7 @@ class TemplateVariable
      */
     protected $key;
     /**
-     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
      * 
      *
      * @var string|null
@@ -40,7 +40,7 @@ class TemplateVariable
      */
     protected $constraint;
     /**
-     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
      * 
      *
      * @var bool|null
@@ -70,7 +70,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
      * 
      *
      * @return string|null
@@ -80,7 +80,7 @@ class TemplateVariable
         return $this->type;
     }
     /**
-     * The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
      *
      * @param string|null $type
      *
@@ -138,7 +138,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
      * 
      *
      * @return bool|null
@@ -148,7 +148,7 @@ class TemplateVariable
         return $this->sensitive;
     }
     /**
-     * Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
      *
      * @param bool|null $sensitive
      *

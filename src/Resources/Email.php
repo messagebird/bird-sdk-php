@@ -28,6 +28,8 @@ final class Email extends EmailBase
     public readonly EmailMailboxes $mailboxes;
     public readonly EmailThreads $threads;
     public readonly EmailTemplates $templates;
+    public readonly EmailCompetitive $competitive;
+    public readonly EmailInboxInsights $inboxInsights;
 
     public function __construct(Bird $client)
     {
@@ -36,6 +38,8 @@ final class Email extends EmailBase
         $this->mailboxes = new EmailMailboxes($client);
         $this->threads = new EmailThreads($client);
         $this->templates = new EmailTemplates($client);
+        $this->competitive = new EmailCompetitive($client);
+        $this->inboxInsights = new EmailInboxInsights($client);
     }
 
     /**

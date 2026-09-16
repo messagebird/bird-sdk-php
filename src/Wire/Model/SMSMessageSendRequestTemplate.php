@@ -17,14 +17,14 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
      */
     protected $id;
     /**
-     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
      * 
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+     * Deprecated. Use `slug` instead. This resolves legacy built-in catalogue names and never matches a workspace template's display name.
      * 
      *
      * @deprecated
@@ -40,7 +40,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
      */
     protected $language;
     /**
-     * Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      * 
      *
      * @var array<string, mixed>|null
@@ -65,7 +65,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
      * 
      *
      * @return string|null
@@ -75,7 +75,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->slug;
     }
     /**
-     * The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+     * The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
      *
      * @param string|null $slug
      *
@@ -88,7 +88,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+     * Deprecated. Use `slug` instead. This resolves legacy built-in catalogue names and never matches a workspace template's display name.
      * 
      *
      * @deprecated
@@ -100,7 +100,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->name;
     }
     /**
-     * Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+     * Deprecated. Use `slug` instead. This resolves legacy built-in catalogue names and never matches a workspace template's display name.
      *
      * @param string|null $name
      *
@@ -138,7 +138,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      * 
      *
      * @return array<string, mixed>|null
@@ -148,7 +148,7 @@ class SMSMessageSendRequestTemplate extends \ArrayObject
         return $this->parameters;
     }
     /**
-     * Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      *
      * @param array<string, mixed>|null $parameters
      *

@@ -6,34 +6,50 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
+use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSTemplate;
 use MessageBird\Wire\Model\SMSTemplateList;
+use MessageBird\Wire\Model\SMSTemplateSummary;
 
-final class SmsTemplates extends Resource
+class SmsTemplatesBase extends Resource
 {
     /**
-     * List the SMS templates available to your workspace, including our built-in templates. Filter by scope, category, or language. The catalog is small and returned in full; this list is not paginated. Use `sms_templates.get` to read one template's variables before sending with it.
+     * List workspace and built-in SMS templates as a cursor page. Filter by scope, category, status, language, or a search across slug, name, and description. Read a version to retrieve content and variables.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
+     * @return Page<SMSTemplateSummary>
+     *
      * @example List the built-in templates
-     * $templates = $bird->smsTemplates->list(['scope' => 'system']);
-     * foreach ($templates->getData() ?? [] as $template) {
+     * foreach ($bird->smsTemplates->list(['scope' => 'system']) as $template) {
      *     echo $template->getId(), ' ', $template->getSlug(), "\n";
      * }
      */
-    public function list(?array $query = null, ?RequestOptions $options = null): SMSTemplateList
+    public function list(?array $query = null, ?RequestOptions $options = null): Page
     {
-        return $this->single('GET', '/v1/sms/templates', SMSTemplateList::class, null, $query, $options);
+        return $this->paginate(
+            SMSTemplateSummary::class,
+            fn (?string $cursor): SMSTemplateList => $this->single('GET', '/v1/sms/templates', SMSTemplateList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof SMSTemplateList);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof SMSTemplateList);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
-     * Get one SMS template by its slug or ID, including its body and the variables it expects. Fetch it before `sms.send` to see which parameter keys a template send requires.
+     * Read one SMS template's metadata, language states, draft revision, and draft and live version IDs. The response omits content and variables; read a version to retrieve them.
      *
-     * @example Read one template by slug or id
+     * @example Read a template's live version
      * $template = $bird->smsTemplates->get('bird_otp_verification');
-     * echo $template->getBody();
+     * echo $template->getDefaultLanguage(), ' ', $template->getLiveVersionId();
      */
     public function get(string $templateRef, ?RequestOptions $options = null): SMSTemplate
     {

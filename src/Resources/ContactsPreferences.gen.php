@@ -29,7 +29,7 @@ final class ContactsPreferences extends Resource
     {
         return $this->paginate(
             Preference::class,
-            fn (?string $cursor): PreferenceList => $this->single('GET', '/v1/contacts/' . rawurlencode($contactId) . '/preferences', PreferenceList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): PreferenceList => $this->single('GET', '/v1/contacts/' . rawurlencode($contactId) . '/preferences', PreferenceList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof PreferenceList);
 

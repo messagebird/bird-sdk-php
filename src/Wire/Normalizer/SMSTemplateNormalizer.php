@@ -46,6 +46,12 @@ class SMSTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
+        if (\array_key_exists('workspace_id', $data) && $data['workspace_id'] !== null) {
+            $object->setWorkspaceId($data['workspace_id']);
+        }
+        elseif (\array_key_exists('workspace_id', $data) && $data['workspace_id'] === null) {
+            $object->setWorkspaceId(null);
+        }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
         }
@@ -82,60 +88,6 @@ class SMSTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
-        if (\array_key_exists('body', $data) && $data['body'] !== null) {
-            $object->setBody($data['body']);
-        }
-        elseif (\array_key_exists('body', $data) && $data['body'] === null) {
-            $object->setBody(null);
-        }
-        if (\array_key_exists('variables', $data) && $data['variables'] !== null) {
-            $values = [];
-            foreach ($data['variables'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\TemplateVariable::class, 'json', $context);
-            }
-            $object->setVariables($values);
-        }
-        elseif (\array_key_exists('variables', $data) && $data['variables'] === null) {
-            $object->setVariables(null);
-        }
-        if (\array_key_exists('default_language', $data) && $data['default_language'] !== null) {
-            $object->setDefaultLanguage($data['default_language']);
-        }
-        elseif (\array_key_exists('default_language', $data) && $data['default_language'] === null) {
-            $object->setDefaultLanguage(null);
-        }
-        if (\array_key_exists('available_languages', $data) && $data['available_languages'] !== null) {
-            $values_1 = [];
-            foreach ($data['available_languages'] as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $object->setAvailableLanguages($values_1);
-        }
-        elseif (\array_key_exists('available_languages', $data) && $data['available_languages'] === null) {
-            $object->setAvailableLanguages(null);
-        }
-        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
-            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['languages'] as $key => $value_2) {
-                $values_2[$key] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\SMSTemplateLanguageState::class, 'json', $context);
-            }
-            $object->setLanguages($values_2);
-        }
-        elseif (\array_key_exists('languages', $data) && $data['languages'] === null) {
-            $object->setLanguages(null);
-        }
-        if (\array_key_exists('on_missing_language', $data) && $data['on_missing_language'] !== null) {
-            $object->setOnMissingLanguage($data['on_missing_language']);
-        }
-        elseif (\array_key_exists('on_missing_language', $data) && $data['on_missing_language'] === null) {
-            $object->setOnMissingLanguage(null);
-        }
-        if (\array_key_exists('language_source_required', $data) && $data['language_source_required'] !== null) {
-            $object->setLanguageSourceRequired($data['language_source_required']);
-        }
-        elseif (\array_key_exists('language_source_required', $data) && $data['language_source_required'] === null) {
-            $object->setLanguageSourceRequired(null);
-        }
         if (\array_key_exists('draft_version_id', $data) && $data['draft_version_id'] !== null) {
             $object->setDraftVersionId($data['draft_version_id']);
         }
@@ -159,6 +111,44 @@ class SMSTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         elseif (\array_key_exists('revision', $data) && $data['revision'] === null) {
             $object->setRevision(null);
+        }
+        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['languages'] as $key => $value) {
+                $values[$key] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\SMSTemplateLanguageState::class, 'json', $context);
+            }
+            $object->setLanguages($values);
+        }
+        elseif (\array_key_exists('languages', $data) && $data['languages'] === null) {
+            $object->setLanguages(null);
+        }
+        if (\array_key_exists('default_language', $data) && $data['default_language'] !== null) {
+            $object->setDefaultLanguage($data['default_language']);
+        }
+        elseif (\array_key_exists('default_language', $data) && $data['default_language'] === null) {
+            $object->setDefaultLanguage(null);
+        }
+        if (\array_key_exists('available_languages', $data) && $data['available_languages'] !== null) {
+            $values_1 = [];
+            foreach ($data['available_languages'] as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setAvailableLanguages($values_1);
+        }
+        elseif (\array_key_exists('available_languages', $data) && $data['available_languages'] === null) {
+            $object->setAvailableLanguages(null);
+        }
+        if (\array_key_exists('on_missing_language', $data) && $data['on_missing_language'] !== null) {
+            $object->setOnMissingLanguage($data['on_missing_language']);
+        }
+        elseif (\array_key_exists('on_missing_language', $data) && $data['on_missing_language'] === null) {
+            $object->setOnMissingLanguage(null);
+        }
+        if (\array_key_exists('language_source_required', $data) && $data['language_source_required'] !== null) {
+            $object->setLanguageSourceRequired($data['language_source_required']);
+        }
+        elseif (\array_key_exists('language_source_required', $data) && $data['language_source_required'] === null) {
+            $object->setLanguageSourceRequired(null);
         }
         if (\array_key_exists('last_submitted_at', $data) && $data['last_submitted_at'] !== null) {
             $object->setLastSubmittedAt(new \DateTime($data['last_submitted_at']));
@@ -184,6 +174,10 @@ class SMSTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
     {
         $dataArray = [];
         $dataArray['id'] = $data->getId();
+        $dataArray['name'] = $data->getName();
+        $dataArray['description'] = $data->getDescription();
+        $dataArray['category'] = $data->getCategory();
+        $dataArray['default_language'] = $data->getDefaultLanguage();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

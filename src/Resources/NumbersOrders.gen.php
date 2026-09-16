@@ -51,7 +51,7 @@ final class NumbersOrders extends Resource
     {
         return $this->paginate(
             NumbersOrder::class,
-            fn (?string $cursor): NumbersOrderList => $this->single('GET', '/v1/numbers/orders', NumbersOrderList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): NumbersOrderList => $this->single('GET', '/v1/numbers/orders', NumbersOrderList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof NumbersOrderList);
 

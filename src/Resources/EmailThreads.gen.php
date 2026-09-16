@@ -30,7 +30,7 @@ class EmailThreadsBase extends Resource
     {
         return $this->paginate(
             EmailThread::class,
-            fn (?string $cursor): EmailThreadList => $this->single('GET', '/v1/email/threads', EmailThreadList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): EmailThreadList => $this->single('GET', '/v1/email/threads', EmailThreadList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof EmailThreadList);
 

@@ -89,13 +89,15 @@ final class ContactsRequestTest extends TestCase
         $client = new SequencedClient([$page1, $page2]);
         $bird = new Bird('bk_test', 'https://api.example.test', $client);
 
-        $items = iterator_to_array($bird->contacts->list());
+        $items = iterator_to_array($bird->contacts->list(['ending_before' => 'anchor']));
 
         self::assertCount(2, $items);
         self::assertContainsOnlyInstancesOf(Contact::class, $items);
         // Two pages fetched; the second request carried the forward cursor.
         self::assertCount(2, $client->requests);
+        self::assertStringContainsString('ending_before=anchor', (string) $client->requests[0]->getUri());
         self::assertStringContainsString('starting_after=cur2', (string) $client->requests[1]->getUri());
+        self::assertStringNotContainsString('ending_before=', (string) $client->requests[1]->getUri());
     }
 
     public function testDeleteSendsDeleteWithAnIdempotencyKeyAndNoBody(): void

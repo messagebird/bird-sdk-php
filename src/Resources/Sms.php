@@ -33,8 +33,10 @@ final class Sms extends SmsBase
      * Send an SMS and return the created message.
      *
      * Provide either $text (with $category and $from) or a $template (by id
-     * `smt_…` or slug, with $parameters). The two are mutually exclusive. An
-     * unset optional argument is omitted from the request.
+     * `smt_…` or slug, with $parameters). A workspace template requires an
+     * owned $from; a built-in template selects its sender and rejects $from.
+     * The two content forms are mutually exclusive. An unset optional argument
+     * is omitted from the request.
      *
      * @param string|null                $template   stored template id (`smt_…`) or slug
      * @param array<string, mixed>|null  $parameters template variable values; template sends only

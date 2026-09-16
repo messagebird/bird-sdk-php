@@ -31,7 +31,7 @@ final class Voice extends Resource
 
         return $this->paginate(
             VoiceCall::class,
-            fn (?string $cursor): VoiceCallList => $this->single('GET', '/v1/voice/calls', VoiceCallList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): VoiceCallList => $this->single('GET', '/v1/voice/calls', VoiceCallList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof VoiceCallList);
 

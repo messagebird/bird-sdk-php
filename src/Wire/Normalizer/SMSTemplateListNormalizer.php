@@ -40,12 +40,39 @@ class SMSTemplateListNormalizer implements DenormalizerInterface, NormalizerInte
         if (\array_key_exists('data', $data) && $data['data'] !== null) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\SMSTemplate::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\SMSTemplateSummary::class, 'json', $context);
             }
             $object->setData($values);
+            unset($data['data']);
         }
         elseif (\array_key_exists('data', $data) && $data['data'] === null) {
             $object->setData(null);
+        }
+        if (\array_key_exists('next_cursor', $data) && $data['next_cursor'] !== null) {
+            $object->setNextCursor($data['next_cursor']);
+            unset($data['next_cursor']);
+        }
+        elseif (\array_key_exists('next_cursor', $data) && $data['next_cursor'] === null) {
+            $object->setNextCursor(null);
+        }
+        if (\array_key_exists('prev_cursor', $data) && $data['prev_cursor'] !== null) {
+            $object->setPrevCursor($data['prev_cursor']);
+            unset($data['prev_cursor']);
+        }
+        elseif (\array_key_exists('prev_cursor', $data) && $data['prev_cursor'] === null) {
+            $object->setPrevCursor(null);
+        }
+        if (\array_key_exists('refresh_cursor', $data) && $data['refresh_cursor'] !== null) {
+            $object->setRefreshCursor($data['refresh_cursor']);
+            unset($data['refresh_cursor']);
+        }
+        elseif (\array_key_exists('refresh_cursor', $data) && $data['refresh_cursor'] === null) {
+            $object->setRefreshCursor(null);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
+            }
         }
         return $object;
     }
@@ -57,6 +84,14 @@ class SMSTemplateListNormalizer implements DenormalizerInterface, NormalizerInte
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        $dataArray['next_cursor'] = $data->getNextCursor();
+        $dataArray['prev_cursor'] = $data->getPrevCursor();
+        $dataArray['refresh_cursor'] = $data->getRefreshCursor();
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

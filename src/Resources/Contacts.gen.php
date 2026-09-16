@@ -33,7 +33,7 @@ class ContactsBase extends Resource
     {
         return $this->paginate(
             Contact::class,
-            fn (?string $cursor): ContactList => $this->single('GET', '/v1/contacts', ContactList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): ContactList => $this->single('GET', '/v1/contacts', ContactList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof ContactList);
 

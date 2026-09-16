@@ -90,6 +90,12 @@ $next = $page->nextCursor; // pass back as starting_after to fetch the next page
 
 $bird->email->cancel('em_01krdgeqcxet5s7t44vh8rt9mg');
 
+$health = $bird->email->health(['from' => '2026-05-01', 'to' => '2026-05-31']);
+echo $health->getStatus(), "\n";
+foreach ($health->getSignals() ?? [] as $signal) {
+    echo $signal->getMetric(), ' ', $signal->getValue(), ' ', $signal->getStatus(), "\n";
+}
+
 $summary = $bird->email->stats->summary(['from' => '2026-05-01', 'to' => '2026-05-31']);
 echo $summary->getSendsAccepted(), ' ', $summary->getDelivery()?->getDelivered();
 
@@ -350,3 +356,234 @@ $bird->email->send(
 foreach ($bird->email->templates->list(['scope' => 'workspace']) as $template) {
     echo $template->getSlug(), ' ', $template->getName(), "\n";
 }
+
+// Requires Insights preview access for the organization.
+$report = $bird->email->competitive->brands->search(['q' => 'Everlane']);
+var_dump($report->getData());
+
+// Requires Insights preview access for the organization.
+$report = $bird->email->competitive->watchlist->get(['range' => 30]);
+var_dump($report->getData());
+
+// Requires Insights preview access for the organization.
+$matches = $bird->email->competitive->brands->search(['q' => 'Everlane']);
+$brandId = null;
+foreach ($matches->getData() ?? [] as $match) {
+    if ($match->getName() === 'Everlane') {
+        $brandId = $match->getBrandId();
+        break;
+    }
+}
+if ($brandId === null) {
+    throw new \RuntimeException('No exact Everlane match');
+}
+$params = (new \MessageBird\Wire\Model\EmailCompetitiveWatchlistBrandCreate())->setBrandId($brandId);
+$entry = $bird->email->competitive->watchlist->brands->create($params);
+echo $entry->getId();
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+$report = $bird->email->competitive->watchlist->brands->get($watchlistBrandId, ['range' => 30]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+$report = $bird->email->competitive->watchlist->brands->sendTime($watchlistBrandId, ['timezone' => 'UTC']);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+$bird->email->competitive->watchlist->brands->delete($watchlistBrandId);
+
+// Requires Insights preview access for the organization.
+$report = $bird->email->competitive->watchlist->notable(['range' => 30]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+$report = $bird->email->competitive->volumeSeries(['range' => 30, 'brand_ids' => [$watchlistBrandId]]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+foreach ($bird->email->competitive->watchlist->brands->campaigns->list($watchlistBrandId, ['range' => 30, 'limit' => 25]) as $campaign) {
+    echo $campaign->getId(), "\n";
+}
+
+// Requires Insights preview access for the organization.
+$watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
+$watchlistBrandId = null;
+foreach ($watchlist->getData() ?? [] as $row) {
+    if ($row->getName() === 'Everlane' && $row->getWatchlistBrandId() !== null) {
+        $watchlistBrandId = $row->getWatchlistBrandId();
+        break;
+    }
+}
+if ($watchlistBrandId === null) {
+    throw new \RuntimeException('Add Everlane to the watchlist first');
+}
+$page = $bird->email->competitive->watchlist->brands->campaigns->list($watchlistBrandId, ['range' => 30, 'limit' => 1])->fetch();
+$campaignId = ($page->data[0] ?? null)?->getId();
+if ($campaignId === null) {
+    throw new \RuntimeException('No captured campaigns');
+}
+$report = $bird->email->competitive->watchlist->brands->campaigns->get($watchlistBrandId, $campaignId);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+foreach ($bird->email->inboxInsights->domains->list(['limit' => 25]) as $domain) {
+    var_dump($domain->getDomain(), $domain->getMonitored());
+}
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$params = (new \MessageBird\Wire\Model\EmailInboxInsightsDomainUpdate())->setMonitored(false);
+$report = $bird->email->inboxInsights->domains->update($sendingDomain, $params);
+var_dump($report->getMonitored());
+
+// Requires Insights preview access for the organization.
+$result = $bird->email->inboxInsights->domainMonitoring->upsert();
+var_dump($result->getOutcome(), $result->getDomain());
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->placement(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->authentication(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->complaints(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->spamTraps(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->blocklists(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->benchmarks->industry(['sending_domain' => $sendingDomain]);
+var_dump($report);

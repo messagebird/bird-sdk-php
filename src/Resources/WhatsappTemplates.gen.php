@@ -29,7 +29,7 @@ class WhatsappTemplatesBase extends Resource
     {
         return $this->paginate(
             WhatsAppTemplate::class,
-            fn (?string $cursor): WhatsAppTemplateList => $this->single('GET', '/v1/whatsapp/templates', WhatsAppTemplateList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppTemplateList => $this->single('GET', '/v1/whatsapp/templates', WhatsAppTemplateList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppTemplateList);
 

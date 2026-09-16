@@ -25,6 +25,7 @@ use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsKeywordRules;
 use MessageBird\Resources\SmsSuppressions;
 use MessageBird\Resources\SmsTemplates;
+use MessageBird\Resources\Suppressions;
 use MessageBird\Resources\Verify;
 use MessageBird\Resources\Voice;
 use MessageBird\Resources\Whatsapp;
@@ -72,6 +73,7 @@ final class Bird
     public readonly ContactProperties $contactProperties;
     public readonly Audiences $audiences;
     public readonly Domains $domains;
+    public readonly Suppressions $suppressions;
     public readonly Email $email;
     public readonly Sms $sms;
     public readonly SmsTemplates $smsTemplates;
@@ -132,6 +134,7 @@ final class Bird
         $this->contactProperties = new ContactProperties($this);
         $this->audiences = new Audiences($this);
         $this->domains = new Domains($this);
+        $this->suppressions = new Suppressions($this);
         $this->email = new Email($this);
         $this->sms = new Sms($this);
         $this->smsTemplates = new SmsTemplates($this);

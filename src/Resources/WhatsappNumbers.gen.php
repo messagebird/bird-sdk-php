@@ -31,7 +31,7 @@ class WhatsappNumbersBase extends Resource
     {
         return $this->paginate(
             WhatsAppNumber::class,
-            fn (?string $cursor): WhatsAppNumberList => $this->single('GET', '/v1/whatsapp/numbers', WhatsAppNumberList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppNumberList => $this->single('GET', '/v1/whatsapp/numbers', WhatsAppNumberList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppNumberList);
 
@@ -73,7 +73,7 @@ class WhatsappNumbersBase extends Resource
     {
         return $this->paginate(
             WhatsAppNumberEvent::class,
-            fn (?string $cursor): WhatsAppNumberEventList => $this->single('GET', '/v1/whatsapp/numbers/' . rawurlencode($numberId) . '/events', WhatsAppNumberEventList::class, null, $cursor === null ? ($query ?? []) : array_merge($query ?? [], ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppNumberEventList => $this->single('GET', '/v1/whatsapp/numbers/' . rawurlencode($numberId) . '/events', WhatsAppNumberEventList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppNumberEventList);
 
