@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.43.1
+
+- Broadcast counter descriptions now distinguish measured zeros from unavailable counts.
+
 ## 0.43.0
 
 - Add `email.health`, which returns the workspace's sending-health verdict for a window: an overall `healthy`, `watching`, or `throttled` status, plus a signal per rate carrying its current value, its reference deliverability limit, and verdict boundaries where risk thresholds apply.
