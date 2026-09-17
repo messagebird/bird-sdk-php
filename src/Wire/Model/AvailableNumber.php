@@ -37,6 +37,12 @@ class AvailableNumber
      */
     protected $capabilities;
     /**
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     *
+     * @var bool|null
+     */
+    protected $ownershipRegistrationRequired;
+    /**
      * Phone number in E.164 format.
      *
      * @return string|null
@@ -122,6 +128,28 @@ class AvailableNumber
     {
         $this->initialized['capabilities'] = true;
         $this->capabilities = $capabilities;
+        return $this;
+    }
+    /**
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     *
+     * @return bool|null
+     */
+    public function getOwnershipRegistrationRequired(): ?bool
+    {
+        return $this->ownershipRegistrationRequired;
+    }
+    /**
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     *
+     * @param bool|null $ownershipRegistrationRequired
+     *
+     * @return self
+     */
+    public function setOwnershipRegistrationRequired(?bool $ownershipRegistrationRequired): self
+    {
+        $this->initialized['ownershipRegistrationRequired'] = true;
+        $this->ownershipRegistrationRequired = $ownershipRegistrationRequired;
         return $this;
     }
 }

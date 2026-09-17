@@ -37,6 +37,9 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('ownership_registration_required', $data) && \is_int($data['ownership_registration_required'])) {
+            $data['ownership_registration_required'] = (bool) $data['ownership_registration_required'];
+        }
         if (\array_key_exists('number', $data) && $data['number'] !== null) {
             $object->setNumber($data['number']);
         }
@@ -65,6 +68,12 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('capabilities', $data) && $data['capabilities'] === null) {
             $object->setCapabilities(null);
         }
+        if (\array_key_exists('ownership_registration_required', $data) && $data['ownership_registration_required'] !== null) {
+            $object->setOwnershipRegistrationRequired($data['ownership_registration_required']);
+        }
+        elseif (\array_key_exists('ownership_registration_required', $data) && $data['ownership_registration_required'] === null) {
+            $object->setOwnershipRegistrationRequired(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -78,6 +87,7 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
             $values[] = $value;
         }
         $dataArray['capabilities'] = $values;
+        $dataArray['ownership_registration_required'] = $data->getOwnershipRegistrationRequired();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

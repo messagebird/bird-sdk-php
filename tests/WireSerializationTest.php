@@ -144,6 +144,16 @@ final class WireSerializationTest extends TestCase
         ];
     }
 
+    public function testAvailableNumberOwnershipRequirement(): void
+    {
+        $number = (new CoreSerializer())->decode(
+            '{"number":"+447700900201","country_code":"GB","number_type":"mobile","capabilities":["sms","voice"],"ownership_registration_required":true}',
+            \MessageBird\Wire\Model\AvailableNumber::class,
+        );
+
+        self::assertTrue($number->getOwnershipRegistrationRequired());
+    }
+
     public function testClientResolvesRegionAndDiscoversHttpClient(): void
     {
         $bird = new Bird('bk_eu1_test');

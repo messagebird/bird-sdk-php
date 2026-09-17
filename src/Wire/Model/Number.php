@@ -47,12 +47,13 @@ class Number
      */
     protected $capabilities;
     /**
-     * Whether this number can carry traffic.
+     * The allocation and ownership-approval status of this number.
      * 
      * - `active` means this number is allocated to your workspace and usable.
-     * - `pending_compliance` means this number is allocated to your workspace and billed,
-     *   but it cannot carry traffic until the ownership paperwork its country requires is
-     *   accepted. Read `ownership.next` for what advances it, and re-read later if
+     * - `pending_ownership_registration` means this number is allocated to your workspace and billed,
+     *   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
+     *   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
+     *   Read `ownership.next` for what advances it, and re-read later if
      *   `ownership` is momentarily `null`.
      * - `released` means this number is no longer allocated to your workspace.
      * 
@@ -76,7 +77,7 @@ class Number
      */
     protected $releasedAt;
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_compliance` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
      * 
      *
      * @var NumberOwnership|null
@@ -211,12 +212,13 @@ class Number
         return $this;
     }
     /**
-     * Whether this number can carry traffic.
+     * The allocation and ownership-approval status of this number.
      * 
      * - `active` means this number is allocated to your workspace and usable.
-     * - `pending_compliance` means this number is allocated to your workspace and billed,
-     *   but it cannot carry traffic until the ownership paperwork its country requires is
-     *   accepted. Read `ownership.next` for what advances it, and re-read later if
+     * - `pending_ownership_registration` means this number is allocated to your workspace and billed,
+     *   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
+     *   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
+     *   Read `ownership.next` for what advances it, and re-read later if
      *   `ownership` is momentarily `null`.
      * - `released` means this number is no longer allocated to your workspace.
      * 
@@ -231,12 +233,13 @@ class Number
         return $this->status;
     }
     /**
-    * Whether this number can carry traffic.
+    * The allocation and ownership-approval status of this number.
     
     - `active` means this number is allocated to your workspace and usable.
-    - `pending_compliance` means this number is allocated to your workspace and billed,
-     but it cannot carry traffic until the ownership paperwork its country requires is
-     accepted. Read `ownership.next` for what advances it, and re-read later if
+    - `pending_ownership_registration` means this number is allocated to your workspace and billed,
+     but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
+     its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
+     Read `ownership.next` for what advances it, and re-read later if
      `ownership` is momentarily `null`.
     - `released` means this number is no longer allocated to your workspace.
     
@@ -299,7 +302,7 @@ class Number
         return $this;
     }
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_compliance` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
      * 
      *
      * @return NumberOwnership|null
@@ -309,7 +312,7 @@ class Number
         return $this->ownership;
     }
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_compliance` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
      *
      * @param NumberOwnership|null $ownership
      *

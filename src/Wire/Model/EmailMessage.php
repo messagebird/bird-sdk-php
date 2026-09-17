@@ -172,6 +172,10 @@ class EmailMessage
      */
     protected $templateVersionId;
     /**
+     * @var string|null
+     */
+    protected $broadcastId;
+    /**
      * Labels on this message, each one a `name` and a `value`, that you can filter and search messages by. Use tags for anything you want to find messages by later, and `metadata` for data you only want handed back to you.
      *
      * @var list<Tag>|null
@@ -795,6 +799,24 @@ class EmailMessage
     {
         $this->initialized['templateVersionId'] = true;
         $this->templateVersionId = $templateVersionId;
+        return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getBroadcastId(): ?string
+    {
+        return $this->broadcastId;
+    }
+    /**
+     * @param string|null $broadcastId
+     *
+     * @return self
+     */
+    public function setBroadcastId(?string $broadcastId): self
+    {
+        $this->initialized['broadcastId'] = true;
+        $this->broadcastId = $broadcastId;
         return $this;
     }
     /**

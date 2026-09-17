@@ -52,14 +52,14 @@ class EmailInboxInsightsBlocklists extends \ArrayObject
      */
     protected $cachedAt;
     /**
-     * How many of the checked targets currently carry an active listing. A count of targets, not of listings: a target on three blocklists counts once. Null when no target could be checked at all, which is not the same as zero. Zero means every target was checked and none of them is listed.
+     * Number of successfully checked targets reported with an active listing. A target on three blocklists counts once. Null when the lookup service supplies no count; do not treat null as zero. Zero does not establish that the domain or its IPs were checked. Inspect `targets` and each target's `status` for lookup coverage, including partial failures.
      * 
      *
      * @var int|null
      */
     protected $activeCount;
     /**
-     * One entry per sending IP or domain checked for this sending domain.
+     * Returned sending IP or domain lookup results, including failed lookups. An empty array does not establish that the domain or its IPs are clear.
      *
      * @var list<EmailInboxInsightsBlocklistTarget>|null
      */
@@ -200,7 +200,7 @@ class EmailInboxInsightsBlocklists extends \ArrayObject
         return $this;
     }
     /**
-     * How many of the checked targets currently carry an active listing. A count of targets, not of listings: a target on three blocklists counts once. Null when no target could be checked at all, which is not the same as zero. Zero means every target was checked and none of them is listed.
+     * Number of successfully checked targets reported with an active listing. A target on three blocklists counts once. Null when the lookup service supplies no count; do not treat null as zero. Zero does not establish that the domain or its IPs were checked. Inspect `targets` and each target's `status` for lookup coverage, including partial failures.
      * 
      *
      * @return int|null
@@ -210,7 +210,7 @@ class EmailInboxInsightsBlocklists extends \ArrayObject
         return $this->activeCount;
     }
     /**
-     * How many of the checked targets currently carry an active listing. A count of targets, not of listings: a target on three blocklists counts once. Null when no target could be checked at all, which is not the same as zero. Zero means every target was checked and none of them is listed.
+     * Number of successfully checked targets reported with an active listing. A target on three blocklists counts once. Null when the lookup service supplies no count; do not treat null as zero. Zero does not establish that the domain or its IPs were checked. Inspect `targets` and each target's `status` for lookup coverage, including partial failures.
      *
      * @param int|null $activeCount
      *
@@ -223,7 +223,7 @@ class EmailInboxInsightsBlocklists extends \ArrayObject
         return $this;
     }
     /**
-     * One entry per sending IP or domain checked for this sending domain.
+     * Returned sending IP or domain lookup results, including failed lookups. An empty array does not establish that the domain or its IPs are clear.
      *
      * @return list<EmailInboxInsightsBlocklistTarget>|null
      */
@@ -232,7 +232,7 @@ class EmailInboxInsightsBlocklists extends \ArrayObject
         return $this->targets;
     }
     /**
-     * One entry per sending IP or domain checked for this sending domain.
+     * Returned sending IP or domain lookup results, including failed lookups. An empty array does not establish that the domain or its IPs are clear.
      *
      * @param list<EmailInboxInsightsBlocklistTarget>|null $targets
      *

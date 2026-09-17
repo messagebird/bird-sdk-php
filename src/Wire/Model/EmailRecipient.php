@@ -17,8 +17,6 @@ class EmailRecipient
      */
     protected $id;
     /**
-     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
-     *
      * @var string|null
      */
     protected $parentId;
@@ -160,8 +158,6 @@ class EmailRecipient
         return $this;
     }
     /**
-     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
-     *
      * @return string|null
      */
     public function getParentId(): ?string
@@ -169,8 +165,6 @@ class EmailRecipient
         return $this->parentId;
     }
     /**
-     * ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
-     *
      * @param string|null $parentId
      *
      * @return self

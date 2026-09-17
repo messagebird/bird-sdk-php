@@ -209,6 +209,12 @@ class EmailMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
         elseif (\array_key_exists('template_version_id', $data) && $data['template_version_id'] === null) {
             $object->setTemplateVersionId(null);
         }
+        if (\array_key_exists('broadcast_id', $data) && $data['broadcast_id'] !== null) {
+            $object->setBroadcastId($data['broadcast_id']);
+        }
+        elseif (\array_key_exists('broadcast_id', $data) && $data['broadcast_id'] === null) {
+            $object->setBroadcastId(null);
+        }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
             $values_4 = [];
             foreach ($data['tags'] as $value_4) {
@@ -325,6 +331,9 @@ class EmailMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
                 $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
             }
             $dataArray['reply_to'] = $values_3;
+        }
+        if ($data->isInitialized('broadcastId') && null !== $data->getBroadcastId()) {
+            $dataArray['broadcast_id'] = $data->getBroadcastId();
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
             $values_4 = [];

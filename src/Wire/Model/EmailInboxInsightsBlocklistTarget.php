@@ -13,7 +13,7 @@ class EmailInboxInsightsBlocklistTarget
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The sending IP or domain that was checked.
+     * The sending IP or domain selected for lookup.
      *
      * @var string|null
      */
@@ -66,7 +66,7 @@ class EmailInboxInsightsBlocklistTarget
      */
     protected $listings;
     /**
-     * The sending IP or domain that was checked.
+     * The sending IP or domain selected for lookup.
      *
      * @return string|null
      */
@@ -75,7 +75,7 @@ class EmailInboxInsightsBlocklistTarget
         return $this->target;
     }
     /**
-     * The sending IP or domain that was checked.
+     * The sending IP or domain selected for lookup.
      *
      * @param string|null $target
      *
