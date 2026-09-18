@@ -55,6 +55,12 @@ class WhatsAppEventNormalizer implements DenormalizerInterface, NormalizerInterf
         elseif (\array_key_exists('occurred_at', $data) && $data['occurred_at'] === null) {
             $object->setOccurredAt(null);
         }
+        if (\array_key_exists('recipient', $data) && $data['recipient'] !== null) {
+            $object->setRecipient($this->denormalizer->denormalize($data['recipient'], \MessageBird\Wire\Model\WhatsAppEventRecipient::class, 'json', $context));
+        }
+        elseif (\array_key_exists('recipient', $data) && $data['recipient'] === null) {
+            $object->setRecipient(null);
+        }
         if (\array_key_exists('error', $data) && $data['error'] !== null) {
             $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppError::class, 'json', $context));
         }

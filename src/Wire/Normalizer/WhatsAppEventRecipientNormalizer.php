@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class WhatsAppReactionFromNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class WhatsAppEventRecipientNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class WhatsAppReactionFromNormalizer implements DenormalizerInterface, Normalize
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\WhatsAppReactionFrom::class;
+        return $type === \MessageBird\Wire\Model\WhatsAppEventRecipient::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppReactionFrom::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppEventRecipient::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\WhatsAppReactionFrom();
+        $object = new \MessageBird\Wire\Model\WhatsAppEventRecipient();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -106,6 +106,6 @@ class WhatsAppReactionFromNormalizer implements DenormalizerInterface, Normalize
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\WhatsAppReactionFrom::class => false];
+        return [\MessageBird\Wire\Model\WhatsAppEventRecipient::class => false];
     }
 }

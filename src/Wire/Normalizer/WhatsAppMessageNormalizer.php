@@ -159,6 +159,24 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('recipient_count', $data) && $data['recipient_count'] !== null) {
+            $object->setRecipientCount($data['recipient_count']);
+        }
+        elseif (\array_key_exists('recipient_count', $data) && $data['recipient_count'] === null) {
+            $object->setRecipientCount(null);
+        }
+        if (\array_key_exists('delivered_count', $data) && $data['delivered_count'] !== null) {
+            $object->setDeliveredCount($data['delivered_count']);
+        }
+        elseif (\array_key_exists('delivered_count', $data) && $data['delivered_count'] === null) {
+            $object->setDeliveredCount(null);
+        }
+        if (\array_key_exists('read_count', $data) && $data['read_count'] !== null) {
+            $object->setReadCount($data['read_count']);
+        }
+        elseif (\array_key_exists('read_count', $data) && $data['read_count'] === null) {
+            $object->setReadCount(null);
+        }
         if (\array_key_exists('last_error', $data) && $data['last_error'] !== null) {
             $object->setLastError($this->denormalizer->denormalize($data['last_error'], \MessageBird\Wire\Model\WhatsAppError::class, 'json', $context));
         }

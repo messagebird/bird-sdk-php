@@ -512,6 +512,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppEvent::class => \MessageBird\Wire\Normalizer\WhatsAppEventNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppEventRecipient::class => \MessageBird\Wire\Normalizer\WhatsAppEventRecipientNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppEventList::class => \MessageBird\Wire\Normalizer\WhatsAppEventListNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppReactionUpsert::class => \MessageBird\Wire\Normalizer\WhatsAppReactionUpsertNormalizer::class,
@@ -689,6 +691,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountPortfolioNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppKeywordRule::class => \MessageBird\Wire\Normalizer\WhatsAppKeywordRuleNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppKeywordRuleList::class => \MessageBird\Wire\Normalizer\WhatsAppKeywordRuleListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppKeywordRuleCreate::class => \MessageBird\Wire\Normalizer\WhatsAppKeywordRuleCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppKeywordRuleUpdate::class => \MessageBird\Wire\Normalizer\WhatsAppKeywordRuleUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailInboxInsightsWeighting::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsWeightingNormalizer::class,
 
@@ -1489,6 +1499,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppReadReceiptRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppReadReceipt::class => false,
             \MessageBird\Wire\Model\WhatsAppEvent::class => false,
+            \MessageBird\Wire\Model\WhatsAppEventRecipient::class => false,
             \MessageBird\Wire\Model\WhatsAppEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppReactionUpsert::class => false,
             \MessageBird\Wire\Model\WhatsAppReactionAccepted::class => false,
@@ -1578,6 +1589,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppBusinessAccount::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => false,
+            \MessageBird\Wire\Model\WhatsAppKeywordRule::class => false,
+            \MessageBird\Wire\Model\WhatsAppKeywordRuleList::class => false,
+            \MessageBird\Wire\Model\WhatsAppKeywordRuleCreate::class => false,
+            \MessageBird\Wire\Model\WhatsAppKeywordRuleUpdate::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsWeighting::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsMeasurement::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsFreshness::class => false,

@@ -11,6 +11,8 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\WhatsAppKeywordRuleCreate;
+use MessageBird\Wire\Model\WhatsAppKeywordRuleUpdate;
 use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
 use MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter;
 use MessageBird\Wire\Model\WhatsAppReactionUpsert;
@@ -178,3 +180,32 @@ foreach ($bird->whatsapp->businessAccounts->list() as $account) {
 
 $account = $bird->whatsapp->businessAccounts->get('waa_01krdgeqcxet5s7t44vh8rt9mg');
 echo $account->getAccountReviewStatus(), ' ', $account->getBusinessVerificationStatus(), "\n";
+
+$rules = $bird->whatsapp->keywordRules->list(['operation' => 'opt_out']);
+foreach ($rules->getData() ?? [] as $rule) {
+    echo $rule->getScope(), ' ', implode(',', $rule->getEffectiveKeywords() ?? []), PHP_EOL;
+}
+
+// Bird's rules and yours share the wkr_ id space; getScope() tells them apart.
+$rule = $bird->whatsapp->keywordRules->get('wkr_01m2kj8x4te9p0rr7e5w2n1abc');
+echo $rule->getScope(), ' ', $rule->getReply();
+
+$rule = $bird->whatsapp->keywordRules->create(
+    (new WhatsAppKeywordRuleCreate())
+        ->setOperation('opt_out')
+        ->setCountry('US')
+        ->setReply("You're off the list. ACME Courier won't message you again."),
+);
+// getEffectiveKeywords() is Bird's set plus any of your own.
+echo $rule->getId(), ' ', implode(',', $rule->getEffectiveKeywords() ?? []);
+
+// Omitting keywords leaves the set alone; an empty array clears your additions
+// back to Bird's.
+$rule = $bird->whatsapp->keywordRules->update(
+    'wkr_01m2kj8x4te9p0rr7e5w2n1abc',
+    (new WhatsAppKeywordRuleUpdate())->setKeywords(['no more texts', 'remove me']),
+);
+echo implode(',', $rule->getEffectiveKeywords() ?? []);
+
+// The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one; STOP never stops working.
+$bird->whatsapp->keywordRules->delete('wkr_01m2kj8x4te9p0rr7e5w2n1abc');

@@ -51,6 +51,13 @@ class WhatsAppMessageToNormalizer implements DenormalizerInterface, NormalizerIn
         elseif (\array_key_exists('bsuid', $data) && $data['bsuid'] === null) {
             $object->setBsuid(null);
         }
+        if (\array_key_exists('group_id', $data) && $data['group_id'] !== null) {
+            $object->setGroupId($data['group_id']);
+            unset($data['group_id']);
+        }
+        elseif (\array_key_exists('group_id', $data) && $data['group_id'] === null) {
+            $object->setGroupId(null);
+        }
         if (\array_key_exists('username', $data) && $data['username'] !== null) {
             $object->setUsername($data['username']);
             unset($data['username']);
@@ -80,6 +87,9 @@ class WhatsAppMessageToNormalizer implements DenormalizerInterface, NormalizerIn
         }
         if ($data->isInitialized('bsuid') && null !== $data->getBsuid()) {
             $dataArray['bsuid'] = $data->getBsuid();
+        }
+        if ($data->isInitialized('groupId') && null !== $data->getGroupId()) {
+            $dataArray['group_id'] = $data->getGroupId();
         }
         if ($data->isInitialized('username') && null !== $data->getUsername()) {
             $dataArray['username'] = $data->getUsername();

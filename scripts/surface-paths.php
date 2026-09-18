@@ -113,6 +113,8 @@ return [
     "/v1/whatsapp/business-accounts",
     "/v1/whatsapp/numbers/{number_id}/profile",
     "/v1/whatsapp/business-accounts/{business_account_ref}",
+    "/v1/whatsapp/keyword-rules",
+    "/v1/whatsapp/keyword-rules/{id}",
     "/v1/whatsapp/stats/summary",
     "/v1/whatsapp/stats/daily",
     "/v1/whatsapp/stats/hourly",

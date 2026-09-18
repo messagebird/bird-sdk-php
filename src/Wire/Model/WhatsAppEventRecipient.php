@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppMessageFrom extends \ArrayObject
+class WhatsAppEventRecipient extends \ArrayObject
 {
     /**
      * @var array

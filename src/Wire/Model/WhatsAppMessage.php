@@ -129,6 +129,62 @@ class WhatsAppMessage
      */
     protected $status;
     /**
+     * How many recipients a group send was addressed to, taken when the send
+     * was accepted. It is the group's membership at that moment, not its
+     * membership now: someone joining through the invite link while the message
+     * is in flight does not receive it and does not change this count.
+     * 
+     * Absent on a one-to-one message, along with `delivered_count` and
+     * `read_count`. A message with one recipient has no fan-out to report, and
+     * its delivery is what `status`, `delivered_at` and `read_at` already say.
+     * Absent for the same reason on a group message sent before Bird recorded
+     * the count, and on a send to a group nobody had joined yet: there is no
+     * denominator to report, and none can be recovered after the fact, since
+     * membership has moved on. `to.group_id` is what tells a group message from
+     * a one-to-one one in every case, including those two. With no denominator
+     * to resolve against, `status` is read as stored, the way a one-to-one
+     * message's is: it reaches `sent` when the message is handed to WhatsApp and
+     * stops there, because delivery is confirmed per participant and a send with
+     * no participants collects no confirmations.
+     * 
+     * It is also the denominator `status` is resolved against: on a group
+     * message `status` reports the furthest point *every* recipient has
+     * reached, so it turns `delivered` only once `delivered_count` equals this
+     * number, and stays `sent` while some have confirmed and others have not.
+     * `failed` and `rejected` are never per recipient: there is one hand-off to
+     * the WhatsApp network and one way for that to be refused. `delivered_at`
+     * and `read_at` are the first recipient's, not the last.
+     * 
+     *
+     * @var int|null
+     */
+    protected $recipientCount;
+    /**
+     * How many of the `recipient_count` recipients WhatsApp has confirmed the
+     * message reached. A recipient who reported only a read counts here too:
+     * WhatsApp skips the delivery receipt when someone is already looking at
+     * the chat, so waiting for one would leave that person uncounted for ever.
+     * 
+     * Absent on a one-to-one message, which has no fan-out to count, and on a
+     * group message with no `recipient_count` to count against.
+     * 
+     *
+     * @var int|null
+     */
+    protected $deliveredCount;
+    /**
+     * How many of the `recipient_count` recipients have opened the message.
+     * Read receipts do not move `status`, which has no `read` value; they
+     * surface here and in `read_at`.
+     * 
+     * Absent on a one-to-one message, which has no fan-out to count, and on a
+     * group message with no `recipient_count` to count against.
+     * 
+     *
+     * @var int|null
+     */
+    protected $readCount;
+    /**
      * Failure detail for a message that could not be delivered or was rejected.
      *
      * @var WhatsAppError|null
@@ -592,6 +648,148 @@ class WhatsAppMessage
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * How many recipients a group send was addressed to, taken when the send
+     * was accepted. It is the group's membership at that moment, not its
+     * membership now: someone joining through the invite link while the message
+     * is in flight does not receive it and does not change this count.
+     * 
+     * Absent on a one-to-one message, along with `delivered_count` and
+     * `read_count`. A message with one recipient has no fan-out to report, and
+     * its delivery is what `status`, `delivered_at` and `read_at` already say.
+     * Absent for the same reason on a group message sent before Bird recorded
+     * the count, and on a send to a group nobody had joined yet: there is no
+     * denominator to report, and none can be recovered after the fact, since
+     * membership has moved on. `to.group_id` is what tells a group message from
+     * a one-to-one one in every case, including those two. With no denominator
+     * to resolve against, `status` is read as stored, the way a one-to-one
+     * message's is: it reaches `sent` when the message is handed to WhatsApp and
+     * stops there, because delivery is confirmed per participant and a send with
+     * no participants collects no confirmations.
+     * 
+     * It is also the denominator `status` is resolved against: on a group
+     * message `status` reports the furthest point *every* recipient has
+     * reached, so it turns `delivered` only once `delivered_count` equals this
+     * number, and stays `sent` while some have confirmed and others have not.
+     * `failed` and `rejected` are never per recipient: there is one hand-off to
+     * the WhatsApp network and one way for that to be refused. `delivered_at`
+     * and `read_at` are the first recipient's, not the last.
+     * 
+     *
+     * @return int|null
+     */
+    public function getRecipientCount(): ?int
+    {
+        return $this->recipientCount;
+    }
+    /**
+    * How many recipients a group send was addressed to, taken when the send
+    was accepted. It is the group's membership at that moment, not its
+    membership now: someone joining through the invite link while the message
+    is in flight does not receive it and does not change this count.
+    
+    Absent on a one-to-one message, along with `delivered_count` and
+    `read_count`. A message with one recipient has no fan-out to report, and
+    its delivery is what `status`, `delivered_at` and `read_at` already say.
+    Absent for the same reason on a group message sent before Bird recorded
+    the count, and on a send to a group nobody had joined yet: there is no
+    denominator to report, and none can be recovered after the fact, since
+    membership has moved on. `to.group_id` is what tells a group message from
+    a one-to-one one in every case, including those two. With no denominator
+    to resolve against, `status` is read as stored, the way a one-to-one
+    message's is: it reaches `sent` when the message is handed to WhatsApp and
+    stops there, because delivery is confirmed per participant and a send with
+    no participants collects no confirmations.
+    
+    It is also the denominator `status` is resolved against: on a group
+    message `status` reports the furthest point *every* recipient has
+    reached, so it turns `delivered` only once `delivered_count` equals this
+    number, and stays `sent` while some have confirmed and others have not.
+    `failed` and `rejected` are never per recipient: there is one hand-off to
+    the WhatsApp network and one way for that to be refused. `delivered_at`
+    and `read_at` are the first recipient's, not the last.
+    
+    *
+    * @param int|null $recipientCount
+    *
+    * @return self
+    */
+    public function setRecipientCount(?int $recipientCount): self
+    {
+        $this->initialized['recipientCount'] = true;
+        $this->recipientCount = $recipientCount;
+        return $this;
+    }
+    /**
+     * How many of the `recipient_count` recipients WhatsApp has confirmed the
+     * message reached. A recipient who reported only a read counts here too:
+     * WhatsApp skips the delivery receipt when someone is already looking at
+     * the chat, so waiting for one would leave that person uncounted for ever.
+     * 
+     * Absent on a one-to-one message, which has no fan-out to count, and on a
+     * group message with no `recipient_count` to count against.
+     * 
+     *
+     * @return int|null
+     */
+    public function getDeliveredCount(): ?int
+    {
+        return $this->deliveredCount;
+    }
+    /**
+    * How many of the `recipient_count` recipients WhatsApp has confirmed the
+    message reached. A recipient who reported only a read counts here too:
+    WhatsApp skips the delivery receipt when someone is already looking at
+    the chat, so waiting for one would leave that person uncounted for ever.
+    
+    Absent on a one-to-one message, which has no fan-out to count, and on a
+    group message with no `recipient_count` to count against.
+    
+    *
+    * @param int|null $deliveredCount
+    *
+    * @return self
+    */
+    public function setDeliveredCount(?int $deliveredCount): self
+    {
+        $this->initialized['deliveredCount'] = true;
+        $this->deliveredCount = $deliveredCount;
+        return $this;
+    }
+    /**
+     * How many of the `recipient_count` recipients have opened the message.
+     * Read receipts do not move `status`, which has no `read` value; they
+     * surface here and in `read_at`.
+     * 
+     * Absent on a one-to-one message, which has no fan-out to count, and on a
+     * group message with no `recipient_count` to count against.
+     * 
+     *
+     * @return int|null
+     */
+    public function getReadCount(): ?int
+    {
+        return $this->readCount;
+    }
+    /**
+    * How many of the `recipient_count` recipients have opened the message.
+    Read receipts do not move `status`, which has no `read` value; they
+    surface here and in `read_at`.
+    
+    Absent on a one-to-one message, which has no fan-out to count, and on a
+    group message with no `recipient_count` to count against.
+    
+    *
+    * @param int|null $readCount
+    *
+    * @return self
+    */
+    public function setReadCount(?int $readCount): self
+    {
+        $this->initialized['readCount'] = true;
+        $this->readCount = $readCount;
         return $this;
     }
     /**

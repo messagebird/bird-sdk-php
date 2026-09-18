@@ -26,6 +26,13 @@ class WhatsAppMessageTo extends \ArrayObject
      */
     protected $bsuid;
     /**
+     * The group this address was addressed as, or reached through. It appears on a message's `to` and nowhere else: never on `from`, and never on an event's `recipient`. Outbound, it stands in for the recipient, because a group send names no single phone number. Inbound, it qualifies one: `to` carries the business `phone_number` that received the message and the group it arrived through, while `from` stays the participant who wrote it. Its presence on `to` is what tells a group message from a one-to-one one, in either direction.
+     * 
+     *
+     * @var string|null
+     */
+    protected $groupId;
+    /**
      * Present only on a message received from a WhatsApp user, on `from`; never on an outbound send's `to`, where the profile is not known. Absent when the contact has not adopted one, and on a message received before this workspace started recording them. Same form as a number's own username (`WhatsAppNumberProfile.username`), without a leading `@`; a message cannot be addressed by it.
      * 
      *
@@ -82,6 +89,29 @@ class WhatsAppMessageTo extends \ArrayObject
     {
         $this->initialized['bsuid'] = true;
         $this->bsuid = $bsuid;
+        return $this;
+    }
+    /**
+     * The group this address was addressed as, or reached through. It appears on a message's `to` and nowhere else: never on `from`, and never on an event's `recipient`. Outbound, it stands in for the recipient, because a group send names no single phone number. Inbound, it qualifies one: `to` carries the business `phone_number` that received the message and the group it arrived through, while `from` stays the participant who wrote it. Its presence on `to` is what tells a group message from a one-to-one one, in either direction.
+     * 
+     *
+     * @return string|null
+     */
+    public function getGroupId(): ?string
+    {
+        return $this->groupId;
+    }
+    /**
+     * The group this address was addressed as, or reached through. It appears on a message's `to` and nowhere else: never on `from`, and never on an event's `recipient`. Outbound, it stands in for the recipient, because a group send names no single phone number. Inbound, it qualifies one: `to` carries the business `phone_number` that received the message and the group it arrived through, while `from` stays the participant who wrote it. Its presence on `to` is what tells a group message from a one-to-one one, in either direction.
+     *
+     * @param string|null $groupId
+     *
+     * @return self
+     */
+    public function setGroupId(?string $groupId): self
+    {
+        $this->initialized['groupId'] = true;
+        $this->groupId = $groupId;
         return $this;
     }
     /**

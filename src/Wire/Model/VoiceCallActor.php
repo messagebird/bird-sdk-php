@@ -19,7 +19,14 @@ class VoiceCallActor extends \ArrayObject
      */
     protected $id;
     /**
-     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
+     * New actor types may be added. Treat unrecognized values as future types, not errors.
+     * - `user`: a member's own session.
+     * - `api_key`: a workspace API key.
+     * - `oauth_token`: a token issued to a caller on a member's behalf.
+     * - `system`: an action we perform without a customer actor.
+     * - `sso`: an organization's SSO connection.
+     * - `service_account`: a workspace's connected Integration acting with no member behind it.
+     * - `automation`: an automation execution in your workspace.
      *
      * @var string|null
      */
@@ -54,7 +61,14 @@ class VoiceCallActor extends \ArrayObject
         return $this;
     }
     /**
-     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
+     * New actor types may be added. Treat unrecognized values as future types, not errors.
+     * - `user`: a member's own session.
+     * - `api_key`: a workspace API key.
+     * - `oauth_token`: a token issued to a caller on a member's behalf.
+     * - `system`: an action we perform without a customer actor.
+     * - `sso`: an organization's SSO connection.
+     * - `service_account`: a workspace's connected Integration acting with no member behind it.
+     * - `automation`: an automation execution in your workspace.
      *
      * @return string|null
      */
@@ -63,12 +77,19 @@ class VoiceCallActor extends \ArrayObject
         return $this->type;
     }
     /**
-     * Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
-     *
-     * @param string|null $type
-     *
-     * @return self
-     */
+    * New actor types may be added. Treat unrecognized values as future types, not errors.
+    - `user`: a member's own session.
+    - `api_key`: a workspace API key.
+    - `oauth_token`: a token issued to a caller on a member's behalf.
+    - `system`: an action we perform without a customer actor.
+    - `sso`: an organization's SSO connection.
+    - `service_account`: a workspace's connected Integration acting with no member behind it.
+    - `automation`: an automation execution in your workspace.
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
     public function setType(?string $type): self
     {
         $this->initialized['type'] = true;
