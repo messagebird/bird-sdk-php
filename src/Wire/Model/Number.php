@@ -51,10 +51,10 @@ class Number
      * 
      * - `active` means this number is allocated to your workspace and usable.
      * - `pending_ownership_registration` means this number is allocated to your workspace and billed,
-     *   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
-     *   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
-     *   Read `ownership.next` for what advances it, and re-read later if
-     *   `ownership` is momentarily `null`.
+     *   but outbound SMS and both inbound and outbound voice calls are blocked until ownership registration
+     *   is approved and activation completes, or the ownership requirement is withdrawn.
+     *   This ownership status does not gate inbound SMS or WhatsApp.
+     *   Read `ownership.status` and `ownership.next` for the current decision and remaining work.
      * - `released` means this number is no longer allocated to your workspace.
      * 
      * An allocated number is not always enough to send from it: some destination
@@ -77,7 +77,7 @@ class Number
      */
     protected $releasedAt;
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
      * 
      *
      * @var NumberOwnership|null
@@ -216,10 +216,10 @@ class Number
      * 
      * - `active` means this number is allocated to your workspace and usable.
      * - `pending_ownership_registration` means this number is allocated to your workspace and billed,
-     *   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
-     *   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
-     *   Read `ownership.next` for what advances it, and re-read later if
-     *   `ownership` is momentarily `null`.
+     *   but outbound SMS and both inbound and outbound voice calls are blocked until ownership registration
+     *   is approved and activation completes, or the ownership requirement is withdrawn.
+     *   This ownership status does not gate inbound SMS or WhatsApp.
+     *   Read `ownership.status` and `ownership.next` for the current decision and remaining work.
      * - `released` means this number is no longer allocated to your workspace.
      * 
      * An allocated number is not always enough to send from it: some destination
@@ -237,10 +237,10 @@ class Number
     
     - `active` means this number is allocated to your workspace and usable.
     - `pending_ownership_registration` means this number is allocated to your workspace and billed,
-     but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
-     its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
-     Read `ownership.next` for what advances it, and re-read later if
-     `ownership` is momentarily `null`.
+     but outbound SMS and both inbound and outbound voice calls are blocked until ownership registration
+     is approved and activation completes, or the ownership requirement is withdrawn.
+     This ownership status does not gate inbound SMS or WhatsApp.
+     Read `ownership.status` and `ownership.next` for the current decision and remaining work.
     - `released` means this number is no longer allocated to your workspace.
     
     An allocated number is not always enough to send from it: some destination
@@ -302,7 +302,7 @@ class Number
         return $this;
     }
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
      * 
      *
      * @return NumberOwnership|null
@@ -312,7 +312,7 @@ class Number
         return $this->ownership;
     }
     /**
-     * Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+     * Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
      *
      * @param NumberOwnership|null $ownership
      *

@@ -40,12 +40,26 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
         if (\array_key_exists('satisfied', $data) && \is_int($data['satisfied'])) {
             $data['satisfied'] = (bool) $data['satisfied'];
         }
+        if (\array_key_exists('submission_id', $data) && $data['submission_id'] !== null) {
+            $object->setSubmissionId($data['submission_id']);
+            unset($data['submission_id']);
+        }
+        elseif (\array_key_exists('submission_id', $data) && $data['submission_id'] === null) {
+            $object->setSubmissionId(null);
+        }
         if (\array_key_exists('satisfied', $data) && $data['satisfied'] !== null) {
             $object->setSatisfied($data['satisfied']);
             unset($data['satisfied']);
         }
         elseif (\array_key_exists('satisfied', $data) && $data['satisfied'] === null) {
             $object->setSatisfied(null);
+        }
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
+            $object->setStatus($data['status']);
+            unset($data['status']);
+        }
+        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
+            $object->setStatus(null);
         }
         if (\array_key_exists('blocked_at', $data) && $data['blocked_at'] !== null) {
             $object->setBlockedAt(new \DateTime($data['blocked_at']));
@@ -75,9 +89,18 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
+        $dataArray['satisfied'] = $data->getSatisfied();
+        if ($data->isInitialized('blockedAt')) {
+            $dataArray['blocked_at'] = $data->getBlockedAt()->format('Y-m-d\TH:i:sP');
+        }
+        $values = [];
+        foreach ($data->getNext() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
+        }
+        $dataArray['next'] = $values;
+        foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
+                $dataArray[$key] = $value_1;
             }
         }
         return $dataArray;
