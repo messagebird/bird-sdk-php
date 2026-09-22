@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallCost
+class VoiceLegCost
 {
     /**
      * @var array
@@ -26,14 +26,14 @@ class VoiceCallCost
      */
     protected $currencyCode;
     /**
-     * What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
+     * What we charged to carry the leg to the destination network, as a decimal string. `null` until this component is priced.
      * 
      *
      * @var string|null
      */
     protected $outboundAmount;
     /**
-     * What we charged to receive the call from the originating network, as a decimal string. Only a call that arrived at your number can carry it. `null` until this component is priced.
+     * What we charged to receive the leg from the originating network, as a decimal string. Only a leg that arrived at your number can carry it. `null` until this component is priced.
      * 
      *
      * @var string|null
@@ -47,14 +47,14 @@ class VoiceCallCost
      */
     protected $callHandlingAmount;
     /**
-     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     * What we charged to record the leg, as a decimal string, billed per second over the same billable time as the rest of the leg. `null` until this component is priced.
      * 
      *
      * @var string|null
      */
     protected $recordingAmount;
     /**
-     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     * What we charged to transcribe the leg's audio, as a decimal string, billed per second of recorded audio rather than for the length of the leg. A transcript is produced after the leg ends, so this can appear after the rest of the cost. `null` until this component is priced.
      * 
      *
      * @var string|null
@@ -106,7 +106,7 @@ class VoiceCallCost
         return $this;
     }
     /**
-     * What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
+     * What we charged to carry the leg to the destination network, as a decimal string. `null` until this component is priced.
      * 
      *
      * @return string|null
@@ -116,7 +116,7 @@ class VoiceCallCost
         return $this->outboundAmount;
     }
     /**
-     * What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
+     * What we charged to carry the leg to the destination network, as a decimal string. `null` until this component is priced.
      *
      * @param string|null $outboundAmount
      *
@@ -129,7 +129,7 @@ class VoiceCallCost
         return $this;
     }
     /**
-     * What we charged to receive the call from the originating network, as a decimal string. Only a call that arrived at your number can carry it. `null` until this component is priced.
+     * What we charged to receive the leg from the originating network, as a decimal string. Only a leg that arrived at your number can carry it. `null` until this component is priced.
      * 
      *
      * @return string|null
@@ -139,7 +139,7 @@ class VoiceCallCost
         return $this->inboundAmount;
     }
     /**
-     * What we charged to receive the call from the originating network, as a decimal string. Only a call that arrived at your number can carry it. `null` until this component is priced.
+     * What we charged to receive the leg from the originating network, as a decimal string. Only a leg that arrived at your number can carry it. `null` until this component is priced.
      *
      * @param string|null $inboundAmount
      *
@@ -175,7 +175,7 @@ class VoiceCallCost
         return $this;
     }
     /**
-     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     * What we charged to record the leg, as a decimal string, billed per second over the same billable time as the rest of the leg. `null` until this component is priced.
      * 
      *
      * @return string|null
@@ -185,7 +185,7 @@ class VoiceCallCost
         return $this->recordingAmount;
     }
     /**
-     * What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+     * What we charged to record the leg, as a decimal string, billed per second over the same billable time as the rest of the leg. `null` until this component is priced.
      *
      * @param string|null $recordingAmount
      *
@@ -198,7 +198,7 @@ class VoiceCallCost
         return $this;
     }
     /**
-     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     * What we charged to transcribe the leg's audio, as a decimal string, billed per second of recorded audio rather than for the length of the leg. A transcript is produced after the leg ends, so this can appear after the rest of the cost. `null` until this component is priced.
      * 
      *
      * @return string|null
@@ -208,7 +208,7 @@ class VoiceCallCost
         return $this->transcriptionAmount;
     }
     /**
-     * What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+     * What we charged to transcribe the leg's audio, as a decimal string, billed per second of recorded audio rather than for the length of the leg. A transcript is produced after the leg ends, so this can appear after the rest of the cost. `null` until this component is priced.
      *
      * @param string|null $transcriptionAmount
      *

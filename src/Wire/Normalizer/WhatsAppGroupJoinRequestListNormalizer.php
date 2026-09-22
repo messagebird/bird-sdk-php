@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallListNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class WhatsAppGroupJoinRequestListNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallListNormalizer implements DenormalizerInterface, NormalizerInterf
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallList::class;
+        return $type === \MessageBird\Wire\Model\WhatsAppGroupJoinRequestList::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallList::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppGroupJoinRequestList::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallList();
+        $object = new \MessageBird\Wire\Model\WhatsAppGroupJoinRequestList();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -40,7 +40,7 @@ class VoiceCallListNormalizer implements DenormalizerInterface, NormalizerInterf
         if (\array_key_exists('data', $data) && $data['data'] !== null) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\VoiceCall::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppGroupJoinRequest::class, 'json', $context);
             }
             $object->setData($values);
             unset($data['data']);
@@ -96,6 +96,6 @@ class VoiceCallListNormalizer implements DenormalizerInterface, NormalizerInterf
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallList::class => false];
+        return [\MessageBird\Wire\Model\WhatsAppGroupJoinRequestList::class => false];
     }
 }

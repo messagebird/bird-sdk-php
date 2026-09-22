@@ -68,7 +68,13 @@ class WhatsAppBusinessAccount
      */
     protected $ban;
     /**
-     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status` and `portfolio` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
+     * Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
+     *
+     * @var WhatsAppBusinessAccountMetaHealthStatus|null
+     */
+    protected $metaHealthStatus;
+    /**
+     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status`, `portfolio` and `meta_health_status` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
      *
      * @var \DateTime|null
      */
@@ -285,7 +291,29 @@ class WhatsAppBusinessAccount
         return $this;
     }
     /**
-     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status` and `portfolio` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
+     * Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
+     *
+     * @return WhatsAppBusinessAccountMetaHealthStatus|null
+     */
+    public function getMetaHealthStatus(): ?WhatsAppBusinessAccountMetaHealthStatus
+    {
+        return $this->metaHealthStatus;
+    }
+    /**
+     * Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
+     *
+     * @param WhatsAppBusinessAccountMetaHealthStatus|null $metaHealthStatus
+     *
+     * @return self
+     */
+    public function setMetaHealthStatus(?WhatsAppBusinessAccountMetaHealthStatus $metaHealthStatus): self
+    {
+        $this->initialized['metaHealthStatus'] = true;
+        $this->metaHealthStatus = $metaHealthStatus;
+        return $this;
+    }
+    /**
+     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status`, `portfolio` and `meta_health_status` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
      *
      * @return \DateTime|null
      */
@@ -294,7 +322,7 @@ class WhatsAppBusinessAccount
         return $this->metaSyncedAt;
     }
     /**
-     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status` and `portfolio` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
+     * When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status`, `portfolio` and `meta_health_status` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
      *
      * @param \DateTime|null $metaSyncedAt
      *

@@ -150,7 +150,7 @@ class EmailTemplate
      */
     protected $onMissingLanguage;
     /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language, and the template cannot be used for a broadcast, which has no way to name one.
+     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language. A broadcast must select a template language when this is set.
      * 
      *
      * @var bool|null
@@ -625,7 +625,7 @@ class EmailTemplate
         return $this;
     }
     /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language, and the template cannot be used for a broadcast, which has no way to name one.
+     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language. A broadcast must select a template language when this is set.
      * 
      *
      * @return bool|null
@@ -635,7 +635,7 @@ class EmailTemplate
         return $this->languageSourceRequired;
     }
     /**
-     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language, and the template cannot be used for a broadcast, which has no way to name one.
+     * Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language. A broadcast must select a template language when this is set.
      *
      * @param bool|null $languageSourceRequired
      *

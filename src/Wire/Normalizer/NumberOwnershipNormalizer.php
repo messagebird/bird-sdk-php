@@ -91,7 +91,7 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray = [];
         $dataArray['satisfied'] = $data->getSatisfied();
         if ($data->isInitialized('blockedAt')) {
-            $dataArray['blocked_at'] = $data->getBlockedAt()->format('Y-m-d\TH:i:sP');
+            $dataArray['blocked_at'] = $data->getBlockedAt()?->format('Y-m-d\TH:i:sP');
         }
         $values = [];
         foreach ($data->getNext() as $value) {

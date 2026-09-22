@@ -13,17 +13,23 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var string|null
-     */
-    protected $id;
-    /**
-     * The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
+     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
      * 
      *
      * @var string|null
      */
-    protected $versionId;
+    protected $id;
     /**
+     * The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. Leave it out to keep the language already selected. If you change the template `id` in the same request, the old language is cleared with the old template. Set this to `null` to use the published version's default language, unless the template has `language_source_required` set.
+     * 
+     *
+     * @var string|null
+     */
+    protected $language;
+    /**
+     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+     * 
+     *
      * @return string|null
      */
     public function getId(): ?string
@@ -31,6 +37,8 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
         return $this->id;
     }
     /**
+     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+     *
      * @param string|null $id
      *
      * @return self
@@ -42,26 +50,26 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
         return $this;
     }
     /**
-     * The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
+     * The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. Leave it out to keep the language already selected. If you change the template `id` in the same request, the old language is cleared with the old template. Set this to `null` to use the published version's default language, unless the template has `language_source_required` set.
      * 
      *
      * @return string|null
      */
-    public function getVersionId(): ?string
+    public function getLanguage(): ?string
     {
-        return $this->versionId;
+        return $this->language;
     }
     /**
-     * The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
+     * The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. Leave it out to keep the language already selected. If you change the template `id` in the same request, the old language is cleared with the old template. Set this to `null` to use the published version's default language, unless the template has `language_source_required` set.
      *
-     * @param string|null $versionId
+     * @param string|null $language
      *
      * @return self
      */
-    public function setVersionId(?string $versionId): self
+    public function setLanguage(?string $language): self
     {
-        $this->initialized['versionId'] = true;
-        $this->versionId = $versionId;
+        $this->initialized['language'] = true;
+        $this->language = $language;
         return $this;
     }
 }

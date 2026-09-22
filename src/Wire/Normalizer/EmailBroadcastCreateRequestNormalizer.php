@@ -59,7 +59,7 @@ class EmailBroadcastCreateRequestNormalizer implements DenormalizerInterface, No
             $object->setAudienceId(null);
         }
         if (\array_key_exists('template', $data) && $data['template'] !== null) {
-            $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\EmailBroadcastTemplate::class, 'json', $context));
+            $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class, 'json', $context));
         }
         elseif (\array_key_exists('template', $data) && $data['template'] === null) {
             $object->setTemplate(null);

@@ -91,6 +91,12 @@ class WhatsAppBusinessAccountNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('ban', $data) && $data['ban'] === null) {
             $object->setBan(null);
         }
+        if (\array_key_exists('meta_health_status', $data) && $data['meta_health_status'] !== null) {
+            $object->setMetaHealthStatus($this->denormalizer->denormalize($data['meta_health_status'], \MessageBird\Wire\Model\WhatsAppBusinessAccountMetaHealthStatus::class, 'json', $context));
+        }
+        elseif (\array_key_exists('meta_health_status', $data) && $data['meta_health_status'] === null) {
+            $object->setMetaHealthStatus(null);
+        }
         if (\array_key_exists('meta_synced_at', $data) && $data['meta_synced_at'] !== null) {
             $object->setMetaSyncedAt(new \DateTime($data['meta_synced_at']));
         }

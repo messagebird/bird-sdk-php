@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCall::class;
+        return $type === \MessageBird\Wire\Model\VoiceLeg::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCall::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceLeg::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCall();
+        $object = new \MessageBird\Wire\Model\VoiceLeg();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -43,11 +43,11 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('session_id', $data) && $data['session_id'] !== null) {
-            $object->setSessionId($data['session_id']);
+        if (\array_key_exists('call_id', $data) && $data['call_id'] !== null) {
+            $object->setCallId($data['call_id']);
         }
-        elseif (\array_key_exists('session_id', $data) && $data['session_id'] === null) {
-            $object->setSessionId(null);
+        elseif (\array_key_exists('call_id', $data) && $data['call_id'] === null) {
+            $object->setCallId(null);
         }
         if (\array_key_exists('workspace_id', $data) && $data['workspace_id'] !== null) {
             $object->setWorkspaceId($data['workspace_id']);
@@ -74,7 +74,7 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setTo(null);
         }
         if (\array_key_exists('actor', $data) && $data['actor'] !== null) {
-            $object->setActor($this->denormalizer->denormalize($data['actor'], \MessageBird\Wire\Model\VoiceCallActor::class, 'json', $context));
+            $object->setActor($this->denormalizer->denormalize($data['actor'], \MessageBird\Wire\Model\VoiceLegActor::class, 'json', $context));
         }
         elseif (\array_key_exists('actor', $data) && $data['actor'] === null) {
             $object->setActor(null);
@@ -162,7 +162,7 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setMediaQuality(null);
         }
         if (\array_key_exists('cost', $data) && $data['cost'] !== null) {
-            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\VoiceCallCost::class, 'json', $context));
+            $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\VoiceLegCost::class, 'json', $context));
         }
         elseif (\array_key_exists('cost', $data) && $data['cost'] === null) {
             $object->setCost(null);
@@ -184,6 +184,6 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCall::class => false];
+        return [\MessageBird\Wire\Model\VoiceLeg::class => false];
     }
 }

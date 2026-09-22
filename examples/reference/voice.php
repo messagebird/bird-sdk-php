@@ -13,10 +13,10 @@ use MessageBird\Bird;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
-$call = $bird->voice->get('vcl_01k0p3v9wera3v6q6xw3e9y2mh');
+$call = $bird->voice->legs->get('vcl_01k0p3v9wera3v6q6xw3e9y2mh');
 // A call still ringing or connected carries no economics yet.
 echo $call->getStatus(), ' ', $call->getDurationMs() ?? 'in flight';
 
-foreach ($bird->voice->list(['status' => ['ringing', 'in_progress']]) as $call) {
-    echo $call->getId(), ' ', $call->getStatus(), "\n";
+foreach ($bird->voice->legs->list() as $leg) {
+    echo $leg->getId(), ' ', $leg->getStatus(), "\n";
 }

@@ -29,13 +29,13 @@ class EmailBroadcast
      */
     protected $audienceId;
     /**
-     * The template this broadcast sends. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
+     * The template this broadcast sends, and the language it sends in. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
      *
      * @var EmailBroadcastTemplate|null
      */
     protected $template;
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, so this is the real body we send and differs per recipient only by that recipient's own merge values. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      * 
      *
      * @var int|null
@@ -93,14 +93,15 @@ class EmailBroadcast
      * 
      * - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
      * - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
-     * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
-     *   - The broadcast has no template, or its template has been deleted.
-     *   - The template has no published version, or no sendable content.
-     *   - The template uses a loop that a broadcast cannot fill.
-     *   - The template requires every send to name a language.
-     *   - The sending domain is no longer verified.
-     *   - The IP pool has nothing to send from.
-     *   - The message could not be handed off for delivery.
+     * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
+     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     *   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
+     *   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
+     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     *   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
+     *   - The sending domain is no longer verified. Verify the domain again.
+     *   - The configured IP pool has no usable IP address.
+     *   - We could not hand the prepared message to the delivery system. This is a problem on our side.
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
      * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
@@ -305,7 +306,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * The template this broadcast sends. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
+     * The template this broadcast sends, and the language it sends in. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
      *
      * @return EmailBroadcastTemplate|null
      */
@@ -314,7 +315,7 @@ class EmailBroadcast
         return $this->template;
     }
     /**
-     * The template this broadcast sends. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
+     * The template this broadcast sends, and the language it sends in. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
      *
      * @param EmailBroadcastTemplate|null $template
      *
@@ -327,7 +328,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, so this is the real body we send and differs per recipient only by that recipient's own merge values. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      * 
      *
      * @return int|null
@@ -337,7 +338,7 @@ class EmailBroadcast
         return $this->htmlBytes;
     }
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, so this is the real body we send and differs per recipient only by that recipient's own merge values. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      *
      * @param int|null $htmlBytes
      *
@@ -516,14 +517,15 @@ class EmailBroadcast
      * 
      * - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
      * - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
-     * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
-     *   - The broadcast has no template, or its template has been deleted.
-     *   - The template has no published version, or no sendable content.
-     *   - The template uses a loop that a broadcast cannot fill.
-     *   - The template requires every send to name a language.
-     *   - The sending domain is no longer verified.
-     *   - The IP pool has nothing to send from.
-     *   - The message could not be handed off for delivery.
+     * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
+     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     *   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
+     *   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
+     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     *   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
+     *   - The sending domain is no longer verified. Verify the domain again.
+     *   - The configured IP pool has no usable IP address.
+     *   - We could not hand the prepared message to the delivery system. This is a problem on our side.
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
      * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
@@ -540,14 +542,15 @@ class EmailBroadcast
     
     - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
     - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
-    - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
-     - The broadcast has no template, or its template has been deleted.
-     - The template has no published version, or no sendable content.
-     - The template uses a loop that a broadcast cannot fill.
-     - The template requires every send to name a language.
-     - The sending domain is no longer verified.
-     - The IP pool has nothing to send from.
-     - The message could not be handed off for delivery.
+    - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
+     - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
+     - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
+     - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
+     - The sending domain is no longer verified. Verify the domain again.
+     - The configured IP pool has no usable IP address.
+     - We could not hand the prepared message to the delivery system. This is a problem on our side.
     - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
     - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
     - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.

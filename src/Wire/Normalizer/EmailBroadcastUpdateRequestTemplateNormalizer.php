@@ -44,12 +44,12 @@ class EmailBroadcastUpdateRequestTemplateNormalizer implements DenormalizerInter
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('version_id', $data) && $data['version_id'] !== null) {
-            $object->setVersionId($data['version_id']);
-            unset($data['version_id']);
+        if (\array_key_exists('language', $data) && $data['language'] !== null) {
+            $object->setLanguage($data['language']);
+            unset($data['language']);
         }
-        elseif (\array_key_exists('version_id', $data) && $data['version_id'] === null) {
-            $object->setVersionId(null);
+        elseif (\array_key_exists('language', $data) && $data['language'] === null) {
+            $object->setLanguage(null);
         }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -61,7 +61,12 @@ class EmailBroadcastUpdateRequestTemplateNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['id'] = $data->getId();
+        if ($data->isInitialized('id') && null !== $data->getId()) {
+            $dataArray['id'] = $data->getId();
+        }
+        if ($data->isInitialized('language')) {
+            $dataArray['language'] = $data->getLanguage();
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

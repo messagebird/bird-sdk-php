@@ -24,7 +24,8 @@ class EmailBroadcastUpdateRequest
      */
     protected $audienceId;
     /**
-     * The template the broadcast sends. Its published version is fixed when the broadcast is prepared for sending. Set this to null to take the template off a draft, or leave it out to keep the one already set.
+     * The template the broadcast sends, and the language to send it in, each changeable on its own. Set this to null to take the template and its language off a draft, or leave it out to keep the template, language and fixed version already set.
+     * 
      *
      * @var EmailBroadcastUpdateRequestTemplate|null
      */
@@ -123,7 +124,8 @@ class EmailBroadcastUpdateRequest
         return $this;
     }
     /**
-     * The template the broadcast sends. Its published version is fixed when the broadcast is prepared for sending. Set this to null to take the template off a draft, or leave it out to keep the one already set.
+     * The template the broadcast sends, and the language to send it in, each changeable on its own. Set this to null to take the template and its language off a draft, or leave it out to keep the template, language and fixed version already set.
+     * 
      *
      * @return EmailBroadcastUpdateRequestTemplate|null
      */
@@ -132,7 +134,7 @@ class EmailBroadcastUpdateRequest
         return $this->template;
     }
     /**
-     * The template the broadcast sends. Its published version is fixed when the broadcast is prepared for sending. Set this to null to take the template off a draft, or leave it out to keep the one already set.
+     * The template the broadcast sends, and the language to send it in, each changeable on its own. Set this to null to take the template and its language off a draft, or leave it out to keep the template, language and fixed version already set.
      *
      * @param EmailBroadcastUpdateRequestTemplate|null $template
      *

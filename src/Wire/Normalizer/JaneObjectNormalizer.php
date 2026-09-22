@@ -92,6 +92,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastList::class => \MessageBird\Wire\Normalizer\EmailBroadcastListNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateCreateNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastCreateRequestNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestNormalizer::class,
@@ -526,6 +528,40 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppReactionEventList::class => \MessageBird\Wire\Normalizer\WhatsAppReactionEventListNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppGroupError::class => \MessageBird\Wire\Normalizer\WhatsAppGroupErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupOperationResult::class => \MessageBird\Wire\Normalizer\WhatsAppGroupOperationResultNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupOperation::class => \MessageBird\Wire\Normalizer\WhatsAppGroupOperationNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupParticipant::class => \MessageBird\Wire\Normalizer\WhatsAppGroupParticipantNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupPinnedMessage::class => \MessageBird\Wire\Normalizer\WhatsAppGroupPinnedMessageNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroup::class => \MessageBird\Wire\Normalizer\WhatsAppGroupNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupList::class => \MessageBird\Wire\Normalizer\WhatsAppGroupListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupCreate::class => \MessageBird\Wire\Normalizer\WhatsAppGroupCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupUpdate::class => \MessageBird\Wire\Normalizer\WhatsAppGroupUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupInviteLink::class => \MessageBird\Wire\Normalizer\WhatsAppGroupInviteLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate::class => \MessageBird\Wire\Normalizer\WhatsAppGroupPinnedMessageCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequest::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequestList::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecision::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestDecisionNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailure::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestFailureNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailureError::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestFailureErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecisionResult::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestDecisionResultNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateExampleParameterNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateButton::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateButtonNormalizer::class,
@@ -686,11 +722,23 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => \MessageBird\Wire\Normalizer\WhatsAppMetaHealthErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppMetaHealthEntity::class => \MessageBird\Wire\Normalizer\WhatsAppMetaHealthEntityNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppBusinessAccount::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountPortfolioNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppBusinessAccountMetaHealthStatus::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountMetaHealthStatusNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppSuppression::class => \MessageBird\Wire\Normalizer\WhatsAppSuppressionNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppSuppressionList::class => \MessageBird\Wire\Normalizer\WhatsAppSuppressionListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppSuppressionCreate::class => \MessageBird\Wire\Normalizer\WhatsAppSuppressionCreateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppKeywordRule::class => \MessageBird\Wire\Normalizer\WhatsAppKeywordRuleNormalizer::class,
 
@@ -1206,13 +1254,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallCost::class => \MessageBird\Wire\Normalizer\VoiceCallCostNormalizer::class,
+        \MessageBird\Wire\Model\VoiceLegCost::class => \MessageBird\Wire\Normalizer\VoiceLegCostNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCall::class => \MessageBird\Wire\Normalizer\VoiceCallNormalizer::class,
+        \MessageBird\Wire\Model\VoiceLeg::class => \MessageBird\Wire\Normalizer\VoiceLegNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallActor::class => \MessageBird\Wire\Normalizer\VoiceCallActorNormalizer::class,
+        \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallList::class => \MessageBird\Wire\Normalizer\VoiceCallListNormalizer::class,
+        \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
 
         \Jane\Component\JsonSchemaRuntime\Reference::class => \MessageBird\Wire\Runtime\Normalizer\ReferenceNormalizer::class,
     ], $normalizersCache = [];
@@ -1289,6 +1337,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcast::class => false,
             \MessageBird\Wire\Model\EmailBroadcastList::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => false,
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => false,
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => false,
@@ -1506,6 +1555,23 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppReactionEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppReactionEventFrom::class => false,
             \MessageBird\Wire\Model\WhatsAppReactionEventList::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupError::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupOperationResult::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupOperation::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupParticipant::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupPinnedMessage::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroup::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupList::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupCreate::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupUpdate::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupInviteLink::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequest::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequestList::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecision::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailure::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailureError::class => false,
+            \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecisionResult::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateButton::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCardComponent::class => false,
@@ -1586,9 +1652,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberProfile::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
+            \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => false,
+            \MessageBird\Wire\Model\WhatsAppMetaHealthEntity::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccount::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => false,
+            \MessageBird\Wire\Model\WhatsAppBusinessAccountMetaHealthStatus::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => false,
+            \MessageBird\Wire\Model\WhatsAppSuppression::class => false,
+            \MessageBird\Wire\Model\WhatsAppSuppressionList::class => false,
+            \MessageBird\Wire\Model\WhatsAppSuppressionCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppKeywordRule::class => false,
             \MessageBird\Wire\Model\WhatsAppKeywordRuleList::class => false,
             \MessageBird\Wire\Model\WhatsAppKeywordRuleCreate::class => false,
@@ -1846,10 +1918,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\NumbersOrderList::class => false,
             \MessageBird\Wire\Model\NumbersOrderCreate::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
-            \MessageBird\Wire\Model\VoiceCallCost::class => false,
-            \MessageBird\Wire\Model\VoiceCall::class => false,
-            \MessageBird\Wire\Model\VoiceCallActor::class => false,
-            \MessageBird\Wire\Model\VoiceCallList::class => false,
+            \MessageBird\Wire\Model\VoiceLegCost::class => false,
+            \MessageBird\Wire\Model\VoiceLeg::class => false,
+            \MessageBird\Wire\Model\VoiceLegActor::class => false,
+            \MessageBird\Wire\Model\VoiceLegList::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

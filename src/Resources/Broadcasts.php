@@ -30,6 +30,7 @@ final class Broadcasts extends BroadcastsBase
      *
      * @param string|array<string, string>|EmailAddress|null $from the address the broadcast sends from: a plain email string, an RFC 5322 mailbox string, an `['email' => …, 'name' => …]` array, or an EmailAddress
      * @param string|null $template the template's id (`emt_…`)
+     * @param string|null $language one of the template's languages, sent to the whole audience; it needs `$template`, and it has to be an exact match for a language on the published version, so `fr-CA` does not select `fr`
      * @param list<string|array<string, string>|EmailAddress>|null $replyTo where replies should go, up to 25 addresses, each in any of the forms `$from` takes
      * @param array<string, string>|null $headers custom email headers, up to 25
      * @param list<array{name: string, value: string}>|null $tags labels on the broadcast, up to 20
@@ -52,6 +53,7 @@ final class Broadcasts extends BroadcastsBase
         ?bool $send = null,
         ?\DateTimeInterface $scheduledAt = null,
         ?RequestOptions $options = null,
+        ?string $language = null,
     ): EmailBroadcast {
         // A per-call value always wins; an unset field falls back to the client
         // default, so a broadcast sends under the same policy as the client's
@@ -82,8 +84,15 @@ final class Broadcasts extends BroadcastsBase
         if ($audienceId !== null) {
             $body['audience_id'] = $audienceId;
         }
+        // The language is one of the template's own languages, so it travels
+        // inside the template reference rather than beside it.
         if ($template !== null) {
             $body['template'] = ['id' => $template];
+            if ($language !== null) {
+                $body['template']['language'] = $language;
+            }
+        } elseif ($language !== null) {
+            throw new \InvalidArgumentException('$language needs a $template: the language is chosen from the template it belongs to.');
         }
         if ($replyTo !== null) {
             $body['reply_to'] = $replyTo;
@@ -123,16 +132,20 @@ final class Broadcasts extends BroadcastsBase
      * Change a broadcast that is still a draft or is scheduled, and return it.
      *
      * `$changes` is the wire body verbatim: a key present with a value sets it,
-     * `template`, `reply_to` and `ip_pool_id` present with `null` clear it, and
-     * an absent key leaves the stored value alone. Taken as an array rather
-     * than named parameters because those three fields need all three states,
+     * `template`, `reply_to` and `ip_pool_id` with `null` clear it. The template
+     * and its language change independently: `['language' => 'nl']` on its own
+     * keeps the template and the version the broadcast is fixed to, while an
+     * `id` moves the broadcast and lets the next send fix on that template's
+     * published version.
+     * An absent key leaves the stored value alone. Taken as an array rather
+     * than named parameters because these fields need all three states,
      * which a nullable PHP parameter cannot express. A broadcast that has
      * started sending can no longer be edited and is refused with a 409.
      *
      * @param array{
      *     from?: string|array<string, mixed>|EmailAddress,
      *     audience_id?: string,
-     *     template?: array{id: string}|null,
+     *     template?: array{id?: string, language?: string|null}|null,
      *     reply_to?: list<string|array<string, string>|EmailAddress>|null,
      *     headers?: array<string, string>,
      *     tags?: list<array{name: string, value: string}>,

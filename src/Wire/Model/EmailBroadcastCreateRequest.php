@@ -24,10 +24,10 @@ class EmailBroadcastCreateRequest
      */
     protected $audienceId;
     /**
-     * The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+     * The template a new broadcast sends, and which of that template's languages goes out.
      * 
      *
-     * @var EmailBroadcastTemplate|null
+     * @var EmailBroadcastTemplateCreate|null
      */
     protected $template;
     /**
@@ -137,23 +137,23 @@ class EmailBroadcastCreateRequest
         return $this;
     }
     /**
-     * The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+     * The template a new broadcast sends, and which of that template's languages goes out.
      * 
      *
-     * @return EmailBroadcastTemplate|null
+     * @return EmailBroadcastTemplateCreate|null
      */
-    public function getTemplate(): ?EmailBroadcastTemplate
+    public function getTemplate(): ?EmailBroadcastTemplateCreate
     {
         return $this->template;
     }
     /**
-     * The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+     * The template a new broadcast sends, and which of that template's languages goes out.
      *
-     * @param EmailBroadcastTemplate|null $template
+     * @param EmailBroadcastTemplateCreate|null $template
      *
      * @return self
      */
-    public function setTemplate(?EmailBroadcastTemplate $template): self
+    public function setTemplate(?EmailBroadcastTemplateCreate $template): self
     {
         $this->initialized['template'] = true;
         $this->template = $template;

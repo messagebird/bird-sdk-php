@@ -34,6 +34,8 @@ final class Whatsapp extends WhatsappBase
 
     public readonly WhatsappTemplates $templates;
 
+    public readonly WhatsappGroups $groups;
+
     public readonly WhatsappReaction $reaction;
 
     public readonly WhatsappNumbers $numbers;
@@ -42,16 +44,20 @@ final class Whatsapp extends WhatsappBase
 
     public readonly WhatsappKeywordRules $keywordRules;
 
+    public readonly WhatsappSuppressions $suppressions;
+
     public function __construct(Bird $client)
     {
         parent::__construct($client);
         $this->stats = new WhatsappStats($client);
         $this->messages = new WhatsappMessages($client);
         $this->templates = new WhatsappTemplates($client);
+        $this->groups = new WhatsappGroups($client);
         $this->reaction = new WhatsappReaction($client);
         $this->numbers = new WhatsappNumbers($client);
         $this->businessAccounts = new WhatsappBusinessAccounts($client);
         $this->keywordRules = new WhatsappKeywordRules($client);
+        $this->suppressions = new WhatsappSuppressions($client);
     }
 
     /**

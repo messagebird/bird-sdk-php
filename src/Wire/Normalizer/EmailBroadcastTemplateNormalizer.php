@@ -44,6 +44,13 @@ class EmailBroadcastTemplateNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
+        if (\array_key_exists('language', $data) && $data['language'] !== null) {
+            $object->setLanguage($data['language']);
+            unset($data['language']);
+        }
+        elseif (\array_key_exists('language', $data) && $data['language'] === null) {
+            $object->setLanguage(null);
+        }
         if (\array_key_exists('version_id', $data) && $data['version_id'] !== null) {
             $object->setVersionId($data['version_id']);
             unset($data['version_id']);
@@ -62,6 +69,9 @@ class EmailBroadcastTemplateNormalizer implements DenormalizerInterface, Normali
     {
         $dataArray = [];
         $dataArray['id'] = $data->getId();
+        if ($data->isInitialized('language')) {
+            $dataArray['language'] = $data->getLanguage();
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

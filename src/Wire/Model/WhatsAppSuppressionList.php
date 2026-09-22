@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallList extends \ArrayObject
+class WhatsAppSuppressionList extends \ArrayObject
 {
     /**
      * @var array
@@ -13,7 +13,7 @@ class VoiceCallList extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var list<VoiceCall>|null
+     * @var list<WhatsAppSuppression>|null
      */
     protected $data;
     /**
@@ -35,14 +35,14 @@ class VoiceCallList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
-     * @return list<VoiceCall>|null
+     * @return list<WhatsAppSuppression>|null
      */
     public function getData(): ?array
     {
         return $this->data;
     }
     /**
-     * @param list<VoiceCall>|null $data
+     * @param list<WhatsAppSuppression>|null $data
      *
      * @return self
      */

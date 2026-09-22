@@ -11,12 +11,17 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\WhatsAppGroupCreate;
+use MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecision;
+use MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate;
+use MessageBird\Wire\Model\WhatsAppGroupUpdate;
 use MessageBird\Wire\Model\WhatsAppKeywordRuleCreate;
 use MessageBird\Wire\Model\WhatsAppKeywordRuleUpdate;
 use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
 use MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter;
 use MessageBird\Wire\Model\WhatsAppReactionUpsert;
 use MessageBird\Wire\Model\WhatsAppReadReceiptRequest;
+use MessageBird\Wire\Model\WhatsAppSuppressionCreate;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
@@ -181,6 +186,68 @@ foreach ($bird->whatsapp->businessAccounts->list() as $account) {
 $account = $bird->whatsapp->businessAccounts->get('waa_01krdgeqcxet5s7t44vh8rt9mg');
 echo $account->getAccountReviewStatus(), ' ', $account->getBusinessVerificationStatus(), "\n";
 
+$group = $bird->whatsapp->groups->create(
+    (new WhatsAppGroupCreate())
+        ->setWhatsappNumberId('wan_01krdgeqcxet5s7t44vh8rt9mg')
+        ->setSubject('Norwood Fleet — Tuesday route'),
+);
+echo $group->getId(), ' ', $group->getStatus(); // pending; read it back for the invite link
+
+foreach ($bird->whatsapp->groups->list() as $group) {
+    echo $group->getId(), ' ', $group->getSubject(), PHP_EOL;
+}
+
+$group = $bird->whatsapp->groups->get('wag_01krdgeqcxet5s7t44vh8rt9mg');
+echo $group->getStatus(), ' ', $group->getInviteLink();
+
+$group = $bird->whatsapp->groups->update(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppGroupUpdate())->setSubject('Norwood Fleet — Wednesday route'),
+);
+echo $group->getLastOperation()?->getStatus(); // pending until WhatsApp reports back
+
+$group = $bird->whatsapp->groups->delete('wag_01krdgeqcxet5s7t44vh8rt9mg');
+echo $group->getLastOperation()?->getStatus(); // pending until WhatsApp confirms it
+
+$link = $bird->whatsapp->groups->inviteLink->rotate('wag_01krdgeqcxet5s7t44vh8rt9mg');
+echo $link->getInviteLink(); // every earlier link has stopped working
+
+$group = $bird->whatsapp->groups->participants->remove(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    'BR.1566655121691972',
+);
+echo count($group->getParticipants() ?? []);
+
+foreach ($bird->whatsapp->groups->joinRequests->list('wag_01krdgeqcxet5s7t44vh8rt9mg') as $request) {
+    echo $request->getId(), ' ', $request->getBsuid(), PHP_EOL;
+}
+
+$result = $bird->whatsapp->groups->joinRequests->approve(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppGroupJoinRequestDecision())->setJoinRequestIds(['wgj_01krdgeqcxet5s7t44vh8rt9mg']),
+);
+echo count($result->getDecided() ?? []), ' ', count($result->getFailed() ?? []);
+
+$result = $bird->whatsapp->groups->joinRequests->reject(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppGroupJoinRequestDecision())->setJoinRequestIds(['wgj_01krdgeqcxet5s7t44vh8rt9mg']),
+);
+foreach ($result->getFailed() ?? [] as $failure) {
+    echo $failure->getJoinRequestId(), ' ', $failure->getError()?->getDescription(), PHP_EOL;
+}
+
+$pin = $bird->whatsapp->groups->pins->create(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppGroupPinnedMessageCreate())->setMessageId('wam_01kya19eknftrs2s6p82asmvnh'),
+);
+echo $pin->getPinnedUntil()?->format(DATE_ATOM);
+
+$group = $bird->whatsapp->groups->pins->delete(
+    'wag_01krdgeqcxet5s7t44vh8rt9mg',
+    'wam_01kya19eknftrs2s6p82asmvnh',
+);
+echo count($group->getPinnedMessages() ?? []);
+
 $rules = $bird->whatsapp->keywordRules->list(['operation' => 'opt_out']);
 foreach ($rules->getData() ?? [] as $rule) {
     echo $rule->getScope(), ' ', implode(',', $rule->getEffectiveKeywords() ?? []), PHP_EOL;
@@ -209,3 +276,26 @@ echo implode(',', $rule->getEffectiveKeywords() ?? []);
 
 // The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one; STOP never stops working.
 $bird->whatsapp->keywordRules->delete('wkr_01m2kj8x4te9p0rr7e5w2n1abc');
+
+// address is a prefix, so a partial value matches every address under it.
+foreach ($bird->whatsapp->suppressions->list(['address' => '+1555']) as $suppression) {
+    echo $suppression->getAddress(), ' ', $suppression->getWaba() ?? 'every account', PHP_EOL;
+}
+
+// Resolves a record that has already ended, which the list leaves out.
+$suppression = $bird->whatsapp->suppressions->get('was_01krdgeqcxet5s7t44vh8rt9mg');
+echo $suppression->getReason(), ' ', $suppression->getEndedAt()?->format(DATE_ATOM) ?? 'still in force';
+
+// Omit setWaba to block the address for the whole workspace, whichever account
+// sends. With it, your other accounts keep reaching them, and the same address
+// for two accounts is two records.
+$suppression = $bird->whatsapp->suppressions->add(
+    (new WhatsAppSuppressionCreate())
+        ->setAddress('+15550001234')
+        ->setWaba('102290129340398'),
+);
+echo $suppression->getId(), ' ', $suppression->getAppliesTo();
+
+// Only a manual suppression can be ended; a recipient's own opt-out is theirs
+// to reverse. The record is kept and still reads back by id.
+$bird->whatsapp->suppressions->remove('was_01krdgeqcxet5s7t44vh8rt9mg');

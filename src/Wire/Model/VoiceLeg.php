@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCall
+class VoiceLeg
 {
     /**
      * @var array
@@ -17,11 +17,11 @@ class VoiceCall
      */
     protected $id;
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
+     * Call identifier shared across all legs of a multi-party or transferred call. Use this to correlate related leg records. `null` when call correlation is not available for the leg.
      *
      * @var string|null
      */
-    protected $sessionId;
+    protected $callId;
     /**
      * @var string|null
      */
@@ -43,13 +43,13 @@ class VoiceCall
      */
     protected $to;
     /**
-     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
      *
-     * @var VoiceCallActor|null
+     * @var VoiceLegActor|null
      */
     protected $actor;
     /**
-     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
+     * Identifier of the SIP trunk that originated this leg. `null` when no trunk is associated.
      *
      * @var string|null
      */
@@ -65,9 +65,9 @@ class VoiceCall
      */
     protected $sipResponseCode;
     /**
-     * Why we rejected the call. Absent on connected calls and calls rejected
+     * Why we rejected the leg. Absent on connected legs and legs rejected
      * by the carrier or recipient. For carrier or recipient rejections, see
-     * `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+     * `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
      * 
      * Read alongside `route` when present. A refusal caused by the number's
      * configuration has no rejection reason; the route records that
@@ -78,50 +78,50 @@ class VoiceCall
      */
     protected $rejectionReason;
     /**
-     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     * Which answer your number gave an incoming leg: a SIP trunk, a forward, or a refusal. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
      *
      * @var mixed|null
      */
     protected $route;
     /**
-     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     * Your own `{name, value}` labels for this leg, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise legs by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a leg is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the leg still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the leg carried none, and on legs recorded before this field existed.
      *
      * @var list<Tag>|null
      */
     protected $tags;
     /**
-     * When the call was initiated.
+     * When the leg was initiated.
      *
      * @var \DateTime|null
      */
     protected $startedAt;
     /**
-     * When the call was answered (`200` OK received). `null` for unanswered calls.
+     * When the leg was answered (`200` OK received). `null` for unanswered legs.
      *
      * @var \DateTime|null
      */
     protected $answeredAt;
     /**
-     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
+     * When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
      *
      * @var \DateTime|null
      */
     protected $endedAt;
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
+     * Total leg duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the leg is still in progress and has no final duration yet.
      *
      * @var int|null
      */
     protected $durationMs;
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
      * 
      *
      * @var int|null
      */
     protected $pddMs;
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to leg end. Zero for unanswered legs, and `null` while the leg is still in progress.
      *
      * @var int|null
      */
@@ -131,10 +131,10 @@ class VoiceCall
      */
     protected $mediaQuality;
     /**
-     * What was charged for a call, split into the components that make it up.
+     * What was charged for a leg, split into the components that make it up.
      * 
      *
-     * @var VoiceCallCost|null
+     * @var VoiceLegCost|null
      */
     protected $cost;
     /**
@@ -156,25 +156,25 @@ class VoiceCall
         return $this;
     }
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
+     * Call identifier shared across all legs of a multi-party or transferred call. Use this to correlate related leg records. `null` when call correlation is not available for the leg.
      *
      * @return string|null
      */
-    public function getSessionId(): ?string
+    public function getCallId(): ?string
     {
-        return $this->sessionId;
+        return $this->callId;
     }
     /**
-     * Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
+     * Call identifier shared across all legs of a multi-party or transferred call. Use this to correlate related leg records. `null` when call correlation is not available for the leg.
      *
-     * @param string|null $sessionId
+     * @param string|null $callId
      *
      * @return self
      */
-    public function setSessionId(?string $sessionId): self
+    public function setCallId(?string $callId): self
     {
-        $this->initialized['sessionId'] = true;
-        $this->sessionId = $sessionId;
+        $this->initialized['callId'] = true;
+        $this->callId = $callId;
         return $this;
     }
     /**
@@ -258,29 +258,29 @@ class VoiceCall
         return $this;
     }
     /**
-     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
      *
-     * @return VoiceCallActor|null
+     * @return VoiceLegActor|null
      */
-    public function getActor(): ?VoiceCallActor
+    public function getActor(): ?VoiceLegActor
     {
         return $this->actor;
     }
     /**
-     * Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+     * Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
      *
-     * @param VoiceCallActor|null $actor
+     * @param VoiceLegActor|null $actor
      *
      * @return self
      */
-    public function setActor(?VoiceCallActor $actor): self
+    public function setActor(?VoiceLegActor $actor): self
     {
         $this->initialized['actor'] = true;
         $this->actor = $actor;
         return $this;
     }
     /**
-     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
+     * Identifier of the SIP trunk that originated this leg. `null` when no trunk is associated.
      *
      * @return string|null
      */
@@ -289,7 +289,7 @@ class VoiceCall
         return $this->sipTrunkId;
     }
     /**
-     * Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
+     * Identifier of the SIP trunk that originated this leg. `null` when no trunk is associated.
      *
      * @param string|null $sipTrunkId
      *
@@ -342,9 +342,9 @@ class VoiceCall
         return $this;
     }
     /**
-     * Why we rejected the call. Absent on connected calls and calls rejected
+     * Why we rejected the leg. Absent on connected legs and legs rejected
      * by the carrier or recipient. For carrier or recipient rejections, see
-     * `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+     * `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
      * 
      * Read alongside `route` when present. A refusal caused by the number's
      * configuration has no rejection reason; the route records that
@@ -358,9 +358,9 @@ class VoiceCall
         return $this->rejectionReason;
     }
     /**
-    * Why we rejected the call. Absent on connected calls and calls rejected
+    * Why we rejected the leg. Absent on connected legs and legs rejected
     by the carrier or recipient. For carrier or recipient rejections, see
-    `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+    `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
     
     Read alongside `route` when present. A refusal caused by the number's
     configuration has no rejection reason; the route records that
@@ -378,7 +378,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     * Which answer your number gave an incoming leg: a SIP trunk, a forward, or a refusal. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
      *
      * @return mixed
      */
@@ -387,7 +387,7 @@ class VoiceCall
         return $this->route;
     }
     /**
-     * Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+     * Which answer your number gave an incoming leg: a SIP trunk, a forward, or a refusal. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
      *
      * @param mixed $route
      *
@@ -400,7 +400,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     * Your own `{name, value}` labels for this leg, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise legs by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a leg is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the leg still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the leg carried none, and on legs recorded before this field existed.
      *
      * @return list<Tag>|null
      */
@@ -409,7 +409,7 @@ class VoiceCall
         return $this->tags;
     }
     /**
-     * Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+     * Your own `{name, value}` labels for this leg, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise legs by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a leg is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the leg still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the leg carried none, and on legs recorded before this field existed.
      *
      * @param list<Tag>|null $tags
      *
@@ -422,7 +422,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * When the call was initiated.
+     * When the leg was initiated.
      *
      * @return \DateTime|null
      */
@@ -431,7 +431,7 @@ class VoiceCall
         return $this->startedAt;
     }
     /**
-     * When the call was initiated.
+     * When the leg was initiated.
      *
      * @param \DateTime|null $startedAt
      *
@@ -444,7 +444,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * When the call was answered (`200` OK received). `null` for unanswered calls.
+     * When the leg was answered (`200` OK received). `null` for unanswered legs.
      *
      * @return \DateTime|null
      */
@@ -453,7 +453,7 @@ class VoiceCall
         return $this->answeredAt;
     }
     /**
-     * When the call was answered (`200` OK received). `null` for unanswered calls.
+     * When the leg was answered (`200` OK received). `null` for unanswered legs.
      *
      * @param \DateTime|null $answeredAt
      *
@@ -466,7 +466,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
+     * When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
      *
      * @return \DateTime|null
      */
@@ -475,7 +475,7 @@ class VoiceCall
         return $this->endedAt;
     }
     /**
-     * When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
+     * When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
      *
      * @param \DateTime|null $endedAt
      *
@@ -488,7 +488,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
+     * Total leg duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the leg is still in progress and has no final duration yet.
      *
      * @return int|null
      */
@@ -497,7 +497,7 @@ class VoiceCall
         return $this->durationMs;
     }
     /**
-     * Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
+     * Total leg duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the leg is still in progress and has no final duration yet.
      *
      * @param int|null $durationMs
      *
@@ -510,7 +510,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
      * 
      *
      * @return int|null
@@ -520,7 +520,7 @@ class VoiceCall
         return $this->pddMs;
     }
     /**
-     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+     * Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
      *
      * @param int|null $pddMs
      *
@@ -533,7 +533,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to leg end. Zero for unanswered legs, and `null` while the leg is still in progress.
      *
      * @return int|null
      */
@@ -542,7 +542,7 @@ class VoiceCall
         return $this->billableMs;
     }
     /**
-     * Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
+     * Billable duration in milliseconds, measured from answer to leg end. Zero for unanswered legs, and `null` while the leg is still in progress.
      *
      * @param int|null $billableMs
      *
@@ -573,23 +573,23 @@ class VoiceCall
         return $this;
     }
     /**
-     * What was charged for a call, split into the components that make it up.
+     * What was charged for a leg, split into the components that make it up.
      * 
      *
-     * @return VoiceCallCost|null
+     * @return VoiceLegCost|null
      */
-    public function getCost(): ?VoiceCallCost
+    public function getCost(): ?VoiceLegCost
     {
         return $this->cost;
     }
     /**
-     * What was charged for a call, split into the components that make it up.
+     * What was charged for a leg, split into the components that make it up.
      *
-     * @param VoiceCallCost|null $cost
+     * @param VoiceLegCost|null $cost
      *
      * @return self
      */
-    public function setCost(?VoiceCallCost $cost): self
+    public function setCost(?VoiceLegCost $cost): self
     {
         $this->initialized['cost'] = true;
         $this->cost = $cost;

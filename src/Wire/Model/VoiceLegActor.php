@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallActor extends \ArrayObject
+class VoiceLegActor extends \ArrayObject
 {
     /**
      * @var array
