@@ -1242,6 +1242,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WebhookAttemptList::class => \MessageBird\Wire\Normalizer\WebhookAttemptListNormalizer::class,
 
+        \MessageBird\Wire\Model\VoicePartySIPEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartySIPEndpointNormalizer::class,
+
+        \MessageBird\Wire\Model\VoicePartyBridgePSTNEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartyBridgePSTNEndpointNormalizer::class,
+
+        \MessageBird\Wire\Model\VoicePartyBridgeSIPEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartyBridgeSIPEndpointNormalizer::class,
+
+        \MessageBird\Wire\Model\VoicePartyEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartyEndpointNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceParty::class => \MessageBird\Wire\Normalizer\VoicePartyNormalizer::class,
+
         \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
 
         \MessageBird\Wire\Model\Number::class => \MessageBird\Wire\Normalizer\NumberNormalizer::class,
@@ -1267,6 +1277,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallSequence::class => \MessageBird\Wire\Normalizer\VoiceCallSequenceNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCall::class => \MessageBird\Wire\Normalizer\VoiceCallNormalizer::class,
+
+        \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallSequenceRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\CreateVoiceCallRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallRequestNormalizer::class,
 
         \Jane\Component\JsonSchemaRuntime\Reference::class => \MessageBird\Wire\Runtime\Normalizer\ReferenceNormalizer::class,
     ], $normalizersCache = [];
@@ -1918,6 +1936,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WebhookReplayRequest::class => false,
             \MessageBird\Wire\Model\WebhookAttempt::class => false,
             \MessageBird\Wire\Model\WebhookAttemptList::class => false,
+            \MessageBird\Wire\Model\VoicePartySIPEndpoint::class => false,
+            \MessageBird\Wire\Model\VoicePartyBridgePSTNEndpoint::class => false,
+            \MessageBird\Wire\Model\VoicePartyBridgeSIPEndpoint::class => false,
+            \MessageBird\Wire\Model\VoicePartyEndpoint::class => false,
+            \MessageBird\Wire\Model\VoiceParty::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
             \MessageBird\Wire\Model\Number::class => false,
             \MessageBird\Wire\Model\NumberList::class => false,
@@ -1931,6 +1954,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceLeg::class => false,
             \MessageBird\Wire\Model\VoiceLegActor::class => false,
             \MessageBird\Wire\Model\VoiceLegList::class => false,
+            \MessageBird\Wire\Model\VoiceCallSequence::class => false,
+            \MessageBird\Wire\Model\VoiceCall::class => false,
+            \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false,
+            \MessageBird\Wire\Model\CreateVoiceCallRequest::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

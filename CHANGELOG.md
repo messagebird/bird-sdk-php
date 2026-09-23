@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.50.0
+
+- Create outbound voice calls using an active published sequence, with entry data and idempotent retries.
+
 ## 0.49.0
 
 - Add batch email lookup for up to 1,000 addresses, with ordered assessments and per-address billing.

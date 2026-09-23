@@ -139,6 +139,7 @@ return [
     "/v1/whatsapp/stats/inbound/daily",
     "/v1/whatsapp/stats/inbound/hourly",
     "/v1/whatsapp/stats/inbound/phone-numbers",
+    "/v1/voice/calls",
     "/v1/voice/legs",
     "/v1/voice/legs/{leg_id}",
     "/v1/verify/verifications",
