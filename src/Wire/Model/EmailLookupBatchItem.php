@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class EmailLookup
+class EmailLookupBatchItem
 {
     /**
      * @var array
@@ -13,7 +13,7 @@ class EmailLookup
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The address that was looked up, exactly as you sent it.
+     * The submitted value after trimming surrounding whitespace. May be empty or malformed.
      *
      * @var string|null
      */
@@ -53,7 +53,7 @@ class EmailLookup
      */
     protected $didYouMean;
     /**
-     * The address that was looked up, exactly as you sent it.
+     * The submitted value after trimming surrounding whitespace. May be empty or malformed.
      *
      * @return string|null
      */
@@ -62,7 +62,7 @@ class EmailLookup
         return $this->email;
     }
     /**
-     * The address that was looked up, exactly as you sent it.
+     * The submitted value after trimming surrounding whitespace. May be empty or malformed.
      *
      * @param string|null $email
      *

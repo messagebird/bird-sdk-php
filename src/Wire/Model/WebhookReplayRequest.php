@@ -13,21 +13,21 @@ class WebhookReplayRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Replay events that occurred at or after this timestamp. Defaults to 24 hours before the request when omitted.
+     * Replay events whose delivery attempt failed at or after this timestamp. The bound is inclusive and applies to attempt time, not to when the event occurred, so a retry that trailed its event by a day falls in the window by the hour it was attempted. Defaults to 24 hours before the request when omitted. Attempts are retained for three days, so that is the oldest history a replay reaches: an earlier `since` widens the window without recovering anything older.
      * 
      *
      * @var \DateTime|null
      */
     protected $since;
     /**
-     * Replay events that occurred before or at this timestamp. Omit to bound the window only by `since`.
+     * Replay events whose delivery attempt failed at or before this timestamp, on the same attempt-time bound as `since`. Omitted, it resolves to the time of the request.
      * 
      *
      * @var \DateTime|null
      */
     protected $until;
     /**
-     * Replay events that occurred at or after this timestamp. Defaults to 24 hours before the request when omitted.
+     * Replay events whose delivery attempt failed at or after this timestamp. The bound is inclusive and applies to attempt time, not to when the event occurred, so a retry that trailed its event by a day falls in the window by the hour it was attempted. Defaults to 24 hours before the request when omitted. Attempts are retained for three days, so that is the oldest history a replay reaches: an earlier `since` widens the window without recovering anything older.
      * 
      *
      * @return \DateTime|null
@@ -37,7 +37,7 @@ class WebhookReplayRequest
         return $this->since;
     }
     /**
-     * Replay events that occurred at or after this timestamp. Defaults to 24 hours before the request when omitted.
+     * Replay events whose delivery attempt failed at or after this timestamp. The bound is inclusive and applies to attempt time, not to when the event occurred, so a retry that trailed its event by a day falls in the window by the hour it was attempted. Defaults to 24 hours before the request when omitted. Attempts are retained for three days, so that is the oldest history a replay reaches: an earlier `since` widens the window without recovering anything older.
      *
      * @param \DateTime|null $since
      *
@@ -50,7 +50,7 @@ class WebhookReplayRequest
         return $this;
     }
     /**
-     * Replay events that occurred before or at this timestamp. Omit to bound the window only by `since`.
+     * Replay events whose delivery attempt failed at or before this timestamp, on the same attempt-time bound as `since`. Omitted, it resolves to the time of the request.
      * 
      *
      * @return \DateTime|null
@@ -60,7 +60,7 @@ class WebhookReplayRequest
         return $this->until;
     }
     /**
-     * Replay events that occurred before or at this timestamp. Omit to bound the window only by `since`.
+     * Replay events whose delivery attempt failed at or before this timestamp, on the same attempt-time bound as `since`. Omitted, it resolves to the time of the request.
      *
      * @param \DateTime|null $until
      *

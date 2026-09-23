@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 use MessageBird\Bird;
 use MessageBird\Wire\Model\EmailLookupRequest;
+use MessageBird\Wire\Model\EmailLookupBatchRequest;
 use MessageBird\Wire\Model\PhoneNumberLookupRequest;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
@@ -29,4 +30,11 @@ echo $answer->getCountryCode(), ' ', $answer->getLineType();
 // Only a block whose status is ok carries a value, and only that one is billed.
 if ($answer->getScore()?->getStatus() === 'ok') {
     echo $answer->getScore()->getValue();
+}
+
+$answer = $bird->lookup->emailBatch(
+    (new EmailLookupBatchRequest())->setEmails(['aisha.khan@example.com', 'not-an-email']),
+);
+foreach ($answer->getData() ?? [] as $item) {
+    echo $item->getEmail(), ' ', $item->getResult();
 }

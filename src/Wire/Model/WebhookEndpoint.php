@@ -45,9 +45,10 @@ class WebhookEndpoint extends \ArrayObject
      * - `paused`: All delivery is stopped, either because an update set `status` to
      *   `paused` or automatically after sustained delivery failures. A paused endpoint
      *   never resumes on its own: re-enable it with
-     *   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-     *   the missed events with
-     *   [Replay missed events](/docs/api/reference/create-webhook-replay).
+     *   [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+     *   [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+     *   recover the deliveries that failed before the pause. Events that arrived
+     *   while it was paused were never attempted, so a replay does not reach them.
      * 
      *
      * @var string|null
@@ -156,9 +157,10 @@ class WebhookEndpoint extends \ArrayObject
      * - `paused`: All delivery is stopped, either because an update set `status` to
      *   `paused` or automatically after sustained delivery failures. A paused endpoint
      *   never resumes on its own: re-enable it with
-     *   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-     *   the missed events with
-     *   [Replay missed events](/docs/api/reference/create-webhook-replay).
+     *   [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+     *   [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+     *   recover the deliveries that failed before the pause. Events that arrived
+     *   while it was paused were never attempted, so a replay does not reach them.
      * 
      *
      * @return string|null
@@ -177,9 +179,10 @@ class WebhookEndpoint extends \ArrayObject
     - `paused`: All delivery is stopped, either because an update set `status` to
      `paused` or automatically after sustained delivery failures. A paused endpoint
      never resumes on its own: re-enable it with
-     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-     the missed events with
-     [Replay missed events](/docs/api/reference/create-webhook-replay).
+     [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+     [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+     recover the deliveries that failed before the pause. Events that arrived
+     while it was paused were never attempted, so a replay does not reach them.
     
     *
     * @param string|null $status

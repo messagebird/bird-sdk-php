@@ -32,7 +32,8 @@ class EmailInboxInsightsAuthentication extends \ArrayObject
      */
     protected $measurement;
     /**
-     * When the measurement service computed these figures.
+     * When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
+     * 
      *
      * @var \DateTime|null
      */
@@ -161,7 +162,8 @@ class EmailInboxInsightsAuthentication extends \ArrayObject
         return $this;
     }
     /**
-     * When the measurement service computed these figures.
+     * When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
+     * 
      *
      * @return \DateTime|null
      */
@@ -170,7 +172,7 @@ class EmailInboxInsightsAuthentication extends \ArrayObject
         return $this->generatedAt;
     }
     /**
-     * When the measurement service computed these figures.
+     * When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
      *
      * @param \DateTime|null $generatedAt
      *

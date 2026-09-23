@@ -8,6 +8,8 @@ namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailLookup;
+use MessageBird\Wire\Model\EmailLookupBatchRequest;
+use MessageBird\Wire\Model\EmailLookupBatchResponse;
 use MessageBird\Wire\Model\EmailLookupRequest;
 use MessageBird\Wire\Model\PhoneNumberLookup;
 use MessageBird\Wire\Model\PhoneNumberLookupRequest;
@@ -35,7 +37,7 @@ final class Lookup extends Resource
     }
 
     /**
-     * Create a deliverability lookup for one email address. Returns `result`, `delivery_confidence`, address `flags`, an undeliverable `reason`, and `did_you_mean` when a correction is available. Treat unknown `result` and `reason` values as valid additions and use `delivery_confidence` as the fallback; each completed lookup incurs the same charge.
+     * Create a deliverability lookup for one email address. Returns `result`, `delivery_confidence`, address `flags`, an assessment `reason`, and `did_you_mean` when a correction is available. Treat unknown `result` and `reason` values as valid additions and use `delivery_confidence` as the fallback; each completed lookup incurs the same charge.
      *
      * @example Check whether an address is worth sending to
      * $answer = $bird->lookup->email(
@@ -47,5 +49,21 @@ final class Lookup extends Resource
     public function email(EmailLookupRequest $params, ?RequestOptions $options = null): EmailLookup
     {
         return $this->single('POST', '/v1/lookup/email', EmailLookup::class, $params, null, $options);
+    }
+
+    /**
+     * Assess up to 1,000 email addresses in one request. Results preserve input order and duplicates; malformed addresses receive individual assessments. Each answered entry is billed. Use a separate idempotency key per batch and reuse it for retries. Requests are limited to 128 KiB; responses over 256 KiB cannot be replayed and a retry can incur another charge.
+     *
+     * @example Assess a list of email addresses
+     * $answer = $bird->lookup->emailBatch(
+     *     (new EmailLookupBatchRequest())->setEmails(['aisha.khan@example.com', 'not-an-email']),
+     * );
+     * foreach ($answer->getData() ?? [] as $item) {
+     *     echo $item->getEmail(), ' ', $item->getResult();
+     * }
+     */
+    public function emailBatch(EmailLookupBatchRequest $params, ?RequestOptions $options = null): EmailLookupBatchResponse
+    {
+        return $this->single('POST', '/v1/lookup/email/batch', EmailLookupBatchResponse::class, $params, null, $options);
     }
 }

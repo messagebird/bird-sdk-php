@@ -189,6 +189,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->verify->verifications->nextChannel(...),
             $bird->lookup->phoneNumber(...),
             $bird->lookup->email(...),
+            $bird->lookup->emailBatch(...),
             $bird->numbers->list(...),
             $bird->numbers->get(...),
             $bird->numbers->release(...),
@@ -274,7 +275,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->realtime->members->disconnect(...),
         ];
 
-        self::assertCount(252, $surface);
+        self::assertCount(253, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

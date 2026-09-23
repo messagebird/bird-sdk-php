@@ -146,6 +146,7 @@ return [
     "/v1/verify/verifications/next-channel",
     "/v1/lookup/phone-number",
     "/v1/lookup/email",
+    "/v1/lookup/email/batch",
     "/v1/numbers",
     "/v1/numbers/{number_id}",
     "/v1/numbers/available",

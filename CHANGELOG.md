@@ -2,6 +2,15 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.49.0
+
+- Add batch email lookup for up to 1,000 addresses, with ordered assessments and per-address billing.
+- Help for `bird contact-properties archive`, Go `ContactProperties.Archive`, Node `contactProperties.archive`, PHP `contactProperties->archive`, and Python `contact_properties.archive` now explains that archived keys are rejected in new contact writes and template publications, while stored values remain readable and previously published versions keep sending.
+- Inbox Insights responses describe `generated_at` accurately: it is the measurement service's own stamp where that service publishes one, and otherwise the time Bird computed the figures.
+- Nullable date fields such as `NumberOwnership.blocked_at` now serialize an explicit `null` without an error.
+- A voice leg's `route` now defines which answers it can carry through its own `type` and the variants published beside it, so the set you can receive is read from the type you switch on rather than from a fixed list in the field's description.
+- Webhook endpoint and replay descriptions now match delivery behavior: a replayed delivery takes one attempt rather than following the retry schedule, `since` and `until` bound the time a delivery was attempted rather than when the event occurred, and a replay does not recover events that were never attempted, such as those that arrived while the endpoint was paused.
+
 ## 0.48.0
 
 - Select one existing template language for an email broadcast, as `template.language`. On an update the template and its language change independently: send `template.language` on its own to keep the template and the version the broadcast is fixed to, and send `template.id` to move the broadcast to a template and let the next send fix on that template's published version.

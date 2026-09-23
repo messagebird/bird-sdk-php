@@ -354,6 +354,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailLookup::class => \MessageBird\Wire\Normalizer\EmailLookupNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailLookupBatchRequest::class => \MessageBird\Wire\Normalizer\EmailLookupBatchRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailLookupBatchItem::class => \MessageBird\Wire\Normalizer\EmailLookupBatchItemNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailLookupBatchResponse::class => \MessageBird\Wire\Normalizer\EmailLookupBatchResponseNormalizer::class,
+
         \MessageBird\Wire\Model\VerificationTo::class => \MessageBird\Wire\Normalizer\VerificationToNormalizer::class,
 
         \MessageBird\Wire\Model\VerificationChannelEntry::class => \MessageBird\Wire\Normalizer\VerificationChannelEntryNormalizer::class,
@@ -1468,6 +1474,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\PhoneNumberLookupScore::class => false,
             \MessageBird\Wire\Model\EmailLookupRequest::class => false,
             \MessageBird\Wire\Model\EmailLookup::class => false,
+            \MessageBird\Wire\Model\EmailLookupBatchRequest::class => false,
+            \MessageBird\Wire\Model\EmailLookupBatchItem::class => false,
+            \MessageBird\Wire\Model\EmailLookupBatchResponse::class => false,
             \MessageBird\Wire\Model\VerificationTo::class => false,
             \MessageBird\Wire\Model\VerificationChannelEntry::class => false,
             \MessageBird\Wire\Model\Verification::class => false,

@@ -37,9 +37,10 @@ class WebhookAttempt
      * 
      * - `delivered`: your endpoint accepted it with a `2xx` response.
      * - `pending`: the attempt is still in flight.
-     * - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
-     *   attempt is not final for the event: automatic retries appear as further
-     *   attempts with the same `event_id`.
+     * - `failed`: it returned a non-`2xx` response or no response at all. Automatic
+     *   retries appear as further attempts with the same `event_id`, so a `failed`
+     *   attempt is final for the event only once the retry schedule is spent. A
+     *   replayed delivery takes a single attempt and is never retried.
      * 
      *
      * @var string|null
@@ -151,9 +152,10 @@ class WebhookAttempt
      * 
      * - `delivered`: your endpoint accepted it with a `2xx` response.
      * - `pending`: the attempt is still in flight.
-     * - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
-     *   attempt is not final for the event: automatic retries appear as further
-     *   attempts with the same `event_id`.
+     * - `failed`: it returned a non-`2xx` response or no response at all. Automatic
+     *   retries appear as further attempts with the same `event_id`, so a `failed`
+     *   attempt is final for the event only once the retry schedule is spent. A
+     *   replayed delivery takes a single attempt and is never retried.
      * 
      *
      * @return string|null
@@ -167,9 +169,10 @@ class WebhookAttempt
     
     - `delivered`: your endpoint accepted it with a `2xx` response.
     - `pending`: the attempt is still in flight.
-    - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
-     attempt is not final for the event: automatic retries appear as further
-     attempts with the same `event_id`.
+    - `failed`: it returned a non-`2xx` response or no response at all. Automatic
+     retries appear as further attempts with the same `event_id`, so a `failed`
+     attempt is final for the event only once the retry schedule is spent. A
+     replayed delivery takes a single attempt and is never retried.
     
     *
     * @param string|null $status

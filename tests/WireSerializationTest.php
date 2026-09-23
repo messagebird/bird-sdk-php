@@ -9,6 +9,7 @@ use MessageBird\Core\Serializer as CoreSerializer;
 use MessageBird\Wire\Model\ContactUpdateRequest;
 use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
+use MessageBird\Wire\Model\NumberOwnership;
 use PHPUnit\Framework\Attributes\DataProvider;
 use MessageBird\Wire\Normalizer\ContactUpdateRequestNormalizer;
 use PHPUnit\Framework\TestCase;
@@ -142,6 +143,24 @@ final class WireSerializationTest extends TestCase
             (new EmailAddress())->setEmail('onboarding@bird.com')->setName('Bird'),
             (new EmailAddress())->setEmail('jane@example.com'),
         ];
+    }
+
+    public function testNullableDatePreservesMissingNullAndValue(): void
+    {
+        $model = (new NumberOwnership())->setSatisfied(true)->setNext([]);
+        $serializer = new CoreSerializer();
+
+        $decoded = json_decode($serializer->encode($model), true);
+        self::assertArrayNotHasKey('blocked_at', $decoded);
+
+        $model->setBlockedAt(null);
+        $decoded = json_decode($serializer->encode($model), true);
+        self::assertArrayHasKey('blocked_at', $decoded);
+        self::assertNull($decoded['blocked_at']);
+
+        $model->setBlockedAt(new \DateTime('2026-09-21T10:30:00+02:00'));
+        $decoded = json_decode($serializer->encode($model), true);
+        self::assertSame('2026-09-21T10:30:00+02:00', $decoded['blocked_at']);
     }
 
     public function testAvailableNumberOwnershipRequirement(): void

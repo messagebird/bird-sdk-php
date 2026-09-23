@@ -38,7 +38,7 @@ class ContactProperty extends \ArrayObject
      */
     protected $fallbackValue;
     /**
-     * Whether the property is archived. An archived property is rejected in new contact writes and stops rendering in templates, but every value already stored on contacts is preserved. Reactivate it with unarchive.
+     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
      *
      * @var bool|null
      */
@@ -142,7 +142,7 @@ class ContactProperty extends \ArrayObject
         return $this;
     }
     /**
-     * Whether the property is archived. An archived property is rejected in new contact writes and stops rendering in templates, but every value already stored on contacts is preserved. Reactivate it with unarchive.
+     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
      *
      * @return bool|null
      */
@@ -151,7 +151,7 @@ class ContactProperty extends \ArrayObject
         return $this->archived;
     }
     /**
-     * Whether the property is archived. An archived property is rejected in new contact writes and stops rendering in templates, but every value already stored on contacts is preserved. Reactivate it with unarchive.
+     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
      *
      * @param bool|null $archived
      *
