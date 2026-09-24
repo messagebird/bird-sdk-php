@@ -26,6 +26,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->list(...),
             $bird->email->cancel(...),
             $bird->email->health(...),
+            $bird->email->stats->query(...),
             $bird->email->stats->summary(...),
             $bird->email->stats->daily(...),
             $bird->email->stats->hourly(...),
@@ -185,6 +186,25 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->voice->calls->create(...),
             $bird->voice->legs->list(...),
             $bird->voice->legs->get(...),
+            $bird->voice->sessionCredentials->create(...),
+            $bird->voice->trunks->list(...),
+            $bird->voice->trunks->get(...),
+            $bird->voice->trunks->create(...),
+            $bird->voice->trunks->update(...),
+            $bird->voice->trunks->delete(...),
+            $bird->voice->trunks->gateways->list(...),
+            $bird->voice->trunks->gateways->get(...),
+            $bird->voice->trunks->gateways->create(...),
+            $bird->voice->trunks->gateways->update(...),
+            $bird->voice->trunks->gateways->delete(...),
+            $bird->voice->numbers->list(...),
+            $bird->voice->numbers->get(...),
+            $bird->voice->numbers->update(...),
+            $bird->voice->callerIds->list(...),
+            $bird->voice->callerIds->get(...),
+            $bird->voice->callerIds->verify(...),
+            $bird->voice->destinations->list(...),
+            $bird->voice->destinations->update(...),
             $bird->verify->verifications->create(...),
             $bird->verify->verifications->check(...),
             $bird->verify->verifications->nextChannel(...),
@@ -276,7 +296,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->realtime->members->disconnect(...),
         ];
 
-        self::assertCount(254, $surface);
+        self::assertCount(274, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

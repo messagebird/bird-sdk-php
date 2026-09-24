@@ -587,3 +587,17 @@ if ($sendingDomain === null) {
 }
 $report = $bird->email->inboxInsights->benchmarks->industry(['sending_domain' => $sendingDomain]);
 var_dump($report);
+
+function emailStatsQuery(Bird $bird): void
+{
+    $params = (new \MessageBird\Wire\Model\EmailStatsQueryRequest())
+        ->setFrom('2026-08-03')
+        ->setTo('2026-08-16')
+        ->setMetrics(['delivered', 'bounce_rate'])
+        ->setGroupBy('recipient_domain')
+        ->setGrain('week')
+        ->setLimit(25);
+    foreach ($bird->email->stats->query($params) as $group) {
+        print_r([$group->getDimensions(), $group->getMetrics(), $group->getSeries()]);
+    }
+}

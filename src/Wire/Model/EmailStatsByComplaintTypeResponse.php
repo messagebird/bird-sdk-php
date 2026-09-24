@@ -26,12 +26,30 @@ class EmailStatsByComplaintTypeResponse
      */
     protected $data;
     /**
-     * Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct feedback types with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
      * 
      *
      * @var int|null
      */
     protected $total;
+    /**
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+     *
+     * @var string|null
+     */
+    protected $nextCursor;
+    /**
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+     *
+     * @var string|null
+     */
+    protected $prevCursor;
+    /**
+     * Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+     *
+     * @var string|null
+     */
+    protected $refreshCursor;
     /**
      * The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
      * 
@@ -78,7 +96,7 @@ class EmailStatsByComplaintTypeResponse
         return $this;
     }
     /**
-     * Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct feedback types with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
      * 
      *
      * @return int|null
@@ -88,7 +106,7 @@ class EmailStatsByComplaintTypeResponse
         return $this->total;
     }
     /**
-     * Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+     * Total number of distinct feedback types with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
      *
      * @param int|null $total
      *
@@ -98,6 +116,72 @@ class EmailStatsByComplaintTypeResponse
     {
         $this->initialized['total'] = true;
         $this->total = $total;
+        return $this;
+    }
+    /**
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+     *
+     * @return string|null
+     */
+    public function getNextCursor(): ?string
+    {
+        return $this->nextCursor;
+    }
+    /**
+     * Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+     *
+     * @param string|null $nextCursor
+     *
+     * @return self
+     */
+    public function setNextCursor(?string $nextCursor): self
+    {
+        $this->initialized['nextCursor'] = true;
+        $this->nextCursor = $nextCursor;
+        return $this;
+    }
+    /**
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+     *
+     * @return string|null
+     */
+    public function getPrevCursor(): ?string
+    {
+        return $this->prevCursor;
+    }
+    /**
+     * Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+     *
+     * @param string|null $prevCursor
+     *
+     * @return self
+     */
+    public function setPrevCursor(?string $prevCursor): self
+    {
+        $this->initialized['prevCursor'] = true;
+        $this->prevCursor = $prevCursor;
+        return $this;
+    }
+    /**
+     * Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+     *
+     * @return string|null
+     */
+    public function getRefreshCursor(): ?string
+    {
+        return $this->refreshCursor;
+    }
+    /**
+     * Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+     *
+     * @param string|null $refreshCursor
+     *
+     * @return self
+     */
+    public function setRefreshCursor(?string $refreshCursor): self
+    {
+        $this->initialized['refreshCursor'] = true;
+        $this->refreshCursor = $refreshCursor;
         return $this;
     }
 }

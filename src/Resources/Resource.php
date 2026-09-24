@@ -53,6 +53,19 @@ abstract class Resource
         return $query;
     }
 
+    protected static function bodyPageOptions(?RequestOptions $options, ?string $cursor): ?RequestOptions
+    {
+        if ($cursor === null || $options === null) {
+            return $options;
+        }
+
+        return new RequestOptions(
+            headers: array_filter($options->headers, static fn (string $key): bool => strtolower($key) !== 'idempotency-key', ARRAY_FILTER_USE_KEY),
+            maxRetries: $options->maxRetries,
+            realtime: $options->realtime,
+        );
+    }
+
     /**
      * @template T of object
      *

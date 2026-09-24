@@ -6,7 +6,19 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
+use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\EmailBounceCodeStatsPoint;
+use MessageBird\Wire\Model\EmailBroadcastStatsPoint;
+use MessageBird\Wire\Model\EmailCategoryStatsPoint;
+use MessageBird\Wire\Model\EmailClientStatsPoint;
+use MessageBird\Wire\Model\EmailComplaintTypeStatsPoint;
+use MessageBird\Wire\Model\EmailLocationStatsPoint;
+use MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPoint;
+use MessageBird\Wire\Model\EmailMailboxProviderStatsPoint;
+use MessageBird\Wire\Model\EmailRecipientDomainStatsPoint;
+use MessageBird\Wire\Model\EmailSendingDomainStatsPoint;
+use MessageBird\Wire\Model\EmailSendingIpStatsPoint;
 use MessageBird\Wire\Model\EmailStatsByBounceCodeResponse;
 use MessageBird\Wire\Model\EmailStatsByBroadcastResponse;
 use MessageBird\Wire\Model\EmailStatsByCategoryResponse;
@@ -19,12 +31,60 @@ use MessageBird\Wire\Model\EmailStatsByRecipientDomainResponse;
 use MessageBird\Wire\Model\EmailStatsBySendingDomainResponse;
 use MessageBird\Wire\Model\EmailStatsBySendingIpResponse;
 use MessageBird\Wire\Model\EmailStatsByTemplateResponse;
+use MessageBird\Wire\Model\EmailStatsQueryGroup;
+use MessageBird\Wire\Model\EmailStatsQueryRequest;
+use MessageBird\Wire\Model\EmailStatsQueryResponse;
 use MessageBird\Wire\Model\EmailStatsResponse;
 use MessageBird\Wire\Model\EmailStatsSummary;
 use MessageBird\Wire\Model\EmailStatsTagsResponse;
+use MessageBird\Wire\Model\EmailTagStatsPoint;
+use MessageBird\Wire\Model\EmailTemplateStatsPoint;
 
 final class EmailStats extends Resource
 {
+    /**
+     * Select email metrics over a date or instant window, optionally grouped by one dimension with complete time series per group. Events are selected and bucketed by when they occurred, including activity on messages sent earlier. Filters match recorded event context. Unsupported combinations and unavailable history return 422. Follow cursors by replaying the original body and changing its cursor fields; the response period has an exclusive end and must not replace the request end. Use a new idempotency key for each continuation page; reuse a key only to retry the same page.
+     *
+     * @return Page<EmailStatsQueryGroup>
+     *
+     * @example Weekly deliveries by recipient domain
+     * $params = (new \MessageBird\Wire\Model\EmailStatsQueryRequest())
+     *     ->setFrom('2026-08-03')
+     *     ->setTo('2026-08-16')
+     *     ->setMetrics(['delivered', 'bounce_rate'])
+     *     ->setGroupBy('recipient_domain')
+     *     ->setGrain('week')
+     *     ->setLimit(25);
+     * foreach ($bird->email->stats->query($params) as $group) {
+     *     print_r([$group->getDimensions(), $group->getMetrics(), $group->getSeries()]);
+     * }
+     */
+    public function query(EmailStatsQueryRequest $params, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailStatsQueryGroup::class,
+            function (?string $cursor) use ($params, $options): EmailStatsQueryResponse {
+                $body = clone $params;
+                if ($cursor !== null) {
+                    $body->setStartingAfter($cursor);
+                    $body->setEndingBefore(null);
+                }
+
+                return $this->single('POST', '/v1/email/stats/query', EmailStatsQueryResponse::class, $body, null, self::bodyPageOptions($options, $cursor));
+            },
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsQueryResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsQueryResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
     /**
      * Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. The `from` and `to` values are both `YYYY-MM-DD` days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`.
      *
@@ -93,6 +153,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailTagStatsPoint>
+     */
+    public function byTagAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailTagStatsPoint::class,
+            fn (?string $cursor): EmailStatsTagsResponse => $this->single('GET', '/v1/email/stats/tags', EmailStatsTagsResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsTagsResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsTagsResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Email delivery and engagement stats grouped by category, meaning `transactional` compared with `marketing`. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -106,6 +191,31 @@ final class EmailStats extends Resource
     public function byCategory(?array $query = null, ?RequestOptions $options = null): EmailStatsByCategoryResponse
     {
         return $this->single('GET', '/v1/email/stats/categories', EmailStatsByCategoryResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Email delivery and engagement stats grouped by category, meaning `transactional` compared with `marketing`. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailCategoryStatsPoint>
+     */
+    public function byCategoryAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailCategoryStatsPoint::class,
+            fn (?string $cursor): EmailStatsByCategoryResponse => $this->single('GET', '/v1/email/stats/categories', EmailStatsByCategoryResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByCategoryResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByCategoryResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
@@ -130,6 +240,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Delivery and bounce stats grouped by sending IP, with deferral counts alongside them. `sort=bounces.block` surfaces reputation-damaged IPs first. Engagement, accepted, and processed counts aren't available per IP, and complaint and out-of-band bounce counts always read `0` here. For workspace-wide figures, use `email.stats.daily`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailSendingIpStatsPoint>
+     */
+    public function bySendingIpAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailSendingIpStatsPoint::class,
+            fn (?string $cursor): EmailStatsBySendingIpResponse => $this->single('GET', '/v1/email/stats/sending-ips', EmailStatsBySendingIpResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsBySendingIpResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsBySendingIpResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Email delivery and engagement stats grouped by sending (`From`) domain, so you can compare deliverability across your workspace's verified domains. For per-IP reputation instead, use `email.stats.by_sending_ip`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -148,6 +283,31 @@ final class EmailStats extends Resource
     public function bySendingDomain(?array $query = null, ?RequestOptions $options = null): EmailStatsBySendingDomainResponse
     {
         return $this->single('GET', '/v1/email/stats/sending-domains', EmailStatsBySendingDomainResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Email delivery and engagement stats grouped by sending (`From`) domain, so you can compare deliverability across your workspace's verified domains. For per-IP reputation instead, use `email.stats.by_sending_ip`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailSendingDomainStatsPoint>
+     */
+    public function bySendingDomainAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailSendingDomainStatsPoint::class,
+            fn (?string $cursor): EmailStatsBySendingDomainResponse => $this->single('GET', '/v1/email/stats/sending-domains', EmailStatsBySendingDomainResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsBySendingDomainResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsBySendingDomainResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
@@ -172,6 +332,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Email delivery and engagement stats grouped by exact recipient mailbox domain, for example `gmail.com`. Finer-grained than `email.stats.by_mailbox_provider`, which buckets domains into providers.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailRecipientDomainStatsPoint>
+     */
+    public function byRecipientDomainAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailRecipientDomainStatsPoint::class,
+            fn (?string $cursor): EmailStatsByRecipientDomainResponse => $this->single('GET', '/v1/email/stats/recipient-domains', EmailStatsByRecipientDomainResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByRecipientDomainResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByRecipientDomainResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward and omits accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -192,6 +377,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward and omits accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailMailboxProviderStatsPoint>
+     */
+    public function byMailboxProviderAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailMailboxProviderStatsPoint::class,
+            fn (?string $cursor): EmailStatsByMailboxProviderResponse => $this->single('GET', '/v1/email/stats/mailbox-providers', EmailStatsByMailboxProviderResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByMailboxProviderResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByMailboxProviderResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward and omits accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -209,6 +419,31 @@ final class EmailStats extends Resource
     public function byMailboxProviderRegion(?array $query = null, ?RequestOptions $options = null): EmailStatsByMailboxProviderRegionResponse
     {
         return $this->single('GET', '/v1/email/stats/mailbox-provider-regions', EmailStatsByMailboxProviderRegionResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward and omits accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailMailboxProviderRegionStatsPoint>
+     */
+    public function byMailboxProviderRegionAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailMailboxProviderRegionStatsPoint::class,
+            fn (?string $cursor): EmailStatsByMailboxProviderRegionResponse => $this->single('GET', '/v1/email/stats/mailbox-provider-regions', EmailStatsByMailboxProviderRegionResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByMailboxProviderRegionResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByMailboxProviderRegionResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
@@ -233,6 +468,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailTemplateStatsPoint>
+     */
+    public function byTemplateAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailTemplateStatsPoint::class,
+            fn (?string $cursor): EmailStatsByTemplateResponse => $this->single('GET', '/v1/email/stats/templates', EmailStatsByTemplateResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByTemplateResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByTemplateResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Opens and clicks grouped by country, region, or city, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by mail client or device instead, use `email.stats.by_client`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -253,6 +513,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Opens and clicks grouped by country, region, or city, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by mail client or device instead, use `email.stats.by_client`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailLocationStatsPoint>
+     */
+    public function byLocationAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailLocationStatsPoint::class,
+            fn (?string $cursor): EmailStatsByLocationResponse => $this->single('GET', '/v1/email/stats/locations', EmailStatsByLocationResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByLocationResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByLocationResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Opens and clicks grouped by mail client, operating system, or device type, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by geography instead, use `email.stats.by_location`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -270,6 +555,31 @@ final class EmailStats extends Resource
     public function byClient(?array $query = null, ?RequestOptions $options = null): EmailStatsByClientResponse
     {
         return $this->single('GET', '/v1/email/stats/clients', EmailStatsByClientResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Opens and clicks grouped by mail client, operating system, or device type, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by geography instead, use `email.stats.by_location`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailClientStatsPoint>
+     */
+    public function byClientAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailClientStatsPoint::class,
+            fn (?string $cursor): EmailStatsByClientResponse => $this->single('GET', '/v1/email/stats/clients', EmailStatsByClientResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByClientResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByClientResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
@@ -294,6 +604,31 @@ final class EmailStats extends Resource
     }
 
     /**
+     * Bounce counts grouped by the SMTP error code the receiving mail server returned. Each row also breaks the bounce down into its hard, soft, admin, block, and undetermined split. It omits delivered, open, and click counts because a bounce code only appears on a bounce event. For bounces broken down by destination instead, use `email.stats.by_recipient_domain` or `email.stats.by_mailbox_provider`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailBounceCodeStatsPoint>
+     */
+    public function byBounceCodeAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailBounceCodeStatsPoint::class,
+            fn (?string $cursor): EmailStatsByBounceCodeResponse => $this->single('GET', '/v1/email/stats/bounce-codes', EmailStatsByBounceCodeResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByBounceCodeResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByBounceCodeResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
      * Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. This complaint-only breakdown omits delivery and engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
@@ -307,6 +642,31 @@ final class EmailStats extends Resource
     public function byComplaintType(?array $query = null, ?RequestOptions $options = null): EmailStatsByComplaintTypeResponse
     {
         return $this->single('GET', '/v1/email/stats/complaint-types', EmailStatsByComplaintTypeResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. This complaint-only breakdown omits delivery and engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailComplaintTypeStatsPoint>
+     */
+    public function byComplaintTypeAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailComplaintTypeStatsPoint::class,
+            fn (?string $cursor): EmailStatsByComplaintTypeResponse => $this->single('GET', '/v1/email/stats/complaint-types', EmailStatsByComplaintTypeResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByComplaintTypeResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByComplaintTypeResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**
@@ -328,5 +688,30 @@ final class EmailStats extends Resource
     public function byBroadcast(?array $query = null, ?RequestOptions $options = null): EmailStatsByBroadcastResponse
     {
         return $this->single('GET', '/v1/email/stats/broadcasts', EmailStatsByBroadcastResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailBroadcastStatsPoint>
+     */
+    public function byBroadcastAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailBroadcastStatsPoint::class,
+            fn (?string $cursor): EmailStatsByBroadcastResponse => $this->single('GET', '/v1/email/stats/broadcasts', EmailStatsByBroadcastResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByBroadcastResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByBroadcastResponse);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 }

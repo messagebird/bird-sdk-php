@@ -8,16 +8,16 @@ install:  ## install dependencies (creates vendor/ + composer.lock)
 generate:  ## regenerate src/Wire from the OpenAPI public bundle (in-process Go)
 	../../tools/bin/beak run clients:sdk-php-generate
 
-test:
+test: generate
 	composer test
 
-lint:  ## php-cs-fixer dry-run (PSR-12)
+lint: generate  ## php-cs-fixer dry-run (PSR-12)
 	composer lint
 
-analyse:  ## phpstan
+analyse: generate  ## phpstan
 	composer analyse
 
-fmt:  ## apply php-cs-fixer
+fmt: generate  ## apply php-cs-fixer
 	composer exec php-cs-fixer fix
 
 build:  ## validate the package manifest

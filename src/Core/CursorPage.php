@@ -19,6 +19,7 @@ final class CursorPage
     public function __construct(
         public readonly array $data,
         public readonly ?string $nextCursor,
+        public readonly ?object $response = null,
     ) {
     }
 }

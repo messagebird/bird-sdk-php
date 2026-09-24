@@ -74,6 +74,6 @@ final class Page implements \IteratorAggregate
         }
         $next = ($this->nextCursor)($env);
 
-        return new CursorPage($items, $next === '' ? null : $next);
+        return new CursorPage($items, $next === '' ? null : $next, $env);
     }
 }

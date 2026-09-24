@@ -328,6 +328,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByNumberResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\DestinationSetting::class => \MessageBird\Wire\Normalizer\DestinationSettingNormalizer::class,
+
         \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRequestNormalizer::class,
 
         \MessageBird\Wire\Model\LookupPortingEvent::class => \MessageBird\Wire\Normalizer\LookupPortingEventNormalizer::class,
@@ -868,6 +870,34 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailStatsTagsResponse::class => \MessageBird\Wire\Normalizer\EmailStatsTagsResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryStringFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryCategoryFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryCategoryFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryTemplateFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryTemplateFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryTagFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryTagFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryIPPoolFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryIPPoolFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryBroadcastFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryBroadcastFilterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryFilters::class => \MessageBird\Wire\Normalizer\EmailStatsQueryFiltersNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryRequest::class => \MessageBird\Wire\Normalizer\EmailStatsQueryRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryDimensions::class => \MessageBird\Wire\Normalizer\EmailStatsQueryDimensionsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryMetrics::class => \MessageBird\Wire\Normalizer\EmailStatsQueryMetricsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryPoint::class => \MessageBird\Wire\Normalizer\EmailStatsQueryPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryGroup::class => \MessageBird\Wire\Normalizer\EmailStatsQueryGroupNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsQueryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsQueryResponse::class => \MessageBird\Wire\Normalizer\EmailStatsQueryResponseNormalizer::class,
+
         \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryPeriodNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaNormalizer::class,
@@ -1268,6 +1298,46 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NumbersOrderCreate::class => \MessageBird\Wire\Normalizer\NumbersOrderCreateNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceTrunkIPACL::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunk::class => \MessageBird\Wire\Normalizer\VoiceTrunkNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkList::class => \MessageBird\Wire\Normalizer\VoiceTrunkListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkUpdate::class => \MessageBird\Wire\Normalizer\VoiceTrunkUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSessionCredential::class => \MessageBird\Wire\Normalizer\VoiceSessionCredentialNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkGateway::class => \MessageBird\Wire\Normalizer\VoiceTrunkGatewayNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkGatewayList::class => \MessageBird\Wire\Normalizer\VoiceTrunkGatewayListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkGatewayCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkGatewayCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkGatewayUpdate::class => \MessageBird\Wire\Normalizer\VoiceTrunkGatewayUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceNumberDirections::class => \MessageBird\Wire\Normalizer\VoiceNumberDirectionsNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceInboundConfiguration::class => \MessageBird\Wire\Normalizer\VoiceInboundConfigurationNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceNumber::class => \MessageBird\Wire\Normalizer\VoiceNumberNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceNumberList::class => \MessageBird\Wire\Normalizer\VoiceNumberListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceInboundConfigurationPut::class => \MessageBird\Wire\Normalizer\VoiceInboundConfigurationPutNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceNumberUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallerID::class => \MessageBird\Wire\Normalizer\VoiceCallerIDNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallerIDList::class => \MessageBird\Wire\Normalizer\VoiceCallerIDListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceCallerIDVerifyRequestNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLegCost::class => \MessageBird\Wire\Normalizer\VoiceLegCostNormalizer::class,
@@ -1285,6 +1355,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallSequenceRequestNormalizer::class,
 
         \MessageBird\Wire\Model\CreateVoiceCallRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestination::class => \MessageBird\Wire\Normalizer\VoiceDestinationNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationList::class => \MessageBird\Wire\Normalizer\VoiceDestinationListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => \MessageBird\Wire\Normalizer\VoiceDestinationsUpdateNormalizer::class,
 
         \Jane\Component\JsonSchemaRuntime\Reference::class => \MessageBird\Wire\Runtime\Normalizer\ReferenceNormalizer::class,
     ], $normalizersCache = [];
@@ -1479,6 +1555,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => false,
+            \MessageBird\Wire\Model\DestinationSetting::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,
             \MessageBird\Wire\Model\LookupPortingEvent::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookup::class => false,
@@ -1749,6 +1826,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailTagStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\EmailTagStatsPointLatency::class => false,
             \MessageBird\Wire\Model\EmailStatsTagsResponse::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryCategoryFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryTemplateFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryTagFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryIPPoolFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryBroadcastFilter::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryFilters::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryRequest::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryDimensions::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryMetrics::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryPoint::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryGroup::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryPeriod::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryResponse::class => false,
             \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => false,
             \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => false,
             \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class => false,
@@ -1949,6 +2040,26 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\NumbersOrder::class => false,
             \MessageBird\Wire\Model\NumbersOrderList::class => false,
             \MessageBird\Wire\Model\NumbersOrderCreate::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkIPACL::class => false,
+            \MessageBird\Wire\Model\VoiceTrunk::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkList::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkCreate::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceSessionCredential::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkGateway::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkGatewayList::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkGatewayCreate::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkGatewayUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceNumberDirections::class => false,
+            \MessageBird\Wire\Model\VoiceInboundConfiguration::class => false,
+            \MessageBird\Wire\Model\VoiceNumber::class => false,
+            \MessageBird\Wire\Model\VoiceNumberList::class => false,
+            \MessageBird\Wire\Model\VoiceInboundConfigurationPut::class => false,
+            \MessageBird\Wire\Model\VoiceNumberUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceCallerID::class => false,
+            \MessageBird\Wire\Model\VoiceCallerIDList::class => false,
+            \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
             \MessageBird\Wire\Model\VoiceLegCost::class => false,
             \MessageBird\Wire\Model\VoiceLeg::class => false,
@@ -1958,6 +2069,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceCall::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallRequest::class => false,
+            \MessageBird\Wire\Model\VoiceDestination::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationList::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

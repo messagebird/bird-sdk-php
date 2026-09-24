@@ -21,15 +21,12 @@ class VoicePartyBridgePSTNEndpoint
     /**
      * Which of a forwarded call's two numbers it shows as the caller.
      * 
-     * "dialed_number" is the number the caller dialled, which is one of yours.
-     * Carriers treat it as fully yours, so it is the least likely to be altered or
-     * screened. Whoever answers sees which of your numbers was called, not who called
-     * it. It needs your workspace approved to place calls from numbers you bought from
-     * us; where it is not, this value is refused and the call shows the calling
-     * number.
+     * `dialed_number` presents the Bird number the caller dialed. Whoever answers
+     * sees which of your numbers was called. Older configurations without a stored
+     * choice use this value. Carrier screening can still affect delivery.
      * 
-     * "calling_number" is the caller's own number, so the phone rings as though they
-     * had dialled it directly and the call can be returned from the call log. Because
+     * `calling_number` presents the caller's own number, so the phone rings as though
+     * they had dialed it directly and the call can be returned from the call log. Because
      * the number is not one you own, some carriers (most often in the US and parts of
      * Europe) mark such calls as unverified, replace the number, or screen them.
      * 
@@ -62,15 +59,12 @@ class VoicePartyBridgePSTNEndpoint
     /**
      * Which of a forwarded call's two numbers it shows as the caller.
      * 
-     * "dialed_number" is the number the caller dialled, which is one of yours.
-     * Carriers treat it as fully yours, so it is the least likely to be altered or
-     * screened. Whoever answers sees which of your numbers was called, not who called
-     * it. It needs your workspace approved to place calls from numbers you bought from
-     * us; where it is not, this value is refused and the call shows the calling
-     * number.
+     * `dialed_number` presents the Bird number the caller dialed. Whoever answers
+     * sees which of your numbers was called. Older configurations without a stored
+     * choice use this value. Carrier screening can still affect delivery.
      * 
-     * "calling_number" is the caller's own number, so the phone rings as though they
-     * had dialled it directly and the call can be returned from the call log. Because
+     * `calling_number` presents the caller's own number, so the phone rings as though
+     * they had dialed it directly and the call can be returned from the call log. Because
      * the number is not one you own, some carriers (most often in the US and parts of
      * Europe) mark such calls as unverified, replace the number, or screen them.
      * 
@@ -84,15 +78,12 @@ class VoicePartyBridgePSTNEndpoint
     /**
     * Which of a forwarded call's two numbers it shows as the caller.
     
-    "dialed_number" is the number the caller dialled, which is one of yours.
-    Carriers treat it as fully yours, so it is the least likely to be altered or
-    screened. Whoever answers sees which of your numbers was called, not who called
-    it. It needs your workspace approved to place calls from numbers you bought from
-    us; where it is not, this value is refused and the call shows the calling
-    number.
+    `dialed_number` presents the Bird number the caller dialed. Whoever answers
+    sees which of your numbers was called. Older configurations without a stored
+    choice use this value. Carrier screening can still affect delivery.
     
-    "calling_number" is the caller's own number, so the phone rings as though they
-    had dialled it directly and the call can be returned from the call log. Because
+    `calling_number` presents the caller's own number, so the phone rings as though
+    they had dialed it directly and the call can be returned from the call log. Because
     the number is not one you own, some carriers (most often in the US and parts of
     Europe) mark such calls as unverified, replace the number, or screen them.
     

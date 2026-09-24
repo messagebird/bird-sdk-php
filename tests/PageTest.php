@@ -59,4 +59,19 @@ final class PageTest extends TestCase
 
         self::assertCount(3, $all, 'two items on page one plus one on page two');
     }
+
+    public function testFetchRetainsTheResponseEnvelope(): void
+    {
+        $envelope = (object) ['data' => [new \stdClass()], 'period' => ['to' => 'exclusive-bound'], 'data_as_of' => null, 'prev_cursor' => 'previous', 'refresh_cursor' => 'refresh'];
+        $page = new Page(
+            \stdClass::class,
+            fn (?string $cursor): object => $envelope,
+            fn (object $env): array => $env->data,
+            fn (object $env): ?string => null,
+        );
+
+        self::assertSame($envelope, $page->fetch()->response);
+        self::assertCount(1, $page->fetch()->data);
+    }
+
 }
