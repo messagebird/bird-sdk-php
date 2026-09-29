@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallerIDVerifyRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceVerifiedNumberVerifyRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallerIDVerifyRequestNormalizer implements DenormalizerInterface, Nor
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class;
+        return $type === \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest();
+        $object = new \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -55,6 +55,6 @@ class VoiceCallerIDVerifyRequestNormalizer implements DenormalizerInterface, Nor
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class => false];
+        return [\MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false];
     }
 }

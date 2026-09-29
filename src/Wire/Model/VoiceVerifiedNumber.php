@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallerID extends \ArrayObject
+class VoiceVerifiedNumber extends \ArrayObject
 {
     /**
      * @var array
@@ -21,26 +21,26 @@ class VoiceCallerID extends \ArrayObject
      */
     protected $workspaceId;
     /**
-     * The phone number in E.164 format registered as a caller ID.
+     * The phone number in E.164 format registered as an outbound caller ID.
      *
      * @var string|null
      */
     protected $phoneNumber;
     /**
-     * Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
+     * Your label for this verified number, to tell several registered numbers apart. `null` when the verified number has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the verified number update operation.
      * 
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Verification state of the caller ID.
+     * Verification state of the verified number.
      * 
      * - `pending`: the number is registered but ownership has not yet been proven.
      * - `verified`: the workspace proved ownership of the number. Check the
      *   resource's activation or direction fields for outbound availability.
      * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     *   Remove and register the caller ID again in the dashboard to retry.
+     *   Remove and register the verified number again in the dashboard to retry.
      * 
      * Open enum: additional states may be added over time, so treat an unrecognized
      * value as a future state rather than an error.
@@ -56,7 +56,7 @@ class VoiceCallerID extends \ArrayObject
      */
     protected $outboundEnabled;
     /**
-     * When the caller ID was verified. `null` when its status is `pending` or `failed`.
+     * When the verified number was verified. `null` when its status is `pending` or `failed`.
      *
      * @var \DateTime|null
      */
@@ -106,7 +106,7 @@ class VoiceCallerID extends \ArrayObject
         return $this;
     }
     /**
-     * The phone number in E.164 format registered as a caller ID.
+     * The phone number in E.164 format registered as an outbound caller ID.
      *
      * @return string|null
      */
@@ -115,7 +115,7 @@ class VoiceCallerID extends \ArrayObject
         return $this->phoneNumber;
     }
     /**
-     * The phone number in E.164 format registered as a caller ID.
+     * The phone number in E.164 format registered as an outbound caller ID.
      *
      * @param string|null $phoneNumber
      *
@@ -128,7 +128,7 @@ class VoiceCallerID extends \ArrayObject
         return $this;
     }
     /**
-     * Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
+     * Your label for this verified number, to tell several registered numbers apart. `null` when the verified number has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the verified number update operation.
      * 
      *
      * @return string|null
@@ -138,7 +138,7 @@ class VoiceCallerID extends \ArrayObject
         return $this->name;
     }
     /**
-     * Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
+     * Your label for this verified number, to tell several registered numbers apart. `null` when the verified number has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the verified number update operation.
      *
      * @param string|null $name
      *
@@ -151,13 +151,13 @@ class VoiceCallerID extends \ArrayObject
         return $this;
     }
     /**
-     * Verification state of the caller ID.
+     * Verification state of the verified number.
      * 
      * - `pending`: the number is registered but ownership has not yet been proven.
      * - `verified`: the workspace proved ownership of the number. Check the
      *   resource's activation or direction fields for outbound availability.
      * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     *   Remove and register the caller ID again in the dashboard to retry.
+     *   Remove and register the verified number again in the dashboard to retry.
      * 
      * Open enum: additional states may be added over time, so treat an unrecognized
      * value as a future state rather than an error.
@@ -170,13 +170,13 @@ class VoiceCallerID extends \ArrayObject
         return $this->status;
     }
     /**
-    * Verification state of the caller ID.
+    * Verification state of the verified number.
     
     - `pending`: the number is registered but ownership has not yet been proven.
     - `verified`: the workspace proved ownership of the number. Check the
      resource's activation or direction fields for outbound availability.
     - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     Remove and register the caller ID again in the dashboard to retry.
+     Remove and register the verified number again in the dashboard to retry.
     
     Open enum: additional states may be added over time, so treat an unrecognized
     value as a future state rather than an error.
@@ -215,7 +215,7 @@ class VoiceCallerID extends \ArrayObject
         return $this;
     }
     /**
-     * When the caller ID was verified. `null` when its status is `pending` or `failed`.
+     * When the verified number was verified. `null` when its status is `pending` or `failed`.
      *
      * @return \DateTime|null
      */
@@ -224,7 +224,7 @@ class VoiceCallerID extends \ArrayObject
         return $this->verifiedAt;
     }
     /**
-     * When the caller ID was verified. `null` when its status is `pending` or `failed`.
+     * When the verified number was verified. `null` when its status is `pending` or `failed`.
      *
      * @param \DateTime|null $verifiedAt
      *

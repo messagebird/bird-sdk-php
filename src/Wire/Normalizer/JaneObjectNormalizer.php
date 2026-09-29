@@ -1472,11 +1472,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceNumberUpdateNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallerID::class => \MessageBird\Wire\Normalizer\VoiceCallerIDNormalizer::class,
+        \MessageBird\Wire\Model\VoiceVerifiedNumber::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallerIDList::class => \MessageBird\Wire\Normalizer\VoiceCallerIDListNormalizer::class,
+        \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberListNormalizer::class,
 
-        \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceCallerIDVerifyRequestNormalizer::class,
+        \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberVerifyRequestNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
 
@@ -2267,9 +2267,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceNumberList::class => false,
             \MessageBird\Wire\Model\VoiceInboundConfigurationPut::class => false,
             \MessageBird\Wire\Model\VoiceNumberUpdate::class => false,
-            \MessageBird\Wire\Model\VoiceCallerID::class => false,
-            \MessageBird\Wire\Model\VoiceCallerIDList::class => false,
-            \MessageBird\Wire\Model\VoiceCallerIDVerifyRequest::class => false,
+            \MessageBird\Wire\Model\VoiceVerifiedNumber::class => false,
+            \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => false,
+            \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
             \MessageBird\Wire\Model\VoiceLegCost::class => false,
             \MessageBird\Wire\Model\VoiceLeg::class => false,

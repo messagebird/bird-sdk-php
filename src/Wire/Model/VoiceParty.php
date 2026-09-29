@@ -14,7 +14,7 @@ class VoiceParty
     }
     /**
      * What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
-     * `null` on an observation this API could not read. The entry stays, because the session counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
+     * `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
      *
      * @var VoicePartyEndpoint|null
      */
@@ -33,7 +33,7 @@ class VoiceParty
     protected $trunkId;
     /**
      * What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
-     * `null` on an observation this API could not read. The entry stays, because the session counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
+     * `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
      *
      * @return VoicePartyEndpoint|null
      */
@@ -43,7 +43,7 @@ class VoiceParty
     }
     /**
     * What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
-    `null` on an observation this API could not read. The entry stays, because the session counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
+    `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
     *
     * @param VoicePartyEndpoint|null $endpoint
     *

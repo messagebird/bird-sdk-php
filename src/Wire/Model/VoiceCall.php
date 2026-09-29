@@ -43,7 +43,7 @@ class VoiceCall
      */
     protected $endedAt;
     /**
-     * Whether any leg in the call currently holds a lease. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
+     * Whether any leg in the call is still held live. A leg stays live until its end is recorded or, when no end is observed, until its liveness window expires, so this can remain `true` briefly after a disconnect. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
      *
      * @var bool|null
      */
@@ -191,7 +191,7 @@ class VoiceCall
         return $this;
     }
     /**
-     * Whether any leg in the call currently holds a lease. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
+     * Whether any leg in the call is still held live. A leg stays live until its end is recorded or, when no end is observed, until its liveness window expires, so this can remain `true` briefly after a disconnect. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
      *
      * @return bool|null
      */
@@ -200,7 +200,7 @@ class VoiceCall
         return $this->live;
     }
     /**
-     * Whether any leg in the call currently holds a lease. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
+     * Whether any leg in the call is still held live. A leg stays live until its end is recorded or, when no end is observed, until its liveness window expires, so this can remain `true` briefly after a disconnect. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
      *
      * @param bool|null $live
      *

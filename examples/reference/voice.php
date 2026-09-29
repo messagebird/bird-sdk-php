@@ -11,7 +11,7 @@ use MessageBird\Wire\Model\VoiceTrunkCreate;
 use MessageBird\Wire\Model\VoiceTrunkUpdate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayCreate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayUpdate;
-use MessageBird\Wire\Model\VoiceCallerIDVerifyRequest;
+use MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest;
 use MessageBird\Wire\Model\CreateVoiceCallRequest;
 use MessageBird\Wire\Model\CreateVoiceCallSequenceRequest;
 
@@ -92,17 +92,17 @@ echo $number->getPhoneNumber(), "\n";
 $number = $bird->voice->numbers->update('number-id', (new VoiceNumberUpdate())->setName('Support line'));
 echo $number->getId(), ' ', $number->getName() ?? '', "\n";
 
-foreach ($bird->voice->callerIds->list() as $callerId) {
-    echo $callerId->getId(), ' ', $callerId->getPhoneNumber(), "\n";
+foreach ($bird->voice->verifiedNumbers->list() as $verifiedNumber) {
+    echo $verifiedNumber->getId(), ' ', $verifiedNumber->getPhoneNumber(), "\n";
 }
 
-$callerId = $bird->voice->callerIds->get('caller-id');
-echo $callerId->getPhoneNumber(), ' ', $callerId->getStatus(), "\n";
+$verifiedNumber = $bird->voice->verifiedNumbers->get('vvn_01krdgeqcxet5s7t44vh8rt9mg');
+echo $verifiedNumber->getPhoneNumber(), ' ', $verifiedNumber->getStatus(), "\n";
 
-$callerId = $bird->voice->callerIds->verify(
-    'CALLER_ID', (new VoiceCallerIDVerifyRequest())->setCode('123456'),
+$verifiedNumber = $bird->voice->verifiedNumbers->verify(
+    'vvn_01krdgeqcxet5s7t44vh8rt9mg', (new VoiceVerifiedNumberVerifyRequest())->setCode('123456'),
 );
-echo $callerId->getId(), ' ', $callerId->getStatus(), "\n";
+echo $verifiedNumber->getId(), ' ', $verifiedNumber->getStatus(), "\n";
 
 $destinations = $bird->voice->destinations->update(
     (new VoiceDestinationsUpdate())->setDestinations([

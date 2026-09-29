@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallerIDVerifyRequest
+class VoiceVerifiedNumberVerifyRequest
 {
     /**
      * @var array

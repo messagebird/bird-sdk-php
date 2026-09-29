@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.55.0
+
+- **Breaking:** voice caller-ID resources now use `verified_numbers`, `/v1/voice/verified-numbers`, and `vvn_` IDs; update SDK accessors to `VerifiedNumbers` in Go, `verifiedNumbers` in TypeScript and PHP, or `verified_numbers` in Python, CLI commands to `bird voice verified-numbers`, and MCP tools to `voice_verified_numbers_*`.
+
 ## 0.54.0
 
 - Add a `replay` method to the webhooks resource that queues redelivery of an endpoint's failed deliveries, optionally bounded by `since` and `until`.

@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallerIDListNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceVerifiedNumberListNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallerIDListNormalizer implements DenormalizerInterface, NormalizerIn
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallerIDList::class;
+        return $type === \MessageBird\Wire\Model\VoiceVerifiedNumberList::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallerIDList::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceVerifiedNumberList::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallerIDList();
+        $object = new \MessageBird\Wire\Model\VoiceVerifiedNumberList();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -40,7 +40,7 @@ class VoiceCallerIDListNormalizer implements DenormalizerInterface, NormalizerIn
         if (\array_key_exists('data', $data) && $data['data'] !== null) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\VoiceCallerID::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\VoiceVerifiedNumber::class, 'json', $context);
             }
             $object->setData($values);
             unset($data['data']);
@@ -96,6 +96,6 @@ class VoiceCallerIDListNormalizer implements DenormalizerInterface, NormalizerIn
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallerIDList::class => false];
+        return [\MessageBird\Wire\Model\VoiceVerifiedNumberList::class => false];
     }
 }

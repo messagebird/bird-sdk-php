@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class VoiceCallerIDList extends \ArrayObject
+class VoiceVerifiedNumberList extends \ArrayObject
 {
     /**
      * @var array
@@ -13,7 +13,7 @@ class VoiceCallerIDList extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var list<VoiceCallerID>|null
+     * @var list<VoiceVerifiedNumber>|null
      */
     protected $data;
     /**
@@ -35,14 +35,14 @@ class VoiceCallerIDList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
-     * @return list<VoiceCallerID>|null
+     * @return list<VoiceVerifiedNumber>|null
      */
     public function getData(): ?array
     {
         return $this->data;
     }
     /**
-     * @param list<VoiceCallerID>|null $data
+     * @param list<VoiceVerifiedNumber>|null $data
      *
      * @return self
      */

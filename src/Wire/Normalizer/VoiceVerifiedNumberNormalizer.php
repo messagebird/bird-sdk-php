@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceVerifiedNumberNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterf
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallerID::class;
+        return $type === \MessageBird\Wire\Model\VoiceVerifiedNumber::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallerID::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceVerifiedNumber::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallerID();
+        $object = new \MessageBird\Wire\Model\VoiceVerifiedNumber();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -129,6 +129,6 @@ class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterf
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallerID::class => false];
+        return [\MessageBird\Wire\Model\VoiceVerifiedNumber::class => false];
     }
 }
