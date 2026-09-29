@@ -14,6 +14,7 @@ use MessageBird\Wire\Model\WebhookEndpointCreate;
 use MessageBird\Wire\Model\WebhookEndpointCreated;
 use MessageBird\Wire\Model\WebhookEndpointList;
 use MessageBird\Wire\Model\WebhookEndpointUpdate;
+use MessageBird\Wire\Model\WebhookReplayRequest;
 use MessageBird\Wire\Model\WebhookRotateSecretResponse;
 use MessageBird\Wire\Model\WebhookTestRequest;
 use MessageBird\Wire\Model\WebhookTestResponse;
@@ -119,6 +120,20 @@ class WebhooksBase extends Resource
     public function attempts(string $webhookId, ?array $query = null, ?RequestOptions $options = null): WebhookAttemptList
     {
         return $this->single('GET', '/v1/webhooks/' . rawurlencode($webhookId) . '/attempts', WebhookAttemptList::class, null, $query, $options);
+    }
+
+    /**
+     * Queue redelivery of this endpoint's failed attempts in a window (default: the last 24 hours). An event is skipped only if one of its attempts inside the window was delivered, so re-running a replay whose `until` has passed redelivers everything the first one sent; the receiver must deduplicate on `webhook-id`. Only failed attempts are replayed, the window reaches back at most three days, and a paused endpoint redelivers nothing until it is re-enabled. One replay covers at most the oldest 10,000 events in the window. Nothing is returned beyond acceptance; each redelivery is one attempt, so check the outcome with the delivery attempts list. Limited to 20 per organization per UTC day.
+     *
+     * @example Replay failed deliveries from the last six hours
+     * $bird->webhooks->replay(
+     *     'whk_01krdgeqcxet5s7t44vh8rt9mg',
+     *     (new WebhookReplayRequest())->setSince(new \DateTime('-6 hours')),
+     * );
+     */
+    public function replay(string $webhookId, WebhookReplayRequest $params, ?RequestOptions $options = null): void
+    {
+        $this->none('POST', '/v1/webhooks/' . rawurlencode($webhookId) . '/replay', $params, null, $options);
     }
 
     /**

@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.54.0
+
+- Add a `replay` method to the webhooks resource that queues redelivery of an endpoint's failed deliveries, optionally bounded by `since` and `until`.
+
 ## 0.53.0
 
 - Add the `amb` channel with reply, business-account, suppression, and statistics methods, invitation consent, and webhook types. Business accounts use `name` and `business_account_id`; suppressions use `address` and `address_type`.

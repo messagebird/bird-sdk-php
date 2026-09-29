@@ -10,6 +10,7 @@ use MessageBird\Bird;
 use MessageBird\Exception\WebhookVerificationError;
 use MessageBird\Wire\Model\WebhookEndpointCreate;
 use MessageBird\Wire\Model\WebhookEndpointUpdate;
+use MessageBird\Wire\Model\WebhookReplayRequest;
 use MessageBird\Wire\Model\WebhookTestRequest;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '', webhookSecret: getenv('BIRD_WEBHOOK_SECRET') ?: null);
@@ -56,6 +57,11 @@ $attempts = $bird->webhooks->attempts('whk_01krdgeqcxet5s7t44vh8rt9mg');
 foreach ($attempts->getData() ?? [] as $attempt) {
     echo $attempt->getStatus(), PHP_EOL;
 }
+
+$bird->webhooks->replay(
+    'whk_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WebhookReplayRequest())->setSince(new \DateTime('-6 hours')),
+);
 
 $rotated = $bird->webhooks->rotateSecret('whk_01krdgeqcxet5s7t44vh8rt9mg');
 echo $rotated->getSecret();

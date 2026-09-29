@@ -175,6 +175,7 @@ return [
     "/v1/webhooks/{webhook_id}",
     "/v1/webhooks/{webhook_id}/test",
     "/v1/webhooks/{webhook_id}/attempts",
+    "/v1/webhooks/{webhook_id}/replay",
     "/v1/webhooks/{webhook_id}/rotate-secret",
     "/v1/workspace",
     "/v1/preferences",
