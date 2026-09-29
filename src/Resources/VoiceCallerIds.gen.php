@@ -57,7 +57,7 @@ final class VoiceCallerIds extends Resource
     }
 
     /**
-     * Complete a caller-ID verification challenge started in the dashboard. Recovery can place another verification call to the same number and requires the organization to remain eligible to register caller IDs. For expired or exhausted challenges, ask the user to select Get a new code in the dashboard. List caller IDs again to obtain the replacement registration ID before submitting its code. Read Voice destinations separately to confirm whether the number's country is enabled.
+     * Complete a caller-ID verification challenge started in the dashboard. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For expired or exhausted challenges, use Get a new code in the dashboard and list caller IDs to obtain the replacement ID.
      *
      * @example Submit a caller-ID verification code
      * $callerId = $bird->voice->callerIds->verify(

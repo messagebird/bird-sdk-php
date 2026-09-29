@@ -21,13 +21,13 @@ class Preference extends \ArrayObject
      */
     protected $channel;
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @var string|null
      */
     protected $handle;
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
      *
      * @var string|null
      */
@@ -119,7 +119,7 @@ class Preference extends \ArrayObject
         return $this;
     }
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @return string|null
      */
@@ -128,7 +128,7 @@ class Preference extends \ArrayObject
         return $this->handle;
     }
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @param string|null $handle
      *
@@ -141,7 +141,7 @@ class Preference extends \ArrayObject
         return $this;
     }
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
      *
      * @return string|null
      */
@@ -150,7 +150,7 @@ class Preference extends \ArrayObject
         return $this->senderScope;
     }
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
      *
      * @param string|null $senderScope
      *

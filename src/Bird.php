@@ -21,6 +21,7 @@ use MessageBird\Resources\Numbers;
 use MessageBird\Resources\Preferences;
 use MessageBird\Resources\WorkspaceResource;
 use MessageBird\Resources\Realtime;
+use MessageBird\Resources\Amb;
 use MessageBird\Resources\Sms;
 use MessageBird\Resources\SmsKeywordRules;
 use MessageBird\Resources\SmsSuppressions;
@@ -75,6 +76,7 @@ final class Bird
     public readonly Domains $domains;
     public readonly Suppressions $suppressions;
     public readonly Email $email;
+    public readonly Amb $amb;
     public readonly Sms $sms;
     public readonly SmsTemplates $smsTemplates;
     public readonly SmsSuppressions $smsSuppressions;
@@ -136,6 +138,7 @@ final class Bird
         $this->domains = new Domains($this);
         $this->suppressions = new Suppressions($this);
         $this->email = new Email($this);
+        $this->amb = new Amb($this);
         $this->sms = new Sms($this);
         $this->smsTemplates = new SmsTemplates($this);
         $this->smsSuppressions = new SmsSuppressions($this);

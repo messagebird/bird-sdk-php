@@ -13,13 +13,13 @@ class VoiceCallerIDVerifyRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The 6-digit verification code read out by the verification call.
+     * The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
      *
      * @var string|null
      */
     protected $code;
     /**
-     * The 6-digit verification code read out by the verification call.
+     * The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
      *
      * @return string|null
      */
@@ -28,7 +28,7 @@ class VoiceCallerIDVerifyRequest
         return $this->code;
     }
     /**
-     * The 6-digit verification code read out by the verification call.
+     * The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
      *
      * @param string|null $code
      *

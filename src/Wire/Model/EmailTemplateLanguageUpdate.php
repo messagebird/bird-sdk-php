@@ -13,7 +13,7 @@ class EmailTemplateLanguageUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * A new email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @var string|null
      */
@@ -46,7 +46,7 @@ class EmailTemplateLanguageUpdate
      */
     protected $revision;
     /**
-     * A new email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @return string|null
      */
@@ -55,7 +55,7 @@ class EmailTemplateLanguageUpdate
         return $this->subject;
     }
     /**
-     * A new email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @param string|null $subject
      *

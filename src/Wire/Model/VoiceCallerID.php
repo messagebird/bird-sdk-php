@@ -37,16 +37,24 @@ class VoiceCallerID extends \ArrayObject
      * Verification state of the caller ID.
      * 
      * - `pending`: the number is registered but ownership has not yet been proven.
-     * - `verified`: the workspace completed the verification call, so the number can
-     *   be presented as the outbound caller ID.
-     * - `failed`: terminal because the verification challenge expired or the attempt
-     *   limit was exhausted. Use the dashboard to remove and register the caller ID
-     *   again to retry.
+     * - `verified`: the workspace proved ownership of the number. Check the
+     *   resource's activation or direction fields for outbound availability.
+     * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+     *   Remove and register the caller ID again in the dashboard to retry.
+     * 
+     * Open enum: additional states may be added over time, so treat an unrecognized
+     * value as a future state rather than an error.
      * 
      *
      * @var string|null
      */
     protected $status;
+    /**
+     * Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
+     *
+     * @var bool|null
+     */
+    protected $outboundEnabled;
     /**
      * When the caller ID was verified. `null` when its status is `pending` or `failed`.
      *
@@ -146,11 +154,13 @@ class VoiceCallerID extends \ArrayObject
      * Verification state of the caller ID.
      * 
      * - `pending`: the number is registered but ownership has not yet been proven.
-     * - `verified`: the workspace completed the verification call, so the number can
-     *   be presented as the outbound caller ID.
-     * - `failed`: terminal because the verification challenge expired or the attempt
-     *   limit was exhausted. Use the dashboard to remove and register the caller ID
-     *   again to retry.
+     * - `verified`: the workspace proved ownership of the number. Check the
+     *   resource's activation or direction fields for outbound availability.
+     * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+     *   Remove and register the caller ID again in the dashboard to retry.
+     * 
+     * Open enum: additional states may be added over time, so treat an unrecognized
+     * value as a future state rather than an error.
      * 
      *
      * @return string|null
@@ -163,11 +173,13 @@ class VoiceCallerID extends \ArrayObject
     * Verification state of the caller ID.
     
     - `pending`: the number is registered but ownership has not yet been proven.
-    - `verified`: the workspace completed the verification call, so the number can
-     be presented as the outbound caller ID.
-    - `failed`: terminal because the verification challenge expired or the attempt
-     limit was exhausted. Use the dashboard to remove and register the caller ID
-     again to retry.
+    - `verified`: the workspace proved ownership of the number. Check the
+     resource's activation or direction fields for outbound availability.
+    - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+     Remove and register the caller ID again in the dashboard to retry.
+    
+    Open enum: additional states may be added over time, so treat an unrecognized
+    value as a future state rather than an error.
     
     *
     * @param string|null $status
@@ -178,6 +190,28 @@ class VoiceCallerID extends \ArrayObject
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
+     *
+     * @return bool|null
+     */
+    public function getOutboundEnabled(): ?bool
+    {
+        return $this->outboundEnabled;
+    }
+    /**
+     * Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
+     *
+     * @param bool|null $outboundEnabled
+     *
+     * @return self
+     */
+    public function setOutboundEnabled(?bool $outboundEnabled): self
+    {
+        $this->initialized['outboundEnabled'] = true;
+        $this->outboundEnabled = $outboundEnabled;
         return $this;
     }
     /**

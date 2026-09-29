@@ -37,6 +37,9 @@ class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('outbound_enabled', $data) && \is_int($data['outbound_enabled'])) {
+            $data['outbound_enabled'] = (bool) $data['outbound_enabled'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
             unset($data['id']);
@@ -72,6 +75,13 @@ class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterf
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('outbound_enabled', $data) && $data['outbound_enabled'] !== null) {
+            $object->setOutboundEnabled($data['outbound_enabled']);
+            unset($data['outbound_enabled']);
+        }
+        elseif (\array_key_exists('outbound_enabled', $data) && $data['outbound_enabled'] === null) {
+            $object->setOutboundEnabled(null);
+        }
         if (\array_key_exists('verified_at', $data) && $data['verified_at'] !== null) {
             $object->setVerifiedAt(new \DateTime($data['verified_at']));
             unset($data['verified_at']);
@@ -105,7 +115,11 @@ class VoiceCallerIDNormalizer implements DenormalizerInterface, NormalizerInterf
         $dataArray = [];
         $dataArray['id'] = $data->getId();
         $dataArray['workspace_id'] = $data->getWorkspaceId();
+        $dataArray['phone_number'] = $data->getPhoneNumber();
+        $dataArray['name'] = $data->getName();
         $dataArray['status'] = $data->getStatus();
+        $dataArray['outbound_enabled'] = $data->getOutboundEnabled();
+        $dataArray['verified_at'] = $data->getVerifiedAt()?->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

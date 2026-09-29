@@ -13,7 +13,7 @@ class EmailTemplateLanguageUpsert
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @var string|null
      */
@@ -46,7 +46,7 @@ class EmailTemplateLanguageUpsert
      */
     protected $revision;
     /**
-     * The email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @return string|null
      */
@@ -55,7 +55,7 @@ class EmailTemplateLanguageUpsert
         return $this->subject;
     }
     /**
-     * The email subject line for this language.
+     * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @param string|null $subject
      *

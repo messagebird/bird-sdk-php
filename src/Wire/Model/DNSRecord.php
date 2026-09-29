@@ -57,7 +57,7 @@ class DNSRecord
      *   `optional` until receiving is enabled, and publishing it before then
      *   is destructive: on a domain at the zone apex it replaces the MX
      *   records that carry the domain's existing mail.
-     * - `dmarc`: identifies the advisory DMARC policy record.
+     * - `dmarc`: identifies the DMARC policy record required for sending.
      * 
      *
      * @var string|null
@@ -230,7 +230,7 @@ class DNSRecord
      *   `optional` until receiving is enabled, and publishing it before then
      *   is destructive: on a domain at the zone apex it replaces the MX
      *   records that carry the domain's existing mail.
-     * - `dmarc`: identifies the advisory DMARC policy record.
+     * - `dmarc`: identifies the DMARC policy record required for sending.
      * 
      *
      * @return string|null
@@ -252,7 +252,7 @@ class DNSRecord
      `optional` until receiving is enabled, and publishing it before then
      is destructive: on a domain at the zone apex it replaces the MX
      records that carry the domain's existing mail.
-    - `dmarc`: identifies the advisory DMARC policy record.
+    - `dmarc`: identifies the DMARC policy record required for sending.
     
     *
     * @param string|null $purpose

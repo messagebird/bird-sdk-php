@@ -228,6 +228,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\Attachment::class => \MessageBird\Wire\Normalizer\AttachmentNormalizer::class,
+
         \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
 
         \MessageBird\Wire\Model\SMSLatencyQuantiles::class => \MessageBird\Wire\Normalizer\SMSLatencyQuantilesNormalizer::class,
@@ -727,6 +729,144 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppNumberEventList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventListNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberProfile::class => \MessageBird\Wire\Normalizer\WhatsAppNumberProfileNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccount::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountEvent::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountEventNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountEventList::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountEventListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBSuppression::class => \MessageBird\Wire\Normalizer\AMBSuppressionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountList::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountCreate::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountUpdate::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountSubmission::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountSubmissionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountSubmissionList::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountSubmissionListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountSubmissionCreate::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountSubmissionCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBEntryPoint::class => \MessageBird\Wire\Normalizer\AMBEntryPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBChannelSettings::class => \MessageBird\Wire\Normalizer\AMBChannelSettingsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBChannelSettingsUpdate::class => \MessageBird\Wire\Normalizer\AMBChannelSettingsUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRoutingRule::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRoutingRuleList::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRoutingRuleCreate::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRichLinkReference::class => \MessageBird\Wire\Normalizer\AMBRichLinkReferenceNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBError::class => \MessageBird\Wire\Normalizer\AMBErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessage::class => \MessageBird\Wire\Normalizer\AMBMessageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageList::class => \MessageBird\Wire\Normalizer\AMBMessageListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageSendRequest::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageEvent::class => \MessageBird\Wire\Normalizer\AMBMessageEventNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageEventList::class => \MessageBird\Wire\Normalizer\AMBMessageEventListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversation::class => \MessageBird\Wire\Normalizer\AMBConversationNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationList::class => \MessageBird\Wire\Normalizer\AMBConversationListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationUpdate::class => \MessageBird\Wire\Normalizer\AMBConversationUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationTypingRequest::class => \MessageBird\Wire\Normalizer\AMBConversationTypingRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBSuppressionList::class => \MessageBird\Wire\Normalizer\AMBSuppressionListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBSuppressionCreate::class => \MessageBird\Wire\Normalizer\AMBSuppressionCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => \MessageBird\Wire\Normalizer\AMBOutboundStatsCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsQuantiles::class => \MessageBird\Wire\Normalizer\AMBStatsQuantilesNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsLatency::class => \MessageBird\Wire\Normalizer\AMBStatsLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsComparison::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsSummary::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\AMBStatsSeriesPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsPoint::class => \MessageBird\Wire\Normalizer\AMBStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsResponse::class => \MessageBird\Wire\Normalizer\AMBStatsResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBBusinessAccountStatsPoint::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByBusinessResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByBusinessResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => \MessageBird\Wire\Normalizer\AMBMessageKindStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByMessageKindResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBIntentStatsPoint::class => \MessageBird\Wire\Normalizer\AMBIntentStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByIntentResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByIntentResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBGroupStatsPoint::class => \MessageBird\Wire\Normalizer\AMBGroupStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByGroupResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByGroupResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\AMBCategoryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByCategoryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTagStatsPoint::class => \MessageBird\Wire\Normalizer\AMBTagStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByTagResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByTagResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\AMBErrorCodeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByErrorCodeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsComparison::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsSummary::class => \MessageBird\Wire\Normalizer\AMBInboundStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsResponse::class => \MessageBird\Wire\Normalizer\AMBInboundStatsResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundBusinessStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundBusinessStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsByBusinessResponse::class => \MessageBird\Wire\Normalizer\AMBInboundStatsByBusinessResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundIntentStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundIntentStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsByIntentResponse::class => \MessageBird\Wire\Normalizer\AMBInboundStatsByIntentResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsCounts::class => \MessageBird\Wire\Normalizer\AMBConversationStatsCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsComparison::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsSummary::class => \MessageBird\Wire\Normalizer\AMBConversationStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsPoint::class => \MessageBird\Wire\Normalizer\AMBConversationStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsResponse::class => \MessageBird\Wire\Normalizer\AMBConversationStatsResponseNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanNormalizer::class,
 
@@ -1505,6 +1645,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSKeywordRuleList::class => false,
             \MessageBird\Wire\Model\SMSKeywordRuleCreate::class => false,
             \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => false,
+            \MessageBird\Wire\Model\Attachment::class => false,
             \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
             \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
             \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => false,
@@ -1755,6 +1896,75 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppNumberEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberProfile::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccount::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountEvent::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountEventList::class => false,
+            \MessageBird\Wire\Model\AMBSuppression::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountList::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountCreate::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountUpdate::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountSubmission::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountSubmissionList::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountSubmissionCreate::class => false,
+            \MessageBird\Wire\Model\AMBEntryPoint::class => false,
+            \MessageBird\Wire\Model\AMBChannelSettings::class => false,
+            \MessageBird\Wire\Model\AMBChannelSettingsUpdate::class => false,
+            \MessageBird\Wire\Model\AMBRoutingRule::class => false,
+            \MessageBird\Wire\Model\AMBRoutingRuleList::class => false,
+            \MessageBird\Wire\Model\AMBRoutingRuleCreate::class => false,
+            \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => false,
+            \MessageBird\Wire\Model\AMBRichLinkReference::class => false,
+            \MessageBird\Wire\Model\AMBError::class => false,
+            \MessageBird\Wire\Model\AMBMessage::class => false,
+            \MessageBird\Wire\Model\AMBMessageList::class => false,
+            \MessageBird\Wire\Model\AMBMessageSendRequest::class => false,
+            \MessageBird\Wire\Model\AMBMessageEvent::class => false,
+            \MessageBird\Wire\Model\AMBMessageEventList::class => false,
+            \MessageBird\Wire\Model\AMBConversation::class => false,
+            \MessageBird\Wire\Model\AMBConversationList::class => false,
+            \MessageBird\Wire\Model\AMBConversationUpdate::class => false,
+            \MessageBird\Wire\Model\AMBConversationTypingRequest::class => false,
+            \MessageBird\Wire\Model\AMBSuppressionList::class => false,
+            \MessageBird\Wire\Model\AMBSuppressionCreate::class => false,
+            \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => false,
+            \MessageBird\Wire\Model\AMBStatsQuantiles::class => false,
+            \MessageBird\Wire\Model\AMBStatsLatency::class => false,
+            \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBStatsSeriesPeriod::class => false,
+            \MessageBird\Wire\Model\AMBStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsResponse::class => false,
+            \MessageBird\Wire\Model\AMBBusinessAccountStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByBusinessResponse::class => false,
+            \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => false,
+            \MessageBird\Wire\Model\AMBIntentStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByIntentResponse::class => false,
+            \MessageBird\Wire\Model\AMBGroupStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByGroupResponse::class => false,
+            \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => false,
+            \MessageBird\Wire\Model\AMBTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsResponse::class => false,
+            \MessageBird\Wire\Model\AMBInboundBusinessStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsByBusinessResponse::class => false,
+            \MessageBird\Wire\Model\AMBInboundIntentStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsByIntentResponse::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsCounts::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
             \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => false,
             \MessageBird\Wire\Model\WhatsAppMetaHealthEntity::class => false,

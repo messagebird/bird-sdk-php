@@ -13,7 +13,7 @@ class PreferenceCreate extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @var string|null
      */
@@ -31,13 +31,13 @@ class PreferenceCreate extends \ArrayObject
      */
     protected $status;
     /**
-     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
      *
      * @var string|null
      */
     protected $coverage = 'non_transactional';
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
      *
      * @var string|null
      */
@@ -55,7 +55,7 @@ class PreferenceCreate extends \ArrayObject
      */
     protected $consentedAt;
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @return string|null
      */
@@ -64,7 +64,7 @@ class PreferenceCreate extends \ArrayObject
         return $this->handle;
     }
     /**
-     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+     * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
      * @param string|null $handle
      *
@@ -121,7 +121,7 @@ class PreferenceCreate extends \ArrayObject
         return $this;
     }
     /**
-     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
      *
      * @return string|null
      */
@@ -130,7 +130,7 @@ class PreferenceCreate extends \ArrayObject
         return $this->coverage;
     }
     /**
-     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+     * How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
      *
      * @param string|null $coverage
      *
@@ -143,7 +143,7 @@ class PreferenceCreate extends \ArrayObject
         return $this;
     }
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
      *
      * @return string|null
      */
@@ -152,7 +152,7 @@ class PreferenceCreate extends \ArrayObject
         return $this->senderScope;
     }
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
      *
      * @param string|null $senderScope
      *

@@ -48,7 +48,9 @@ class VoiceCallerIDVerifyRequestNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['code'] = $data->getCode();
+        if ($data->isInitialized('code') && null !== $data->getCode()) {
+            $dataArray['code'] = $data->getCode();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
