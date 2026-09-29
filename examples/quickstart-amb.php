@@ -14,13 +14,13 @@ if ($businessAccountId === null) {
     throw new RuntimeException('The conversation did not include a business account ID.');
 }
 $business = $bird->amb->businessAccounts->get($businessAccountId);
-if ($business->getStatus() === 'disconnected' || $conversation->getStatus() !== 'open' || !$business->getAppleBusinessId() || !$conversation->getOpaqueUserId()) {
+if ($business->getStatus() === 'disconnected' || $conversation->getStatus() !== 'open' || !$business->getAppleBusinessId() || !$conversation->getRecipient()?->getOpaqueUserId()) {
     throw new RuntimeException('A configured, connected business account and an open conversation are required.');
 }
 $message = $bird->amb->send(
     (new AMBMessageSendRequest())
         ->setFrom($business->getAppleBusinessId())
-        ->setTo($conversation->getOpaqueUserId())
+        ->setTo($conversation->getRecipient()->getOpaqueUserId())
         ->setContent(['type' => 'text', 'body' => 'Your order is ready.']),
 );
 echo $message->getId() . PHP_EOL;

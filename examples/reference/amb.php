@@ -44,7 +44,7 @@ $bird->amb->businessAccounts->create((new Model\AMBBusinessAccountCreate())->set
 
 $bird->amb->conversations->get('acv_01krdgeqcxet5s7t44vh8rt9mg');
 
-$bird->amb->conversations->update('acv_01krdgeqcxet5s7t44vh8rt9mg', (new Model\AMBConversationUpdate())->setAssignedTo(null)->setLabels([])->setRead(false));
+$bird->amb->conversations->update('acv_01krdgeqcxet5s7t44vh8rt9mg', (new Model\AMBConversationUpdate())->setAssignedTo(null)->setLabels([])->setInboxStatus('resolved'));
 
 foreach ($bird->amb->conversations->listMessages('acv_01krdgeqcxet5s7t44vh8rt9mg', ['limit' => '2']) as $item) {
     var_dump($item);

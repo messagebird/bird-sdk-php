@@ -13,11 +13,9 @@ class EmailCompetitiveSendTimeGrid
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @var EmailCompetitivePeriod|null
@@ -57,11 +55,9 @@ class EmailCompetitiveSendTimeGrid
      */
     protected $peakSendWindow;
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @return EmailCompetitivePeriod|null
@@ -71,11 +67,9 @@ class EmailCompetitiveSendTimeGrid
         return $this->period;
     }
     /**
-    * The period every figure in the response covers, echoed back from the request.
-    
-    Figures are fetched when the request is made, so they are current as of `to`.
-    The period always ends at the moment of the request rather than at a cached
-    boundary, which is why two requests a minute apart can differ slightly.
+    * The period the response describes. Most reports resolve a rolling window when
+    requested; send-time and notable reports can carry the panel's own window.
+    These bounds describe coverage, not a guarantee of measurement freshness.
     
     *
     * @param EmailCompetitivePeriod|null $period

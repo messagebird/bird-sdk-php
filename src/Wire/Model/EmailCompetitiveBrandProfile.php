@@ -13,11 +13,9 @@ class EmailCompetitiveBrandProfile
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @var EmailCompetitivePeriod|null
@@ -27,9 +25,12 @@ class EmailCompetitiveBrandProfile
      * One brand on the watchlist, with its figures for the requested period. Your own
      * workspace appears as a row too, so the table can be read as a single ranking.
      * 
-     * Every metric is present on every row and is `null` when it is unavailable for
-     * that brand, so a `0` is always a real measurement rather than a gap. Check
-     * `panel_status` for why a metric is null.
+     * Metrics are present on every row. Interpret `null` using each field's
+     * description: it can mean unavailable, no observed campaign, or no overlap
+     * returned by the panel. A `0` is a measurement rather than a gap.
+     * 
+     * Your measured sends and cadence cover the workspace. Your panel rates and
+     * overlap describe only its highest-volume sending domain.
      * 
      * `esp` and `list_size` are the exception. They are populated only when you read a
      * single brand, and are always `null` on the watchlist whatever `panel_status`
@@ -47,11 +48,9 @@ class EmailCompetitiveBrandProfile
      */
     protected $providers;
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @return EmailCompetitivePeriod|null
@@ -61,11 +60,9 @@ class EmailCompetitiveBrandProfile
         return $this->period;
     }
     /**
-    * The period every figure in the response covers, echoed back from the request.
-    
-    Figures are fetched when the request is made, so they are current as of `to`.
-    The period always ends at the moment of the request rather than at a cached
-    boundary, which is why two requests a minute apart can differ slightly.
+    * The period the response describes. Most reports resolve a rolling window when
+    requested; send-time and notable reports can carry the panel's own window.
+    These bounds describe coverage, not a guarantee of measurement freshness.
     
     *
     * @param EmailCompetitivePeriod|null $period
@@ -82,9 +79,12 @@ class EmailCompetitiveBrandProfile
      * One brand on the watchlist, with its figures for the requested period. Your own
      * workspace appears as a row too, so the table can be read as a single ranking.
      * 
-     * Every metric is present on every row and is `null` when it is unavailable for
-     * that brand, so a `0` is always a real measurement rather than a gap. Check
-     * `panel_status` for why a metric is null.
+     * Metrics are present on every row. Interpret `null` using each field's
+     * description: it can mean unavailable, no observed campaign, or no overlap
+     * returned by the panel. A `0` is a measurement rather than a gap.
+     * 
+     * Your measured sends and cadence cover the workspace. Your panel rates and
+     * overlap describe only its highest-volume sending domain.
      * 
      * `esp` and `list_size` are the exception. They are populated only when you read a
      * single brand, and are always `null` on the watchlist whatever `panel_status`
@@ -101,9 +101,12 @@ class EmailCompetitiveBrandProfile
     * One brand on the watchlist, with its figures for the requested period. Your own
     workspace appears as a row too, so the table can be read as a single ranking.
     
-    Every metric is present on every row and is `null` when it is unavailable for
-    that brand, so a `0` is always a real measurement rather than a gap. Check
-    `panel_status` for why a metric is null.
+    Metrics are present on every row. Interpret `null` using each field's
+    description: it can mean unavailable, no observed campaign, or no overlap
+    returned by the panel. A `0` is a measurement rather than a gap.
+    
+    Your measured sends and cadence cover the workspace. Your panel rates and
+    overlap describe only its highest-volume sending domain.
     
     `esp` and `list_size` are the exception. They are populated only when you read a
     single brand, and are always `null` on the watchlist whatever `panel_status`

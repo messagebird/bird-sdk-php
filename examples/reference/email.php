@@ -591,13 +591,14 @@ var_dump($report);
 function emailStatsQuery(Bird $bird): void
 {
     $params = (new \MessageBird\Wire\Model\EmailStatsQueryRequest())
-        ->setFrom('2026-08-03')
-        ->setTo('2026-08-16')
+        ->setFrom('2026-09-23')
+        ->setTo('2026-09-24')
         ->setMetrics(['delivered', 'bounce_rate'])
         ->setGroupBy('recipient_domain')
         ->setGrain('week')
         ->setLimit(25);
-    foreach ($bird->email->stats->query($params) as $group) {
+    $stats = $bird->email->stats->query($params)->fetch();
+    foreach ($stats->data as $group) {
         print_r([$group->getDimensions(), $group->getMetrics(), $group->getSeries()]);
     }
 }

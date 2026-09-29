@@ -13,14 +13,14 @@ class EmailCompetitiveBrandSearchResults
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Matching brands. Empty when nothing matched, which for an unusual brand name means the panel does not track it rather than that the search failed.
+     * Watchable matches returned for this query. A capped search or an unresolved sending domain can omit a brand; an empty result does not establish that the panel has never observed it.
      * 
      *
      * @var list<EmailCompetitiveBrandMatch>|null
      */
     protected $data;
     /**
-     * Matching brands. Empty when nothing matched, which for an unusual brand name means the panel does not track it rather than that the search failed.
+     * Watchable matches returned for this query. A capped search or an unresolved sending domain can omit a brand; an empty result does not establish that the panel has never observed it.
      * 
      *
      * @return list<EmailCompetitiveBrandMatch>|null
@@ -30,7 +30,7 @@ class EmailCompetitiveBrandSearchResults
         return $this->data;
     }
     /**
-     * Matching brands. Empty when nothing matched, which for an unusual brand name means the panel does not track it rather than that the search failed.
+     * Watchable matches returned for this query. A capped search or an unresolved sending domain can omit a brand; an empty result does not establish that the panel has never observed it.
      *
      * @param list<EmailCompetitiveBrandMatch>|null $data
      *

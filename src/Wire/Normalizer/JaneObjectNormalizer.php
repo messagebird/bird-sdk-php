@@ -778,6 +778,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBMessageEventList::class => \MessageBird\Wire\Normalizer\AMBMessageEventListNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBConversationRecipient::class => \MessageBird\Wire\Normalizer\AMBConversationRecipientNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationRouting::class => \MessageBird\Wire\Normalizer\AMBConversationRoutingNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationLastMessage::class => \MessageBird\Wire\Normalizer\AMBConversationLastMessageNormalizer::class,
+
         \MessageBird\Wire\Model\AMBConversation::class => \MessageBird\Wire\Normalizer\AMBConversationNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationList::class => \MessageBird\Wire\Normalizer\AMBConversationListNormalizer::class,
@@ -1920,6 +1926,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBMessageSendRequest::class => false,
             \MessageBird\Wire\Model\AMBMessageEvent::class => false,
             \MessageBird\Wire\Model\AMBMessageEventList::class => false,
+            \MessageBird\Wire\Model\AMBConversationRecipient::class => false,
+            \MessageBird\Wire\Model\AMBConversationRouting::class => false,
+            \MessageBird\Wire\Model\AMBConversationLastMessage::class => false,
             \MessageBird\Wire\Model\AMBConversation::class => false,
             \MessageBird\Wire\Model\AMBConversationList::class => false,
             \MessageBird\Wire\Model\AMBConversationUpdate::class => false,

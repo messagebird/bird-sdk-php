@@ -31,14 +31,24 @@ class EmailStatsQueryRequest
      */
     protected $timezone;
     /**
-     * Distinct metrics to return. Unselected metrics are absent.
+     * Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles.
+     * 
+     * delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows.
+     * 
+     * An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged.
+     * 
+     * Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
+     * 
      *
      * @var list<string>|null
      */
     protected $metrics;
     /**
-     * Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
-     * Missing values form a null group when the metric supports that dimension.
+     * Group by one recorded event dimension. Omit for a single ungrouped summary with optional series.
+     * Grouping by `tag` requires `filters.tag.name`.
+     * Missing values form a null group when the metric supports that dimension. A null value
+     * means the event lacks that attribution; it does not explain how the message was created
+     * or establish membership in another dimension such as a campaign.
      * 
      * Every selected metric must support the grouping dimension and every filter dimension.
      * Unsupported combinations return validation error `E04074`, even when the workspace has no events.
@@ -168,7 +178,14 @@ class EmailStatsQueryRequest
         return $this;
     }
     /**
-     * Distinct metrics to return. Unselected metrics are absent.
+     * Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles.
+     * 
+     * delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows.
+     * 
+     * An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged.
+     * 
+     * Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
+     * 
      *
      * @return list<string>|null
      */
@@ -177,12 +194,19 @@ class EmailStatsQueryRequest
         return $this->metrics;
     }
     /**
-     * Distinct metrics to return. Unselected metrics are absent.
-     *
-     * @param list<string>|null $metrics
-     *
-     * @return self
-     */
+    * Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles.
+    
+    delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows.
+    
+    An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged.
+    
+    Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
+    
+    *
+    * @param list<string>|null $metrics
+    *
+    * @return self
+    */
     public function setMetrics(?array $metrics): self
     {
         $this->initialized['metrics'] = true;
@@ -190,8 +214,11 @@ class EmailStatsQueryRequest
         return $this;
     }
     /**
-     * Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
-     * Missing values form a null group when the metric supports that dimension.
+     * Group by one recorded event dimension. Omit for a single ungrouped summary with optional series.
+     * Grouping by `tag` requires `filters.tag.name`.
+     * Missing values form a null group when the metric supports that dimension. A null value
+     * means the event lacks that attribution; it does not explain how the message was created
+     * or establish membership in another dimension such as a campaign.
      * 
      * Every selected metric must support the grouping dimension and every filter dimension.
      * Unsupported combinations return validation error `E04074`, even when the workspace has no events.
@@ -216,8 +243,11 @@ class EmailStatsQueryRequest
         return $this->groupBy;
     }
     /**
-    * Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
-    Missing values form a null group when the metric supports that dimension.
+    * Group by one recorded event dimension. Omit for a single ungrouped summary with optional series.
+    Grouping by `tag` requires `filters.tag.name`.
+    Missing values form a null group when the metric supports that dimension. A null value
+    means the event lacks that attribution; it does not explain how the message was created
+    or establish membership in another dimension such as a campaign.
     
     Every selected metric must support the grouping dimension and every filter dimension.
     Unsupported combinations return validation error `E04074`, even when the workspace has no events.

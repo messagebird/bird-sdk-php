@@ -13,7 +13,7 @@ class MailboxStatsSummary
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Distinct email messages the mailbox sent that were accepted, counted at the message level and summed per bucket across the period.
+     * Distinct email messages the mailbox sent that were accepted, counted once at the message level across the period.
      *
      * @var int|null
      */
@@ -31,13 +31,13 @@ class MailboxStatsSummary
      */
     protected $latency;
     /**
-     * Distinct emails the mailbox received, summed per bucket across the period.
+     * Distinct emails the mailbox received, counted once across the period.
      *
      * @var int|null
      */
     protected $received;
     /**
-     * Distinct email messages the mailbox sent that were accepted, counted at the message level and summed per bucket across the period.
+     * Distinct email messages the mailbox sent that were accepted, counted once at the message level across the period.
      *
      * @return int|null
      */
@@ -46,7 +46,7 @@ class MailboxStatsSummary
         return $this->sendsAccepted;
     }
     /**
-     * Distinct email messages the mailbox sent that were accepted, counted at the message level and summed per bucket across the period.
+     * Distinct email messages the mailbox sent that were accepted, counted once at the message level across the period.
      *
      * @param int|null $sendsAccepted
      *
@@ -113,7 +113,7 @@ class MailboxStatsSummary
         return $this;
     }
     /**
-     * Distinct emails the mailbox received, summed per bucket across the period.
+     * Distinct emails the mailbox received, counted once across the period.
      *
      * @return int|null
      */
@@ -122,7 +122,7 @@ class MailboxStatsSummary
         return $this->received;
     }
     /**
-     * Distinct emails the mailbox received, summed per bucket across the period.
+     * Distinct emails the mailbox received, counted once across the period.
      *
      * @param int|null $received
      *

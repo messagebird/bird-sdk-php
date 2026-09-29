@@ -68,7 +68,7 @@ class AmbBase extends Resource
     }
 
     /**
-     * Queues a billable reply to an open customer conversation. Requires a configured business, regardless of onboarding status. Apple decides whether to accept the message. Use the business's apple_business_id as from and the conversation's opaque_user_id as to. Sent records Apple gateway acceptance; device delivery and read receipts are unavailable.
+     * Queues a billable reply to an open customer conversation. Requires a configured business, regardless of onboarding status. Apple decides whether to accept the message. Use the business's apple_business_id as from and the conversation's recipient.opaque_user_id as to. Sent records Apple gateway acceptance; device delivery and read receipts are unavailable.
      *
      * @example Example
      * $bird->amb->send((new Model\AMBMessageSendRequest())->setFrom('b52d6267-2b62-4f8a-8842-0533d0f1dc07')->setTo('opaque-customer')->setContent(['type' => 'text', 'body' => 'Your order is ready.']));

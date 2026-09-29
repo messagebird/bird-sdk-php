@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class AMBConversationUpdate
+class AMBConversationUpdate extends \ArrayObject
 {
     /**
      * @var array
@@ -13,27 +13,34 @@ class AMBConversationUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * User to assign this conversation to. Pass null to unassign it.
+     * User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
      *
      * @var string|null
      */
     protected $assignedTo;
     /**
-     * Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @var string|null
+     */
+    protected $inboxStatus;
+    /**
+     * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+     * 
+     * Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
      * 
      *
      * @var list<string>|null
      */
     protected $labels;
     /**
-     * Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
-     * 
+     * Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
      *
-     * @var bool|null
+     * @var \DateTime|null
      */
     protected $read;
     /**
-     * User to assign this conversation to. Pass null to unassign it.
+     * User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
      *
      * @return string|null
      */
@@ -42,7 +49,7 @@ class AMBConversationUpdate
         return $this->assignedTo;
     }
     /**
-     * User to assign this conversation to. Pass null to unassign it.
+     * User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
      *
      * @param string|null $assignedTo
      *
@@ -55,7 +62,31 @@ class AMBConversationUpdate
         return $this;
     }
     /**
-     * Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @return string|null
+     */
+    public function getInboxStatus(): ?string
+    {
+        return $this->inboxStatus;
+    }
+    /**
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @param string|null $inboxStatus
+     *
+     * @return self
+     */
+    public function setInboxStatus(?string $inboxStatus): self
+    {
+        $this->initialized['inboxStatus'] = true;
+        $this->inboxStatus = $inboxStatus;
+        return $this;
+    }
+    /**
+     * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+     * 
+     * Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
      * 
      *
      * @return list<string>|null
@@ -65,12 +96,15 @@ class AMBConversationUpdate
         return $this->labels;
     }
     /**
-     * Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
-     *
-     * @param list<string>|null $labels
-     *
-     * @return self
-     */
+    * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+    
+    Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+    
+    *
+    * @param list<string>|null $labels
+    *
+    * @return self
+    */
     public function setLabels(?array $labels): self
     {
         $this->initialized['labels'] = true;
@@ -78,23 +112,22 @@ class AMBConversationUpdate
         return $this;
     }
     /**
-     * Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
-     * 
+     * Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
      *
-     * @return bool|null
+     * @return \DateTime|null
      */
-    public function getRead(): ?bool
+    public function getRead(): ?\DateTime
     {
         return $this->read;
     }
     /**
-     * Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
+     * Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
      *
-     * @param bool|null $read
+     * @param \DateTime|null $read
      *
      * @return self
      */
-    public function setRead(?bool $read): self
+    public function setRead(?\DateTime $read): self
     {
         $this->initialized['read'] = true;
         $this->read = $read;

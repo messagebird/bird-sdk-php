@@ -64,7 +64,7 @@ class EmailCompetitiveCampaign extends \ArrayObject
      */
     protected $hasCreative;
     /**
-     * The discount the subject line leads with, null when it names none. Read from the subject text, so it finds a stated offer and not one revealed inside the email.
+     * The first recognized percentage-discount offer in the subject, null when none is recognized. Does not detect dollar discounts, free shipping or offers revealed only inside the email.
      * 
      *
      * @var float|null
@@ -253,7 +253,7 @@ class EmailCompetitiveCampaign extends \ArrayObject
         return $this;
     }
     /**
-     * The discount the subject line leads with, null when it names none. Read from the subject text, so it finds a stated offer and not one revealed inside the email.
+     * The first recognized percentage-discount offer in the subject, null when none is recognized. Does not detect dollar discounts, free shipping or offers revealed only inside the email.
      * 
      *
      * @return float|null
@@ -263,7 +263,7 @@ class EmailCompetitiveCampaign extends \ArrayObject
         return $this->discountPercent;
     }
     /**
-     * The discount the subject line leads with, null when it names none. Read from the subject text, so it finds a stated offer and not one revealed inside the email.
+     * The first recognized percentage-discount offer in the subject, null when none is recognized. Does not detect dollar discounts, free shipping or offers revealed only inside the email.
      *
      * @param float|null $discountPercent
      *

@@ -45,7 +45,7 @@ class EmailInboxInsightsPlacementSummary
      */
     protected $readRatePercent;
     /**
-     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
      * 
      *
      * @var EmailInboxInsightsPlacementDeltaPts|null
@@ -183,7 +183,7 @@ class EmailInboxInsightsPlacementSummary
         return $this;
     }
     /**
-     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
      * 
      *
      * @return EmailInboxInsightsPlacementDeltaPts|null
@@ -193,7 +193,7 @@ class EmailInboxInsightsPlacementSummary
         return $this->deltaPts;
     }
     /**
-     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+     * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
      *
      * @param EmailInboxInsightsPlacementDeltaPts|null $deltaPts
      *

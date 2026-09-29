@@ -37,6 +37,30 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('inbox_status', $data) && $data['inbox_status'] !== null) {
+            $object->setInboxStatus($data['inbox_status']);
+        }
+        elseif (\array_key_exists('inbox_status', $data) && $data['inbox_status'] === null) {
+            $object->setInboxStatus(null);
+        }
+        if (\array_key_exists('recipient', $data) && $data['recipient'] !== null) {
+            $object->setRecipient($this->denormalizer->denormalize($data['recipient'], \MessageBird\Wire\Model\AMBConversationRecipient::class, 'json', $context));
+        }
+        elseif (\array_key_exists('recipient', $data) && $data['recipient'] === null) {
+            $object->setRecipient(null);
+        }
+        if (\array_key_exists('routing', $data) && $data['routing'] !== null) {
+            $object->setRouting($this->denormalizer->denormalize($data['routing'], \MessageBird\Wire\Model\AMBConversationRouting::class, 'json', $context));
+        }
+        elseif (\array_key_exists('routing', $data) && $data['routing'] === null) {
+            $object->setRouting(null);
+        }
+        if (\array_key_exists('last_message', $data) && $data['last_message'] !== null) {
+            $object->setLastMessage($this->denormalizer->denormalize($data['last_message'], \MessageBird\Wire\Model\AMBConversationLastMessage::class, 'json', $context));
+        }
+        elseif (\array_key_exists('last_message', $data) && $data['last_message'] === null) {
+            $object->setLastMessage(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -60,36 +84,6 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         }
         elseif (\array_key_exists('origin', $data) && $data['origin'] === null) {
             $object->setOrigin(null);
-        }
-        if (\array_key_exists('opaque_user_id', $data) && $data['opaque_user_id'] !== null) {
-            $object->setOpaqueUserId($data['opaque_user_id']);
-        }
-        elseif (\array_key_exists('opaque_user_id', $data) && $data['opaque_user_id'] === null) {
-            $object->setOpaqueUserId(null);
-        }
-        if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
-            $object->setPhoneNumber($data['phone_number']);
-        }
-        elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
-            $object->setPhoneNumber(null);
-        }
-        if (\array_key_exists('group_id', $data) && $data['group_id'] !== null) {
-            $object->setGroupId($data['group_id']);
-        }
-        elseif (\array_key_exists('group_id', $data) && $data['group_id'] === null) {
-            $object->setGroupId(null);
-        }
-        if (\array_key_exists('intent_id', $data) && $data['intent_id'] !== null) {
-            $object->setIntentId($data['intent_id']);
-        }
-        elseif (\array_key_exists('intent_id', $data) && $data['intent_id'] === null) {
-            $object->setIntentId(null);
-        }
-        if (\array_key_exists('entry_point', $data) && $data['entry_point'] !== null) {
-            $object->setEntryPoint($data['entry_point']);
-        }
-        elseif (\array_key_exists('entry_point', $data) && $data['entry_point'] === null) {
-            $object->setEntryPoint(null);
         }
         if (\array_key_exists('device_capabilities', $data) && $data['device_capabilities'] !== null) {
             $values = [];
@@ -123,24 +117,6 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('unread_count', $data) && $data['unread_count'] === null) {
             $object->setUnreadCount(null);
         }
-        if (\array_key_exists('message_count', $data) && $data['message_count'] !== null) {
-            $object->setMessageCount($data['message_count']);
-        }
-        elseif (\array_key_exists('message_count', $data) && $data['message_count'] === null) {
-            $object->setMessageCount(null);
-        }
-        if (\array_key_exists('last_message_at', $data) && $data['last_message_at'] !== null) {
-            $object->setLastMessageAt(new \DateTime($data['last_message_at']));
-        }
-        elseif (\array_key_exists('last_message_at', $data) && $data['last_message_at'] === null) {
-            $object->setLastMessageAt(null);
-        }
-        if (\array_key_exists('last_direction', $data) && $data['last_direction'] !== null) {
-            $object->setLastDirection($data['last_direction']);
-        }
-        elseif (\array_key_exists('last_direction', $data) && $data['last_direction'] === null) {
-            $object->setLastDirection(null);
-        }
         if (\array_key_exists('assigned_to', $data) && $data['assigned_to'] !== null) {
             $object->setAssignedTo($data['assigned_to']);
         }
@@ -157,12 +133,6 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('labels', $data) && $data['labels'] === null) {
             $object->setLabels(null);
         }
-        if (\array_key_exists('queue', $data) && $data['queue'] !== null) {
-            $object->setQueue($data['queue']);
-        }
-        elseif (\array_key_exists('queue', $data) && $data['queue'] === null) {
-            $object->setQueue(null);
-        }
         if (\array_key_exists('closed_at', $data) && $data['closed_at'] !== null) {
             $object->setClosedAt(new \DateTime($data['closed_at']));
         }
@@ -174,12 +144,6 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         }
         elseif (\array_key_exists('closed_reason', $data) && $data['closed_reason'] === null) {
             $object->setClosedReason(null);
-        }
-        if (\array_key_exists('open_count', $data) && $data['open_count'] !== null) {
-            $object->setOpenCount($data['open_count']);
-        }
-        elseif (\array_key_exists('open_count', $data) && $data['open_count'] === null) {
-            $object->setOpenCount(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
@@ -198,11 +162,12 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        $dataArray['inbox_status'] = $data->getInboxStatus();
+        $dataArray['last_message'] = $this->normalizer->normalize($data->getLastMessage(), 'json', $context);
         $dataArray['id'] = $data->getId();
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
         $dataArray['status'] = $data->getStatus();
         $dataArray['origin'] = $data->getOrigin();
-        $dataArray['last_direction'] = $data->getLastDirection();
         $dataArray['assigned_to'] = $data->getAssignedTo();
         $values = [];
         foreach ($data->getLabels() as $value) {

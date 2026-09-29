@@ -13,6 +13,30 @@ class AMBConversation
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @var string|null
+     */
+    protected $inboxStatus;
+    /**
+     * The customer on the other side of this Apple Messages for Business conversation.
+     *
+     * @var AMBConversationRecipient|null
+     */
+    protected $recipient;
+    /**
+     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     *
+     * @var AMBConversationRouting|null
+     */
+    protected $routing;
+    /**
+     * Most recent message, or null when its identity has not been recorded.
+     *
+     * @var AMBConversationLastMessage|null
+     */
+    protected $lastMessage;
+    /**
      * @var string|null
      */
     protected $id;
@@ -21,7 +45,7 @@ class AMBConversation
      */
     protected $businessAccountId;
     /**
-     * Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+     * Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
      * 
      *
      * @var string|null
@@ -34,41 +58,6 @@ class AMBConversation
      * @var string|null
      */
     protected $origin;
-    /**
-     * Apple's opaque identifier for the customer with this business. The customer must send a message before a conversation is created. Null when no identifier is recorded.
-     * 
-     *
-     * @var string|null
-     */
-    protected $opaqueUserId;
-    /**
-     * Customer phone number, when recorded. Null when unknown. Read the invitation's `to` field for the number an invitation was sent to.
-     * 
-     *
-     * @var string|null
-     */
-    protected $phoneNumber;
-    /**
-     * The `group` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `intent_id` to route the conversation. Null when that message carried none.
-     * 
-     *
-     * @var string|null
-     */
-    protected $groupId;
-    /**
-     * The `intent` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `group_id` to route the conversation. Null when that message carried none.
-     * 
-     *
-     * @var string|null
-     */
-    protected $intentId;
-    /**
-     * The entry point in your channel settings whose group and intent matched the inbound message that opened or most recently reopened the conversation. Null when no configured entry point matched.
-     * 
-     *
-     * @var string|null
-     */
-    protected $entryPoint;
     /**
      * The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
      * 
@@ -91,34 +80,12 @@ class AMBConversation
      */
     protected $locale;
     /**
-     * Number of inbound messages since this conversation was last marked read. Incremented once per inbound message, reset to zero by marking the conversation read and by any outbound message your workspace sends.
+     * Number of inbound messages the workspace has not acknowledged. Shared across the workspace. Pass read with a date-time to acknowledge received inbound messages through that timestamp. Sending a reply does not change this count.
      * 
      *
      * @var int|null
      */
     protected $unreadCount;
-    /**
-     * Number of messages in this conversation, both directions.
-     *
-     * @var int|null
-     */
-    protected $messageCount;
-    /**
-     * When the most recent message in this conversation was sent or received.
-     *
-     * @var \DateTime|null
-     */
-    protected $lastMessageAt;
-    /**
-     * Whether a message was sent by the business or received from the customer:
-     * 
-     * - `outbound`: A reply the business sent into the conversation.
-     * - `inbound`: A message the customer sent.
-     * 
-     *
-     * @var string|null
-     */
-    protected $lastDirection;
     /**
      * The user this conversation is assigned to, or null when unassigned. Assignment is not rechecked against workspace membership on read, so it can still name a user whose access was removed.
      * 
@@ -127,38 +94,23 @@ class AMBConversation
      */
     protected $assignedTo;
     /**
-     * Operator-set tags on this conversation. Unlike email, there are no system placement labels: every value here is one an operator chose.
-     * 
+     * Workspace labels on this conversation. Labels do not change read state or inbox status.
      *
      * @var list<string>|null
      */
     protected $labels;
     /**
-     * The console queue this conversation is routed to. Empty when no routing rule matched, which the console lists as unrouted.
-     * 
-     *
-     * @var string|null
-     */
-    protected $queue;
-    /**
-     * When this conversation was closed. Null while it is open.
+     * When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @var \DateTime|null
      */
     protected $closedAt;
     /**
-     * Why this conversation was closed. Null while it is open.
+     * Why the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @var string|null
      */
     protected $closedReason;
-    /**
-     * Number of times this conversation has been opened, starting at 1 and incremented on each reopen. A closed conversation reopens on the next inbound message rather than creating a new conversation.
-     * 
-     *
-     * @var int|null
-     */
-    protected $openCount;
     /**
      * When this conversation was created.
      *
@@ -171,6 +123,94 @@ class AMBConversation
      * @var \DateTime|null
      */
     protected $updatedAt;
+    /**
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @return string|null
+     */
+    public function getInboxStatus(): ?string
+    {
+        return $this->inboxStatus;
+    }
+    /**
+     * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+     *
+     * @param string|null $inboxStatus
+     *
+     * @return self
+     */
+    public function setInboxStatus(?string $inboxStatus): self
+    {
+        $this->initialized['inboxStatus'] = true;
+        $this->inboxStatus = $inboxStatus;
+        return $this;
+    }
+    /**
+     * The customer on the other side of this Apple Messages for Business conversation.
+     *
+     * @return AMBConversationRecipient|null
+     */
+    public function getRecipient(): ?AMBConversationRecipient
+    {
+        return $this->recipient;
+    }
+    /**
+     * The customer on the other side of this Apple Messages for Business conversation.
+     *
+     * @param AMBConversationRecipient|null $recipient
+     *
+     * @return self
+     */
+    public function setRecipient(?AMBConversationRecipient $recipient): self
+    {
+        $this->initialized['recipient'] = true;
+        $this->recipient = $recipient;
+        return $this;
+    }
+    /**
+     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     *
+     * @return AMBConversationRouting|null
+     */
+    public function getRouting(): ?AMBConversationRouting
+    {
+        return $this->routing;
+    }
+    /**
+     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     *
+     * @param AMBConversationRouting|null $routing
+     *
+     * @return self
+     */
+    public function setRouting(?AMBConversationRouting $routing): self
+    {
+        $this->initialized['routing'] = true;
+        $this->routing = $routing;
+        return $this;
+    }
+    /**
+     * Most recent message, or null when its identity has not been recorded.
+     *
+     * @return AMBConversationLastMessage|null
+     */
+    public function getLastMessage(): ?AMBConversationLastMessage
+    {
+        return $this->lastMessage;
+    }
+    /**
+     * Most recent message, or null when its identity has not been recorded.
+     *
+     * @param AMBConversationLastMessage|null $lastMessage
+     *
+     * @return self
+     */
+    public function setLastMessage(?AMBConversationLastMessage $lastMessage): self
+    {
+        $this->initialized['lastMessage'] = true;
+        $this->lastMessage = $lastMessage;
+        return $this;
+    }
     /**
      * @return string|null
      */
@@ -208,7 +248,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+     * Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
      * 
      *
      * @return string|null
@@ -218,7 +258,7 @@ class AMBConversation
         return $this->status;
     }
     /**
-     * Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+     * Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
      *
      * @param string|null $status
      *
@@ -251,121 +291,6 @@ class AMBConversation
     {
         $this->initialized['origin'] = true;
         $this->origin = $origin;
-        return $this;
-    }
-    /**
-     * Apple's opaque identifier for the customer with this business. The customer must send a message before a conversation is created. Null when no identifier is recorded.
-     * 
-     *
-     * @return string|null
-     */
-    public function getOpaqueUserId(): ?string
-    {
-        return $this->opaqueUserId;
-    }
-    /**
-     * Apple's opaque identifier for the customer with this business. The customer must send a message before a conversation is created. Null when no identifier is recorded.
-     *
-     * @param string|null $opaqueUserId
-     *
-     * @return self
-     */
-    public function setOpaqueUserId(?string $opaqueUserId): self
-    {
-        $this->initialized['opaqueUserId'] = true;
-        $this->opaqueUserId = $opaqueUserId;
-        return $this;
-    }
-    /**
-     * Customer phone number, when recorded. Null when unknown. Read the invitation's `to` field for the number an invitation was sent to.
-     * 
-     *
-     * @return string|null
-     */
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-    /**
-     * Customer phone number, when recorded. Null when unknown. Read the invitation's `to` field for the number an invitation was sent to.
-     *
-     * @param string|null $phoneNumber
-     *
-     * @return self
-     */
-    public function setPhoneNumber(?string $phoneNumber): self
-    {
-        $this->initialized['phoneNumber'] = true;
-        $this->phoneNumber = $phoneNumber;
-        return $this;
-    }
-    /**
-     * The `group` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `intent_id` to route the conversation. Null when that message carried none.
-     * 
-     *
-     * @return string|null
-     */
-    public function getGroupId(): ?string
-    {
-        return $this->groupId;
-    }
-    /**
-     * The `group` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `intent_id` to route the conversation. Null when that message carried none.
-     *
-     * @param string|null $groupId
-     *
-     * @return self
-     */
-    public function setGroupId(?string $groupId): self
-    {
-        $this->initialized['groupId'] = true;
-        $this->groupId = $groupId;
-        return $this;
-    }
-    /**
-     * The `intent` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `group_id` to route the conversation. Null when that message carried none.
-     * 
-     *
-     * @return string|null
-     */
-    public function getIntentId(): ?string
-    {
-        return $this->intentId;
-    }
-    /**
-     * The `intent` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `group_id` to route the conversation. Null when that message carried none.
-     *
-     * @param string|null $intentId
-     *
-     * @return self
-     */
-    public function setIntentId(?string $intentId): self
-    {
-        $this->initialized['intentId'] = true;
-        $this->intentId = $intentId;
-        return $this;
-    }
-    /**
-     * The entry point in your channel settings whose group and intent matched the inbound message that opened or most recently reopened the conversation. Null when no configured entry point matched.
-     * 
-     *
-     * @return string|null
-     */
-    public function getEntryPoint(): ?string
-    {
-        return $this->entryPoint;
-    }
-    /**
-     * The entry point in your channel settings whose group and intent matched the inbound message that opened or most recently reopened the conversation. Null when no configured entry point matched.
-     *
-     * @param string|null $entryPoint
-     *
-     * @return self
-     */
-    public function setEntryPoint(?string $entryPoint): self
-    {
-        $this->initialized['entryPoint'] = true;
-        $this->entryPoint = $entryPoint;
         return $this;
     }
     /**
@@ -438,7 +363,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Number of inbound messages since this conversation was last marked read. Incremented once per inbound message, reset to zero by marking the conversation read and by any outbound message your workspace sends.
+     * Number of inbound messages the workspace has not acknowledged. Shared across the workspace. Pass read with a date-time to acknowledge received inbound messages through that timestamp. Sending a reply does not change this count.
      * 
      *
      * @return int|null
@@ -448,7 +373,7 @@ class AMBConversation
         return $this->unreadCount;
     }
     /**
-     * Number of inbound messages since this conversation was last marked read. Incremented once per inbound message, reset to zero by marking the conversation read and by any outbound message your workspace sends.
+     * Number of inbound messages the workspace has not acknowledged. Shared across the workspace. Pass read with a date-time to acknowledge received inbound messages through that timestamp. Sending a reply does not change this count.
      *
      * @param int|null $unreadCount
      *
@@ -458,80 +383,6 @@ class AMBConversation
     {
         $this->initialized['unreadCount'] = true;
         $this->unreadCount = $unreadCount;
-        return $this;
-    }
-    /**
-     * Number of messages in this conversation, both directions.
-     *
-     * @return int|null
-     */
-    public function getMessageCount(): ?int
-    {
-        return $this->messageCount;
-    }
-    /**
-     * Number of messages in this conversation, both directions.
-     *
-     * @param int|null $messageCount
-     *
-     * @return self
-     */
-    public function setMessageCount(?int $messageCount): self
-    {
-        $this->initialized['messageCount'] = true;
-        $this->messageCount = $messageCount;
-        return $this;
-    }
-    /**
-     * When the most recent message in this conversation was sent or received.
-     *
-     * @return \DateTime|null
-     */
-    public function getLastMessageAt(): ?\DateTime
-    {
-        return $this->lastMessageAt;
-    }
-    /**
-     * When the most recent message in this conversation was sent or received.
-     *
-     * @param \DateTime|null $lastMessageAt
-     *
-     * @return self
-     */
-    public function setLastMessageAt(?\DateTime $lastMessageAt): self
-    {
-        $this->initialized['lastMessageAt'] = true;
-        $this->lastMessageAt = $lastMessageAt;
-        return $this;
-    }
-    /**
-     * Whether a message was sent by the business or received from the customer:
-     * 
-     * - `outbound`: A reply the business sent into the conversation.
-     * - `inbound`: A message the customer sent.
-     * 
-     *
-     * @return string|null
-     */
-    public function getLastDirection(): ?string
-    {
-        return $this->lastDirection;
-    }
-    /**
-    * Whether a message was sent by the business or received from the customer:
-    
-    - `outbound`: A reply the business sent into the conversation.
-    - `inbound`: A message the customer sent.
-    
-    *
-    * @param string|null $lastDirection
-    *
-    * @return self
-    */
-    public function setLastDirection(?string $lastDirection): self
-    {
-        $this->initialized['lastDirection'] = true;
-        $this->lastDirection = $lastDirection;
         return $this;
     }
     /**
@@ -558,8 +409,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Operator-set tags on this conversation. Unlike email, there are no system placement labels: every value here is one an operator chose.
-     * 
+     * Workspace labels on this conversation. Labels do not change read state or inbox status.
      *
      * @return list<string>|null
      */
@@ -568,7 +418,7 @@ class AMBConversation
         return $this->labels;
     }
     /**
-     * Operator-set tags on this conversation. Unlike email, there are no system placement labels: every value here is one an operator chose.
+     * Workspace labels on this conversation. Labels do not change read state or inbox status.
      *
      * @param list<string>|null $labels
      *
@@ -581,30 +431,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * The console queue this conversation is routed to. Empty when no routing rule matched, which the console lists as unrouted.
-     * 
-     *
-     * @return string|null
-     */
-    public function getQueue(): ?string
-    {
-        return $this->queue;
-    }
-    /**
-     * The console queue this conversation is routed to. Empty when no routing rule matched, which the console lists as unrouted.
-     *
-     * @param string|null $queue
-     *
-     * @return self
-     */
-    public function setQueue(?string $queue): self
-    {
-        $this->initialized['queue'] = true;
-        $this->queue = $queue;
-        return $this;
-    }
-    /**
-     * When this conversation was closed. Null while it is open.
+     * When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @return \DateTime|null
      */
@@ -613,7 +440,7 @@ class AMBConversation
         return $this->closedAt;
     }
     /**
-     * When this conversation was closed. Null while it is open.
+     * When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @param \DateTime|null $closedAt
      *
@@ -626,7 +453,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Why this conversation was closed. Null while it is open.
+     * Why the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @return string|null
      */
@@ -635,7 +462,7 @@ class AMBConversation
         return $this->closedReason;
     }
     /**
-     * Why this conversation was closed. Null while it is open.
+     * Why the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
      *
      * @param string|null $closedReason
      *
@@ -645,29 +472,6 @@ class AMBConversation
     {
         $this->initialized['closedReason'] = true;
         $this->closedReason = $closedReason;
-        return $this;
-    }
-    /**
-     * Number of times this conversation has been opened, starting at 1 and incremented on each reopen. A closed conversation reopens on the next inbound message rather than creating a new conversation.
-     * 
-     *
-     * @return int|null
-     */
-    public function getOpenCount(): ?int
-    {
-        return $this->openCount;
-    }
-    /**
-     * Number of times this conversation has been opened, starting at 1 and incremented on each reopen. A closed conversation reopens on the next inbound message rather than creating a new conversation.
-     *
-     * @param int|null $openCount
-     *
-     * @return self
-     */
-    public function setOpenCount(?int $openCount): self
-    {
-        $this->initialized['openCount'] = true;
-        $this->openCount = $openCount;
         return $this;
     }
     /**

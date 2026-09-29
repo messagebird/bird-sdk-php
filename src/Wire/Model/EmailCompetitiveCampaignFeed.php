@@ -13,11 +13,9 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @var EmailCompetitivePeriod|null
@@ -44,7 +42,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
      */
     protected $captured;
     /**
-     * Fraction of captured campaigns whose subject leads with a discount. Null when captured is zero. This sampled value is independent of the returned page.
+     * Fraction of captured campaigns whose subject contains a recognized percentage-discount offer. Dollar discounts and free-shipping offers do not count. Null when captured is zero. This sampled value is independent of the returned page.
      * 
      *
      * @var float|null
@@ -82,11 +80,9 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
      */
     protected $refreshCursor;
     /**
-     * The period every figure in the response covers, echoed back from the request.
-     * 
-     * Figures are fetched when the request is made, so they are current as of `to`.
-     * The period always ends at the moment of the request rather than at a cached
-     * boundary, which is why two requests a minute apart can differ slightly.
+     * The period the response describes. Most reports resolve a rolling window when
+     * requested; send-time and notable reports can carry the panel's own window.
+     * These bounds describe coverage, not a guarantee of measurement freshness.
      * 
      *
      * @return EmailCompetitivePeriod|null
@@ -96,11 +92,9 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return $this->period;
     }
     /**
-    * The period every figure in the response covers, echoed back from the request.
-    
-    Figures are fetched when the request is made, so they are current as of `to`.
-    The period always ends at the moment of the request rather than at a cached
-    boundary, which is why two requests a minute apart can differ slightly.
+    * The period the response describes. Most reports resolve a rolling window when
+    requested; send-time and notable reports can carry the panel's own window.
+    These bounds describe coverage, not a guarantee of measurement freshness.
     
     *
     * @param EmailCompetitivePeriod|null $period
@@ -173,7 +167,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return $this;
     }
     /**
-     * Fraction of captured campaigns whose subject leads with a discount. Null when captured is zero. This sampled value is independent of the returned page.
+     * Fraction of captured campaigns whose subject contains a recognized percentage-discount offer. Dollar discounts and free-shipping offers do not count. Null when captured is zero. This sampled value is independent of the returned page.
      * 
      *
      * @return float|null
@@ -183,7 +177,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return $this->promoRate;
     }
     /**
-     * Fraction of captured campaigns whose subject leads with a discount. Null when captured is zero. This sampled value is independent of the returned page.
+     * Fraction of captured campaigns whose subject contains a recognized percentage-discount offer. Dollar discounts and free-shipping offers do not count. Null when captured is zero. This sampled value is independent of the returned page.
      *
      * @param float|null $promoRate
      *

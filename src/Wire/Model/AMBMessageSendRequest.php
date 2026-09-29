@@ -19,7 +19,7 @@ class AMBMessageSendRequest
      */
     protected $from;
     /**
-     * Apple’s opaque customer identifier for this business, available as the conversation’s opaque_user_id. The conversation must exist and be open.
+     * Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
      *
      * @var string|null
      */
@@ -107,7 +107,7 @@ class AMBMessageSendRequest
         return $this;
     }
     /**
-     * Apple’s opaque customer identifier for this business, available as the conversation’s opaque_user_id. The conversation must exist and be open.
+     * Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
      *
      * @return string|null
      */
@@ -116,7 +116,7 @@ class AMBMessageSendRequest
         return $this->to;
     }
     /**
-     * Apple’s opaque customer identifier for this business, available as the conversation’s opaque_user_id. The conversation must exist and be open.
+     * Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
      *
      * @param string|null $to
      *

@@ -11,14 +11,13 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\AMBConversation;
 use MessageBird\Wire\Model\AMBConversationList;
 use MessageBird\Wire\Model\AMBConversationTypingRequest;
-use MessageBird\Wire\Model\AMBConversationUpdate;
 use MessageBird\Wire\Model\AMBMessage;
 use MessageBird\Wire\Model\AMBMessageList;
 
-final class AmbConversations extends Resource
+class AmbConversationsBase extends Resource
 {
     /**
-     * Reads a customer-initiated conversation in your workspace. Its opaque_user_id supplies the to field for replies; verify the business and open state before sending.
+     * Reads a customer-initiated conversation in your workspace. Its recipient.opaque_user_id supplies the to field for replies; verify the business and open state before sending.
      *
      * @example Example
      * $bird->amb->conversations->get('acv_01krdgeqcxet5s7t44vh8rt9mg');
@@ -26,17 +25,6 @@ final class AmbConversations extends Resource
     public function get(string $conversationId, ?RequestOptions $options = null): AMBConversation
     {
         return $this->single('GET', '/v1/amb/conversations/' . rawurlencode($conversationId), AMBConversation::class, null, null, $options);
-    }
-
-    /**
-     * Updates assignment, labels and read state on a workspace conversation. Omitted fields stay unchanged; null assigned_to unassigns, empty labels clears labels, and read false has no effect. This operation does not close or reopen a conversation.
-     *
-     * @example Example
-     * $bird->amb->conversations->update('acv_01krdgeqcxet5s7t44vh8rt9mg', (new Model\AMBConversationUpdate())->setAssignedTo(null)->setLabels([])->setRead(false));
-     */
-    public function update(string $conversationId, AMBConversationUpdate $params, ?RequestOptions $options = null): AMBConversation
-    {
-        return $this->single('PATCH', '/v1/amb/conversations/' . rawurlencode($conversationId), AMBConversation::class, $params, null, $options);
     }
 
     /**
@@ -81,7 +69,7 @@ final class AmbConversations extends Resource
     }
 
     /**
-     * Returns the conversations your business has with customers on Apple Messages for Business, newest first by last message. To page through older conversations, use `starting_after`. A closed conversation stays in this list; filter on `status` to separate them from open ones.
+     * Returns the conversations your business has with customers on Apple Messages for Business, newest first by last message. To page through older conversations, use `starting_after`. A closed conversation stays in this list; filter on `status` for the Apple channel state, or `inbox_status` for open and resolved inbox work.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

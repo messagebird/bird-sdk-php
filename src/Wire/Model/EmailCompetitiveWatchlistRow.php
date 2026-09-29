@@ -35,7 +35,7 @@ class EmailCompetitiveWatchlistRow
      */
     protected $industry;
     /**
-     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume.
+     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume. On your own row this domain scopes panel measurements, while measured sends and cadence cover the workspace.
      * 
      *
      * @var list<string>|null
@@ -101,7 +101,7 @@ class EmailCompetitiveWatchlistRow
      */
     protected $readRate;
     /**
-     * Share of your own audience the panel also sees receiving this brand's mail. Null on your own row, and null for a competitor the panel measured no overlap with, which is an answer rather than a gap.
+     * Share of the panel-observed audience of your workspace's highest-volume sending domain that also receives this brand's mail. Null on your own row or when the panel returns no overlap for a competitor. An absent panel result does not establish that the audiences are disjoint.
      * 
      *
      * @var float|null
@@ -215,7 +215,7 @@ class EmailCompetitiveWatchlistRow
         return $this;
     }
     /**
-     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume.
+     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume. On your own row this domain scopes panel measurements, while measured sends and cadence cover the workspace.
      * 
      *
      * @return list<string>|null
@@ -225,7 +225,7 @@ class EmailCompetitiveWatchlistRow
         return $this->sendingDomains;
     }
     /**
-     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume.
+     * The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume. On your own row this domain scopes panel measurements, while measured sends and cadence cover the workspace.
      *
      * @param list<string>|null $sendingDomains
      *
@@ -432,7 +432,7 @@ class EmailCompetitiveWatchlistRow
         return $this;
     }
     /**
-     * Share of your own audience the panel also sees receiving this brand's mail. Null on your own row, and null for a competitor the panel measured no overlap with, which is an answer rather than a gap.
+     * Share of the panel-observed audience of your workspace's highest-volume sending domain that also receives this brand's mail. Null on your own row or when the panel returns no overlap for a competitor. An absent panel result does not establish that the audiences are disjoint.
      * 
      *
      * @return float|null
@@ -442,7 +442,7 @@ class EmailCompetitiveWatchlistRow
         return $this->audienceOverlapRate;
     }
     /**
-     * Share of your own audience the panel also sees receiving this brand's mail. Null on your own row, and null for a competitor the panel measured no overlap with, which is an answer rather than a gap.
+     * Share of the panel-observed audience of your workspace's highest-volume sending domain that also receives this brand's mail. Null on your own row or when the panel returns no overlap for a competitor. An absent panel result does not establish that the audiences are disjoint.
      *
      * @param float|null $audienceOverlapRate
      *
