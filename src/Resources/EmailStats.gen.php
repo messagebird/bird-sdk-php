@@ -671,7 +671,7 @@ final class EmailStats extends Resource
     }
 
     /**
-     * Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
+     * Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Aggregate statistics remain available after message activity details expire. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -692,7 +692,7 @@ final class EmailStats extends Resource
     }
 
     /**
-     * Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
+     * Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Aggregate statistics remain available after message activity details expire. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

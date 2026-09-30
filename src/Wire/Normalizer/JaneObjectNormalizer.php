@@ -1482,6 +1482,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberListNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceVerifiedNumberCreate::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberVerifyRequestNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
@@ -2278,6 +2282,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumber::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => false,
+            \MessageBird\Wire\Model\VoiceVerifiedNumberCreate::class => false,
+            \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
             \MessageBird\Wire\Model\VoiceLegCost::class => false,

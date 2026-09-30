@@ -40,7 +40,7 @@ class VoiceVerifiedNumber extends \ArrayObject
      * - `verified`: the workspace proved ownership of the number. Check the
      *   resource's activation or direction fields for outbound availability.
      * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     *   Remove and register the verified number again in the dashboard to retry.
+     *   Delete the verified number and register it again to retry.
      * 
      * Open enum: additional states may be added over time, so treat an unrecognized
      * value as a future state rather than an error.
@@ -157,7 +157,7 @@ class VoiceVerifiedNumber extends \ArrayObject
      * - `verified`: the workspace proved ownership of the number. Check the
      *   resource's activation or direction fields for outbound availability.
      * - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     *   Remove and register the verified number again in the dashboard to retry.
+     *   Delete the verified number and register it again to retry.
      * 
      * Open enum: additional states may be added over time, so treat an unrecognized
      * value as a future state rather than an error.
@@ -176,7 +176,7 @@ class VoiceVerifiedNumber extends \ArrayObject
     - `verified`: the workspace proved ownership of the number. Check the
      resource's activation or direction fields for outbound availability.
     - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-     Remove and register the verified number again in the dashboard to retry.
+     Delete the verified number and register it again to retry.
     
     Open enum: additional states may be added over time, so treat an unrecognized
     value as a future state rather than an error.

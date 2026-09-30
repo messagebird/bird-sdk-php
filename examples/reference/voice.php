@@ -12,6 +12,8 @@ use MessageBird\Wire\Model\VoiceTrunkUpdate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayCreate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayUpdate;
 use MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest;
+use MessageBird\Wire\Model\VoiceVerifiedNumberCreate;
+use MessageBird\Wire\Model\VoiceVerifiedNumberUpdate;
 use MessageBird\Wire\Model\CreateVoiceCallRequest;
 use MessageBird\Wire\Model\CreateVoiceCallSequenceRequest;
 
@@ -103,6 +105,19 @@ $verifiedNumber = $bird->voice->verifiedNumbers->verify(
     'vvn_01krdgeqcxet5s7t44vh8rt9mg', (new VoiceVerifiedNumberVerifyRequest())->setCode('123456'),
 );
 echo $verifiedNumber->getId(), ' ', $verifiedNumber->getStatus(), "\n";
+
+// This places a verification call to the number that reads out a code.
+$verifiedNumber = $bird->voice->verifiedNumbers->create(
+    (new VoiceVerifiedNumberCreate())->setPhoneNumber('+14155551234')->setName('Support line'),
+);
+echo $verifiedNumber->getId(), ' ', $verifiedNumber->getStatus(), "\n";
+
+$verifiedNumber = $bird->voice->verifiedNumbers->update(
+    'vvn_01krdgeqcxet5s7t44vh8rt9mg', (new VoiceVerifiedNumberUpdate())->setName('Sales line'),
+);
+echo $verifiedNumber->getName(), "\n";
+
+$bird->voice->verifiedNumbers->delete('vvn_01krdgeqcxet5s7t44vh8rt9mg');
 
 $destinations = $bird->voice->destinations->update(
     (new VoiceDestinationsUpdate())->setDestinations([

@@ -203,6 +203,9 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->voice->verifiedNumbers->list(...),
             $bird->voice->verifiedNumbers->get(...),
             $bird->voice->verifiedNumbers->verify(...),
+            $bird->voice->verifiedNumbers->create(...),
+            $bird->voice->verifiedNumbers->update(...),
+            $bird->voice->verifiedNumbers->delete(...),
             $bird->voice->destinations->list(...),
             $bird->voice->destinations->update(...),
             $bird->verify->verifications->create(...),
@@ -344,7 +347,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->amb->suppressions->create(...),
         ];
 
-        self::assertCount(322, $surface);
+        self::assertCount(325, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

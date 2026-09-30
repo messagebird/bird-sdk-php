@@ -9,7 +9,9 @@ namespace MessageBird\Resources;
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\VoiceVerifiedNumber;
+use MessageBird\Wire\Model\VoiceVerifiedNumberCreate;
 use MessageBird\Wire\Model\VoiceVerifiedNumberList;
+use MessageBird\Wire\Model\VoiceVerifiedNumberUpdate;
 use MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest;
 
 final class VoiceVerifiedNumbers extends Resource
@@ -57,7 +59,7 @@ final class VoiceVerifiedNumbers extends Resource
     }
 
     /**
-     * Complete a number ownership verification challenge started in the dashboard. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For expired or exhausted challenges, use Get a new code in the dashboard and list verified numbers to obtain the replacement ID.
+     * Complete the ownership verification challenge that `voice.verified_numbers.create` started. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For an expired or exhausted challenge, delete the verified number and create it again, then submit the code against the ID that create returns.
      *
      * @example Submit a number verification code
      * $verifiedNumber = $bird->voice->verifiedNumbers->verify(
@@ -68,5 +70,45 @@ final class VoiceVerifiedNumbers extends Resource
     public function verify(string $verifiedNumberId, VoiceVerifiedNumberVerifyRequest $params, ?RequestOptions $options = null): VoiceVerifiedNumber
     {
         return $this->single('POST', '/v1/voice/verified-numbers/' . rawurlencode($verifiedNumberId) . '/verify', VoiceVerifiedNumber::class, $params, null, $options);
+    }
+
+    /**
+     * Register a phone number as an outbound caller ID for the workspace. This places a verification call to the number that reads out a code, so register only a number the user controls. Returns the verified number in the "pending" state; submit the code with `voice.verified_numbers.verify`. A 412 means the organization's identity verification is incomplete, which is completed in the dashboard, or that an eligibility review or denial needs support. A 503 means the eligibility assessment is still pending; retry later.
+     *
+     * @example Register a number to present as caller ID
+     * // This places a verification call to the number that reads out a code.
+     * $verifiedNumber = $bird->voice->verifiedNumbers->create(
+     *     (new VoiceVerifiedNumberCreate())->setPhoneNumber('+14155551234')->setName('Support line'),
+     * );
+     * echo $verifiedNumber->getId(), ' ', $verifiedNumber->getStatus(), "\n";
+     */
+    public function create(VoiceVerifiedNumberCreate $params, ?RequestOptions $options = null): VoiceVerifiedNumber
+    {
+        return $this->single('POST', '/v1/voice/verified-numbers', VoiceVerifiedNumber::class, $params, null, $options);
+    }
+
+    /**
+     * Set or clear the label on a verified number; send `name` as null to clear it. The number and its verification state are unchanged, and the label never appears on a call.
+     *
+     * @example Rename a verified number
+     * $verifiedNumber = $bird->voice->verifiedNumbers->update(
+     *     'vvn_01krdgeqcxet5s7t44vh8rt9mg', (new VoiceVerifiedNumberUpdate())->setName('Sales line'),
+     * );
+     * echo $verifiedNumber->getName(), "\n";
+     */
+    public function update(string $verifiedNumberId, VoiceVerifiedNumberUpdate $params, ?RequestOptions $options = null): VoiceVerifiedNumber
+    {
+        return $this->single('PATCH', '/v1/voice/verified-numbers/' . rawurlencode($verifiedNumberId), VoiceVerifiedNumber::class, $params, null, $options);
+    }
+
+    /**
+     * Permanently delete a verified number by ID. After deletion the number can no longer be presented as the outbound caller ID and must be re-registered and verified to use it again. Deleting a pending registration and creating it again is how an expired or exhausted verification challenge is replaced.
+     *
+     * @example Delete a verified number
+     * $bird->voice->verifiedNumbers->delete('vvn_01krdgeqcxet5s7t44vh8rt9mg');
+     */
+    public function delete(string $verifiedNumberId, ?RequestOptions $options = null): void
+    {
+        $this->none('DELETE', '/v1/voice/verified-numbers/' . rawurlencode($verifiedNumberId), null, null, $options);
     }
 }

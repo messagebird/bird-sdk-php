@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.58.0
+
+- Clarify that broadcast aggregate statistics remain available after message activity details expire, with approximate counts and latency percentiles and reported refresh freshness.
+- Broadcast statistics accept `timezone` for customer-local date windows, with UTC as the default.
+
 ## 0.57.0
 
 - Email template reads and saved-draft previews expose `editor_url` for opening the browser editor.
