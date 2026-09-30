@@ -118,6 +118,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\ContactCreateRequest::class => \MessageBird\Wire\Normalizer\ContactCreateRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\ContactBatchEntry::class => \MessageBird\Wire\Normalizer\ContactBatchEntryNormalizer::class,
+
         \MessageBird\Wire\Model\ContactUpsertRequest::class => \MessageBird\Wire\Normalizer\ContactUpsertRequestNormalizer::class,
 
         \MessageBird\Wire\Model\ContactUpsertEntry::class => \MessageBird\Wire\Normalizer\ContactUpsertEntryNormalizer::class,
@@ -1600,6 +1602,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\Contact::class => false,
             \MessageBird\Wire\Model\ContactList::class => false,
             \MessageBird\Wire\Model\ContactCreateRequest::class => false,
+            \MessageBird\Wire\Model\ContactBatchEntry::class => false,
             \MessageBird\Wire\Model\ContactUpsertRequest::class => false,
             \MessageBird\Wire\Model\ContactUpsertEntry::class => false,
             \MessageBird\Wire\Model\ContactUpsertError::class => false,

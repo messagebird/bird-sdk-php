@@ -35,7 +35,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
      */
     protected $panelStatus;
     /**
-     * Number of eligible campaigns in the first 300 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
+     * Number of eligible campaigns in the first 100 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
      * 
      *
      * @var int|null
@@ -144,7 +144,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return $this;
     }
     /**
-     * Number of eligible campaigns in the first 300 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
+     * Number of eligible campaigns in the first 100 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
      * 
      *
      * @return int|null
@@ -154,7 +154,7 @@ class EmailCompetitiveCampaignFeed extends \ArrayObject
         return $this->captured;
     }
     /**
-     * Number of eligible campaigns in the first 300 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
+     * Number of eligible campaigns in the first 100 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
      *
      * @param int|null $captured
      *

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 use MessageBird\Bird;
 use MessageBird\Wire\Model\ContactCreateRequest;
+use MessageBird\Wire\Model\ContactBatchEntry;
 use MessageBird\Wire\Model\ContactUpdateRequest;
 use MessageBird\Wire\Model\ContactUpsertRequest;
 
@@ -35,7 +36,7 @@ $bird->contacts->delete('con_01krdgeqcxet5s7t44vh8rt9mg');
 
 $result = $bird->contacts->batch(
     (new ContactUpsertRequest())->setContacts([
-        (new ContactCreateRequest())->setEmail('jane@acme.com')->setFirstName('Jane'),
+        (new ContactBatchEntry())->setEmail('jane@acme.com')->setFirstName('Jane'),
     ]),
 );
 printf("%d contacts upserted\n", count($result->getData() ?? []));

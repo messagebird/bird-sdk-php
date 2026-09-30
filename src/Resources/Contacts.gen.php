@@ -107,7 +107,7 @@ class ContactsBase extends Resource
      * @example Create or update many contacts at once, matched by the identifiers each entry carries
      * $result = $bird->contacts->batch(
      *     (new ContactUpsertRequest())->setContacts([
-     *         (new ContactCreateRequest())->setEmail('jane@acme.com')->setFirstName('Jane'),
+     *         (new ContactBatchEntry())->setEmail('jane@acme.com')->setFirstName('Jane'),
      *     ]),
      * );
      * printf("%d contacts upserted\n", count($result->getData() ?? []));

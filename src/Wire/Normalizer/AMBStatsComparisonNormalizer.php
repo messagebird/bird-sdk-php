@@ -37,6 +37,12 @@ class AMBStatsComparisonNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('monthly_active_contacts', $data) && $data['monthly_active_contacts'] !== null) {
+            $object->setMonthlyActiveContacts($data['monthly_active_contacts']);
+        }
+        elseif (\array_key_exists('monthly_active_contacts', $data) && $data['monthly_active_contacts'] === null) {
+            $object->setMonthlyActiveContacts(null);
+        }
         if (\array_key_exists('period', $data) && $data['period'] !== null) {
             $object->setPeriod($this->denormalizer->denormalize($data['period'], \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class, 'json', $context));
         }

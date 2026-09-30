@@ -13,6 +13,12 @@ class AMBStatsComparison
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * New monthly active contact charges activated by replies submitted in this window. Each business-scoped contact counts once per UTC calendar month. Omitted for message-kind, intent, group, category or tag filters. Read from retained activation records independently of the message rollup data_as_of boundary; tenant purges remove these records.
+     *
+     * @var int|null
+     */
+    protected $monthlyActiveContacts;
+    /**
      * The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
      * 
      *
@@ -47,6 +53,28 @@ class AMBStatsComparison
      * @var AMBStatsComparisonDelta|null
      */
     protected $delta;
+    /**
+     * New monthly active contact charges activated by replies submitted in this window. Each business-scoped contact counts once per UTC calendar month. Omitted for message-kind, intent, group, category or tag filters. Read from retained activation records independently of the message rollup data_as_of boundary; tenant purges remove these records.
+     *
+     * @return int|null
+     */
+    public function getMonthlyActiveContacts(): ?int
+    {
+        return $this->monthlyActiveContacts;
+    }
+    /**
+     * New monthly active contact charges activated by replies submitted in this window. Each business-scoped contact counts once per UTC calendar month. Omitted for message-kind, intent, group, category or tag filters. Read from retained activation records independently of the message rollup data_as_of boundary; tenant purges remove these records.
+     *
+     * @param int|null $monthlyActiveContacts
+     *
+     * @return self
+     */
+    public function setMonthlyActiveContacts(?int $monthlyActiveContacts): self
+    {
+        $this->initialized['monthlyActiveContacts'] = true;
+        $this->monthlyActiveContacts = $monthlyActiveContacts;
+        return $this;
+    }
     /**
      * The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
      * 

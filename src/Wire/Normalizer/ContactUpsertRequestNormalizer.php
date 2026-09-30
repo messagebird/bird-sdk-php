@@ -40,7 +40,7 @@ class ContactUpsertRequestNormalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('contacts', $data) && $data['contacts'] !== null) {
             $values = [];
             foreach ($data['contacts'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\ContactCreateRequest::class, 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\ContactBatchEntry::class, 'json', $context);
             }
             $object->setContacts($values);
         }

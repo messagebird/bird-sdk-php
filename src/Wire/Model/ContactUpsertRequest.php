@@ -15,7 +15,7 @@ class ContactUpsertRequest
     /**
      * Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
      *
-     * @var list<ContactCreateRequest>|null
+     * @var list<ContactBatchEntry>|null
      */
     protected $contacts;
     /**
@@ -40,7 +40,7 @@ class ContactUpsertRequest
     /**
      * Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
      *
-     * @return list<ContactCreateRequest>|null
+     * @return list<ContactBatchEntry>|null
      */
     public function getContacts(): ?array
     {
@@ -49,7 +49,7 @@ class ContactUpsertRequest
     /**
      * Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
      *
-     * @param list<ContactCreateRequest>|null $contacts
+     * @param list<ContactBatchEntry>|null $contacts
      *
      * @return self
      */
