@@ -13,6 +13,13 @@ class EmailTemplatePreview
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Optional link to open the saved draft in the browser editor, in the language this preview rendered. Absent for built-in templates, published-version previews, and previews of unsaved `content`.
+     * 
+     *
+     * @var string|null
+     */
+    protected $editorUrl;
+    /**
      * The rendered subject line. Null when the template has no subject.
      *
      * @var string|null
@@ -72,6 +79,29 @@ class EmailTemplatePreview
      * @var list<EmailCompatibilityFinding>|null
      */
     protected $compatibility;
+    /**
+     * Optional link to open the saved draft in the browser editor, in the language this preview rendered. Absent for built-in templates, published-version previews, and previews of unsaved `content`.
+     * 
+     *
+     * @return string|null
+     */
+    public function getEditorUrl(): ?string
+    {
+        return $this->editorUrl;
+    }
+    /**
+     * Optional link to open the saved draft in the browser editor, in the language this preview rendered. Absent for built-in templates, published-version previews, and previews of unsaved `content`.
+     *
+     * @param string|null $editorUrl
+     *
+     * @return self
+     */
+    public function setEditorUrl(?string $editorUrl): self
+    {
+        $this->initialized['editorUrl'] = true;
+        $this->editorUrl = $editorUrl;
+        return $this;
+    }
     /**
      * The rendered subject line. Null when the template has no subject.
      *

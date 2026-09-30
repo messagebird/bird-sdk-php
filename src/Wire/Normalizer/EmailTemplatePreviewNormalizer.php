@@ -37,6 +37,12 @@ class EmailTemplatePreviewNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('editor_url', $data) && $data['editor_url'] !== null) {
+            $object->setEditorUrl($data['editor_url']);
+        }
+        elseif (\array_key_exists('editor_url', $data) && $data['editor_url'] === null) {
+            $object->setEditorUrl(null);
+        }
         if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
             $object->setSubject($data['subject']);
         }

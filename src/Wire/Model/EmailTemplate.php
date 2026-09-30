@@ -13,6 +13,13 @@ class EmailTemplate
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Optional link to open the saved draft in the browser editor, in its default language. Absent for built-in templates.
+     * 
+     *
+     * @var string|null
+     */
+    protected $editorUrl;
+    /**
      * @var string|null
      */
     protected $id;
@@ -175,6 +182,29 @@ class EmailTemplate
      * @var \DateTime|null
      */
     protected $updatedAt;
+    /**
+     * Optional link to open the saved draft in the browser editor, in its default language. Absent for built-in templates.
+     * 
+     *
+     * @return string|null
+     */
+    public function getEditorUrl(): ?string
+    {
+        return $this->editorUrl;
+    }
+    /**
+     * Optional link to open the saved draft in the browser editor, in its default language. Absent for built-in templates.
+     *
+     * @param string|null $editorUrl
+     *
+     * @return self
+     */
+    public function setEditorUrl(?string $editorUrl): self
+    {
+        $this->initialized['editorUrl'] = true;
+        $this->editorUrl = $editorUrl;
+        return $this;
+    }
     /**
      * @return string|null
      */

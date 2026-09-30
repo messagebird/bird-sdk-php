@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.57.0
+
+- Email template reads and saved-draft previews expose `editor_url` for opening the browser editor.
+
 ## 0.56.0
 
 - **Breaking:** Apple Messages for Business conversations now use nested `recipient`, `routing` and `last_message` objects and expose `unread_count` as their only message counter. Update response readers and replace the boolean `read` flag with a date-time cutoff to acknowledge received inbound messages through their `created_at`. Timestamp ties are included together; later arrivals remain unread. Absent ordinary response fields use explicit nulls. Both Apple and WhatsApp conversations support `inbox_status` to resolve and reopen inbox work while preserving the conversation and its sending rules.

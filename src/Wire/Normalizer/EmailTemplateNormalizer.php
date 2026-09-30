@@ -40,6 +40,12 @@ class EmailTemplateNormalizer implements DenormalizerInterface, NormalizerInterf
         if (\array_key_exists('language_source_required', $data) && \is_int($data['language_source_required'])) {
             $data['language_source_required'] = (bool) $data['language_source_required'];
         }
+        if (\array_key_exists('editor_url', $data) && $data['editor_url'] !== null) {
+            $object->setEditorUrl($data['editor_url']);
+        }
+        elseif (\array_key_exists('editor_url', $data) && $data['editor_url'] === null) {
+            $object->setEditorUrl(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
