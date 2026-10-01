@@ -60,3 +60,9 @@ echo $allocated->getStatus(), "\n";
 // Releasing stops the monthly charge and the number stops working for you.
 // Only a dedicated number can be released; a shared one answers E14002.
 $bird->numbers->release('nda_01krdgeqcxet5s7t44vh8rt9mg');
+
+$allocated = $bird->numbers->update(
+    'nda_01krdgeqcxet5s7t44vh8rt9mg',
+    (new \MessageBird\Wire\Model\NumberUpdate())->setName('Support line')->setReference('STORE-042'),
+);
+echo $allocated->getName(), ' ', $allocated->getReference(), "\n";

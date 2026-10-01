@@ -13,6 +13,18 @@ class Number
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * The name you gave this number in your workspace. Null when no name is set.
+     *
+     * @var string|null
+     */
+    protected $name;
+    /**
+     * Your own reference for this number in your workspace. Null when no reference is set.
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
      * Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
      *
      * @var string|null
@@ -83,6 +95,50 @@ class Number
      * @var NumberOwnership|null
      */
     protected $ownership;
+    /**
+     * The name you gave this number in your workspace. Null when no name is set.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+    /**
+     * The name you gave this number in your workspace. Null when no name is set.
+     *
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name): self
+    {
+        $this->initialized['name'] = true;
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * Your own reference for this number in your workspace. Null when no reference is set.
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * Your own reference for this number in your workspace. Null when no reference is set.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
+        return $this;
+    }
     /**
      * Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
      *

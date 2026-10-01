@@ -37,6 +37,18 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
+        }
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
+        }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -106,6 +118,26 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        $dataArray['name'] = $data->getName();
+        $dataArray['reference'] = $data->getReference();
+        $dataArray['id'] = $data->getId();
+        $dataArray['kind'] = $data->getKind();
+        $dataArray['number'] = $data->getNumber();
+        $dataArray['country_code'] = $data->getCountryCode();
+        $dataArray['number_type'] = $data->getNumberType();
+        $values = [];
+        foreach ($data->getCapabilities() as $value) {
+            $values[] = $value;
+        }
+        $dataArray['capabilities'] = $values;
+        $dataArray['status'] = $data->getStatus();
+        $dataArray['allocated_at'] = $data->getAllocatedAt()->format('Y-m-d\TH:i:sP');
+        if ($data->isInitialized('releasedAt')) {
+            $dataArray['released_at'] = $data->getReleasedAt()?->format('Y-m-d\TH:i:sP');
+        }
+        if ($data->isInitialized('ownership')) {
+            $dataArray['ownership'] = $this->normalizer->normalize($data->getOwnership(), 'json', $context);
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

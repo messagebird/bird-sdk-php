@@ -127,6 +127,8 @@ return [
     "/v1/whatsapp/keyword-rules/{id}",
     "/v1/whatsapp/suppressions",
     "/v1/whatsapp/suppressions/{suppression_id}",
+    "/v1/whatsapp/numbers/{number_id}/agent/notifications",
+    "/v1/whatsapp/numbers/{number_id}/agent/notifications/{notification_id}",
     "/v1/whatsapp/stats/summary",
     "/v1/whatsapp/stats/daily",
     "/v1/whatsapp/stats/hourly",

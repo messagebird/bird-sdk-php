@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.62.0
+
+- Add names and customer references to allocated numbers, with updates and search. Set an optional reference when buying a number, including orders that complete later.
+
 ## 0.61.0
 
 - `AMBRoutingRuleUpdate` gains `setBusinessAccountId`, `setMatchKind`, `setMatchIntentId` and `setMatchGroupId`, so `$bird->amb->routingRules->update()` can move a rule to another business or replace what it matches.

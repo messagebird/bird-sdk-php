@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class NumberUpdateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\NumbersOrderCreate::class;
+        return $type === \MessageBird\Wire\Model\NumberUpdate::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\NumbersOrderCreate::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\NumberUpdate::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\NumbersOrderCreate();
+        $object = new \MessageBird\Wire\Model\NumberUpdate();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,11 +37,11 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('number', $data) && $data['number'] !== null) {
-            $object->setNumber($data['number']);
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
         }
-        elseif (\array_key_exists('number', $data) && $data['number'] === null) {
-            $object->setNumber(null);
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
         }
         if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
             $object->setReference($data['reference']);
@@ -54,14 +54,16 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['number'] = $data->getNumber();
-        if ($data->isInitialized('reference') && null !== $data->getReference()) {
+        if ($data->isInitialized('name')) {
+            $dataArray['name'] = $data->getName();
+        }
+        if ($data->isInitialized('reference')) {
             $dataArray['reference'] = $data->getReference();
         }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\NumbersOrderCreate::class => false];
+        return [\MessageBird\Wire\Model\NumberUpdate::class => false];
     }
 }

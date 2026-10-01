@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class WhatsAppAgentNotificationCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\NumbersOrderCreate::class;
+        return $type === \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\NumbersOrderCreate::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\NumbersOrderCreate();
+        $object = new \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,31 +37,43 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('number', $data) && $data['number'] !== null) {
-            $object->setNumber($data['number']);
+        if (\array_key_exists('to', $data) && $data['to'] !== null) {
+            $object->setTo($data['to']);
         }
-        elseif (\array_key_exists('number', $data) && $data['number'] === null) {
-            $object->setNumber(null);
+        elseif (\array_key_exists('to', $data) && $data['to'] === null) {
+            $object->setTo(null);
         }
-        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
-            $object->setReference($data['reference']);
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
         }
-        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
-            $object->setReference(null);
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
+        }
+        if (\array_key_exists('description', $data) && $data['description'] !== null) {
+            $object->setDescription($data['description']);
+        }
+        elseif (\array_key_exists('description', $data) && $data['description'] === null) {
+            $object->setDescription(null);
+        }
+        if (\array_key_exists('payload', $data) && $data['payload'] !== null) {
+            $object->setPayload($data['payload']);
+        }
+        elseif (\array_key_exists('payload', $data) && $data['payload'] === null) {
+            $object->setPayload(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['number'] = $data->getNumber();
-        if ($data->isInitialized('reference') && null !== $data->getReference()) {
-            $dataArray['reference'] = $data->getReference();
-        }
+        $dataArray['to'] = $data->getTo();
+        $dataArray['name'] = $data->getName();
+        $dataArray['description'] = $data->getDescription();
+        $dataArray['payload'] = $data->getPayload();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\NumbersOrderCreate::class => false];
+        return [\MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => false];
     }
 }

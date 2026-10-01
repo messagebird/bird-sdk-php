@@ -726,6 +726,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppNumberList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberListNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotification::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationTo::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationToNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationCreateNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppNumberEvent::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberEventList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventListNormalizer::class,
@@ -1430,6 +1440,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceParty::class => \MessageBird\Wire\Normalizer\VoicePartyNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceSessionCredential::class => \MessageBird\Wire\Normalizer\VoiceSessionCredentialNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegCost::class => \MessageBird\Wire\Normalizer\VoiceLegCostNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLeg::class => \MessageBird\Wire\Normalizer\VoiceLegNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
+
         \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
 
         \MessageBird\Wire\Model\Number::class => \MessageBird\Wire\Normalizer\NumberNormalizer::class,
@@ -1446,6 +1466,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NumbersOrderCreate::class => \MessageBird\Wire\Normalizer\NumbersOrderCreateNormalizer::class,
 
+        \MessageBird\Wire\Model\NumberUpdate::class => \MessageBird\Wire\Normalizer\NumberUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceTrunkIPACL::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunk::class => \MessageBird\Wire\Normalizer\VoiceTrunkNormalizer::class,
@@ -1457,8 +1479,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLCreateNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunkUpdate::class => \MessageBird\Wire\Normalizer\VoiceTrunkUpdateNormalizer::class,
-
-        \MessageBird\Wire\Model\VoiceSessionCredential::class => \MessageBird\Wire\Normalizer\VoiceSessionCredentialNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunkGateway::class => \MessageBird\Wire\Normalizer\VoiceTrunkGatewayNormalizer::class,
 
@@ -1489,14 +1509,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberVerifyRequestNormalizer::class,
-
-        \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
-
-        \MessageBird\Wire\Model\VoiceLegCost::class => \MessageBird\Wire\Normalizer\VoiceLegCostNormalizer::class,
-
-        \MessageBird\Wire\Model\VoiceLeg::class => \MessageBird\Wire\Normalizer\VoiceLegNormalizer::class,
-
-        \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
 
@@ -1920,6 +1932,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppNumberError::class => false,
             \MessageBird\Wire\Model\WhatsAppNumber::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberList::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotification::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationTo::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberProfile::class => false,
@@ -2272,6 +2289,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoicePartyBridgeSIPEndpoint::class => false,
             \MessageBird\Wire\Model\VoicePartyEndpoint::class => false,
             \MessageBird\Wire\Model\VoiceParty::class => false,
+            \MessageBird\Wire\Model\VoiceSessionCredential::class => false,
+            \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
+            \MessageBird\Wire\Model\VoiceLegCost::class => false,
+            \MessageBird\Wire\Model\VoiceLeg::class => false,
+            \MessageBird\Wire\Model\VoiceLegActor::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
             \MessageBird\Wire\Model\Number::class => false,
             \MessageBird\Wire\Model\NumberList::class => false,
@@ -2280,13 +2302,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\NumbersOrder::class => false,
             \MessageBird\Wire\Model\NumbersOrderList::class => false,
             \MessageBird\Wire\Model\NumbersOrderCreate::class => false,
+            \MessageBird\Wire\Model\NumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkIPACL::class => false,
             \MessageBird\Wire\Model\VoiceTrunk::class => false,
             \MessageBird\Wire\Model\VoiceTrunkList::class => false,
             \MessageBird\Wire\Model\VoiceTrunkCreate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkUpdate::class => false,
-            \MessageBird\Wire\Model\VoiceSessionCredential::class => false,
             \MessageBird\Wire\Model\VoiceTrunkGateway::class => false,
             \MessageBird\Wire\Model\VoiceTrunkGatewayList::class => false,
             \MessageBird\Wire\Model\VoiceTrunkGatewayCreate::class => false,
@@ -2302,10 +2324,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceVerifiedNumberCreate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false,
-            \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
-            \MessageBird\Wire\Model\VoiceLegCost::class => false,
-            \MessageBird\Wire\Model\VoiceLeg::class => false,
-            \MessageBird\Wire\Model\VoiceLegActor::class => false,
             \MessageBird\Wire\Model\VoiceLegList::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => false,

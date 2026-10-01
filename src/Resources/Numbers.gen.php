@@ -10,6 +10,7 @@ use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\Number;
 use MessageBird\Wire\Model\NumberList;
+use MessageBird\Wire\Model\NumberUpdate;
 
 class NumbersBase extends Resource
 {
@@ -56,6 +57,21 @@ class NumbersBase extends Resource
     public function get(string $numberId, ?RequestOptions $options = null): Number
     {
         return $this->single('GET', '/v1/numbers/' . rawurlencode($numberId), Number::class, null, null, $options);
+    }
+
+    /**
+     * Set the name or your own reference on an allocated number. Omit a field to preserve it, or send null to clear it. Applies to dedicated and shared numbers.
+     *
+     * @example Name a number and add your own reference
+     * $allocated = $bird->numbers->update(
+     *     'nda_01krdgeqcxet5s7t44vh8rt9mg',
+     *     (new \MessageBird\Wire\Model\NumberUpdate())->setName('Support line')->setReference('STORE-042'),
+     * );
+     * echo $allocated->getName(), ' ', $allocated->getReference(), "\n";
+     */
+    public function update(string $numberId, NumberUpdate $params, ?RequestOptions $options = null): Number
+    {
+        return $this->single('PATCH', '/v1/numbers/' . rawurlencode($numberId), Number::class, $params, null, $options);
     }
 
     /**

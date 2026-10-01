@@ -11,6 +11,7 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\WhatsAppAgentNotificationCreate;
 use MessageBird\Wire\Model\WhatsAppGroupCreate;
 use MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecision;
 use MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate;
@@ -299,3 +300,24 @@ echo $suppression->getId(), ' ', $suppression->getAppliesTo();
 // Only a manual suppression can be ended; a recipient's own opt-out is theirs
 // to reverse. The record is kept and still reads back by id.
 $bird->whatsapp->suppressions->remove('was_01krdgeqcxet5s7t44vh8rt9mg');
+
+// The agent decides whether and how to tell the contact. The answer reads
+// accepted; read it back to see whether the agent acted on it.
+$notification = $bird->whatsapp->agents->notifications->create(
+    'wan_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppAgentNotificationCreate())
+        ->setTo('+14155551234')
+        ->setName('order_shipped')
+        ->setDescription('Order 88213 left the warehouse and arrives on Thursday.')
+        ->setPayload('{"order_id":"88213","carrier":"ACME Courier"}'),
+);
+echo $notification->getId(), ' ', $notification->getStatus();
+
+foreach ($bird->whatsapp->agents->notifications->list('wan_01krdgeqcxet5s7t44vh8rt9mg', ['status' => 'skipped']) as $notification) {
+    echo $notification->getName(), ' ', $notification->getSkippedReason(), PHP_EOL;
+}
+
+// A notification still on its way to WhatsApp is not readable yet, so a read
+// straight after create can throw a not-found ApiException.
+$notification = $bird->whatsapp->agents->notifications->get('wan_01krdgeqcxet5s7t44vh8rt9mg', 'waan_01krdgeqcxet5s7t44vh8rt9m7');
+echo $notification->getStatus(), ' ', $notification->getSkippedReason() ?? $notification->getError()?->getDescription();
