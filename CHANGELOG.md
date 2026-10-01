@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.60.1
+
+- `$bird->amb->routingRules->list()` documentation now states that routing rules run again when a customer writes to a resolved Apple Messages for Business conversation.
+
 ## 0.60.0
 
 - Add `monthly_active_contacts` to Apple Messages statistics summaries.
