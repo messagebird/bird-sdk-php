@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceSequenceSavedExecutionCallSampleNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerIn
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallSequence::class;
+        return $type === \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallSequence::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallSequence();
+        $object = new \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -43,22 +43,37 @@ class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerIn
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('run_id', $data) && $data['run_id'] !== null) {
-            $object->setRunId($data['run_id']);
+        if (\array_key_exists('session_id', $data) && $data['session_id'] !== null) {
+            $object->setSessionId($data['session_id']);
         }
-        elseif (\array_key_exists('run_id', $data) && $data['run_id'] === null) {
-            $object->setRunId(null);
+        elseif (\array_key_exists('session_id', $data) && $data['session_id'] === null) {
+            $object->setSessionId(null);
+        }
+        if (\array_key_exists('orig', $data) && $data['orig'] !== null) {
+            $object->setOrig($this->denormalizer->denormalize($data['orig'], \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class, 'json', $context));
+        }
+        elseif (\array_key_exists('orig', $data) && $data['orig'] === null) {
+            $object->setOrig(null);
+        }
+        if (\array_key_exists('dest', $data) && $data['dest'] !== null) {
+            $object->setDest($this->denormalizer->denormalize($data['dest'], \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class, 'json', $context));
+        }
+        elseif (\array_key_exists('dest', $data) && $data['dest'] === null) {
+            $object->setDest(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['run_id'] = $data->getRunId();
+        $dataArray['id'] = $data->getId();
+        $dataArray['session_id'] = $data->getSessionId();
+        $dataArray['orig'] = $this->normalizer->normalize($data->getOrig(), 'json', $context);
+        $dataArray['dest'] = $this->normalizer->normalize($data->getDest(), 'json', $context);
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallSequence::class => false];
+        return [\MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class => false];
     }
 }

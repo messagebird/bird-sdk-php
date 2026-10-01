@@ -40,6 +40,30 @@ class AMBRoutingRuleUpdateNormalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('is_default', $data) && \is_int($data['is_default'])) {
             $data['is_default'] = (bool) $data['is_default'];
         }
+        if (\array_key_exists('business_account_id', $data) && $data['business_account_id'] !== null) {
+            $object->setBusinessAccountId($data['business_account_id']);
+        }
+        elseif (\array_key_exists('business_account_id', $data) && $data['business_account_id'] === null) {
+            $object->setBusinessAccountId(null);
+        }
+        if (\array_key_exists('match_kind', $data) && $data['match_kind'] !== null) {
+            $object->setMatchKind($data['match_kind']);
+        }
+        elseif (\array_key_exists('match_kind', $data) && $data['match_kind'] === null) {
+            $object->setMatchKind(null);
+        }
+        if (\array_key_exists('match_intent_id', $data) && $data['match_intent_id'] !== null) {
+            $object->setMatchIntentId($data['match_intent_id']);
+        }
+        elseif (\array_key_exists('match_intent_id', $data) && $data['match_intent_id'] === null) {
+            $object->setMatchIntentId(null);
+        }
+        if (\array_key_exists('match_group_id', $data) && $data['match_group_id'] !== null) {
+            $object->setMatchGroupId($data['match_group_id']);
+        }
+        elseif (\array_key_exists('match_group_id', $data) && $data['match_group_id'] === null) {
+            $object->setMatchGroupId(null);
+        }
         if (\array_key_exists('queue', $data) && $data['queue'] !== null) {
             $object->setQueue($data['queue']);
         }
@@ -63,6 +87,18 @@ class AMBRoutingRuleUpdateNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('businessAccountId') && null !== $data->getBusinessAccountId()) {
+            $dataArray['business_account_id'] = $data->getBusinessAccountId();
+        }
+        if ($data->isInitialized('matchKind') && null !== $data->getMatchKind()) {
+            $dataArray['match_kind'] = $data->getMatchKind();
+        }
+        if ($data->isInitialized('matchIntentId') && null !== $data->getMatchIntentId()) {
+            $dataArray['match_intent_id'] = $data->getMatchIntentId();
+        }
+        if ($data->isInitialized('matchGroupId') && null !== $data->getMatchGroupId()) {
+            $dataArray['match_group_id'] = $data->getMatchGroupId();
+        }
         if ($data->isInitialized('queue') && null !== $data->getQueue()) {
             $dataArray['queue'] = $data->getQueue();
         }

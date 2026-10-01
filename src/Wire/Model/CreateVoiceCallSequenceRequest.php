@@ -17,6 +17,12 @@ class CreateVoiceCallSequenceRequest
      */
     protected $id;
     /**
+     * Complete sequence definition to run once after the recipient answers. It must pass the same checks as publishing a sequence, is frozen when the call is accepted, and creates no saved sequence.
+     *
+     * @var CreateVoiceCallSequenceRequestDefinition|null
+     */
+    protected $definition;
+    /**
      * Stable identifier for a node within one sequence definition.
      *
      * @var string|null
@@ -44,6 +50,28 @@ class CreateVoiceCallSequenceRequest
     {
         $this->initialized['id'] = true;
         $this->id = $id;
+        return $this;
+    }
+    /**
+     * Complete sequence definition to run once after the recipient answers. It must pass the same checks as publishing a sequence, is frozen when the call is accepted, and creates no saved sequence.
+     *
+     * @return CreateVoiceCallSequenceRequestDefinition|null
+     */
+    public function getDefinition(): ?CreateVoiceCallSequenceRequestDefinition
+    {
+        return $this->definition;
+    }
+    /**
+     * Complete sequence definition to run once after the recipient answers. It must pass the same checks as publishing a sequence, is frozen when the call is accepted, and creates no saved sequence.
+     *
+     * @param CreateVoiceCallSequenceRequestDefinition|null $definition
+     *
+     * @return self
+     */
+    public function setDefinition(?CreateVoiceCallSequenceRequestDefinition $definition): self
+    {
+        $this->initialized['definition'] = true;
+        $this->definition = $definition;
         return $this;
     }
     /**

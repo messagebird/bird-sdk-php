@@ -43,6 +43,9 @@ class TemplateVariableNormalizer implements DenormalizerInterface, NormalizerInt
         if (\array_key_exists('sensitive', $data) && \is_int($data['sensitive'])) {
             $data['sensitive'] = (bool) $data['sensitive'];
         }
+        if (\array_key_exists('system', $data) && \is_int($data['system'])) {
+            $data['system'] = (bool) $data['system'];
+        }
         if (\array_key_exists('key', $data) && $data['key'] !== null) {
             $object->setKey($data['key']);
         }
@@ -72,6 +75,12 @@ class TemplateVariableNormalizer implements DenormalizerInterface, NormalizerInt
         }
         elseif (\array_key_exists('sensitive', $data) && $data['sensitive'] === null) {
             $object->setSensitive(null);
+        }
+        if (\array_key_exists('system', $data) && $data['system'] !== null) {
+            $object->setSystem($data['system']);
+        }
+        elseif (\array_key_exists('system', $data) && $data['system'] === null) {
+            $object->setSystem(null);
         }
         return $object;
     }

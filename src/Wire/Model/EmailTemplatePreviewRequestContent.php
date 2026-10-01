@@ -13,33 +13,33 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The subject line to render.
+     * The subject line, including any template expressions.
      *
      * @var string|null
      */
     protected $subject;
     /**
-     * The preview text to render. It is folded into the top of the HTML the same way publishing folds it, so the rendered body carries the hidden preheader a recipient's inbox would read.
+     * Inbox preview text. Preview and publication fold it into the top of the HTML as a hidden preheader. Input analysis includes its references.
      * 
      *
      * @var string|null
      */
     protected $previewText;
     /**
-     * The HTML body to render.
+     * The HTML body, including any template expressions.
      *
      * @var string|null
      */
     protected $html;
     /**
-     * The plain-text body to render. Omit it and a plain-text alternative is derived from the HTML, the same way it is derived when you publish.
+     * The plain-text body. When omitted, a plain-text alternative is derived from the HTML for preview, input analysis, and publication.
      * 
      *
      * @var string|null
      */
     protected $text;
     /**
-     * The subject line to render.
+     * The subject line, including any template expressions.
      *
      * @return string|null
      */
@@ -48,7 +48,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this->subject;
     }
     /**
-     * The subject line to render.
+     * The subject line, including any template expressions.
      *
      * @param string|null $subject
      *
@@ -61,7 +61,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this;
     }
     /**
-     * The preview text to render. It is folded into the top of the HTML the same way publishing folds it, so the rendered body carries the hidden preheader a recipient's inbox would read.
+     * Inbox preview text. Preview and publication fold it into the top of the HTML as a hidden preheader. Input analysis includes its references.
      * 
      *
      * @return string|null
@@ -71,7 +71,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this->previewText;
     }
     /**
-     * The preview text to render. It is folded into the top of the HTML the same way publishing folds it, so the rendered body carries the hidden preheader a recipient's inbox would read.
+     * Inbox preview text. Preview and publication fold it into the top of the HTML as a hidden preheader. Input analysis includes its references.
      *
      * @param string|null $previewText
      *
@@ -84,7 +84,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this;
     }
     /**
-     * The HTML body to render.
+     * The HTML body, including any template expressions.
      *
      * @return string|null
      */
@@ -93,7 +93,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this->html;
     }
     /**
-     * The HTML body to render.
+     * The HTML body, including any template expressions.
      *
      * @param string|null $html
      *
@@ -106,7 +106,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this;
     }
     /**
-     * The plain-text body to render. Omit it and a plain-text alternative is derived from the HTML, the same way it is derived when you publish.
+     * The plain-text body. When omitted, a plain-text alternative is derived from the HTML for preview, input analysis, and publication.
      * 
      *
      * @return string|null
@@ -116,7 +116,7 @@ class EmailTemplatePreviewRequestContent extends \ArrayObject
         return $this->text;
     }
     /**
-     * The plain-text body to render. Omit it and a plain-text alternative is derived from the HTML, the same way it is derived when you publish.
+     * The plain-text body. When omitted, a plain-text alternative is derived from the HTML for preview, input analysis, and publication.
      *
      * @param string|null $text
      *

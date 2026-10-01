@@ -13,6 +13,8 @@ class VoiceCallSequence
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Voice sequence selected for this call. Null for a call that ran an inline definition.
+     *
      * @var string|null
      */
     protected $id;
@@ -21,6 +23,8 @@ class VoiceCallSequence
      */
     protected $runId;
     /**
+     * Voice sequence selected for this call. Null for a call that ran an inline definition.
+     *
      * @return string|null
      */
     public function getId(): ?string
@@ -28,6 +32,8 @@ class VoiceCallSequence
         return $this->id;
     }
     /**
+     * Voice sequence selected for this call. Null for a call that ran an inline definition.
+     *
      * @param string|null $id
      *
      * @return self

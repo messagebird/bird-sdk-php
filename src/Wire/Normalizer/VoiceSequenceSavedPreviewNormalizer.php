@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class CreateVoiceCallSequenceRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceSequenceSavedPreviewNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class CreateVoiceCallSequenceRequestNormalizer implements DenormalizerInterface,
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class;
+        return $type === \MessageBird\Wire\Model\VoiceSequenceSavedPreview::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceSequenceSavedPreview::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest();
+        $object = new \MessageBird\Wire\Model\VoiceSequenceSavedPreview();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,23 +37,11 @@ class CreateVoiceCallSequenceRequestNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('id', $data) && $data['id'] !== null) {
-            $object->setId($data['id']);
+        if (\array_key_exists('trigger_node_id', $data) && $data['trigger_node_id'] !== null) {
+            $object->setTriggerNodeId($data['trigger_node_id']);
         }
-        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
-            $object->setId(null);
-        }
-        if (\array_key_exists('definition', $data) && $data['definition'] !== null) {
-            $object->setDefinition($this->denormalizer->denormalize($data['definition'], \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class, 'json', $context));
-        }
-        elseif (\array_key_exists('definition', $data) && $data['definition'] === null) {
-            $object->setDefinition(null);
-        }
-        if (\array_key_exists('entry_node_id', $data) && $data['entry_node_id'] !== null) {
-            $object->setEntryNodeId($data['entry_node_id']);
-        }
-        elseif (\array_key_exists('entry_node_id', $data) && $data['entry_node_id'] === null) {
-            $object->setEntryNodeId(null);
+        elseif (\array_key_exists('trigger_node_id', $data) && $data['trigger_node_id'] === null) {
+            $object->setTriggerNodeId(null);
         }
         if (\array_key_exists('trigger_data', $data) && $data['trigger_data'] !== null) {
             $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
@@ -65,27 +53,47 @@ class CreateVoiceCallSequenceRequestNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('trigger_data', $data) && $data['trigger_data'] === null) {
             $object->setTriggerData(null);
         }
+        if (\array_key_exists('node_samples', $data) && $data['node_samples'] !== null) {
+            $values_1 = [];
+            foreach ($data['node_samples'] as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setNodeSamples($values_1);
+        }
+        elseif (\array_key_exists('node_samples', $data) && $data['node_samples'] === null) {
+            $object->setNodeSamples(null);
+        }
+        if (\array_key_exists('execution_sample', $data) && $data['execution_sample'] !== null) {
+            $object->setExecutionSample($this->denormalizer->denormalize($data['execution_sample'], \MessageBird\Wire\Model\VoiceSequenceSavedExecutionSample::class, 'json', $context));
+        }
+        elseif (\array_key_exists('execution_sample', $data) && $data['execution_sample'] === null) {
+            $object->setExecutionSample(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('id') && null !== $data->getId()) {
-            $dataArray['id'] = $data->getId();
-        }
-        if ($data->isInitialized('definition') && null !== $data->getDefinition()) {
-            $dataArray['definition'] = $this->normalizer->normalize($data->getDefinition(), 'json', $context);
-        }
-        $dataArray['entry_node_id'] = $data->getEntryNodeId();
+        $dataArray['trigger_node_id'] = $data->getTriggerNodeId();
         $values = [];
         foreach ($data->getTriggerData() as $key => $value) {
             $values[$key] = $value;
         }
         $dataArray['trigger_data'] = (object) $values;
+        if ($data->isInitialized('nodeSamples') && null !== $data->getNodeSamples()) {
+            $values_1 = [];
+            foreach ($data->getNodeSamples() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['node_samples'] = $values_1;
+        }
+        if ($data->isInitialized('executionSample') && null !== $data->getExecutionSample()) {
+            $dataArray['execution_sample'] = $this->normalizer->normalize($data->getExecutionSample(), 'json', $context);
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false];
+        return [\MessageBird\Wire\Model\VoiceSequenceSavedPreview::class => false];
     }
 }

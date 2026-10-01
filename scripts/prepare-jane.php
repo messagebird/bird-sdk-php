@@ -82,6 +82,72 @@ foreach ($document['components']['schemas'] as &$schema) {
 }
 unset($schema);
 
+// Jane prunes classes behind untyped allOf wrappers even when their refs are reachable.
+$roots = [];
+$visited = [];
+$visit = static function (array $node) use (&$visit, &$roots, &$visited, $resolve, $propertiesOf): void {
+    if (isset($node['allOf']) && count($node['allOf']) === 1 && isset($node['allOf'][0]['$ref'])) {
+        $ref = $node['allOf'][0]['$ref'];
+        $target = $resolve($node['allOf'][0]);
+        if (!isset($target['type']) && isset($target['allOf']) && $propertiesOf($target) !== []) {
+            $roots[$ref] = true;
+        }
+    }
+    if (isset($node['$ref']) && !isset($visited[$node['$ref']])) {
+        $visited[$node['$ref']] = true;
+        $visit($resolve($node));
+    }
+    foreach ($node as $value) {
+        if (is_array($value)) {
+            $visit($value);
+        }
+    }
+};
+$paths = require __DIR__ . '/surface-paths.php';
+foreach ($document['paths'] as $name => $path) {
+    foreach ($paths as $pattern) {
+        if (preg_match('#' . $pattern . '#', $name)) {
+            $visit($path);
+            break;
+        }
+    }
+}
+foreach (array_keys($roots) as $index => $ref) {
+    $document['paths']['/__parity/schemas/' . $index] = [
+        'get' => [
+            'operationId' => 'paritySchema' . $index,
+            'responses' => ['200' => [
+                'description' => 'Reachable wire schema retained for generator comparison.',
+                'content' => ['application/json' => ['schema' => ['$ref' => $ref]]],
+            ]],
+        ],
+    ];
+}
+
+// Jane emits an empty PHP type for a union of untyped unions; its wire value is mixed.
+$normalize = static function (array &$node) use (&$normalize, $resolve): void {
+    if (isset($node['anyOf']) && count($node['anyOf']) > 1) {
+        $nestedUnions = true;
+        foreach ($node['anyOf'] as $arm) {
+            $target = $resolve($arm);
+            if (isset($target['type']) || (!isset($target['oneOf']) && !isset($target['anyOf']))) {
+                $nestedUnions = false;
+                break;
+            }
+        }
+        if ($nestedUnions) {
+            unset($node['anyOf']);
+        }
+    }
+    foreach ($node as &$value) {
+        if (is_array($value)) {
+            $normalize($value);
+        }
+    }
+    unset($value);
+};
+$normalize($document);
+
 $output = json_encode($document, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 if (file_put_contents($argv[2], $output) === false) {
     throw new RuntimeException('Cannot write Jane compatibility input');

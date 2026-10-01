@@ -48,11 +48,9 @@ class EmailTemplateSubmitResultVersion extends \ArrayObject
      */
     protected $revision;
     /**
-     * Every variable this version's content uses. You supply a value for each of them when you send.
+     * Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
      * 
-     * The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
-     * 
-     * Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+     * The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
      * 
      *
      * @var list<TemplateVariable>|null
@@ -211,11 +209,9 @@ class EmailTemplateSubmitResultVersion extends \ArrayObject
         return $this;
     }
     /**
-     * Every variable this version's content uses. You supply a value for each of them when you send.
+     * Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
      * 
-     * The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
-     * 
-     * Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+     * The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
      * 
      *
      * @return list<TemplateVariable>|null
@@ -225,11 +221,9 @@ class EmailTemplateSubmitResultVersion extends \ArrayObject
         return $this->variables;
     }
     /**
-    * Every variable this version's content uses. You supply a value for each of them when you send.
+    * Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
     
-    The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
-    
-    Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+    The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
     
     *
     * @param list<TemplateVariable>|null $variables

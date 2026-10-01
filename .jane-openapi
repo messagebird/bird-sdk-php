@@ -18,5 +18,5 @@ return [
     'reference' => true,
     'strict' => false,
     'use-fixer' => false,
-    'whitelisted-paths' => require __DIR__ . '/scripts/surface-paths.php',
+    'whitelisted-paths' => array_merge(require __DIR__ . '/scripts/surface-paths.php', ['/__parity/schemas/']),
 ];

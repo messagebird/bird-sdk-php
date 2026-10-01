@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceSequenceSavedExecutionPartyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerIn
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceCallSequence::class;
+        return $type === \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceCallSequence::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceCallSequence();
+        $object = new \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,28 +37,31 @@ class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerIn
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('id', $data) && $data['id'] !== null) {
-            $object->setId($data['id']);
+        if (\array_key_exists('endpoint', $data) && $data['endpoint'] !== null) {
+            $object->setEndpoint($this->denormalizer->denormalize($data['endpoint'], \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class, 'json', $context));
         }
-        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
-            $object->setId(null);
+        elseif (\array_key_exists('endpoint', $data) && $data['endpoint'] === null) {
+            $object->setEndpoint(null);
         }
-        if (\array_key_exists('run_id', $data) && $data['run_id'] !== null) {
-            $object->setRunId($data['run_id']);
+        if (\array_key_exists('address', $data) && $data['address'] !== null) {
+            $object->setAddress($data['address']);
         }
-        elseif (\array_key_exists('run_id', $data) && $data['run_id'] === null) {
-            $object->setRunId(null);
+        elseif (\array_key_exists('address', $data) && $data['address'] === null) {
+            $object->setAddress(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['run_id'] = $data->getRunId();
+        $dataArray['endpoint'] = $this->normalizer->normalize($data->getEndpoint(), 'json', $context);
+        if ($data->isInitialized('address') && null !== $data->getAddress()) {
+            $dataArray['address'] = $data->getAddress();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceCallSequence::class => false];
+        return [\MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => false];
     }
 }

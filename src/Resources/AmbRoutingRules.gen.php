@@ -26,7 +26,7 @@ final class AmbRoutingRules extends Resource
     }
 
     /**
-     * Changes a routing rule's queue, precedence, or default status. What it matches is fixed once created; to change that, delete this rule and create another. Setting `is_default` to true while the business already has a different default rule returns a `409`.
+     * Changes a routing rule's business, match, queue, precedence, or default status. The match changes as a unit: send `match_kind` with the intent and group ids it requires, as on create. Returns a `409` when the update would leave this rule as the default of a business that already has a different default rule.
      *
      * @example Example
      * $bird->amb->routingRules->update('arr_01krdgeqcxet5s7t44vh8rt9mg', (new Model\AMBRoutingRuleUpdate())->setQueue('sales')->setPrecedence(0)->setIsDefault(false));

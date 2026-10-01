@@ -45,14 +45,12 @@ class EmailTemplatePreview
      */
     protected $language;
     /**
-     * The variables you can fill in with `parameters`. This list covers only the
-     * language named by `language`. A version read combines the variables from
-     * every language the version holds. Preview each language separately to see
-     * its own variables.
-     * 
-     * Variables under the reserved `bird.` namespace are not listed here. We
-     * supply those values, but you can nest sample values under `bird` in
-     * `parameters` to preview them.
+     * Every input definition this content uses, in one list: the parameters you fill in
+     * with `parameters`, and the values Bird fills in for each recipient. Read `system`
+     * to tell them apart. This list covers only the language named by `language`. A
+     * version read combines the inputs from every language the version holds. Preview
+     * each language separately to see its own. You can nest sample values under `bird`
+     * in preview `parameters`; sends reject that reserved namespace.
      * 
      *
      * @var list<TemplateVariable>|null
@@ -192,14 +190,12 @@ class EmailTemplatePreview
         return $this;
     }
     /**
-     * The variables you can fill in with `parameters`. This list covers only the
-     * language named by `language`. A version read combines the variables from
-     * every language the version holds. Preview each language separately to see
-     * its own variables.
-     * 
-     * Variables under the reserved `bird.` namespace are not listed here. We
-     * supply those values, but you can nest sample values under `bird` in
-     * `parameters` to preview them.
+     * Every input definition this content uses, in one list: the parameters you fill in
+     * with `parameters`, and the values Bird fills in for each recipient. Read `system`
+     * to tell them apart. This list covers only the language named by `language`. A
+     * version read combines the inputs from every language the version holds. Preview
+     * each language separately to see its own. You can nest sample values under `bird`
+     * in preview `parameters`; sends reject that reserved namespace.
      * 
      *
      * @return list<TemplateVariable>|null
@@ -209,14 +205,12 @@ class EmailTemplatePreview
         return $this->variables;
     }
     /**
-    * The variables you can fill in with `parameters`. This list covers only the
-    language named by `language`. A version read combines the variables from
-    every language the version holds. Preview each language separately to see
-    its own variables.
-    
-    Variables under the reserved `bird.` namespace are not listed here. We
-    supply those values, but you can nest sample values under `bird` in
-    `parameters` to preview them.
+    * Every input definition this content uses, in one list: the parameters you fill in
+    with `parameters`, and the values Bird fills in for each recipient. Read `system`
+    to tell them apart. This list covers only the language named by `language`. A
+    version read combines the inputs from every language the version holds. Preview
+    each language separately to see its own. You can nest sample values under `bird`
+    in preview `parameters`; sends reject that reserved namespace.
     
     *
     * @param list<TemplateVariable>|null $variables

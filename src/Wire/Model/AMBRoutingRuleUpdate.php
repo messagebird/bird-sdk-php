@@ -13,6 +13,35 @@ class AMBRoutingRuleUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * @var string|null
+     */
+    protected $businessAccountId;
+    /**
+     * What a routing rule matches against the entry point that started the conversation.
+     * 
+     * - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+     * - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+     * - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+     * 
+     *
+     * @var string|null
+     */
+    protected $matchKind;
+    /**
+     * The entry point intent to match, as sent in Apple's `intentID`. Requires `match_kind`: required when it is `intent` or `both`, and rejected when it is `group`.
+     * 
+     *
+     * @var string|null
+     */
+    protected $matchIntentId;
+    /**
+     * The entry point group to match, as sent in Apple's `groupID`. Requires `match_kind`: required when it is `group` or `both`, and rejected when it is `intent`.
+     * 
+     *
+     * @var string|null
+     */
+    protected $matchGroupId;
+    /**
      * Queue label used for routing and filtering conversations.
      *
      * @var string|null
@@ -25,12 +54,108 @@ class AMBRoutingRuleUpdate
      */
     protected $precedence;
     /**
-     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default. Setting it true while the business already has a different default rule returns a `409`.
+     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default.
      * 
      *
      * @var bool|null
      */
     protected $isDefault;
+    /**
+     * @return string|null
+     */
+    public function getBusinessAccountId(): ?string
+    {
+        return $this->businessAccountId;
+    }
+    /**
+     * @param string|null $businessAccountId
+     *
+     * @return self
+     */
+    public function setBusinessAccountId(?string $businessAccountId): self
+    {
+        $this->initialized['businessAccountId'] = true;
+        $this->businessAccountId = $businessAccountId;
+        return $this;
+    }
+    /**
+     * What a routing rule matches against the entry point that started the conversation.
+     * 
+     * - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+     * - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+     * - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMatchKind(): ?string
+    {
+        return $this->matchKind;
+    }
+    /**
+    * What a routing rule matches against the entry point that started the conversation.
+    
+    - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+    - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+    - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+    
+    *
+    * @param string|null $matchKind
+    *
+    * @return self
+    */
+    public function setMatchKind(?string $matchKind): self
+    {
+        $this->initialized['matchKind'] = true;
+        $this->matchKind = $matchKind;
+        return $this;
+    }
+    /**
+     * The entry point intent to match, as sent in Apple's `intentID`. Requires `match_kind`: required when it is `intent` or `both`, and rejected when it is `group`.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMatchIntentId(): ?string
+    {
+        return $this->matchIntentId;
+    }
+    /**
+     * The entry point intent to match, as sent in Apple's `intentID`. Requires `match_kind`: required when it is `intent` or `both`, and rejected when it is `group`.
+     *
+     * @param string|null $matchIntentId
+     *
+     * @return self
+     */
+    public function setMatchIntentId(?string $matchIntentId): self
+    {
+        $this->initialized['matchIntentId'] = true;
+        $this->matchIntentId = $matchIntentId;
+        return $this;
+    }
+    /**
+     * The entry point group to match, as sent in Apple's `groupID`. Requires `match_kind`: required when it is `group` or `both`, and rejected when it is `intent`.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMatchGroupId(): ?string
+    {
+        return $this->matchGroupId;
+    }
+    /**
+     * The entry point group to match, as sent in Apple's `groupID`. Requires `match_kind`: required when it is `group` or `both`, and rejected when it is `intent`.
+     *
+     * @param string|null $matchGroupId
+     *
+     * @return self
+     */
+    public function setMatchGroupId(?string $matchGroupId): self
+    {
+        $this->initialized['matchGroupId'] = true;
+        $this->matchGroupId = $matchGroupId;
+        return $this;
+    }
     /**
      * Queue label used for routing and filtering conversations.
      *
@@ -76,7 +201,7 @@ class AMBRoutingRuleUpdate
         return $this;
     }
     /**
-     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default. Setting it true while the business already has a different default rule returns a `409`.
+     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default.
      * 
      *
      * @return bool|null
@@ -86,7 +211,7 @@ class AMBRoutingRuleUpdate
         return $this->isDefault;
     }
     /**
-     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default. Setting it true while the business already has a different default rule returns a `409`.
+     * Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default.
      *
      * @param bool|null $isDefault
      *

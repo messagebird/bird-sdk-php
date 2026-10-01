@@ -13,7 +13,7 @@ class TemplateVariable
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
      * 
      *
      * @var string|null
@@ -27,14 +27,15 @@ class TemplateVariable
      */
     protected $type;
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
      * 
      *
      * @var bool|null
      */
     protected $required;
     /**
-     * A plain-language description of what values this variable accepts.
+     * A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
+     * 
      *
      * @var string|null
      */
@@ -47,7 +48,14 @@ class TemplateVariable
      */
     protected $sensitive = false;
     /**
-     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+     * Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $system = false;
+    /**
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
      * 
      *
      * @return string|null
@@ -57,7 +65,7 @@ class TemplateVariable
         return $this->key;
     }
     /**
-     * The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
      *
      * @param string|null $key
      *
@@ -93,7 +101,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
      * 
      *
      * @return bool|null
@@ -103,7 +111,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
      *
      * @param bool|null $required
      *
@@ -116,7 +124,8 @@ class TemplateVariable
         return $this;
     }
     /**
-     * A plain-language description of what values this variable accepts.
+     * A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
+     * 
      *
      * @return string|null
      */
@@ -125,7 +134,7 @@ class TemplateVariable
         return $this->constraint;
     }
     /**
-     * A plain-language description of what values this variable accepts.
+     * A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
      *
      * @param string|null $constraint
      *
@@ -158,6 +167,29 @@ class TemplateVariable
     {
         $this->initialized['sensitive'] = true;
         $this->sensitive = $sensitive;
+        return $this;
+    }
+    /**
+     * Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getSystem(): ?bool
+    {
+        return $this->system;
+    }
+    /**
+     * Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+     *
+     * @param bool|null $system
+     *
+     * @return self
+     */
+    public function setSystem(?bool $system): self
+    {
+        $this->initialized['system'] = true;
+        $this->system = $system;
         return $this;
     }
 }

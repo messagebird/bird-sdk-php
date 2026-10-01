@@ -1500,11 +1500,25 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionEndpointNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionPartyNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionCallSampleNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSequenceSavedExecutionSample::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionSampleNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSequenceSavedPreview::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedPreviewNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSequencePresentation::class => \MessageBird\Wire\Normalizer\VoiceSequencePresentationNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceCallSequence::class => \MessageBird\Wire\Normalizer\VoiceCallSequenceNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceCall::class => \MessageBird\Wire\Normalizer\VoiceCallNormalizer::class,
 
         \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallSequenceRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class => \MessageBird\Wire\Normalizer\CreateVoiceCallSequenceRequestDefinitionNormalizer::class,
 
         \MessageBird\Wire\Model\CreateVoiceCallRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallRequestNormalizer::class,
 
@@ -2293,9 +2307,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceLeg::class => false,
             \MessageBird\Wire\Model\VoiceLegActor::class => false,
             \MessageBird\Wire\Model\VoiceLegList::class => false,
+            \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => false,
+            \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => false,
+            \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class => false,
+            \MessageBird\Wire\Model\VoiceSequenceSavedExecutionSample::class => false,
+            \MessageBird\Wire\Model\VoiceSequenceSavedPreview::class => false,
+            \MessageBird\Wire\Model\VoiceSequencePresentation::class => false,
             \MessageBird\Wire\Model\VoiceCallSequence::class => false,
             \MessageBird\Wire\Model\VoiceCall::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false,
+            \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallRequest::class => false,
             \MessageBird\Wire\Model\VoiceDestination::class => false,
             \MessageBird\Wire\Model\VoiceDestinationList::class => false,

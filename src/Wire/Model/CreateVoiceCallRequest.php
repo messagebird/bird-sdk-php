@@ -31,6 +31,8 @@ class CreateVoiceCallRequest
      */
     protected $ringingTimeoutSeconds = 30;
     /**
+     * Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+     *
      * @var CreateVoiceCallSequenceRequest|null
      */
     protected $sequence;
@@ -101,6 +103,8 @@ class CreateVoiceCallRequest
         return $this;
     }
     /**
+     * Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+     *
      * @return CreateVoiceCallSequenceRequest|null
      */
     public function getSequence(): ?CreateVoiceCallSequenceRequest
@@ -108,6 +112,8 @@ class CreateVoiceCallRequest
         return $this->sequence;
     }
     /**
+     * Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+     *
      * @param CreateVoiceCallSequenceRequest|null $sequence
      *
      * @return self
