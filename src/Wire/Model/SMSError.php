@@ -18,6 +18,7 @@ class SMSError
      * - `invalid_destination`: The number is unassigned, ported out, or malformed.
      * - `unreachable`: The handset is off or outside coverage.
      * - `blocked_by_carrier`: The carrier filtered the message.
+     * - `blocked_by_fraud_protection`: Bird fraud protection blocked suspected SMS pumping.
      * - `blocked_by_recipient`: The recipient device blocked the sender.
      * - `landline_unreachable`: The destination is a landline that does not accept SMS.
      * - `content_rejected`: The carrier rejected the content.
@@ -34,7 +35,7 @@ class SMSError
      */
     protected $code;
     /**
-     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
+     * The failure in words: the provider's reason text, or Bird's explanation for a fraud protection block or a message refused before submission. Free-form, so branch on `code` and show this to a human.
      *
      * @var string|null
      */
@@ -57,6 +58,7 @@ class SMSError
      * - `invalid_destination`: The number is unassigned, ported out, or malformed.
      * - `unreachable`: The handset is off or outside coverage.
      * - `blocked_by_carrier`: The carrier filtered the message.
+     * - `blocked_by_fraud_protection`: Bird fraud protection blocked suspected SMS pumping.
      * - `blocked_by_recipient`: The recipient device blocked the sender.
      * - `landline_unreachable`: The destination is a landline that does not accept SMS.
      * - `content_rejected`: The carrier rejected the content.
@@ -81,6 +83,7 @@ class SMSError
     - `invalid_destination`: The number is unassigned, ported out, or malformed.
     - `unreachable`: The handset is off or outside coverage.
     - `blocked_by_carrier`: The carrier filtered the message.
+    - `blocked_by_fraud_protection`: Bird fraud protection blocked suspected SMS pumping.
     - `blocked_by_recipient`: The recipient device blocked the sender.
     - `landline_unreachable`: The destination is a landline that does not accept SMS.
     - `content_rejected`: The carrier rejected the content.
@@ -104,7 +107,7 @@ class SMSError
         return $this;
     }
     /**
-     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
+     * The failure in words: the provider's reason text, or Bird's explanation for a fraud protection block or a message refused before submission. Free-form, so branch on `code` and show this to a human.
      *
      * @return string|null
      */
@@ -113,7 +116,7 @@ class SMSError
         return $this->description;
     }
     /**
-     * The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
+     * The failure in words: the provider's reason text, or Bird's explanation for a fraud protection block or a message refused before submission. Free-form, so branch on `code` and show this to a human.
      *
      * @param string|null $description
      *

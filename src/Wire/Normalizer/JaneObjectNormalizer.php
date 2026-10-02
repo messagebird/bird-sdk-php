@@ -794,11 +794,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBConversationRouting::class => \MessageBird\Wire\Normalizer\AMBConversationRoutingNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBConversationRoutingChange::class => \MessageBird\Wire\Normalizer\AMBConversationRoutingChangeNormalizer::class,
+
         \MessageBird\Wire\Model\AMBConversationLastMessage::class => \MessageBird\Wire\Normalizer\AMBConversationLastMessageNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversation::class => \MessageBird\Wire\Normalizer\AMBConversationNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationList::class => \MessageBird\Wire\Normalizer\AMBConversationListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationRoutingChangeDecision::class => \MessageBird\Wire\Normalizer\AMBConversationRoutingChangeDecisionNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationUpdate::class => \MessageBird\Wire\Normalizer\AMBConversationUpdateNormalizer::class,
 
@@ -1418,6 +1422,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WebhookEndpointUpdate::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\WebhookEndpointUpdateCredentials::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateCredentialsNormalizer::class,
+
         \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => \MessageBird\Wire\Normalizer\WebhookRotateSecretResponseNormalizer::class,
 
         \MessageBird\Wire\Model\WebhookTestRequest::class => \MessageBird\Wire\Normalizer\WebhookTestRequestNormalizer::class,
@@ -1966,9 +1972,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBMessageEventList::class => false,
             \MessageBird\Wire\Model\AMBConversationRecipient::class => false,
             \MessageBird\Wire\Model\AMBConversationRouting::class => false,
+            \MessageBird\Wire\Model\AMBConversationRoutingChange::class => false,
             \MessageBird\Wire\Model\AMBConversationLastMessage::class => false,
             \MessageBird\Wire\Model\AMBConversation::class => false,
             \MessageBird\Wire\Model\AMBConversationList::class => false,
+            \MessageBird\Wire\Model\AMBConversationRoutingChangeDecision::class => false,
             \MessageBird\Wire\Model\AMBConversationUpdate::class => false,
             \MessageBird\Wire\Model\AMBConversationTypingRequest::class => false,
             \MessageBird\Wire\Model\AMBSuppressionList::class => false,
@@ -2278,6 +2286,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WebhookEndpointCreate::class => false,
             \MessageBird\Wire\Model\WebhookEndpointCreated::class => false,
             \MessageBird\Wire\Model\WebhookEndpointUpdate::class => false,
+            \MessageBird\Wire\Model\WebhookEndpointUpdateCredentials::class => false,
             \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => false,
             \MessageBird\Wire\Model\WebhookTestRequest::class => false,
             \MessageBird\Wire\Model\WebhookTestResponse::class => false,

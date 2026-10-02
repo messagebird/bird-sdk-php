@@ -76,6 +76,13 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('destination', $data) && $data['destination'] !== null) {
+            $object->setDestination($data['destination']);
+            unset($data['destination']);
+        }
+        elseif (\array_key_exists('destination', $data) && $data['destination'] === null) {
+            $object->setDestination(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -117,6 +124,9 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
             $values[] = $value;
         }
         $dataArray['events'] = $values;
+        if ($data->isInitialized('destination') && null !== $data->getDestination()) {
+            $dataArray['destination'] = $data->getDestination();
+        }
         $dataArray['secret'] = $data->getSecret();
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

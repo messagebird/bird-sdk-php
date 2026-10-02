@@ -13,7 +13,7 @@ class WebhookEndpointUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
+     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL. A connector endpoint's URL comes from its connector and cannot be replaced: any value returns a `422`.
      * 
      *
      * @var string|null
@@ -33,6 +33,13 @@ class WebhookEndpointUpdate
      */
     protected $events;
     /**
+     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     * 
+     *
+     * @var WebhookEndpointUpdateCredentials|null
+     */
+    protected $credentials;
+    /**
      * `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
      * 
      *
@@ -40,7 +47,7 @@ class WebhookEndpointUpdate
      */
     protected $status;
     /**
-     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
+     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL. A connector endpoint's URL comes from its connector and cannot be replaced: any value returns a `422`.
      * 
      *
      * @return string|null
@@ -50,7 +57,7 @@ class WebhookEndpointUpdate
         return $this->url;
     }
     /**
-     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
+     * Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL. A connector endpoint's URL comes from its connector and cannot be replaced: any value returns a `422`.
      *
      * @param string|null $url
      *
@@ -105,6 +112,29 @@ class WebhookEndpointUpdate
     {
         $this->initialized['events'] = true;
         $this->events = $events;
+        return $this;
+    }
+    /**
+     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     * 
+     *
+     * @return WebhookEndpointUpdateCredentials|null
+     */
+    public function getCredentials(): ?WebhookEndpointUpdateCredentials
+    {
+        return $this->credentials;
+    }
+    /**
+     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     *
+     * @param WebhookEndpointUpdateCredentials|null $credentials
+     *
+     * @return self
+     */
+    public function setCredentials(?WebhookEndpointUpdateCredentials $credentials): self
+    {
+        $this->initialized['credentials'] = true;
+        $this->credentials = $credentials;
         return $this;
     }
     /**

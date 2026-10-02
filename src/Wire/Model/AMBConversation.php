@@ -25,11 +25,17 @@ class AMBConversation
      */
     protected $recipient;
     /**
-     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     * Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
      *
      * @var AMBConversationRouting|null
      */
     protected $routing;
+    /**
+     * Routing from a later customer message that differs from `routing`, waiting for a teammate to apply or dismiss it. Null when there is none. Only recorded while the inbox status is open; resolving the conversation or moving its queue clears it.
+     *
+     * @var AMBConversationRoutingChange|null
+     */
+    protected $routingChange;
     /**
      * Most recent message, or null when its identity has not been recorded.
      *
@@ -168,7 +174,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     * Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
      *
      * @return AMBConversationRouting|null
      */
@@ -177,7 +183,7 @@ class AMBConversation
         return $this->routing;
     }
     /**
-     * Routing context from the message that opened or most recently reopened the Apple channel conversation.
+     * Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
      *
      * @param AMBConversationRouting|null $routing
      *
@@ -187,6 +193,28 @@ class AMBConversation
     {
         $this->initialized['routing'] = true;
         $this->routing = $routing;
+        return $this;
+    }
+    /**
+     * Routing from a later customer message that differs from `routing`, waiting for a teammate to apply or dismiss it. Null when there is none. Only recorded while the inbox status is open; resolving the conversation or moving its queue clears it.
+     *
+     * @return AMBConversationRoutingChange|null
+     */
+    public function getRoutingChange(): ?AMBConversationRoutingChange
+    {
+        return $this->routingChange;
+    }
+    /**
+     * Routing from a later customer message that differs from `routing`, waiting for a teammate to apply or dismiss it. Null when there is none. Only recorded while the inbox status is open; resolving the conversation or moving its queue clears it.
+     *
+     * @param AMBConversationRoutingChange|null $routingChange
+     *
+     * @return self
+     */
+    public function setRoutingChange(?AMBConversationRoutingChange $routingChange): self
+    {
+        $this->initialized['routingChange'] = true;
+        $this->routingChange = $routingChange;
         return $this;
     }
     /**

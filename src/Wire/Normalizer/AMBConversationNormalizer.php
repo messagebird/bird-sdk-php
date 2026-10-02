@@ -55,6 +55,12 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('routing', $data) && $data['routing'] === null) {
             $object->setRouting(null);
         }
+        if (\array_key_exists('routing_change', $data) && $data['routing_change'] !== null) {
+            $object->setRoutingChange($this->denormalizer->denormalize($data['routing_change'], \MessageBird\Wire\Model\AMBConversationRoutingChange::class, 'json', $context));
+        }
+        elseif (\array_key_exists('routing_change', $data) && $data['routing_change'] === null) {
+            $object->setRoutingChange(null);
+        }
         if (\array_key_exists('last_message', $data) && $data['last_message'] !== null) {
             $object->setLastMessage($this->denormalizer->denormalize($data['last_message'], \MessageBird\Wire\Model\AMBConversationLastMessage::class, 'json', $context));
         }
@@ -163,6 +169,7 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
     {
         $dataArray = [];
         $dataArray['inbox_status'] = $data->getInboxStatus();
+        $dataArray['routing_change'] = $this->normalizer->normalize($data->getRoutingChange(), 'json', $context);
         $dataArray['last_message'] = $this->normalizer->normalize($data->getLastMessage(), 'json', $context);
         $dataArray['id'] = $data->getId();
         $dataArray['business_account_id'] = $data->getBusinessAccountId();

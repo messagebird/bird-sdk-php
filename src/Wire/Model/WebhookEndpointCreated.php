@@ -55,6 +55,12 @@ class WebhookEndpointCreated extends \ArrayObject
      */
     protected $status;
     /**
+     * How each delivery to the endpoint is built.
+     *
+     * @var mixed|null
+     */
+    protected $destination;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -200,6 +206,28 @@ class WebhookEndpointCreated extends \ArrayObject
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * How each delivery to the endpoint is built.
+     *
+     * @return mixed
+     */
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+    /**
+     * How each delivery to the endpoint is built.
+     *
+     * @param mixed $destination
+     *
+     * @return self
+     */
+    public function setDestination($destination): self
+    {
+        $this->initialized['destination'] = true;
+        $this->destination = $destination;
         return $this;
     }
     /**

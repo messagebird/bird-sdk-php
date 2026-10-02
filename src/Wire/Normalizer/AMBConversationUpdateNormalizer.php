@@ -69,6 +69,20 @@ class AMBConversationUpdateNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('read', $data) && $data['read'] === null) {
             $object->setRead(null);
         }
+        if (\array_key_exists('queue', $data) && $data['queue'] !== null) {
+            $object->setQueue($data['queue']);
+            unset($data['queue']);
+        }
+        elseif (\array_key_exists('queue', $data) && $data['queue'] === null) {
+            $object->setQueue(null);
+        }
+        if (\array_key_exists('routing_change', $data) && $data['routing_change'] !== null) {
+            $object->setRoutingChange($this->denormalizer->denormalize($data['routing_change'], \MessageBird\Wire\Model\AMBConversationRoutingChangeDecision::class, 'json', $context));
+            unset($data['routing_change']);
+        }
+        elseif (\array_key_exists('routing_change', $data) && $data['routing_change'] === null) {
+            $object->setRoutingChange(null);
+        }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value_1;
@@ -94,6 +108,12 @@ class AMBConversationUpdateNormalizer implements DenormalizerInterface, Normaliz
         }
         if ($data->isInitialized('read') && null !== $data->getRead()) {
             $dataArray['read'] = $data->getRead()->format('Y-m-d\TH:i:sP');
+        }
+        if ($data->isInitialized('queue')) {
+            $dataArray['queue'] = $data->getQueue();
+        }
+        if ($data->isInitialized('routingChange') && null !== $data->getRoutingChange()) {
+            $dataArray['routing_change'] = $this->normalizer->normalize($data->getRoutingChange(), 'json', $context);
         }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

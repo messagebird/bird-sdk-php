@@ -59,12 +59,20 @@ class WebhookEndpointCreateNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('description', $data) && $data['description'] === null) {
             $object->setDescription(null);
         }
+        if (\array_key_exists('destination', $data) && $data['destination'] !== null) {
+            $object->setDestination($data['destination']);
+        }
+        elseif (\array_key_exists('destination', $data) && $data['destination'] === null) {
+            $object->setDestination(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['url'] = $data->getUrl();
+        if ($data->isInitialized('url') && null !== $data->getUrl()) {
+            $dataArray['url'] = $data->getUrl();
+        }
         $values = [];
         foreach ($data->getEvents() as $value) {
             $values[] = $value;
@@ -72,6 +80,9 @@ class WebhookEndpointCreateNormalizer implements DenormalizerInterface, Normaliz
         $dataArray['events'] = $values;
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
+        }
+        if ($data->isInitialized('destination') && null !== $data->getDestination()) {
+            $dataArray['destination'] = $data->getDestination();
         }
         return $dataArray;
     }

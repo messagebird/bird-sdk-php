@@ -67,6 +67,12 @@ class WebhookAttemptNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
         }
+        if (\array_key_exists('failure_reason', $data) && $data['failure_reason'] !== null) {
+            $object->setFailureReason($data['failure_reason']);
+        }
+        elseif (\array_key_exists('failure_reason', $data) && $data['failure_reason'] === null) {
+            $object->setFailureReason(null);
+        }
         if (\array_key_exists('response_status_code', $data) && $data['response_status_code'] !== null) {
             $object->setResponseStatusCode($data['response_status_code']);
         }
@@ -102,6 +108,9 @@ class WebhookAttemptNormalizer implements DenormalizerInterface, NormalizerInter
         $dataArray['event_type'] = $data->getEventType();
         $dataArray['status'] = $data->getStatus();
         $dataArray['url'] = $data->getUrl();
+        if ($data->isInitialized('failureReason') && null !== $data->getFailureReason()) {
+            $dataArray['failure_reason'] = $data->getFailureReason();
+        }
         $dataArray['response_status_code'] = $data->getResponseStatusCode();
         if ($data->isInitialized('responseBody') && null !== $data->getResponseBody()) {
             $dataArray['response_body'] = $data->getResponseBody();

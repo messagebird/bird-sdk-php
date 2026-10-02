@@ -26,6 +26,13 @@ final class AmbConversations extends AmbConversationsBase
             // The wire normalizer drops fractional seconds, changing the inclusive read cutoff.
             $body['read'] = self::formatRfc3339($params->getRead());
         }
+        if ($params->isInitialized('queue')) {
+            $body['queue'] = $params->getQueue();
+        }
+        if ($params->isInitialized('routingChange') && $params->getRoutingChange() !== null) {
+            $decision = $params->getRoutingChange();
+            $body['routing_change'] = ['action' => $decision->getAction(), 'message_id' => $decision->getMessageId()];
+        }
 
         return $this->single('PATCH', '/v1/amb/conversations/' . rawurlencode($conversationId), AMBConversation::class, (object) $body, null, $options);
     }

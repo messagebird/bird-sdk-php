@@ -13,7 +13,7 @@ class WebhookEndpointCreate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
+     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`. Required unless `destination` is a connector, whose URL comes from the connector and its `config`; a URL given with one must equal it.
      * 
      *
      * @var string|null
@@ -32,7 +32,14 @@ class WebhookEndpointCreate
      */
     protected $description;
     /**
-     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
+     * How each delivery is built. Omit to post the signed event to `url` unchanged, the same as `{"type": "webhook"}`.
+     * 
+     *
+     * @var mixed|null
+     */
+    protected $destination;
+    /**
+     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`. Required unless `destination` is a connector, whose URL comes from the connector and its `config`; a URL given with one must equal it.
      * 
      *
      * @return string|null
@@ -42,7 +49,7 @@ class WebhookEndpointCreate
         return $this->url;
     }
     /**
-     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
+     * HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`. Required unless `destination` is a connector, whose URL comes from the connector and its `config`; a URL given with one must equal it.
      *
      * @param string|null $url
      *
@@ -96,6 +103,29 @@ class WebhookEndpointCreate
     {
         $this->initialized['description'] = true;
         $this->description = $description;
+        return $this;
+    }
+    /**
+     * How each delivery is built. Omit to post the signed event to `url` unchanged, the same as `{"type": "webhook"}`.
+     * 
+     *
+     * @return mixed
+     */
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+    /**
+     * How each delivery is built. Omit to post the signed event to `url` unchanged, the same as `{"type": "webhook"}`.
+     *
+     * @param mixed $destination
+     *
+     * @return self
+     */
+    public function setDestination($destination): self
+    {
+        $this->initialized['destination'] = true;
+        $this->destination = $destination;
         return $this;
     }
 }

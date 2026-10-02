@@ -54,6 +54,13 @@ class WebhookAttempt
      */
     protected $url;
     /**
+     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     * 
+     *
+     * @var string|null
+     */
+    protected $failureReason;
+    /**
      * HTTP status returned by the receiver. Null when no response was received (timeout, connection error, DNS failure).
      *
      * @var int|null
@@ -206,6 +213,29 @@ class WebhookAttempt
     {
         $this->initialized['url'] = true;
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     * 
+     *
+     * @return string|null
+     */
+    public function getFailureReason(): ?string
+    {
+        return $this->failureReason;
+    }
+    /**
+     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     *
+     * @param string|null $failureReason
+     *
+     * @return self
+     */
+    public function setFailureReason(?string $failureReason): self
+    {
+        $this->initialized['failureReason'] = true;
+        $this->failureReason = $failureReason;
         return $this;
     }
     /**
