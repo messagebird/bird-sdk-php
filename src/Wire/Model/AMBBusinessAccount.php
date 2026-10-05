@@ -35,7 +35,7 @@ class AMBBusinessAccount
      */
     protected $status;
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission.
+     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
      *
      * @var string|null
      */
@@ -161,7 +161,7 @@ class AMBBusinessAccount
         return $this;
     }
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission.
+     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
      *
      * @return string|null
      */
@@ -170,7 +170,7 @@ class AMBBusinessAccount
         return $this->statusReason;
     }
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission.
+     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
      *
      * @param string|null $statusReason
      *

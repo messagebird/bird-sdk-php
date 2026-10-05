@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.68.1
+
+- The `status_reason` field on Apple Messages business accounts and submissions is now documented as possibly containing basic Markdown.
+
 ## 0.68.0
 
 - `Mailbox` and the created webhook endpoint gain `next`: creating a mailbox now suggests subscribing to the mail it receives with a webhook for `email_mailbox.message_received`.

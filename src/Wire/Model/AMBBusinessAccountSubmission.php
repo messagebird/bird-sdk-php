@@ -51,6 +51,8 @@ class AMBBusinessAccountSubmission
      */
     protected $status;
     /**
+     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     *
      * @var string|null
      */
     protected $statusReason;
@@ -225,6 +227,8 @@ class AMBBusinessAccountSubmission
         return $this;
     }
     /**
+     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     *
      * @return string|null
      */
     public function getStatusReason(): ?string
@@ -232,6 +236,8 @@ class AMBBusinessAccountSubmission
         return $this->statusReason;
     }
     /**
+     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     *
      * @param string|null $statusReason
      *
      * @return self
