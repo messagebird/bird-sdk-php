@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppStatsComparisonDelta extends \ArrayObject
+class WhatsAppStatsComparisonDelta
 {
     /**
      * @var array

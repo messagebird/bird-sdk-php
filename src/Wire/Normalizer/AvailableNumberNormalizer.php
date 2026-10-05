@@ -74,6 +74,12 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('ownership_registration_required', $data) && $data['ownership_registration_required'] === null) {
             $object->setOwnershipRegistrationRequired(null);
         }
+        if (\array_key_exists('ownership_address_scope', $data) && $data['ownership_address_scope'] !== null) {
+            $object->setOwnershipAddressScope($data['ownership_address_scope']);
+        }
+        elseif (\array_key_exists('ownership_address_scope', $data) && $data['ownership_address_scope'] === null) {
+            $object->setOwnershipAddressScope(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -88,6 +94,9 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         }
         $dataArray['capabilities'] = $values;
         $dataArray['ownership_registration_required'] = $data->getOwnershipRegistrationRequired();
+        if ($data->isInitialized('ownershipAddressScope') && null !== $data->getOwnershipAddressScope()) {
+            $dataArray['ownership_address_scope'] = $data->getOwnershipAddressScope();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

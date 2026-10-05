@@ -62,7 +62,7 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setTo(null);
         }
         if (\array_key_exists('template', $data) && $data['template'] !== null) {
-            $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\WhatsAppMessageTemplate::class, 'json', $context));
+            $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\WhatsAppMessageTemplateWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('template', $data) && $data['template'] === null) {
             $object->setTemplate(null);

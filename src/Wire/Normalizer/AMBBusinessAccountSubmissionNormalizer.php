@@ -62,19 +62,19 @@ class AMBBusinessAccountSubmissionNormalizer implements DenormalizerInterface, N
             $object->setName(null);
         }
         if (\array_key_exists('readiness_attachment', $data) && $data['readiness_attachment'] !== null) {
-            $object->setReadinessAttachment($data['readiness_attachment']);
+            $object->setReadinessAttachment($this->denormalizer->denormalize($data['readiness_attachment'], \MessageBird\Wire\Model\AMBBusinessAccountSubmissionReadinessAttachment::class, 'json', $context));
         }
         elseif (\array_key_exists('readiness_attachment', $data) && $data['readiness_attachment'] === null) {
             $object->setReadinessAttachment(null);
         }
         if (\array_key_exists('use_cases_attachment', $data) && $data['use_cases_attachment'] !== null) {
-            $object->setUseCasesAttachment($data['use_cases_attachment']);
+            $object->setUseCasesAttachment($this->denormalizer->denormalize($data['use_cases_attachment'], \MessageBird\Wire\Model\AMBBusinessAccountSubmissionUseCasesAttachment::class, 'json', $context));
         }
         elseif (\array_key_exists('use_cases_attachment', $data) && $data['use_cases_attachment'] === null) {
             $object->setUseCasesAttachment(null);
         }
         if (\array_key_exists('video_attachment', $data) && $data['video_attachment'] !== null) {
-            $object->setVideoAttachment($data['video_attachment']);
+            $object->setVideoAttachment($this->denormalizer->denormalize($data['video_attachment'], \MessageBird\Wire\Model\AMBBusinessAccountSubmissionVideoAttachment::class, 'json', $context));
         }
         elseif (\array_key_exists('video_attachment', $data) && $data['video_attachment'] === null) {
             $object->setVideoAttachment(null);

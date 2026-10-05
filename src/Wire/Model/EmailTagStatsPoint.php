@@ -68,14 +68,14 @@ class EmailTagStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailTagStatsPointDelivery|null $delivery
+     * @param EmailTagStatsPointDelivery|EmailDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailTagStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailTagStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -86,14 +86,14 @@ class EmailTagStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailTagStatsPointEngagement|null $engagement
+     * @param EmailTagStatsPointEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailTagStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailTagStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -104,14 +104,14 @@ class EmailTagStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailTagStatsPointLatency|null $latency
+     * @param EmailTagStatsPointLatency|EmailLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailTagStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailTagStatsPointLatency::class);
         return $this;
     }
     /**

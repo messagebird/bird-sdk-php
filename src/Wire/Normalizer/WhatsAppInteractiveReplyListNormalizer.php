@@ -39,29 +39,21 @@ class WhatsAppInteractiveReplyListNormalizer implements DenormalizerInterface, N
         }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
-            unset($data['slug']);
         }
         elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
             $object->setSlug(null);
         }
         if (\array_key_exists('text', $data) && $data['text'] !== null) {
             $object->setText($data['text']);
-            unset($data['text']);
         }
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
         }
         if (\array_key_exists('description', $data) && $data['description'] !== null) {
             $object->setDescription($data['description']);
-            unset($data['description']);
         }
         elseif (\array_key_exists('description', $data) && $data['description'] === null) {
             $object->setDescription(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -72,11 +64,6 @@ class WhatsAppInteractiveReplyListNormalizer implements DenormalizerInterface, N
         $dataArray['text'] = $data->getText();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

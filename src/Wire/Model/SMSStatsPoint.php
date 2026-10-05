@@ -52,14 +52,14 @@ class SMSStatsPoint
         return $this->delivery;
     }
     /**
-     * @param SMSStatsPointDelivery|null $delivery
+     * @param SMSStatsPointDelivery|SMSDeliveryCounts|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?SMSStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, SMSStatsPointDelivery::class);
         return $this;
     }
 }

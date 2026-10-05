@@ -82,14 +82,14 @@ class SMSInboundStatsSummaryResponse
         return $this->comparison;
     }
     /**
-     * @param SMSInboundStatsSummaryResponseComparison|null $comparison
+     * @param SMSInboundStatsSummaryResponseComparison|SMSInboundStatsComparison|array|null $comparison
      *
      * @return self
      */
-    public function setComparison(?SMSInboundStatsSummaryResponseComparison $comparison): self
+    public function setComparison($comparison): self
     {
         $this->initialized['comparison'] = true;
-        $this->comparison = $comparison;
+        $this->comparison = \MessageBird\Core\ModelWrapper::normalize($comparison, SMSInboundStatsSummaryResponseComparison::class);
         return $this;
     }
 }

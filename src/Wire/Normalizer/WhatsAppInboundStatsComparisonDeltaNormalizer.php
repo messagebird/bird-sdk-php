@@ -42,26 +42,15 @@ class WhatsAppInboundStatsComparisonDeltaNormalizer implements DenormalizerInter
         }
         if (\array_key_exists('received_pct_change', $data) && $data['received_pct_change'] !== null) {
             $object->setReceivedPctChange($data['received_pct_change']);
-            unset($data['received_pct_change']);
         }
         elseif (\array_key_exists('received_pct_change', $data) && $data['received_pct_change'] === null) {
             $object->setReceivedPctChange(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

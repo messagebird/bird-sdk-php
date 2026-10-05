@@ -64,14 +64,14 @@ class CreateVoiceCallSequenceRequest
     /**
      * Complete sequence definition to run once after the recipient answers. It must pass the same checks as publishing a sequence, is frozen when the call is accepted, and creates no saved sequence.
      *
-     * @param CreateVoiceCallSequenceRequestDefinition|null $definition
+     * @param CreateVoiceCallSequenceRequestDefinition|VoiceSequenceDefinition|array|null $definition
      *
      * @return self
      */
-    public function setDefinition(?CreateVoiceCallSequenceRequestDefinition $definition): self
+    public function setDefinition($definition): self
     {
         $this->initialized['definition'] = true;
-        $this->definition = $definition;
+        $this->definition = \MessageBird\Core\ModelWrapper::normalize($definition, CreateVoiceCallSequenceRequestDefinition::class);
         return $this;
     }
     /**

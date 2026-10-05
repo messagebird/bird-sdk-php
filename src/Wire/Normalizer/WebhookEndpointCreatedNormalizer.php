@@ -58,6 +58,13 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('description', $data) && $data['description'] === null) {
             $object->setDescription(null);
         }
+        if (\array_key_exists('filter', $data) && $data['filter'] !== null) {
+            $object->setFilter($this->denormalizer->denormalize($data['filter'], \MessageBird\Wire\Model\WebhookEndpointFilter::class, 'json', $context));
+            unset($data['filter']);
+        }
+        elseif (\array_key_exists('filter', $data) && $data['filter'] === null) {
+            $object->setFilter(null);
+        }
         if (\array_key_exists('events', $data) && $data['events'] !== null) {
             $values = [];
             foreach ($data['events'] as $value) {
@@ -119,6 +126,7 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
         }
+        $dataArray['filter'] = $this->normalizer->normalize($data->getFilter(), 'json', $context);
         $values = [];
         foreach ($data->getEvents() as $value) {
             $values[] = $value;

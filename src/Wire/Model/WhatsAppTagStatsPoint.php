@@ -60,14 +60,14 @@ class WhatsAppTagStatsPoint
         return $this->delivery;
     }
     /**
-     * @param WhatsAppTagStatsPointDelivery|null $delivery
+     * @param WhatsAppTagStatsPointDelivery|WhatsAppDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppTagStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppTagStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -78,14 +78,14 @@ class WhatsAppTagStatsPoint
         return $this->engagement;
     }
     /**
-     * @param WhatsAppTagStatsPointEngagement|null $engagement
+     * @param WhatsAppTagStatsPointEngagement|WhatsAppEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppTagStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppTagStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -96,14 +96,14 @@ class WhatsAppTagStatsPoint
         return $this->latency;
     }
     /**
-     * @param WhatsAppTagStatsPointLatency|null $latency
+     * @param WhatsAppTagStatsPointLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppTagStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppTagStatsPointLatency::class);
         return $this;
     }
 }

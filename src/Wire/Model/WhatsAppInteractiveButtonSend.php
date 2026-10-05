@@ -64,14 +64,14 @@ class WhatsAppInteractiveButtonSend
     /**
      * The button's label and the handle it sends back. Send this on a `quick_reply` button.
      *
-     * @param WhatsAppInteractiveButtonSendQuickReply|null $quickReply
+     * @param WhatsAppInteractiveButtonSendQuickReply|WhatsAppInteractiveQuickReplyButtonSend|array|null $quickReply
      *
      * @return self
      */
-    public function setQuickReply(?WhatsAppInteractiveButtonSendQuickReply $quickReply): self
+    public function setQuickReply($quickReply): self
     {
         $this->initialized['quickReply'] = true;
-        $this->quickReply = $quickReply;
+        $this->quickReply = \MessageBird\Core\ModelWrapper::normalize($quickReply, WhatsAppInteractiveButtonSendQuickReply::class);
         return $this;
     }
     /**
@@ -86,14 +86,14 @@ class WhatsAppInteractiveButtonSend
     /**
      * The button's label and the address it opens. Send this on a `cta_url` button.
      *
-     * @param WhatsAppInteractiveButtonSendCtaUrl|null $ctaUrl
+     * @param WhatsAppInteractiveButtonSendCtaUrl|WhatsAppInteractiveCtaUrlSend|array|null $ctaUrl
      *
      * @return self
      */
-    public function setCtaUrl(?WhatsAppInteractiveButtonSendCtaUrl $ctaUrl): self
+    public function setCtaUrl($ctaUrl): self
     {
         $this->initialized['ctaUrl'] = true;
-        $this->ctaUrl = $ctaUrl;
+        $this->ctaUrl = \MessageBird\Core\ModelWrapper::normalize($ctaUrl, WhatsAppInteractiveButtonSendCtaUrl::class);
         return $this;
     }
 }

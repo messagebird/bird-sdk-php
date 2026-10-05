@@ -45,82 +45,63 @@ class SMSTagStatsPointDeliveryNormalizer implements DenormalizerInterface, Norma
         }
         if (\array_key_exists('accepted', $data) && $data['accepted'] !== null) {
             $object->setAccepted($data['accepted']);
-            unset($data['accepted']);
         }
         elseif (\array_key_exists('accepted', $data) && $data['accepted'] === null) {
             $object->setAccepted(null);
         }
         if (\array_key_exists('sent', $data) && $data['sent'] !== null) {
             $object->setSent($data['sent']);
-            unset($data['sent']);
         }
         elseif (\array_key_exists('sent', $data) && $data['sent'] === null) {
             $object->setSent(null);
         }
         if (\array_key_exists('delivered', $data) && $data['delivered'] !== null) {
             $object->setDelivered($data['delivered']);
-            unset($data['delivered']);
         }
         elseif (\array_key_exists('delivered', $data) && $data['delivered'] === null) {
             $object->setDelivered(null);
         }
         if (\array_key_exists('undelivered', $data) && $data['undelivered'] !== null) {
             $object->setUndelivered($data['undelivered']);
-            unset($data['undelivered']);
         }
         elseif (\array_key_exists('undelivered', $data) && $data['undelivered'] === null) {
             $object->setUndelivered(null);
         }
         if (\array_key_exists('failed', $data) && $data['failed'] !== null) {
             $object->setFailed($data['failed']);
-            unset($data['failed']);
         }
         elseif (\array_key_exists('failed', $data) && $data['failed'] === null) {
             $object->setFailed(null);
         }
         if (\array_key_exists('rejected', $data) && $data['rejected'] !== null) {
             $object->setRejected($data['rejected']);
-            unset($data['rejected']);
         }
         elseif (\array_key_exists('rejected', $data) && $data['rejected'] === null) {
             $object->setRejected(null);
         }
         if (\array_key_exists('expired', $data) && $data['expired'] !== null) {
             $object->setExpired($data['expired']);
-            unset($data['expired']);
         }
         elseif (\array_key_exists('expired', $data) && $data['expired'] === null) {
             $object->setExpired(null);
         }
         if (\array_key_exists('delivery_rate', $data) && $data['delivery_rate'] !== null) {
             $object->setDeliveryRate($data['delivery_rate']);
-            unset($data['delivery_rate']);
         }
         elseif (\array_key_exists('delivery_rate', $data) && $data['delivery_rate'] === null) {
             $object->setDeliveryRate(null);
         }
         if (\array_key_exists('failure_rate', $data) && $data['failure_rate'] !== null) {
             $object->setFailureRate($data['failure_rate']);
-            unset($data['failure_rate']);
         }
         elseif (\array_key_exists('failure_rate', $data) && $data['failure_rate'] === null) {
             $object->setFailureRate(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

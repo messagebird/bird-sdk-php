@@ -48,29 +48,21 @@ class SMSMessageSendRequestOptionsNormalizer implements DenormalizerInterface, N
         }
         if (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] !== null) {
             $object->setSmartEncoding($data['smart_encoding']);
-            unset($data['smart_encoding']);
         }
         elseif (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] === null) {
             $object->setSmartEncoding(null);
         }
         if (\array_key_exists('track_clicks', $data) && $data['track_clicks'] !== null) {
             $object->setTrackClicks($data['track_clicks']);
-            unset($data['track_clicks']);
         }
         elseif (\array_key_exists('track_clicks', $data) && $data['track_clicks'] === null) {
             $object->setTrackClicks(null);
         }
         if (\array_key_exists('max_price_per_segment', $data) && $data['max_price_per_segment'] !== null) {
             $object->setMaxPricePerSegment($data['max_price_per_segment']);
-            unset($data['max_price_per_segment']);
         }
         elseif (\array_key_exists('max_price_per_segment', $data) && $data['max_price_per_segment'] === null) {
             $object->setMaxPricePerSegment(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -85,11 +77,6 @@ class SMSMessageSendRequestOptionsNormalizer implements DenormalizerInterface, N
         }
         if ($data->isInitialized('maxPricePerSegment') && null !== $data->getMaxPricePerSegment()) {
             $dataArray['max_price_per_segment'] = $data->getMaxPricePerSegment();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

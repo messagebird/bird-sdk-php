@@ -80,14 +80,14 @@ class EmailBounceCodeStatsPoint
         return $this->bounces;
     }
     /**
-     * @param EmailBounceCodeStatsPointBounces|null $bounces
+     * @param EmailBounceCodeStatsPointBounces|EmailBounceStats|array|null $bounces
      *
      * @return self
      */
-    public function setBounces(?EmailBounceCodeStatsPointBounces $bounces): self
+    public function setBounces($bounces): self
     {
         $this->initialized['bounces'] = true;
-        $this->bounces = $bounces;
+        $this->bounces = \MessageBird\Core\ModelWrapper::normalize($bounces, EmailBounceCodeStatsPointBounces::class);
         return $this;
     }
 }

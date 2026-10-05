@@ -43,6 +43,21 @@ class AvailableNumber
      */
     protected $ownershipRegistrationRequired;
     /**
+     * Where the carrier requires the business address on this number's ownership registration
+     * to be. Present only when the carrier itself registers the number before it carries
+     * traffic and states a rule; omitted otherwise. An address that does not meet the rule
+     * is refused after purchase, and only an address that meets it can fix the registration.
+     * 
+     * - `anywhere`: any business address.
+     * - `country`: a business address in the number's country.
+     * - `number_area`: a business address inside the number's own area code, for example in
+     *   Amsterdam for an Amsterdam (020) number.
+     * 
+     *
+     * @var string|null
+     */
+    protected $ownershipAddressScope;
+    /**
      * Phone number in E.164 format.
      *
      * @return string|null
@@ -150,6 +165,46 @@ class AvailableNumber
     {
         $this->initialized['ownershipRegistrationRequired'] = true;
         $this->ownershipRegistrationRequired = $ownershipRegistrationRequired;
+        return $this;
+    }
+    /**
+     * Where the carrier requires the business address on this number's ownership registration
+     * to be. Present only when the carrier itself registers the number before it carries
+     * traffic and states a rule; omitted otherwise. An address that does not meet the rule
+     * is refused after purchase, and only an address that meets it can fix the registration.
+     * 
+     * - `anywhere`: any business address.
+     * - `country`: a business address in the number's country.
+     * - `number_area`: a business address inside the number's own area code, for example in
+     *   Amsterdam for an Amsterdam (020) number.
+     * 
+     *
+     * @return string|null
+     */
+    public function getOwnershipAddressScope(): ?string
+    {
+        return $this->ownershipAddressScope;
+    }
+    /**
+    * Where the carrier requires the business address on this number's ownership registration
+    to be. Present only when the carrier itself registers the number before it carries
+    traffic and states a rule; omitted otherwise. An address that does not meet the rule
+    is refused after purchase, and only an address that meets it can fix the registration.
+    
+    - `anywhere`: any business address.
+    - `country`: a business address in the number's country.
+    - `number_area`: a business address inside the number's own area code, for example in
+     Amsterdam for an Amsterdam (020) number.
+    
+    *
+    * @param string|null $ownershipAddressScope
+    *
+    * @return self
+    */
+    public function setOwnershipAddressScope(?string $ownershipAddressScope): self
+    {
+        $this->initialized['ownershipAddressScope'] = true;
+        $this->ownershipAddressScope = $ownershipAddressScope;
         return $this;
     }
 }

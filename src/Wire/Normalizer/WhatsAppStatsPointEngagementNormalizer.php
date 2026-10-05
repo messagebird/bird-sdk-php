@@ -39,26 +39,15 @@ class WhatsAppStatsPointEngagementNormalizer implements DenormalizerInterface, N
         }
         if (\array_key_exists('read', $data) && $data['read'] !== null) {
             $object->setRead($data['read']);
-            unset($data['read']);
         }
         elseif (\array_key_exists('read', $data) && $data['read'] === null) {
             $object->setRead(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

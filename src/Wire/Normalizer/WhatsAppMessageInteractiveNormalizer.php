@@ -39,28 +39,24 @@ class WhatsAppMessageInteractiveNormalizer implements DenormalizerInterface, Nor
         }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
-            unset($data['type']);
         }
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
         if (\array_key_exists('header', $data) && $data['header'] !== null) {
-            $object->setHeader($this->denormalizer->denormalize($data['header'], \MessageBird\Wire\Model\WhatsAppInteractiveHeader::class, 'json', $context));
-            unset($data['header']);
+            $object->setHeader($this->denormalizer->denormalize($data['header'], \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('header', $data) && $data['header'] === null) {
             $object->setHeader(null);
         }
         if (\array_key_exists('body_text', $data) && $data['body_text'] !== null) {
             $object->setBodyText($data['body_text']);
-            unset($data['body_text']);
         }
         elseif (\array_key_exists('body_text', $data) && $data['body_text'] === null) {
             $object->setBodyText(null);
         }
         if (\array_key_exists('footer_text', $data) && $data['footer_text'] !== null) {
             $object->setFooterText($data['footer_text']);
-            unset($data['footer_text']);
         }
         elseif (\array_key_exists('footer_text', $data) && $data['footer_text'] === null) {
             $object->setFooterText(null);
@@ -71,21 +67,18 @@ class WhatsAppMessageInteractiveNormalizer implements DenormalizerInterface, Nor
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppInteractiveButton::class, 'json', $context);
             }
             $object->setButtons($values);
-            unset($data['buttons']);
         }
         elseif (\array_key_exists('buttons', $data) && $data['buttons'] === null) {
             $object->setButtons(null);
         }
         if (\array_key_exists('list', $data) && $data['list'] !== null) {
-            $object->setList($this->denormalizer->denormalize($data['list'], \MessageBird\Wire\Model\WhatsAppInteractiveList::class, 'json', $context));
-            unset($data['list']);
+            $object->setList($this->denormalizer->denormalize($data['list'], \MessageBird\Wire\Model\WhatsAppInteractiveListWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('list', $data) && $data['list'] === null) {
             $object->setList(null);
         }
         if (\array_key_exists('cta_url', $data) && $data['cta_url'] !== null) {
-            $object->setCtaUrl($this->denormalizer->denormalize($data['cta_url'], \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrl::class, 'json', $context));
-            unset($data['cta_url']);
+            $object->setCtaUrl($this->denormalizer->denormalize($data['cta_url'], \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrlWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('cta_url', $data) && $data['cta_url'] === null) {
             $object->setCtaUrl(null);
@@ -96,15 +89,9 @@ class WhatsAppMessageInteractiveNormalizer implements DenormalizerInterface, Nor
                 $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppInteractiveCard::class, 'json', $context);
             }
             $object->setCards($values_1);
-            unset($data['cards']);
         }
         elseif (\array_key_exists('cards', $data) && $data['cards'] === null) {
             $object->setCards(null);
-        }
-        foreach ($data as $key => $value_2) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_2;
-            }
         }
         return $object;
     }
@@ -138,11 +125,6 @@ class WhatsAppMessageInteractiveNormalizer implements DenormalizerInterface, Nor
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['cards'] = $values_1;
-        }
-        foreach ($data as $key => $value_2) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value_2;
-            }
         }
         return $dataArray;
     }

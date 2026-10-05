@@ -70,14 +70,14 @@ class EmailTemplatePreviewRequest
     The content is treated exactly as a draft would be: personalization is filled in the same way, a plain-text body is derived from the HTML when you omit it, and content that could not be published is refused with the same error. `version` asks for a published version's own content, so the two cannot be combined.
     
     *
-    * @param EmailTemplatePreviewRequestContent|null $content
+    * @param EmailTemplatePreviewRequestContent|EmailTemplatePreviewContent|array|null $content
     *
     * @return self
     */
-    public function setContent(?EmailTemplatePreviewRequestContent $content): self
+    public function setContent($content): self
     {
         $this->initialized['content'] = true;
-        $this->content = $content;
+        $this->content = \MessageBird\Core\ModelWrapper::normalize($content, EmailTemplatePreviewRequestContent::class);
         return $this;
     }
     /**

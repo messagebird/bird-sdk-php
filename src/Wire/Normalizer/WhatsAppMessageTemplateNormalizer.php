@@ -39,21 +39,18 @@ class WhatsAppMessageTemplateNormalizer implements DenormalizerInterface, Normal
         }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
-            unset($data['slug']);
         }
         elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
             $object->setSlug(null);
         }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
-            unset($data['category']);
         }
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
-            unset($data['language']);
         }
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
@@ -64,26 +61,15 @@ class WhatsAppMessageTemplateNormalizer implements DenormalizerInterface, Normal
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
             }
             $object->setComponents($values);
-            unset($data['components']);
         }
         elseif (\array_key_exists('components', $data) && $data['components'] === null) {
             $object->setComponents(null);
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

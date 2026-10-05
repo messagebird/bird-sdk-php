@@ -33,15 +33,15 @@ class AMBBusinessAccountSubmission
      */
     protected $name;
     /**
-     * @var mixed|null
+     * @var AMBBusinessAccountSubmissionReadinessAttachment|null
      */
     protected $readinessAttachment;
     /**
-     * @var mixed|null
+     * @var AMBBusinessAccountSubmissionUseCasesAttachment|null
      */
     protected $useCasesAttachment;
     /**
-     * @var mixed|null
+     * @var AMBBusinessAccountSubmissionVideoAttachment|null
      */
     protected $videoAttachment;
     /**
@@ -149,57 +149,57 @@ class AMBBusinessAccountSubmission
         return $this;
     }
     /**
-     * @return mixed
+     * @return AMBBusinessAccountSubmissionReadinessAttachment|null
      */
-    public function getReadinessAttachment()
+    public function getReadinessAttachment(): ?AMBBusinessAccountSubmissionReadinessAttachment
     {
         return $this->readinessAttachment;
     }
     /**
-     * @param mixed $readinessAttachment
+     * @param AMBBusinessAccountSubmissionReadinessAttachment|Attachment|array|null $readinessAttachment
      *
      * @return self
      */
     public function setReadinessAttachment($readinessAttachment): self
     {
         $this->initialized['readinessAttachment'] = true;
-        $this->readinessAttachment = $readinessAttachment;
+        $this->readinessAttachment = \MessageBird\Core\ModelWrapper::normalize($readinessAttachment, AMBBusinessAccountSubmissionReadinessAttachment::class);
         return $this;
     }
     /**
-     * @return mixed
+     * @return AMBBusinessAccountSubmissionUseCasesAttachment|null
      */
-    public function getUseCasesAttachment()
+    public function getUseCasesAttachment(): ?AMBBusinessAccountSubmissionUseCasesAttachment
     {
         return $this->useCasesAttachment;
     }
     /**
-     * @param mixed $useCasesAttachment
+     * @param AMBBusinessAccountSubmissionUseCasesAttachment|Attachment|array|null $useCasesAttachment
      *
      * @return self
      */
     public function setUseCasesAttachment($useCasesAttachment): self
     {
         $this->initialized['useCasesAttachment'] = true;
-        $this->useCasesAttachment = $useCasesAttachment;
+        $this->useCasesAttachment = \MessageBird\Core\ModelWrapper::normalize($useCasesAttachment, AMBBusinessAccountSubmissionUseCasesAttachment::class);
         return $this;
     }
     /**
-     * @return mixed
+     * @return AMBBusinessAccountSubmissionVideoAttachment|null
      */
-    public function getVideoAttachment()
+    public function getVideoAttachment(): ?AMBBusinessAccountSubmissionVideoAttachment
     {
         return $this->videoAttachment;
     }
     /**
-     * @param mixed $videoAttachment
+     * @param AMBBusinessAccountSubmissionVideoAttachment|Attachment|array|null $videoAttachment
      *
      * @return self
      */
     public function setVideoAttachment($videoAttachment): self
     {
         $this->initialized['videoAttachment'] = true;
-        $this->videoAttachment = $videoAttachment;
+        $this->videoAttachment = \MessageBird\Core\ModelWrapper::normalize($videoAttachment, AMBBusinessAccountSubmissionVideoAttachment::class);
         return $this;
     }
     /**

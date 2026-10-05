@@ -60,14 +60,14 @@ class WhatsAppTemplateCategoryStatsPoint
         return $this->delivery;
     }
     /**
-     * @param WhatsAppTemplateCategoryStatsPointDelivery|null $delivery
+     * @param WhatsAppTemplateCategoryStatsPointDelivery|WhatsAppDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppTemplateCategoryStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppTemplateCategoryStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -78,14 +78,14 @@ class WhatsAppTemplateCategoryStatsPoint
         return $this->engagement;
     }
     /**
-     * @param WhatsAppTemplateCategoryStatsPointEngagement|null $engagement
+     * @param WhatsAppTemplateCategoryStatsPointEngagement|WhatsAppEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppTemplateCategoryStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppTemplateCategoryStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -96,14 +96,14 @@ class WhatsAppTemplateCategoryStatsPoint
         return $this->latency;
     }
     /**
-     * @param WhatsAppTemplateCategoryStatsPointLatency|null $latency
+     * @param WhatsAppTemplateCategoryStatsPointLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppTemplateCategoryStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppTemplateCategoryStatsPointLatency::class);
         return $this;
     }
 }

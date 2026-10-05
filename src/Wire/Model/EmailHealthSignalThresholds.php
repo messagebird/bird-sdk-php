@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class EmailHealthSignalThresholds extends \ArrayObject
+class EmailHealthSignalThresholds
 {
     /**
      * @var array

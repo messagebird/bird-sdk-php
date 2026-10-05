@@ -39,50 +39,39 @@ class EmailStatsSummaryComparisonNormalizer implements DenormalizerInterface, No
         }
         if (\array_key_exists('period', $data) && $data['period'] !== null) {
             $object->setPeriod($this->denormalizer->denormalize($data['period'], \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class, 'json', $context));
-            unset($data['period']);
         }
         elseif (\array_key_exists('period', $data) && $data['period'] === null) {
             $object->setPeriod(null);
         }
         if (\array_key_exists('sends_accepted', $data) && $data['sends_accepted'] !== null) {
             $object->setSendsAccepted($data['sends_accepted']);
-            unset($data['sends_accepted']);
         }
         elseif (\array_key_exists('sends_accepted', $data) && $data['sends_accepted'] === null) {
             $object->setSendsAccepted(null);
         }
         if (\array_key_exists('delivery', $data) && $data['delivery'] !== null) {
             $object->setDelivery($this->denormalizer->denormalize($data['delivery'], \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class, 'json', $context));
-            unset($data['delivery']);
         }
         elseif (\array_key_exists('delivery', $data) && $data['delivery'] === null) {
             $object->setDelivery(null);
         }
         if (\array_key_exists('engagement', $data) && $data['engagement'] !== null) {
             $object->setEngagement($this->denormalizer->denormalize($data['engagement'], \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class, 'json', $context));
-            unset($data['engagement']);
         }
         elseif (\array_key_exists('engagement', $data) && $data['engagement'] === null) {
             $object->setEngagement(null);
         }
         if (\array_key_exists('latency', $data) && $data['latency'] !== null) {
             $object->setLatency($this->denormalizer->denormalize($data['latency'], \MessageBird\Wire\Model\EmailStatsComparisonLatency::class, 'json', $context));
-            unset($data['latency']);
         }
         elseif (\array_key_exists('latency', $data) && $data['latency'] === null) {
             $object->setLatency(null);
         }
         if (\array_key_exists('delta', $data) && $data['delta'] !== null) {
-            $object->setDelta($this->denormalizer->denormalize($data['delta'], \MessageBird\Wire\Model\EmailStatsComparisonDelta::class, 'json', $context));
-            unset($data['delta']);
+            $object->setDelta($this->denormalizer->denormalize($data['delta'], \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('delta', $data) && $data['delta'] === null) {
             $object->setDelta(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -90,11 +79,6 @@ class EmailStatsSummaryComparisonNormalizer implements DenormalizerInterface, No
     {
         $dataArray = [];
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

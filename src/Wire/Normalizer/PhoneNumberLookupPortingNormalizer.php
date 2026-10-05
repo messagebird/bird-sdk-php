@@ -45,28 +45,24 @@ class PhoneNumberLookupPortingNormalizer implements DenormalizerInterface, Norma
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-            unset($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
         if (\array_key_exists('ported', $data) && $data['ported'] !== null) {
             $object->setPorted($data['ported']);
-            unset($data['ported']);
         }
         elseif (\array_key_exists('ported', $data) && $data['ported'] === null) {
             $object->setPorted(null);
         }
         if (\array_key_exists('last_ported_at', $data) && $data['last_ported_at'] !== null) {
             $object->setLastPortedAt(new \DateTime($data['last_ported_at']));
-            unset($data['last_ported_at']);
         }
         elseif (\array_key_exists('last_ported_at', $data) && $data['last_ported_at'] === null) {
             $object->setLastPortedAt(null);
         }
         if (\array_key_exists('last_ported_at_is_approximate', $data) && $data['last_ported_at_is_approximate'] !== null) {
             $object->setLastPortedAtIsApproximate($data['last_ported_at_is_approximate']);
-            unset($data['last_ported_at_is_approximate']);
         }
         elseif (\array_key_exists('last_ported_at_is_approximate', $data) && $data['last_ported_at_is_approximate'] === null) {
             $object->setLastPortedAtIsApproximate(null);
@@ -77,26 +73,15 @@ class PhoneNumberLookupPortingNormalizer implements DenormalizerInterface, Norma
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\LookupPortingEvent::class, 'json', $context);
             }
             $object->setHistory($values);
-            unset($data['history']);
         }
         elseif (\array_key_exists('history', $data) && $data['history'] === null) {
             $object->setHistory(null);
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

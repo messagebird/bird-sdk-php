@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppMessageTemplate extends \ArrayObject
+class WhatsAppMessageTemplate
 {
     /**
      * @var array

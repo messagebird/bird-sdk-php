@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppInteractiveCtaUrl extends \ArrayObject
+class WhatsAppInteractiveCtaUrl
 {
     /**
      * @var array

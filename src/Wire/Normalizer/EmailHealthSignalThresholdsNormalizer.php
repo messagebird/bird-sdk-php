@@ -45,40 +45,27 @@ class EmailHealthSignalThresholdsNormalizer implements DenormalizerInterface, No
         }
         if (\array_key_exists('direction', $data) && $data['direction'] !== null) {
             $object->setDirection($data['direction']);
-            unset($data['direction']);
         }
         elseif (\array_key_exists('direction', $data) && $data['direction'] === null) {
             $object->setDirection(null);
         }
         if (\array_key_exists('watching', $data) && $data['watching'] !== null) {
             $object->setWatching($data['watching']);
-            unset($data['watching']);
         }
         elseif (\array_key_exists('watching', $data) && $data['watching'] === null) {
             $object->setWatching(null);
         }
         if (\array_key_exists('throttled', $data) && $data['throttled'] !== null) {
             $object->setThrottled($data['throttled']);
-            unset($data['throttled']);
         }
         elseif (\array_key_exists('throttled', $data) && $data['throttled'] === null) {
             $object->setThrottled(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

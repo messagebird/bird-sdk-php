@@ -62,14 +62,14 @@ class SMSErrorCodeStatsPoint
         return $this->delivery;
     }
     /**
-     * @param SMSErrorCodeStatsPointDelivery|null $delivery
+     * @param SMSErrorCodeStatsPointDelivery|SMSDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?SMSErrorCodeStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, SMSErrorCodeStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -80,14 +80,14 @@ class SMSErrorCodeStatsPoint
         return $this->latency;
     }
     /**
-     * @param SMSErrorCodeStatsPointLatency|null $latency
+     * @param SMSErrorCodeStatsPointLatency|SMSLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?SMSErrorCodeStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, SMSErrorCodeStatsPointLatency::class);
         return $this;
     }
     /**

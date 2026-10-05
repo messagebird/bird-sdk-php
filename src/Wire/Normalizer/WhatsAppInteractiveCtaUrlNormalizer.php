@@ -39,22 +39,15 @@ class WhatsAppInteractiveCtaUrlNormalizer implements DenormalizerInterface, Norm
         }
         if (\array_key_exists('text', $data) && $data['text'] !== null) {
             $object->setText($data['text']);
-            unset($data['text']);
         }
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
         }
         if (\array_key_exists('url', $data) && $data['url'] !== null) {
             $object->setUrl($data['url']);
-            unset($data['url']);
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -63,11 +56,6 @@ class WhatsAppInteractiveCtaUrlNormalizer implements DenormalizerInterface, Norm
         $dataArray = [];
         $dataArray['text'] = $data->getText();
         $dataArray['url'] = $data->getUrl();
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

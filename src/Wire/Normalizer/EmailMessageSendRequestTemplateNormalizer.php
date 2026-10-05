@@ -39,21 +39,18 @@ class EmailMessageSendRequestTemplateNormalizer implements DenormalizerInterface
         }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
-            unset($data['id']);
         }
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
-            unset($data['slug']);
         }
         elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
             $object->setSlug(null);
         }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
-            unset($data['language']);
         }
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
@@ -64,15 +61,9 @@ class EmailMessageSendRequestTemplateNormalizer implements DenormalizerInterface
                 $values[$key] = $value;
             }
             $object->setParameters($values);
-            unset($data['parameters']);
         }
         elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
             $object->setParameters(null);
-        }
-        foreach ($data as $key_1 => $value_1) {
-            if (preg_match('/.*/', (string) $key_1)) {
-                $object[$key_1] = $value_1;
-            }
         }
         return $object;
     }
@@ -94,11 +85,6 @@ class EmailMessageSendRequestTemplateNormalizer implements DenormalizerInterface
                 $values[$key] = $value;
             }
             $dataArray['parameters'] = (object) $values;
-        }
-        foreach ($data as $key_1 => $value_1) {
-            if (preg_match('/.*/', (string) $key_1)) {
-                $dataArray[$key_1] = $value_1;
-            }
         }
         return $dataArray;
     }

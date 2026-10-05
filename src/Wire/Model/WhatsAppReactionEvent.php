@@ -118,14 +118,14 @@ class WhatsAppReactionEvent
     /**
      * Who made the change. Your business number on a reaction you placed, the contact on one they placed.
      *
-     * @param WhatsAppReactionEventFrom|null $from
+     * @param WhatsAppReactionEventFrom|WhatsAppAddress|array|null $from
      *
      * @return self
      */
-    public function setFrom(?WhatsAppReactionEventFrom $from): self
+    public function setFrom($from): self
     {
         $this->initialized['from'] = true;
-        $this->from = $from;
+        $this->from = \MessageBird\Core\ModelWrapper::normalize($from, WhatsAppReactionEventFrom::class);
         return $this;
     }
     /**

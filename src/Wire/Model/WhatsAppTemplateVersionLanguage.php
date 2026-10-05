@@ -97,14 +97,14 @@ class WhatsAppTemplateVersionLanguage
     /**
      * Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
      *
-     * @param WhatsAppTemplateVersionLanguageRejection|null $rejection
+     * @param WhatsAppTemplateVersionLanguageRejection|WhatsAppTemplateRejection|array|null $rejection
      *
      * @return self
      */
-    public function setRejection(?WhatsAppTemplateVersionLanguageRejection $rejection): self
+    public function setRejection($rejection): self
     {
         $this->initialized['rejection'] = true;
-        $this->rejection = $rejection;
+        $this->rejection = \MessageBird\Core\ModelWrapper::normalize($rejection, WhatsAppTemplateVersionLanguageRejection::class);
         return $this;
     }
     /**
@@ -120,14 +120,14 @@ class WhatsAppTemplateVersionLanguage
     /**
      * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
-     * @param WhatsAppTemplateVersionLanguageError|null $error
+     * @param WhatsAppTemplateVersionLanguageError|WhatsAppTemplateSubmissionError|array|null $error
      *
      * @return self
      */
-    public function setError(?WhatsAppTemplateVersionLanguageError $error): self
+    public function setError($error): self
     {
         $this->initialized['error'] = true;
-        $this->error = $error;
+        $this->error = \MessageBird\Core\ModelWrapper::normalize($error, WhatsAppTemplateVersionLanguageError::class);
         return $this;
     }
 }

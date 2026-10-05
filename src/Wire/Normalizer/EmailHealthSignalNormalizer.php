@@ -68,7 +68,7 @@ class EmailHealthSignalNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setStatus(null);
         }
         if (\array_key_exists('thresholds', $data) && $data['thresholds'] !== null) {
-            $object->setThresholds($this->denormalizer->denormalize($data['thresholds'], \MessageBird\Wire\Model\EmailHealthSignalThresholds::class, 'json', $context));
+            $object->setThresholds($this->denormalizer->denormalize($data['thresholds'], \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('thresholds', $data) && $data['thresholds'] === null) {
             $object->setThresholds(null);

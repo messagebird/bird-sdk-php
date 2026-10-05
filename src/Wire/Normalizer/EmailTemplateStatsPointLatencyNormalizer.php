@@ -39,40 +39,27 @@ class EmailTemplateStatsPointLatencyNormalizer implements DenormalizerInterface,
         }
         if (\array_key_exists('processing', $data) && $data['processing'] !== null) {
             $object->setProcessing($this->denormalizer->denormalize($data['processing'], \MessageBird\Wire\Model\EmailLatencyQuantiles::class, 'json', $context));
-            unset($data['processing']);
         }
         elseif (\array_key_exists('processing', $data) && $data['processing'] === null) {
             $object->setProcessing(null);
         }
         if (\array_key_exists('delivery', $data) && $data['delivery'] !== null) {
             $object->setDelivery($this->denormalizer->denormalize($data['delivery'], \MessageBird\Wire\Model\EmailLatencyQuantiles::class, 'json', $context));
-            unset($data['delivery']);
         }
         elseif (\array_key_exists('delivery', $data) && $data['delivery'] === null) {
             $object->setDelivery(null);
         }
         if (\array_key_exists('total', $data) && $data['total'] !== null) {
             $object->setTotal($this->denormalizer->denormalize($data['total'], \MessageBird\Wire\Model\EmailLatencyQuantiles::class, 'json', $context));
-            unset($data['total']);
         }
         elseif (\array_key_exists('total', $data) && $data['total'] === null) {
             $object->setTotal(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

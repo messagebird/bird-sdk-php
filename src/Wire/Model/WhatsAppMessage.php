@@ -37,7 +37,7 @@ class WhatsAppMessage
     /**
      * The template the message was sent from. For authentication templates the filled-in values are not returned.
      *
-     * @var WhatsAppMessageTemplate|null
+     * @var WhatsAppMessageTemplateWrapper|null
      */
     protected $template;
     /**
@@ -286,14 +286,14 @@ class WhatsAppMessage
     /**
      * Sender of the message. On outbound messages, the business number it was sent from; on inbound, the WhatsApp contact.
      *
-     * @param WhatsAppMessageFrom|null $from
+     * @param WhatsAppMessageFrom|WhatsAppAddress|array|null $from
      *
      * @return self
      */
-    public function setFrom(?WhatsAppMessageFrom $from): self
+    public function setFrom($from): self
     {
         $this->initialized['from'] = true;
-        $this->from = $from;
+        $this->from = \MessageBird\Core\ModelWrapper::normalize($from, WhatsAppMessageFrom::class);
         return $this;
     }
     /**
@@ -308,36 +308,36 @@ class WhatsAppMessage
     /**
      * Recipient of the message. On outbound messages, the WhatsApp contact; on inbound, the business number.
      *
-     * @param WhatsAppMessageTo|null $to
+     * @param WhatsAppMessageTo|WhatsAppAddress|array|null $to
      *
      * @return self
      */
-    public function setTo(?WhatsAppMessageTo $to): self
+    public function setTo($to): self
     {
         $this->initialized['to'] = true;
-        $this->to = $to;
+        $this->to = \MessageBird\Core\ModelWrapper::normalize($to, WhatsAppMessageTo::class);
         return $this;
     }
     /**
      * The template the message was sent from. For authentication templates the filled-in values are not returned.
      *
-     * @return WhatsAppMessageTemplate|null
+     * @return WhatsAppMessageTemplateWrapper|null
      */
-    public function getTemplate(): ?WhatsAppMessageTemplate
+    public function getTemplate(): ?WhatsAppMessageTemplateWrapper
     {
         return $this->template;
     }
     /**
      * The template the message was sent from. For authentication templates the filled-in values are not returned.
      *
-     * @param WhatsAppMessageTemplate|null $template
+     * @param WhatsAppMessageTemplateWrapper|WhatsAppMessageTemplate|array|null $template
      *
      * @return self
      */
-    public function setTemplate(?WhatsAppMessageTemplate $template): self
+    public function setTemplate($template): self
     {
         $this->initialized['template'] = true;
-        $this->template = $template;
+        $this->template = \MessageBird\Core\ModelWrapper::normalize($template, WhatsAppMessageTemplateWrapper::class);
         return $this;
     }
     /**
@@ -352,14 +352,14 @@ class WhatsAppMessage
     /**
      * Text the message carried.
      *
-     * @param WhatsAppMessageText|null $text
+     * @param WhatsAppMessageText|WhatsAppText|array|null $text
      *
      * @return self
      */
-    public function setText(?WhatsAppMessageText $text): self
+    public function setText($text): self
     {
         $this->initialized['text'] = true;
-        $this->text = $text;
+        $this->text = \MessageBird\Core\ModelWrapper::normalize($text, WhatsAppMessageText::class);
         return $this;
     }
     /**
@@ -374,14 +374,14 @@ class WhatsAppMessage
     /**
      * Image the message carried.
      *
-     * @param WhatsAppMessageImage|null $image
+     * @param WhatsAppMessageImage|WhatsAppImage|array|null $image
      *
      * @return self
      */
-    public function setImage(?WhatsAppMessageImage $image): self
+    public function setImage($image): self
     {
         $this->initialized['image'] = true;
-        $this->image = $image;
+        $this->image = \MessageBird\Core\ModelWrapper::normalize($image, WhatsAppMessageImage::class);
         return $this;
     }
     /**
@@ -396,14 +396,14 @@ class WhatsAppMessage
     /**
      * Video the message carried.
      *
-     * @param WhatsAppMessageVideo|null $video
+     * @param WhatsAppMessageVideo|WhatsAppVideo|array|null $video
      *
      * @return self
      */
-    public function setVideo(?WhatsAppMessageVideo $video): self
+    public function setVideo($video): self
     {
         $this->initialized['video'] = true;
-        $this->video = $video;
+        $this->video = \MessageBird\Core\ModelWrapper::normalize($video, WhatsAppMessageVideo::class);
         return $this;
     }
     /**
@@ -418,14 +418,14 @@ class WhatsAppMessage
     /**
      * Audio the message carried.
      *
-     * @param WhatsAppMessageAudio|null $audio
+     * @param WhatsAppMessageAudio|WhatsAppAudio|array|null $audio
      *
      * @return self
      */
-    public function setAudio(?WhatsAppMessageAudio $audio): self
+    public function setAudio($audio): self
     {
         $this->initialized['audio'] = true;
-        $this->audio = $audio;
+        $this->audio = \MessageBird\Core\ModelWrapper::normalize($audio, WhatsAppMessageAudio::class);
         return $this;
     }
     /**
@@ -440,14 +440,14 @@ class WhatsAppMessage
     /**
      * Sticker the message carried.
      *
-     * @param WhatsAppMessageSticker|null $sticker
+     * @param WhatsAppMessageSticker|WhatsAppSticker|array|null $sticker
      *
      * @return self
      */
-    public function setSticker(?WhatsAppMessageSticker $sticker): self
+    public function setSticker($sticker): self
     {
         $this->initialized['sticker'] = true;
-        $this->sticker = $sticker;
+        $this->sticker = \MessageBird\Core\ModelWrapper::normalize($sticker, WhatsAppMessageSticker::class);
         return $this;
     }
     /**
@@ -462,14 +462,14 @@ class WhatsAppMessage
     /**
      * Document the message carried.
      *
-     * @param WhatsAppMessageDocument|null $document
+     * @param WhatsAppMessageDocument|WhatsAppDocument|array|null $document
      *
      * @return self
      */
-    public function setDocument(?WhatsAppMessageDocument $document): self
+    public function setDocument($document): self
     {
         $this->initialized['document'] = true;
-        $this->document = $document;
+        $this->document = \MessageBird\Core\ModelWrapper::normalize($document, WhatsAppMessageDocument::class);
         return $this;
     }
     /**
@@ -484,14 +484,14 @@ class WhatsAppMessage
     /**
      * Location the message carried.
      *
-     * @param WhatsAppMessageLocation|null $location
+     * @param WhatsAppMessageLocation|WhatsAppLocation|array|null $location
      *
      * @return self
      */
-    public function setLocation(?WhatsAppMessageLocation $location): self
+    public function setLocation($location): self
     {
         $this->initialized['location'] = true;
-        $this->location = $location;
+        $this->location = \MessageBird\Core\ModelWrapper::normalize($location, WhatsAppMessageLocation::class);
         return $this;
     }
     /**
@@ -530,14 +530,14 @@ class WhatsAppMessage
     /**
      * Interactive content the message carried. Outbound only: a contact cannot send one. A tap on a reply button or a list row reads back as `interactive_reply` on the contact's inbound message; a `cta_url` link sends nothing back, and the two request kinds are answered by an inbound `location` or `contact_cards` message.
      *
-     * @param WhatsAppMessageInteractive|null $interactive
+     * @param WhatsAppMessageInteractive|WhatsAppInteractive|array|null $interactive
      *
      * @return self
      */
-    public function setInteractive(?WhatsAppMessageInteractive $interactive): self
+    public function setInteractive($interactive): self
     {
         $this->initialized['interactive'] = true;
-        $this->interactive = $interactive;
+        $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, WhatsAppMessageInteractive::class);
         return $this;
     }
     /**
@@ -576,14 +576,14 @@ class WhatsAppMessage
     /**
      * What the contact tapped, on a message answering an interactive message or a template's quick-reply button. Inbound only.
      *
-     * @param WhatsAppMessageInteractiveReply|null $interactiveReply
+     * @param WhatsAppMessageInteractiveReply|WhatsAppInteractiveReply|array|null $interactiveReply
      *
      * @return self
      */
-    public function setInteractiveReply(?WhatsAppMessageInteractiveReply $interactiveReply): self
+    public function setInteractiveReply($interactiveReply): self
     {
         $this->initialized['interactiveReply'] = true;
-        $this->interactiveReply = $interactiveReply;
+        $this->interactiveReply = \MessageBird\Core\ModelWrapper::normalize($interactiveReply, WhatsAppMessageInteractiveReply::class);
         return $this;
     }
     /**
@@ -599,14 +599,14 @@ class WhatsAppMessage
     /**
      * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
      *
-     * @param WhatsAppMessageUnsupported|null $unsupported
+     * @param WhatsAppMessageUnsupported|WhatsAppUnsupported|array|null $unsupported
      *
      * @return self
      */
-    public function setUnsupported(?WhatsAppMessageUnsupported $unsupported): self
+    public function setUnsupported($unsupported): self
     {
         $this->initialized['unsupported'] = true;
-        $this->unsupported = $unsupported;
+        $this->unsupported = \MessageBird\Core\ModelWrapper::normalize($unsupported, WhatsAppMessageUnsupported::class);
         return $this;
     }
     /**

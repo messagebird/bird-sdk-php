@@ -60,14 +60,14 @@ class WhatsAppStatsPoint
         return $this->delivery;
     }
     /**
-     * @param WhatsAppStatsPointDelivery|null $delivery
+     * @param WhatsAppStatsPointDelivery|WhatsAppDeliveryCounts|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -78,14 +78,14 @@ class WhatsAppStatsPoint
         return $this->engagement;
     }
     /**
-     * @param WhatsAppStatsPointEngagement|null $engagement
+     * @param WhatsAppStatsPointEngagement|WhatsAppEngagementCounts|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -96,14 +96,14 @@ class WhatsAppStatsPoint
         return $this->latency;
     }
     /**
-     * @param WhatsAppStatsPointLatency|null $latency
+     * @param WhatsAppStatsPointLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppStatsPointLatency::class);
         return $this;
     }
 }

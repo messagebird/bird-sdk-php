@@ -39,29 +39,21 @@ class WhatsAppMessageSendRequestDocumentNormalizer implements DenormalizerInterf
         }
         if (\array_key_exists('url', $data) && $data['url'] !== null) {
             $object->setUrl($data['url']);
-            unset($data['url']);
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
         }
         if (\array_key_exists('caption', $data) && $data['caption'] !== null) {
             $object->setCaption($data['caption']);
-            unset($data['caption']);
         }
         elseif (\array_key_exists('caption', $data) && $data['caption'] === null) {
             $object->setCaption(null);
         }
         if (\array_key_exists('filename', $data) && $data['filename'] !== null) {
             $object->setFilename($data['filename']);
-            unset($data['filename']);
         }
         elseif (\array_key_exists('filename', $data) && $data['filename'] === null) {
             $object->setFilename(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -74,11 +66,6 @@ class WhatsAppMessageSendRequestDocumentNormalizer implements DenormalizerInterf
         }
         if ($data->isInitialized('filename') && null !== $data->getFilename()) {
             $dataArray['filename'] = $data->getFilename();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

@@ -38,7 +38,7 @@ class EmailHealthSignal
      */
     protected $status;
     /**
-     * @var EmailHealthSignalThresholds|null
+     * @var EmailHealthSignalThresholdsWrapper|null
      */
     protected $thresholds;
     /**
@@ -131,21 +131,21 @@ class EmailHealthSignal
         return $this;
     }
     /**
-     * @return EmailHealthSignalThresholds|null
+     * @return EmailHealthSignalThresholdsWrapper|null
      */
-    public function getThresholds(): ?EmailHealthSignalThresholds
+    public function getThresholds(): ?EmailHealthSignalThresholdsWrapper
     {
         return $this->thresholds;
     }
     /**
-     * @param EmailHealthSignalThresholds|null $thresholds
+     * @param EmailHealthSignalThresholdsWrapper|EmailHealthSignalThresholds|array|null $thresholds
      *
      * @return self
      */
-    public function setThresholds(?EmailHealthSignalThresholds $thresholds): self
+    public function setThresholds($thresholds): self
     {
         $this->initialized['thresholds'] = true;
-        $this->thresholds = $thresholds;
+        $this->thresholds = \MessageBird\Core\ModelWrapper::normalize($thresholds, EmailHealthSignalThresholdsWrapper::class);
         return $this;
     }
 }

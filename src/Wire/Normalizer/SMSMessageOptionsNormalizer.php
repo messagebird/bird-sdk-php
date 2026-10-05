@@ -42,15 +42,9 @@ class SMSMessageOptionsNormalizer implements DenormalizerInterface, NormalizerIn
         }
         if (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] !== null) {
             $object->setSmartEncoding($data['smart_encoding']);
-            unset($data['smart_encoding']);
         }
         elseif (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] === null) {
             $object->setSmartEncoding(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -58,11 +52,6 @@ class SMSMessageOptionsNormalizer implements DenormalizerInterface, NormalizerIn
     {
         $dataArray = [];
         $dataArray['smart_encoding'] = $data->getSmartEncoding();
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

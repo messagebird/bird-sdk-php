@@ -39,7 +39,6 @@ class WhatsAppBusinessAccountMetaHealthStatusNormalizer implements DenormalizerI
         }
         if (\array_key_exists('can_send_message', $data) && $data['can_send_message'] !== null) {
             $object->setCanSendMessage($data['can_send_message']);
-            unset($data['can_send_message']);
         }
         elseif (\array_key_exists('can_send_message', $data) && $data['can_send_message'] === null) {
             $object->setCanSendMessage(null);
@@ -50,26 +49,15 @@ class WhatsAppBusinessAccountMetaHealthStatusNormalizer implements DenormalizerI
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMetaHealthEntity::class, 'json', $context);
             }
             $object->setEntities($values);
-            unset($data['entities']);
         }
         elseif (\array_key_exists('entities', $data) && $data['entities'] === null) {
             $object->setEntities(null);
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

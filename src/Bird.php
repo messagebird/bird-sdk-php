@@ -93,7 +93,7 @@ final class Bird
     /**
      * $region resolves the endpoint when $baseUrl is not given; it sits after
      * $httpClient so the transport-injection seam the conformance driver binds
-     * to keeps its position. A key without a `bk_{region}_` prefix needs an
+     * to keeps its position. A key without a `bk_{region}_` or `bm_{region}_` prefix needs an
      * explicit $region or $baseUrl. $email carries channel-level send defaults;
      * $webhookSecret is the signing secret `$bird->webhooks->unwrap()` verifies with;
      * alone (no $apiKey) it constructs a receiver-only client that can verify but not
@@ -680,7 +680,7 @@ final class Bird
         }
         if ($region === null) {
             throw new \InvalidArgumentException(
-                'cannot determine region: pass $region or $baseUrl, or use a bk_{region}_{token} API key',
+                'cannot determine region: pass $region or $baseUrl, or use a bk_{region}_{token} or bm_{region}_{token} API key',
             );
         }
 
@@ -688,11 +688,11 @@ final class Bird
     }
 
     /**
-     * Extract the region from a `bk_{region}_{token}` key, where region is two
+     * Extract the region from a `bk_{region}_{token}` or `bm_{region}_{token}` key, where region is two
      * letters followed by digits (e.g. `eu1`); null for any other key shape.
      */
     private static function regionFromApiKey(string $apiKey): ?string
     {
-        return preg_match('/^bk_([a-z]{2}[0-9]+)_/', $apiKey, $matches) === 1 ? $matches[1] : null;
+        return preg_match('/^(?:bk|bm)_([a-z]{2}[0-9]+)_.+/', $apiKey, $matches) === 1 ? $matches[1] : null;
     }
 }

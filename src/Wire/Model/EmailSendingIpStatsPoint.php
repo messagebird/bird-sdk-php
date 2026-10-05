@@ -92,14 +92,14 @@ class EmailSendingIpStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailSendingIpStatsPointDelivery|null $delivery
+     * @param EmailSendingIpStatsPointDelivery|EmailSendingIpDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailSendingIpStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailSendingIpStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -110,14 +110,14 @@ class EmailSendingIpStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailSendingIpStatsPointLatency|null $latency
+     * @param EmailSendingIpStatsPointLatency|EmailDeliveryLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailSendingIpStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailSendingIpStatsPointLatency::class);
         return $this;
     }
     /**

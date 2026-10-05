@@ -94,14 +94,14 @@ class EmailStatsSummary
         return $this->delivery;
     }
     /**
-     * @param EmailStatsSummaryDelivery|null $delivery
+     * @param EmailStatsSummaryDelivery|EmailDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailStatsSummaryDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailStatsSummaryDelivery::class);
         return $this;
     }
     /**
@@ -112,14 +112,14 @@ class EmailStatsSummary
         return $this->engagement;
     }
     /**
-     * @param EmailStatsSummaryEngagement|null $engagement
+     * @param EmailStatsSummaryEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailStatsSummaryEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailStatsSummaryEngagement::class);
         return $this;
     }
     /**
@@ -130,14 +130,14 @@ class EmailStatsSummary
         return $this->latency;
     }
     /**
-     * @param EmailStatsSummaryLatency|null $latency
+     * @param EmailStatsSummaryLatency|EmailLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailStatsSummaryLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailStatsSummaryLatency::class);
         return $this;
     }
     /**
@@ -148,14 +148,14 @@ class EmailStatsSummary
         return $this->comparison;
     }
     /**
-     * @param EmailStatsSummaryComparison|null $comparison
+     * @param EmailStatsSummaryComparison|EmailStatsComparison|array|null $comparison
      *
      * @return self
      */
-    public function setComparison(?EmailStatsSummaryComparison $comparison): self
+    public function setComparison($comparison): self
     {
         $this->initialized['comparison'] = true;
-        $this->comparison = $comparison;
+        $this->comparison = \MessageBird\Core\ModelWrapper::normalize($comparison, EmailStatsSummaryComparison::class);
         return $this;
     }
 }

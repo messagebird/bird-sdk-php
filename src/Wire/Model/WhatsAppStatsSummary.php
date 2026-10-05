@@ -66,14 +66,14 @@ class WhatsAppStatsSummary
         return $this->delivery;
     }
     /**
-     * @param WhatsAppStatsSummaryDelivery|null $delivery
+     * @param WhatsAppStatsSummaryDelivery|WhatsAppDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppStatsSummaryDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppStatsSummaryDelivery::class);
         return $this;
     }
     /**
@@ -84,14 +84,14 @@ class WhatsAppStatsSummary
         return $this->engagement;
     }
     /**
-     * @param WhatsAppStatsSummaryEngagement|null $engagement
+     * @param WhatsAppStatsSummaryEngagement|WhatsAppEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppStatsSummaryEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppStatsSummaryEngagement::class);
         return $this;
     }
     /**
@@ -102,14 +102,14 @@ class WhatsAppStatsSummary
         return $this->latency;
     }
     /**
-     * @param WhatsAppStatsSummaryLatency|null $latency
+     * @param WhatsAppStatsSummaryLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppStatsSummaryLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppStatsSummaryLatency::class);
         return $this;
     }
     /**
@@ -120,14 +120,14 @@ class WhatsAppStatsSummary
         return $this->comparison;
     }
     /**
-     * @param WhatsAppStatsSummaryComparison|null $comparison
+     * @param WhatsAppStatsSummaryComparison|WhatsAppStatsComparison|array|null $comparison
      *
      * @return self
      */
-    public function setComparison(?WhatsAppStatsSummaryComparison $comparison): self
+    public function setComparison($comparison): self
     {
         $this->initialized['comparison'] = true;
-        $this->comparison = $comparison;
+        $this->comparison = \MessageBird\Core\ModelWrapper::normalize($comparison, WhatsAppStatsSummaryComparison::class);
         return $this;
     }
 }

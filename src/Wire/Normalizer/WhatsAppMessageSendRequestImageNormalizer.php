@@ -39,22 +39,15 @@ class WhatsAppMessageSendRequestImageNormalizer implements DenormalizerInterface
         }
         if (\array_key_exists('url', $data) && $data['url'] !== null) {
             $object->setUrl($data['url']);
-            unset($data['url']);
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
         }
         if (\array_key_exists('caption', $data) && $data['caption'] !== null) {
             $object->setCaption($data['caption']);
-            unset($data['caption']);
         }
         elseif (\array_key_exists('caption', $data) && $data['caption'] === null) {
             $object->setCaption(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -64,11 +57,6 @@ class WhatsAppMessageSendRequestImageNormalizer implements DenormalizerInterface
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('caption') && null !== $data->getCaption()) {
             $dataArray['caption'] = $data->getCaption();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

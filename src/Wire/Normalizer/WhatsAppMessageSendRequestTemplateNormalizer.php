@@ -39,21 +39,18 @@ class WhatsAppMessageSendRequestTemplateNormalizer implements DenormalizerInterf
         }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
-            unset($data['id']);
         }
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
-            unset($data['slug']);
         }
         elseif (\array_key_exists('slug', $data) && $data['slug'] === null) {
             $object->setSlug(null);
         }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
-            unset($data['language']);
         }
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
@@ -64,15 +61,9 @@ class WhatsAppMessageSendRequestTemplateNormalizer implements DenormalizerInterf
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
             }
             $object->setComponents($values);
-            unset($data['components']);
         }
         elseif (\array_key_exists('components', $data) && $data['components'] === null) {
             $object->setComponents(null);
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
-            }
         }
         return $object;
     }
@@ -94,11 +85,6 @@ class WhatsAppMessageSendRequestTemplateNormalizer implements DenormalizerInterf
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $dataArray['components'] = $values;
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value_1;
-            }
         }
         return $dataArray;
     }

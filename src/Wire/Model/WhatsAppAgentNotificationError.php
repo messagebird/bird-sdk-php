@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppAgentNotificationError extends \ArrayObject
+class WhatsAppAgentNotificationError
 {
     /**
      * @var array

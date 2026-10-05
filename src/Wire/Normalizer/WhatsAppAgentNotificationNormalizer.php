@@ -80,7 +80,7 @@ class WhatsAppAgentNotificationNormalizer implements DenormalizerInterface, Norm
             $object->setSkippedReason(null);
         }
         if (\array_key_exists('error', $data) && $data['error'] !== null) {
-            $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class, 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('error', $data) && $data['error'] === null) {
             $object->setError(null);

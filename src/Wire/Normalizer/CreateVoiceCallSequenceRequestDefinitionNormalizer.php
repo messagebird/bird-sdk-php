@@ -39,14 +39,12 @@ class CreateVoiceCallSequenceRequestDefinitionNormalizer implements Denormalizer
         }
         if (\array_key_exists('schema_version', $data) && $data['schema_version'] !== null) {
             $object->setSchemaVersion($data['schema_version']);
-            unset($data['schema_version']);
         }
         elseif (\array_key_exists('schema_version', $data) && $data['schema_version'] === null) {
             $object->setSchemaVersion(null);
         }
         if (\array_key_exists('expression_environment', $data) && $data['expression_environment'] !== null) {
             $object->setExpressionEnvironment($data['expression_environment']);
-            unset($data['expression_environment']);
         }
         elseif (\array_key_exists('expression_environment', $data) && $data['expression_environment'] === null) {
             $object->setExpressionEnvironment(null);
@@ -61,7 +59,6 @@ class CreateVoiceCallSequenceRequestDefinitionNormalizer implements Denormalizer
                 $values[] = $values_1;
             }
             $object->setNodes($values);
-            unset($data['nodes']);
         }
         elseif (\array_key_exists('nodes', $data) && $data['nodes'] === null) {
             $object->setNodes(null);
@@ -72,22 +69,15 @@ class CreateVoiceCallSequenceRequestDefinitionNormalizer implements Denormalizer
                 $values_2[$key_1] = $value_2;
             }
             $object->setSettings($values_2);
-            unset($data['settings']);
         }
         elseif (\array_key_exists('settings', $data) && $data['settings'] === null) {
             $object->setSettings(null);
         }
         if (\array_key_exists('presentation', $data) && $data['presentation'] !== null) {
             $object->setPresentation($this->denormalizer->denormalize($data['presentation'], \MessageBird\Wire\Model\VoiceSequencePresentation::class, 'json', $context));
-            unset($data['presentation']);
         }
         elseif (\array_key_exists('presentation', $data) && $data['presentation'] === null) {
             $object->setPresentation(null);
-        }
-        foreach ($data as $key_2 => $value_3) {
-            if (preg_match('/.*/', (string) $key_2)) {
-                $object[$key_2] = $value_3;
-            }
         }
         return $object;
     }
@@ -114,11 +104,6 @@ class CreateVoiceCallSequenceRequestDefinitionNormalizer implements Denormalizer
         }
         if ($data->isInitialized('presentation') && null !== $data->getPresentation()) {
             $dataArray['presentation'] = $this->normalizer->normalize($data->getPresentation(), 'json', $context);
-        }
-        foreach ($data as $key_2 => $value_3) {
-            if (preg_match('/.*/', (string) $key_2)) {
-                $dataArray[$key_2] = $value_3;
-            }
         }
         return $dataArray;
     }

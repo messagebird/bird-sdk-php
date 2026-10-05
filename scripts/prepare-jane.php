@@ -66,6 +66,31 @@ $propertiesOf = static function (array $schema, int $depth = 0) use (&$propertie
 
     return $properties;
 };
+
+$inlineUntypedUnions = static function (array $node, int $depth = 0) use (&$inlineUntypedUnions, $resolve): array {
+    if ($depth > 64) {
+        throw new RuntimeException('Cyclic or excessively deep schema union');
+    }
+    foreach ($node['anyOf'] ?? [] as $index => $arm) {
+        if (!isset($arm['$ref'])) {
+            continue;
+        }
+        $target = $resolve($arm);
+        if (!isset($target['type']) && (isset($target['oneOf']) || isset($target['anyOf']))) {
+            // Jane skips typeless anyOf references and emits an empty PHP union.
+            $node['anyOf'][$index] = $target;
+        }
+    }
+    foreach ($node as $key => $value) {
+        if (is_array($value)) {
+            $node[$key] = $inlineUntypedUnions($value, $depth + 1);
+        }
+    }
+
+    return $node;
+};
+$document = $inlineUntypedUnions($document);
+
 foreach ($document['components']['schemas'] as &$schema) {
     if (!isset($schema['allOf'])) {
         continue;
@@ -82,71 +107,117 @@ foreach ($document['components']['schemas'] as &$schema) {
 }
 unset($schema);
 
-// Jane prunes classes behind untyped allOf wrappers even when their refs are reachable.
-$roots = [];
-$visited = [];
-$visit = static function (array $node) use (&$visit, &$roots, &$visited, $resolve, $propertiesOf): void {
-    if (isset($node['allOf']) && count($node['allOf']) === 1 && isset($node['allOf'][0]['$ref'])) {
-        $ref = $node['allOf'][0]['$ref'];
-        $target = $resolve($node['allOf'][0]);
-        if (!isset($target['type']) && isset($target['allOf']) && $propertiesOf($target) !== []) {
-            $roots[$ref] = true;
+$original = Yaml::parseFile($argv[3]);
+$originalSchemas = $original['components']['schemas'];
+$baseModel = static function (array $schema, array $seen = []) use (&$baseModel, $originalSchemas): bool {
+    if (isset($schema['properties'])) {
+        return true;
+    }
+    if (isset($schema['$ref'])) {
+        $reference = $schema['$ref'];
+        $prefix = '#/components/schemas/';
+        if (!str_starts_with($reference, $prefix) || isset($seen[$reference])) {
+            return false;
+        }
+        $seen[$reference] = true;
+        return $baseModel($originalSchemas[substr($reference, strlen($prefix))] ?? [], $seen);
+    }
+    foreach ($schema['allOf'] ?? [] as $arm) {
+        if ($baseModel($arm, $seen)) {
+            return true;
         }
     }
-    if (isset($node['$ref']) && !isset($visited[$node['$ref']])) {
-        $visited[$node['$ref']] = true;
-        $visit($resolve($node));
-    }
-    foreach ($node as $value) {
-        if (is_array($value)) {
-            $visit($value);
-        }
-    }
+    return false;
 };
-$paths = require __DIR__ . '/surface-paths.php';
-foreach ($document['paths'] as $name => $path) {
-    foreach ($paths as $pattern) {
-        if (preg_match('#' . $pattern . '#', $name)) {
-            $visit($path);
-            break;
+$wrapperBases = [];
+$collisions = [];
+$walkProperties = static function (array $schema, string $owner, array $seen = []) use (&$walkProperties, &$wrapperBases, &$collisions, $originalSchemas, $baseModel): void {
+    foreach ($schema['properties'] ?? [] as $field => $property) {
+        $name = $owner . str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $field)));
+        $nextSeen = $seen;
+        while (isset($property['$ref']) && str_starts_with($property['$ref'], '#/components/schemas/')) {
+            if (isset($nextSeen[$property['$ref']])) {
+                continue 2;
+            }
+            $nextSeen[$property['$ref']] = true;
+            $name = substr($property['$ref'], strlen('#/components/schemas/'));
+            $property = $originalSchemas[$name] ?? [];
         }
-    }
-}
-foreach (array_keys($roots) as $index => $ref) {
-    $document['paths']['/__parity/schemas/' . $index] = [
-        'get' => [
-            'operationId' => 'paritySchema' . $index,
-            'responses' => ['200' => [
-                'description' => 'Reachable wire schema retained for generator comparison.',
-                'content' => ['application/json' => ['schema' => ['$ref' => $ref]]],
-            ]],
-        ],
-    ];
-}
-
-// Jane emits an empty PHP type for a union of untyped unions; its wire value is mixed.
-$normalize = static function (array &$node) use (&$normalize, $resolve): void {
-    if (isset($node['anyOf']) && count($node['anyOf']) > 1) {
-        $nestedUnions = true;
-        foreach ($node['anyOf'] as $arm) {
-            $target = $resolve($arm);
-            if (isset($target['type']) || (!isset($target['oneOf']) && !isset($target['anyOf']))) {
-                $nestedUnions = false;
-                break;
+        $all = $property['allOf'] ?? [];
+        if (count($all) === 1 && !isset($property['properties']) && count($all[0]) === 1 && isset($all[0]['$ref'])) {
+            $reference = $all[0]['$ref'];
+            $prefix = '#/components/schemas/';
+            if (str_starts_with($reference, $prefix)) {
+                $base = substr($reference, strlen($prefix));
+                if ($baseModel($originalSchemas[$base] ?? [])) {
+                    if ($name === $base) {
+                        $name .= 'Wrapper';
+                        while (isset($originalSchemas[$name])) {
+                            $name .= 'Wrapper';
+                        }
+                        $collisions[$owner][$field] = $name;
+                    }
+                    $wrapperBases[$name] = $base;
+                }
             }
         }
-        if ($nestedUnions) {
-            unset($node['anyOf']);
+        $walkProperties($property, $name, $nextSeen);
+    }
+    foreach (['items', 'additionalProperties'] as $nested) {
+        if (isset($schema[$nested]) && is_array($schema[$nested])) {
+            $walkProperties($schema[$nested], $owner, $seen);
         }
     }
-    foreach ($node as &$value) {
-        if (is_array($value)) {
-            $normalize($value);
+    foreach ($schema['allOf'] ?? [] as $arm) {
+        if (!isset($arm['$ref'])) {
+            $walkProperties($arm, $owner, $seen);
         }
     }
-    unset($value);
 };
-$normalize($document);
+foreach ($originalSchemas as $name => $schema) {
+    $walkProperties($schema, $name);
+}
+$wrapperOpen = static function (string $name, array $seen = []) use (&$wrapperOpen, $wrapperBases, $originalSchemas): bool {
+    if (isset($seen[$name])) {
+        throw new RuntimeException('Circular wrapper inheritance');
+    }
+    $seen[$name] = true;
+    if (isset($wrapperBases[$name])) {
+        return $wrapperOpen($wrapperBases[$name], $seen);
+    }
+    return ($originalSchemas[$name]['additionalProperties'] ?? true) !== false;
+};
+$prepareWrappers = static function (array $schema, string $owner) use (&$prepareWrappers, &$document, $collisions, $wrapperBases, $wrapperOpen): array {
+    if (isset($wrapperBases[$owner])) {
+        $schema['additionalProperties'] = $wrapperOpen($owner);
+    }
+    foreach ($schema['properties'] ?? [] as $field => $property) {
+        $name = $owner . str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $field)));
+        if (isset($collisions[$owner][$field])) {
+            $name = $collisions[$owner][$field];
+            $property['additionalProperties'] = $wrapperOpen($name);
+            $document['components']['schemas'][$name] = $property;
+            $schema['properties'][$field] = ['$ref' => '#/components/schemas/' . $name];
+        } elseif (!isset($property['$ref'])) {
+            $schema['properties'][$field] = $prepareWrappers($property, $name);
+        }
+    }
+    foreach ($schema['allOf'] ?? [] as $index => $arm) {
+        if (!isset($arm['$ref'])) {
+            $schema['allOf'][$index] = $prepareWrappers($arm, $owner);
+        }
+    }
+    return $schema;
+};
+foreach ($document['components']['schemas'] as $name => $schema) {
+    $document['components']['schemas'][$name] = $prepareWrappers($schema, $name);
+}
+foreach (array_unique($wrapperBases) as $base) {
+    if (!isset($document['components']['schemas'][$base]['type'])) {
+        $document['components']['schemas'][$base]['type'] = 'object';
+    }
+}
+$document['x-sdk-wrapper-bases'] = $wrapperBases;
 
 $output = json_encode($document, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 if (file_put_contents($argv[2], $output) === false) {

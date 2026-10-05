@@ -72,96 +72,75 @@ class EmailStatsComparisonDeltaNormalizer implements DenormalizerInterface, Norm
         }
         if (\array_key_exists('sends_accepted_pct_change', $data) && $data['sends_accepted_pct_change'] !== null) {
             $object->setSendsAcceptedPctChange($data['sends_accepted_pct_change']);
-            unset($data['sends_accepted_pct_change']);
         }
         elseif (\array_key_exists('sends_accepted_pct_change', $data) && $data['sends_accepted_pct_change'] === null) {
             $object->setSendsAcceptedPctChange(null);
         }
         if (\array_key_exists('delivered_pct_change', $data) && $data['delivered_pct_change'] !== null) {
             $object->setDeliveredPctChange($data['delivered_pct_change']);
-            unset($data['delivered_pct_change']);
         }
         elseif (\array_key_exists('delivered_pct_change', $data) && $data['delivered_pct_change'] === null) {
             $object->setDeliveredPctChange(null);
         }
         if (\array_key_exists('bounced_pct_change', $data) && $data['bounced_pct_change'] !== null) {
             $object->setBouncedPctChange($data['bounced_pct_change']);
-            unset($data['bounced_pct_change']);
         }
         elseif (\array_key_exists('bounced_pct_change', $data) && $data['bounced_pct_change'] === null) {
             $object->setBouncedPctChange(null);
         }
         if (\array_key_exists('complained_pct_change', $data) && $data['complained_pct_change'] !== null) {
             $object->setComplainedPctChange($data['complained_pct_change']);
-            unset($data['complained_pct_change']);
         }
         elseif (\array_key_exists('complained_pct_change', $data) && $data['complained_pct_change'] === null) {
             $object->setComplainedPctChange(null);
         }
         if (\array_key_exists('opened_pct_change', $data) && $data['opened_pct_change'] !== null) {
             $object->setOpenedPctChange($data['opened_pct_change']);
-            unset($data['opened_pct_change']);
         }
         elseif (\array_key_exists('opened_pct_change', $data) && $data['opened_pct_change'] === null) {
             $object->setOpenedPctChange(null);
         }
         if (\array_key_exists('delivery_rate_pp', $data) && $data['delivery_rate_pp'] !== null) {
             $object->setDeliveryRatePp($data['delivery_rate_pp']);
-            unset($data['delivery_rate_pp']);
         }
         elseif (\array_key_exists('delivery_rate_pp', $data) && $data['delivery_rate_pp'] === null) {
             $object->setDeliveryRatePp(null);
         }
         if (\array_key_exists('open_rate_pp', $data) && $data['open_rate_pp'] !== null) {
             $object->setOpenRatePp($data['open_rate_pp']);
-            unset($data['open_rate_pp']);
         }
         elseif (\array_key_exists('open_rate_pp', $data) && $data['open_rate_pp'] === null) {
             $object->setOpenRatePp(null);
         }
         if (\array_key_exists('click_rate_pp', $data) && $data['click_rate_pp'] !== null) {
             $object->setClickRatePp($data['click_rate_pp']);
-            unset($data['click_rate_pp']);
         }
         elseif (\array_key_exists('click_rate_pp', $data) && $data['click_rate_pp'] === null) {
             $object->setClickRatePp(null);
         }
         if (\array_key_exists('bounce_rate_pp', $data) && $data['bounce_rate_pp'] !== null) {
             $object->setBounceRatePp($data['bounce_rate_pp']);
-            unset($data['bounce_rate_pp']);
         }
         elseif (\array_key_exists('bounce_rate_pp', $data) && $data['bounce_rate_pp'] === null) {
             $object->setBounceRatePp(null);
         }
         if (\array_key_exists('complaint_rate_pp', $data) && $data['complaint_rate_pp'] !== null) {
             $object->setComplaintRatePp($data['complaint_rate_pp']);
-            unset($data['complaint_rate_pp']);
         }
         elseif (\array_key_exists('complaint_rate_pp', $data) && $data['complaint_rate_pp'] === null) {
             $object->setComplaintRatePp(null);
         }
         if (\array_key_exists('unsubscribe_rate_pp', $data) && $data['unsubscribe_rate_pp'] !== null) {
             $object->setUnsubscribeRatePp($data['unsubscribe_rate_pp']);
-            unset($data['unsubscribe_rate_pp']);
         }
         elseif (\array_key_exists('unsubscribe_rate_pp', $data) && $data['unsubscribe_rate_pp'] === null) {
             $object->setUnsubscribeRatePp(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

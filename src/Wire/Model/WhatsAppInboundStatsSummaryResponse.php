@@ -82,14 +82,14 @@ class WhatsAppInboundStatsSummaryResponse
         return $this->comparison;
     }
     /**
-     * @param WhatsAppInboundStatsSummaryResponseComparison|null $comparison
+     * @param WhatsAppInboundStatsSummaryResponseComparison|WhatsAppInboundStatsComparison|array|null $comparison
      *
      * @return self
      */
-    public function setComparison(?WhatsAppInboundStatsSummaryResponseComparison $comparison): self
+    public function setComparison($comparison): self
     {
         $this->initialized['comparison'] = true;
-        $this->comparison = $comparison;
+        $this->comparison = \MessageBird\Core\ModelWrapper::normalize($comparison, WhatsAppInboundStatsSummaryResponseComparison::class);
         return $this;
     }
 }

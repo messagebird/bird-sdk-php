@@ -42,47 +42,33 @@ class PhoneNumberLookupRoamingNormalizer implements DenormalizerInterface, Norma
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-            unset($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
         if (\array_key_exists('is_roaming', $data) && $data['is_roaming'] !== null) {
             $object->setIsRoaming($data['is_roaming']);
-            unset($data['is_roaming']);
         }
         elseif (\array_key_exists('is_roaming', $data) && $data['is_roaming'] === null) {
             $object->setIsRoaming(null);
         }
         if (\array_key_exists('mcc', $data) && $data['mcc'] !== null) {
             $object->setMcc($data['mcc']);
-            unset($data['mcc']);
         }
         elseif (\array_key_exists('mcc', $data) && $data['mcc'] === null) {
             $object->setMcc(null);
         }
         if (\array_key_exists('mnc', $data) && $data['mnc'] !== null) {
             $object->setMnc($data['mnc']);
-            unset($data['mnc']);
         }
         elseif (\array_key_exists('mnc', $data) && $data['mnc'] === null) {
             $object->setMnc(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

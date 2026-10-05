@@ -64,7 +64,7 @@ class WhatsAppBusinessAccount
     /**
      * WhatsApp's ban on this account, absent unless Bird was told of one. `status` is what the account said when Bird last read it; this is what WhatsApp announced, which arrives only on the webhook that announces it and is never re-read.
      *
-     * @var WhatsAppBusinessAccountBan|null
+     * @var WhatsAppBusinessAccountBanWrapper|null
      */
     protected $ban;
     /**
@@ -258,36 +258,36 @@ class WhatsAppBusinessAccount
     /**
      * The Meta business portfolio that owns this account. Absent until Meta has reported it. The portfolio is where a messaging limit is set, so every account it owns shares one.
      *
-     * @param WhatsAppBusinessAccountPortfolio|null $portfolio
+     * @param WhatsAppBusinessAccountPortfolio|WhatsAppBusinessPortfolio|array|null $portfolio
      *
      * @return self
      */
-    public function setPortfolio(?WhatsAppBusinessAccountPortfolio $portfolio): self
+    public function setPortfolio($portfolio): self
     {
         $this->initialized['portfolio'] = true;
-        $this->portfolio = $portfolio;
+        $this->portfolio = \MessageBird\Core\ModelWrapper::normalize($portfolio, WhatsAppBusinessAccountPortfolio::class);
         return $this;
     }
     /**
      * WhatsApp's ban on this account, absent unless Bird was told of one. `status` is what the account said when Bird last read it; this is what WhatsApp announced, which arrives only on the webhook that announces it and is never re-read.
      *
-     * @return WhatsAppBusinessAccountBan|null
+     * @return WhatsAppBusinessAccountBanWrapper|null
      */
-    public function getBan(): ?WhatsAppBusinessAccountBan
+    public function getBan(): ?WhatsAppBusinessAccountBanWrapper
     {
         return $this->ban;
     }
     /**
      * WhatsApp's ban on this account, absent unless Bird was told of one. `status` is what the account said when Bird last read it; this is what WhatsApp announced, which arrives only on the webhook that announces it and is never re-read.
      *
-     * @param WhatsAppBusinessAccountBan|null $ban
+     * @param WhatsAppBusinessAccountBanWrapper|WhatsAppBusinessAccountBan|array|null $ban
      *
      * @return self
      */
-    public function setBan(?WhatsAppBusinessAccountBan $ban): self
+    public function setBan($ban): self
     {
         $this->initialized['ban'] = true;
-        $this->ban = $ban;
+        $this->ban = \MessageBird\Core\ModelWrapper::normalize($ban, WhatsAppBusinessAccountBanWrapper::class);
         return $this;
     }
     /**
@@ -302,14 +302,14 @@ class WhatsAppBusinessAccount
     /**
      * Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
      *
-     * @param WhatsAppBusinessAccountMetaHealthStatus|null $metaHealthStatus
+     * @param WhatsAppBusinessAccountMetaHealthStatus|WhatsAppMetaHealthStatus|array|null $metaHealthStatus
      *
      * @return self
      */
-    public function setMetaHealthStatus(?WhatsAppBusinessAccountMetaHealthStatus $metaHealthStatus): self
+    public function setMetaHealthStatus($metaHealthStatus): self
     {
         $this->initialized['metaHealthStatus'] = true;
-        $this->metaHealthStatus = $metaHealthStatus;
+        $this->metaHealthStatus = \MessageBird\Core\ModelWrapper::normalize($metaHealthStatus, WhatsAppBusinessAccountMetaHealthStatus::class);
         return $this;
     }
     /**

@@ -45,36 +45,27 @@ class WhatsAppMessageSendRequestLocationNormalizer implements DenormalizerInterf
         }
         if (\array_key_exists('latitude', $data) && $data['latitude'] !== null) {
             $object->setLatitude($data['latitude']);
-            unset($data['latitude']);
         }
         elseif (\array_key_exists('latitude', $data) && $data['latitude'] === null) {
             $object->setLatitude(null);
         }
         if (\array_key_exists('longitude', $data) && $data['longitude'] !== null) {
             $object->setLongitude($data['longitude']);
-            unset($data['longitude']);
         }
         elseif (\array_key_exists('longitude', $data) && $data['longitude'] === null) {
             $object->setLongitude(null);
         }
         if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
-            unset($data['name']);
         }
         elseif (\array_key_exists('name', $data) && $data['name'] === null) {
             $object->setName(null);
         }
         if (\array_key_exists('address', $data) && $data['address'] !== null) {
             $object->setAddress($data['address']);
-            unset($data['address']);
         }
         elseif (\array_key_exists('address', $data) && $data['address'] === null) {
             $object->setAddress(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -88,11 +79,6 @@ class WhatsAppMessageSendRequestLocationNormalizer implements DenormalizerInterf
         }
         if ($data->isInitialized('address') && null !== $data->getAddress()) {
             $dataArray['address'] = $data->getAddress();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

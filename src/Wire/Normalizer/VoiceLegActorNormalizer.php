@@ -39,29 +39,21 @@ class VoiceLegActorNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
-            unset($data['id']);
         }
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
-            unset($data['type']);
         }
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
         if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
             $object->setDisplayName($data['display_name']);
-            unset($data['display_name']);
         }
         elseif (\array_key_exists('display_name', $data) && $data['display_name'] === null) {
             $object->setDisplayName(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -70,11 +62,6 @@ class VoiceLegActorNormalizer implements DenormalizerInterface, NormalizerInterf
         $dataArray = [];
         $dataArray['id'] = $data->getId();
         $dataArray['type'] = $data->getType();
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

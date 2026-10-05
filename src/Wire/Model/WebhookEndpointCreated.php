@@ -29,6 +29,12 @@ class WebhookEndpointCreated extends \ArrayObject
      */
     protected $description;
     /**
+     * Mailbox scope configured through filter, or null.
+     *
+     * @var WebhookEndpointFilter|null
+     */
+    protected $filter;
+    /**
      * Event types this endpoint is subscribed to; only matching events are delivered. Change the set with [Update a webhook endpoint](/docs/api/reference/update-webhook).
      * 
      *
@@ -135,6 +141,28 @@ class WebhookEndpointCreated extends \ArrayObject
     {
         $this->initialized['description'] = true;
         $this->description = $description;
+        return $this;
+    }
+    /**
+     * Mailbox scope configured through filter, or null.
+     *
+     * @return WebhookEndpointFilter|null
+     */
+    public function getFilter(): ?WebhookEndpointFilter
+    {
+        return $this->filter;
+    }
+    /**
+     * Mailbox scope configured through filter, or null.
+     *
+     * @param WebhookEndpointFilter|null $filter
+     *
+     * @return self
+     */
+    public function setFilter(?WebhookEndpointFilter $filter): self
+    {
+        $this->initialized['filter'] = true;
+        $this->filter = $filter;
         return $this;
     }
     /**

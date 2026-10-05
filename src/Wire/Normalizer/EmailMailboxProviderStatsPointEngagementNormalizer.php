@@ -48,89 +48,69 @@ class EmailMailboxProviderStatsPointEngagementNormalizer implements Denormalizer
         }
         if (\array_key_exists('opens', $data) && $data['opens'] !== null) {
             $object->setOpens($data['opens']);
-            unset($data['opens']);
         }
         elseif (\array_key_exists('opens', $data) && $data['opens'] === null) {
             $object->setOpens(null);
         }
         if (\array_key_exists('opens_non_prefetched', $data) && $data['opens_non_prefetched'] !== null) {
             $object->setOpensNonPrefetched($data['opens_non_prefetched']);
-            unset($data['opens_non_prefetched']);
         }
         elseif (\array_key_exists('opens_non_prefetched', $data) && $data['opens_non_prefetched'] === null) {
             $object->setOpensNonPrefetched(null);
         }
         if (\array_key_exists('unique_opens', $data) && $data['unique_opens'] !== null) {
             $object->setUniqueOpens($data['unique_opens']);
-            unset($data['unique_opens']);
         }
         elseif (\array_key_exists('unique_opens', $data) && $data['unique_opens'] === null) {
             $object->setUniqueOpens(null);
         }
         if (\array_key_exists('unique_opens_non_prefetched', $data) && $data['unique_opens_non_prefetched'] !== null) {
             $object->setUniqueOpensNonPrefetched($data['unique_opens_non_prefetched']);
-            unset($data['unique_opens_non_prefetched']);
         }
         elseif (\array_key_exists('unique_opens_non_prefetched', $data) && $data['unique_opens_non_prefetched'] === null) {
             $object->setUniqueOpensNonPrefetched(null);
         }
         if (\array_key_exists('clicks', $data) && $data['clicks'] !== null) {
             $object->setClicks($data['clicks']);
-            unset($data['clicks']);
         }
         elseif (\array_key_exists('clicks', $data) && $data['clicks'] === null) {
             $object->setClicks(null);
         }
         if (\array_key_exists('unique_clicks', $data) && $data['unique_clicks'] !== null) {
             $object->setUniqueClicks($data['unique_clicks']);
-            unset($data['unique_clicks']);
         }
         elseif (\array_key_exists('unique_clicks', $data) && $data['unique_clicks'] === null) {
             $object->setUniqueClicks(null);
         }
         if (\array_key_exists('unsubscribes', $data) && $data['unsubscribes'] !== null) {
             $object->setUnsubscribes($data['unsubscribes']);
-            unset($data['unsubscribes']);
         }
         elseif (\array_key_exists('unsubscribes', $data) && $data['unsubscribes'] === null) {
             $object->setUnsubscribes(null);
         }
         if (\array_key_exists('open_rate', $data) && $data['open_rate'] !== null) {
             $object->setOpenRate($data['open_rate']);
-            unset($data['open_rate']);
         }
         elseif (\array_key_exists('open_rate', $data) && $data['open_rate'] === null) {
             $object->setOpenRate(null);
         }
         if (\array_key_exists('click_rate', $data) && $data['click_rate'] !== null) {
             $object->setClickRate($data['click_rate']);
-            unset($data['click_rate']);
         }
         elseif (\array_key_exists('click_rate', $data) && $data['click_rate'] === null) {
             $object->setClickRate(null);
         }
         if (\array_key_exists('unsubscribe_rate', $data) && $data['unsubscribe_rate'] !== null) {
             $object->setUnsubscribeRate($data['unsubscribe_rate']);
-            unset($data['unsubscribe_rate']);
         }
         elseif (\array_key_exists('unsubscribe_rate', $data) && $data['unsubscribe_rate'] === null) {
             $object->setUnsubscribeRate(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

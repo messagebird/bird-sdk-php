@@ -123,14 +123,14 @@ class WhatsAppMessageTemplateComponentParameter
     /**
      * The point on the map a location header opens. Send it on a `location` parameter.
      *
-     * @param WhatsAppMessageTemplateComponentParameterLocation|null $location
+     * @param WhatsAppMessageTemplateComponentParameterLocation|WhatsAppLocationSend|array|null $location
      *
      * @return self
      */
-    public function setLocation(?WhatsAppMessageTemplateComponentParameterLocation $location): self
+    public function setLocation($location): self
     {
         $this->initialized['location'] = true;
-        $this->location = $location;
+        $this->location = \MessageBird\Core\ModelWrapper::normalize($location, WhatsAppMessageTemplateComponentParameterLocation::class);
         return $this;
     }
     /**

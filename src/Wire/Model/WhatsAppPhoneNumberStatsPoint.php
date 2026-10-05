@@ -90,14 +90,14 @@ class WhatsAppPhoneNumberStatsPoint
         return $this->delivery;
     }
     /**
-     * @param WhatsAppPhoneNumberStatsPointDelivery|null $delivery
+     * @param WhatsAppPhoneNumberStatsPointDelivery|WhatsAppDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppPhoneNumberStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppPhoneNumberStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -108,14 +108,14 @@ class WhatsAppPhoneNumberStatsPoint
         return $this->engagement;
     }
     /**
-     * @param WhatsAppPhoneNumberStatsPointEngagement|null $engagement
+     * @param WhatsAppPhoneNumberStatsPointEngagement|WhatsAppEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppPhoneNumberStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppPhoneNumberStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -126,14 +126,14 @@ class WhatsAppPhoneNumberStatsPoint
         return $this->latency;
     }
     /**
-     * @param WhatsAppPhoneNumberStatsPointLatency|null $latency
+     * @param WhatsAppPhoneNumberStatsPointLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppPhoneNumberStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppPhoneNumberStatsPointLatency::class);
         return $this;
     }
 }

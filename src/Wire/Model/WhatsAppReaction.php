@@ -62,14 +62,14 @@ class WhatsAppReaction
     /**
      * Who reacted. On a group message this is what tells one participant's reaction from another's. On a one-to-one message it is your business number on a reaction you placed and the contact on one they placed, which is why it is here rather than inferred from the message's `direction`.
      *
-     * @param WhatsAppReactionFrom|null $from
+     * @param WhatsAppReactionFrom|WhatsAppAddress|array|null $from
      *
      * @return self
      */
-    public function setFrom(?WhatsAppReactionFrom $from): self
+    public function setFrom($from): self
     {
         $this->initialized['from'] = true;
-        $this->from = $from;
+        $this->from = \MessageBird\Core\ModelWrapper::normalize($from, WhatsAppReactionFrom::class);
         return $this;
     }
 }

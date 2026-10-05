@@ -39,29 +39,21 @@ class WhatsAppMessageInteractiveReplyNormalizer implements DenormalizerInterface
         }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
-            unset($data['type']);
         }
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
         if (\array_key_exists('button', $data) && $data['button'] !== null) {
             $object->setButton($this->denormalizer->denormalize($data['button'], \MessageBird\Wire\Model\WhatsAppInteractiveReplyButton::class, 'json', $context));
-            unset($data['button']);
         }
         elseif (\array_key_exists('button', $data) && $data['button'] === null) {
             $object->setButton(null);
         }
         if (\array_key_exists('list', $data) && $data['list'] !== null) {
             $object->setList($this->denormalizer->denormalize($data['list'], \MessageBird\Wire\Model\WhatsAppInteractiveReplyList::class, 'json', $context));
-            unset($data['list']);
         }
         elseif (\array_key_exists('list', $data) && $data['list'] === null) {
             $object->setList(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -74,11 +66,6 @@ class WhatsAppMessageInteractiveReplyNormalizer implements DenormalizerInterface
         }
         if ($data->isInitialized('list') && null !== $data->getList()) {
             $dataArray['list'] = $this->normalizer->normalize($data->getList(), 'json', $context);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

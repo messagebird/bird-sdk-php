@@ -42,33 +42,21 @@ class PhoneNumberLookupPresenceNormalizer implements DenormalizerInterface, Norm
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-            unset($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
         if (\array_key_exists('reachable', $data) && $data['reachable'] !== null) {
             $object->setReachable($data['reachable']);
-            unset($data['reachable']);
         }
         elseif (\array_key_exists('reachable', $data) && $data['reachable'] === null) {
             $object->setReachable(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

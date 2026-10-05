@@ -55,6 +55,12 @@ class VoiceLeg
      */
     protected $sipTrunkId;
     /**
+     * The SIP `Call-ID` of this leg's signalling. We relay it unchanged, so it matches what the carrier and your own equipment logged for the same leg: the carrier's value on an incoming leg, and your system's value on a leg you place through a SIP trunk. Use it to match this leg against a carrier's records or your PBX logs. Legs recorded before this field existed carry it only if they were answered.
+     *
+     * @var string|null
+     */
+    protected $sipCallId;
+    /**
      * @var string|null
      */
     protected $status;
@@ -269,14 +275,14 @@ class VoiceLeg
     /**
      * Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
      *
-     * @param VoiceLegActor|null $actor
+     * @param VoiceLegActor|Actor|array|null $actor
      *
      * @return self
      */
-    public function setActor(?VoiceLegActor $actor): self
+    public function setActor($actor): self
     {
         $this->initialized['actor'] = true;
-        $this->actor = $actor;
+        $this->actor = \MessageBird\Core\ModelWrapper::normalize($actor, VoiceLegActor::class);
         return $this;
     }
     /**
@@ -299,6 +305,28 @@ class VoiceLeg
     {
         $this->initialized['sipTrunkId'] = true;
         $this->sipTrunkId = $sipTrunkId;
+        return $this;
+    }
+    /**
+     * The SIP `Call-ID` of this leg's signalling. We relay it unchanged, so it matches what the carrier and your own equipment logged for the same leg: the carrier's value on an incoming leg, and your system's value on a leg you place through a SIP trunk. Use it to match this leg against a carrier's records or your PBX logs. Legs recorded before this field existed carry it only if they were answered.
+     *
+     * @return string|null
+     */
+    public function getSipCallId(): ?string
+    {
+        return $this->sipCallId;
+    }
+    /**
+     * The SIP `Call-ID` of this leg's signalling. We relay it unchanged, so it matches what the carrier and your own equipment logged for the same leg: the carrier's value on an incoming leg, and your system's value on a leg you place through a SIP trunk. Use it to match this leg against a carrier's records or your PBX logs. Legs recorded before this field existed carry it only if they were answered.
+     *
+     * @param string|null $sipCallId
+     *
+     * @return self
+     */
+    public function setSipCallId(?string $sipCallId): self
+    {
+        $this->initialized['sipCallId'] = true;
+        $this->sipCallId = $sipCallId;
         return $this;
     }
     /**

@@ -29,7 +29,7 @@ $message = $bird->email->send(
 echo $message->getId(), ' ', $message->getStatus();
 ```
 
-The API key resolves the region automatically (`bk_{region}_…`). Pass a `$baseUrl` to target a specific endpoint, or your own PSR-18 client to override transport — see [Configuration](#configuration).
+The API key resolves the region automatically (`bk_{region}_…` or `bm_{region}_…`). Pass a `$baseUrl` to target a specific endpoint, or your own PSR-18 client to override transport — see [Configuration](#configuration).
 
 Runnable versions of these live in [`examples/`](examples/): `quickstart-email.php`, `quickstart-whatsapp.php`.
 

@@ -39,29 +39,21 @@ class SMSInboundStatsSummaryResponseComparisonNormalizer implements Denormalizer
         }
         if (\array_key_exists('period', $data) && $data['period'] !== null) {
             $object->setPeriod($this->denormalizer->denormalize($data['period'], \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class, 'json', $context));
-            unset($data['period']);
         }
         elseif (\array_key_exists('period', $data) && $data['period'] === null) {
             $object->setPeriod(null);
         }
         if (\array_key_exists('received', $data) && $data['received'] !== null) {
             $object->setReceived($data['received']);
-            unset($data['received']);
         }
         elseif (\array_key_exists('received', $data) && $data['received'] === null) {
             $object->setReceived(null);
         }
         if (\array_key_exists('delta', $data) && $data['delta'] !== null) {
-            $object->setDelta($this->denormalizer->denormalize($data['delta'], \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class, 'json', $context));
-            unset($data['delta']);
+            $object->setDelta($this->denormalizer->denormalize($data['delta'], \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('delta', $data) && $data['delta'] === null) {
             $object->setDelta(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -69,11 +61,6 @@ class SMSInboundStatsSummaryResponseComparisonNormalizer implements Denormalizer
     {
         $dataArray = [];
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

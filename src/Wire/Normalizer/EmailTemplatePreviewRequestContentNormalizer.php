@@ -39,36 +39,27 @@ class EmailTemplatePreviewRequestContentNormalizer implements DenormalizerInterf
         }
         if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
             $object->setSubject($data['subject']);
-            unset($data['subject']);
         }
         elseif (\array_key_exists('subject', $data) && $data['subject'] === null) {
             $object->setSubject(null);
         }
         if (\array_key_exists('preview_text', $data) && $data['preview_text'] !== null) {
             $object->setPreviewText($data['preview_text']);
-            unset($data['preview_text']);
         }
         elseif (\array_key_exists('preview_text', $data) && $data['preview_text'] === null) {
             $object->setPreviewText(null);
         }
         if (\array_key_exists('html', $data) && $data['html'] !== null) {
             $object->setHtml($data['html']);
-            unset($data['html']);
         }
         elseif (\array_key_exists('html', $data) && $data['html'] === null) {
             $object->setHtml(null);
         }
         if (\array_key_exists('text', $data) && $data['text'] !== null) {
             $object->setText($data['text']);
-            unset($data['text']);
         }
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -86,11 +77,6 @@ class EmailTemplatePreviewRequestContentNormalizer implements DenormalizerInterf
         }
         if ($data->isInitialized('text') && null !== $data->getText()) {
             $dataArray['text'] = $data->getText();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

@@ -176,14 +176,14 @@ class WhatsAppMessageSendRequest
     /**
      * The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
      *
-     * @param WhatsAppMessageSendRequestTemplate|null $template
+     * @param WhatsAppMessageSendRequestTemplate|WhatsAppTemplateSend|array|null $template
      *
      * @return self
      */
-    public function setTemplate(?WhatsAppMessageSendRequestTemplate $template): self
+    public function setTemplate($template): self
     {
         $this->initialized['template'] = true;
-        $this->template = $template;
+        $this->template = \MessageBird\Core\ModelWrapper::normalize($template, WhatsAppMessageSendRequestTemplate::class);
         return $this;
     }
     /**
@@ -199,14 +199,14 @@ class WhatsAppMessageSendRequest
     /**
      * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestText|null $text
+     * @param WhatsAppMessageSendRequestText|WhatsAppTextSend|array|null $text
      *
      * @return self
      */
-    public function setText(?WhatsAppMessageSendRequestText $text): self
+    public function setText($text): self
     {
         $this->initialized['text'] = true;
-        $this->text = $text;
+        $this->text = \MessageBird\Core\ModelWrapper::normalize($text, WhatsAppMessageSendRequestText::class);
         return $this;
     }
     /**
@@ -222,14 +222,14 @@ class WhatsAppMessageSendRequest
     /**
      * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestImage|null $image
+     * @param WhatsAppMessageSendRequestImage|WhatsAppImageSend|array|null $image
      *
      * @return self
      */
-    public function setImage(?WhatsAppMessageSendRequestImage $image): self
+    public function setImage($image): self
     {
         $this->initialized['image'] = true;
-        $this->image = $image;
+        $this->image = \MessageBird\Core\ModelWrapper::normalize($image, WhatsAppMessageSendRequestImage::class);
         return $this;
     }
     /**
@@ -245,14 +245,14 @@ class WhatsAppMessageSendRequest
     /**
      * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestVideo|null $video
+     * @param WhatsAppMessageSendRequestVideo|WhatsAppVideoSend|array|null $video
      *
      * @return self
      */
-    public function setVideo(?WhatsAppMessageSendRequestVideo $video): self
+    public function setVideo($video): self
     {
         $this->initialized['video'] = true;
-        $this->video = $video;
+        $this->video = \MessageBird\Core\ModelWrapper::normalize($video, WhatsAppMessageSendRequestVideo::class);
         return $this;
     }
     /**
@@ -268,14 +268,14 @@ class WhatsAppMessageSendRequest
     /**
      * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestAudio|null $audio
+     * @param WhatsAppMessageSendRequestAudio|WhatsAppAudioSend|array|null $audio
      *
      * @return self
      */
-    public function setAudio(?WhatsAppMessageSendRequestAudio $audio): self
+    public function setAudio($audio): self
     {
         $this->initialized['audio'] = true;
-        $this->audio = $audio;
+        $this->audio = \MessageBird\Core\ModelWrapper::normalize($audio, WhatsAppMessageSendRequestAudio::class);
         return $this;
     }
     /**
@@ -291,14 +291,14 @@ class WhatsAppMessageSendRequest
     /**
      * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestSticker|null $sticker
+     * @param WhatsAppMessageSendRequestSticker|WhatsAppStickerSend|array|null $sticker
      *
      * @return self
      */
-    public function setSticker(?WhatsAppMessageSendRequestSticker $sticker): self
+    public function setSticker($sticker): self
     {
         $this->initialized['sticker'] = true;
-        $this->sticker = $sticker;
+        $this->sticker = \MessageBird\Core\ModelWrapper::normalize($sticker, WhatsAppMessageSendRequestSticker::class);
         return $this;
     }
     /**
@@ -314,14 +314,14 @@ class WhatsAppMessageSendRequest
     /**
      * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestDocument|null $document
+     * @param WhatsAppMessageSendRequestDocument|WhatsAppDocumentSend|array|null $document
      *
      * @return self
      */
-    public function setDocument(?WhatsAppMessageSendRequestDocument $document): self
+    public function setDocument($document): self
     {
         $this->initialized['document'] = true;
-        $this->document = $document;
+        $this->document = \MessageBird\Core\ModelWrapper::normalize($document, WhatsAppMessageSendRequestDocument::class);
         return $this;
     }
     /**
@@ -337,14 +337,14 @@ class WhatsAppMessageSendRequest
     /**
      * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
      *
-     * @param WhatsAppMessageSendRequestLocation|null $location
+     * @param WhatsAppMessageSendRequestLocation|WhatsAppLocationSend|array|null $location
      *
      * @return self
      */
-    public function setLocation(?WhatsAppMessageSendRequestLocation $location): self
+    public function setLocation($location): self
     {
         $this->initialized['location'] = true;
-        $this->location = $location;
+        $this->location = \MessageBird\Core\ModelWrapper::normalize($location, WhatsAppMessageSendRequestLocation::class);
         return $this;
     }
     /**
@@ -360,14 +360,14 @@ class WhatsAppMessageSendRequest
     /**
      * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
      *
-     * @param WhatsAppMessageSendRequestInteractive|null $interactive
+     * @param WhatsAppMessageSendRequestInteractive|WhatsAppInteractiveSend|array|null $interactive
      *
      * @return self
      */
-    public function setInteractive(?WhatsAppMessageSendRequestInteractive $interactive): self
+    public function setInteractive($interactive): self
     {
         $this->initialized['interactive'] = true;
-        $this->interactive = $interactive;
+        $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, WhatsAppMessageSendRequestInteractive::class);
         return $this;
     }
     /**

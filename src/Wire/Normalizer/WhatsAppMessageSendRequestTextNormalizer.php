@@ -42,22 +42,15 @@ class WhatsAppMessageSendRequestTextNormalizer implements DenormalizerInterface,
         }
         if (\array_key_exists('body', $data) && $data['body'] !== null) {
             $object->setBody($data['body']);
-            unset($data['body']);
         }
         elseif (\array_key_exists('body', $data) && $data['body'] === null) {
             $object->setBody(null);
         }
         if (\array_key_exists('preview_url', $data) && $data['preview_url'] !== null) {
             $object->setPreviewUrl($data['preview_url']);
-            unset($data['preview_url']);
         }
         elseif (\array_key_exists('preview_url', $data) && $data['preview_url'] === null) {
             $object->setPreviewUrl(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -67,11 +60,6 @@ class WhatsAppMessageSendRequestTextNormalizer implements DenormalizerInterface,
         $dataArray['body'] = $data->getBody();
         if ($data->isInitialized('previewUrl') && null !== $data->getPreviewUrl()) {
             $dataArray['preview_url'] = $data->getPreviewUrl();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

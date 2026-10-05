@@ -84,7 +84,7 @@ class WhatsAppNumber
     /**
      * Why this number's connection was refused for good. Present only while `status` is `failed`. A retryable step records its cause on a still-`pending` number without setting this field, because that cause is not a refusal yet, so a connection you are still waiting on reports no error here.
      *
-     * @var WhatsAppNumberError|null
+     * @var WhatsAppNumberErrorWrapper|null
      */
     protected $error;
     /**
@@ -366,23 +366,23 @@ class WhatsAppNumber
     /**
      * Why this number's connection was refused for good. Present only while `status` is `failed`. A retryable step records its cause on a still-`pending` number without setting this field, because that cause is not a refusal yet, so a connection you are still waiting on reports no error here.
      *
-     * @return WhatsAppNumberError|null
+     * @return WhatsAppNumberErrorWrapper|null
      */
-    public function getError(): ?WhatsAppNumberError
+    public function getError(): ?WhatsAppNumberErrorWrapper
     {
         return $this->error;
     }
     /**
      * Why this number's connection was refused for good. Present only while `status` is `failed`. A retryable step records its cause on a still-`pending` number without setting this field, because that cause is not a refusal yet, so a connection you are still waiting on reports no error here.
      *
-     * @param WhatsAppNumberError|null $error
+     * @param WhatsAppNumberErrorWrapper|WhatsAppNumberError|array|null $error
      *
      * @return self
      */
-    public function setError(?WhatsAppNumberError $error): self
+    public function setError($error): self
     {
         $this->initialized['error'] = true;
-        $this->error = $error;
+        $this->error = \MessageBird\Core\ModelWrapper::normalize($error, WhatsAppNumberErrorWrapper::class);
         return $this;
     }
     /**

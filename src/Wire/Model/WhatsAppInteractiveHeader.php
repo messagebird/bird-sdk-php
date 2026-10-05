@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppInteractiveHeader extends \ArrayObject
+class WhatsAppInteractiveHeader
 {
     /**
      * @var array

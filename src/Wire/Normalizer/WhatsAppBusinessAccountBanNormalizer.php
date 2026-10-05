@@ -39,40 +39,27 @@ class WhatsAppBusinessAccountBanNormalizer implements DenormalizerInterface, Nor
         }
         if (\array_key_exists('state', $data) && $data['state'] !== null) {
             $object->setState($data['state']);
-            unset($data['state']);
         }
         elseif (\array_key_exists('state', $data) && $data['state'] === null) {
             $object->setState(null);
         }
         if (\array_key_exists('occurred_at', $data) && $data['occurred_at'] !== null) {
             $object->setOccurredAt(new \DateTime($data['occurred_at']));
-            unset($data['occurred_at']);
         }
         elseif (\array_key_exists('occurred_at', $data) && $data['occurred_at'] === null) {
             $object->setOccurredAt(null);
         }
         if (\array_key_exists('appeal_url', $data) && $data['appeal_url'] !== null) {
             $object->setAppealUrl($data['appeal_url']);
-            unset($data['appeal_url']);
         }
         elseif (\array_key_exists('appeal_url', $data) && $data['appeal_url'] === null) {
             $object->setAppealUrl(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

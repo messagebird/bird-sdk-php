@@ -122,14 +122,14 @@ class WhatsAppContactCard
     /**
      * The contact's name, when the card carries one.
      *
-     * @param WhatsAppContactCardName|null $name
+     * @param WhatsAppContactCardName|WhatsAppContactName|array|null $name
      *
      * @return self
      */
-    public function setName(?WhatsAppContactCardName $name): self
+    public function setName($name): self
     {
         $this->initialized['name'] = true;
-        $this->name = $name;
+        $this->name = \MessageBird\Core\ModelWrapper::normalize($name, WhatsAppContactCardName::class);
         return $this;
     }
     /**
@@ -144,14 +144,14 @@ class WhatsAppContactCard
     /**
      * Where the contact works, when the card carries it.
      *
-     * @param WhatsAppContactCardOrg|null $org
+     * @param WhatsAppContactCardOrg|WhatsAppContactOrg|array|null $org
      *
      * @return self
      */
-    public function setOrg(?WhatsAppContactCardOrg $org): self
+    public function setOrg($org): self
     {
         $this->initialized['org'] = true;
-        $this->org = $org;
+        $this->org = \MessageBird\Core\ModelWrapper::normalize($org, WhatsAppContactCardOrg::class);
         return $this;
     }
     /**

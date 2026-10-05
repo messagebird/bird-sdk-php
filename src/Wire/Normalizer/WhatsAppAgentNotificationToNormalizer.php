@@ -39,43 +39,33 @@ class WhatsAppAgentNotificationToNormalizer implements DenormalizerInterface, No
         }
         if (\array_key_exists('phone_number', $data) && $data['phone_number'] !== null) {
             $object->setPhoneNumber($data['phone_number']);
-            unset($data['phone_number']);
         }
         elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
             $object->setPhoneNumber(null);
         }
         if (\array_key_exists('bsuid', $data) && $data['bsuid'] !== null) {
             $object->setBsuid($data['bsuid']);
-            unset($data['bsuid']);
         }
         elseif (\array_key_exists('bsuid', $data) && $data['bsuid'] === null) {
             $object->setBsuid(null);
         }
         if (\array_key_exists('group_id', $data) && $data['group_id'] !== null) {
             $object->setGroupId($data['group_id']);
-            unset($data['group_id']);
         }
         elseif (\array_key_exists('group_id', $data) && $data['group_id'] === null) {
             $object->setGroupId(null);
         }
         if (\array_key_exists('username', $data) && $data['username'] !== null) {
             $object->setUsername($data['username']);
-            unset($data['username']);
         }
         elseif (\array_key_exists('username', $data) && $data['username'] === null) {
             $object->setUsername(null);
         }
         if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
             $object->setDisplayName($data['display_name']);
-            unset($data['display_name']);
         }
         elseif (\array_key_exists('display_name', $data) && $data['display_name'] === null) {
             $object->setDisplayName(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -96,11 +86,6 @@ class WhatsAppAgentNotificationToNormalizer implements DenormalizerInterface, No
         }
         if ($data->isInitialized('displayName') && null !== $data->getDisplayName()) {
             $dataArray['display_name'] = $data->getDisplayName();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

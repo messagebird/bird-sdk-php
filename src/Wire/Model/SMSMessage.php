@@ -524,14 +524,14 @@ class SMSMessage
     /**
      * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
      *
-     * @param SMSMessageOptions|null $options
+     * @param SMSMessageOptions|SMSMessageEffectiveOptions|array|null $options
      *
      * @return self
      */
-    public function setOptions(?SMSMessageOptions $options): self
+    public function setOptions($options): self
     {
         $this->initialized['options'] = true;
-        $this->options = $options;
+        $this->options = \MessageBird\Core\ModelWrapper::normalize($options, SMSMessageOptions::class);
         return $this;
     }
     /**

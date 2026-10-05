@@ -39,7 +39,6 @@ class WhatsAppInteractiveListNormalizer implements DenormalizerInterface, Normal
         }
         if (\array_key_exists('button_text', $data) && $data['button_text'] !== null) {
             $object->setButtonText($data['button_text']);
-            unset($data['button_text']);
         }
         elseif (\array_key_exists('button_text', $data) && $data['button_text'] === null) {
             $object->setButtonText(null);
@@ -50,15 +49,9 @@ class WhatsAppInteractiveListNormalizer implements DenormalizerInterface, Normal
                 $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppInteractiveListSection::class, 'json', $context);
             }
             $object->setSections($values);
-            unset($data['sections']);
         }
         elseif (\array_key_exists('sections', $data) && $data['sections'] === null) {
             $object->setSections(null);
-        }
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
-            }
         }
         return $object;
     }
@@ -71,11 +64,6 @@ class WhatsAppInteractiveListNormalizer implements DenormalizerInterface, Normal
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['sections'] = $values;
-        foreach ($data as $key => $value_1) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value_1;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

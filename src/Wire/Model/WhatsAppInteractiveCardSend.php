@@ -44,14 +44,14 @@ class WhatsAppInteractiveCardSend
     /**
      * The image or video at the top of the card.
      *
-     * @param WhatsAppInteractiveCardSendHeader|null $header
+     * @param WhatsAppInteractiveCardSendHeader|WhatsAppInteractiveCardHeaderSend|array|null $header
      *
      * @return self
      */
-    public function setHeader(?WhatsAppInteractiveCardSendHeader $header): self
+    public function setHeader($header): self
     {
         $this->initialized['header'] = true;
-        $this->header = $header;
+        $this->header = \MessageBird\Core\ModelWrapper::normalize($header, WhatsAppInteractiveCardSendHeader::class);
         return $this;
     }
     /**

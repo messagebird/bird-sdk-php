@@ -62,14 +62,14 @@ class SMSStatsSummary
         return $this->delivery;
     }
     /**
-     * @param SMSStatsSummaryDelivery|null $delivery
+     * @param SMSStatsSummaryDelivery|SMSDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?SMSStatsSummaryDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, SMSStatsSummaryDelivery::class);
         return $this;
     }
     /**
@@ -80,14 +80,14 @@ class SMSStatsSummary
         return $this->latency;
     }
     /**
-     * @param SMSStatsSummaryLatency|null $latency
+     * @param SMSStatsSummaryLatency|SMSLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?SMSStatsSummaryLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, SMSStatsSummaryLatency::class);
         return $this;
     }
     /**
@@ -98,14 +98,14 @@ class SMSStatsSummary
         return $this->comparison;
     }
     /**
-     * @param SMSStatsSummaryComparison|null $comparison
+     * @param SMSStatsSummaryComparison|SMSStatsComparison|array|null $comparison
      *
      * @return self
      */
-    public function setComparison(?SMSStatsSummaryComparison $comparison): self
+    public function setComparison($comparison): self
     {
         $this->initialized['comparison'] = true;
-        $this->comparison = $comparison;
+        $this->comparison = \MessageBird\Core\ModelWrapper::normalize($comparison, SMSStatsSummaryComparison::class);
         return $this;
     }
 }

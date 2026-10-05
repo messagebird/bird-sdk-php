@@ -39,22 +39,15 @@ class WhatsAppInteractiveCardSendHeaderNormalizer implements DenormalizerInterfa
         }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
-            unset($data['type']);
         }
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
         }
         if (\array_key_exists('url', $data) && $data['url'] !== null) {
             $object->setUrl($data['url']);
-            unset($data['url']);
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -63,11 +56,6 @@ class WhatsAppInteractiveCardSendHeaderNormalizer implements DenormalizerInterfa
         $dataArray = [];
         $dataArray['type'] = $data->getType();
         $dataArray['url'] = $data->getUrl();
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

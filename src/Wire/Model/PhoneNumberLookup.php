@@ -222,14 +222,14 @@ class PhoneNumberLookup
     /**
      * The allocated service of the number's range. Absent unless you requested the `classification` property.
      *
-     * @param PhoneNumberLookupClassification|null $classification
+     * @param PhoneNumberLookupClassification|LookupClassification|array|null $classification
      *
      * @return self
      */
-    public function setClassification(?PhoneNumberLookupClassification $classification): self
+    public function setClassification($classification): self
     {
         $this->initialized['classification'] = true;
-        $this->classification = $classification;
+        $this->classification = \MessageBird\Core\ModelWrapper::normalize($classification, PhoneNumberLookupClassification::class);
         return $this;
     }
     /**
@@ -244,14 +244,14 @@ class PhoneNumberLookup
     /**
      * Whether the number is live on its network. Absent unless you requested the `presence` property.
      *
-     * @param PhoneNumberLookupPresence|null $presence
+     * @param PhoneNumberLookupPresence|LookupPresence|array|null $presence
      *
      * @return self
      */
-    public function setPresence(?PhoneNumberLookupPresence $presence): self
+    public function setPresence($presence): self
     {
         $this->initialized['presence'] = true;
-        $this->presence = $presence;
+        $this->presence = \MessageBird\Core\ModelWrapper::normalize($presence, PhoneNumberLookupPresence::class);
         return $this;
     }
     /**
@@ -266,14 +266,14 @@ class PhoneNumberLookup
     /**
      * Whether the number is roaming. Absent unless you requested the `roaming` property.
      *
-     * @param PhoneNumberLookupRoaming|null $roaming
+     * @param PhoneNumberLookupRoaming|LookupRoaming|array|null $roaming
      *
      * @return self
      */
-    public function setRoaming(?PhoneNumberLookupRoaming $roaming): self
+    public function setRoaming($roaming): self
     {
         $this->initialized['roaming'] = true;
-        $this->roaming = $roaming;
+        $this->roaming = \MessageBird\Core\ModelWrapper::normalize($roaming, PhoneNumberLookupRoaming::class);
         return $this;
     }
     /**
@@ -288,14 +288,14 @@ class PhoneNumberLookup
     /**
      * When the number's SIM last changed. Absent unless you requested the `sim_swap` property.
      *
-     * @param PhoneNumberLookupSimSwap|null $simSwap
+     * @param PhoneNumberLookupSimSwap|LookupSimSwap|array|null $simSwap
      *
      * @return self
      */
-    public function setSimSwap(?PhoneNumberLookupSimSwap $simSwap): self
+    public function setSimSwap($simSwap): self
     {
         $this->initialized['simSwap'] = true;
-        $this->simSwap = $simSwap;
+        $this->simSwap = \MessageBird\Core\ModelWrapper::normalize($simSwap, PhoneNumberLookupSimSwap::class);
         return $this;
     }
     /**
@@ -310,14 +310,14 @@ class PhoneNumberLookup
     /**
      * The number's porting record. Absent unless you requested the `porting` property.
      *
-     * @param PhoneNumberLookupPorting|null $porting
+     * @param PhoneNumberLookupPorting|LookupPorting|array|null $porting
      *
      * @return self
      */
-    public function setPorting(?PhoneNumberLookupPorting $porting): self
+    public function setPorting($porting): self
     {
         $this->initialized['porting'] = true;
-        $this->porting = $porting;
+        $this->porting = \MessageBird\Core\ModelWrapper::normalize($porting, PhoneNumberLookupPorting::class);
         return $this;
     }
     /**
@@ -332,14 +332,14 @@ class PhoneNumberLookup
     /**
      * The number's credibility score. Absent unless you requested the `score` property.
      *
-     * @param PhoneNumberLookupScore|null $score
+     * @param PhoneNumberLookupScore|LookupScore|array|null $score
      *
      * @return self
      */
-    public function setScore(?PhoneNumberLookupScore $score): self
+    public function setScore($score): self
     {
         $this->initialized['score'] = true;
-        $this->score = $score;
+        $this->score = \MessageBird\Core\ModelWrapper::normalize($score, PhoneNumberLookupScore::class);
         return $this;
     }
 }

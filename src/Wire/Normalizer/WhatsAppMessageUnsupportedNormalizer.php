@@ -39,15 +39,9 @@ class WhatsAppMessageUnsupportedNormalizer implements DenormalizerInterface, Nor
         }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
-            unset($data['type']);
         }
         elseif (\array_key_exists('type', $data) && $data['type'] === null) {
             $object->setType(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -55,11 +49,6 @@ class WhatsAppMessageUnsupportedNormalizer implements DenormalizerInterface, Nor
     {
         $dataArray = [];
         $dataArray['type'] = $data->getType();
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

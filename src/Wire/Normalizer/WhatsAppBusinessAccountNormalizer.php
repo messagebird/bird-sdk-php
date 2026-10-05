@@ -86,7 +86,7 @@ class WhatsAppBusinessAccountNormalizer implements DenormalizerInterface, Normal
             $object->setPortfolio(null);
         }
         if (\array_key_exists('ban', $data) && $data['ban'] !== null) {
-            $object->setBan($this->denormalizer->denormalize($data['ban'], \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class, 'json', $context));
+            $object->setBan($this->denormalizer->denormalize($data['ban'], \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('ban', $data) && $data['ban'] === null) {
             $object->setBan(null);

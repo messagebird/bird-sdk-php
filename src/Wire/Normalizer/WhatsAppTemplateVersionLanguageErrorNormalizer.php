@@ -39,33 +39,21 @@ class WhatsAppTemplateVersionLanguageErrorNormalizer implements DenormalizerInte
         }
         if (\array_key_exists('description', $data) && $data['description'] !== null) {
             $object->setDescription($data['description']);
-            unset($data['description']);
         }
         elseif (\array_key_exists('description', $data) && $data['description'] === null) {
             $object->setDescription(null);
         }
         if (\array_key_exists('meta_error_code', $data) && $data['meta_error_code'] !== null) {
             $object->setMetaErrorCode($data['meta_error_code']);
-            unset($data['meta_error_code']);
         }
         elseif (\array_key_exists('meta_error_code', $data) && $data['meta_error_code'] === null) {
             $object->setMetaErrorCode(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

@@ -60,14 +60,14 @@ class WhatsAppCountryStatsPoint
         return $this->delivery;
     }
     /**
-     * @param WhatsAppCountryStatsPointDelivery|null $delivery
+     * @param WhatsAppCountryStatsPointDelivery|WhatsAppDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?WhatsAppCountryStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, WhatsAppCountryStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -78,14 +78,14 @@ class WhatsAppCountryStatsPoint
         return $this->engagement;
     }
     /**
-     * @param WhatsAppCountryStatsPointEngagement|null $engagement
+     * @param WhatsAppCountryStatsPointEngagement|WhatsAppEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?WhatsAppCountryStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, WhatsAppCountryStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -96,14 +96,14 @@ class WhatsAppCountryStatsPoint
         return $this->latency;
     }
     /**
-     * @param WhatsAppCountryStatsPointLatency|null $latency
+     * @param WhatsAppCountryStatsPointLatency|WhatsAppLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?WhatsAppCountryStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, WhatsAppCountryStatsPointLatency::class);
         return $this;
     }
 }

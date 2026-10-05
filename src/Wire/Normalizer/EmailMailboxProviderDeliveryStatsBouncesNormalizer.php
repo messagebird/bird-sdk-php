@@ -54,89 +54,69 @@ class EmailMailboxProviderDeliveryStatsBouncesNormalizer implements Denormalizer
         }
         if (\array_key_exists('hard', $data) && $data['hard'] !== null) {
             $object->setHard($data['hard']);
-            unset($data['hard']);
         }
         elseif (\array_key_exists('hard', $data) && $data['hard'] === null) {
             $object->setHard(null);
         }
         if (\array_key_exists('soft', $data) && $data['soft'] !== null) {
             $object->setSoft($data['soft']);
-            unset($data['soft']);
         }
         elseif (\array_key_exists('soft', $data) && $data['soft'] === null) {
             $object->setSoft(null);
         }
         if (\array_key_exists('admin', $data) && $data['admin'] !== null) {
             $object->setAdmin($data['admin']);
-            unset($data['admin']);
         }
         elseif (\array_key_exists('admin', $data) && $data['admin'] === null) {
             $object->setAdmin(null);
         }
         if (\array_key_exists('block', $data) && $data['block'] !== null) {
             $object->setBlock($data['block']);
-            unset($data['block']);
         }
         elseif (\array_key_exists('block', $data) && $data['block'] === null) {
             $object->setBlock(null);
         }
         if (\array_key_exists('undetermined', $data) && $data['undetermined'] !== null) {
             $object->setUndetermined($data['undetermined']);
-            unset($data['undetermined']);
         }
         elseif (\array_key_exists('undetermined', $data) && $data['undetermined'] === null) {
             $object->setUndetermined(null);
         }
         if (\array_key_exists('hard_rate', $data) && $data['hard_rate'] !== null) {
             $object->setHardRate($data['hard_rate']);
-            unset($data['hard_rate']);
         }
         elseif (\array_key_exists('hard_rate', $data) && $data['hard_rate'] === null) {
             $object->setHardRate(null);
         }
         if (\array_key_exists('soft_rate', $data) && $data['soft_rate'] !== null) {
             $object->setSoftRate($data['soft_rate']);
-            unset($data['soft_rate']);
         }
         elseif (\array_key_exists('soft_rate', $data) && $data['soft_rate'] === null) {
             $object->setSoftRate(null);
         }
         if (\array_key_exists('admin_rate', $data) && $data['admin_rate'] !== null) {
             $object->setAdminRate($data['admin_rate']);
-            unset($data['admin_rate']);
         }
         elseif (\array_key_exists('admin_rate', $data) && $data['admin_rate'] === null) {
             $object->setAdminRate(null);
         }
         if (\array_key_exists('block_rate', $data) && $data['block_rate'] !== null) {
             $object->setBlockRate($data['block_rate']);
-            unset($data['block_rate']);
         }
         elseif (\array_key_exists('block_rate', $data) && $data['block_rate'] === null) {
             $object->setBlockRate(null);
         }
         if (\array_key_exists('undetermined_rate', $data) && $data['undetermined_rate'] !== null) {
             $object->setUndeterminedRate($data['undetermined_rate']);
-            unset($data['undetermined_rate']);
         }
         elseif (\array_key_exists('undetermined_rate', $data) && $data['undetermined_rate'] === null) {
             $object->setUndeterminedRate(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

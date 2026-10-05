@@ -60,14 +60,14 @@ class WhatsAppGroupJoinRequestFailure
     /**
      * Why WhatsApp refused. The common one is a person who has not accepted WhatsApp's current terms, which no retry fixes.
      *
-     * @param WhatsAppGroupJoinRequestFailureError|null $error
+     * @param WhatsAppGroupJoinRequestFailureError|WhatsAppGroupError|array|null $error
      *
      * @return self
      */
-    public function setError(?WhatsAppGroupJoinRequestFailureError $error): self
+    public function setError($error): self
     {
         $this->initialized['error'] = true;
-        $this->error = $error;
+        $this->error = \MessageBird\Core\ModelWrapper::normalize($error, WhatsAppGroupJoinRequestFailureError::class);
         return $this;
     }
 }

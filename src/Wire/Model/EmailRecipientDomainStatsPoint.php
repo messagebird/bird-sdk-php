@@ -66,14 +66,14 @@ class EmailRecipientDomainStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailRecipientDomainStatsPointDelivery|null $delivery
+     * @param EmailRecipientDomainStatsPointDelivery|EmailDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailRecipientDomainStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailRecipientDomainStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -84,14 +84,14 @@ class EmailRecipientDomainStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailRecipientDomainStatsPointEngagement|null $engagement
+     * @param EmailRecipientDomainStatsPointEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailRecipientDomainStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailRecipientDomainStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -102,14 +102,14 @@ class EmailRecipientDomainStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailRecipientDomainStatsPointLatency|null $latency
+     * @param EmailRecipientDomainStatsPointLatency|EmailLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailRecipientDomainStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailRecipientDomainStatsPointLatency::class);
         return $this;
     }
     /**

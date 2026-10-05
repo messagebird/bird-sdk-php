@@ -26,6 +26,12 @@ class WebhookEndpointUpdate
      */
     protected $description;
     /**
+     * Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
+     *
+     * @var WebhookEndpointUpdateFilter|null
+     */
+    protected $filter;
+    /**
      * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
      * 
      *
@@ -89,6 +95,28 @@ class WebhookEndpointUpdate
     {
         $this->initialized['description'] = true;
         $this->description = $description;
+        return $this;
+    }
+    /**
+     * Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
+     *
+     * @return WebhookEndpointUpdateFilter|null
+     */
+    public function getFilter(): ?WebhookEndpointUpdateFilter
+    {
+        return $this->filter;
+    }
+    /**
+     * Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
+     *
+     * @param WebhookEndpointUpdateFilter|null $filter
+     *
+     * @return self
+     */
+    public function setFilter(?WebhookEndpointUpdateFilter $filter): self
+    {
+        $this->initialized['filter'] = true;
+        $this->filter = $filter;
         return $this;
     }
     /**

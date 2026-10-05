@@ -108,14 +108,14 @@ class EmailClientStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailClientStatsPointEngagement|null $engagement
+     * @param EmailClientStatsPointEngagement|EmailEngagementCounts|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailClientStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailClientStatsPointEngagement::class);
         return $this;
     }
 }

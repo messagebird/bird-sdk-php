@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class SMSStatsComparisonDelta extends \ArrayObject
+class SMSStatsComparisonDelta
 {
     /**
      * @var array

@@ -39,29 +39,21 @@ class WhatsAppTemplateLanguageRejectionNormalizer implements DenormalizerInterfa
         }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
-            unset($data['category']);
         }
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
         if (\array_key_exists('reason', $data) && $data['reason'] !== null) {
             $object->setReason($data['reason']);
-            unset($data['reason']);
         }
         elseif (\array_key_exists('reason', $data) && $data['reason'] === null) {
             $object->setReason(null);
         }
         if (\array_key_exists('recommendation', $data) && $data['recommendation'] !== null) {
             $object->setRecommendation($data['recommendation']);
-            unset($data['recommendation']);
         }
         elseif (\array_key_exists('recommendation', $data) && $data['recommendation'] === null) {
             $object->setRecommendation(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -70,11 +62,6 @@ class WhatsAppTemplateLanguageRejectionNormalizer implements DenormalizerInterfa
         $dataArray = [];
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

@@ -155,14 +155,14 @@ class WhatsAppEvent
     /**
      * The participant this confirmation is about, on a group message. Present only on `whatsapp.delivered` and `whatsapp.read`, the two events a group send fans out: one per participant, so a group of eight produces up to eight of each. The rest describe the message as a whole and carry no recipient, because there is one hand-off to the WhatsApp network and one way for that to be refused. Absent on a one-to-one message, whose `to` already names its recipient. Never carries `group_id`: the group belongs to the message's `to`, not to a participant.
      *
-     * @param WhatsAppEventRecipient|null $recipient
+     * @param WhatsAppEventRecipient|WhatsAppAddress|array|null $recipient
      *
      * @return self
      */
-    public function setRecipient(?WhatsAppEventRecipient $recipient): self
+    public function setRecipient($recipient): self
     {
         $this->initialized['recipient'] = true;
-        $this->recipient = $recipient;
+        $this->recipient = \MessageBird\Core\ModelWrapper::normalize($recipient, WhatsAppEventRecipient::class);
         return $this;
     }
     /**

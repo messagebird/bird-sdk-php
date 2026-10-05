@@ -66,14 +66,14 @@ class EmailSendingDomainStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailSendingDomainStatsPointDelivery|null $delivery
+     * @param EmailSendingDomainStatsPointDelivery|EmailDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailSendingDomainStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailSendingDomainStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -84,14 +84,14 @@ class EmailSendingDomainStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailSendingDomainStatsPointEngagement|null $engagement
+     * @param EmailSendingDomainStatsPointEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailSendingDomainStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailSendingDomainStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -102,14 +102,14 @@ class EmailSendingDomainStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailSendingDomainStatsPointLatency|null $latency
+     * @param EmailSendingDomainStatsPointLatency|EmailLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailSendingDomainStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailSendingDomainStatsPointLatency::class);
         return $this;
     }
     /**

@@ -39,29 +39,21 @@ class WhatsAppContactCardOrgNormalizer implements DenormalizerInterface, Normali
         }
         if (\array_key_exists('company', $data) && $data['company'] !== null) {
             $object->setCompany($data['company']);
-            unset($data['company']);
         }
         elseif (\array_key_exists('company', $data) && $data['company'] === null) {
             $object->setCompany(null);
         }
         if (\array_key_exists('department', $data) && $data['department'] !== null) {
             $object->setDepartment($data['department']);
-            unset($data['department']);
         }
         elseif (\array_key_exists('department', $data) && $data['department'] === null) {
             $object->setDepartment(null);
         }
         if (\array_key_exists('title', $data) && $data['title'] !== null) {
             $object->setTitle($data['title']);
-            unset($data['title']);
         }
         elseif (\array_key_exists('title', $data) && $data['title'] === null) {
             $object->setTitle(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -76,11 +68,6 @@ class WhatsAppContactCardOrgNormalizer implements DenormalizerInterface, Normali
         }
         if ($data->isInitialized('title') && null !== $data->getTitle()) {
             $dataArray['title'] = $data->getTitle();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

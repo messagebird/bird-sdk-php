@@ -442,14 +442,14 @@ class EmailMessageSendRequest
     /**
      * Send a stored template instead of inline content. When set, omit `subject`, `html` and `text`, because the template supplies them. Personalize with `template.parameters`. Add `scheduled_at` to send it later.
      *
-     * @param EmailMessageSendRequestTemplate|null $template
+     * @param EmailMessageSendRequestTemplate|EmailTemplateSend|array|null $template
      *
      * @return self
      */
-    public function setTemplate(?EmailMessageSendRequestTemplate $template): self
+    public function setTemplate($template): self
     {
         $this->initialized['template'] = true;
-        $this->template = $template;
+        $this->template = \MessageBird\Core\ModelWrapper::normalize($template, EmailMessageSendRequestTemplate::class);
         return $this;
     }
     /**

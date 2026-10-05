@@ -39,61 +39,45 @@ class EmailLocationStatsPointEngagementNormalizer implements DenormalizerInterfa
         }
         if (\array_key_exists('opens', $data) && $data['opens'] !== null) {
             $object->setOpens($data['opens']);
-            unset($data['opens']);
         }
         elseif (\array_key_exists('opens', $data) && $data['opens'] === null) {
             $object->setOpens(null);
         }
         if (\array_key_exists('opens_non_prefetched', $data) && $data['opens_non_prefetched'] !== null) {
             $object->setOpensNonPrefetched($data['opens_non_prefetched']);
-            unset($data['opens_non_prefetched']);
         }
         elseif (\array_key_exists('opens_non_prefetched', $data) && $data['opens_non_prefetched'] === null) {
             $object->setOpensNonPrefetched(null);
         }
         if (\array_key_exists('unique_opens', $data) && $data['unique_opens'] !== null) {
             $object->setUniqueOpens($data['unique_opens']);
-            unset($data['unique_opens']);
         }
         elseif (\array_key_exists('unique_opens', $data) && $data['unique_opens'] === null) {
             $object->setUniqueOpens(null);
         }
         if (\array_key_exists('unique_opens_non_prefetched', $data) && $data['unique_opens_non_prefetched'] !== null) {
             $object->setUniqueOpensNonPrefetched($data['unique_opens_non_prefetched']);
-            unset($data['unique_opens_non_prefetched']);
         }
         elseif (\array_key_exists('unique_opens_non_prefetched', $data) && $data['unique_opens_non_prefetched'] === null) {
             $object->setUniqueOpensNonPrefetched(null);
         }
         if (\array_key_exists('clicks', $data) && $data['clicks'] !== null) {
             $object->setClicks($data['clicks']);
-            unset($data['clicks']);
         }
         elseif (\array_key_exists('clicks', $data) && $data['clicks'] === null) {
             $object->setClicks(null);
         }
         if (\array_key_exists('unique_clicks', $data) && $data['unique_clicks'] !== null) {
             $object->setUniqueClicks($data['unique_clicks']);
-            unset($data['unique_clicks']);
         }
         elseif (\array_key_exists('unique_clicks', $data) && $data['unique_clicks'] === null) {
             $object->setUniqueClicks(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

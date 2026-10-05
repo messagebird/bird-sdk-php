@@ -303,14 +303,14 @@ class SMSMessageSendRequest
     /**
      * What Bird does to this message on its way out, such as `smart_encoding`. The message being relayed stays at the top level: its recipient, sender, content, and the delivery instructions the carrier acts on.
      *
-     * @param SMSMessageSendRequestOptions|null $options
+     * @param SMSMessageSendRequestOptions|SMSSendOptions|array|null $options
      *
      * @return self
      */
-    public function setOptions(?SMSMessageSendRequestOptions $options): self
+    public function setOptions($options): self
     {
         $this->initialized['options'] = true;
-        $this->options = $options;
+        $this->options = \MessageBird\Core\ModelWrapper::normalize($options, SMSMessageSendRequestOptions::class);
         return $this;
     }
     /**
@@ -392,14 +392,14 @@ class SMSMessageSendRequest
     /**
      * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      *
-     * @param SMSMessageSendRequestTemplate|null $template
+     * @param SMSMessageSendRequestTemplate|SMSTemplateSend|array|null $template
      *
      * @return self
      */
-    public function setTemplate(?SMSMessageSendRequestTemplate $template): self
+    public function setTemplate($template): self
     {
         $this->initialized['template'] = true;
-        $this->template = $template;
+        $this->template = \MessageBird\Core\ModelWrapper::normalize($template, SMSMessageSendRequestTemplate::class);
         return $this;
     }
     /**

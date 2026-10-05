@@ -30,6 +30,7 @@ final class RegionResolutionTest extends TestCase
      */
     public static function keyPrefixes(): iterable
     {
+        yield 'master' => ['bm_eu1_secret', 'https://eu1.platform.bird.com'];
         yield 'eu1' => ['bk_eu1_secret', 'https://eu1.platform.bird.com'];
         yield 'us3' => ['bk_us3_secret', 'https://us3.platform.bird.com'];
         yield 'ap10' => ['bk_ap10_secret', 'https://ap10.platform.bird.com'];
@@ -62,10 +63,18 @@ final class RegionResolutionTest extends TestCase
         self::assertSame('https://custom.example.test/api', $bird->baseUrl());
     }
 
-    public function testUnresolvableRegionIsAnError(): void
+    public static function malformedKeys(): iterable
+    {
+        yield 'no prefix' => ['rawkey'];
+        yield 'empty workspace token' => ['bk_eu1_'];
+        yield 'empty master token' => ['bm_eu1_'];
+    }
+
+    #[DataProvider('malformedKeys')]
+    public function testUnresolvableRegionIsAnError(string $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new Bird('rawkey', null, $this->client());
+        new Bird($key, null, $this->client());
     }
 }

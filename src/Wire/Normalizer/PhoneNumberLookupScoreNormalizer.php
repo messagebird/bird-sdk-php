@@ -39,33 +39,21 @@ class PhoneNumberLookupScoreNormalizer implements DenormalizerInterface, Normali
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-            unset($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
         if (\array_key_exists('value', $data) && $data['value'] !== null) {
             $object->setValue($data['value']);
-            unset($data['value']);
         }
         elseif (\array_key_exists('value', $data) && $data['value'] === null) {
             $object->setValue(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

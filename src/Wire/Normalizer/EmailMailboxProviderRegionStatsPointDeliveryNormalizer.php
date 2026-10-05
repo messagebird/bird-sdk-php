@@ -48,75 +48,57 @@ class EmailMailboxProviderRegionStatsPointDeliveryNormalizer implements Denormal
         }
         if (\array_key_exists('delivered', $data) && $data['delivered'] !== null) {
             $object->setDelivered($data['delivered']);
-            unset($data['delivered']);
         }
         elseif (\array_key_exists('delivered', $data) && $data['delivered'] === null) {
             $object->setDelivered(null);
         }
         if (\array_key_exists('bounced', $data) && $data['bounced'] !== null) {
             $object->setBounced($data['bounced']);
-            unset($data['bounced']);
         }
         elseif (\array_key_exists('bounced', $data) && $data['bounced'] === null) {
             $object->setBounced(null);
         }
         if (\array_key_exists('complained', $data) && $data['complained'] !== null) {
             $object->setComplained($data['complained']);
-            unset($data['complained']);
         }
         elseif (\array_key_exists('complained', $data) && $data['complained'] === null) {
             $object->setComplained(null);
         }
         if (\array_key_exists('deferred', $data) && $data['deferred'] !== null) {
             $object->setDeferred($data['deferred']);
-            unset($data['deferred']);
         }
         elseif (\array_key_exists('deferred', $data) && $data['deferred'] === null) {
             $object->setDeferred(null);
         }
         if (\array_key_exists('bounces', $data) && $data['bounces'] !== null) {
             $object->setBounces($this->denormalizer->denormalize($data['bounces'], \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStatsBounces::class, 'json', $context));
-            unset($data['bounces']);
         }
         elseif (\array_key_exists('bounces', $data) && $data['bounces'] === null) {
             $object->setBounces(null);
         }
         if (\array_key_exists('delivery_rate', $data) && $data['delivery_rate'] !== null) {
             $object->setDeliveryRate($data['delivery_rate']);
-            unset($data['delivery_rate']);
         }
         elseif (\array_key_exists('delivery_rate', $data) && $data['delivery_rate'] === null) {
             $object->setDeliveryRate(null);
         }
         if (\array_key_exists('bounce_rate', $data) && $data['bounce_rate'] !== null) {
             $object->setBounceRate($data['bounce_rate']);
-            unset($data['bounce_rate']);
         }
         elseif (\array_key_exists('bounce_rate', $data) && $data['bounce_rate'] === null) {
             $object->setBounceRate(null);
         }
         if (\array_key_exists('complaint_rate', $data) && $data['complaint_rate'] !== null) {
             $object->setComplaintRate($data['complaint_rate']);
-            unset($data['complaint_rate']);
         }
         elseif (\array_key_exists('complaint_rate', $data) && $data['complaint_rate'] === null) {
             $object->setComplaintRate(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

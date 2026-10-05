@@ -2,7 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-class WhatsAppBusinessAccountBan extends \ArrayObject
+class WhatsAppBusinessAccountBan
 {
     /**
      * @var array

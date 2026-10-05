@@ -66,14 +66,14 @@ class EmailMailboxProviderStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailMailboxProviderStatsPointDelivery|null $delivery
+     * @param EmailMailboxProviderStatsPointDelivery|EmailMailboxProviderDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailMailboxProviderStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailMailboxProviderStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -84,14 +84,14 @@ class EmailMailboxProviderStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailMailboxProviderStatsPointEngagement|null $engagement
+     * @param EmailMailboxProviderStatsPointEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailMailboxProviderStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailMailboxProviderStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -102,14 +102,14 @@ class EmailMailboxProviderStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailMailboxProviderStatsPointLatency|null $latency
+     * @param EmailMailboxProviderStatsPointLatency|EmailDeliveryLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailMailboxProviderStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailMailboxProviderStatsPointLatency::class);
         return $this;
     }
     /**

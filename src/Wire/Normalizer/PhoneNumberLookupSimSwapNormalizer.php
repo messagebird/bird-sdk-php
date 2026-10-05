@@ -39,47 +39,33 @@ class PhoneNumberLookupSimSwapNormalizer implements DenormalizerInterface, Norma
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
-            unset($data['status']);
         }
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
         if (\array_key_exists('last_swapped_at', $data) && $data['last_swapped_at'] !== null) {
             $object->setLastSwappedAt(new \DateTime($data['last_swapped_at']));
-            unset($data['last_swapped_at']);
         }
         elseif (\array_key_exists('last_swapped_at', $data) && $data['last_swapped_at'] === null) {
             $object->setLastSwappedAt(null);
         }
         if (\array_key_exists('min_days', $data) && $data['min_days'] !== null) {
             $object->setMinDays($data['min_days']);
-            unset($data['min_days']);
         }
         elseif (\array_key_exists('min_days', $data) && $data['min_days'] === null) {
             $object->setMinDays(null);
         }
         if (\array_key_exists('max_days', $data) && $data['max_days'] !== null) {
             $object->setMaxDays($data['max_days']);
-            unset($data['max_days']);
         }
         elseif (\array_key_exists('max_days', $data) && $data['max_days'] === null) {
             $object->setMaxDays(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

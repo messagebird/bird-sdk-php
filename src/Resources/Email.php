@@ -13,7 +13,7 @@ use MessageBird\Wire\Model\EmailMessage;
 use MessageBird\Wire\Model\EmailMessageBatchRequest;
 use MessageBird\Wire\Model\EmailMessageBatchResponse;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
-use MessageBird\Wire\Model\EmailMessageSendRequestTemplate;
+use MessageBird\Wire\Model\EmailTemplateSend;
 use MessageBird\Wire\Model\Tag;
 
 /**
@@ -81,8 +81,8 @@ final class Email extends EmailBase
         ?string $ipPoolId = null,
         ?array $attachments = null,
         // TODO(sdk-php): flatten to $template (id/slug string) + $language + $parameters and build the
-        // model here, matching Python/Go; the EmailMessageSendRequestTemplate param is a stopgap.
-        ?EmailMessageSendRequestTemplate $template = null,
+        // model here, matching Python/Go; the EmailTemplateSend param is a stopgap.
+        ?EmailTemplateSend $template = null,
         ?\DateTimeInterface $scheduledAt = null,
         ?RequestOptions $options = null,
     ): EmailMessage {

@@ -94,14 +94,14 @@ class EmailMailboxProviderRegionStatsPoint
         return $this->delivery;
     }
     /**
-     * @param EmailMailboxProviderRegionStatsPointDelivery|null $delivery
+     * @param EmailMailboxProviderRegionStatsPointDelivery|EmailMailboxProviderDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?EmailMailboxProviderRegionStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, EmailMailboxProviderRegionStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -112,14 +112,14 @@ class EmailMailboxProviderRegionStatsPoint
         return $this->engagement;
     }
     /**
-     * @param EmailMailboxProviderRegionStatsPointEngagement|null $engagement
+     * @param EmailMailboxProviderRegionStatsPointEngagement|EmailEngagementStats|array|null $engagement
      *
      * @return self
      */
-    public function setEngagement(?EmailMailboxProviderRegionStatsPointEngagement $engagement): self
+    public function setEngagement($engagement): self
     {
         $this->initialized['engagement'] = true;
-        $this->engagement = $engagement;
+        $this->engagement = \MessageBird\Core\ModelWrapper::normalize($engagement, EmailMailboxProviderRegionStatsPointEngagement::class);
         return $this;
     }
     /**
@@ -130,14 +130,14 @@ class EmailMailboxProviderRegionStatsPoint
         return $this->latency;
     }
     /**
-     * @param EmailMailboxProviderRegionStatsPointLatency|null $latency
+     * @param EmailMailboxProviderRegionStatsPointLatency|EmailDeliveryLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?EmailMailboxProviderRegionStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, EmailMailboxProviderRegionStatsPointLatency::class);
         return $this;
     }
     /**

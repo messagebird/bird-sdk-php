@@ -20,6 +20,13 @@ class WebhookEndpointCreate
      */
     protected $url;
     /**
+     * Exact match on `mailbox_id`, for `email_mailbox.*` events only; the mailbox must belong to this workspace. Cannot be combined with Realtime app scope. Omit on create for all resources; on update omit to keep, send `null` to clear.
+     * 
+     *
+     * @var WebhookFilter|null
+     */
+    protected $filter;
+    /**
      * Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries.
      *
      * @var list<string>|null
@@ -59,6 +66,29 @@ class WebhookEndpointCreate
     {
         $this->initialized['url'] = true;
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * Exact match on `mailbox_id`, for `email_mailbox.*` events only; the mailbox must belong to this workspace. Cannot be combined with Realtime app scope. Omit on create for all resources; on update omit to keep, send `null` to clear.
+     * 
+     *
+     * @return WebhookFilter|null
+     */
+    public function getFilter(): ?WebhookFilter
+    {
+        return $this->filter;
+    }
+    /**
+     * Exact match on `mailbox_id`, for `email_mailbox.*` events only; the mailbox must belong to this workspace. Cannot be combined with Realtime app scope. Omit on create for all resources; on update omit to keep, send `null` to clear.
+     *
+     * @param WebhookFilter|null $filter
+     *
+     * @return self
+     */
+    public function setFilter(?WebhookFilter $filter): self
+    {
+        $this->initialized['filter'] = true;
+        $this->filter = $filter;
         return $this;
     }
     /**

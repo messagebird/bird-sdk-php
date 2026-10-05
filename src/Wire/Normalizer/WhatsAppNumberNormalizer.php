@@ -99,7 +99,7 @@ class WhatsAppNumberNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setNext(null);
         }
         if (\array_key_exists('error', $data) && $data['error'] !== null) {
-            $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppNumberError::class, 'json', $context));
+            $object->setError($this->denormalizer->denormalize($data['error'], \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class, 'json', $context));
         }
         elseif (\array_key_exists('error', $data) && $data['error'] === null) {
             $object->setError(null);

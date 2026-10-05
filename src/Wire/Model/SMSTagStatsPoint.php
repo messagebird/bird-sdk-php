@@ -65,14 +65,14 @@ class SMSTagStatsPoint
         return $this->delivery;
     }
     /**
-     * @param SMSTagStatsPointDelivery|null $delivery
+     * @param SMSTagStatsPointDelivery|SMSDeliveryStats|array|null $delivery
      *
      * @return self
      */
-    public function setDelivery(?SMSTagStatsPointDelivery $delivery): self
+    public function setDelivery($delivery): self
     {
         $this->initialized['delivery'] = true;
-        $this->delivery = $delivery;
+        $this->delivery = \MessageBird\Core\ModelWrapper::normalize($delivery, SMSTagStatsPointDelivery::class);
         return $this;
     }
     /**
@@ -83,14 +83,14 @@ class SMSTagStatsPoint
         return $this->latency;
     }
     /**
-     * @param SMSTagStatsPointLatency|null $latency
+     * @param SMSTagStatsPointLatency|SMSLatencyStats|array|null $latency
      *
      * @return self
      */
-    public function setLatency(?SMSTagStatsPointLatency $latency): self
+    public function setLatency($latency): self
     {
         $this->initialized['latency'] = true;
-        $this->latency = $latency;
+        $this->latency = \MessageBird\Core\ModelWrapper::normalize($latency, SMSTagStatsPointLatency::class);
         return $this;
     }
     /**

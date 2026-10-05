@@ -42,22 +42,15 @@ class WhatsAppMessageSendRequestAudioNormalizer implements DenormalizerInterface
         }
         if (\array_key_exists('url', $data) && $data['url'] !== null) {
             $object->setUrl($data['url']);
-            unset($data['url']);
         }
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
         }
         if (\array_key_exists('voice', $data) && $data['voice'] !== null) {
             $object->setVoice($data['voice']);
-            unset($data['voice']);
         }
         elseif (\array_key_exists('voice', $data) && $data['voice'] === null) {
             $object->setVoice(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
@@ -67,11 +60,6 @@ class WhatsAppMessageSendRequestAudioNormalizer implements DenormalizerInterface
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('voice') && null !== $data->getVoice()) {
             $dataArray['voice'] = $data->getVoice();
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
         }
         return $dataArray;
     }

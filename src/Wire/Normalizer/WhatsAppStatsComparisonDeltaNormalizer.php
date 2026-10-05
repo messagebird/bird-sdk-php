@@ -66,82 +66,63 @@ class WhatsAppStatsComparisonDeltaNormalizer implements DenormalizerInterface, N
         }
         if (\array_key_exists('accepted_pct_change', $data) && $data['accepted_pct_change'] !== null) {
             $object->setAcceptedPctChange($data['accepted_pct_change']);
-            unset($data['accepted_pct_change']);
         }
         elseif (\array_key_exists('accepted_pct_change', $data) && $data['accepted_pct_change'] === null) {
             $object->setAcceptedPctChange(null);
         }
         if (\array_key_exists('sent_pct_change', $data) && $data['sent_pct_change'] !== null) {
             $object->setSentPctChange($data['sent_pct_change']);
-            unset($data['sent_pct_change']);
         }
         elseif (\array_key_exists('sent_pct_change', $data) && $data['sent_pct_change'] === null) {
             $object->setSentPctChange(null);
         }
         if (\array_key_exists('delivered_pct_change', $data) && $data['delivered_pct_change'] !== null) {
             $object->setDeliveredPctChange($data['delivered_pct_change']);
-            unset($data['delivered_pct_change']);
         }
         elseif (\array_key_exists('delivered_pct_change', $data) && $data['delivered_pct_change'] === null) {
             $object->setDeliveredPctChange(null);
         }
         if (\array_key_exists('failed_pct_change', $data) && $data['failed_pct_change'] !== null) {
             $object->setFailedPctChange($data['failed_pct_change']);
-            unset($data['failed_pct_change']);
         }
         elseif (\array_key_exists('failed_pct_change', $data) && $data['failed_pct_change'] === null) {
             $object->setFailedPctChange(null);
         }
         if (\array_key_exists('rejected_pct_change', $data) && $data['rejected_pct_change'] !== null) {
             $object->setRejectedPctChange($data['rejected_pct_change']);
-            unset($data['rejected_pct_change']);
         }
         elseif (\array_key_exists('rejected_pct_change', $data) && $data['rejected_pct_change'] === null) {
             $object->setRejectedPctChange(null);
         }
         if (\array_key_exists('read_pct_change', $data) && $data['read_pct_change'] !== null) {
             $object->setReadPctChange($data['read_pct_change']);
-            unset($data['read_pct_change']);
         }
         elseif (\array_key_exists('read_pct_change', $data) && $data['read_pct_change'] === null) {
             $object->setReadPctChange(null);
         }
         if (\array_key_exists('delivery_rate_pp', $data) && $data['delivery_rate_pp'] !== null) {
             $object->setDeliveryRatePp($data['delivery_rate_pp']);
-            unset($data['delivery_rate_pp']);
         }
         elseif (\array_key_exists('delivery_rate_pp', $data) && $data['delivery_rate_pp'] === null) {
             $object->setDeliveryRatePp(null);
         }
         if (\array_key_exists('failure_rate_pp', $data) && $data['failure_rate_pp'] !== null) {
             $object->setFailureRatePp($data['failure_rate_pp']);
-            unset($data['failure_rate_pp']);
         }
         elseif (\array_key_exists('failure_rate_pp', $data) && $data['failure_rate_pp'] === null) {
             $object->setFailureRatePp(null);
         }
         if (\array_key_exists('read_rate_pp', $data) && $data['read_rate_pp'] !== null) {
             $object->setReadRatePp($data['read_rate_pp']);
-            unset($data['read_rate_pp']);
         }
         elseif (\array_key_exists('read_rate_pp', $data) && $data['read_rate_pp'] === null) {
             $object->setReadRatePp(null);
-        }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
-            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

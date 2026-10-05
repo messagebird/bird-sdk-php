@@ -85,6 +85,12 @@ class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, 
         elseif (\array_key_exists('sip_trunk_id', $data) && $data['sip_trunk_id'] === null) {
             $object->setSipTrunkId(null);
         }
+        if (\array_key_exists('sip_call_id', $data) && $data['sip_call_id'] !== null) {
+            $object->setSipCallId($data['sip_call_id']);
+        }
+        elseif (\array_key_exists('sip_call_id', $data) && $data['sip_call_id'] === null) {
+            $object->setSipCallId(null);
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }

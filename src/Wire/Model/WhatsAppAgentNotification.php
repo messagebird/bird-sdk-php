@@ -60,7 +60,7 @@ class WhatsAppAgentNotification
     /**
      * Why the notification failed. Present only when `status` is `failed`.
      *
-     * @var WhatsAppAgentNotificationError|null
+     * @var WhatsAppAgentNotificationErrorWrapper|null
      */
     protected $error;
     /**
@@ -104,14 +104,14 @@ class WhatsAppAgentNotification
     /**
      * The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
      *
-     * @param WhatsAppAgentNotificationTo|null $to
+     * @param WhatsAppAgentNotificationTo|WhatsAppAddress|array|null $to
      *
      * @return self
      */
-    public function setTo(?WhatsAppAgentNotificationTo $to): self
+    public function setTo($to): self
     {
         $this->initialized['to'] = true;
-        $this->to = $to;
+        $this->to = \MessageBird\Core\ModelWrapper::normalize($to, WhatsAppAgentNotificationTo::class);
         return $this;
     }
     /**
@@ -229,23 +229,23 @@ class WhatsAppAgentNotification
     /**
      * Why the notification failed. Present only when `status` is `failed`.
      *
-     * @return WhatsAppAgentNotificationError|null
+     * @return WhatsAppAgentNotificationErrorWrapper|null
      */
-    public function getError(): ?WhatsAppAgentNotificationError
+    public function getError(): ?WhatsAppAgentNotificationErrorWrapper
     {
         return $this->error;
     }
     /**
      * Why the notification failed. Present only when `status` is `failed`.
      *
-     * @param WhatsAppAgentNotificationError|null $error
+     * @param WhatsAppAgentNotificationErrorWrapper|WhatsAppAgentNotificationError|array|null $error
      *
      * @return self
      */
-    public function setError(?WhatsAppAgentNotificationError $error): self
+    public function setError($error): self
     {
         $this->initialized['error'] = true;
-        $this->error = $error;
+        $this->error = \MessageBird\Core\ModelWrapper::normalize($error, WhatsAppAgentNotificationErrorWrapper::class);
         return $this;
     }
     /**
