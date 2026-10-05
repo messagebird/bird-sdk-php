@@ -2,6 +2,14 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.67.0
+
+- **Breaking:** typed wrapper models now extend their base model; replace array access to named fields with typed getters and setters.
+- Migrate reads from `$submission->getReadinessAttachment()['filename']` to `$submission->getReadinessAttachment()?->getFilename()`.
+- For writes, read the wrapper with `$document = $message->getDocument()`. If it is null, create a `\MessageBird\Wire\Model\WhatsAppMessageSendRequestDocument`, set its required media reference with `setUrl()`, and assign it with `$message->setDocument($document)`. Then call `$document->setFilename('invoice.pdf')`.
+- A nullsafe setter such as `$message->getDocument()?->setFilename(...)` skips the write when no document exists.
+- Wrappers for composed fields in AMB, email, SMS, WhatsApp, and voice models inherit their base model's fields; replace `getArrayCopy()` for named fields with an explicit array of getter values. Move unnamed values previously stored with `append()` on a closed-base wrapper into a separate PHP array. Wrappers whose base model accepts extra properties retain array access for those extra properties.
+
 ## 0.66.0
 
 - `AvailableNumber` now reports `ownership_address_scope`, where the carrier requires the business address on a number's ownership registration to be.
