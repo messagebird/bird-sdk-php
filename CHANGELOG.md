@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.68.0
+
+- `Mailbox` and the created webhook endpoint gain `next`: creating a mailbox now suggests subscribing to the mail it receives with a webhook for `email_mailbox.message_received`.
+
 ## 0.67.0
 
 - **Breaking:** typed wrapper models now extend their base model; replace array access to named fields with typed getters and setters.

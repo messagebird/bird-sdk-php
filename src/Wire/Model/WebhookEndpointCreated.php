@@ -82,6 +82,12 @@ class WebhookEndpointCreated extends \ArrayObject
      */
     protected $secret;
     /**
+     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -315,6 +321,28 @@ class WebhookEndpointCreated extends \ArrayObject
     {
         $this->initialized['secret'] = true;
         $this->secret = $secret;
+        return $this;
+    }
+    /**
+     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
+     *
+     * @param list<NextAction>|null $next
+     *
+     * @return self
+     */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
 }

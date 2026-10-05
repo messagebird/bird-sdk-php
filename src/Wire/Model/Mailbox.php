@@ -133,6 +133,12 @@ class Mailbox
      */
     protected $deletedAt;
     /**
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -559,6 +565,28 @@ class Mailbox
     {
         $this->initialized['deletedAt'] = true;
         $this->deletedAt = $deletedAt;
+        return $this;
+    }
+    /**
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     *
+     * @param list<NextAction>|null $next
+     *
+     * @return self
+     */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
 }

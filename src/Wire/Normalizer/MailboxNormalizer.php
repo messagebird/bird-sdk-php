@@ -158,6 +158,16 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('deleted_at', $data) && $data['deleted_at'] === null) {
             $object->setDeletedAt(null);
         }
+        if (\array_key_exists('next', $data) && $data['next'] !== null) {
+            $values_1 = [];
+            foreach ($data['next'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
+            }
+            $object->setNext($values_1);
+        }
+        elseif (\array_key_exists('next', $data) && $data['next'] === null) {
+            $object->setNext(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
