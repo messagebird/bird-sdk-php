@@ -13,14 +13,14 @@ class VoiceInboundConfigurationPut
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+     * The number's own route, or null to have it follow your workspace's default inbound route from the voice settings.
      * 
      *
      * @var mixed|null
      */
     protected $route;
     /**
-     * What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+     * The number's own route, or null to have it follow your workspace's default inbound route from the voice settings.
      * 
      *
      * @return mixed
@@ -30,7 +30,7 @@ class VoiceInboundConfigurationPut
         return $this->route;
     }
     /**
-     * What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+     * The number's own route, or null to have it follow your workspace's default inbound route from the voice settings.
      *
      * @param mixed $route
      *

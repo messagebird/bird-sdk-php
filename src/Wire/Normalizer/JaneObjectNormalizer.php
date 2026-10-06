@@ -88,6 +88,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailMessageContent::class => \MessageBird\Wire\Normalizer\EmailMessageContentNormalizer::class,
 
+        \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcast::class => \MessageBird\Wire\Normalizer\EmailBroadcastNormalizer::class,
@@ -830,21 +832,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsByPhoneNumberResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotification::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationCreateNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppNumberError::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumber::class => \MessageBird\Wire\Normalizer\WhatsAppNumberNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberListNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppAgentNotification::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppAgentNotificationTo::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationToNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationListNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationCreateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberEvent::class => \MessageBird\Wire\Normalizer\WhatsAppNumberEventNormalizer::class,
 
@@ -1654,6 +1654,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceNumberUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class => \MessageBird\Wire\Normalizer\VoiceSettingsInboundConfigurationNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSettings::class => \MessageBird\Wire\Normalizer\VoiceSettingsNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSettingsInboundConfigurationPut::class => \MessageBird\Wire\Normalizer\VoiceSettingsInboundConfigurationPutNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceSettingsUpdate::class => \MessageBird\Wire\Normalizer\VoiceSettingsUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceVerifiedNumber::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberListNormalizer::class,
@@ -1663,6 +1671,40 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberVerifyRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimZone::class => \MessageBird\Wire\Normalizer\EsimZoneNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimServiceCapabilities::class => \MessageBird\Wire\Normalizer\EsimServiceCapabilitiesNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimInstallation::class => \MessageBird\Wire\Normalizer\EsimInstallationNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimPackageBalance::class => \MessageBird\Wire\Normalizer\EsimPackageBalanceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimPackage::class => \MessageBird\Wire\Normalizer\EsimPackageNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimPackagePrice::class => \MessageBird\Wire\Normalizer\EsimPackagePriceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimZoneBalance::class => \MessageBird\Wire\Normalizer\EsimZoneBalanceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimAvailableAction::class => \MessageBird\Wire\Normalizer\EsimAvailableActionNormalizer::class,
+
+        \MessageBird\Wire\Model\Esim::class => \MessageBird\Wire\Normalizer\EsimNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCapabilities::class => \MessageBird\Wire\Normalizer\EsimCapabilitiesNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimLastAttachment::class => \MessageBird\Wire\Normalizer\EsimLastAttachmentNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimDelivery::class => \MessageBird\Wire\Normalizer\EsimDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderFunding::class => \MessageBird\Wire\Normalizer\EsimOrderFundingNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderFundingRequiredAmount::class => \MessageBird\Wire\Normalizer\EsimOrderFundingRequiredAmountNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrder::class => \MessageBird\Wire\Normalizer\EsimOrderNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderPrice::class => \MessageBird\Wire\Normalizer\EsimOrderPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderDelivery::class => \MessageBird\Wire\Normalizer\EsimOrderDeliveryNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
 
@@ -1696,6 +1738,92 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => \MessageBird\Wire\Normalizer\VoiceDestinationsUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\EsimZoneList::class => \MessageBird\Wire\Normalizer\EsimZoneListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferPhone::class => \MessageBird\Wire\Normalizer\EsimOfferPhoneNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferSummary::class => \MessageBird\Wire\Normalizer\EsimOfferSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferSummaryPhone::class => \MessageBird\Wire\Normalizer\EsimOfferSummaryPhoneNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferList::class => \MessageBird\Wire\Normalizer\EsimOfferListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOffer::class => \MessageBird\Wire\Normalizer\EsimOfferNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferZone::class => \MessageBird\Wire\Normalizer\EsimOfferZoneNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCountryRequirements::class => \MessageBird\Wire\Normalizer\EsimCountryRequirementsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOfferRequirements::class => \MessageBird\Wire\Normalizer\EsimOfferRequirementsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderList::class => \MessageBird\Wire\Normalizer\EsimOrderListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderRecurrence::class => \MessageBird\Wire\Normalizer\EsimOrderRecurrenceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderCreate::class => \MessageBird\Wire\Normalizer\EsimOrderCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimOrderCreateExpectedPrice::class => \MessageBird\Wire\Normalizer\EsimOrderCreateExpectedPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutOneTime::class => \MessageBird\Wire\Normalizer\EsimCheckoutOneTimeNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutRecurrence::class => \MessageBird\Wire\Normalizer\EsimCheckoutRecurrenceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutRecurrenceQuote::class => \MessageBird\Wire\Normalizer\EsimCheckoutRecurrenceQuoteNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutOptions::class => \MessageBird\Wire\Normalizer\EsimCheckoutOptionsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringOffer::class => \MessageBird\Wire\Normalizer\EsimRecurringOfferNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringSubscription::class => \MessageBird\Wire\Normalizer\EsimRecurringSubscriptionNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringSubscriptionPrice::class => \MessageBird\Wire\Normalizer\EsimRecurringSubscriptionPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringSubscriptionList::class => \MessageBird\Wire\Normalizer\EsimRecurringSubscriptionListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringSubscriptionCreate::class => \MessageBird\Wire\Normalizer\EsimRecurringSubscriptionCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringPeriod::class => \MessageBird\Wire\Normalizer\EsimRecurringPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimRecurringPeriodList::class => \MessageBird\Wire\Normalizer\EsimRecurringPeriodListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSubscriber::class => \MessageBird\Wire\Normalizer\EsimSubscriberNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSubscriberList::class => \MessageBird\Wire\Normalizer\EsimSubscriberListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSubscriberCreate::class => \MessageBird\Wire\Normalizer\EsimSubscriberCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimAssignment::class => \MessageBird\Wire\Normalizer\EsimAssignmentNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimAssignmentCreate::class => \MessageBird\Wire\Normalizer\EsimAssignmentCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSummary::class => \MessageBird\Wire\Normalizer\EsimSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimList::class => \MessageBird\Wire\Normalizer\EsimListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimUpdate::class => \MessageBird\Wire\Normalizer\EsimUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimInstallationInstructions::class => \MessageBird\Wire\Normalizer\EsimInstallationInstructionsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCredentials::class => \MessageBird\Wire\Normalizer\EsimCredentialsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCredentialsInstructions::class => \MessageBird\Wire\Normalizer\EsimCredentialsInstructionsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCredentialsDelivery::class => \MessageBird\Wire\Normalizer\EsimCredentialsDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCredentialsDeliveryInstallLink::class => \MessageBird\Wire\Normalizer\EsimCredentialsDeliveryInstallLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimDeliveryList::class => \MessageBird\Wire\Normalizer\EsimDeliveryListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimInstallLink::class => \MessageBird\Wire\Normalizer\EsimInstallLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimPackageList::class => \MessageBird\Wire\Normalizer\EsimPackageListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCompatibleOfferList::class => \MessageBird\Wire\Normalizer\EsimCompatibleOfferListNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSettings::class => \MessageBird\Wire\Normalizer\EsimSettingsNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimSettingsUpdate::class => \MessageBird\Wire\Normalizer\EsimSettingsUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaWrapperNormalizer::class,
@@ -1712,15 +1840,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaWrapperNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorWrapperNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => \MessageBird\Wire\Normalizer\EmailHealthSignalThresholdsWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimPackageBalanceWrapper::class => \MessageBird\Wire\Normalizer\EsimPackageBalanceWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimInstallationWrapper::class => \MessageBird\Wire\Normalizer\EsimInstallationWrapperNormalizer::class,
 
         \Jane\Component\JsonSchemaRuntime\Reference::class => \MessageBird\Wire\Runtime\Normalizer\ReferenceNormalizer::class,
     ], $normalizersCache = [];
@@ -1795,6 +1927,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEvent::class => false,
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
+            \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcast::class => false,
             \MessageBird\Wire\Model\EmailBroadcastList::class => false,
@@ -2166,14 +2299,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundPhoneNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotification::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => false,
+            \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberError::class => false,
             \MessageBird\Wire\Model\WhatsAppNumber::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberList::class => false,
-            \MessageBird\Wire\Model\WhatsAppAgentNotificationError::class => false,
-            \MessageBird\Wire\Model\WhatsAppAgentNotification::class => false,
-            \MessageBird\Wire\Model\WhatsAppAgentNotificationTo::class => false,
-            \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => false,
-            \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberProfile::class => false,
@@ -2578,11 +2710,32 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceNumberList::class => false,
             \MessageBird\Wire\Model\VoiceInboundConfigurationPut::class => false,
             \MessageBird\Wire\Model\VoiceNumberUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class => false,
+            \MessageBird\Wire\Model\VoiceSettings::class => false,
+            \MessageBird\Wire\Model\VoiceSettingsInboundConfigurationPut::class => false,
+            \MessageBird\Wire\Model\VoiceSettingsUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumber::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberCreate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false,
+            \MessageBird\Wire\Model\EsimZone::class => false,
+            \MessageBird\Wire\Model\EsimServiceCapabilities::class => false,
+            \MessageBird\Wire\Model\EsimInstallation::class => false,
+            \MessageBird\Wire\Model\EsimPackageBalance::class => false,
+            \MessageBird\Wire\Model\EsimPackage::class => false,
+            \MessageBird\Wire\Model\EsimPackagePrice::class => false,
+            \MessageBird\Wire\Model\EsimZoneBalance::class => false,
+            \MessageBird\Wire\Model\EsimAvailableAction::class => false,
+            \MessageBird\Wire\Model\Esim::class => false,
+            \MessageBird\Wire\Model\EsimCapabilities::class => false,
+            \MessageBird\Wire\Model\EsimLastAttachment::class => false,
+            \MessageBird\Wire\Model\EsimDelivery::class => false,
+            \MessageBird\Wire\Model\EsimOrderFunding::class => false,
+            \MessageBird\Wire\Model\EsimOrderFundingRequiredAmount::class => false,
+            \MessageBird\Wire\Model\EsimOrder::class => false,
+            \MessageBird\Wire\Model\EsimOrderPrice::class => false,
+            \MessageBird\Wire\Model\EsimOrderDelivery::class => false,
             \MessageBird\Wire\Model\VoiceLegList::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => false,
@@ -2599,6 +2752,49 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceDestination::class => false,
             \MessageBird\Wire\Model\VoiceDestinationList::class => false,
             \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => false,
+            \MessageBird\Wire\Model\EsimZoneList::class => false,
+            \MessageBird\Wire\Model\EsimOfferPhone::class => false,
+            \MessageBird\Wire\Model\EsimOfferSummary::class => false,
+            \MessageBird\Wire\Model\EsimOfferSummaryPhone::class => false,
+            \MessageBird\Wire\Model\EsimOfferList::class => false,
+            \MessageBird\Wire\Model\EsimOffer::class => false,
+            \MessageBird\Wire\Model\EsimOfferZone::class => false,
+            \MessageBird\Wire\Model\EsimCountryRequirements::class => false,
+            \MessageBird\Wire\Model\EsimOfferRequirements::class => false,
+            \MessageBird\Wire\Model\EsimOrderList::class => false,
+            \MessageBird\Wire\Model\EsimOrderRecurrence::class => false,
+            \MessageBird\Wire\Model\EsimOrderCreate::class => false,
+            \MessageBird\Wire\Model\EsimOrderCreateExpectedPrice::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutOneTime::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutRecurrence::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutRecurrenceQuote::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutOptions::class => false,
+            \MessageBird\Wire\Model\EsimRecurringOffer::class => false,
+            \MessageBird\Wire\Model\EsimRecurringSubscription::class => false,
+            \MessageBird\Wire\Model\EsimRecurringSubscriptionPrice::class => false,
+            \MessageBird\Wire\Model\EsimRecurringSubscriptionList::class => false,
+            \MessageBird\Wire\Model\EsimRecurringSubscriptionCreate::class => false,
+            \MessageBird\Wire\Model\EsimRecurringPeriod::class => false,
+            \MessageBird\Wire\Model\EsimRecurringPeriodList::class => false,
+            \MessageBird\Wire\Model\EsimSubscriber::class => false,
+            \MessageBird\Wire\Model\EsimSubscriberList::class => false,
+            \MessageBird\Wire\Model\EsimSubscriberCreate::class => false,
+            \MessageBird\Wire\Model\EsimAssignment::class => false,
+            \MessageBird\Wire\Model\EsimAssignmentCreate::class => false,
+            \MessageBird\Wire\Model\EsimSummary::class => false,
+            \MessageBird\Wire\Model\EsimList::class => false,
+            \MessageBird\Wire\Model\EsimUpdate::class => false,
+            \MessageBird\Wire\Model\EsimInstallationInstructions::class => false,
+            \MessageBird\Wire\Model\EsimCredentials::class => false,
+            \MessageBird\Wire\Model\EsimCredentialsInstructions::class => false,
+            \MessageBird\Wire\Model\EsimCredentialsDelivery::class => false,
+            \MessageBird\Wire\Model\EsimCredentialsDeliveryInstallLink::class => false,
+            \MessageBird\Wire\Model\EsimDeliveryList::class => false,
+            \MessageBird\Wire\Model\EsimInstallLink::class => false,
+            \MessageBird\Wire\Model\EsimPackageList::class => false,
+            \MessageBird\Wire\Model\EsimCompatibleOfferList::class => false,
+            \MessageBird\Wire\Model\EsimSettings::class => false,
+            \MessageBird\Wire\Model\EsimSettingsUpdate::class => false,
             \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => false,
@@ -2607,11 +2803,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageTemplateWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => false,
-            \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => false,
             \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => false,
+            \MessageBird\Wire\Model\EsimPackageBalanceWrapper::class => false,
+            \MessageBird\Wire\Model\EsimInstallationWrapper::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
     }

@@ -75,7 +75,7 @@ class NumbersBase extends Resource
     }
 
     /**
-     * Gives a dedicated number back and stops its monthly charge. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released.
+     * Gives a dedicated number back now and stops its monthly charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
      *
      * @example Give a dedicated number back
      * // Releasing stops the monthly charge and the number stops working for you.
@@ -84,6 +84,20 @@ class NumbersBase extends Resource
      */
     public function release(string $numberId, ?RequestOptions $options = null): void
     {
-        $this->none('DELETE', '/v1/numbers/' . rawurlencode($numberId), null, null, $options);
+        $this->none('POST', '/v1/numbers/' . rawurlencode($numberId) . '/release', null, null, $options);
+    }
+
+    /**
+     * Stops a dedicated number renewing and keeps it allocated until the end of the period already paid for, when it is released. Cannot be undone; read `releases_at` for when it goes. Asking again returns the same schedule. A number with no subscription behind it is released now. Refused while a renewal payment is overdue. To give the number up now, use `numbers.release` instead.
+     *
+     * @example Release a number at the end of its billing period
+     * // A billed number stays yours until its paid period ends, then is released;
+     * // releases_at says when. One with no subscription is released now.
+     * $allocated = $bird->numbers->cancel('nda_01krdgeqcxet5s7t44vh8rt9mg');
+     * echo $allocated->getReleasesAt()?->format(DATE_ATOM), "\n";
+     */
+    public function cancel(string $numberId, ?RequestOptions $options = null): Number
+    {
+        return $this->single('DELETE', '/v1/numbers/' . rawurlencode($numberId), Number::class, null, null, $options);
     }
 }

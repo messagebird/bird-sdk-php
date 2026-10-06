@@ -83,6 +83,12 @@ class Number
      */
     protected $allocatedAt;
     /**
+     * When a scheduled release of this number takes effect, at the end of its current billing period. The number stays allocated, with its current `status`, until then. `null` when no release is scheduled.
+     *
+     * @var \DateTime|null
+     */
+    protected $releasesAt;
+    /**
      * When this number was released. `null` while it is still allocated to your workspace.
      *
      * @var \DateTime|null
@@ -333,6 +339,28 @@ class Number
     {
         $this->initialized['allocatedAt'] = true;
         $this->allocatedAt = $allocatedAt;
+        return $this;
+    }
+    /**
+     * When a scheduled release of this number takes effect, at the end of its current billing period. The number stays allocated, with its current `status`, until then. `null` when no release is scheduled.
+     *
+     * @return \DateTime|null
+     */
+    public function getReleasesAt(): ?\DateTime
+    {
+        return $this->releasesAt;
+    }
+    /**
+     * When a scheduled release of this number takes effect, at the end of its current billing period. The number stays allocated, with its current `status`, until then. `null` when no release is scheduled.
+     *
+     * @param \DateTime|null $releasesAt
+     *
+     * @return self
+     */
+    public function setReleasesAt(?\DateTime $releasesAt): self
+    {
+        $this->initialized['releasesAt'] = true;
+        $this->releasesAt = $releasesAt;
         return $this;
     }
     /**

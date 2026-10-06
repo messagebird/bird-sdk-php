@@ -15,22 +15,22 @@ use MessageBird\Wire\Model\WhatsAppAgentNotificationList;
 final class WhatsappAgentsNotifications extends Resource
 {
     /**
-     * List the notifications sent to the agent on this WhatsApp number, newest first, each with what came of it, as a cursor page.
+     * List the notifications sent to the agents on your WhatsApp numbers, newest first, each with what came of it, as a cursor page. Filter by `from` for one number's agent.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @return Page<WhatsAppAgentNotification>
      *
      * @example Find what an agent skipped
-     * foreach ($bird->whatsapp->agents->notifications->list('wan_01krdgeqcxet5s7t44vh8rt9mg', ['status' => 'skipped']) as $notification) {
+     * foreach ($bird->whatsapp->agents->notifications->list(['from' => '+13124495648', 'status' => 'skipped']) as $notification) {
      *     echo $notification->getName(), ' ', $notification->getSkippedReason(), PHP_EOL;
      * }
      */
-    public function list(string $numberId, ?array $query = null, ?RequestOptions $options = null): Page
+    public function list(?array $query = null, ?RequestOptions $options = null): Page
     {
         return $this->paginate(
             WhatsAppAgentNotification::class,
-            fn (?string $cursor): WhatsAppAgentNotificationList => $this->single('GET', '/v1/whatsapp/numbers/' . rawurlencode($numberId) . '/agent/notifications', WhatsAppAgentNotificationList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            fn (?string $cursor): WhatsAppAgentNotificationList => $this->single('GET', '/v1/whatsapp/agents/notifications', WhatsAppAgentNotificationList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
             static function (object $page): iterable {
                 \assert($page instanceof WhatsAppAgentNotificationList);
 
@@ -45,14 +45,14 @@ final class WhatsappAgentsNotifications extends Resource
     }
 
     /**
-     * Tell the agent on this WhatsApp number that something happened in your systems for one contact, such as a payment landing or an order shipping, so it can write to them about it. The notification is handed to WhatsApp in the background; read it back with `whatsapp.agents.notifications.get` to see whether the agent acted on it.
+     * Tell the agent on the `from` business number that something happened in your systems for one contact, such as a payment landing or an order shipping, so it can write to them about it. The notification is handed to WhatsApp in the background; read it back with `whatsapp.agents.notifications.get` to see whether the agent acted on it.
      *
      * @example Tell an agent something happened
      * // The agent decides whether and how to tell the contact. The answer reads
      * // accepted; read it back to see whether the agent acted on it.
      * $notification = $bird->whatsapp->agents->notifications->create(
-     *     'wan_01krdgeqcxet5s7t44vh8rt9mg',
      *     (new WhatsAppAgentNotificationCreate())
+     *         ->setFrom('+13124495648')
      *         ->setTo('+14155551234')
      *         ->setName('order_shipped')
      *         ->setDescription('Order 88213 left the warehouse and arrives on Thursday.')
@@ -60,22 +60,22 @@ final class WhatsappAgentsNotifications extends Resource
      * );
      * echo $notification->getId(), ' ', $notification->getStatus();
      */
-    public function create(string $numberId, WhatsAppAgentNotificationCreate $params, ?RequestOptions $options = null): WhatsAppAgentNotification
+    public function create(WhatsAppAgentNotificationCreate $params, ?RequestOptions $options = null): WhatsAppAgentNotification
     {
-        return $this->single('POST', '/v1/whatsapp/numbers/' . rawurlencode($numberId) . '/agent/notifications', WhatsAppAgentNotification::class, $params, null, $options);
+        return $this->single('POST', '/v1/whatsapp/agents/notifications', WhatsAppAgentNotification::class, $params, null, $options);
     }
 
     /**
-     * Read one notification sent to the agent on this WhatsApp number, with what came of it.
+     * Read one notification sent to one of your agents, with what came of it.
      *
      * @example Read what came of a notification
      * // A notification still on its way to WhatsApp is not readable yet, so a read
      * // straight after create can throw a not-found ApiException.
-     * $notification = $bird->whatsapp->agents->notifications->get('wan_01krdgeqcxet5s7t44vh8rt9mg', 'waan_01krdgeqcxet5s7t44vh8rt9m7');
+     * $notification = $bird->whatsapp->agents->notifications->get('waan_01krdgeqcxet5s7t44vh8rt9m7');
      * echo $notification->getStatus(), ' ', $notification->getSkippedReason() ?? $notification->getError()?->getDescription();
      */
-    public function get(string $numberId, string $notificationId, ?RequestOptions $options = null): WhatsAppAgentNotification
+    public function get(string $notificationId, ?RequestOptions $options = null): WhatsAppAgentNotification
     {
-        return $this->single('GET', '/v1/whatsapp/numbers/' . rawurlencode($numberId) . '/agent/notifications/' . rawurlencode($notificationId), WhatsAppAgentNotification::class, null, null, $options);
+        return $this->single('GET', '/v1/whatsapp/agents/notifications/' . rawurlencode($notificationId), WhatsAppAgentNotification::class, null, null, $options);
     }
 }

@@ -19,10 +19,16 @@ class WhatsAppAgentNotification
      */
     protected $id;
     /**
-     * The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
+     * The business number whose agent the notification was sent to, in E.164 format.
+     *
+     * @var string|null
+     */
+    protected $from;
+    /**
+     * The contact the notification was about, as you addressed it: a phone number in E.164 format, or a business-scoped user ID.
      * 
      *
-     * @var WhatsAppAgentNotificationTo|null
+     * @var string|null
      */
     protected $to;
     /**
@@ -92,26 +98,48 @@ class WhatsAppAgentNotification
         return $this;
     }
     /**
-     * The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
+     * The business number whose agent the notification was sent to, in E.164 format.
+     *
+     * @return string|null
+     */
+    public function getFrom(): ?string
+    {
+        return $this->from;
+    }
+    /**
+     * The business number whose agent the notification was sent to, in E.164 format.
+     *
+     * @param string|null $from
+     *
+     * @return self
+     */
+    public function setFrom(?string $from): self
+    {
+        $this->initialized['from'] = true;
+        $this->from = $from;
+        return $this;
+    }
+    /**
+     * The contact the notification was about, as you addressed it: a phone number in E.164 format, or a business-scoped user ID.
      * 
      *
-     * @return WhatsAppAgentNotificationTo|null
+     * @return string|null
      */
-    public function getTo(): ?WhatsAppAgentNotificationTo
+    public function getTo(): ?string
     {
         return $this->to;
     }
     /**
-     * The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
+     * The contact the notification was about, as you addressed it: a phone number in E.164 format, or a business-scoped user ID.
      *
-     * @param WhatsAppAgentNotificationTo|WhatsAppAddress|array|null $to
+     * @param string|null $to
      *
      * @return self
      */
-    public function setTo($to): self
+    public function setTo(?string $to): self
     {
         $this->initialized['to'] = true;
-        $this->to = \MessageBird\Core\ModelWrapper::normalize($to, WhatsAppAgentNotificationTo::class);
+        $this->to = $to;
         return $this;
     }
     /**

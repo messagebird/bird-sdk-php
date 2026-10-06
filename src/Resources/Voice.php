@@ -15,6 +15,8 @@ final class Voice
 
     public readonly VoiceNumbers $numbers;
 
+    public readonly VoiceSettingsResource $settings;
+
     public readonly VoiceVerifiedNumbers $verifiedNumbers;
 
     public readonly VoiceDestinations $destinations;
@@ -27,6 +29,7 @@ final class Voice
         $this->legs = new VoiceLegs($client);
         $this->trunks = new VoiceTrunks($client);
         $this->numbers = new VoiceNumbers($client);
+        $this->settings = new VoiceSettingsResource($client);
         $this->verifiedNumbers = new VoiceVerifiedNumbers($client);
         $this->destinations = new VoiceDestinations($client);
         $this->sessionCredentials = new VoiceSessionCredentials($client);

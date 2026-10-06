@@ -61,6 +61,11 @@ echo $allocated->getStatus(), "\n";
 // Only a dedicated number can be released; a shared one answers E14002.
 $bird->numbers->release('nda_01krdgeqcxet5s7t44vh8rt9mg');
 
+// A billed number stays yours until its paid period ends, then is released;
+// releases_at says when. One with no subscription is released now.
+$allocated = $bird->numbers->cancel('nda_01krdgeqcxet5s7t44vh8rt9mg');
+echo $allocated->getReleasesAt()?->format(DATE_ATOM), "\n";
+
 $allocated = $bird->numbers->update(
     'nda_01krdgeqcxet5s7t44vh8rt9mg',
     (new \MessageBird\Wire\Model\NumberUpdate())->setName('Support line')->setReference('STORE-042'),

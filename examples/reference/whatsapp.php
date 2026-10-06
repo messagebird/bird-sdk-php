@@ -304,8 +304,8 @@ $bird->whatsapp->suppressions->remove('was_01krdgeqcxet5s7t44vh8rt9mg');
 // The agent decides whether and how to tell the contact. The answer reads
 // accepted; read it back to see whether the agent acted on it.
 $notification = $bird->whatsapp->agents->notifications->create(
-    'wan_01krdgeqcxet5s7t44vh8rt9mg',
     (new WhatsAppAgentNotificationCreate())
+        ->setFrom('+13124495648')
         ->setTo('+14155551234')
         ->setName('order_shipped')
         ->setDescription('Order 88213 left the warehouse and arrives on Thursday.')
@@ -313,11 +313,11 @@ $notification = $bird->whatsapp->agents->notifications->create(
 );
 echo $notification->getId(), ' ', $notification->getStatus();
 
-foreach ($bird->whatsapp->agents->notifications->list('wan_01krdgeqcxet5s7t44vh8rt9mg', ['status' => 'skipped']) as $notification) {
+foreach ($bird->whatsapp->agents->notifications->list(['from' => '+13124495648', 'status' => 'skipped']) as $notification) {
     echo $notification->getName(), ' ', $notification->getSkippedReason(), PHP_EOL;
 }
 
 // A notification still on its way to WhatsApp is not readable yet, so a read
 // straight after create can throw a not-found ApiException.
-$notification = $bird->whatsapp->agents->notifications->get('wan_01krdgeqcxet5s7t44vh8rt9mg', 'waan_01krdgeqcxet5s7t44vh8rt9m7');
+$notification = $bird->whatsapp->agents->notifications->get('waan_01krdgeqcxet5s7t44vh8rt9m7');
 echo $notification->getStatus(), ' ', $notification->getSkippedReason() ?? $notification->getError()?->getDescription();

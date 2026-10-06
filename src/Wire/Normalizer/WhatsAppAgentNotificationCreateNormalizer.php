@@ -37,6 +37,12 @@ class WhatsAppAgentNotificationCreateNormalizer implements DenormalizerInterface
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('from', $data) && $data['from'] !== null) {
+            $object->setFrom($data['from']);
+        }
+        elseif (\array_key_exists('from', $data) && $data['from'] === null) {
+            $object->setFrom(null);
+        }
         if (\array_key_exists('to', $data) && $data['to'] !== null) {
             $object->setTo($data['to']);
         }
@@ -66,6 +72,7 @@ class WhatsAppAgentNotificationCreateNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        $dataArray['from'] = $data->getFrom();
         $dataArray['to'] = $data->getTo();
         $dataArray['name'] = $data->getName();
         $dataArray['description'] = $data->getDescription();

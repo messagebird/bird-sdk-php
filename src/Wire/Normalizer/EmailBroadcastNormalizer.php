@@ -49,6 +49,12 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
+        if (\array_key_exists('display_label', $data) && $data['display_label'] !== null) {
+            $object->setDisplayLabel($data['display_label']);
+        }
+        elseif (\array_key_exists('display_label', $data) && $data['display_label'] === null) {
+            $object->setDisplayLabel(null);
+        }
         if (\array_key_exists('from', $data) && $data['from'] !== null) {
             $object->setFrom($this->denormalizer->denormalize($data['from'], \MessageBird\Wire\Model\EmailAddress::class, 'json', $context));
         }

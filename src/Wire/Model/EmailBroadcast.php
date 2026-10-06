@@ -19,6 +19,12 @@ class EmailBroadcast
      */
     protected $id;
     /**
+     * Label for selecting this broadcast on list and single-broadcast reads. With `email_management` read access, uses the retained subject from the template version resolved when execution starts, then its non-generated name. Draft and scheduled broadcasts use the name. Omitted when no authoritative label is available; clients can show a localized Untitled broadcast fallback. Without that access, uses the canonical broadcast ID. Absent from mutation responses.
+     *
+     * @var string|null
+     */
+    protected $displayLabel;
+    /**
      * An email address with an optional display name.
      *
      * @var EmailAddress|null
@@ -263,6 +269,28 @@ class EmailBroadcast
     {
         $this->initialized['id'] = true;
         $this->id = $id;
+        return $this;
+    }
+    /**
+     * Label for selecting this broadcast on list and single-broadcast reads. With `email_management` read access, uses the retained subject from the template version resolved when execution starts, then its non-generated name. Draft and scheduled broadcasts use the name. Omitted when no authoritative label is available; clients can show a localized Untitled broadcast fallback. Without that access, uses the canonical broadcast ID. Absent from mutation responses.
+     *
+     * @return string|null
+     */
+    public function getDisplayLabel(): ?string
+    {
+        return $this->displayLabel;
+    }
+    /**
+     * Label for selecting this broadcast on list and single-broadcast reads. With `email_management` read access, uses the retained subject from the template version resolved when execution starts, then its non-generated name. Draft and scheduled broadcasts use the name. Omitted when no authoritative label is available; clients can show a localized Untitled broadcast fallback. Without that access, uses the canonical broadcast ID. Absent from mutation responses.
+     *
+     * @param string|null $displayLabel
+     *
+     * @return self
+     */
+    public function setDisplayLabel(?string $displayLabel): self
+    {
+        $this->initialized['displayLabel'] = true;
+        $this->displayLabel = $displayLabel;
         return $this;
     }
     /**

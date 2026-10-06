@@ -101,6 +101,12 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         elseif (\array_key_exists('allocated_at', $data) && $data['allocated_at'] === null) {
             $object->setAllocatedAt(null);
         }
+        if (\array_key_exists('releases_at', $data) && $data['releases_at'] !== null) {
+            $object->setReleasesAt(new \DateTime($data['releases_at']));
+        }
+        elseif (\array_key_exists('releases_at', $data) && $data['releases_at'] === null) {
+            $object->setReleasesAt(null);
+        }
         if (\array_key_exists('released_at', $data) && $data['released_at'] !== null) {
             $object->setReleasedAt(new \DateTime($data['released_at']));
         }
@@ -132,6 +138,7 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         $dataArray['capabilities'] = $values;
         $dataArray['status'] = $data->getStatus();
         $dataArray['allocated_at'] = $data->getAllocatedAt()->format('Y-m-d\TH:i:sP');
+        $dataArray['releases_at'] = $data->getReleasesAt()?->format('Y-m-d\TH:i:sP');
         if ($data->isInitialized('releasedAt')) {
             $dataArray['released_at'] = $data->getReleasedAt()?->format('Y-m-d\TH:i:sP');
         }

@@ -13,7 +13,8 @@ class VoiceInboundConfiguration
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Null when the stored route type is unsupported; inspect configuration_error before changing it.
+     * Null when the number has no route of its own and follows your workspace's default inbound route from the voice settings. Also null when the stored route type is unsupported, in which case configuration_error says so; inspect it before changing the route.
+     * 
      *
      * @var mixed|null
      */
@@ -30,7 +31,8 @@ class VoiceInboundConfiguration
      */
     protected $forwardAsOptions;
     /**
-     * Null when the stored route type is unsupported; inspect configuration_error before changing it.
+     * Null when the number has no route of its own and follows your workspace's default inbound route from the voice settings. Also null when the stored route type is unsupported, in which case configuration_error says so; inspect it before changing the route.
+     * 
      *
      * @return mixed
      */
@@ -39,7 +41,7 @@ class VoiceInboundConfiguration
         return $this->route;
     }
     /**
-     * Null when the stored route type is unsupported; inspect configuration_error before changing it.
+     * Null when the number has no route of its own and follows your workspace's default inbound route from the voice settings. Also null when the stored route type is unsupported, in which case configuration_error says so; inspect it before changing the route.
      *
      * @param mixed $route
      *

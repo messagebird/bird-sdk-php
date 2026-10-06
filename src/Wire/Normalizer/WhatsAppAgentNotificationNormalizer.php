@@ -43,8 +43,14 @@ class WhatsAppAgentNotificationNormalizer implements DenormalizerInterface, Norm
         elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
+        if (\array_key_exists('from', $data) && $data['from'] !== null) {
+            $object->setFrom($data['from']);
+        }
+        elseif (\array_key_exists('from', $data) && $data['from'] === null) {
+            $object->setFrom(null);
+        }
         if (\array_key_exists('to', $data) && $data['to'] !== null) {
-            $object->setTo($this->denormalizer->denormalize($data['to'], \MessageBird\Wire\Model\WhatsAppAgentNotificationTo::class, 'json', $context));
+            $object->setTo($data['to']);
         }
         elseif (\array_key_exists('to', $data) && $data['to'] === null) {
             $object->setTo(null);
