@@ -38,7 +38,7 @@ class ContactProperty extends \ArrayObject
      */
     protected $fallbackValue;
     /**
-     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
+     * Whether the property is archived. Archived properties disappear from pickers and cannot be used in new template versions. Published templates keep sending. Stored values remain available to read and update. Unarchive the property to restore it.
      *
      * @var bool|null
      */
@@ -142,7 +142,7 @@ class ContactProperty extends \ArrayObject
         return $this;
     }
     /**
-     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
+     * Whether the property is archived. Archived properties disappear from pickers and cannot be used in new template versions. Published templates keep sending. Stored values remain available to read and update. Unarchive the property to restore it.
      *
      * @return bool|null
      */
@@ -151,7 +151,7 @@ class ContactProperty extends \ArrayObject
         return $this->archived;
     }
     /**
-     * Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
+     * Whether the property is archived. Archived properties disappear from pickers and cannot be used in new template versions. Published templates keep sending. Stored values remain available to read and update. Unarchive the property to restore it.
      *
      * @param bool|null $archived
      *

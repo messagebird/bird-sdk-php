@@ -43,7 +43,7 @@ class ContactBatchEntry
      */
     protected $externalId;
     /**
-     * Custom contact property values. Keys must be registered and active; values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
+     * Custom contact property values. Keys must be registered contact properties, including archived ones. Values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
      *
      * @var array<string, mixed>|null
      */
@@ -159,7 +159,7 @@ class ContactBatchEntry
         return $this;
     }
     /**
-     * Custom contact property values. Keys must be registered and active; values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
+     * Custom contact property values. Keys must be registered contact properties, including archived ones. Values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
      *
      * @return array<string, mixed>|null
      */
@@ -168,7 +168,7 @@ class ContactBatchEntry
         return $this->data;
     }
     /**
-     * Custom contact property values. Keys must be registered and active; values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
+     * Custom contact property values. Keys must be registered contact properties, including archived ones. Values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
      *
      * @param array<string, mixed>|null $data
      *
