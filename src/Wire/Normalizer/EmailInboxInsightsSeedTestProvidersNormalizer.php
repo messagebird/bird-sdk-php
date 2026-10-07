@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class EmailInboxInsightsSeedTestProvidersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterf
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceSettings::class;
+        return $type === \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceSettings::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceSettings();
+        $object = new \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,29 +37,32 @@ class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('inbound_configuration', $data) && $data['inbound_configuration'] !== null) {
-            $object->setInboundConfiguration($this->denormalizer->denormalize($data['inbound_configuration'], \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class, 'json', $context));
+        if (\array_key_exists('items', $data) && $data['items'] !== null) {
+            $values = [];
+            foreach ($data['items'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProvider::class, 'json', $context);
+            }
+            $object->setItems($values);
         }
-        elseif (\array_key_exists('inbound_configuration', $data) && $data['inbound_configuration'] === null) {
-            $object->setInboundConfiguration(null);
+        elseif (\array_key_exists('items', $data) && $data['items'] === null) {
+            $object->setItems(null);
         }
-        if (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] !== null) {
-            $object->setDailySpendLimit($this->denormalizer->denormalize($data['daily_spend_limit'], \MessageBird\Wire\Model\VoiceSettingsDailySpendLimit::class, 'json', $context));
+        if (\array_key_exists('status', $data) && $data['status'] !== null) {
+            $object->setStatus($data['status']);
         }
-        elseif (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] === null) {
-            $object->setDailySpendLimit(null);
+        elseif (\array_key_exists('status', $data) && $data['status'] === null) {
+            $object->setStatus(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['inbound_configuration'] = $this->normalizer->normalize($data->getInboundConfiguration(), 'json', $context);
-        $dataArray['daily_spend_limit'] = $this->normalizer->normalize($data->getDailySpendLimit(), 'json', $context);
+        $dataArray['status'] = $data->getStatus();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceSettings::class => false];
+        return [\MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders::class => false];
     }
 }

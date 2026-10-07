@@ -45,6 +45,8 @@ return [
     "/v1/email/inbox-insights/benchmarks/industry",
     "/v1/email/inbox-insights/domains/{sending_domain}",
     "/v1/email/inbox-insights/domain-monitoring",
+    "/v1/email/inbox-insights/seed-tests/configuration",
+    "/v1/email/inbox-insights/seed-tests",
     "/v1/email/templates",
     "/v1/email/templates/{template_ref}",
     "/v1/email/templates/{template_ref}/duplicate",

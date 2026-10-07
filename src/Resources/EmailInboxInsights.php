@@ -8,6 +8,7 @@ use MessageBird\Bird;
 
 final class EmailInboxInsights extends EmailInboxInsightsBase
 {
+    public readonly EmailInboxInsightsSeedTests $seedTests;
     public readonly EmailInboxInsightsDomainsResource $domains;
     public readonly EmailInboxInsightsDomainMonitoring $domainMonitoring;
     public readonly EmailInboxInsightsBenchmarks $benchmarks;
@@ -15,6 +16,7 @@ final class EmailInboxInsights extends EmailInboxInsightsBase
     public function __construct(Bird $client)
     {
         parent::__construct($client);
+        $this->seedTests = new EmailInboxInsightsSeedTests($client);
         $this->domains = new EmailInboxInsightsDomainsResource($client);
         $this->domainMonitoring = new EmailInboxInsightsDomainMonitoring($client);
         $this->benchmarks = new EmailInboxInsightsBenchmarks($client);

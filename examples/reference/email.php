@@ -602,3 +602,63 @@ function emailStatsQuery(Bird $bird): void
         print_r([$group->getDimensions(), $group->getMetrics(), $group->getSeries()]);
     }
 }
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->seedTests->configuration->get(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$report = $bird->email->inboxInsights->seedTests->list(['sending_domain' => $sendingDomain]);
+var_dump($report);
+
+// Requires Insights preview access for the organization.
+$idempotencyKey = getenv('IDEMPOTENCY_KEY');
+if ($idempotencyKey === false || $idempotencyKey === '') {
+    throw new \RuntimeException('Set IDEMPOTENCY_KEY to a unique key for this registration and retain it for retries');
+}
+$sendingDomain = null;
+foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
+    if ($domain->getDomain() === 'mail.example.com') {
+        $sendingDomain = $domain->getDomain();
+        break;
+    }
+}
+if ($sendingDomain === null) {
+    throw new \RuntimeException('Verify mail.example.com in this workspace first');
+}
+$configuration = $bird->email->inboxInsights->seedTests->configuration->get(['sending_domain' => $sendingDomain]);
+$pools = array_values(array_filter($configuration->getListTypes() ?? [], static fn ($choice) => $choice->getAvailable() === true));
+$profiles = array_values(array_filter($configuration->getEngagementProfiles() ?? [], static fn ($choice) => $choice->getAvailable() === true));
+$regions = $configuration->getRegions() ?? [];
+$region = ($regions[0] ?? null)?->getValue();
+if ($pools === [] || $profiles === [] || $region === null) {
+    throw new \RuntimeException('No seed-test options available');
+}
+$params = (new \MessageBird\Wire\Model\EmailInboxInsightsSeedTestCreate())
+    ->setSendingDomain($sendingDomain)
+    ->setListType($pools[0]->getValue())
+    ->setEngagementProfile($profiles[0]->getValue())
+    ->setRegions([$region]);
+
+$report = $bird->email->inboxInsights->seedTests->create($params, new RequestOptions(idempotencyKey: $idempotencyKey));
+var_dump($report);

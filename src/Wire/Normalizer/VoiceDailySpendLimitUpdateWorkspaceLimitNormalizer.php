@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VoiceDailySpendLimitUpdateWorkspaceLimitNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterf
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\VoiceSettings::class;
+        return $type === \MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceSettings::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\VoiceSettings();
+        $object = new \MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,29 +37,41 @@ class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterf
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('inbound_configuration', $data) && $data['inbound_configuration'] !== null) {
-            $object->setInboundConfiguration($this->denormalizer->denormalize($data['inbound_configuration'], \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class, 'json', $context));
+        if (\array_key_exists('amount', $data) && $data['amount'] !== null) {
+            $object->setAmount($data['amount']);
+            unset($data['amount']);
         }
-        elseif (\array_key_exists('inbound_configuration', $data) && $data['inbound_configuration'] === null) {
-            $object->setInboundConfiguration(null);
+        elseif (\array_key_exists('amount', $data) && $data['amount'] === null) {
+            $object->setAmount(null);
         }
-        if (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] !== null) {
-            $object->setDailySpendLimit($this->denormalizer->denormalize($data['daily_spend_limit'], \MessageBird\Wire\Model\VoiceSettingsDailySpendLimit::class, 'json', $context));
+        if (\array_key_exists('currency_code', $data) && $data['currency_code'] !== null) {
+            $object->setCurrencyCode($data['currency_code']);
+            unset($data['currency_code']);
         }
-        elseif (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] === null) {
-            $object->setDailySpendLimit(null);
+        elseif (\array_key_exists('currency_code', $data) && $data['currency_code'] === null) {
+            $object->setCurrencyCode(null);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
+            }
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['inbound_configuration'] = $this->normalizer->normalize($data->getInboundConfiguration(), 'json', $context);
-        $dataArray['daily_spend_limit'] = $this->normalizer->normalize($data->getDailySpendLimit(), 'json', $context);
+        $dataArray['amount'] = $data->getAmount();
+        $dataArray['currency_code'] = $data->getCurrencyCode();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\VoiceSettings::class => false];
+        return [\MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit::class => false];
     }
 }

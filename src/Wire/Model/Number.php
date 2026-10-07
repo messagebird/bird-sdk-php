@@ -25,7 +25,7 @@ class Number
      */
     protected $reference;
     /**
-     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
+     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to cancel or release it when kind is dedicated.
      *
      * @var string|null
      */
@@ -146,7 +146,7 @@ class Number
         return $this;
     }
     /**
-     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
+     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to cancel or release it when kind is dedicated.
      *
      * @return string|null
      */
@@ -155,7 +155,7 @@ class Number
         return $this->id;
     }
     /**
-     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
+     * Identifier of this allocated number. Pass it as `number_id` to read this number, or to cancel or release it when kind is dedicated.
      *
      * @param string|null $id
      *

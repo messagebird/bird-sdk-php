@@ -20,6 +20,10 @@ class VoiceSettingsUpdate
      */
     protected $inboundConfiguration;
     /**
+     * @var VoiceDailySpendLimitUpdate|null
+     */
+    protected $dailySpendLimit;
+    /**
      * The route for calls arriving on any of your Bird numbers that has no inbound route of its own; verified caller IDs receive no calls. It takes effect on the next call to each of those numbers. Numbers with their own route keep it.
      * 
      *
@@ -40,6 +44,24 @@ class VoiceSettingsUpdate
     {
         $this->initialized['inboundConfiguration'] = true;
         $this->inboundConfiguration = $inboundConfiguration;
+        return $this;
+    }
+    /**
+     * @return VoiceDailySpendLimitUpdate|null
+     */
+    public function getDailySpendLimit(): ?VoiceDailySpendLimitUpdate
+    {
+        return $this->dailySpendLimit;
+    }
+    /**
+     * @param VoiceDailySpendLimitUpdate|null $dailySpendLimit
+     *
+     * @return self
+     */
+    public function setDailySpendLimit(?VoiceDailySpendLimitUpdate $dailySpendLimit): self
+    {
+        $this->initialized['dailySpendLimit'] = true;
+        $this->dailySpendLimit = $dailySpendLimit;
         return $this;
     }
 }

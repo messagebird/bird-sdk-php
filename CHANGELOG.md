@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.70.0
+
+- Add Inbox Insights seed configuration, registration and history with existing `inbox_insights` permissions and organization preview access. Registration consumes shared allowance and returns addresses for a separately authorized send; uncertain outcomes require support before starting another test.
+
 ## 0.69.0
 
 - Add methods to browse eSIM zones and offers, create and cancel orders, create installation links, and update, suspend, resume, or release eSIMs.

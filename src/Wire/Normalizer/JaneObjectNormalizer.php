@@ -1114,6 +1114,42 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmarkIndustry::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsIndustryBenchmarkIndustryNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRow::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestRowNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestList::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsGmailCategory::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsGmailCategoryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProvider::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestProviderNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestProvidersNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestAuth::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestAuthNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementSplitRow::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedEngagementSplitRowNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementSplit::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedEngagementSplitNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestDetail::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestDetailNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestQuota::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestQuotaNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTests::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestCreate::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedAddress::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedAddressNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRegistration::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestRegistrationNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedListTypeOption::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedListTypeOptionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedRegionOption::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedRegionOptionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementProfileOption::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedEngagementProfileOptionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailInboxInsightsSeedTestConfiguration::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestConfigurationNormalizer::class,
+
         \MessageBird\Wire\Model\EmailInboxInsightsDomain::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsDomainNormalizer::class,
 
         \MessageBird\Wire\Model\EmailInboxInsightsDomains::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsDomainsNormalizer::class,
@@ -1656,9 +1692,27 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class => \MessageBird\Wire\Normalizer\VoiceSettingsInboundConfigurationNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceDailySpendLimitLimit::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitUsed::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitUsedNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitRemaining::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitRemainingNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitDefaultLimit::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitDefaultLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitMaxLimit::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitMaxLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitWorkspaceLimit::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitWorkspaceLimitNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceSettings::class => \MessageBird\Wire\Normalizer\VoiceSettingsNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceSettingsDailySpendLimit::class => \MessageBird\Wire\Normalizer\VoiceSettingsDailySpendLimitNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceSettingsInboundConfigurationPut::class => \MessageBird\Wire\Normalizer\VoiceSettingsInboundConfigurationPutNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitUpdate::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit::class => \MessageBird\Wire\Normalizer\VoiceDailySpendLimitUpdateWorkspaceLimitNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceSettingsUpdate::class => \MessageBird\Wire\Normalizer\VoiceSettingsUpdateNormalizer::class,
 
@@ -2440,6 +2494,24 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailInboxInsightsBlocklists::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmark::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmarkIndustry::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRow::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestList::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsGmailCategory::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProvider::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestProviders::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestAuth::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementSplitRow::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementSplit::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestDetail::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestQuota::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTests::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestCreate::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedAddress::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRegistration::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedListTypeOption::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedRegionOption::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedEngagementProfileOption::class => false,
+            \MessageBird\Wire\Model\EmailInboxInsightsSeedTestConfiguration::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsDomain::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsDomains::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsDomainUpdate::class => false,
@@ -2711,8 +2783,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceInboundConfigurationPut::class => false,
             \MessageBird\Wire\Model\VoiceNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceSettingsInboundConfiguration::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitLimit::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitUsed::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitRemaining::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitDefaultLimit::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitMaxLimit::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitWorkspaceLimit::class => false,
             \MessageBird\Wire\Model\VoiceSettings::class => false,
+            \MessageBird\Wire\Model\VoiceSettingsDailySpendLimit::class => false,
             \MessageBird\Wire\Model\VoiceSettingsInboundConfigurationPut::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceDailySpendLimitUpdateWorkspaceLimit::class => false,
             \MessageBird\Wire\Model\VoiceSettingsUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumber::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberList::class => false,

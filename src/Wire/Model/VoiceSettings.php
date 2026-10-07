@@ -20,6 +20,13 @@ class VoiceSettings
      */
     protected $inboundConfiguration;
     /**
+     * The workspace's daily Voice spend limit and today's usage toward it. Null until your organization has a wallet, since amounts are in its currency.
+     * 
+     *
+     * @var VoiceSettingsDailySpendLimit|null
+     */
+    protected $dailySpendLimit;
+    /**
      * What happens to a call arriving for any of your Bird numbers that has no inbound route of its own.
      * 
      *
@@ -40,6 +47,29 @@ class VoiceSettings
     {
         $this->initialized['inboundConfiguration'] = true;
         $this->inboundConfiguration = $inboundConfiguration;
+        return $this;
+    }
+    /**
+     * The workspace's daily Voice spend limit and today's usage toward it. Null until your organization has a wallet, since amounts are in its currency.
+     * 
+     *
+     * @return VoiceSettingsDailySpendLimit|null
+     */
+    public function getDailySpendLimit(): ?VoiceSettingsDailySpendLimit
+    {
+        return $this->dailySpendLimit;
+    }
+    /**
+     * The workspace's daily Voice spend limit and today's usage toward it. Null until your organization has a wallet, since amounts are in its currency.
+     *
+     * @param VoiceSettingsDailySpendLimit|null $dailySpendLimit
+     *
+     * @return self
+     */
+    public function setDailySpendLimit(?VoiceSettingsDailySpendLimit $dailySpendLimit): self
+    {
+        $this->initialized['dailySpendLimit'] = true;
+        $this->dailySpendLimit = $dailySpendLimit;
         return $this;
     }
 }

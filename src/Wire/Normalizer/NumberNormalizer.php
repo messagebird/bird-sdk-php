@@ -139,9 +139,7 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         $dataArray['status'] = $data->getStatus();
         $dataArray['allocated_at'] = $data->getAllocatedAt()->format('Y-m-d\TH:i:sP');
         $dataArray['releases_at'] = $data->getReleasesAt()?->format('Y-m-d\TH:i:sP');
-        if ($data->isInitialized('releasedAt')) {
-            $dataArray['released_at'] = $data->getReleasedAt()?->format('Y-m-d\TH:i:sP');
-        }
+        $dataArray['released_at'] = $data->getReleasedAt()?->format('Y-m-d\TH:i:sP');
         if ($data->isInitialized('ownership')) {
             $dataArray['ownership'] = $this->normalizer->normalize($data->getOwnership(), 'json', $context);
         }
