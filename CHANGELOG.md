@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.72.0
+
+- Add `awaiting_funds` to eSIM orders so an insufficient wallet balance remains visible when the required amount is unavailable.
+- A failed contact batch entry's `error` now names a bad contact property in `param` as `data.<key>`, with a short reason in `details`.
+
 ## 0.71.1
 
 - Contact create, update, and batch requests accept an archived contact property in `data`. The value must match the property's type. Archived properties disappear from pickers, and a new template version that uses one cannot be published. Published templates keep sending. Unarchive the property to restore it with its values.

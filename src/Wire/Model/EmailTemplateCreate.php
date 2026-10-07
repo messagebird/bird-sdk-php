@@ -67,6 +67,13 @@ class EmailTemplateCreate
      * 
      * Omit this to create an empty draft and add content later.
      * 
+     * The example's `{{ first_name }}` is a parameter, filled from
+     * `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
+     * placeholder reads a contact record instead. A send to an email address
+     * has no contact record, so it refuses such a template. A broadcast fills
+     * it from each recipient's contact, and a preview from the `contact` or
+     * `parameters` you supply.
+     * 
      *
      * @var array<string, EmailTemplateLanguageContent>|null
      */
@@ -242,6 +249,13 @@ class EmailTemplateCreate
      * 
      * Omit this to create an empty draft and add content later.
      * 
+     * The example's `{{ first_name }}` is a parameter, filled from
+     * `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
+     * placeholder reads a contact record instead. A send to an email address
+     * has no contact record, so it refuses such a template. A broadcast fills
+     * it from each recipient's contact, and a preview from the `contact` or
+     * `parameters` you supply.
+     * 
      *
      * @return array<string, EmailTemplateLanguageContent>|null
      */
@@ -255,6 +269,13 @@ class EmailTemplateCreate
     of them.
     
     Omit this to create an empty draft and add content later.
+    
+    The example's `{{ first_name }}` is a parameter, filled from
+    `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
+    placeholder reads a contact record instead. A send to an email address
+    has no contact record, so it refuses such a template. A broadcast fills
+    it from each recipient's contact, and a preview from the `contact` or
+    `parameters` you supply.
     
     *
     * @param array<string, EmailTemplateLanguageContent>|null $languages

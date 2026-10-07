@@ -31,6 +31,18 @@ class ContactUpsertError
      */
     protected $message;
     /**
+     * The field in this entry that caused the failure, such as `data` or `email`. Omitted when the failure names no field.
+     *
+     * @var string|null
+     */
+    protected $param;
+    /**
+     * Per-field problems with this entry, in the same shape as the top-level error `details`. A contact property failure names the property as `data.<key>`, such as `data.plan`. Omitted when the failure has no per-field problems.
+     *
+     * @var list<ErrorDetail>|null
+     */
+    protected $details;
+    /**
      * Machine-readable error category for this entry, such as `validation_error` or `conflict_error`, in the same vocabulary as the top-level error `type`. New categories may be added over time, so treat unrecognized values as a generic failure.
      *
      * @return string|null
@@ -94,6 +106,50 @@ class ContactUpsertError
     {
         $this->initialized['message'] = true;
         $this->message = $message;
+        return $this;
+    }
+    /**
+     * The field in this entry that caused the failure, such as `data` or `email`. Omitted when the failure names no field.
+     *
+     * @return string|null
+     */
+    public function getParam(): ?string
+    {
+        return $this->param;
+    }
+    /**
+     * The field in this entry that caused the failure, such as `data` or `email`. Omitted when the failure names no field.
+     *
+     * @param string|null $param
+     *
+     * @return self
+     */
+    public function setParam(?string $param): self
+    {
+        $this->initialized['param'] = true;
+        $this->param = $param;
+        return $this;
+    }
+    /**
+     * Per-field problems with this entry, in the same shape as the top-level error `details`. A contact property failure names the property as `data.<key>`, such as `data.plan`. Omitted when the failure has no per-field problems.
+     *
+     * @return list<ErrorDetail>|null
+     */
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+    /**
+     * Per-field problems with this entry, in the same shape as the top-level error `details`. A contact property failure names the property as `data.<key>`, such as `data.plan`. Omitted when the failure has no per-field problems.
+     *
+     * @param list<ErrorDetail>|null $details
+     *
+     * @return self
+     */
+    public function setDetails(?array $details): self
+    {
+        $this->initialized['details'] = true;
+        $this->details = $details;
         return $this;
     }
 }

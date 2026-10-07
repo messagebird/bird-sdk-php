@@ -25,6 +25,7 @@ use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailLabelsUpdate;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
 use MessageBird\Wire\Model\EmailMessageSendRequestTemplate;
+use MessageBird\Wire\Model\EmailTemplateSubmit;
 use MessageBird\Wire\Model\EmailThreadMessageReplyRequest;
 use MessageBird\Wire\Model\EmailThreadUpdateRequest;
 use MessageBird\Wire\Model\MailboxCreate;
@@ -355,6 +356,42 @@ $bird->email->send(
 
 foreach ($bird->email->templates->list(['scope' => 'workspace']) as $template) {
     echo $template->getSlug(), ' ', $template->getName(), "\n";
+}
+
+$template = $bird->email->templates->create(
+    slug: 'welcome-email',
+    category: 'transactional',
+    source: 'html',
+    languages: [
+        'en' => [
+            'subject' => 'Welcome, {{ first_name }}',
+            'preview_text' => 'Your account is ready',
+            'html' => "<!DOCTYPE html>\n<html>\n<body>\n<p>Hi {{ first_name }}, thanks for signing up.</p>\n</body>\n</html>\n",
+        ],
+    ],
+);
+echo $template->getId(), ' ', $template->getDraftVersionId();
+
+$language = $bird->email->templates->versions->languages->get(
+    'TEMPLATE_ID',
+    'DRAFT_VERSION_ID',
+    'en',
+);
+echo $language->getContent()?->getHtml();
+
+$templateId = 'TEMPLATE_ID';
+$draftVersionId = 'DRAFT_VERSION_ID';
+$check = $bird->email->templates->versions->submit(
+    $templateId,
+    $draftVersionId,
+    (new EmailTemplateSubmit())->setValidateOnly(true),
+);
+foreach ($check->getErrors() ?? [] as $problem) {
+    echo $problem->getLanguage(), ' ', $problem->getField(), ' ', $problem->getMessage(), "\n";
+}
+if ($check->getValid() === true) {
+    $result = $bird->email->templates->versions->submit($templateId, $draftVersionId, new EmailTemplateSubmit());
+    echo $result->getVersion()?->getVersionNumber();
 }
 
 // Requires Insights preview access for the organization.

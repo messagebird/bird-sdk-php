@@ -99,7 +99,13 @@ class EsimOrder extends \ArrayObject
      */
     protected $delivery;
     /**
-     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check the order status and your wallet balance.
+     * Whether this order is in `charging` after an insufficient wallet balance refusal. The required balance is in `funding` when available. False does not confirm payment; check `status` and `wallet_transaction_id`. When absent, `funding` indicates a refusal if present; otherwise the funding state is unknown.
+     *
+     * @var bool|null
+     */
+    protected $awaitingFunds;
+    /**
+     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check `awaiting_funds` to identify an outstanding insufficient-balance refusal.
      *
      * @var EsimOrderFunding|null
      */
@@ -463,7 +469,29 @@ class EsimOrder extends \ArrayObject
         return $this;
     }
     /**
-     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check the order status and your wallet balance.
+     * Whether this order is in `charging` after an insufficient wallet balance refusal. The required balance is in `funding` when available. False does not confirm payment; check `status` and `wallet_transaction_id`. When absent, `funding` indicates a refusal if present; otherwise the funding state is unknown.
+     *
+     * @return bool|null
+     */
+    public function getAwaitingFunds(): ?bool
+    {
+        return $this->awaitingFunds;
+    }
+    /**
+     * Whether this order is in `charging` after an insufficient wallet balance refusal. The required balance is in `funding` when available. False does not confirm payment; check `status` and `wallet_transaction_id`. When absent, `funding` indicates a refusal if present; otherwise the funding state is unknown.
+     *
+     * @param bool|null $awaitingFunds
+     *
+     * @return self
+     */
+    public function setAwaitingFunds(?bool $awaitingFunds): self
+    {
+        $this->initialized['awaitingFunds'] = true;
+        $this->awaitingFunds = $awaitingFunds;
+        return $this;
+    }
+    /**
+     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check `awaiting_funds` to identify an outstanding insufficient-balance refusal.
      *
      * @return EsimOrderFunding|null
      */
@@ -472,7 +500,7 @@ class EsimOrder extends \ArrayObject
         return $this->funding;
     }
     /**
-     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check the order status and your wallet balance.
+     * Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check `awaiting_funds` to identify an outstanding insufficient-balance refusal.
      *
      * @param EsimOrderFunding|null $funding
      *

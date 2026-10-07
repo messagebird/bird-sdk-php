@@ -256,6 +256,8 @@ Every failure is a `MessageBird\Exception\BirdException`:
 - `ApiException` — the server returned a 4xx/5xx. Carries `$status` (HTTP code), `$type`, and `$errorCode` from the error body.
 - `ConnectionException` — the transport failed past the retry budget.
 
+When the Bird API sent the error, an `ApiException` has a readable `getMessage()` and a stable `$errorCode`, such as `E01001`. When a response has no code, such as one from a proxy, `$errorCode` is `null`. A `ConnectionException` means the request never got an answer, so it has no code. Each code has a page at `https://bird.com/docs/api/errors/<code>` that says what went wrong and what to do. Every code is listed at [bird.com/docs/api/errors](https://bird.com/docs/api/errors).
+
 ```php
 use MessageBird\Exception\ApiException;
 use MessageBird\Exception\BirdException;

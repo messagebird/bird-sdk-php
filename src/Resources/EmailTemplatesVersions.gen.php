@@ -61,6 +61,22 @@ class EmailTemplatesVersionsBase extends Resource
 
     /**
      * Freeze a complete draft as the new immutable live version. Every language needs a subject and body, and the default language must be present. Submission is all or nothing and reports every language error. Set `validate_only: true` to check without publishing, or pass `expected_revision` to reject a concurrent edit. An unchanged draft is rejected. The response also carries `compatibility` across every language, each finding naming the language it is in: what the HTML uses that mail clients remove, ignore, or render inconsistently. Advisory and separate from `errors`, so a finding never fails a submit.
+     *
+     * @example Check the draft, then publish it
+     * $templateId = 'TEMPLATE_ID';
+     * $draftVersionId = 'DRAFT_VERSION_ID';
+     * $check = $bird->email->templates->versions->submit(
+     *     $templateId,
+     *     $draftVersionId,
+     *     (new EmailTemplateSubmit())->setValidateOnly(true),
+     * );
+     * foreach ($check->getErrors() ?? [] as $problem) {
+     *     echo $problem->getLanguage(), ' ', $problem->getField(), ' ', $problem->getMessage(), "\n";
+     * }
+     * if ($check->getValid() === true) {
+     *     $result = $bird->email->templates->versions->submit($templateId, $draftVersionId, new EmailTemplateSubmit());
+     *     echo $result->getVersion()?->getVersionNumber();
+     * }
      */
     public function submit(string $templateRef, string $versionId, EmailTemplateSubmit $params, ?RequestOptions $options = null): EmailTemplateSubmitResult
     {

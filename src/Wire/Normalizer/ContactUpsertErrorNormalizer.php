@@ -55,6 +55,22 @@ class ContactUpsertErrorNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('message', $data) && $data['message'] === null) {
             $object->setMessage(null);
         }
+        if (\array_key_exists('param', $data) && $data['param'] !== null) {
+            $object->setParam($data['param']);
+        }
+        elseif (\array_key_exists('param', $data) && $data['param'] === null) {
+            $object->setParam(null);
+        }
+        if (\array_key_exists('details', $data) && $data['details'] !== null) {
+            $values = [];
+            foreach ($data['details'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\ErrorDetail::class, 'json', $context);
+            }
+            $object->setDetails($values);
+        }
+        elseif (\array_key_exists('details', $data) && $data['details'] === null) {
+            $object->setDetails(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -63,6 +79,16 @@ class ContactUpsertErrorNormalizer implements DenormalizerInterface, NormalizerI
         $dataArray['type'] = $data->getType();
         $dataArray['code'] = $data->getCode();
         $dataArray['message'] = $data->getMessage();
+        if ($data->isInitialized('param') && null !== $data->getParam()) {
+            $dataArray['param'] = $data->getParam();
+        }
+        if ($data->isInitialized('details') && null !== $data->getDetails()) {
+            $values = [];
+            foreach ($data->getDetails() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $dataArray['details'] = $values;
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

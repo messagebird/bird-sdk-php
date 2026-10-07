@@ -37,6 +37,9 @@ class EsimOrderNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('awaiting_funds', $data) && \is_int($data['awaiting_funds'])) {
+            $data['awaiting_funds'] = (bool) $data['awaiting_funds'];
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -148,6 +151,13 @@ class EsimOrderNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         elseif (\array_key_exists('delivery', $data) && $data['delivery'] === null) {
             $object->setDelivery(null);
+        }
+        if (\array_key_exists('awaiting_funds', $data) && $data['awaiting_funds'] !== null) {
+            $object->setAwaitingFunds($data['awaiting_funds']);
+            unset($data['awaiting_funds']);
+        }
+        elseif (\array_key_exists('awaiting_funds', $data) && $data['awaiting_funds'] === null) {
+            $object->setAwaitingFunds(null);
         }
         if (\array_key_exists('funding', $data) && $data['funding'] !== null) {
             $object->setFunding($this->denormalizer->denormalize($data['funding'], \MessageBird\Wire\Model\EsimOrderFunding::class, 'json', $context));
