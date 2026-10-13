@@ -13,7 +13,7 @@ use MessageBird\Wire\Model\EsimSettingsUpdate;
 final class EsimSettingsResource extends Resource
 {
     /**
-     * Read the workspace's effective eSIM settings, including whether Bird sends install credentials to travelers. Check this before sending credentials: a workspace that has turned delivery off refuses the send.
+     * Read whether the workspace automatically sends install links after new eSIM purchases. Automatic delivery is off by default; manual sending remains available.
      */
     public function get(?RequestOptions $options = null): EsimSettings
     {
@@ -21,7 +21,7 @@ final class EsimSettingsResource extends Resource
     }
 
     /**
-     * Change the workspace's eSIM settings and return the effective result. Turning `credential_delivery_enabled` off stops Bird sending install credentials to travelers over either channel; the credentials stay readable from the API. Omitted fields keep their current value.
+     * Change the workspace's eSIM settings and return the effective result. Enable `credential_delivery_enabled` to automatically email the linked contact an install link after a new eSIM purchase, or use SMS when the contact has no email address. Turning it off leaves manual sending available. Omitted fields keep their current value.
      */
     public function update(EsimSettingsUpdate $params, ?RequestOptions $options = null): EsimSettings
     {

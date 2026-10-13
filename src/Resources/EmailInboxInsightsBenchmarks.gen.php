@@ -12,12 +12,12 @@ use MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmark;
 final class EmailInboxInsightsBenchmarks extends Resource
 {
     /**
-     * Read the industry placement benchmark for a verified owned domain. Its median is a percentage with default weighting, which can differ from the domain's audience mix. Compare with placement only while labeling both sources and windows. window_days and freshness describe the cohort's computed period; absent window_days means the period is unspecified. No date window or prior comparison is accepted. no_data can mean an unknown industry or too few measured senders. A gap is descriptive, not evidence of a particular cause. API-key calls require Insights preview access for your organization.
+     * Read the industry placement benchmark for a verified owned domain. Its median is a percentage with default weighting, which can differ from the domain's audience mix. Compare with placement only while labeling both sources and windows. window_days and freshness describe the cohort's computed period; absent window_days means the period is unspecified. No date window or prior comparison is accepted. no_data can mean an unknown industry or too few measured senders. A gap is descriptive, not evidence of a particular cause.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read industry figures including no-data status
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:read permission in the target workspace.
      * $sendingDomain = null;
      * foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
      *     if ($domain->getDomain() === 'mail.example.com') {

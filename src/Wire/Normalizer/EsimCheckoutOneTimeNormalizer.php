@@ -37,6 +37,12 @@ class EsimCheckoutOneTimeNormalizer implements DenormalizerInterface, Normalizer
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('funding', $data) && $data['funding'] !== null) {
+            $object->setFunding($this->denormalizer->denormalize($data['funding'], \MessageBird\Wire\Model\EsimCheckoutFunding::class, 'json', $context));
+        }
+        elseif (\array_key_exists('funding', $data) && $data['funding'] === null) {
+            $object->setFunding(null);
+        }
         if (\array_key_exists('offer_revision', $data) && $data['offer_revision'] !== null) {
             $object->setOfferRevision($data['offer_revision']);
         }
@@ -54,6 +60,7 @@ class EsimCheckoutOneTimeNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        $dataArray['funding'] = $this->normalizer->normalize($data->getFunding(), 'json', $context);
         $dataArray['offer_revision'] = $data->getOfferRevision();
         $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         return $dataArray;

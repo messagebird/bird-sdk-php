@@ -20,7 +20,7 @@ class WhatsAppTextSend
      */
     protected $body;
     /**
-     * Whether the WhatsApp client renders a preview of the first URL in `body`. A URL must begin with `http://` or `https://`, only the first one is previewed, and the client falls back to a plain link when it cannot fetch a preview. Not returned when the message is read back, because WhatsApp does not report whether a preview rendered.
+     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
      * 
      *
      * @var bool|null
@@ -50,7 +50,7 @@ class WhatsAppTextSend
         return $this;
     }
     /**
-     * Whether the WhatsApp client renders a preview of the first URL in `body`. A URL must begin with `http://` or `https://`, only the first one is previewed, and the client falls back to a plain link when it cannot fetch a preview. Not returned when the message is read back, because WhatsApp does not report whether a preview rendered.
+     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
      * 
      *
      * @return bool|null
@@ -60,7 +60,7 @@ class WhatsAppTextSend
         return $this->previewUrl;
     }
     /**
-     * Whether the WhatsApp client renders a preview of the first URL in `body`. A URL must begin with `http://` or `https://`, only the first one is previewed, and the client falls back to a plain link when it cannot fetch a preview. Not returned when the message is read back, because WhatsApp does not report whether a preview rendered.
+     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
      *
      * @param bool|null $previewUrl
      *

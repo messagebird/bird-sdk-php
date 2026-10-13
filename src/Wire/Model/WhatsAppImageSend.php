@@ -13,7 +13,7 @@ class WhatsAppImageSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
+     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
      * 
      *
      * @var string|null
@@ -26,7 +26,7 @@ class WhatsAppImageSend
      */
     protected $caption;
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
+     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
      * 
      *
      * @return string|null
@@ -36,7 +36,7 @@ class WhatsAppImageSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
+     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
      *
      * @param string|null $url
      *

@@ -111,7 +111,7 @@ class WhatsAppMessage
      */
     protected $interactiveReply;
     /**
-     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     * Set when a message that did not come from a Bird send carries content we do not model, naming the WhatsApp content type so the message is not silently empty. Never on a message sent through Bird.
      * 
      *
      * @var WhatsAppMessageUnsupported|null
@@ -128,6 +128,13 @@ class WhatsAppMessage
      * @var string|null
      */
     protected $status;
+    /**
+     * Where the message came from when it did not come through Bird live. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+     * 
+     *
+     * @var string|null
+     */
+    protected $origin;
     /**
      * How many recipients a group send was addressed to, taken when the send
      * was accepted. It is the group's membership at that moment, not its
@@ -587,7 +594,7 @@ class WhatsAppMessage
         return $this;
     }
     /**
-     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     * Set when a message that did not come from a Bird send carries content we do not model, naming the WhatsApp content type so the message is not silently empty. Never on a message sent through Bird.
      * 
      *
      * @return WhatsAppMessageUnsupported|null
@@ -597,7 +604,7 @@ class WhatsAppMessage
         return $this->unsupported;
     }
     /**
-     * Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+     * Set when a message that did not come from a Bird send carries content we do not model, naming the WhatsApp content type so the message is not silently empty. Never on a message sent through Bird.
      *
      * @param WhatsAppMessageUnsupported|WhatsAppUnsupported|array|null $unsupported
      *
@@ -648,6 +655,29 @@ class WhatsAppMessage
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * Where the message came from when it did not come through Bird live. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+     * 
+     *
+     * @return string|null
+     */
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+    /**
+     * Where the message came from when it did not come through Bird live. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+     *
+     * @param string|null $origin
+     *
+     * @return self
+     */
+    public function setOrigin(?string $origin): self
+    {
+        $this->initialized['origin'] = true;
+        $this->origin = $origin;
         return $this;
     }
     /**

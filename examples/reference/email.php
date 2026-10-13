@@ -394,15 +394,15 @@ if ($check->getValid() === true) {
     echo $result->getVersion()?->getVersionNumber();
 }
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $report = $bird->email->competitive->brands->search(['q' => 'Everlane']);
 var_dump($report->getData());
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $report = $bird->email->competitive->watchlist->get(['range' => 30]);
 var_dump($report->getData());
 
-// Requires Insights preview access for the organization.
+// Requires competitive:write permission in the target workspace.
 $matches = $bird->email->competitive->brands->search(['q' => 'Everlane']);
 $brandId = null;
 foreach ($matches->getData() ?? [] as $match) {
@@ -418,7 +418,7 @@ $params = (new \MessageBird\Wire\Model\EmailCompetitiveWatchlistBrandCreate())->
 $entry = $bird->email->competitive->watchlist->brands->create($params);
 echo $entry->getId();
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -433,7 +433,7 @@ if ($watchlistBrandId === null) {
 $report = $bird->email->competitive->watchlist->brands->get($watchlistBrandId, ['range' => 30]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -448,7 +448,7 @@ if ($watchlistBrandId === null) {
 $report = $bird->email->competitive->watchlist->brands->sendTime($watchlistBrandId, ['timezone' => 'UTC']);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires competitive:write permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -462,11 +462,11 @@ if ($watchlistBrandId === null) {
 }
 $bird->email->competitive->watchlist->brands->delete($watchlistBrandId);
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $report = $bird->email->competitive->watchlist->notable(['range' => 30]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -481,7 +481,7 @@ if ($watchlistBrandId === null) {
 $report = $bird->email->competitive->volumeSeries(['range' => 30, 'brand_ids' => [$watchlistBrandId]]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -497,7 +497,7 @@ foreach ($bird->email->competitive->watchlist->brands->campaigns->list($watchlis
     echo $campaign->getId(), "\n";
 }
 
-// Requires Insights preview access for the organization.
+// Requires competitive:read permission in the target workspace.
 $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
 $watchlistBrandId = null;
 foreach ($watchlist->getData() ?? [] as $row) {
@@ -517,12 +517,12 @@ if ($campaignId === null) {
 $report = $bird->email->competitive->watchlist->brands->campaigns->get($watchlistBrandId, $campaignId);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 foreach ($bird->email->inboxInsights->domains->list(['limit' => 25]) as $domain) {
     var_dump($domain->getDomain(), $domain->getMonitored());
 }
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:write permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -537,11 +537,11 @@ $params = (new \MessageBird\Wire\Model\EmailInboxInsightsDomainUpdate())->setMon
 $report = $bird->email->inboxInsights->domains->update($sendingDomain, $params);
 var_dump($report->getMonitored());
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:write permission in the target workspace.
 $result = $bird->email->inboxInsights->domainMonitoring->upsert();
 var_dump($result->getOutcome(), $result->getDomain());
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -555,7 +555,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->placement(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -569,7 +569,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->authentication(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -583,7 +583,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->complaints(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -597,7 +597,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->spamTraps(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -611,7 +611,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->blocklists(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -640,7 +640,7 @@ function emailStatsQuery(Bird $bird): void
     }
 }
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -654,7 +654,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->seedTests->configuration->get(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:read permission in the target workspace.
 $sendingDomain = null;
 foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
     if ($domain->getDomain() === 'mail.example.com') {
@@ -668,7 +668,7 @@ if ($sendingDomain === null) {
 $report = $bird->email->inboxInsights->seedTests->list(['sending_domain' => $sendingDomain]);
 var_dump($report);
 
-// Requires Insights preview access for the organization.
+// Requires inbox_insights:write permission in the target workspace.
 $idempotencyKey = getenv('IDEMPOTENCY_KEY');
 if ($idempotencyKey === false || $idempotencyKey === '') {
     throw new \RuntimeException('Set IDEMPOTENCY_KEY to a unique key for this registration and retain it for retries');

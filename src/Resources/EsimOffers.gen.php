@@ -59,7 +59,7 @@ final class EsimOffers extends Resource
     }
 
     /**
-     * Returns published one-time terms and automatic renewal availability for a new eSIM. Automatic renewal includes its own price and cadence when an eligible mobile network is available. Availability is checked again when purchasing; this read does not reserve a package.
+     * Returns published one-time terms and automatic renewal availability for a new eSIM, including tax-inclusive totals and current funding shortfalls. Automatic renewal includes its own price and cadence when an eligible mobile network is available. Availability and funding are checked again when purchasing; this read reserves no funds or package.
      */
     public function checkoutOptions(string $offerId, ?RequestOptions $options = null): EsimCheckoutOptions
     {

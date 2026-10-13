@@ -16,7 +16,7 @@ class WhatsAppMessageTemplateComponent
      * Which part of the template this fills in.
      * 
      * - `body`: the main text.
-     * - `button`: a button's variable.
+     * - `button`: one button's variable, a part per button; there is no `buttons` part.
      * - `header`: the header's text, media or location.
      * - `carousel`: the cards.
      * 
@@ -25,14 +25,14 @@ class WhatsAppMessageTemplateComponent
      */
     protected $type;
     /**
-     * The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`. Send no `button` part at all for a button that takes no value, such as a `quick_reply` or `request_contact_info` button, or a `url` button whose address has no placeholder: a part the template has no slot for is refused here, before the message is sent and charged.
+     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
      * 
      *
      * @var list<WhatsAppMessageTemplateComponentParameter>|null
      */
     protected $parameters;
     /**
-     * The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
+     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
      * 
      *
      * @var list<WhatsAppMessageTemplateCard>|null
@@ -42,7 +42,7 @@ class WhatsAppMessageTemplateComponent
      * Which part of the template this fills in.
      * 
      * - `body`: the main text.
-     * - `button`: a button's variable.
+     * - `button`: one button's variable, a part per button; there is no `buttons` part.
      * - `header`: the header's text, media or location.
      * - `carousel`: the cards.
      * 
@@ -57,7 +57,7 @@ class WhatsAppMessageTemplateComponent
     * Which part of the template this fills in.
     
     - `body`: the main text.
-    - `button`: a button's variable.
+    - `button`: one button's variable, a part per button; there is no `buttons` part.
     - `header`: the header's text, media or location.
     - `carousel`: the cards.
     
@@ -73,7 +73,7 @@ class WhatsAppMessageTemplateComponent
         return $this;
     }
     /**
-     * The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`. Send no `button` part at all for a button that takes no value, such as a `quick_reply` or `request_contact_info` button, or a `url` button whose address has no placeholder: a part the template has no slot for is refused here, before the message is sent and charged.
+     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
      * 
      *
      * @return list<WhatsAppMessageTemplateComponentParameter>|null
@@ -83,7 +83,7 @@ class WhatsAppMessageTemplateComponent
         return $this->parameters;
     }
     /**
-     * The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`. Send no `button` part at all for a button that takes no value, such as a `quick_reply` or `request_contact_info` button, or a `url` button whose address has no placeholder: a part the template has no slot for is refused here, before the message is sent and charged.
+     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
      *
      * @param list<WhatsAppMessageTemplateComponentParameter>|null $parameters
      *
@@ -96,7 +96,7 @@ class WhatsAppMessageTemplateComponent
         return $this;
     }
     /**
-     * The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
+     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
      * 
      *
      * @return list<WhatsAppMessageTemplateCard>|null
@@ -106,7 +106,7 @@ class WhatsAppMessageTemplateComponent
         return $this->cards;
     }
     /**
-     * The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
+     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
      *
      * @param list<WhatsAppMessageTemplateCard>|null $cards
      *

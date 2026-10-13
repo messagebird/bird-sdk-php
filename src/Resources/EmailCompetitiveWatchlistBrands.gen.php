@@ -15,10 +15,10 @@ use MessageBird\Wire\Model\EmailCompetitiveWatchlistBrandCreate;
 class EmailCompetitiveWatchlistBrandsBase extends Resource
 {
     /**
-     * Add a brand using the panel brand_id returned by brand search. The response id identifies the new workspace watchlist entry for reads and removal. Each entry uses one place in the organization-wide allowance and tracks the brand's highest-volume sending domain. Reuse an idempotency key when retrying the same addition. API-key, OAuth, and service-account calls require Insights preview access for your organization.
+     * Add a brand using the panel brand_id returned by brand search. The response id identifies the new workspace watchlist entry for reads and removal. Each entry uses one place in the organization-wide allowance and tracks the brand's highest-volume sending domain. Reuse an idempotency key when retrying the same addition.
      *
      * @example Add the brand returned by search
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:write permission in the target workspace.
      * $matches = $bird->email->competitive->brands->search(['q' => 'Everlane']);
      * $brandId = null;
      * foreach ($matches->getData() ?? [] as $match) {
@@ -40,10 +40,10 @@ class EmailCompetitiveWatchlistBrandsBase extends Resource
     }
 
     /**
-     * Remove the workspace watchlist entry using its cwb_ ID. This frees one place in the organization-wide allowance. Adding the brand again creates a new entry; removal does not delete campaign data from eDataSource. API-key calls require Insights preview access for your organization.
+     * Remove the workspace watchlist entry using its cwb_ ID. This frees one place in the organization-wide allowance. Adding the brand again creates a new entry; removal does not delete campaign data from eDataSource.
      *
      * @example Remove the selected competitor
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:write permission in the target workspace.
      * $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
      * $watchlistBrandId = null;
      * foreach ($watchlist->getData() ?? [] as $row) {
@@ -63,12 +63,12 @@ class EmailCompetitiveWatchlistBrandsBase extends Resource
     }
 
     /**
-     * Read one watched brand using the `watchlist_brand_id` from `email.competitive.watchlist.get`; the panel `brand_id` returned by `email.competitive.brands.search` is not accepted. The response includes headline figures and a mailbox-provider breakdown, plus ESP and estimated list size. The watchlist already supplies headline comparisons. Rates are fractions. Interpret nulls by field: unavailable rates, no observed last campaign, or no overlap returned by the panel. Panel read rate differs from open rate. Tracked domains can cover only part of a brand's program. API-key calls require Insights preview access for your organization.
+     * Read one watched brand using the `watchlist_brand_id` from `email.competitive.watchlist.get`; the panel `brand_id` returned by `email.competitive.brands.search` is not accepted. The response includes headline figures and a mailbox-provider breakdown, plus ESP and estimated list size. The watchlist already supplies headline comparisons. Rates are fractions. Interpret nulls by field: unavailable rates, no observed last campaign, or no overlap returned by the panel. Panel read rate differs from open rate. Tracked domains can cover only part of a brand's program.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read one watched brand
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:read permission in the target workspace.
      * $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
      * $watchlistBrandId = null;
      * foreach ($watchlist->getData() ?? [] as $row) {
@@ -89,12 +89,12 @@ class EmailCompetitiveWatchlistBrandsBase extends Resource
     }
 
     /**
-     * Takes a watchlist_brand_id from `email.competitive.watchlist.get` and an optional IANA timezone. Covers the last 90 days, with no range parameter. Cells describe observed sending activity, not arrival, reading or subscriber availability. The returned period and timezone label the grid; the panel caches it for a day, so it can lag other reports. sample_days counts days available for observation, not campaigns or independent recipients. peak_send_window can be null when no sending was observed. This describes a competitor's schedule, not a best time for your audience; timing hypotheses need your own controlled test and engagement evidence. API-key calls require Insights preview access for your organization.
+     * Takes a watchlist_brand_id from `email.competitive.watchlist.get` and an optional IANA timezone. Covers the last 90 days, with no range parameter. Cells describe observed sending activity, not arrival, reading or subscriber availability. The returned period and timezone label the grid; the panel caches it for a day, so it can lag other reports. sample_days counts days available for observation, not campaigns or independent recipients. peak_send_window can be null when no sending was observed. This describes a competitor's schedule, not a best time for your audience; timing hypotheses need your own controlled test and engagement evidence.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read its send-time distribution
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:read permission in the target workspace.
      * $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
      * $watchlistBrandId = null;
      * foreach ($watchlist->getData() ?? [] as $row) {

@@ -15,14 +15,14 @@ use MessageBird\Wire\Model\EmailInboxInsightsDomains;
 final class EmailInboxInsightsDomainsResource extends Resource
 {
     /**
-     * List verified sending domains owned by the workspace and their monitoring settings. Follow next_cursor with starting_after, keeping filters and ordering. A monitored value records the workspace setting; it does not establish that vendor measurements exist. API-key calls require Insights preview access for your organization.
+     * List verified sending domains owned by the workspace and their monitoring settings. Follow next_cursor with starting_after, keeping filters and ordering. A monitored value records the workspace setting; it does not establish that vendor measurements exist.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @return Page<EmailInboxInsightsDomain>
      *
      * @example List verified owned domains and monitoring preferences
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:read permission in the target workspace.
      * foreach ($bird->email->inboxInsights->domains->list(['limit' => 25]) as $domain) {
      *     var_dump($domain->getDomain(), $domain->getMonitored());
      * }
@@ -46,10 +46,10 @@ final class EmailInboxInsightsDomainsResource extends Resource
     }
 
     /**
-     * Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change. API-key and service-account calls require Insights preview access for your organization.
+     * Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change.
      *
      * @example Disable the workspace preference while preserving measurement history
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:write permission in the target workspace.
      * $sendingDomain = null;
      * foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
      *     if ($domain->getDomain() === 'mail.example.com') {

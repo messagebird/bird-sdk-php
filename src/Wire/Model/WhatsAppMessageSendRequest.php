@@ -13,91 +13,84 @@ class WhatsAppMessageSendRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The message recipient: a phone number in E.164 format (for example `+31612345678`), the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`), which sends to every participant of that group. A value that is none of these returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID. A group ID naming no group this workspace holds returns a `404` `WhatsAppGroupNotFound`, and one whose group is not active returns a `409` `WhatsAppGroupNotActive`. Content a group cannot take is refused ahead of both, so a group ID paired with interactive content returns the `422` below whether or not the group exists.
+     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
      * 
      *
      * @var string|null
      */
     protected $to;
     /**
-     * The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`. Omit it for a group send too: the group sends on its own number, so naming one returns a `422` `WhatsAppSenderNotAllowed`.
+     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
      * 
      *
      * @var string|null
      */
     protected $from;
     /**
-     * The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
+     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
      * 
      *
      * @var WhatsAppMessageSendRequestTemplate|null
      */
     protected $template;
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * Free-form text. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestText|null
      */
     protected $text;
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form image. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestImage|null
      */
     protected $image;
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form video. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestVideo|null
      */
     protected $video;
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * Free-form audio. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestAudio|null
      */
     protected $audio;
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form sticker. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestSticker|null
      */
     protected $sticker;
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form document. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestDocument|null
      */
     protected $document;
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form location. Deliverable only inside an open customer service window.
      *
      * @var WhatsAppMessageSendRequestLocation|null
      */
     protected $location;
     /**
-     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
+     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
      * 
      *
      * @var WhatsAppMessageSendRequestInteractive|null
      */
     protected $interactive;
     /**
-     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
      * 
      *
      * @var list<WhatsAppContactCardSend>|null
      */
     protected $contactCards;
     /**
-     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
+     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
      * 
      *
      * @var string|null
@@ -118,7 +111,7 @@ class WhatsAppMessageSendRequest
      */
     protected $metadata;
     /**
-     * The message recipient: a phone number in E.164 format (for example `+31612345678`), the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`), which sends to every participant of that group. A value that is none of these returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID. A group ID naming no group this workspace holds returns a `404` `WhatsAppGroupNotFound`, and one whose group is not active returns a `409` `WhatsAppGroupNotActive`. Content a group cannot take is refused ahead of both, so a group ID paired with interactive content returns the `422` below whether or not the group exists.
+     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
      * 
      *
      * @return string|null
@@ -128,7 +121,7 @@ class WhatsAppMessageSendRequest
         return $this->to;
     }
     /**
-     * The message recipient: a phone number in E.164 format (for example `+31612345678`), the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`), which sends to every participant of that group. A value that is none of these returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID. A group ID naming no group this workspace holds returns a `404` `WhatsAppGroupNotFound`, and one whose group is not active returns a `409` `WhatsAppGroupNotActive`. Content a group cannot take is refused ahead of both, so a group ID paired with interactive content returns the `422` below whether or not the group exists.
+     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
      *
      * @param string|null $to
      *
@@ -141,7 +134,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`. Omit it for a group send too: the group sends on its own number, so naming one returns a `422` `WhatsAppSenderNotAllowed`.
+     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
      * 
      *
      * @return string|null
@@ -151,7 +144,7 @@ class WhatsAppMessageSendRequest
         return $this->from;
     }
     /**
-     * The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`. Omit it for a group send too: the group sends on its own number, so naming one returns a `422` `WhatsAppSenderNotAllowed`.
+     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
      *
      * @param string|null $from
      *
@@ -164,7 +157,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
+     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
      * 
      *
      * @return WhatsAppMessageSendRequestTemplate|null
@@ -174,7 +167,7 @@ class WhatsAppMessageSendRequest
         return $this->template;
     }
     /**
-     * The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
+     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
      *
      * @param WhatsAppMessageSendRequestTemplate|WhatsAppTemplateSend|array|null $template
      *
@@ -187,8 +180,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * Free-form text. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestText|null
      */
@@ -197,7 +189,7 @@ class WhatsAppMessageSendRequest
         return $this->text;
     }
     /**
-     * Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * Free-form text. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestText|WhatsAppTextSend|array|null $text
      *
@@ -210,8 +202,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form image. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestImage|null
      */
@@ -220,7 +211,7 @@ class WhatsAppMessageSendRequest
         return $this->image;
     }
     /**
-     * A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * A free-form image. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestImage|WhatsAppImageSend|array|null $image
      *
@@ -233,8 +224,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form video. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestVideo|null
      */
@@ -243,7 +233,7 @@ class WhatsAppMessageSendRequest
         return $this->video;
     }
     /**
-     * A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * A free-form video. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestVideo|WhatsAppVideoSend|array|null $video
      *
@@ -256,8 +246,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * Free-form audio. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestAudio|null
      */
@@ -266,7 +255,7 @@ class WhatsAppMessageSendRequest
         return $this->audio;
     }
     /**
-     * Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * Free-form audio. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestAudio|WhatsAppAudioSend|array|null $audio
      *
@@ -279,8 +268,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form sticker. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestSticker|null
      */
@@ -289,7 +277,7 @@ class WhatsAppMessageSendRequest
         return $this->sticker;
     }
     /**
-     * A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * A free-form sticker. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestSticker|WhatsAppStickerSend|array|null $sticker
      *
@@ -302,8 +290,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form document. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestDocument|null
      */
@@ -312,7 +299,7 @@ class WhatsAppMessageSendRequest
         return $this->document;
     }
     /**
-     * A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * A free-form document. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestDocument|WhatsAppDocumentSend|array|null $document
      *
@@ -325,8 +312,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
-     * 
+     * A free-form location. Deliverable only inside an open customer service window.
      *
      * @return WhatsAppMessageSendRequestLocation|null
      */
@@ -335,7 +321,7 @@ class WhatsAppMessageSendRequest
         return $this->location;
     }
     /**
-     * A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+     * A free-form location. Deliverable only inside an open customer service window.
      *
      * @param WhatsAppMessageSendRequestLocation|WhatsAppLocationSend|array|null $location
      *
@@ -348,7 +334,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
+     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
      * 
      *
      * @return WhatsAppMessageSendRequestInteractive|null
@@ -358,7 +344,7 @@ class WhatsAppMessageSendRequest
         return $this->interactive;
     }
     /**
-     * Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
+     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
      *
      * @param WhatsAppMessageSendRequestInteractive|WhatsAppInteractiveSend|array|null $interactive
      *
@@ -371,7 +357,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
      * 
      *
      * @return list<WhatsAppContactCardSend>|null
@@ -381,7 +367,7 @@ class WhatsAppMessageSendRequest
         return $this->contactCards;
     }
     /**
-     * Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
      *
      * @param list<WhatsAppContactCardSend>|null $contactCards
      *
@@ -394,7 +380,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
+     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
      * 
      *
      * @return string|null
@@ -404,7 +390,7 @@ class WhatsAppMessageSendRequest
         return $this->inReplyToMessageId;
     }
     /**
-     * Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
+     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
      *
      * @param string|null $inReplyToMessageId
      *

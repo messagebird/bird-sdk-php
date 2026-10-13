@@ -17,7 +17,7 @@ class EmailInboxInsightsSeedTestsResourceBase extends Resource
      * Register only when the intended send is ready. Read `email.inbox_insights.seed_tests.configuration.get` for supported options. CLI and MCP registration require OAuth login and browser confirmation: a signed-in person registers the test from the review page. Direct API and SDK calls register immediately. Registration spends organization-wide allowance and returns addresses; it sends no email. Use a separately authorized send to deliver the intended message to those addresses. Keep the same explicit Idempotency-Key and body after a lost response. On 409 E27008, contact support with the request ID and domain before starting another test. A new CLI or MCP invocation can create another proposal; executing it can register another batch. registration_id is for support, not a history lookup. The person reviewing a CLI or MCP proposal needs write access to the workspace.
      *
      * @example Register addresses for a ready send
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:write permission in the target workspace.
      * $idempotencyKey = getenv('IDEMPOTENCY_KEY');
      * if ($idempotencyKey === false || $idempotencyKey === '') {
      *     throw new \RuntimeException('Set IDEMPOTENCY_KEY to a unique key for this registration and retain it for retries');
@@ -55,12 +55,12 @@ class EmailInboxInsightsSeedTestsResourceBase extends Resource
     }
 
     /**
-     * Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail. registration_id cannot locate a history row, and absent history does not prove a registration failed. Scoped API keys, OAuth and service accounts require organization preview access.
+     * Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail. registration_id cannot locate a history row, and absent history does not prove a registration failed.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read seed-test history and allowance
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:read permission in the target workspace.
      * $sendingDomain = null;
      * foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
      *     if ($domain->getDomain() === 'mail.example.com') {

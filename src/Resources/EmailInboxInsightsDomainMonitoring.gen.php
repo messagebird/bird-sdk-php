@@ -12,10 +12,10 @@ use MessageBird\Wire\Model\EmailInboxInsightsDomainMonitoringResult;
 final class EmailInboxInsightsDomainMonitoring extends Resource
 {
     /**
-     * Set up monitoring for the workspace's main verified sending domain. Takes no body. Existing monitoring returns already_on without changes. Otherwise, the sole verified domain or the domain that sent the most mail in the last 30 days is enabled; an uncertain choice returns choice_required, and no verified domains returns no_verified_domains. Only enabled has a non-null domain. Read the domain list after already_on; ask the user to choose after choice_required. Reuse an idempotency key for retries of the same setup attempt. API-key and service-account calls require Insights preview access for your organization.
+     * Set up monitoring for the workspace's main verified sending domain. Takes no body. Existing monitoring returns already_on without changes. Otherwise, the sole verified domain or the domain that sent the most mail in the last 30 days is enabled; an uncertain choice returns choice_required, and no verified domains returns no_verified_domains. Only enabled has a non-null domain. Read the domain list after already_on; ask the user to choose after choice_required. Reuse an idempotency key for retries of the same setup attempt.
      *
      * @example Enable automatic monitoring and inspect the outcome
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:write permission in the target workspace.
      * $result = $bird->email->inboxInsights->domainMonitoring->upsert();
      * var_dump($result->getOutcome(), $result->getDomain());
      */

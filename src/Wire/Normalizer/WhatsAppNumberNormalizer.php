@@ -40,6 +40,9 @@ class WhatsAppNumberNormalizer implements DenormalizerInterface, NormalizerInter
         if (\array_key_exists('is_official_business_account', $data) && \is_int($data['is_official_business_account'])) {
             $data['is_official_business_account'] = (bool) $data['is_official_business_account'];
         }
+        if (\array_key_exists('is_on_business_app', $data) && \is_int($data['is_on_business_app'])) {
+            $data['is_on_business_app'] = (bool) $data['is_on_business_app'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -133,6 +136,12 @@ class WhatsAppNumberNormalizer implements DenormalizerInterface, NormalizerInter
         }
         elseif (\array_key_exists('is_official_business_account', $data) && $data['is_official_business_account'] === null) {
             $object->setIsOfficialBusinessAccount(null);
+        }
+        if (\array_key_exists('is_on_business_app', $data) && $data['is_on_business_app'] !== null) {
+            $object->setIsOnBusinessApp($data['is_on_business_app']);
+        }
+        elseif (\array_key_exists('is_on_business_app', $data) && $data['is_on_business_app'] === null) {
+            $object->setIsOnBusinessApp(null);
         }
         if (\array_key_exists('meta_synced_at', $data) && $data['meta_synced_at'] !== null) {
             $object->setMetaSyncedAt(new \DateTime($data['meta_synced_at']));

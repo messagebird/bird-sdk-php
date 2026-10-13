@@ -106,6 +106,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastCounts::class => \MessageBird\Wire\Normalizer\EmailBroadcastCountsNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastCountAllowance::class => \MessageBird\Wire\Normalizer\EmailBroadcastCountAllowanceNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastSendQuota::class => \MessageBird\Wire\Normalizer\EmailBroadcastSendQuotaNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => \MessageBird\Wire\Normalizer\EmailBroadcastClickedLinkNormalizer::class,
@@ -159,6 +161,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AudienceCreateRequest::class => \MessageBird\Wire\Normalizer\AudienceCreateRequestNormalizer::class,
 
         \MessageBird\Wire\Model\AudienceUpdateRequest::class => \MessageBird\Wire\Normalizer\AudienceUpdateRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipSummary::class => \MessageBird\Wire\Normalizer\AudienceMembershipSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipResponse::class => \MessageBird\Wire\Normalizer\AudienceMembershipResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipStatisticsPeriod::class => \MessageBird\Wire\Normalizer\AudienceMembershipStatisticsPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipStatisticsPoint::class => \MessageBird\Wire\Normalizer\AudienceMembershipStatisticsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipStatisticsResponse::class => \MessageBird\Wire\Normalizer\AudienceMembershipStatisticsResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AudienceMembershipStatisticsResponsePeriod::class => \MessageBird\Wire\Normalizer\AudienceMembershipStatisticsResponsePeriodNormalizer::class,
 
         \MessageBird\Wire\Model\AudienceMember::class => \MessageBird\Wire\Normalizer\AudienceMemberNormalizer::class,
 
@@ -351,8 +365,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundNumberStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByNumberResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\DestinationSetting::class => \MessageBird\Wire\Normalizer\DestinationSettingNormalizer::class,
 
         \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRequestNormalizer::class,
 
@@ -1376,6 +1388,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\DomainCapabilities::class => \MessageBird\Wire\Normalizer\DomainCapabilitiesNormalizer::class,
 
+        \MessageBird\Wire\Model\DomainReceiving::class => \MessageBird\Wire\Normalizer\DomainReceivingNormalizer::class,
+
         \MessageBird\Wire\Model\DNSRecord::class => \MessageBird\Wire\Normalizer\DNSRecordNormalizer::class,
 
         \MessageBird\Wire\Model\Domain::class => \MessageBird\Wire\Normalizer\DomainNormalizer::class,
@@ -1786,9 +1800,23 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\CreateVoiceCallRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimit::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitLimit::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUsed::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitUsedNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitRemaining::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitRemainingNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceDestination::class => \MessageBird\Wire\Normalizer\VoiceDestinationNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceDestinationList::class => \MessageBird\Wire\Normalizer\VoiceDestinationListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUpdate::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUpdateLimit::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitUpdateLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\DestinationSetting::class => \MessageBird\Wire\Normalizer\DestinationSettingNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => \MessageBird\Wire\Normalizer\VoiceDestinationsUpdateNormalizer::class,
 
@@ -1817,6 +1845,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EsimOrderCreate::class => \MessageBird\Wire\Normalizer\EsimOrderCreateNormalizer::class,
 
         \MessageBird\Wire\Model\EsimOrderCreateExpectedPrice::class => \MessageBird\Wire\Normalizer\EsimOrderCreateExpectedPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutFunding::class => \MessageBird\Wire\Normalizer\EsimCheckoutFundingNormalizer::class,
+
+        \MessageBird\Wire\Model\EsimCheckoutFundingShortfall::class => \MessageBird\Wire\Normalizer\EsimCheckoutFundingShortfallNormalizer::class,
 
         \MessageBird\Wire\Model\EsimCheckoutOneTime::class => \MessageBird\Wire\Normalizer\EsimCheckoutOneTimeNormalizer::class,
 
@@ -1990,6 +2022,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => false,
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastCounts::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastCountAllowance::class => false,
             \MessageBird\Wire\Model\EmailBroadcastSendQuota::class => false,
             \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => false,
             \MessageBird\Wire\Model\EmailBroadcastClickedLinkList::class => false,
@@ -2017,6 +2050,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ContactPropertyUpdateRequest::class => false,
             \MessageBird\Wire\Model\AudienceCreateRequest::class => false,
             \MessageBird\Wire\Model\AudienceUpdateRequest::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipSummary::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipResponse::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipStatisticsPeriod::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipStatisticsPoint::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipStatisticsResponse::class => false,
+            \MessageBird\Wire\Model\AudienceMembershipStatisticsResponsePeriod::class => false,
             \MessageBird\Wire\Model\AudienceMember::class => false,
             \MessageBird\Wire\Model\AudienceMemberList::class => false,
             \MessageBird\Wire\Model\AudienceContactsAddRequest::class => false,
@@ -2113,7 +2152,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => false,
-            \MessageBird\Wire\Model\DestinationSetting::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,
             \MessageBird\Wire\Model\LookupClassification::class => false,
             \MessageBird\Wire\Model\LookupPresence::class => false,
@@ -2625,6 +2663,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\DomainCapabilityPending::class => false,
             \MessageBird\Wire\Model\DomainCapability::class => false,
             \MessageBird\Wire\Model\DomainCapabilities::class => false,
+            \MessageBird\Wire\Model\DomainReceiving::class => false,
             \MessageBird\Wire\Model\DNSRecord::class => false,
             \MessageBird\Wire\Model\Domain::class => false,
             \MessageBird\Wire\Model\DomainList::class => false,
@@ -2830,8 +2869,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallRequest::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimit::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitLimit::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUsed::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitRemaining::class => false,
             \MessageBird\Wire\Model\VoiceDestination::class => false,
             \MessageBird\Wire\Model\VoiceDestinationList::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUpdateLimit::class => false,
+            \MessageBird\Wire\Model\DestinationSetting::class => false,
             \MessageBird\Wire\Model\VoiceDestinationsUpdate::class => false,
             \MessageBird\Wire\Model\EsimZoneList::class => false,
             \MessageBird\Wire\Model\EsimOfferPhone::class => false,
@@ -2846,6 +2892,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EsimOrderRecurrence::class => false,
             \MessageBird\Wire\Model\EsimOrderCreate::class => false,
             \MessageBird\Wire\Model\EsimOrderCreateExpectedPrice::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutFunding::class => false,
+            \MessageBird\Wire\Model\EsimCheckoutFundingShortfall::class => false,
             \MessageBird\Wire\Model\EsimCheckoutOneTime::class => false,
             \MessageBird\Wire\Model\EsimCheckoutRecurrence::class => false,
             \MessageBird\Wire\Model\EsimCheckoutRecurrenceQuote::class => false,

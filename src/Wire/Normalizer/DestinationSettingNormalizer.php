@@ -52,13 +52,24 @@ class DestinationSettingNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('enabled', $data) && $data['enabled'] === null) {
             $object->setEnabled(null);
         }
+        if (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] !== null) {
+            $object->setDailySpendLimit($this->denormalizer->denormalize($data['daily_spend_limit'], \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUpdate::class, 'json', $context));
+        }
+        elseif (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] === null) {
+            $object->setDailySpendLimit(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
         $dataArray['country_code'] = $data->getCountryCode();
-        $dataArray['enabled'] = $data->getEnabled();
+        if ($data->isInitialized('enabled') && null !== $data->getEnabled()) {
+            $dataArray['enabled'] = $data->getEnabled();
+        }
+        if ($data->isInitialized('dailySpendLimit') && null !== $data->getDailySpendLimit()) {
+            $dataArray['daily_spend_limit'] = $this->normalizer->normalize($data->getDailySpendLimit(), 'json', $context);
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

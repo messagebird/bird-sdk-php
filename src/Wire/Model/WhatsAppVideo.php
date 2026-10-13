@@ -13,21 +13,21 @@ class WhatsAppVideo extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+     * ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
      * 
      *
      * @var string|null
      */
     protected $id;
     /**
-     * Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      * 
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
      * 
      *
      * @var string|null
@@ -40,7 +40,7 @@ class WhatsAppVideo extends \ArrayObject
      */
     protected $caption;
     /**
-     * ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+     * ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
      * 
      *
      * @return string|null
@@ -50,7 +50,7 @@ class WhatsAppVideo extends \ArrayObject
         return $this->id;
     }
     /**
-     * ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+     * ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
      *
      * @param string|null $id
      *
@@ -63,7 +63,7 @@ class WhatsAppVideo extends \ArrayObject
         return $this;
     }
     /**
-     * Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      * 
      *
      * @return string|null
@@ -73,7 +73,7 @@ class WhatsAppVideo extends \ArrayObject
         return $this->url;
     }
     /**
-     * Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      *
      * @param string|null $url
      *
@@ -86,7 +86,7 @@ class WhatsAppVideo extends \ArrayObject
         return $this;
     }
     /**
-     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
      * 
      *
      * @return string|null
@@ -96,7 +96,7 @@ class WhatsAppVideo extends \ArrayObject
         return $this->mimeType;
     }
     /**
-     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+     * Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
      *
      * @param string|null $mimeType
      *

@@ -25,7 +25,7 @@ class WhatsAppMessageTemplateComponentParameter
      */
     protected $text;
     /**
-     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
      * 
      *
      * @var string|null
@@ -38,7 +38,7 @@ class WhatsAppMessageTemplateComponentParameter
      */
     protected $location;
     /**
-     * Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
      * 
      *
      * @var string|null
@@ -89,7 +89,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
      * 
      *
      * @return string|null
@@ -99,7 +99,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->url;
     }
     /**
-     * Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
      *
      * @param string|null $url
      *
@@ -134,7 +134,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
      * 
      *
      * @return string|null
@@ -144,7 +144,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->name;
     }
     /**
-     * Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
      *
      * @param string|null $name
      *

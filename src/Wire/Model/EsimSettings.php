@@ -13,14 +13,14 @@ class EsimSettings
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Whether Bird sends eSIM install credentials to travelers for this workspace. When `false`, sending an eSIM's credentials by email or SMS is refused; reading them from the API still works, so you can deliver them yourself. This governs the install message only. Your workspace's other email and SMS sending is unaffected. Defaults to `true`.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Defaults to `false`. Manual install-link sends remain available regardless of this setting.
      * 
      *
      * @var bool|null
      */
     protected $credentialDeliveryEnabled;
     /**
-     * Whether Bird sends eSIM install credentials to travelers for this workspace. When `false`, sending an eSIM's credentials by email or SMS is refused; reading them from the API still works, so you can deliver them yourself. This governs the install message only. Your workspace's other email and SMS sending is unaffected. Defaults to `true`.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Defaults to `false`. Manual install-link sends remain available regardless of this setting.
      * 
      *
      * @return bool|null
@@ -30,7 +30,7 @@ class EsimSettings
         return $this->credentialDeliveryEnabled;
     }
     /**
-     * Whether Bird sends eSIM install credentials to travelers for this workspace. When `false`, sending an eSIM's credentials by email or SMS is refused; reading them from the API still works, so you can deliver them yourself. This governs the install message only. Your workspace's other email and SMS sending is unaffected. Defaults to `true`.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Defaults to `false`. Manual install-link sends remain available regardless of this setting.
      *
      * @param bool|null $credentialDeliveryEnabled
      *

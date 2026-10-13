@@ -23,14 +23,14 @@ class WhatsAppTemplateSend
      */
     protected $slug;
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
      * 
      *
      * @var string|null
      */
     protected $language;
     /**
-     * The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
      * 
      *
      * @var list<WhatsAppMessageTemplateComponent>|null
@@ -77,7 +77,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
      * 
      *
      * @return string|null
@@ -87,7 +87,7 @@ class WhatsAppTemplateSend
         return $this->language;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
+     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
      *
      * @param string|null $language
      *
@@ -100,7 +100,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
      * 
      *
      * @return list<WhatsAppMessageTemplateComponent>|null
@@ -110,7 +110,7 @@ class WhatsAppTemplateSend
         return $this->components;
     }
     /**
-     * The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
+     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
      *
      * @param list<WhatsAppMessageTemplateComponent>|null $components
      *

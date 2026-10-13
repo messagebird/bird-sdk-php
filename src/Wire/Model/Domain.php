@@ -86,6 +86,12 @@ class Domain
      */
     protected $capabilities;
     /**
+     * Receiving state and whether it is managed from another workspace.
+     *
+     * @var DomainReceiving|null
+     */
+    protected $receiving;
+    /**
      * The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off and `capabilities.inbound.status` is `not_configured`. Their presence alone does not mean receiving is enabled; see `DomainUpdate.inbound`.
      * 
      *
@@ -351,6 +357,28 @@ class Domain
     {
         $this->initialized['capabilities'] = true;
         $this->capabilities = $capabilities;
+        return $this;
+    }
+    /**
+     * Receiving state and whether it is managed from another workspace.
+     *
+     * @return DomainReceiving|null
+     */
+    public function getReceiving(): ?DomainReceiving
+    {
+        return $this->receiving;
+    }
+    /**
+     * Receiving state and whether it is managed from another workspace.
+     *
+     * @param DomainReceiving|null $receiving
+     *
+     * @return self
+     */
+    public function setReceiving(?DomainReceiving $receiving): self
+    {
+        $this->initialized['receiving'] = true;
+        $this->receiving = $receiving;
         return $this;
     }
     /**

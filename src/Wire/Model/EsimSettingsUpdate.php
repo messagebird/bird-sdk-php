@@ -13,14 +13,14 @@ class EsimSettingsUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Omit this field to retain the current value; a workspace without saved settings starts with `false`. Manual install-link sends remain available regardless of this setting.
      * 
      *
      * @var bool|null
      */
     protected $credentialDeliveryEnabled;
     /**
-     * Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Omit this field to retain the current value; a workspace without saved settings starts with `false`. Manual install-link sends remain available regardless of this setting.
      * 
      *
      * @return bool|null
@@ -30,7 +30,7 @@ class EsimSettingsUpdate
         return $this->credentialDeliveryEnabled;
     }
     /**
-     * Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+     * Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Omit this field to retain the current value; a workspace without saved settings starts with `false`. Manual install-link sends remain available regardless of this setting.
      *
      * @param bool|null $credentialDeliveryEnabled
      *

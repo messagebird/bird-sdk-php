@@ -13,6 +13,12 @@ class EsimCheckoutRecurrenceQuote extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+     *
+     * @var EsimCheckoutFunding|null
+     */
+    protected $funding;
+    /**
      * Relationship between the paid period and package delivery.
      * 
      * - `exact_period`: the package covers the accepted paid interval.
@@ -54,6 +60,28 @@ class EsimCheckoutRecurrenceQuote extends \ArrayObject
      * @var int|null
      */
     protected $intervalCount;
+    /**
+     * Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+     *
+     * @return EsimCheckoutFunding|null
+     */
+    public function getFunding(): ?EsimCheckoutFunding
+    {
+        return $this->funding;
+    }
+    /**
+     * Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+     *
+     * @param EsimCheckoutFunding|null $funding
+     *
+     * @return self
+     */
+    public function setFunding(?EsimCheckoutFunding $funding): self
+    {
+        $this->initialized['funding'] = true;
+        $this->funding = $funding;
+        return $this;
+    }
     /**
      * Relationship between the paid period and package delivery.
      * 

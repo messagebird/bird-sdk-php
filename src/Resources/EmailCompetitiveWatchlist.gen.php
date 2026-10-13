@@ -13,12 +13,12 @@ use MessageBird\Wire\Model\EmailCompetitiveWatchlist;
 class EmailCompetitiveWatchlistResourceBase extends Resource
 {
     /**
-     * Compare volume, campaigns per week, placement, reading and audience overlap across the existing watchlist in one read; no setup or per-brand reads are needed for these headline metrics. Each brand covers its tracked sending domains, not necessarily its whole program. `watchlist_brand_id` identifies a saved entry; `email.competitive.watchlist.brands.get` adds provider detail. Rate fields are fractions (0.2 means 20%); fields ending in percent already use percentages. Your measured sends and cadence cover the workspace; your panel rates and overlap describe its highest-volume sending domain. Overlap uses that domain's panel-observed audience as denominator. `provenance` identifies each metric's source. Panel read rate is not your open rate; placement rates cannot establish counts of your delivered messages in spam. Campaign cadence is not per-subscriber frequency. Interpret nulls by field: rates can be unavailable, while last_campaign can mean none was observed and overlap can mean no overlap was returned. Do not replace nulls with zeros. API-key calls require Insights preview access for your organization.
+     * Compare volume, campaigns per week, placement, reading and audience overlap across the existing watchlist in one read; no setup or per-brand reads are needed for these headline metrics. Each brand covers its tracked sending domains, not necessarily its whole program. `watchlist_brand_id` identifies a saved entry; `email.competitive.watchlist.brands.get` adds provider detail. Rate fields are fractions (0.2 means 20%); fields ending in percent already use percentages. Your measured sends and cadence cover the workspace; your panel rates and overlap describe its highest-volume sending domain. Overlap uses that domain's panel-observed audience as denominator. `provenance` identifies each metric's source. Panel read rate is not your open rate; placement rates cannot establish counts of your delivered messages in spam. Campaign cadence is not per-subscriber frequency. Interpret nulls by field: rates can be unavailable, while last_campaign can mean none was observed and overlap can mean no overlap was returned. Do not replace nulls with zeros.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read watchlist figures without replacing missing values
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:read permission in the target workspace.
      * $report = $bird->email->competitive->watchlist->get(['range' => 30]);
      * var_dump($report->getData());
      */
@@ -28,12 +28,12 @@ class EmailCompetitiveWatchlistResourceBase extends Resource
     }
 
     /**
-     * Returns up to 100 findings across watched brands for the requested range. A campaign can appear for multiple signals, each with its own evidence. truncated reports omitted eligible findings; this report has no cursor pages. Each finding carries the watched-brand and campaign IDs for `email.competitive.watchlist.brands.campaigns.get`. API-key calls require Insights preview access for your organization.
+     * Returns up to 100 findings across watched brands for the requested range. A campaign can appear for multiple signals, each with its own evidence. truncated reports omitted eligible findings; this report has no cursor pages. Each finding carries the watched-brand and campaign IDs for `email.competitive.watchlist.brands.campaigns.get`.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read notable campaigns
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:read permission in the target workspace.
      * $report = $bird->email->competitive->watchlist->notable(['range' => 30]);
      * var_dump($report);
      */

@@ -12,12 +12,12 @@ use MessageBird\Wire\Model\EmailCompetitiveVolumeSeries;
 class EmailCompetitiveBase extends Resource
 {
     /**
-     * Accepts up to 20 distinct watchlist entry IDs from `email.competitive.watchlist.get`. Omitting brand_ids requests the workspace's own line. Competitor lines retain the requested order after the workspace line, when present. Each line's source distinguishes estimated panel volume from the workspace's accepted sends. Returns daily series without pagination. API-key calls require Insights preview access for your organization.
+     * Accepts up to 20 distinct watchlist entry IDs from `email.competitive.watchlist.get`. Omitting brand_ids requests the workspace's own line. Competitor lines retain the requested order after the workspace line, when present. Each line's source distinguishes estimated panel volume from the workspace's accepted sends. Returns daily series without pagination.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Compare daily volume with a watched brand
-     * // Requires Insights preview access for the organization.
+     * // Requires competitive:read permission in the target workspace.
      * $watchlist = $bird->email->competitive->watchlist->get(['range' => 30]);
      * $watchlistBrandId = null;
      * foreach ($watchlist->getData() ?? [] as $row) {

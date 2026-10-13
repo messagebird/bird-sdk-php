@@ -13,14 +13,14 @@ class WhatsAppStickerSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. WebP only: up to 100 KB for a static sticker and 500 KB for an animated one. A sticker carries no caption.
+     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
      * 
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. WebP only: up to 100 KB for a static sticker and 500 KB for an animated one. A sticker carries no caption.
+     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
      * 
      *
      * @return string|null
@@ -30,7 +30,7 @@ class WhatsAppStickerSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. WebP only: up to 100 KB for a static sticker and 500 KB for an animated one. A sticker carries no caption.
+     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
      *
      * @param string|null $url
      *

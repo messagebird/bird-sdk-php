@@ -91,6 +91,12 @@ class VoiceDestinationNormalizer implements DenormalizerInterface, NormalizerInt
         elseif (\array_key_exists('high_risk_destination', $data) && $data['high_risk_destination'] === null) {
             $object->setHighRiskDestination(null);
         }
+        if (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] !== null) {
+            $object->setDailySpendLimit($this->denormalizer->denormalize($data['daily_spend_limit'], \MessageBird\Wire\Model\VoiceDestinationDailySpendLimit::class, 'json', $context));
+        }
+        elseif (\array_key_exists('daily_spend_limit', $data) && $data['daily_spend_limit'] === null) {
+            $object->setDailySpendLimit(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

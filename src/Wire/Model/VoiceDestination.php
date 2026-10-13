@@ -56,6 +56,13 @@ class VoiceDestination
      */
     protected $highRiskDestination;
     /**
+     * Your workspace's daily spend limit for calls to this country and today's usage toward it. It applies whether or not the country is enabled, including to verification calls. Null when you have not set one, before your organization has a wallet, or while your wallet currency cannot be read; a limit you set is still enforced then.
+     * 
+     *
+     * @var VoiceDestinationDailySpendLimit|null
+     */
+    protected $dailySpendLimit;
+    /**
      * @return string|null
      */
     public function getCountryCode(): ?string
@@ -218,6 +225,29 @@ class VoiceDestination
     {
         $this->initialized['highRiskDestination'] = true;
         $this->highRiskDestination = $highRiskDestination;
+        return $this;
+    }
+    /**
+     * Your workspace's daily spend limit for calls to this country and today's usage toward it. It applies whether or not the country is enabled, including to verification calls. Null when you have not set one, before your organization has a wallet, or while your wallet currency cannot be read; a limit you set is still enforced then.
+     * 
+     *
+     * @return VoiceDestinationDailySpendLimit|null
+     */
+    public function getDailySpendLimit(): ?VoiceDestinationDailySpendLimit
+    {
+        return $this->dailySpendLimit;
+    }
+    /**
+     * Your workspace's daily spend limit for calls to this country and today's usage toward it. It applies whether or not the country is enabled, including to verification calls. Null when you have not set one, before your organization has a wallet, or while your wallet currency cannot be read; a limit you set is still enforced then.
+     *
+     * @param VoiceDestinationDailySpendLimit|null $dailySpendLimit
+     *
+     * @return self
+     */
+    public function setDailySpendLimit(?VoiceDestinationDailySpendLimit $dailySpendLimit): self
+    {
+        $this->initialized['dailySpendLimit'] = true;
+        $this->dailySpendLimit = $dailySpendLimit;
         return $this;
     }
 }

@@ -159,6 +159,12 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('origin', $data) && $data['origin'] !== null) {
+            $object->setOrigin($data['origin']);
+        }
+        elseif (\array_key_exists('origin', $data) && $data['origin'] === null) {
+            $object->setOrigin(null);
+        }
         if (\array_key_exists('recipient_count', $data) && $data['recipient_count'] !== null) {
             $object->setRecipientCount($data['recipient_count']);
         }

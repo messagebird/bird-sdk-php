@@ -23,6 +23,12 @@ class Mailbox
      */
     protected $address;
     /**
+     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     *
+     * @var string|null
+     */
+    protected $forwardingAddress;
+    /**
      * Display name used as the sender name on mail from this mailbox. `null` when unset.
      *
      * @var string|null
@@ -176,6 +182,28 @@ class Mailbox
     {
         $this->initialized['address'] = true;
         $this->address = $address;
+        return $this;
+    }
+    /**
+     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     *
+     * @return string|null
+     */
+    public function getForwardingAddress(): ?string
+    {
+        return $this->forwardingAddress;
+    }
+    /**
+     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     *
+     * @param string|null $forwardingAddress
+     *
+     * @return self
+     */
+    public function setForwardingAddress(?string $forwardingAddress): self
+    {
+        $this->initialized['forwardingAddress'] = true;
+        $this->forwardingAddress = $forwardingAddress;
         return $this;
     }
     /**

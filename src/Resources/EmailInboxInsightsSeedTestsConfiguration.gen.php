@@ -12,12 +12,12 @@ use MessageBird\Wire\Model\EmailInboxInsightsSeedTestConfiguration;
 final class EmailInboxInsightsSeedTestsConfiguration extends Resource
 {
     /**
-     * Read available seed pools, regions and engagement profiles for an owned sending domain before `email.inbox_insights.seed_tests.create`. Use only available pools and preserve region strings exactly. Scoped API keys, OAuth and service accounts require organization preview access.
+     * Read available seed pools, regions and engagement profiles for an owned sending domain before `email.inbox_insights.seed_tests.create`. Use only available pools and preserve region strings exactly.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @example Read available seed-test options
-     * // Requires Insights preview access for the organization.
+     * // Requires inbox_insights:read permission in the target workspace.
      * $sendingDomain = null;
      * foreach ($bird->email->inboxInsights->domains->list(['search' => 'mail.example.com']) as $domain) {
      *     if ($domain->getDomain() === 'mail.example.com') {

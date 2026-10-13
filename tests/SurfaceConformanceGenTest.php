@@ -279,6 +279,8 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->audiences->addContacts(...),
             $bird->audiences->removeContacts(...),
             $bird->audiences->removeContact(...),
+            $bird->audiences->membership(...),
+            $bird->audiences->membershipHistory(...),
             $bird->email->mailboxes->list(...),
             $bird->email->mailboxes->create(...),
             $bird->email->mailboxes->get(...),
@@ -395,7 +397,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->esim->recurringSubscriptions->periods(...),
         ];
 
-        self::assertCount(373, $surface);
+        self::assertCount(375, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

@@ -19,14 +19,14 @@ class WhatsAppInteractiveSend
      */
     protected $type;
     /**
-     * Optional content above the body. A `list` accepts a `text` header only; `button` and `cta_url` also accept an image, video or document. A `carousel` accepts none: its cards carry their own media. Neither request kind accepts one.
+     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
      * 
      *
      * @var WhatsAppInteractiveSendHeader|null
      */
     protected $header;
     /**
-     * The message's main text, required on every kind, and the whole message on `location_request_message` and `request_contact_info`. The WhatsApp client turns any URL it contains into a clickable link. Only a `list` may use the full length; the other kinds cap it at 1024 characters.
+     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
      * 
      *
      * @var string|null
@@ -40,7 +40,7 @@ class WhatsAppInteractiveSend
      */
     protected $footerText;
     /**
-     * The buttons to show, in the order given. Send this on a `button` message, where every button is a `quick_reply`. Every label must be unique within the message; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
      * 
      *
      * @var list<WhatsAppInteractiveButtonSend>|null
@@ -59,7 +59,7 @@ class WhatsAppInteractiveSend
      */
     protected $ctaUrl;
     /**
-     * The cards to show, in the order they appear, left to right. Send this on a `carousel` message, with between 2 and 10 cards. The message's own `body_text` introduces them; a carousel carries no header and no footer of its own.
+     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
      * 
      *
      * @var list<WhatsAppInteractiveCardSend>|null
@@ -88,7 +88,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * Optional content above the body. A `list` accepts a `text` header only; `button` and `cta_url` also accept an image, video or document. A `carousel` accepts none: its cards carry their own media. Neither request kind accepts one.
+     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
      * 
      *
      * @return WhatsAppInteractiveSendHeader|null
@@ -98,7 +98,7 @@ class WhatsAppInteractiveSend
         return $this->header;
     }
     /**
-     * Optional content above the body. A `list` accepts a `text` header only; `button` and `cta_url` also accept an image, video or document. A `carousel` accepts none: its cards carry their own media. Neither request kind accepts one.
+     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
      *
      * @param WhatsAppInteractiveSendHeader|WhatsAppInteractiveHeaderSend|array|null $header
      *
@@ -111,7 +111,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The message's main text, required on every kind, and the whole message on `location_request_message` and `request_contact_info`. The WhatsApp client turns any URL it contains into a clickable link. Only a `list` may use the full length; the other kinds cap it at 1024 characters.
+     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
      * 
      *
      * @return string|null
@@ -121,7 +121,7 @@ class WhatsAppInteractiveSend
         return $this->bodyText;
     }
     /**
-     * The message's main text, required on every kind, and the whole message on `location_request_message` and `request_contact_info`. The WhatsApp client turns any URL it contains into a clickable link. Only a `list` may use the full length; the other kinds cap it at 1024 characters.
+     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
      *
      * @param string|null $bodyText
      *
@@ -157,7 +157,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The buttons to show, in the order given. Send this on a `button` message, where every button is a `quick_reply`. Every label must be unique within the message; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
      * 
      *
      * @return list<WhatsAppInteractiveButtonSend>|null
@@ -167,7 +167,7 @@ class WhatsAppInteractiveSend
         return $this->buttons;
     }
     /**
-     * The buttons to show, in the order given. Send this on a `button` message, where every button is a `quick_reply`. Every label must be unique within the message; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
      *
      * @param list<WhatsAppInteractiveButtonSend>|null $buttons
      *
@@ -224,7 +224,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The cards to show, in the order they appear, left to right. Send this on a `carousel` message, with between 2 and 10 cards. The message's own `body_text` introduces them; a carousel carries no header and no footer of its own.
+     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
      * 
      *
      * @return list<WhatsAppInteractiveCardSend>|null
@@ -234,7 +234,7 @@ class WhatsAppInteractiveSend
         return $this->cards;
     }
     /**
-     * The cards to show, in the order they appear, left to right. Send this on a `carousel` message, with between 2 and 10 cards. The message's own `body_text` introduces them; a carousel carries no header and no footer of its own.
+     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
      *
      * @param list<WhatsAppInteractiveCardSend>|null $cards
      *

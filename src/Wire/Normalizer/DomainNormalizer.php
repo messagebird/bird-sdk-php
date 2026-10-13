@@ -95,6 +95,12 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
         elseif (\array_key_exists('capabilities', $data) && $data['capabilities'] === null) {
             $object->setCapabilities(null);
         }
+        if (\array_key_exists('receiving', $data) && $data['receiving'] !== null) {
+            $object->setReceiving($this->denormalizer->denormalize($data['receiving'], \MessageBird\Wire\Model\DomainReceiving::class, 'json', $context));
+        }
+        elseif (\array_key_exists('receiving', $data) && $data['receiving'] === null) {
+            $object->setReceiving(null);
+        }
         if (\array_key_exists('dns_records', $data) && $data['dns_records'] !== null) {
             $values_1 = [];
             foreach ($data['dns_records'] as $value_1) {

@@ -199,6 +199,8 @@ return [
     "/v1/audiences/{audience_id}/contacts",
     "/v1/audiences/{audience_id}/contacts/remove",
     "/v1/audiences/{audience_id}/contacts/{contact_id}",
+    "/v1/audiences/{audience_id}/membership",
+    "/v1/audiences/{audience_id}/membership-statistics",
     "/v1/email/mailboxes",
     "/v1/email/mailboxes/{mailbox_id}",
     "/v1/email/mailboxes/{mailbox_id}/restore",

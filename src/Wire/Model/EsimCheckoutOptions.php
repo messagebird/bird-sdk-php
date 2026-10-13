@@ -17,7 +17,7 @@ class EsimCheckoutOptions
      */
     protected $offerId;
     /**
-     * Published one-time purchase terms before tax.
+     * Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
      *
      * @var EsimCheckoutOneTime|null
      */
@@ -47,7 +47,7 @@ class EsimCheckoutOptions
         return $this;
     }
     /**
-     * Published one-time purchase terms before tax.
+     * Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
      *
      * @return EsimCheckoutOneTime|null
      */
@@ -56,7 +56,7 @@ class EsimCheckoutOptions
         return $this->oneTime;
     }
     /**
-     * Published one-time purchase terms before tax.
+     * Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
      *
      * @param EsimCheckoutOneTime|null $oneTime
      *

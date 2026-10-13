@@ -67,12 +67,33 @@ class EmailBroadcastSendQuotaNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('remaining', $data) && $data['remaining'] === null) {
             $object->setRemaining(null);
         }
+        if (\array_key_exists('resets_at', $data) && $data['resets_at'] !== null) {
+            $object->setResetsAt(new \DateTime($data['resets_at']));
+        }
+        elseif (\array_key_exists('resets_at', $data) && $data['resets_at'] === null) {
+            $object->setResetsAt(null);
+        }
+        if (\array_key_exists('limit_reason', $data) && $data['limit_reason'] !== null) {
+            $object->setLimitReason($data['limit_reason']);
+        }
+        elseif (\array_key_exists('limit_reason', $data) && $data['limit_reason'] === null) {
+            $object->setLimitReason(null);
+        }
+        if (\array_key_exists('broadcasts', $data) && $data['broadcasts'] !== null) {
+            $object->setBroadcasts($this->denormalizer->denormalize($data['broadcasts'], \MessageBird\Wire\Model\EmailBroadcastCountAllowance::class, 'json', $context));
+        }
+        elseif (\array_key_exists('broadcasts', $data) && $data['broadcasts'] === null) {
+            $object->setBroadcasts(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
         $dataArray['limited_by'] = $data->getLimitedBy();
+        if ($data->isInitialized('limitReason') && null !== $data->getLimitReason()) {
+            $dataArray['limit_reason'] = $data->getLimitReason();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

@@ -13,7 +13,7 @@ class WhatsAppDocumentSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
+     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
      * 
      *
      * @var string|null
@@ -33,7 +33,7 @@ class WhatsAppDocumentSend
      */
     protected $filename;
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
+     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
      * 
      *
      * @return string|null
@@ -43,7 +43,7 @@ class WhatsAppDocumentSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
+     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
      *
      * @param string|null $url
      *

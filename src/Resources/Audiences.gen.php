@@ -15,6 +15,8 @@ use MessageBird\Wire\Model\AudienceCreateRequest;
 use MessageBird\Wire\Model\AudienceList;
 use MessageBird\Wire\Model\AudienceMember;
 use MessageBird\Wire\Model\AudienceMemberList;
+use MessageBird\Wire\Model\AudienceMembershipResponse;
+use MessageBird\Wire\Model\AudienceMembershipStatisticsResponse;
 use MessageBird\Wire\Model\AudienceUpdateRequest;
 
 final class Audiences extends Resource
@@ -170,5 +172,38 @@ final class Audiences extends Resource
     public function removeContact(string $audienceId, string $contactId, ?RequestOptions $options = null): void
     {
         $this->none('DELETE', '/v1/audiences/' . rawurlencode($audienceId) . '/contacts/' . rawurlencode($contactId), null, null, $options);
+    }
+
+    /**
+     * Exact current member count of one audience, including contacts without email and unsubscribed contacts, with the `data_as_of` evaluation instant. An empty audience returns `total` 0; when the count is unavailable the response is `{}` with no `membership`, never 0. For daily history use `audiences.membership_history`.
+     *
+     * @example Read the current member count
+     * $result = $bird->audiences->membership('adn_01krdgeqcxet5s7t44vh8rt9mg');
+     * if ($result->getMembership() !== null) {
+     *     echo $result->getMembership()->getTotal(), ' ', $result->getMembership()->getDataAsOf()?->format(DATE_ATOM);
+     * }
+     */
+    public function membership(string $audienceId, ?RequestOptions $options = null): AudienceMembershipResponse
+    {
+        return $this->single('GET', '/v1/audiences/' . rawurlencode($audienceId) . '/membership', AudienceMembershipResponse::class, null, null, $options);
+    }
+
+    /**
+     * Daily audience member counts for inclusive UTC dates `from`..`to`, default the last 31 dates ending today, at most 365, no future dates. Each point is the first observation of that date with its actual `observed_at`; a date without one has null `total` and `observed_at`, never 0. Period `data_as_of` is always null. For the current exact count use `audiences.membership`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Read daily membership observations
+     * $history = $bird->audiences->membershipHistory('adn_01krdgeqcxet5s7t44vh8rt9mg', [
+     *     'from' => '2026-10-09',
+     *     'to' => '2026-10-12',
+     * ]);
+     * foreach ($history->getData() ?? [] as $point) {
+     *     echo $point->getBucket()?->format('Y-m-d'), ' ', json_encode($point->getTotal()), ' ', $point->getObservedAt()?->format(DATE_ATOM), "\n";
+     * }
+     */
+    public function membershipHistory(string $audienceId, ?array $query = null, ?RequestOptions $options = null): AudienceMembershipStatisticsResponse
+    {
+        return $this->single('GET', '/v1/audiences/' . rawurlencode($audienceId) . '/membership-statistics', AudienceMembershipStatisticsResponse::class, null, $query, $options);
     }
 }

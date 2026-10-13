@@ -25,7 +25,7 @@ class WhatsAppInteractiveHeaderSend
      */
     protected $text;
     /**
-     * Public `https` URL of the file to show. Send it on an `image`, `video` or `document` header. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB; a document, up to 100 MB, and PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client while other file types are transmitted but unsupported. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch.
+     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
      * 
      *
      * @var string|null
@@ -76,7 +76,7 @@ class WhatsAppInteractiveHeaderSend
         return $this;
     }
     /**
-     * Public `https` URL of the file to show. Send it on an `image`, `video` or `document` header. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB; a document, up to 100 MB, and PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client while other file types are transmitted but unsupported. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch.
+     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
      * 
      *
      * @return string|null
@@ -86,7 +86,7 @@ class WhatsAppInteractiveHeaderSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the file to show. Send it on an `image`, `video` or `document` header. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB; a document, up to 100 MB, and PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client while other file types are transmitted but unsupported. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch.
+     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
      *
      * @param string|null $url
      *

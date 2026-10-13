@@ -19,7 +19,7 @@ class MailboxCreate
      */
     protected $localPart;
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
      *
      * @var string|null
      */
@@ -85,7 +85,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
      *
      * @return string|null
      */
@@ -94,7 +94,7 @@ class MailboxCreate
         return $this->domain;
     }
     /**
-     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
+     * The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
      *
      * @param string|null $domain
      *

@@ -53,3 +53,16 @@ $bird->audiences->removeContact(
     'adn_01krdgeqcxet5s7t44vh8rt9mg',
     'con_01krdgeqcxet5s7t44vh8rt9mg',
 );
+
+$result = $bird->audiences->membership('adn_01krdgeqcxet5s7t44vh8rt9mg');
+if ($result->getMembership() !== null) {
+    echo $result->getMembership()->getTotal(), ' ', $result->getMembership()->getDataAsOf()?->format(DATE_ATOM);
+}
+
+$history = $bird->audiences->membershipHistory('adn_01krdgeqcxet5s7t44vh8rt9mg', [
+    'from' => '2026-10-09',
+    'to' => '2026-10-12',
+]);
+foreach ($history->getData() ?? [] as $point) {
+    echo $point->getBucket()?->format('Y-m-d'), ' ', json_encode($point->getTotal()), ' ', $point->getObservedAt()?->format(DATE_ATOM), "\n";
+}

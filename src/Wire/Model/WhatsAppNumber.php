@@ -118,6 +118,12 @@ class WhatsAppNumber
      */
     protected $isOfficialBusinessAccount;
     /**
+     * Whether this number is also in use on the WhatsApp Business app, so the business keeps sending one-to-one messages from the app while you send through the API. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf.
+     *
+     * @var bool|null
+     */
+    protected $isOnBusinessApp;
+    /**
      * When this number's state was last read from WhatsApp. `status`, `quality_rating`, `messaging_limit`, `throughput_level`, and `is_official_business_account` all belong to that reading rather than representing live values. We re-read roughly hourly, so a change at WhatsApp can be up to an hour old here. Absent for a number we have never read back and for a number we operate on your behalf.
      *
      * @var \DateTime|null
@@ -493,6 +499,28 @@ class WhatsAppNumber
     {
         $this->initialized['isOfficialBusinessAccount'] = true;
         $this->isOfficialBusinessAccount = $isOfficialBusinessAccount;
+        return $this;
+    }
+    /**
+     * Whether this number is also in use on the WhatsApp Business app, so the business keeps sending one-to-one messages from the app while you send through the API. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf.
+     *
+     * @return bool|null
+     */
+    public function getIsOnBusinessApp(): ?bool
+    {
+        return $this->isOnBusinessApp;
+    }
+    /**
+     * Whether this number is also in use on the WhatsApp Business app, so the business keeps sending one-to-one messages from the app while you send through the API. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf.
+     *
+     * @param bool|null $isOnBusinessApp
+     *
+     * @return self
+     */
+    public function setIsOnBusinessApp(?bool $isOnBusinessApp): self
+    {
+        $this->initialized['isOnBusinessApp'] = true;
+        $this->isOnBusinessApp = $isOnBusinessApp;
         return $this;
     }
     /**
