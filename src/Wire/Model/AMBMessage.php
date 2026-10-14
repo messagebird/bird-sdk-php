@@ -113,6 +113,16 @@ class AMBMessage
      */
     protected $inReplyToMessageId;
     /**
+     * @var string|null
+     */
+    protected $replyMessageId;
+    /**
+     * When Apple delivered the reply in `reply_message_id` to Bird. This can be slightly earlier than that reply's `created_at`, which records when Bird processed it. Omitted until a reply is matched, and in webhook payloads.
+     *
+     * @var \DateTime|null
+     */
+    protected $repliedAt;
+    /**
      * Locale for this message, preserved in Apple’s format, for example en_US. Outbound messages use the request override, then the conversation locale, then the business default. Inbound messages preserve the locale in Apple’s callback. Null when unknown.
      *
      * @var string|null
@@ -150,7 +160,7 @@ class AMBMessage
      */
     protected $lastError;
     /**
-     * The moment this message was accepted (outbound) or received (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
+     * The moment this message was accepted (outbound), or recorded by Bird after Apple delivered it (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
      *
      * @var \DateTime|null
      */
@@ -490,6 +500,46 @@ class AMBMessage
         return $this;
     }
     /**
+     * @return string|null
+     */
+    public function getReplyMessageId(): ?string
+    {
+        return $this->replyMessageId;
+    }
+    /**
+     * @param string|null $replyMessageId
+     *
+     * @return self
+     */
+    public function setReplyMessageId(?string $replyMessageId): self
+    {
+        $this->initialized['replyMessageId'] = true;
+        $this->replyMessageId = $replyMessageId;
+        return $this;
+    }
+    /**
+     * When Apple delivered the reply in `reply_message_id` to Bird. This can be slightly earlier than that reply's `created_at`, which records when Bird processed it. Omitted until a reply is matched, and in webhook payloads.
+     *
+     * @return \DateTime|null
+     */
+    public function getRepliedAt(): ?\DateTime
+    {
+        return $this->repliedAt;
+    }
+    /**
+     * When Apple delivered the reply in `reply_message_id` to Bird. This can be slightly earlier than that reply's `created_at`, which records when Bird processed it. Omitted until a reply is matched, and in webhook payloads.
+     *
+     * @param \DateTime|null $repliedAt
+     *
+     * @return self
+     */
+    public function setRepliedAt(?\DateTime $repliedAt): self
+    {
+        $this->initialized['repliedAt'] = true;
+        $this->repliedAt = $repliedAt;
+        return $this;
+    }
+    /**
      * Locale for this message, preserved in Apple’s format, for example en_US. Outbound messages use the request override, then the conversation locale, then the business default. Inbound messages preserve the locale in Apple’s callback. Null when unknown.
      *
      * @return string|null
@@ -623,7 +673,7 @@ class AMBMessage
         return $this;
     }
     /**
-     * The moment this message was accepted (outbound) or received (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
+     * The moment this message was accepted (outbound), or recorded by Bird after Apple delivered it (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
      *
      * @return \DateTime|null
      */
@@ -632,7 +682,7 @@ class AMBMessage
         return $this->createdAt;
     }
     /**
-     * The moment this message was accepted (outbound) or received (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
+     * The moment this message was accepted (outbound), or recorded by Bird after Apple delivered it (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
      *
      * @param \DateTime|null $createdAt
      *

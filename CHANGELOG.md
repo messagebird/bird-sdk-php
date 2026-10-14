@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.74.0
+
+- Add `getReplyMessageId()` and `getRepliedAt()` to `AMBMessage`, naming the latest customer reply to an outbound message once Bird matches it.
+
 ## 0.73.0
 
 - Read exact audience membership counts and daily observations, including evaluation times and explicit gaps for missing observations.

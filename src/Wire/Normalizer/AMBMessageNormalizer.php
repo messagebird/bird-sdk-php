@@ -103,6 +103,18 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] === null) {
             $object->setInReplyToMessageId(null);
         }
+        if (\array_key_exists('reply_message_id', $data) && $data['reply_message_id'] !== null) {
+            $object->setReplyMessageId($data['reply_message_id']);
+        }
+        elseif (\array_key_exists('reply_message_id', $data) && $data['reply_message_id'] === null) {
+            $object->setReplyMessageId(null);
+        }
+        if (\array_key_exists('replied_at', $data) && $data['replied_at'] !== null) {
+            $object->setRepliedAt(new \DateTime($data['replied_at']));
+        }
+        elseif (\array_key_exists('replied_at', $data) && $data['replied_at'] === null) {
+            $object->setRepliedAt(null);
+        }
         if (\array_key_exists('locale', $data) && $data['locale'] !== null) {
             $object->setLocale($data['locale']);
         }
@@ -193,6 +205,9 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         if ($data->isInitialized('inReplyToMessageId') && null !== $data->getInReplyToMessageId()) {
             $dataArray['in_reply_to_message_id'] = $data->getInReplyToMessageId();
+        }
+        if ($data->isInitialized('replyMessageId') && null !== $data->getReplyMessageId()) {
+            $dataArray['reply_message_id'] = $data->getReplyMessageId();
         }
         $dataArray['cost'] = $this->normalizer->normalize($data->getCost(), 'json', $context);
         if ($data->isInitialized('dataRef') && null !== $data->getDataRef()) {
