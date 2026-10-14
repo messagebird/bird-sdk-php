@@ -60,8 +60,8 @@ class AudienceMembershipStatisticsResponsePeriodNormalizer implements Denormaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['from'] = $data->getFrom()->format('Y-m-d\TH:i:sP');
-        $dataArray['to'] = $data->getTo()->format('Y-m-d\TH:i:sP');
+        $dataArray['from'] = $data->getFrom()->format('Y-m-d');
+        $dataArray['to'] = $data->getTo()->format('Y-m-d');
         $dataArray['data_as_of'] = $data->getDataAsOf()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

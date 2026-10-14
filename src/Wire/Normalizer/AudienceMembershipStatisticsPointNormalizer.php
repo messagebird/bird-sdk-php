@@ -60,7 +60,7 @@ class AudienceMembershipStatisticsPointNormalizer implements DenormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['bucket'] = $data->getBucket()->format('Y-m-d\TH:i:sP');
+        $dataArray['bucket'] = $data->getBucket()->format('Y-m-d');
         $dataArray['total'] = $data->getTotal();
         $dataArray['observed_at'] = $data->getObservedAt()?->format('Y-m-d\TH:i:sP');
         return $dataArray;

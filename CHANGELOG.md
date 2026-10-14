@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.74.1
+
+- Audience history models now serialize `period.from`, `period.to`, and `bucket` as `YYYY-MM-DD` dates.
+
 ## 0.74.0
 
 - Add `getReplyMessageId()` and `getRepliedAt()` to `AMBMessage`, naming the latest customer reply to an outbound message once Bird matches it.

@@ -217,6 +217,30 @@ foreach (array_unique($wrapperBases) as $base) {
         $document['components']['schemas'][$base]['type'] = 'object';
     }
 }
+// Jane guesses a type: object composition with no properties of its own as an open map, since its
+// additionalProperties guess precedes its allOf guess. Untyped, the allOf guess names the model.
+// An allOf arm keeps its type, which Jane reads to decide whether the composing schema is a class.
+$armReferences = [];
+$collectArms = static function (array $node) use (&$collectArms, &$armReferences): void {
+    foreach ($node['allOf'] ?? [] as $arm) {
+        if (is_array($arm) && isset($arm['$ref'])) {
+            $armReferences[$arm['$ref']] = true;
+        }
+    }
+    foreach ($node as $value) {
+        if (is_array($value)) {
+            $collectArms($value);
+        }
+    }
+};
+$collectArms($document);
+foreach ($document['components']['schemas'] as $name => &$schema) {
+    if (($schema['type'] ?? null) === 'object' && isset($schema['allOf']) && !isset($schema['properties'])
+        && !array_key_exists('additionalProperties', $schema) && !isset($armReferences['#/components/schemas/' . $name])) {
+        unset($schema['type']);
+    }
+}
+unset($schema);
 $document['x-sdk-wrapper-bases'] = $wrapperBases;
 
 $output = json_encode($document, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
