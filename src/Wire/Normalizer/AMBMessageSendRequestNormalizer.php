@@ -61,6 +61,12 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('content', $data) && $data['content'] === null) {
             $object->setContent(null);
         }
+        if (\array_key_exists('template', $data) && $data['template'] !== null) {
+            $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class, 'json', $context));
+        }
+        elseif (\array_key_exists('template', $data) && $data['template'] === null) {
+            $object->setTemplate(null);
+        }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
         }
@@ -115,7 +121,12 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         if ($data->isInitialized('source') && null !== $data->getSource()) {
             $dataArray['source'] = $data->getSource();
         }
-        $dataArray['content'] = $data->getContent();
+        if ($data->isInitialized('content') && null !== $data->getContent()) {
+            $dataArray['content'] = $data->getContent();
+        }
+        if ($data->isInitialized('template') && null !== $data->getTemplate()) {
+            $dataArray['template'] = $this->normalizer->normalize($data->getTemplate(), 'json', $context);
+        }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
         }

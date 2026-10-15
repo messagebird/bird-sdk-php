@@ -49,7 +49,14 @@ class AMBMessageSendRequest
      */
     protected $content;
     /**
-     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category.
+     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     * 
+     *
+     * @var AMBMessageSendRequestTemplate|null
+     */
+    protected $template;
+    /**
+     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
      *
      * @var string|null
      */
@@ -197,7 +204,30 @@ class AMBMessageSendRequest
         return $this;
     }
     /**
-     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category.
+     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     * 
+     *
+     * @return AMBMessageSendRequestTemplate|null
+     */
+    public function getTemplate(): ?AMBMessageSendRequestTemplate
+    {
+        return $this->template;
+    }
+    /**
+     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     *
+     * @param AMBMessageSendRequestTemplate|AMBTemplateSend|array|null $template
+     *
+     * @return self
+     */
+    public function setTemplate($template): self
+    {
+        $this->initialized['template'] = true;
+        $this->template = \MessageBird\Core\ModelWrapper::normalize($template, AMBMessageSendRequestTemplate::class);
+        return $this;
+    }
+    /**
+     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
      *
      * @return string|null
      */
@@ -206,7 +236,7 @@ class AMBMessageSendRequest
         return $this->category;
     }
     /**
-     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category.
+     * Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
      *
      * @param string|null $category
      *

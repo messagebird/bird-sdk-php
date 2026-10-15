@@ -2,6 +2,12 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.75.0
+
+- **Breaking:** Apple Messages native rich link content gains a `rich_link_construct` option that asks Apple to build the link preview when the message is sent, instead of a prior construct-payload call; a strict `oneOf` reader of rich link content needs to handle this third shape alongside `rich_link_data` and `rich_link_data_ref`.
+- Apple Messages templates: read templates, versions and languages; send a message from a template.
+- Add `assets`, `assets.folders`, and `assets.references` methods to browse and organize media-library files and inspect permitted usage.
+
 ## 0.74.1
 
 - Audience history models now serialize `period.from`, `period.to`, and `bucket` as `YYYY-MM-DD` dates.

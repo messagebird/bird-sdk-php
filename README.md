@@ -302,3 +302,9 @@ The example sends a real reply. Verify the recipient and content before running 
 ## License
 
 MIT
+
+## Media library
+
+Browse assets, organize folders, and inspect permitted references with the media-library resources. Upload files through the [HTTP API or CLI](https://bird.com/docs/guides/media-library), then use their IDs with the SDK. Deleting a library entry leaves its public URL serving.
+
+See the [media-library example](examples/quickstart-media-library.php).

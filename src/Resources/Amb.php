@@ -13,6 +13,7 @@ final class Amb extends AmbBase
     public readonly AmbRoutingRules $routingRules;
     public readonly AmbStats $stats;
     public readonly AmbSuppressions $suppressions;
+    public readonly AmbTemplates $templates;
 
     public function __construct(Bird $client)
     {
@@ -22,5 +23,6 @@ final class Amb extends AmbBase
         $this->routingRules = new AmbRoutingRules($client);
         $this->stats = new AmbStats($client);
         $this->suppressions = new AmbSuppressions($client);
+        $this->templates = new AmbTemplates($client);
     }
 }

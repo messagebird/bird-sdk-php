@@ -189,6 +189,36 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('intent', $data) && $data['intent'] === null) {
             $object->setIntent(null);
         }
+        if (\array_key_exists('requested_language', $data) && $data['requested_language'] !== null) {
+            $object->setRequestedLanguage($data['requested_language']);
+        }
+        elseif (\array_key_exists('requested_language', $data) && $data['requested_language'] === null) {
+            $object->setRequestedLanguage(null);
+        }
+        if (\array_key_exists('resolved_language', $data) && $data['resolved_language'] !== null) {
+            $object->setResolvedLanguage($data['resolved_language']);
+        }
+        elseif (\array_key_exists('resolved_language', $data) && $data['resolved_language'] === null) {
+            $object->setResolvedLanguage(null);
+        }
+        if (\array_key_exists('template_id', $data) && $data['template_id'] !== null) {
+            $object->setTemplateId($data['template_id']);
+        }
+        elseif (\array_key_exists('template_id', $data) && $data['template_id'] === null) {
+            $object->setTemplateId(null);
+        }
+        if (\array_key_exists('template_version_id', $data) && $data['template_version_id'] !== null) {
+            $object->setTemplateVersionId($data['template_version_id']);
+        }
+        elseif (\array_key_exists('template_version_id', $data) && $data['template_version_id'] === null) {
+            $object->setTemplateVersionId(null);
+        }
+        if (\array_key_exists('template_content_hash', $data) && $data['template_content_hash'] !== null) {
+            $object->setTemplateContentHash($data['template_content_hash']);
+        }
+        elseif (\array_key_exists('template_content_hash', $data) && $data['template_content_hash'] === null) {
+            $object->setTemplateContentHash(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

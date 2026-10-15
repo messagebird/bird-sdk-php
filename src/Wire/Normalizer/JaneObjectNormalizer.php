@@ -256,6 +256,26 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\Attachment::class => \MessageBird\Wire\Normalizer\AttachmentNormalizer::class,
 
+        \MessageBird\Wire\Model\Asset::class => \MessageBird\Wire\Normalizer\AssetNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetList::class => \MessageBird\Wire\Normalizer\AssetListNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUpload::class => \MessageBird\Wire\Normalizer\AssetUploadNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUpdate::class => \MessageBird\Wire\Normalizer\AssetUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetReference::class => \MessageBird\Wire\Normalizer\AssetReferenceNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetReferenceList::class => \MessageBird\Wire\Normalizer\AssetReferenceListNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetFolder::class => \MessageBird\Wire\Normalizer\AssetFolderNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetFolderList::class => \MessageBird\Wire\Normalizer\AssetFolderListNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetFolderCreate::class => \MessageBird\Wire\Normalizer\AssetFolderCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetFolderUpdate::class => \MessageBird\Wire\Normalizer\AssetFolderUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
 
         \MessageBird\Wire\Model\SMSDeliveryStats::class => \MessageBird\Wire\Normalizer\SMSDeliveryStatsNormalizer::class,
@@ -912,7 +932,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBMessageList::class => \MessageBird\Wire\Normalizer\AMBMessageListNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBTemplateSend::class => \MessageBird\Wire\Normalizer\AMBTemplateSendNormalizer::class,
+
         \MessageBird\Wire\Model\AMBMessageSendRequest::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestTemplateNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessageEvent::class => \MessageBird\Wire\Normalizer\AMBMessageEventNormalizer::class,
 
@@ -1017,6 +1041,28 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBConversationStatsPoint::class => \MessageBird\Wire\Normalizer\AMBConversationStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationStatsResponse::class => \MessageBird\Wire\Normalizer\AMBConversationStatsResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageState::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageStateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateList::class => \MessageBird\Wire\Normalizer\AMBTemplateListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplate::class => \MessageBird\Wire\Normalizer\AMBTemplateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersionSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersionList::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersionLanguage::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersion::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageList::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageListNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguage::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessPortfolioNormalizer::class,
 
@@ -2097,6 +2143,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSKeywordRuleCreate::class => false,
             \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => false,
             \MessageBird\Wire\Model\Attachment::class => false,
+            \MessageBird\Wire\Model\Asset::class => false,
+            \MessageBird\Wire\Model\AssetList::class => false,
+            \MessageBird\Wire\Model\AssetUpload::class => false,
+            \MessageBird\Wire\Model\AssetUpdate::class => false,
+            \MessageBird\Wire\Model\AssetReference::class => false,
+            \MessageBird\Wire\Model\AssetReferenceList::class => false,
+            \MessageBird\Wire\Model\AssetFolder::class => false,
+            \MessageBird\Wire\Model\AssetFolderList::class => false,
+            \MessageBird\Wire\Model\AssetFolderCreate::class => false,
+            \MessageBird\Wire\Model\AssetFolderUpdate::class => false,
             \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
             \MessageBird\Wire\Model\SMSDeliveryStats::class => false,
             \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
@@ -2425,7 +2481,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBError::class => false,
             \MessageBird\Wire\Model\AMBMessage::class => false,
             \MessageBird\Wire\Model\AMBMessageList::class => false,
+            \MessageBird\Wire\Model\AMBTemplateSend::class => false,
             \MessageBird\Wire\Model\AMBMessageSendRequest::class => false,
+            \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\AMBMessageEvent::class => false,
             \MessageBird\Wire\Model\AMBMessageEventList::class => false,
             \MessageBird\Wire\Model\AMBConversationRecipient::class => false,
@@ -2478,6 +2536,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBConversationStatsSummary::class => false,
             \MessageBird\Wire\Model\AMBConversationStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBConversationStatsResponse::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageState::class => false,
+            \MessageBird\Wire\Model\AMBTemplateSummary::class => false,
+            \MessageBird\Wire\Model\AMBTemplateList::class => false,
+            \MessageBird\Wire\Model\AMBTemplate::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionSummary::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionList::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionLanguage::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersion::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageList::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguage::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
             \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => false,

@@ -120,3 +120,35 @@ foreach ($bird->amb->suppressions->list(['business_account_id' => 'abz_01krdgeqc
 }
 
 $bird->amb->suppressions->create((new Model\AMBSuppressionCreate())->setAddress('opaque-customer')->setAddressType('opaque_user_id'));
+
+foreach ($bird->amb->templates->list(['scope' => 'system']) as $template) {
+    echo $template->getId(), ' ', $template->getSlug(), "\n";
+}
+
+$template = $bird->amb->templates->get('bird_order_update');
+echo $template->getDefaultLanguage(), ' ', $template->getLiveVersionId();
+
+foreach ($bird->amb->templates->versions->list('bird_order_update') as $version) {
+    echo $version->getId(), ' ', $version->getVersionNumber(), "\n";
+}
+
+$version = $bird->amb->templates->versions->get(
+    'bird_order_update',
+    'amv_01ky4x8e4genzb7way45txfkm1',
+);
+echo $version->getId(), ' ', count($version->getLanguages() ?? []);
+
+$languages = $bird->amb->templates->versions->languages->list(
+    'bird_order_update',
+    'amv_01ky4x8e4genzb7way45txfkm1',
+);
+foreach ($languages->getData() ?? [] as $language) {
+    echo $language->getLanguage(), ' ', $language->getRevision(), "\n";
+}
+
+$language = $bird->amb->templates->versions->languages->get(
+    'bird_order_update',
+    'amv_01ky4x8e4genzb7way45txfkm1',
+    'en',
+);
+echo $language->getLanguage(), ' ', $language->getRevision();

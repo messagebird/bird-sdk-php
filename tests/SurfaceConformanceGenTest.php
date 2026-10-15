@@ -357,6 +357,12 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->amb->suppressions->delete(...),
             $bird->amb->suppressions->list(...),
             $bird->amb->suppressions->create(...),
+            $bird->amb->templates->list(...),
+            $bird->amb->templates->get(...),
+            $bird->amb->templates->versions->list(...),
+            $bird->amb->templates->versions->get(...),
+            $bird->amb->templates->versions->languages->list(...),
+            $bird->amb->templates->versions->languages->get(...),
             $bird->esim->zones->list(...),
             $bird->esim->zones->get(...),
             $bird->esim->offers->list(...),
@@ -395,9 +401,19 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->esim->recurringSubscriptions->get(...),
             $bird->esim->recurringSubscriptions->cancel(...),
             $bird->esim->recurringSubscriptions->periods(...),
+            $bird->assets->list(...),
+            $bird->assets->get(...),
+            $bird->assets->update(...),
+            $bird->assets->delete(...),
+            $bird->assets->references->list(...),
+            $bird->assets->folders->create(...),
+            $bird->assets->folders->list(...),
+            $bird->assets->folders->get(...),
+            $bird->assets->folders->update(...),
+            $bird->assets->folders->delete(...),
         ];
 
-        self::assertCount(375, $surface);
+        self::assertCount(391, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }
