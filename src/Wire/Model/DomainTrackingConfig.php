@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
+ */
 class DomainTrackingConfig
 {
     /**

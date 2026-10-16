@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Daily membership observations in ascending UTC date order. Missing observations are explicit null gaps; changes between samples are unobserved.
+ */
 class AudienceMembershipStatisticsResponse
 {
     /**

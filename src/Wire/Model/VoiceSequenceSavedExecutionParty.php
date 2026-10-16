@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Saved hypothetical party, or null for an absent observation. Strings may be stale; explicit preview and evaluation validate endpoint types and telephone addresses.
+ */
 class VoiceSequenceSavedExecutionParty
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One SMS template version without its text.
+ */
 class SMSTemplateVersionSummary
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * WhatsApp lifecycle counts, engagement, and latency percentiles for one time bucket (a calendar day or hour), bucketed by send time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. Rates apply to the whole window rather than individual buckets.
+ */
 class WhatsAppStatsPoint
 {
     /**

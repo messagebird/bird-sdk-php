@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How one mailbox provider treated the test, with the seed counts behind the rates. Seed counts are small by nature, so a single seed moves a rate noticeably.
+ */
 class EmailInboxInsightsSeedTestProvider
 {
     /**

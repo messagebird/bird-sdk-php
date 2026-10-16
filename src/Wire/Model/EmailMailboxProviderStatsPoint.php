@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. We learn a recipient's mailbox provider from the receiving mail server. Per-provider rows therefore cover the delivery stage onward. They omit the `accepted` and `processed` counts and the `processing` latency family. These fields are absent rather than null. Engagement (opens and clicks, and their rates) is included because those events happen after delivery, once the mailbox provider is already known.
+ */
 class EmailMailboxProviderStatsPoint
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The per-provider grid for one seed test.
+ */
 class EmailInboxInsightsSeedTestProviders
 {
     /**

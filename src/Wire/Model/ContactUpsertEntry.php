@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
+ */
 class ContactUpsertEntry
 {
     /**

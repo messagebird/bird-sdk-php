@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One credential delivery to a traveler. Returned when a delivery is accepted and listed on the eSIM's delivery history; the id reappears on the event that settles it.
+ */
 class EsimCredentialsDelivery
 {
     /**

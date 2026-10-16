@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One of the workspace's verified sending domains, and whether Inbox Insights is switched on for it.
+ */
 class EmailInboxInsightsDomain
 {
     /**

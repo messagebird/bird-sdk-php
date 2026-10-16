@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A typing indicator to send to the customer's device on this conversation.
+ */
 class AMBConversationTypingRequest
 {
     /**

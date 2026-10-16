@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+ */
 class EmailThreadMessageSource
 {
     /**

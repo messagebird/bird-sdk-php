@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The eSIM settings your workspace controls. Every field carries its effective value, whether or not the workspace has ever changed it.
+ */
 class EsimSettings
 {
     /**

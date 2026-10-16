@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Engaged against dormant placement, per provider. The status is `not_applicable` for a test run with a single-cohort engagement profile, where there is no second group to compare: hide the comparison rather than showing a zero gap.
+ */
 class EmailInboxInsightsSeedEngagementSplit
 {
     /**

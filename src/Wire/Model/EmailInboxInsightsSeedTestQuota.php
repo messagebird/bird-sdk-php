@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The organization's seed-test allowance for the current billing period. Registering a test spends one of the allowance whether or not its send goes out, and a test that expires unused does not return it. Uncertain registrations can retain allowance.
+ */
 class EmailInboxInsightsSeedTestQuota
 {
     /**

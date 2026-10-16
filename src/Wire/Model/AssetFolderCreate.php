@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The folder to create.
+ */
 class AssetFolderCreate
 {
     /**

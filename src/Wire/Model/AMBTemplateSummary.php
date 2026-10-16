@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An Apple Messages template without content or draft concurrency settings.
+ */
 class AMBTemplateSummary
 {
     /**

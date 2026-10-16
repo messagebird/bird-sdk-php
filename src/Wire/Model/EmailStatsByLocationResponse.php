@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-location engagement breakdown for the requested period, grouped at the requested `group_by` granularity, ranked by the `sort` metric (default `unique_opens`) descending and paginated with the requested `limit` (default 50, max 200).
+ */
 class EmailStatsByLocationResponse
 {
     /**

@@ -2,6 +2,18 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A file attached to an email. Put the base64-encoded bytes in `content` and the
+ * recipient-facing name in `filename`. To show an image inline, set `content_id`
+ * and reference it from the HTML body with `<img src="cid:..."/>`.
+ * 
+ * The generated message is limited to 20 MB across the HTML body, text body,
+ * attachments, and inline images after base64 and MIME encoding. Keep raw
+ * attachment content at or below 15 MB to leave room for encoding and the body.
+ * 
+ * Batch sends apply the same 20 MB limit to each message and to the full request
+ * body. Executable and script content types are rejected.
+ */
 class EmailAttachment
 {
     /**

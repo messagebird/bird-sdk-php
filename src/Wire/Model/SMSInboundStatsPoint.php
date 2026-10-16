@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One time bucket of received-message counts, attributed by arrival time.
+ */
 class SMSInboundStatsPoint
 {
     /**

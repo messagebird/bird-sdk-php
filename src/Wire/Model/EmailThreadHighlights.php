@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
+ */
 class EmailThreadHighlights
 {
     /**

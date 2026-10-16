@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The per-provider placement table.
+ */
 class EmailInboxInsightsPlacementProviders
 {
     /**

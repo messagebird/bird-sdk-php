@@ -2,6 +2,16 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A change to the trunk's directions, name, access control, and Digest algorithm
+ * offer. Every field is optional. An omitted field is left unchanged. The
+ * `ip_acls`, `allowed_api_key_ids`, and `digest_algorithms` fields each replace
+ * their whole list when present. Send an empty array to clear one. This lets you
+ * commit the trunk's entire access configuration in one update.
+ * 
+ * A direction has to be enabled before its settings can be set, but one update
+ * can do both: enable a direction and send its configuration together.
+ */
 class VoiceTrunkUpdate
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Optional editor layout, labels and saved authoring samples. These fields do not drive execution. Their bytes still count toward definition and execution size limits.
+ */
 class VoiceSequencePresentation extends \ArrayObject
 {
     /**

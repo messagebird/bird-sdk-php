@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * WhatsApp lifecycle counts, rates, engagement, and latency percentiles for the full requested period. Counts aggregate the time buckets. Latency percentiles cover the whole period. Rates are null when their denominator is zero.
+ */
 class WhatsAppStatsSummary
 {
     /**

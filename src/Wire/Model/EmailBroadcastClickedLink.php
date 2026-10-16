@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One destination URL a broadcast's recipients clicked, with its exact click and recipient totals. Grouped over every click event the broadcast has, not a sample.
+ */
 class EmailBroadcastClickedLink
 {
     /**

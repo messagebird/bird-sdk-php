@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What was charged for a leg, split into the components that make it up.
+ */
 class VoiceLegCost
 {
     /**

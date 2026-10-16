@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Single-row aggregate of the mailbox's email activity across the full requested period. Counts use each field's message, recipient, or event identity across the whole window. Repeat opens, clicks, and unsubscribes from the same recipient contribute as separate events; unique engagement fields count distinct recipients. Adding per-bucket distinct counts can overstate the summary. Latency percentiles are computed across the whole period. Rates are `null` when their denominator is zero.
+ */
 class MailboxStatsSummary
 {
     /**

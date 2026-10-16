@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message count for a single entry-point intent over the requested period.
+ */
 class AMBInboundIntentStatsPoint
 {
     /**

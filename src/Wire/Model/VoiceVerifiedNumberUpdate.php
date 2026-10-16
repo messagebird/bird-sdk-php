@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A change to the verified number's label. Every field is optional; an omitted field is left unchanged.
+ */
 class VoiceVerifiedNumberUpdate
 {
     /**

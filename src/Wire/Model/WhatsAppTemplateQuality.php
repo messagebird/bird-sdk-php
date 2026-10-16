@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Meta's quality rating for one language, with the rating it moved from and when it moved. Present only once Meta has rated the language, and only on the version currently in service. A superseded version's content carries no rating.
+ */
 class WhatsAppTemplateQuality
 {
     /**

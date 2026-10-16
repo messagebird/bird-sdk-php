@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Lifecycle counts, derived rates, engagement and latency for a single WhatsApp template over the requested period.
+ */
 class WhatsAppTemplateStatsPoint
 {
     /**

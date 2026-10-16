@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A conversation in a mailbox. It groups every message in both directions, the mail the mailbox received and the replies it sent, and it holds the conversation's read state, labels, and participant list. A message is retained until it is trashed or ages past the mailbox's retention tier. Only retained messages count toward the totals below.
+ */
 class EmailThread
 {
     /**

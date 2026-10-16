@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A brand on the workspace's watchlist. This is the watchlist entry itself, with no figures on it; read the watchlist to get those.
+ */
 class EmailCompetitiveWatchlistBrand extends \ArrayObject
 {
     /**

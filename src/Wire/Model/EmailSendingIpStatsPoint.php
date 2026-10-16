@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: we learn which IP a message used only from its delivery, bounce, deferral, and late-bounce events. Acceptance and processing events do not contribute to per-IP attribution. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family. Those fields never appear on a per-IP row. They are not returned as null.
+ */
 class EmailSendingIpStatsPoint
 {
     /**

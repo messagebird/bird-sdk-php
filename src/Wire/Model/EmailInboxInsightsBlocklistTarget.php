@@ -2,6 +2,14 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One target lookup result, its current status, and the listings seen against it.
+ * 
+ * Read `status` before `is_listed`. Each target is looked up independently and
+ * any one of them can fail while the rest succeed, so a target whose status is
+ * not `ok` was not checked and `is_listed: false` on it means nothing. Rendering
+ * that as "clear" is the one outcome this resource must never produce.
+ */
 class EmailInboxInsightsBlocklistTarget
 {
     /**

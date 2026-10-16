@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A Realtime publish: delivers one event to one or more channels of the app. Listing several channels fans the event out to all of them (broadcast) in a single call.
+ */
 class RealtimePublish
 {
     /**

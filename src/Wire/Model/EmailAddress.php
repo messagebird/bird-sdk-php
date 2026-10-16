@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An email address with an optional display name.
+ */
 class EmailAddress
 {
     /**

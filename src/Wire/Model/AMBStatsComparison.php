@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with computed changes for the message counts and rates listed in `delta`. Present only when `compare=previous_period` is requested. Monthly active contacts and latency values are returned for both periods without a computed change.
+ */
 class AMBStatsComparison
 {
     /**

@@ -92,6 +92,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => \MessageBird\Wire\Normalizer\EmailBroadcastParameterProblemNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => \MessageBird\Wire\Normalizer\EmailBroadcastFailureParametersNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcast::class => \MessageBird\Wire\Normalizer\EmailBroadcastNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastList::class => \MessageBird\Wire\Normalizer\EmailBroadcastListNormalizer::class,
@@ -113,6 +117,22 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => \MessageBird\Wire\Normalizer\EmailBroadcastClickedLinkNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastClickedLinkList::class => \MessageBird\Wire\Normalizer\EmailBroadcastClickedLinkListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastInputOverridesTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastInputOverridesTemplateNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastValidationRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastValidationRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastResolution::class => \MessageBird\Wire\Normalizer\EmailBroadcastResolutionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastValidationResult::class => \MessageBird\Wire\Normalizer\EmailBroadcastValidationResultNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastPreviewRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastPreviewRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastPreviewResult::class => \MessageBird\Wire\Normalizer\EmailBroadcastPreviewResultNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastTestRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastTestRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastTestResult::class => \MessageBird\Wire\Normalizer\EmailBroadcastTestResultNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastSendNowRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastSendNowRequestNormalizer::class,
 
@@ -1536,6 +1556,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailTemplateDuplicate::class => \MessageBird\Wire\Normalizer\EmailTemplateDuplicateNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailTemplateUseConstraint::class => \MessageBird\Wire\Normalizer\EmailTemplateUseConstraintNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateParameter::class => \MessageBird\Wire\Normalizer\EmailTemplateParameterNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateVariable::class => \MessageBird\Wire\Normalizer\EmailTemplateVariableNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateParameters::class => \MessageBird\Wire\Normalizer\EmailTemplateParametersNormalizer::class,
+
         \MessageBird\Wire\Model\EmailTemplatePreviewRequest::class => \MessageBird\Wire\Normalizer\EmailTemplatePreviewRequestNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplatePreviewRequestContent::class => \MessageBird\Wire\Normalizer\EmailTemplatePreviewRequestContentNormalizer::class,
@@ -1662,11 +1690,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WebhookEndpointCreated::class => \MessageBird\Wire\Normalizer\WebhookEndpointCreatedNormalizer::class,
 
+        \MessageBird\Wire\Model\WebhookConnectorSetupUpdate::class => \MessageBird\Wire\Normalizer\WebhookConnectorSetupUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookConnectorSetupUpdateCredentials::class => \MessageBird\Wire\Normalizer\WebhookConnectorSetupUpdateCredentialsNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookDestinationUpdate::class => \MessageBird\Wire\Normalizer\WebhookDestinationUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookDestinationUpdateConnector::class => \MessageBird\Wire\Normalizer\WebhookDestinationUpdateConnectorNormalizer::class,
+
         \MessageBird\Wire\Model\WebhookEndpointUpdate::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\WebhookEndpointUpdateFilter::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateFilterNormalizer::class,
-
-        \MessageBird\Wire\Model\WebhookEndpointUpdateCredentials::class => \MessageBird\Wire\Normalizer\WebhookEndpointUpdateCredentialsNormalizer::class,
 
         \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => \MessageBird\Wire\Normalizer\WebhookRotateSecretResponseNormalizer::class,
 
@@ -2061,6 +2095,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
             \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => false,
             \MessageBird\Wire\Model\EmailBroadcast::class => false,
             \MessageBird\Wire\Model\EmailBroadcastList::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class => false,
@@ -2072,6 +2108,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailBroadcastSendQuota::class => false,
             \MessageBird\Wire\Model\EmailBroadcastClickedLink::class => false,
             \MessageBird\Wire\Model\EmailBroadcastClickedLinkList::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastInputOverridesTemplate::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastValidationRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastResolution::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastValidationResult::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastPreviewRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastPreviewResult::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastTestRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastTestResult::class => false,
             \MessageBird\Wire\Model\EmailBroadcastSendNowRequest::class => false,
             \MessageBird\Wire\Model\AudienceRef::class => false,
             \MessageBird\Wire\Model\Contact::class => false,
@@ -2783,6 +2827,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailTemplatePreviewContent::class => false,
             \MessageBird\Wire\Model\EmailTemplateUpdate::class => false,
             \MessageBird\Wire\Model\EmailTemplateDuplicate::class => false,
+            \MessageBird\Wire\Model\EmailTemplateUseConstraint::class => false,
+            \MessageBird\Wire\Model\EmailTemplateParameter::class => false,
+            \MessageBird\Wire\Model\EmailTemplateVariable::class => false,
+            \MessageBird\Wire\Model\EmailTemplateParameters::class => false,
             \MessageBird\Wire\Model\EmailTemplatePreviewRequest::class => false,
             \MessageBird\Wire\Model\EmailTemplatePreviewRequestContent::class => false,
             \MessageBird\Wire\Model\EmailClientSupport::class => false,
@@ -2846,9 +2894,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WebhookEndpointList::class => false,
             \MessageBird\Wire\Model\WebhookEndpointCreate::class => false,
             \MessageBird\Wire\Model\WebhookEndpointCreated::class => false,
+            \MessageBird\Wire\Model\WebhookConnectorSetupUpdate::class => false,
+            \MessageBird\Wire\Model\WebhookConnectorSetupUpdateCredentials::class => false,
+            \MessageBird\Wire\Model\WebhookDestinationUpdate::class => false,
+            \MessageBird\Wire\Model\WebhookDestinationUpdateConnector::class => false,
             \MessageBird\Wire\Model\WebhookEndpointUpdate::class => false,
             \MessageBird\Wire\Model\WebhookEndpointUpdateFilter::class => false,
-            \MessageBird\Wire\Model\WebhookEndpointUpdateCredentials::class => false,
             \MessageBird\Wire\Model\WebhookRotateSecretResponse::class => false,
             \MessageBird\Wire\Model\WebhookTestRequest::class => false,
             \MessageBird\Wire\Model\WebhookTestResponse::class => false,

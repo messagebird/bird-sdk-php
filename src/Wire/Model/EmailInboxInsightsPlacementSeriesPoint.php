@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One bucket of the placement series.
+ */
 class EmailInboxInsightsPlacementSeriesPoint
 {
     /**

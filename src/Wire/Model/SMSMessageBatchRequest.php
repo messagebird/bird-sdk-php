@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Batch of SMS message send requests.
+ */
 class SMSMessageBatchRequest
 {
     /**

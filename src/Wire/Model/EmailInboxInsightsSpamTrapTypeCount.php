@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Trap hits of one kind.
+ */
 class EmailInboxInsightsSpamTrapTypeCount
 {
     /**

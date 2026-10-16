@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery, engagement, and latency numbers for every message sent with one template over the requested period.
+ */
 class EmailTemplateStatsPoint
 {
     /**

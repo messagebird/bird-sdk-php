@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-request overrides applied to this verification only.
+ */
 class VerificationOptions
 {
     /**

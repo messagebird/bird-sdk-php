@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Phone service included with the plan. Every eSIM sold from the offer gets its own phone number; each flag states one direction of service on that number. A false flag means the plan does not include that service.
+ */
 class EsimOfferSummaryPhone extends \ArrayObject
 {
     /**

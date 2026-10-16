@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Meta's verdict for one node in the chain a message passes through.
+ */
 class WhatsAppMetaHealthEntity
 {
     /**

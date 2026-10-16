@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Raw measured placements behind a set of rates, before any weighting. A measured placement is one message whose mailbox destination the measurement observed.
+ */
 class EmailInboxInsightsPlacementCounts
 {
     /**

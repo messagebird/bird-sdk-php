@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound Apple Messages for Business counts and processing-latency percentiles for one time bucket (a calendar day or hour), bucketed by acceptance time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. There is no `first_response` here. Read first-response latency from the summary or a breakdown endpoint.
+ */
 class AMBStatsPoint
 {
     /**

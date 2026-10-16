@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language of a template version: its content plus the identity a concurrent-edit check needs. Reading a language returns everything you need to edit it and save it back.
+ */
 class EmailTemplateLanguage
 {
     /**

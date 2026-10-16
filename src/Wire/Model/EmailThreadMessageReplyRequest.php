@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
+ */
 class EmailThreadMessageReplyRequest
 {
     /**

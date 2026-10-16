@@ -283,6 +283,12 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('canceled_at', $data) && $data['canceled_at'] === null) {
             $object->setCanceledAt(null);
         }
+        if (\array_key_exists('failure_parameters', $data) && $data['failure_parameters'] !== null) {
+            $object->setFailureParameters($this->denormalizer->denormalize($data['failure_parameters'], \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class, 'json', $context));
+        }
+        elseif (\array_key_exists('failure_parameters', $data) && $data['failure_parameters'] === null) {
+            $object->setFailureParameters(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -331,6 +337,9 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         }
         $dataArray['track_opens'] = $data->getTrackOpens();
         $dataArray['track_clicks'] = $data->getTrackClicks();
+        if ($data->isInitialized('failureParameters') && null !== $data->getFailureParameters()) {
+            $dataArray['failure_parameters'] = $this->normalizer->normalize($data->getFailureParameters(), 'json', $context);
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

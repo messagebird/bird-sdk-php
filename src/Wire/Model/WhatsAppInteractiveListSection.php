@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One group of options in the menu the message showed.
+ */
 class WhatsAppInteractiveListSection
 {
     /**

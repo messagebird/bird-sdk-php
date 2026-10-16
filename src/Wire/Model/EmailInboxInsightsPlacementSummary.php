@@ -2,6 +2,14 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The domain-wide placement figures for the period.
+ * 
+ * These rates are weighted against the audience mix in `measurement.weighting`,
+ * so they can legitimately differ from any single provider row, which has no
+ * mix to weight. Rates are percentages of measured placements, never of
+ * delivered volume.
+ */
 class EmailInboxInsightsPlacementSummary
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One engagement behaviour a test can simulate, and whether this account can use it.
+ */
 class EmailInboxInsightsSeedEngagementProfileOption
 {
     /**

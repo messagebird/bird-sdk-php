@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+ */
 class AMBStatsSeriesPeriod
 {
     /**

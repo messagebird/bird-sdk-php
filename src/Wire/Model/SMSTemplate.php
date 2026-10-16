@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One SMS template identity and its authoring state. Content and variables live on versions, so this resource stays shallow.
+ */
 class SMSTemplate
 {
     /**

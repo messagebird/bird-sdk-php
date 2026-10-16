@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Sets or removes this country's daily spend limit; omit it to leave the limit unchanged. Once today's spend reaches the limit, new calls to the country are refused, verification calls included, whether or not it is enabled; a call already in progress is not cut off, so spend can pass the limit by what that call costs.
+ */
 class VoiceDestinationDailySpendLimitUpdate
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Batch of email message send requests.
+ */
 class EmailMessageBatchRequest
 {
     /**

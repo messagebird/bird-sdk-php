@@ -2,6 +2,13 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The recipients covered by the organization's email send allowance. If you pass `send_at`, the estimate is for that time. Otherwise, it is for a send now.
+ * 
+ * The organization shares this allowance across its email sends. `allowed` can change as other sends use the allowance. `recipients` can change with audience membership and suppressions. These counts are live estimates. Other sends can use the allowance before a broadcast sends, even if its audience fits now.
+ * 
+ * `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit.
+ */
 class EmailBroadcastSendQuota
 {
     /**

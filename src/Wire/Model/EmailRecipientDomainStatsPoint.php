@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate delivery, engagement, and latency stats for messages sent to a single recipient mailbox domain over the requested period.
+ */
 class EmailRecipientDomainStatsPoint
 {
     /**

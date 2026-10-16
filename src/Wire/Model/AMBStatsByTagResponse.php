@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-tag breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200). Only tagged messages appear.
+ */
 class AMBStatsByTagResponse
 {
     /**

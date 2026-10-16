@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How the domain's Gmail-placed mail split across one Gmail tab.
+ */
 class EmailInboxInsightsGmailTabCategory
 {
     /**

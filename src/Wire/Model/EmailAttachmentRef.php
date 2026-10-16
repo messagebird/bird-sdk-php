@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Attachment metadata returned on API reads. Download the file during its retention window with `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`.
+ */
 class EmailAttachmentRef
 {
     /**

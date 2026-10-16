@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The version this submit created, or null when it was only a validation run and nothing got frozen. As soon as this is not null, sends already use that version. No further action is required to make it live.
+ */
 class EmailTemplateSubmitResultVersion extends \ArrayObject
 {
     /**

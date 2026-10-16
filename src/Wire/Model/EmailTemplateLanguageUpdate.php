@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A partial edit to one language: send only the fields you are changing, and the rest keep their current values. The language must already exist. Create it by saving its full content instead.
+ */
 class EmailTemplateLanguageUpdate
 {
     /**

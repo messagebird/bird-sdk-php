@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A reaction as accepted, which WhatsApp has not applied yet and may still refuse. It names the reaction-log entry the request created, so a caller that places two changes on one message can tell which entry is which; read the message's `reactions` for what currently stands, or its reaction log for what became of this one.
+ */
 class WhatsAppReactionAccepted
 {
     /**

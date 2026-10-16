@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Parameters for creating a mailbox.
+ */
 class MailboxCreate
 {
     /**

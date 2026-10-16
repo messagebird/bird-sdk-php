@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A compact reference to an audience, carrying its ID and display name.
+ */
 class AudienceRef
 {
     /**

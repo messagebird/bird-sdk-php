@@ -2,6 +2,13 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How many people a broadcast would reach right now, narrowing from everyone in the audience down to the ones it could actually be sent to.
+ * 
+ * These are live numbers, worked out at the moment you ask. Audience membership and suppressions change, so they can drift between now and when the broadcast sends.
+ * 
+ * **They are about the audience, not about delivery, and sending does not change them.** Once the broadcast has sent, its own `recipient_count` is the number that actually went out, and what each of those recipients did with the message is in [the broadcast's recipients](/docs/api/reference/list-email-broadcast-recipients) and [its events](/docs/api/reference/list-email-broadcast-events). `status` is here so you can tell which question these numbers are answering, and `broadcast_id` names what they are about.
+ */
 class EmailBroadcastCounts
 {
     /**

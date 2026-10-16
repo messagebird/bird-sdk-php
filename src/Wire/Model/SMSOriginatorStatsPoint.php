@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate delivery and latency stats for a single originator (the sender address messages were sent from) over the requested period.
+ */
 class SMSOriginatorStatsPoint
 {
     /**

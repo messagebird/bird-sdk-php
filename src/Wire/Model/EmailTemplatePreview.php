@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A rendered preview of an email template: its subject, HTML, and plain-text bodies with the supplied sample values filled in, ready to display.
+ */
 class EmailTemplatePreview
 {
     /**

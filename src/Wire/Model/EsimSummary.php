@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Compact eSIM representation used in lists. Fetch the eSIM by id for the full aggregate with packages, balances, and installation state.
+ */
 class EsimSummary
 {
     /**

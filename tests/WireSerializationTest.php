@@ -92,6 +92,19 @@ final class WireSerializationTest extends TestCase
         self::assertSame('b@example.com', $decoded[1]['email']);
     }
 
+    /**
+     * The API refuses [] where an override map or a language inside it belongs, so the generated
+     * normalizer keeps both levels object-shaped even when they are empty.
+     */
+    public function testEmptyParameterOverridesStayObjectsAtBothLevels(): void
+    {
+        $cleared = (new \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate())->setParameterOverrides([]);
+        self::assertSame('{"parameter_overrides":{}}', (new CoreSerializer())->encode($cleared));
+
+        $nested = (new \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate())->setParameterOverrides(['es' => [], 'it' => ['count' => 9007199254740995]]);
+        self::assertSame('{"parameter_overrides":{"es":{},"it":{"count":9007199254740995}}}', (new CoreSerializer())->encode($nested));
+    }
+
     public function testEmptyMapStaysObjectWhileEmptyListStaysArray(): void
     {
         $request = (new EmailMessageSendRequest())

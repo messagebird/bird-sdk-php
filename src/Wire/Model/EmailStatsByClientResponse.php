@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-client engagement breakdown for the requested period, grouped by the requested `group_by` facet, ranked by the `sort` metric (default `unique_opens`) descending and paginated with the requested `limit` (default 50, max 200).
+ */
 class EmailStatsByClientResponse
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate delivery and latency stats for a single message category over the requested period.
+ */
 class SMSCategoryStatsPoint
 {
     /**

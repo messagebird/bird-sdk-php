@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Changes the reply and the added keywords. What a rule applies to (its operation, country, language and number) is fixed once created: those decide which inbound messages reach it, so changing one would make it a different rule. Delete it and create the one you want.
+ */
 class SMSKeywordRuleUpdate
 {
     /**

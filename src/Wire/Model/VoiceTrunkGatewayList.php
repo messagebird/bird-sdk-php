@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The trunk's gateways. Not paginated: a trunk holds a small, hand-managed set of dial targets, and the order across the whole set is what decides hunt order, so a partial page would misrepresent it.
+ */
 class VoiceTrunkGatewayList
 {
     /**

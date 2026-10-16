@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Text content of a WhatsApp message.
+ */
 class WhatsAppText
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The domain's DMARC standing over the period.
+ */
 class EmailInboxInsightsDmarc
 {
     /**

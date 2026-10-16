@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One mailbox provider's placement for the period. Unlike the domain-wide summary, a single provider's rates are unweighted: there is no audience mix to weight within one provider.
+ */
 class EmailInboxInsightsPlacementProvider
 {
     /**

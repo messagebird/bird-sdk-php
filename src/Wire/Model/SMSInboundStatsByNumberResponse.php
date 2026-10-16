@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message volume broken down by number, ranked by volume.
+ */
 class SMSInboundStatsByNumberResponse
 {
     /**

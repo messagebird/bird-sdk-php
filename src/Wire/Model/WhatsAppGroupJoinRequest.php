@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Someone waiting to be let into a group that requires approval.
+ */
 class WhatsAppGroupJoinRequest
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A brand matching a search, ready to be added to the watchlist.
+ */
 class EmailCompetitiveBrandMatch
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The eSIM's data packages. Bounded: an eSIM holds at most package_limit concurrent packages, so the list is returned in full.
+ */
 class EsimPackageList
 {
     /**

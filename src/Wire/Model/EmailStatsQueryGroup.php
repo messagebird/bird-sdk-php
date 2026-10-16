@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One group ranked over the whole requested period. Its optional series contains complete chronological buckets, including zero counts and null undefined values for empty buckets.
+ */
 class EmailStatsQueryGroup
 {
     /**

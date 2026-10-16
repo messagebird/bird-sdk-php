@@ -49,6 +49,30 @@ class EmailBroadcastTemplateCreateNormalizer implements DenormalizerInterface, N
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
         }
+        if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameters'] as $key => $value) {
+                $values[$key] = $value;
+            }
+            $object->setParameters($values);
+        }
+        elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
+            $object->setParameters(null);
+        }
+        if (\array_key_exists('parameter_overrides', $data) && $data['parameter_overrides'] !== null) {
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameter_overrides'] as $key_1 => $value_1) {
+                $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($value_1 as $key_2 => $value_2) {
+                    $values_2[$key_2] = $value_2;
+                }
+                $values_1[$key_1] = $values_2;
+            }
+            $object->setParameterOverrides($values_1);
+        }
+        elseif (\array_key_exists('parameter_overrides', $data) && $data['parameter_overrides'] === null) {
+            $object->setParameterOverrides(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -57,6 +81,24 @@ class EmailBroadcastTemplateCreateNormalizer implements DenormalizerInterface, N
         $dataArray['id'] = $data->getId();
         if ($data->isInitialized('language') && null !== $data->getLanguage()) {
             $dataArray['language'] = $data->getLanguage();
+        }
+        if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
+            $values = [];
+            foreach ($data->getParameters() as $key => $value) {
+                $values[$key] = $value;
+            }
+            $dataArray['parameters'] = (object) $values;
+        }
+        if ($data->isInitialized('parameterOverrides') && null !== $data->getParameterOverrides()) {
+            $values_1 = [];
+            foreach ($data->getParameterOverrides() as $key_1 => $value_1) {
+                $values_2 = [];
+                foreach ($value_1 as $key_2 => $value_2) {
+                    $values_2[$key_2] = $value_2;
+                }
+                $values_1[$key_1] = (object) $values_2;
+            }
+            $dataArray['parameter_overrides'] = (object) $values_1;
         }
         return $dataArray;
     }

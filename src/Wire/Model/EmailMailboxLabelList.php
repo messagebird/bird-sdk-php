@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The labels available in a mailbox.
+ */
 class EmailMailboxLabelList
 {
     /**

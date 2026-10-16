@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One card in a carousel.
+ */
 class WhatsAppTemplateCard
 {
     /**

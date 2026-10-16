@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A page of sending domains this workspace can report on, and which of them Inbox Insights is switched on for.
+ */
 class EmailInboxInsightsDomains extends \ArrayObject
 {
     /**

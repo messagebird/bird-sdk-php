@@ -2,6 +2,12 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The workspace's competitor watchlist with its figures for the requested period.
+ * 
+ * The list is capped by the organization's competitor limit and is returned whole,
+ * so it is not paginated. Your own row is included and is always first.
+ */
 class EmailCompetitiveWatchlist
 {
     /**

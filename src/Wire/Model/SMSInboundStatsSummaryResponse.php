@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Total received messages over the requested period.
+ */
 class SMSInboundStatsSummaryResponse
 {
     /**

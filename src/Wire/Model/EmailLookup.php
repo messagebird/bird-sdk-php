@@ -2,6 +2,17 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Assessment of whether an email address accepts mail, the confidence and reason for that
+ * assessment, and a suggested correction when the address appears misspelled.
+ * 
+ * `result` is the field to decide on; `delivery_confidence` grades it, and
+ * `flags` describes the address itself rather than its deliverability, so a
+ * perfectly valid address can still have `role` or `disposable`.
+ * 
+ * Fields without resolved values are omitted rather than sent as null. Every
+ * field present in the response was resolved.
+ */
 class EmailLookup
 {
     /**

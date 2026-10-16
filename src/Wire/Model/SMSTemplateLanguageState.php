@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Whether a language is live and whether its draft has unpublished changes.
+ */
 class SMSTemplateLanguageState
 {
     /**

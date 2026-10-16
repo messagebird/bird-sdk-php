@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One listing of a target on one blocklist.
+ */
 class EmailInboxInsightsBlocklistListing
 {
     /**

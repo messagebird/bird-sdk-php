@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message count for a single business over the requested period.
+ */
 class AMBInboundBusinessStatsPoint
 {
     /**

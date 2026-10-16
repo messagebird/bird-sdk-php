@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One time bucket with the selected metrics. Bucket timestamps label nominal boundaries; edge buckets count events inside the normalized period.
+ */
 class EmailStatsQueryPoint
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-domain behavior toggles. Changes apply immediately to new sends.
+ */
 class DomainSettings
 {
     /**

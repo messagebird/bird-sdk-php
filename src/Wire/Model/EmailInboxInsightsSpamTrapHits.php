@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The individual trap hits behind the totals. A sample rather than a guaranteed complete list, and its rows do not count hits: one row is one trap address, carrying a `hit_count` for how many times that address was reached. Neither the number of rows nor the sum of `hit_count` reconstructs `total`, because that field is absent wherever the trap network does not break the figure out. Read `truncated_types` for what the measurement capped rather than inferring completeness by comparing counts.
+ */
 class EmailInboxInsightsSpamTrapHits
 {
     /**

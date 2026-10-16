@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The complaint-rate series, at the grain named in `window.group_by`. Index by date, never by position.
+ */
 class EmailInboxInsightsComplaintSeries
 {
     /**

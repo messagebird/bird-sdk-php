@@ -2,6 +2,11 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A broadcast sends one email to a whole audience. Every field here is optional, so you can create an empty draft and fill it in later. To actually send, a broadcast needs three things: a `from` address on a verified domain, an `audience_id`, and a `template`.
+ * 
+ * Leave `send` false, which is the default, and you get a draft. Update it as often as you like, then send it when you are ready. Set `send` to true and the broadcast goes out as soon as it is created, or at `scheduled_at` if you set one.
+ */
 class EmailBroadcastCreateRequest
 {
     /**
@@ -37,8 +42,7 @@ class EmailBroadcastCreateRequest
      */
     protected $replyTo;
     /**
-     * Custom email headers to set on the broadcast, as name and value pairs. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
-     * 
+     * Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
      *
      * @var array<string, string>|null
      */
@@ -182,8 +186,7 @@ class EmailBroadcastCreateRequest
         return $this;
     }
     /**
-     * Custom email headers to set on the broadcast, as name and value pairs. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
-     * 
+     * Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
      *
      * @return array<string, string>|null
      */
@@ -192,7 +195,7 @@ class EmailBroadcastCreateRequest
         return $this->headers;
     }
     /**
-     * Custom email headers to set on the broadcast, as name and value pairs. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
+     * Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
      *
      * @param array<string, string>|null $headers
      *

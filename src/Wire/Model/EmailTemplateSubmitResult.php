@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The outcome of a submit. This has the same shape whether the submit was a validation run or a real one, so you can read `valid` and `version` the same way either time to see what happened.
+ */
 class EmailTemplateSubmitResult
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The workspace's daily Voice spend limit and today's usage toward it. Null until your organization has a wallet, since amounts are in its currency.
+ */
 class VoiceSettingsDailySpendLimit extends \ArrayObject
 {
     /**

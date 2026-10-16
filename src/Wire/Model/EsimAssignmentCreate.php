@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Assign an unassigned eSIM to this person. The profile must be allocated and ready, active, or suspended. Customers handle identification collection and compliance.
+ */
 class EsimAssignmentCreate
 {
     /**

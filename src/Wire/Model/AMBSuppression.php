@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One retained suppression episode for an address. A null account scope covers the same address in every account in the workspace; it does not link different opaque identities.
+ */
 class AMBSuppression
 {
     /**

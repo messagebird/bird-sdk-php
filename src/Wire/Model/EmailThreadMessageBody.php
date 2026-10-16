@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The original rendered body of a conversation message. Available for 30 days after the message occurred. After that, the endpoint returns `410 Gone`, but the message's extracted text stays readable on the message itself.
+ */
 class EmailThreadMessageBody
 {
     /**

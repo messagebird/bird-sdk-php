@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A change to the template, language, or parameter maps a broadcast sends. Omitted properties retain their values unless the template ID changes. A changed ID clears the old language, parameters and parameter overrides before applying supplied replacements; repeating the same ID retains them.
+ */
 class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
 {
     /**
@@ -13,7 +16,7 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+     * Select this template. Changing the ID clears the old language, parameters and parameter overrides before supplied replacements. Repeating the same ID retains those values and clears the selected template version, so the next preparation uses the template's latest published version. Omit id to retain the selected template. Adding parameters to a draft created before parameters existed may clear its selected version so it uses the template's latest published version. To clear a draft's selection, set template itself to null.
      * 
      *
      * @var string|null
@@ -27,7 +30,20 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
      */
     protected $language;
     /**
-     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+     * Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+     *
+     * @var array<string, mixed>|null
+     */
+    protected $parameters;
+    /**
+     * Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+     * 
+     *
+     * @var array<string, array<string, mixed>>|null
+     */
+    protected $parameterOverrides;
+    /**
+     * Select this template. Changing the ID clears the old language, parameters and parameter overrides before supplied replacements. Repeating the same ID retains those values and clears the selected template version, so the next preparation uses the template's latest published version. Omit id to retain the selected template. Adding parameters to a draft created before parameters existed may clear its selected version so it uses the template's latest published version. To clear a draft's selection, set template itself to null.
      * 
      *
      * @return string|null
@@ -37,7 +53,7 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
         return $this->id;
     }
     /**
-     * Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+     * Select this template. Changing the ID clears the old language, parameters and parameter overrides before supplied replacements. Repeating the same ID retains those values and clears the selected template version, so the next preparation uses the template's latest published version. Omit id to retain the selected template. Adding parameters to a draft created before parameters existed may clear its selected version so it uses the template's latest published version. To clear a draft's selection, set template itself to null.
      *
      * @param string|null $id
      *
@@ -70,6 +86,51 @@ class EmailBroadcastUpdateRequestTemplate extends \ArrayObject
     {
         $this->initialized['language'] = true;
         $this->language = $language;
+        return $this;
+    }
+    /**
+     * Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function getParameters(): ?iterable
+    {
+        return $this->parameters;
+    }
+    /**
+     * Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+     *
+     * @param array<string, mixed>|null $parameters
+     *
+     * @return self
+     */
+    public function setParameters(?iterable $parameters): self
+    {
+        $this->initialized['parameters'] = true;
+        $this->parameters = $parameters;
+        return $this;
+    }
+    /**
+     * Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+     * 
+     *
+     * @return array<string, array<string, mixed>>|null
+     */
+    public function getParameterOverrides(): ?iterable
+    {
+        return $this->parameterOverrides;
+    }
+    /**
+     * Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+     *
+     * @param array<string, array<string, mixed>>|null $parameterOverrides
+     *
+     * @return self
+     */
+    public function setParameterOverrides(?iterable $parameterOverrides): self
+    {
+        $this->initialized['parameterOverrides'] = true;
+        $this->parameterOverrides = $parameterOverrides;
         return $this;
     }
 }

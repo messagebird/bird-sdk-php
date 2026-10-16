@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Bounce counts for a single SMTP status code over the requested period, with the per-type breakdown. This is a deliverability-debugging view keyed on what the receiving mail server returned, so it only reports the failure side: bounced recipients, and their `hard`, `soft`, `admin`, `block`, and `undetermined` split. It has no delivered, open, or rate fields.
+ */
 class EmailBounceCodeStatsPoint
 {
     /**

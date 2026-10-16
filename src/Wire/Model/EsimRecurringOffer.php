@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The published recurring package price and cadence. Calendar months follow the billing anchor; fixed days use the stated number of 24-hour days.
+ */
 class EsimRecurringOffer
 {
     /**

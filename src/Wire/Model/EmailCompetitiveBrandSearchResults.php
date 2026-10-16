@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Brands matching the search. Ranked by how well they match, best first, and capped at 8 results because this backs a type-ahead. The panel's own answer is often shorter than the cap, in which case the cap was never the reason the list is short.
+ */
 class EmailCompetitiveBrandSearchResults
 {
     /**

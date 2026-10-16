@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Fields that can be updated on an eSIM.
+ */
 class EsimUpdate
 {
     /**

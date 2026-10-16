@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * When a watched brand sends, by weekday and hour of the day.
+ */
 class EmailCompetitiveSendTimeGrid
 {
     /**

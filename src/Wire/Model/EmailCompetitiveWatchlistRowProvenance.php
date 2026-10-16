@@ -2,6 +2,18 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Where each figure on the row came from, so a comparison can be labelled
+ * honestly. Every field on a competitor's row is a panel estimate. On your own
+ * row the source varies by field: what is counted directly is reported as measured,
+ * falls back to the panel for what is not, and reports `none` for a field this row
+ * never carries at all.
+ * 
+ * Read rate is a panel estimate even on your own row. Comparing a measured rate
+ * against a panel estimate of the same rate is not a like for like
+ * comparison, because the two count an open differently, so both sides of the
+ * comparison come from the panel.
+ */
 class EmailCompetitiveWatchlistRowProvenance
 {
     /**

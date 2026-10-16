@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Total received messages for the requested period.
+ */
 class WhatsAppInboundStatsSummaryResponse
 {
     /**

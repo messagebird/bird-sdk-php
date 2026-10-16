@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One purchase: a new eSIM with its first package, or an additional package on an existing eSIM. The order locks the quote at creation (the offer revision and the exact price) and is the durable record of the purchase: poll it until a terminal status when it does not complete inline. Orders that can be served immediately complete within the request.
+ */
 class EsimOrder extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-error-code failure breakdown for the requested period, ranked by failure count descending and capped at the requested `limit` (default 50, max 200).
+ */
 class WhatsAppStatsByErrorCodeResponse
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One action, and whether this eSIM permits it for you right now.
+ */
 class EsimAvailableAction
 {
     /**

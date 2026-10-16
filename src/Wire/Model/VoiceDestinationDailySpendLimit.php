@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Your workspace's daily spend limit for calls to this country and today's usage toward it. It applies whether or not the country is enabled, including to verification calls. Null when you have not set one, before your organization has a wallet, or while your wallet currency cannot be read; a limit you set is still enforced then.
+ */
 class VoiceDestinationDailySpendLimit extends \ArrayObject
 {
     /**

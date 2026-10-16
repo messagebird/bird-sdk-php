@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A single variable slot a template fills in when it sends. Most slots are filled from the values supplied when sending; on email, a slot with `system` true is filled by Bird itself, per recipient. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
+ */
 class TemplateVariable
 {
     /**

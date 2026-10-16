@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One occupied channel. A listed channel is occupied by definition; counts appear only when requested via `include` and applicable.
+ */
 class RealtimeChannelListItem extends \ArrayObject
 {
     /**

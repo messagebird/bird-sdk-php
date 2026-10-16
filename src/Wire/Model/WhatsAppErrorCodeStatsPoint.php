@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Number of failed messages for a single normalized failure reason over the requested period.
+ */
 class WhatsAppErrorCodeStatsPoint
 {
     /**

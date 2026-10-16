@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One version of a template, without its content. Version history lists every version a template has ever had, and each one has a full copy of the content in every language it was published with. The listing describes the versions; read a single version to get what it holds.
+ */
 class EmailTemplateVersionSummary
 {
     /**

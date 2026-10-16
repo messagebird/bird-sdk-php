@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What happened to each join request in the batch. WhatsApp decides them one by one, so a batch can be part-applied: the requests it accepted are in `decided`, and the rest are in `failed` with the reason.
+ */
 class WhatsAppGroupJoinRequestDecisionResult
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The number of messages that ended the requested period in a single lifecycle status. This transposes the lifecycle counts into one row per status, so it carries no rates or latency.
+ */
 class SMSStatusStatsPoint
 {
     /**

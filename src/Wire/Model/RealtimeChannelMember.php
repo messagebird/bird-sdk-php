@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A member present on a presence channel.
+ */
 class RealtimeChannelMember
 {
     /**

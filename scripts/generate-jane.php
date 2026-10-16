@@ -10,19 +10,59 @@ use Jane\Component\JsonSchema\Printer;
 use Jane\Component\JsonSchema\Registry\Registry;
 use Jane\Component\OpenApi3\Guesser\OpenApiSchema\GuesserFactory;
 use Jane\Component\OpenApi3\JaneOpenApi;
+use Jane\Component\OpenApi3\JsonSchema\Model\Schema as SchemaModel;
 use Jane\Component\OpenApi3\SchemaParser\SchemaParser;
+use Jane\Component\OpenApi3\WhitelistedSchema;
 use Jane\Component\OpenApiCommon\Console\Loader\ConfigLoader;
 use Jane\Component\OpenApiCommon\Console\Loader\SchemaLoader;
 use Jane\Component\OpenApiCommon\Generator\ModelGenerator;
+use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
+use Jane\Component\OpenApiCommon\Guesser\GuessClass;
 use Jane\Component\OpenApiCommon\JaneOpenApi as CommonJaneOpenApi;
+use Jane\Component\OpenApiCommon\Naming\ChainOperationNaming;
+use Jane\Component\OpenApiCommon\Naming\OperationIdNaming;
+use Jane\Component\OpenApiCommon\Naming\OperationUrlNaming;
 use Jane\Component\OpenApiCommon\Registry\Registry as OpenApiRegistry;
 use Jane\Component\OpenApiCommon\Registry\Schema;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
+// Jane's whitelist keeps only JSON and form request models; beak also emits the
+// multipart request models of selected paths, so the oracle keeps them too.
+final class MultipartWhitelistedSchema extends WhitelistedSchema
+{
+    private ChainOperationNaming $naming;
+    private GuessClass $guessClass;
+
+    public function __construct(private readonly Schema $schema, DenormalizerInterface $denormalizer)
+    {
+        parent::__construct($schema, $denormalizer);
+        $this->naming = new ChainOperationNaming([new OperationIdNaming(), new OperationUrlNaming()]);
+        $this->guessClass = new GuessClass(SchemaModel::class, $denormalizer);
+    }
+
+    public function addOperationRelations(OperationGuess $operationGuess, OpenApiRegistry $registry): void
+    {
+        parent::addOperationRelations($operationGuess, $registry);
+        $operation = $this->naming->getEndpointName($operationGuess);
+        foreach ($operationGuess->getOperation()->getRequestBody()?->getContent() ?? [] as $contentType => $content) {
+            if ('multipart/form-data' !== $contentType) {
+                continue;
+            }
+            $schema = $content->getSchema();
+            $classGuess = $this->guessClass->guessClass($schema, $operationGuess->getReference() . '/content/' . $contentType . '/schema', $registry);
+            if (null !== $classGuess) {
+                $this->schema->addOperationRelation($operation, $classGuess->getName());
+            }
+        }
+    }
+}
+
 final class WrapperJaneOracle extends JaneOpenApi
 {
+    protected const WHITELIST_FETCH_CLASS = MultipartWhitelistedSchema::class;
+
     private array $bases = [];
 
     protected static function create(array $options = []): CommonJaneOpenApi

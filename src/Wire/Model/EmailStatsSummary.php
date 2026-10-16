@@ -2,6 +2,20 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A single row that aggregates delivery and engagement counts, plus derived
+ * rates, across the whole requested period. Use this endpoint for KPI
+ * tiles, campaign reporting, and anywhere you need a rate with a meaningful
+ * denominator. The daily and hourly endpoints report the same rates, but
+ * per bucket, each one dividing that bucket's own counts.
+ * 
+ * Distinct message, recipient, and event counts are computed across the whole
+ * requested period. An identity present in more than one time bucket counts
+ * once for that metric in the period summary, so adding daily or hourly
+ * distinct counts can overstate the summary. Very large counts are close
+ * estimates rather than exact tallies. Latency percentiles are also computed
+ * across the whole period. A rate is null when its denominator is zero.
+ */
 class EmailStatsSummary
 {
     /**

@@ -30,6 +30,8 @@ final class Broadcasts extends BroadcastsBase
      *
      * @param string|array<string, string>|EmailAddress|null $from the address the broadcast sends from: a plain email string, an RFC 5322 mailbox string, an `['email' => …, 'name' => …]` array, or an EmailAddress
      * @param string|null $template the template's id (`emt_…`)
+     * @param array<string, mixed>|\stdClass|null $parameters complete authored input map; an empty array sends an empty object
+     * @param array<string, array<string, mixed>|\stdClass>|\stdClass|null $parameterOverrides complete per-language override map keyed by language tag; a name a language leaves out uses `$parameters`, and empty arrays send empty objects
      * @param string|null $language one of the template's languages, sent to the whole audience; it needs `$template`, and it has to be an exact match for a language on the published version, so `fr-CA` does not select `fr`
      * @param list<string|array<string, string>|EmailAddress>|null $replyTo where replies should go, up to 25 addresses, each in any of the forms `$from` takes
      * @param array<string, string>|null $headers custom email headers, up to 25
@@ -54,6 +56,8 @@ final class Broadcasts extends BroadcastsBase
         ?\DateTimeInterface $scheduledAt = null,
         ?RequestOptions $options = null,
         ?string $language = null,
+        array|\stdClass|null $parameters = null,
+        array|\stdClass|null $parameterOverrides = null,
     ): EmailBroadcast {
         // A per-call value always wins; an unset field falls back to the client
         // default, so a broadcast sends under the same policy as the client's
@@ -88,9 +92,17 @@ final class Broadcasts extends BroadcastsBase
         // inside the template reference rather than beside it.
         if ($template !== null) {
             $body['template'] = ['id' => $template];
+            if ($parameters !== null) {
+                $body['template']['parameters'] = $parameters;
+            }
+            if ($parameterOverrides !== null) {
+                $body['template']['parameter_overrides'] = $parameterOverrides;
+            }
             if ($language !== null) {
                 $body['template']['language'] = $language;
             }
+        } elseif ($parameters !== null || $parameterOverrides !== null) {
+            throw new \InvalidArgumentException('$parameters needs a $template.');
         } elseif ($language !== null) {
             throw new \InvalidArgumentException('$language needs a $template: the language is chosen from the template it belongs to.');
         }
@@ -145,7 +157,7 @@ final class Broadcasts extends BroadcastsBase
      * @param array{
      *     from?: string|array<string, mixed>|EmailAddress,
      *     audience_id?: string,
-     *     template?: array{id?: string, language?: string|null}|null,
+     *     template?: array{id?: string, language?: string|null, parameters?: array<string, mixed>|\stdClass, parameter_overrides?: array<string, array<string, mixed>|\stdClass>|\stdClass}|null,
      *     reply_to?: list<string|array<string, string>|EmailAddress>|null,
      *     headers?: array<string, string>,
      *     tags?: list<array{name: string, value: string}>,
@@ -189,6 +201,19 @@ final class Broadcasts extends BroadcastsBase
             }
         }
 
+        if (is_array($body['template'] ?? null) && is_array($body['template']['parameters'] ?? null)) {
+            $body['template']['parameters'] = (object) $body['template']['parameters'];
+        }
+        // The override map and each language inside it are maps too, whichever form the outer map takes.
+        $outer = is_array($body['template'] ?? null) ? ($body['template']['parameter_overrides'] ?? null) : null;
+        if (is_array($outer) || $outer instanceof \stdClass) {
+            $overrides = [];
+            foreach ((array) $outer as $language => $values) {
+                $overrides[$language] = is_array($values) ? (object) $values : $values;
+            }
+            $body['template']['parameter_overrides'] = (object) $overrides;
+        }
+
         return $body === [] ? new \stdClass() : $body;
     }
 
@@ -211,4 +236,26 @@ final class Broadcasts extends BroadcastsBase
 
         return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/send', EmailBroadcast::class, self::objectifyEmptyMaps($body), null, $options);
     }
+    /** @param array<string, mixed> $params */
+    public function validate(string $broadcastId, array $params = [], ?RequestOptions $options = null): \MessageBird\Wire\Model\EmailBroadcastValidationResult
+    {
+        return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/validate', \MessageBird\Wire\Model\EmailBroadcastValidationResult::class, self::objectifyEmptyMaps($params), null, $options);
+    }
+
+    /** @param array<string, mixed> $params */
+    public function preview(string $broadcastId, array $params = [], ?RequestOptions $options = null): \MessageBird\Wire\Model\EmailBroadcastPreviewResult
+    {
+        return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/preview', \MessageBird\Wire\Model\EmailBroadcastPreviewResult::class, self::objectifyEmptyMaps($params), null, $options);
+    }
+
+    /** @param array<string, mixed> $params */
+    public function test(string $broadcastId, array $params = [], ?RequestOptions $options = null): \MessageBird\Wire\Model\EmailBroadcastTestResult
+    {
+        if ($options === null || $options->idempotencyKey === null || $options->idempotencyKey === '') {
+            throw new \InvalidArgumentException('broadcasts.test requires a nonempty caller idempotency key');
+        }
+
+        return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/test', \MessageBird\Wire\Model\EmailBroadcastTestResult::class, self::objectifyEmptyMaps($params), null, $options);
+    }
+
 }

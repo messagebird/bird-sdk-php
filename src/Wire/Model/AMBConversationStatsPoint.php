@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Conversation lifecycle counts for one time bucket (a calendar day or hour), bucketed by when each event occurred.
+ */
 class AMBConversationStatsPoint
 {
     /**

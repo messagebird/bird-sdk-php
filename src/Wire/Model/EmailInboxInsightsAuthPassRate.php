@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One authentication check's pass rate over the period.
+ */
 class EmailInboxInsightsAuthPassRate
 {
     /**

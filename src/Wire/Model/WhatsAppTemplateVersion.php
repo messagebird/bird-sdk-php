@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One version of a template: the content of every language it holds, frozen when it was submitted, alongside what Meta made of each. A draft is a version too: a mutable one, with no number and no submission date.
+ */
 class WhatsAppTemplateVersion
 {
     /**

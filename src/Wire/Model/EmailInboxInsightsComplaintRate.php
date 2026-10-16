@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The rate at which the domain's mail is reported as spam, as Google Postmaster measures it.
+ */
 class EmailInboxInsightsComplaintRate
 {
     /**

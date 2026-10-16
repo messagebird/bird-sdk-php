@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate delivery and latency stats for a single tag (`name:value`) over the requested period.
+ */
 class SMSTagStatsPoint
 {
     /**

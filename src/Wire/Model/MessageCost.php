@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
+ */
 class MessageCost
 {
     /**

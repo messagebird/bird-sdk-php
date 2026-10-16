@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A message in a mailbox conversation, either direction. Message metadata, extracted text, and attachment bytes stay readable for the mailbox's retention tier. The body and raw MIME are available through the body and raw endpoints for 30 days after the message occurred.
+ */
 class EmailThreadMessage
 {
     /**

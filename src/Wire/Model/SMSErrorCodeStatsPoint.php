@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery and latency statistics for one standardized failure reason over the requested period.
+ */
 class SMSErrorCodeStatsPoint
 {
     /**

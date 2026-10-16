@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The group to create. WhatsApp issues the invite link, and people join by opening it, so a create request names no participants.
+ */
 class WhatsAppGroupCreate
 {
     /**

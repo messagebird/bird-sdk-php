@@ -2,6 +2,10 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A contact card to send. WhatsApp shows the name on the card and the rest in a profile view the recipient opens from it.
+ * A card carrying a phone number renders buttons that message or save the contact; a card without one can only be added to an address book.
+ */
 class WhatsAppContactCardSend
 {
     /**

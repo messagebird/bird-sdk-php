@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Changes to your workspace's eSIM settings. Omit a field to leave it as it is.
+ */
 class EsimSettingsUpdate
 {
     /**

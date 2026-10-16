@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What to acknowledge on the inbound message. An absent body and `{}` mean the same thing: mark the message read and show nothing.
+ */
 class WhatsAppReadReceiptRequest
 {
     /**

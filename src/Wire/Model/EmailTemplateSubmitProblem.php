@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One problem found while checking whether a version can be submitted.
+ */
 class EmailTemplateSubmitProblem
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The file to upload, sent as a `multipart/form-data` body. Include each field at most once. Each text field is limited to 8 KiB before surrounding whitespace is trimmed; its character limit also applies.
+ */
 class AssetUpload
 {
     /**

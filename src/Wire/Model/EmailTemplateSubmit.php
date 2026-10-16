@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Options for a submit. Every field here is optional, so an empty request body submits the draft exactly as it stands.
+ */
 class EmailTemplateSubmit
 {
     /**

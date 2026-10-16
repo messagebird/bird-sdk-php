@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One data package held by an eSIM: a single purchase with its own balance, validity, and coverage zone. Every order that completes creates exactly one package, so a package is always traceable to the order that bought it. An eSIM can hold several packages per zone; the right one is consumed automatically based on the device's location, and zone_balances on the eSIM carries the combined remainder per zone.
+ */
 class EsimPackage
 {
     /**

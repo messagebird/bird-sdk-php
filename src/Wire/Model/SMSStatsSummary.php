@@ -2,6 +2,11 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Single-row aggregate across the full requested period, covering SMS lifecycle counts plus the derived delivery and failure rates, and latency percentiles. Use this endpoint for KPI tiles and reporting; the daily and hourly endpoints carry the same counts per bucket.
+ * 
+ * Every count is a sum of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+ */
 class SMSStatsSummary
 {
     /**

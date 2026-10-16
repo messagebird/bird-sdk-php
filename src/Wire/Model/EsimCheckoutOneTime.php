@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
+ */
 class EsimCheckoutOneTime
 {
     /**

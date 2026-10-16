@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+ */
 class EsimCheckoutFunding
 {
     /**

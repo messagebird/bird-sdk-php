@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A folder in the workspace's media library. Folders organize assets for the people browsing them and never appear in an asset's URL, so moving an asset between folders leaves every message that already embeds it untouched.
+ */
 class AssetFolder extends \ArrayObject
 {
     /**

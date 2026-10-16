@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * State of a single channel. Counts appear only when requested and applicable.
+ */
 class RealtimeChannelInfo extends \ArrayObject
 {
     /**

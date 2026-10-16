@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A join request the decision could not be applied to.
+ */
 class WhatsAppGroupJoinRequestFailure
 {
     /**

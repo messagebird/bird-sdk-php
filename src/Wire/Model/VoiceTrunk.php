@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A SIP trunk's identity and access-control settings.
+ */
 class VoiceTrunk extends \ArrayObject
 {
     /**

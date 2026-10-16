@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Total inbound Apple Messages for Business messages for the requested period.
+ */
 class AMBInboundStatsSummary
 {
     /**

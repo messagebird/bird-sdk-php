@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What the panel itself asserts about a campaign, in its own words. Present only on the campaigns the panel chose to make a claim about, which is a minority of them: a campaign can be surfaced as notable without the panel putting a headline on it, and that is an ordinary outcome rather than missing data.
+ */
 class EmailCompetitiveNotableCampaignClaim extends \ArrayObject
 {
     /**

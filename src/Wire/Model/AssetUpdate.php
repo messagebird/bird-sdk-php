@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Fields to change on an asset. Omit a field to leave it as it is. The asset's bytes and URL are fixed and cannot be changed.
+ */
 class AssetUpdate
 {
     /**

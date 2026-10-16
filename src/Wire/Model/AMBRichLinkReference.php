@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
+ */
 class AMBRichLinkReference
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The current value and verdict for a single sending-health metric over the window.
+ */
 class EmailHealthSignal
 {
     /**

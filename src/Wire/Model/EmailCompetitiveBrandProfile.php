@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One watched brand's figures for the period, with its placement broken out by mailbox provider.
+ */
 class EmailCompetitiveBrandProfile
 {
     /**

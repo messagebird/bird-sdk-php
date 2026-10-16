@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One weekday and hour of a brand's sending week.
+ */
 class EmailCompetitiveSendTimeCell
 {
     /**

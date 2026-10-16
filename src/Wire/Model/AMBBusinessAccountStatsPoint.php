@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound counts and latency percentiles for a single business over the requested period.
+ */
 class AMBBusinessAccountStatsPoint
 {
     /**

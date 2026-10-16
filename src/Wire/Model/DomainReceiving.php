@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Receiving state and whether it is managed from another workspace.
+ */
 class DomainReceiving
 {
     /**

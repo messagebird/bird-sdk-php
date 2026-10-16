@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The worst day for complaints in the period.
+ */
 class EmailInboxInsightsComplaintPeak
 {
     /**

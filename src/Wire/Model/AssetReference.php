@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A resource that uses an asset, so you can find everything to update before replacing an image.
+ */
 class AssetReference
 {
     /**

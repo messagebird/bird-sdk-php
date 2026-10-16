@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One card the carousel showed, in the position it appeared in.
+ */
 class WhatsAppInteractiveCard
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The figures behind a campaign's signal, for ordering or filtering the list yourself. Which field carries a value depends on the signal, and each is null both on the signals it does not describe and on a campaign of its own signal the panel published no figure for.
+ */
 class EmailCompetitiveNotableEvidence
 {
     /**

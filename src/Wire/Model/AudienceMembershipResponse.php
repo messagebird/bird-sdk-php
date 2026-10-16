@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Exact audience membership at evaluation time. Membership is absent when the count is unavailable.
+ */
 class AudienceMembershipResponse
 {
     /**

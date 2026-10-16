@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate result for an SMS batch.
+ */
 class SMSBatchSummary
 {
     /**

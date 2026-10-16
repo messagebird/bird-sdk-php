@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One recorded move of a number between networks.
+ */
 class LookupPortingEvent
 {
     /**

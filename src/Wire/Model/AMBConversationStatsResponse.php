@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Conversation lifecycle time series. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+ */
 class AMBConversationStatsResponse
 {
     /**

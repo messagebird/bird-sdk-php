@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Fields to change on a folder. Omit a field to leave it as it is. Renaming a folder or moving it changes nothing about the assets inside it, including their URLs.
+ */
 class AssetFolderUpdate
 {
     /**

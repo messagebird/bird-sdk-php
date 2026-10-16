@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The body content of a sent email message, as delivered. A send that used a template stores the template's body, so these report it with the send's `parameters` substituted in.
+ */
 class EmailMessageContent
 {
     /**

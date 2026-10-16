@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Saved authoring scenario. Values are checked against node contracts only when explicitly submitted to preview or evaluation.
+ */
 class VoiceSequenceSavedPreview
 {
     /**

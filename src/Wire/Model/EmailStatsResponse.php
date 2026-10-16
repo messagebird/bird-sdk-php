@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Time-series stats payload. `period` echoes the range and bucket grain actually computed against. `data` is one row per bucket in chronological order.
+ */
 class EmailStatsResponse
 {
     /**

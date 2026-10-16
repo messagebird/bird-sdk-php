@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
+ */
 class EmailInboxInsightsPlacementDeltaPts
 {
     /**

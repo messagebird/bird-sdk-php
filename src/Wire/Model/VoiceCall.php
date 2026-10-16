@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A call summary. Call reads report observed state. Call creation returns an immutable acceptance snapshot: `started_at` and `ended_at` are `null`, the boolean observation fields are `false`, and `parties` is empty. Replays return that same snapshot after the call progresses.
+ */
 class VoiceCall
 {
     /**

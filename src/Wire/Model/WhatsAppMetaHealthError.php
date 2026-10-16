@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One reason Meta gives for a verdict that is not `available`. Field names are Meta's own. They are not Bird error codes and do not appear in Bird's error catalog.
+ */
 class WhatsAppMetaHealthError
 {
     /**

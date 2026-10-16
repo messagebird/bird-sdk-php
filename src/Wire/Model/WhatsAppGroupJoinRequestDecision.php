@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The join requests to decide on.
+ */
 class WhatsAppGroupJoinRequestDecision
 {
     /**

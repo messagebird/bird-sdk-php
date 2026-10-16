@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate delivery and engagement stats for a single category over the requested period.
+ */
 class EmailCategoryStatsPoint
 {
     /**

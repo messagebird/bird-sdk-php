@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Published recurring terms and current funding requirement. The `price` excludes tax; `funding.total` includes tax for the first period. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
+ */
 class EsimCheckoutRecurrenceQuote extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Select one case-sensitive tag name. A name without values requires that tag to exist. Exclude-only predicates retain events without that tag. Include and exclude together accept at most 20 distinct normalized values with no overlap.
+ */
 class EmailStatsQueryTagFilter
 {
     /**

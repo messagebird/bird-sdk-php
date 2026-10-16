@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A WhatsApp group your business created and administers. People join by opening its invite link, not by being added.
+ */
 class WhatsAppGroup extends \ArrayObject
 {
     /**

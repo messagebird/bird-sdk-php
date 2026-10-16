@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Saved hypothetical root call identities. Strings may be stale; explicit preview and evaluation require valid typed identifiers.
+ */
 class VoiceSequenceSavedExecutionCallSample
 {
     /**

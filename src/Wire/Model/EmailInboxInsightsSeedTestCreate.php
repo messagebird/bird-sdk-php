@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How to configure a seed test. The choices available for a domain come from the seed-test configuration.
+ */
 class EmailInboxInsightsSeedTestCreate
 {
     /**

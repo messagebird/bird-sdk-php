@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Changes to a routing rule. Send `business_account_id` to move the rule to another Apple Messages for Business brand in the workspace. Send `match_kind` to replace what the rule matches, with the ids that kind requires, as on create; a stored id the new kind does not use is cleared. `match_intent_id` and `match_group_id` require `match_kind`. The update returns a `409` when it would leave this rule as the default of a business that already has a different default rule.
+ */
 class AMBRoutingRuleUpdate
 {
     /**

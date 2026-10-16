@@ -2,6 +2,18 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A registered seed test and the addresses it measures.
+ * 
+ * Registering a test does not put the addresses into a send. Add them to the
+ * recipients of the send you want measured, and the test appears in the
+ * seed-test list for the domain once its seed mail has been measured.
+ * 
+ * There is no status field. The measurement reports none for a seed test at any
+ * point, so read the test's own fields instead: a registered test has addresses
+ * and an expiry date, and it gains a subject and a tested-at date once its send
+ * goes out.
+ */
 class EmailInboxInsightsSeedTestRegistration
 {
     /**

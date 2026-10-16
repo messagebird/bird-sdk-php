@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What happens to a call arriving for any of your Bird numbers that has no inbound route of its own.
+ */
 class VoiceSettingsInboundConfiguration
 {
     /**

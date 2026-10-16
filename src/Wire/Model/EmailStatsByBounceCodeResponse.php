@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and paginated with the requested `limit` (default 50, max 200).
+ */
 class EmailStatsByBounceCodeResponse
 {
     /**

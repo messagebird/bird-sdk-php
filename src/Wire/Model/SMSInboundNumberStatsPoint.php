@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message volume for one of your numbers.
+ */
 class SMSInboundNumberStatsPoint
 {
     /**

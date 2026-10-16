@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound counts and latency percentiles for a single entry-point intent over the requested period.
+ */
 class AMBIntentStatsPoint
 {
     /**

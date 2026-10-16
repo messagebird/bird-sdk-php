@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Which Gmail tab the test's Gmail seeds mostly landed under.
+ */
 class EmailInboxInsightsGmailCategory
 {
     /**

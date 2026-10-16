@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Attributes of one batch item's channel at publish time. Items are positional: the n-th item corresponds to the n-th event in the request.
+ */
 class RealtimeBatchPublishResultItem extends \ArrayObject
 {
     /**

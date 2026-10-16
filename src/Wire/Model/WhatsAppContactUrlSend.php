@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One website to put on a contact card.
+ */
 class WhatsAppContactUrlSend
 {
     /**

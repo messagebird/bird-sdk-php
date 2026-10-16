@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The identity, revision counters, and fingerprint of a saved language. The response does not include its content; read the language to retrieve it.
+ */
 class EmailTemplateLanguageSaved
 {
     /**

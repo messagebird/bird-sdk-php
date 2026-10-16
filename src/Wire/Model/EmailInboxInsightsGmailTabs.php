@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Where the domain's Gmail-placed mail landed across Gmail's tabs. The status is `not_applicable` when the domain had no Gmail placement in the period; hide the section rather than showing an empty split.
+ */
 class EmailInboxInsightsGmailTabs
 {
     /**

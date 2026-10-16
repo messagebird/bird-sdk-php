@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A WhatsApp message to send, carrying exactly one kind of content.
+ */
 class WhatsAppMessageSendRequest
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Active DKIM signing configuration for the domain.
+ */
 class DomainDKIM
 {
     /**

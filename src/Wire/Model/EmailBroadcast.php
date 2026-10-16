@@ -250,6 +250,12 @@ class EmailBroadcast
      */
     protected $canceledAt;
     /**
+     * Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
+     *
+     * @var EmailBroadcastFailureParameters|null
+     */
+    protected $failureParameters;
+    /**
      * Broadcast ID.
      *
      * @return string|null
@@ -1077,6 +1083,28 @@ class EmailBroadcast
     {
         $this->initialized['canceledAt'] = true;
         $this->canceledAt = $canceledAt;
+        return $this;
+    }
+    /**
+     * Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
+     *
+     * @return EmailBroadcastFailureParameters|null
+     */
+    public function getFailureParameters(): ?EmailBroadcastFailureParameters
+    {
+        return $this->failureParameters;
+    }
+    /**
+     * Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
+     *
+     * @param EmailBroadcastFailureParameters|null $failureParameters
+     *
+     * @return self
+     */
+    public function setFailureParameters(?EmailBroadcastFailureParameters $failureParameters): self
+    {
+        $this->initialized['failureParameters'] = true;
+        $this->failureParameters = $failureParameters;
         return $this;
     }
 }

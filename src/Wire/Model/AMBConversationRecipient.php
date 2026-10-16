@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The customer on the other side of this Apple Messages for Business conversation.
+ */
 class AMBConversationRecipient
 {
     /**

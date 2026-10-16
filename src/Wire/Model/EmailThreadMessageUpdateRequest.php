@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Changes to apply to a conversation message. Omitted fields are left unchanged.
+ */
 class EmailThreadMessageUpdateRequest
 {
     /**

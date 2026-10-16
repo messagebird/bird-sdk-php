@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery, engagement and latency figures for one broadcast's messages over the period you asked for.
+ */
 class EmailBroadcastStatsPoint
 {
     /**

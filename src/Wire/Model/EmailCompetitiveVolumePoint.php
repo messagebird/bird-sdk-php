@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One day of one line on the volume chart.
+ */
 class EmailCompetitiveVolumePoint
 {
     /**

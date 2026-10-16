@@ -2,6 +2,14 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The fields every view of a seed test carries.
+ * 
+ * There is no status field. The measurement reports none for a test it has
+ * already run, and nothing else on the surface stands in for one, so a test
+ * that is still waiting for its send says so by having no subject and no
+ * tested-at date rather than by being labelled.
+ */
 class EmailInboxInsightsSeedTestDetail extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The eSIM's credential deliveries, newest first, most recent 50.
+ */
 class EsimDeliveryList
 {
     /**

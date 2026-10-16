@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Lifecycle-status breakdown for the requested period, ordered by message count descending. Statuses with no activity are omitted.
+ */
 class SMSStatsByStatusResponse
 {
     /**

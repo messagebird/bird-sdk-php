@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A purchasable offer from the curated catalog: the commercial terms for prepaid data in one coverage zone, priced as your workspace is billed. The coverage itself lives on the referenced zone, shared by every offer selling the same footprint.
+ */
 class EsimOffer
 {
     /**

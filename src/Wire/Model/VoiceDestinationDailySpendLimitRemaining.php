@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What is left of this country's limit today, never below zero. Null when today's usage cannot be read.
+ */
 class VoiceDestinationDailySpendLimitRemaining extends \ArrayObject
 {
     /**

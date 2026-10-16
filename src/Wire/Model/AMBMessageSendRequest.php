@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A message to send. Supply exactly one of `content` (native content) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
+ */
 class AMBMessageSendRequest
 {
     /**

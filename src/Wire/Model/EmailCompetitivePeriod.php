@@ -2,6 +2,11 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The period the response describes. Most reports resolve a rolling window when
+ * requested; send-time and notable reports can carry the panel's own window.
+ * These bounds describe coverage, not a guarantee of measurement freshness.
+ */
 class EmailCompetitivePeriod
 {
     /**

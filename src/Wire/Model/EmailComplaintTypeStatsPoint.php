@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so no other count applies.
+ */
 class EmailComplaintTypeStatsPoint
 {
     /**

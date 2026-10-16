@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A hosted installation page for one eSIM. The recipient does not need a Bird account. The secret URL is returned at creation and cannot be retrieved through later reads.
+ */
 class EsimInstallLink
 {
     /**

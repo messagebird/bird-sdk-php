@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Changes from the previous period. Each value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero.
+ */
 class AMBConversationStatsComparisonDelta
 {
     /**

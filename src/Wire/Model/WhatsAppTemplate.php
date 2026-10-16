@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A message template: one identity holding a copy of the message per language. Each language is reviewed, priced and paused by Meta on its own, so the template's own status is an aggregate and the per-language detail is in `languages`. A version contains the content.
+ */
 class WhatsAppTemplate
 {
     /**

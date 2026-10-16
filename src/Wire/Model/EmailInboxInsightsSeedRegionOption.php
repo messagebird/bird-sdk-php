@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One region seeds can be placed in.
+ */
 class EmailInboxInsightsSeedRegionOption
 {
     /**

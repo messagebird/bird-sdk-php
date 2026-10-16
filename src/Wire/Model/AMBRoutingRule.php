@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A rule that puts a conversation into a queue when it is created or reopened, based on the group and intent the entry point that started it carried.
+ */
 class AMBRoutingRule extends \ArrayObject
 {
     /**

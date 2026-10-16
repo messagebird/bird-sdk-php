@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language's content and revision metadata within a version.
+ */
 class SMSTemplateVersionLanguage
 {
     /**

@@ -2,6 +2,14 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The choices available when registering a seed test for a domain: which seed
+ * pools the account can use, which regions seeds can be placed in, and which
+ * engagement behaviours the seeds can simulate.
+ * 
+ * This is reference data rather than a measurement, so it carries no period and
+ * no measurement detail. It changes only when an account's provisioning does.
+ */
 class EmailInboxInsightsSeedTestConfiguration
 {
     /**

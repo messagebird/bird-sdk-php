@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One broadcast that blocks deleting this template.
+ */
 class EmailTemplateBroadcastSummary
 {
     /**

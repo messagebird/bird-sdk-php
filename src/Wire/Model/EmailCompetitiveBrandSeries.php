@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One line on the volume chart: a watched brand's sending over time, or your own.
+ */
 class EmailCompetitiveBrandSeries
 {
     /**

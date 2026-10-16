@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A change to the gateway's address, its place in the order, or how it wants numbers spelled. Every field is optional; an omitted field is left unchanged.
+ */
 class VoiceTrunkGatewayUpdate
 {
     /**

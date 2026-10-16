@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One postal address to put on a contact card.
+ */
 class WhatsAppContactAddressSend
 {
     /**

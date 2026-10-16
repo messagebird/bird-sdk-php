@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Parameters for creating an email template and its initial draft.
+ */
 class EmailTemplateCreate
 {
     /**

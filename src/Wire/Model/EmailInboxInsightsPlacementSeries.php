@@ -2,6 +2,13 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The placement time series, at the grain named in `window.group_by`.
+ * 
+ * The series is sparse: buckets with no measured placement are omitted rather
+ * than returned as zeros, because an invented zero would be indistinguishable
+ * from a measured one. Index by date, never by position.
+ */
 class EmailInboxInsightsPlacementSeries
 {
     /**

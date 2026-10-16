@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A stable person reference for eSIM service in this workspace. Editing contact details does not change this identity.
+ */
 class EsimSubscriber extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Partial update of a template's metadata and draft settings. Only the fields you send are changed. The rest are left as-is. Include the draft `revision` you last read so concurrent edits are detected. Content is not here: save a language on the draft version to change what the template says.
+ */
 class EmailTemplateUpdate
 {
     /**

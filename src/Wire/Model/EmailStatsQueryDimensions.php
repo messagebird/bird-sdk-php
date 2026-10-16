@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Contains the requested group_by property, including a null value when context is missing. Ungrouped results use an empty object.
+ */
 class EmailStatsQueryDimensions
 {
     /**

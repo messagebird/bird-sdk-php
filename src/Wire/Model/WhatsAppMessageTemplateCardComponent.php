@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The values that fill one block of one carousel card.
+ */
 class WhatsAppMessageTemplateCardComponent
 {
     /**

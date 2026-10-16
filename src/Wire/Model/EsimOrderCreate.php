@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Request to purchase a data package. Without esim_id, a new eSIM is provisioned carrying the package. With esim_id, the package is added to that eSIM: a new coverage zone stacks alongside existing packages, the same zone adds a further package for it, subject to the eSIM's package_limit and speed class.
+ */
 class EsimOrderCreate
 {
     /**

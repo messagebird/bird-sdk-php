@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
+ */
 class AMBConversationRouting
 {
     /**

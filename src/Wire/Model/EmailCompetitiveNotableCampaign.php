@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A campaign the panel surfaced, and the reason it did.
+ */
 class EmailCompetitiveNotableCampaign
 {
     /**

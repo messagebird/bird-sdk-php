@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+ */
 class EmailStatsQueryStringFilter
 {
     /**

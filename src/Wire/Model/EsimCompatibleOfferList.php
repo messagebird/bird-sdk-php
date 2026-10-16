@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Offers this eSIM can take as a top-up right now, given its mobile network, current packages, and package_limit. A point-in-time answer; re-fetch rather than caching.
+ */
 class EsimCompatibleOfferList
 {
     /**

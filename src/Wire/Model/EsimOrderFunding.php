@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Funding needed for an order in `charging`. Add funds to the wallet and retry the existing order. One-time orders also retry automatically. A funded order proceeds to delivery; a failed order receives an automatic credit for any charge.
+ */
 class EsimOrderFunding extends \ArrayObject
 {
     /**

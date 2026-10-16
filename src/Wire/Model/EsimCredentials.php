@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Installation details for an eSIM. Keep activation codes, installation links, QR images, and manual setup credentials private because they can grant access to the profile. Use fields with a value and follow the returned device instructions.
+ */
 class EsimCredentials
 {
     /**

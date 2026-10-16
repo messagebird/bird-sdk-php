@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-phone-number breakdown of received messages for the requested period, ranked by volume descending and capped at the requested `limit` (default 50, max 200).
+ */
 class WhatsAppInboundStatsByPhoneNumberResponse
 {
     /**

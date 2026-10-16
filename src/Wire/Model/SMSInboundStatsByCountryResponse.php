@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message volume broken down by country, ranked by volume.
+ */
 class SMSInboundStatsByCountryResponse
 {
     /**

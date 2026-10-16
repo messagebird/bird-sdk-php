@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One person's current stated preference for one channel: whether they have consented to or opted out of receiving messages at a handle, and how much traffic the statement covers. A key holds one current statement (a newer statement replaces it, an older one is refused), and the full history behind the current state is kept internally. `sender_scope` and `topic_id` are part of the key: a preference with both null applies channel-wide.
+ */
 class Preference extends \ArrayObject
 {
     /**

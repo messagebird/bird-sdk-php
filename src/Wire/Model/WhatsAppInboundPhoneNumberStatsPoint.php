@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message count for a single business phone number over the requested period.
+ */
 class WhatsAppInboundPhoneNumberStatsPoint
 {
     /**

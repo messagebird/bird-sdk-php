@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Compact offer row for lists: the full offer minus the embedded zone. Fetch the offer or its zone for the country list.
+ */
 class EsimOfferSummary
 {
     /**

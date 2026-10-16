@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Something that happened in your systems that the agent should tell the contact about, such as a payment landing or an order shipping. WhatsApp processes it in the background, so read the notification back for what came of it.
+ */
 class WhatsAppAgentNotificationCreate
 {
     /**

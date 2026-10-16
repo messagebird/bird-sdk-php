@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The workspace's current sending-health verdict over the requested window, plus reference deliverability limits and classification boundaries. Use it to render a health badge, the bounce-rate and complaint-rate limit labels, and the risk lines on deliverability charts without hard-coding any thresholds of your own.
+ */
 class EmailHealth
 {
     /**

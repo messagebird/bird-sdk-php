@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Recurring service for an assigned eSIM or a pending initial purchase. Paid periods and delivered connectivity have separate states. Ending recurrence preserves the profile and separately purchased packages.
+ */
 class EsimRecurringSubscription
 {
     /**

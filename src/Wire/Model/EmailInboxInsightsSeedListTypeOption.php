@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One seed pool a test can be run against, and whether this account can use it.
+ */
 class EmailInboxInsightsSeedListTypeOption
 {
     /**

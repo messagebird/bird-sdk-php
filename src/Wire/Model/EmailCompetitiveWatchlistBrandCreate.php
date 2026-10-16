@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The brand to add to the watchlist. Obtained from a brand search, which only returns brands that can be watched.
+ */
 class EmailCompetitiveWatchlistBrandCreate
 {
     /**

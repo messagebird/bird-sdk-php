@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One trap address this domain's mail reached, with enough detail to trace where the address came from. A row can represent several hits on the same trap, so read `hit_count` rather than counting rows.
+ */
 class EmailInboxInsightsSpamTrapHit
 {
     /**

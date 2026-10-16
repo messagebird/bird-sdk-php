@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A page of campaigns returned for a watched brand over the period.
+ */
 class EmailCompetitiveCampaignFeed extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-IP placement detail for the domain's sending infrastructure. Returned only when the request asked for IP detail.
+ */
 class EmailInboxInsightsPlacementIpDetails
 {
     /**

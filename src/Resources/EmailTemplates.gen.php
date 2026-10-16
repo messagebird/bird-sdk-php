@@ -11,6 +11,7 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailTemplate;
 use MessageBird\Wire\Model\EmailTemplateDuplicate;
 use MessageBird\Wire\Model\EmailTemplateList;
+use MessageBird\Wire\Model\EmailTemplateParameters;
 use MessageBird\Wire\Model\EmailTemplatePreview;
 use MessageBird\Wire\Model\EmailTemplatePreviewRequest;
 use MessageBird\Wire\Model\EmailTemplateSummary;
@@ -78,6 +79,16 @@ class EmailTemplatesBase extends Resource
     public function duplicate(string $templateRef, EmailTemplateDuplicate $params, ?RequestOptions $options = null): EmailTemplate
     {
         return $this->single('POST', '/v1/email/templates/' . rawurlencode($templateRef) . '/duplicate', EmailTemplate::class, $params, null, $options);
+    }
+
+    /**
+     * Get the parameters and variables used by the template's published content in one language. The result describes the template and holds no saved values. Parameters are the names a broadcast supplies in `template.parameters`, and variables are the `bird.` references Bird fills in. The result identifies list values, which broadcast parameters cannot supply. It also includes a fingerprint that identifies the published content without exposing contact values. You cannot select an older template version. Requires email_marketing read permission in addition to email_management read. Parameter sites cover template subject, HTML and text; envelope overrides are checked by broadcast validation.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     */
+    public function parameters(string $templateRef, ?array $query = null, ?RequestOptions $options = null): EmailTemplateParameters
+    {
+        return $this->single('GET', '/v1/email/templates/' . rawurlencode($templateRef) . '/parameters', EmailTemplateParameters::class, null, $query, $options);
     }
 
     /**

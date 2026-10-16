@@ -2,6 +2,21 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One brand on the watchlist, with its figures for the requested period. Your own
+ * workspace appears as a row too, so the table can be read as a single ranking.
+ * 
+ * Metrics are present on every row. Interpret `null` using each field's
+ * description: it can mean unavailable, no observed campaign, or no overlap
+ * returned by the panel. A `0` is a measurement rather than a gap.
+ * 
+ * Your measured sends and cadence cover the workspace. Your panel rates and
+ * overlap describe only its highest-volume sending domain.
+ * 
+ * `esp` and `list_size` are the exception. They are populated only when you read a
+ * single brand, and are always `null` on the watchlist whatever `panel_status`
+ * reports.
+ */
 class EmailCompetitiveWatchlistRow
 {
     /**

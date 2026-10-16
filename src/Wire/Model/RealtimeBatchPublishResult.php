@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The result of a Realtime batch publish. The events were accepted for delivery; delivery to connected clients is asynchronous.
+ */
 class RealtimeBatchPublishResult
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language of a template version, without its content: enough to list what a version holds and how big each language is. Read a single language to get its content and its compatibility report.
+ */
 class EmailTemplateLanguageSummary
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+ */
 class EmailInboxInsightsMeasurement
 {
     /**

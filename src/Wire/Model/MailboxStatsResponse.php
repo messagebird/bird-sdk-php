@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A mailbox's sent and received email statistics: a period-wide summary plus a bucketed time series. `period` echoes the range and grain actually used. `data` is one row per bucket in chronological order.
+ */
 class MailboxStatsResponse
 {
     /**

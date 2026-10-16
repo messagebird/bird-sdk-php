@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
+ */
 class ReceiveRule
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How the tested send authenticated, measured on the seed mail itself rather than on reporting from receivers.
+ */
 class EmailInboxInsightsSeedTestAuth
 {
     /**

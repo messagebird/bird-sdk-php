@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Content to save for one language, replacing whatever that language held. Send every field you want the language to keep: a field you omit is cleared, which is what makes saving the same content twice land the same way every time.
+ */
 class EmailTemplateLanguageUpsert
 {
     /**

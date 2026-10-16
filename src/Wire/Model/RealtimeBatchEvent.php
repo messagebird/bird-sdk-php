@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A single event published to one channel as part of a batch.
+ */
 class RealtimeBatchEvent
 {
     /**

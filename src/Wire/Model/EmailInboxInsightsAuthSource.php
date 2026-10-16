@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One system observed sending as this domain, with how its mail authenticates.
+ */
 class EmailInboxInsightsAuthSource
 {
     /**

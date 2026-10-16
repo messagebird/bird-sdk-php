@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Where one language stands, without its content: content lives under a version, read that for it. An object rather than a bare status string, so detail beyond status can arrive later as a sibling property instead of a breaking change.
+ */
 class WhatsAppTemplateLanguageState
 {
     /**

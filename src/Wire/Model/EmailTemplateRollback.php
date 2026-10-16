@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Parameters for rolling a template back to an earlier published version. Rolling back also replaces the draft with that version's content, so you have to pass `revision`, the revision number of the draft you last read. If the draft has changed since you read it, that revision number is now stale, and the rollback fails with a conflict instead of overwriting the newer draft. Read the draft again to get its current revision, and try the rollback again.
+ */
 class EmailTemplateRollback
 {
     /**

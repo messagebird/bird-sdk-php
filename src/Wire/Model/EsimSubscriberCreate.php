@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Select an existing contact in this workspace. One subscriber is kept per contact. Creating the link requires Contacts read permission and prevents Contact deletion, including after any assigned eSIM ends. Subscriber links cannot currently be removed.
+ */
 class EsimSubscriberCreate
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Received-message count for one time bucket (a calendar day or hour), bucketed by the time each message reached your number.
+ */
 class WhatsAppInboundStatsPoint
 {
     /**

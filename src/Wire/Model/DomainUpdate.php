@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged. The current configuration keeps serving until the new DNS records verify. The change is then promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
+ */
 class DomainUpdate
 {
     /**

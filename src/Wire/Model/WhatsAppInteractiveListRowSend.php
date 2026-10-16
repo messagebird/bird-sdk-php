@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One option in a list's menu. Choosing it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+ */
 class WhatsAppInteractiveListRowSend
 {
     /**

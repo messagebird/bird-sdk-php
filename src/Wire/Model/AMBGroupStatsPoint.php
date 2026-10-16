@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound counts and latency percentiles for a single entry-point group over the requested period.
+ */
 class AMBGroupStatsPoint
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and without `scheduled_at`, because a mailbox sends immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
+ */
 class EmailMailboxComposeRequest
 {
     /**

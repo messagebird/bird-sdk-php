@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The acknowledgement Bird accepted. There is no status to poll afterwards: WhatsApp reports nothing about a read receipt.
+ */
 class WhatsAppReadReceipt
 {
     /**

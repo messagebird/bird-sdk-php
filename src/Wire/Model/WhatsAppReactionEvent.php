@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One change to a reaction on a message: a reaction placed, replaced by a different emoji, or taken back. Entries are never edited, so a sender who reacts twice and then removes it leaves three of them.
+ */
 class WhatsAppReactionEvent
 {
     /**

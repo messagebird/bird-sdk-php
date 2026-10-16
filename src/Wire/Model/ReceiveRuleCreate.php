@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Parameters for adding a receive rule to a mailbox.
+ */
 class ReceiveRuleCreate
 {
     /**

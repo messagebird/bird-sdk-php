@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Accepted package price before tax, in its published currency. Null before Billing accepts enrollment.
+ */
 class EsimRecurringSubscriptionPrice extends \ArrayObject
 {
     /**

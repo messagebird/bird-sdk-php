@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+ */
 class EmailInboxInsightsComparedTo
 {
     /**

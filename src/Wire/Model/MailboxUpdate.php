@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Fields to update on a mailbox. Omitted fields are unchanged. Fields set to `null` are cleared. The address and domain are immutable.
+ */
 class MailboxUpdate
 {
     /**

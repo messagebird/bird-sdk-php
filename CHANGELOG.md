@@ -2,6 +2,12 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.77.0
+
+- Add broadcast `validate`, `preview` and `test` methods and template parameter discovery. Broadcast previews return the resolved `preheader`.
+- Add template `parameters` and per-language `parameter_overrides` to the broadcast create and update request types.
+- Add public broadcast template parameters with per-language overrides, template parameter discovery, validation, preview, and organization-member test-send methods.
+
 ## 0.76.0
 
 - Apple Messages content URL fields (attachment and image `source_url`, `app_icon_source_url`, the rich-link `url`, image and video URLs, and `rich_link_construct.url`) no longer declare a `uri` format, so stored templates can fill them with `{{ }}` placeholders. The URL that is sent must still be HTTPS: an inline value, or the value a template renders, that is not HTTPS is refused with `AMBEndpointNotHTTPS`.

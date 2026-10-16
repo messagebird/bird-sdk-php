@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Delivery, engagement, and deliverability stats for messages grouped by a single mailbox provider and provider region pair over the requested period, for example `gmail` in `NA` or `microsoft` in `EU`. The provider region is the regional pod the receiving mail system reports for the recipient's provider; pairing it with the provider disambiguates a region label that several providers share. Like the mailbox-provider breakdown, rows cover the delivery stage onward: the `accepted` and `processed` counts and the `processing` latency family are omitted (a provider region cannot be attributed before delivery).
+ */
 class EmailMailboxProviderRegionStatsPoint
 {
     /**

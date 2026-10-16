@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound Apple Messages for Business counts and latency percentiles for the full requested period. Counts and percentiles are computed over the whole period rather than combined from the returned time-series values.
+ */
 class AMBStatsSummary
 {
     /**

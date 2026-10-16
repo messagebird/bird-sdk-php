@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An emoji reaction standing on a message. One entry per sender: reacting again replaces that sender's entry rather than adding one, and removing a reaction drops it from the list. A one-to-one message therefore carries at most two, one for the contact and one for your business number. This is the folded current state, so it names no single change; the message's reaction log is what records how each one arrived.
+ */
 class WhatsAppReaction
 {
     /**

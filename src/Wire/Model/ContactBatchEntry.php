@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A contact to create or update. Field values are validated individually during processing, so an invalid contact returns a failed result while valid contacts are saved. The request must still contain an object with the declared field types. Omitted fields keep their stored values on an existing contact.
+ */
 class ContactBatchEntry
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One sending IP's placement and authentication pass rates for the period.
+ */
 class EmailInboxInsightsPlacementIpDetail
 {
     /**

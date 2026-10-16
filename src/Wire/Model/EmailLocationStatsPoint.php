@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a recipient location, preventing a per-location delivered denominator and rates. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
+ */
 class EmailLocationStatsPoint
 {
     /**

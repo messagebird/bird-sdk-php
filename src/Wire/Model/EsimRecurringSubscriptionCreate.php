@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Starts a new paid package period on an existing assigned eSIM. The workspace organization pays; the subscriber has no personal wallet.
+ */
 class EsimRecurringSubscriptionCreate
 {
     /**

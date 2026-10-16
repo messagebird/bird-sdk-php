@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language's content in one version, and what that submission did with it.
+ */
 class WhatsAppTemplateVersionLanguage
 {
     /**

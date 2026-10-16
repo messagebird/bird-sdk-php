@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One pattern in the HTML that mail clients remove, ignore, or render inconsistently.
+ */
 class EmailCompatibilityFinding
 {
     /**

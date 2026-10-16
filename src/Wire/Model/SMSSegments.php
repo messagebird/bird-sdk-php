@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Segment breakdown for the message body. Segment count drives billing.
+ */
 class SMSSegments
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A funded period and its delivery outcome. Amounts retain the original charged currency and tax; free periods have no wallet transaction.
+ */
 class EsimRecurringPeriod
 {
     /**

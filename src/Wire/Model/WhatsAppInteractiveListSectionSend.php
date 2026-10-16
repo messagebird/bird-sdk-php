@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One group of options in a list's menu. A menu with a single group still carries a title, which WhatsApp shows above its rows.
+ */
 class WhatsAppInteractiveListSectionSend
 {
     /**

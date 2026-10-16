@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-complaint-type breakdown for the requested period, ranked by `complained` descending and paginated with the requested `limit` (default 50, max 200).
+ */
 class EmailStatsByComplaintTypeResponse
 {
     /**

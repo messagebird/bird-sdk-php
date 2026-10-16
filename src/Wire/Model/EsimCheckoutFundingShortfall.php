@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Additional funds needed to cover this purchase, or null without organization billing read permission. Zero when covered is true.
+ */
 class EsimCheckoutFundingShortfall extends \ArrayObject
 {
     /**

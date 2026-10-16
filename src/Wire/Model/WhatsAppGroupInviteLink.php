@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A group's invite link.
+ */
 class WhatsAppGroupInviteLink
 {
     /**

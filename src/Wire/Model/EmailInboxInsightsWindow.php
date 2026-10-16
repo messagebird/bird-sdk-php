@@ -2,6 +2,12 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The period every figure in the response covers: whole UTC calendar days,
+ * inclusive on both ends. The same window convention the email statistics
+ * endpoints use, so figures from the two sources describe the same days and
+ * can be combined without adjustment.
+ */
 class EmailInboxInsightsWindow
 {
     /**

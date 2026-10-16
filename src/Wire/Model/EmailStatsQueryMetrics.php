@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Selected metric values. Counts are nonnegative approximate distinct counts. Period uniques and rates are computed independently of buckets; summing bucket or group values does not reconstruct period totals. Zero means a supported empty population; undefined rates and empty latency samples are null.
+ */
 class EmailStatsQueryMetrics
 {
     /**

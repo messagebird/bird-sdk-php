@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One phone number on a shared contact card.
+ */
 class WhatsAppContactPhone
 {
     /**

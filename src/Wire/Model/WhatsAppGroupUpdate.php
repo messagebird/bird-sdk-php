@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The changes to make. Fields you omit are left as they are. WhatsApp applies each field separately, so one can be rejected while the others take effect; the group's `updated_at` moves when a change lands.
+ */
 class WhatsAppGroupUpdate
 {
     /**

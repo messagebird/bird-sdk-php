@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The outcome of one preference write or delete. `applied: true` means the request took effect: either it changed the record, or an identical statement already had. `applied: false` means it was refused as older than the key's current statement; `preference` then carries the statement that survived, and `transition_id` identifies the refusal on the key's record.
+ */
 class PreferenceWriteResult
 {
     /**

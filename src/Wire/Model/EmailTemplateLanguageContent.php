@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language's content for an email template. Each language carries its own subject, preview text and bodies, so a translation can differ in wording and length from every other language without affecting them.
+ */
 class EmailTemplateLanguageContent
 {
     /**

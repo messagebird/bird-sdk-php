@@ -71,6 +71,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->templates->update(...),
             $bird->email->templates->delete(...),
             $bird->email->templates->duplicate(...),
+            $bird->email->templates->parameters(...),
             $bird->email->templates->preview(...),
             $bird->email->templates->versions->list(...),
             $bird->email->templates->versions->get(...),
@@ -83,6 +84,9 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->templates->versions->languages->update(...),
             $bird->email->templates->versions->languages->delete(...),
             $bird->email->templates->broadcasts->list(...),
+            $bird->broadcasts->validate(...),
+            $bird->broadcasts->preview(...),
+            $bird->broadcasts->test(...),
             $bird->broadcasts->create(...),
             $bird->broadcasts->list(...),
             $bird->broadcasts->get(...),
@@ -413,7 +417,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->assets->folders->delete(...),
         ];
 
-        self::assertCount(391, $surface);
+        self::assertCount(395, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

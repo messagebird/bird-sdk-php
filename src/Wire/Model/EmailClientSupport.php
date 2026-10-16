@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One mail client family a finding applies to, and which of that family's platforms.
+ */
 class EmailClientSupport
 {
     /**

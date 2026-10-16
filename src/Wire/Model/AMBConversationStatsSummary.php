@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Conversation lifecycle counts for the full requested period. Counts aggregate the time buckets.
+ */
 class AMBConversationStatsSummary
 {
     /**

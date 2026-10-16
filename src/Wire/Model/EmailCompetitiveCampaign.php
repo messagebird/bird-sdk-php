@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The most recent campaign observed for a brand in the period.
+ */
 class EmailCompetitiveCampaign extends \ArrayObject
 {
     /**

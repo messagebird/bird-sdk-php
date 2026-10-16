@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Complete identification schema for one covered country. A country without maintained extra requirements returns the baseline schema requiring first_name, last_name, and email. Customers handle collection, validation, and compliance; Bird does not receive or verify these values.
+ */
 class EsimCountryRequirements
 {
     /**

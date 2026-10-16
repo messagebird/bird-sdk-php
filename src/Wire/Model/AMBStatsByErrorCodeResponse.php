@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-failure-reason breakdown for the requested period, ranked by `send_failed + rejected` descending and capped at the requested `limit` (default 50, max 200). Only messages carrying an error code appear: a `bird:` code is usually a rejection, an `apple:` code a send failure.
+ */
 class AMBStatsByErrorCodeResponse
 {
     /**

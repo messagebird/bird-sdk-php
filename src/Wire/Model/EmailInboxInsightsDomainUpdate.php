@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The Inbox Insights setting to change for a sending domain.
+ */
 class EmailInboxInsightsDomainUpdate
 {
     /**

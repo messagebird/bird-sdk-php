@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Where one of the template's languages stands: whether sends are using it, and whether its draft contains an unpublished edit.
+ */
 class EmailTemplateLanguageState
 {
     /**

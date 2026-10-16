@@ -65,11 +65,11 @@ class WebhookEndpointUpdateNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('events', $data) && $data['events'] === null) {
             $object->setEvents(null);
         }
-        if (\array_key_exists('credentials', $data) && $data['credentials'] !== null) {
-            $object->setCredentials($this->denormalizer->denormalize($data['credentials'], \MessageBird\Wire\Model\WebhookEndpointUpdateCredentials::class, 'json', $context));
+        if (\array_key_exists('destination', $data) && $data['destination'] !== null) {
+            $object->setDestination($this->denormalizer->denormalize($data['destination'], \MessageBird\Wire\Model\WebhookDestinationUpdate::class, 'json', $context));
         }
-        elseif (\array_key_exists('credentials', $data) && $data['credentials'] === null) {
-            $object->setCredentials(null);
+        elseif (\array_key_exists('destination', $data) && $data['destination'] === null) {
+            $object->setDestination(null);
         }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
@@ -98,8 +98,8 @@ class WebhookEndpointUpdateNormalizer implements DenormalizerInterface, Normaliz
             }
             $dataArray['events'] = $values;
         }
-        if ($data->isInitialized('credentials') && null !== $data->getCredentials()) {
-            $dataArray['credentials'] = $this->normalizer->normalize($data->getCredentials(), 'json', $context);
+        if ($data->isInitialized('destination') && null !== $data->getDestination()) {
+            $dataArray['destination'] = $this->normalizer->normalize($data->getDestination(), 'json', $context);
         }
         if ($data->isInitialized('status') && null !== $data->getStatus()) {
             $dataArray['status'] = $data->getStatus();

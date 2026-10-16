@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What became of one field in a `settings_update`. WhatsApp applies each field separately, so a single update can leave some applied and others refused.
+ */
 class WhatsAppGroupOperationResult
 {
     /**

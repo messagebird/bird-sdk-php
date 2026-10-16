@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound counts and latency percentiles for a single failure reason over the requested period.
+ */
 class AMBErrorCodeStatsPoint
 {
     /**

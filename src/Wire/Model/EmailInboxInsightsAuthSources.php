@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Every system observed sending as this domain, with how each authenticates. This is the table that shows who else sends under the domain's name.
+ */
 class EmailInboxInsightsAuthSources
 {
     /**

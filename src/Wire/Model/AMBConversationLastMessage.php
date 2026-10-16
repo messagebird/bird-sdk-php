@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A reference to the most recent message in either direction. Read its content through the conversation's message list.
+ */
 class AMBConversationLastMessage extends \ArrayObject
 {
     /**

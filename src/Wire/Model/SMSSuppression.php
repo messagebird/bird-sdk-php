@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One period during which a sender's messages to a subscriber are stopped: when it started, what started it, and what ended it. A subscriber who opts out, opts back in, and opts out again has three of these on record rather than one current state, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
+ */
 class SMSSuppression
 {
     /**

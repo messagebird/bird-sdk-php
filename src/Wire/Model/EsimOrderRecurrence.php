@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Buy the first package and enable automatic renewal in one purchase. Requires subscriber_id, offer_revision and Idempotency-Key. Omit esim_id and expected_price.
+ */
 class EsimOrderRecurrence
 {
     /**

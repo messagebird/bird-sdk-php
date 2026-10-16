@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Exact count of all audience members at the source evaluation instant, including contacts without email and unsubscribed contacts.
+ */
 class AudienceMembershipSummary
 {
     /**

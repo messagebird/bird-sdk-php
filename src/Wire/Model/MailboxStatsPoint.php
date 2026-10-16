@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics use the same delivery, engagement, and latency breakdowns as the email stats endpoints. `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and `null` latency percentiles.
+ */
 class MailboxStatsPoint
 {
     /**

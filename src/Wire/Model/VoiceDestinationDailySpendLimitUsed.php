@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Used toward today's limit for this country, including calls in progress. A call counts its expected cost when it starts; the part it did not use returns when it is billed. Null when today's usage cannot be read right now; the limit is still enforced.
+ */
 class VoiceDestinationDailySpendLimitUsed extends \ArrayObject
 {
     /**

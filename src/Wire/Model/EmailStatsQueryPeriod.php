@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Normalized half-open period. The response end is exclusive; replay the original inclusive request bounds when following cursors.
+ */
 class EmailStatsQueryPeriod
 {
     /**

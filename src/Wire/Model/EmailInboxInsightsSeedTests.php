@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The meta every Inbox Insights resource carries, whatever it measures, so one client adapter serves them all.
+ */
 class EmailInboxInsightsSeedTests extends \ArrayObject
 {
     /**

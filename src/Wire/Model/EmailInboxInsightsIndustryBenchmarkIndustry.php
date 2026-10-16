@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The industry a sending domain was classified into.
+ */
 class EmailInboxInsightsIndustryBenchmarkIndustry extends \ArrayObject
 {
     /**

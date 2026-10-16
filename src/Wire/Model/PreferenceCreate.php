@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Records one preference statement for a handle. Writing is an upsert by key (channel, handle, sender scope, and topic), and statements are causally ordered: a statement dated older than the key's current one is refused and returned with `applied: false` rather than applied out of order.
+ */
 class PreferenceCreate extends \ArrayObject
 {
     /**

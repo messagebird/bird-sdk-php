@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One email address on a shared contact card.
+ */
 class WhatsAppContactEmail
 {
     /**

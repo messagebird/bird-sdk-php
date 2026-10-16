@@ -58,9 +58,35 @@ class EmailBroadcastTemplateNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('version_id', $data) && $data['version_id'] === null) {
             $object->setVersionId(null);
         }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value;
+        if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameters'] as $key => $value) {
+                $values[$key] = $value;
+            }
+            $object->setParameters($values);
+            unset($data['parameters']);
+        }
+        elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
+            $object->setParameters(null);
+        }
+        if (\array_key_exists('parameter_overrides', $data) && $data['parameter_overrides'] !== null) {
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameter_overrides'] as $key_1 => $value_1) {
+                $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($value_1 as $key_2 => $value_2) {
+                    $values_2[$key_2] = $value_2;
+                }
+                $values_1[$key_1] = $values_2;
+            }
+            $object->setParameterOverrides($values_1);
+            unset($data['parameter_overrides']);
+        }
+        elseif (\array_key_exists('parameter_overrides', $data) && $data['parameter_overrides'] === null) {
+            $object->setParameterOverrides(null);
+        }
+        foreach ($data as $key_3 => $value_3) {
+            if (preg_match('/.*/', (string) $key_3)) {
+                $object[$key_3] = $value_3;
             }
         }
         return $object;
@@ -72,9 +98,27 @@ class EmailBroadcastTemplateNormalizer implements DenormalizerInterface, Normali
         if ($data->isInitialized('language')) {
             $dataArray['language'] = $data->getLanguage();
         }
-        foreach ($data as $key => $value) {
-            if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value;
+        if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
+            $values = [];
+            foreach ($data->getParameters() as $key => $value) {
+                $values[$key] = $value;
+            }
+            $dataArray['parameters'] = (object) $values;
+        }
+        if ($data->isInitialized('parameterOverrides') && null !== $data->getParameterOverrides()) {
+            $values_1 = [];
+            foreach ($data->getParameterOverrides() as $key_1 => $value_1) {
+                $values_2 = [];
+                foreach ($value_1 as $key_2 => $value_2) {
+                    $values_2[$key_2] = $value_2;
+                }
+                $values_1[$key_1] = (object) $values_2;
+            }
+            $dataArray['parameter_overrides'] = (object) $values_1;
+        }
+        foreach ($data as $key_3 => $value_3) {
+            if (preg_match('/.*/', (string) $key_3)) {
+                $dataArray[$key_3] = $value_3;
             }
         }
         return $dataArray;

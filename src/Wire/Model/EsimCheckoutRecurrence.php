@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * When available is true, quote contains the recurring terms and unavailable_reason is null. Otherwise quote is null and unavailable_reason explains why renewal is unavailable.
+ */
 class EsimCheckoutRecurrence
 {
     /**

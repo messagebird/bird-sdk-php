@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Published purchase terms. Renewal availability is a preview and does not reserve stock.
+ */
 class EsimCheckoutOptions
 {
     /**

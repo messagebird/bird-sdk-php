@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One point in a breakdown row's trend series: the headline delivery and engagement rates for that row's dimension value over a single day or hour. Returned only when `include_trend=true`. The bucket grain (day or hour) follows the `trend_grain` parameter. Counts and rates are approximate at scale.
+ */
 class EmailStatsSeriesPoint
 {
     /**

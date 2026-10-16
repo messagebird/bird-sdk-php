@@ -2,6 +2,15 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Where your sending sits against the brands you watch, over the same period as the
+ * rows.
+ * 
+ * Every figure here is derived from those rows rather than measured separately, so
+ * the two always agree. As on a row, each is present and `null` when the rows cannot
+ * support it: the peer medians need at least one watched brand the panel reported
+ * on, and the share figures need sending of your own to compare.
+ */
 class EmailCompetitiveWatchlistSummary
 {
     /**

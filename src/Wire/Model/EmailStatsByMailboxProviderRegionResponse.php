@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Per-(mailbox provider, provider region) breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and paginated with the requested `limit` (default 50, max 200).
+ */
 class EmailStatsByMailboxProviderRegionResponse
 {
     /**

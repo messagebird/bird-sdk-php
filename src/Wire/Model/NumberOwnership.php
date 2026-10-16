@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Ownership paperwork and registration approval progress for this number. Reported when ownership requirements or a recorded ownership block or decision apply. If requirements or progress cannot be read, a recorded block or decision preserves this object; without either, the object is absent. Other sending requirements can apply even when ownership is approved.
+ */
 class NumberOwnership extends \ArrayObject
 {
     /**

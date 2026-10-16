@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Lifecycle counts, rates, and engagement for one business phone number over the requested period, including whether the number is shared.
+ */
 class WhatsAppPhoneNumberStatsPoint
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One period during which an address is suppressed: when it started and, once it is over, what ended it. An address suppressed, ended and suppressed again has two of these on record rather than one current state. The list returns the periods in force; fetch one by ID to read one that has ended.
+ */
 class WhatsAppSuppression
 {
     /**

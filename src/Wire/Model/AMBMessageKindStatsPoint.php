@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Outbound counts and latency percentiles for a single message content kind over the requested period.
+ */
 class AMBMessageKindStatsPoint
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One button on an interactive message or on a carousel card. `type` names the kind and the field that carries it, so a button kind WhatsApp adds later arrives as another `type` here rather than as a new shape somewhere else.
+ */
 class WhatsAppInteractiveButtonSend
 {
     /**

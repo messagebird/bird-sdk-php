@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Attachment metadata on a conversation message. Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
+ */
 class EmailThreadMessageAttachment
 {
     /**

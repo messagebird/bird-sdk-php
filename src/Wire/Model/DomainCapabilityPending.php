@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+ */
 class DomainCapabilityPending
 {
     /**

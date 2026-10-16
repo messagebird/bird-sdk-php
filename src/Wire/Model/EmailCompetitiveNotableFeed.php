@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Campaigns worth a second look across the brands a workspace watches.
+ */
 class EmailCompetitiveNotableFeed
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The principal that owns the mailbox. Always the workspace.
+ */
 class MailboxOwner
 {
     /**

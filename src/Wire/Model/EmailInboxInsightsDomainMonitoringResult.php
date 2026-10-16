@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * What switching on the workspace's main sending domain did. There are four outcomes, because each one leaves the customer somewhere different: one domain is now reporting, one already was, we could not tell which domain is the main one, or there is no verified domain to report on at all.
+ */
 class EmailInboxInsightsDomainMonitoringResult
 {
     /**

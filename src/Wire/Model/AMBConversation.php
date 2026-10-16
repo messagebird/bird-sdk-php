@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A conversation between your business and one customer on Apple Messages for Business. It holds the customer's device capabilities, the console's read state, assignment, and labels, and the routing queue the conversation is in.
+ */
 class AMBConversation
 {
     /**

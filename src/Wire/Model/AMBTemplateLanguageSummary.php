@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language of an Apple Messages template version without its content.
+ */
 class AMBTemplateLanguageSummary
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A file in the workspace's media library, hosted at a permanent public URL. Embed or link `url` anywhere hosted media is needed, including in email that has already been sent: an asset's bytes and URL never change.
+ */
 class Asset extends \ArrayObject
 {
     /**

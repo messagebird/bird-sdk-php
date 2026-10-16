@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * First successful membership observation for a UTC date. Both total and observed_at are null when no retained observation exists; a successful empty audience has total zero.
+ */
 class AudienceMembershipStatisticsPoint
 {
     /**

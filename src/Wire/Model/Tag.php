@@ -2,6 +2,13 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Structured key/value label attached to a message or a call. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID); they surface in the list filter of whatever carries them.
+ * 
+ * On a message they also surface in the event log and in webhook payloads, and a message can carry `metadata` beside them for arbitrary per-send context that does not need to be filterable. A call has none of those three: its tags are set on the wire when the call is placed, and the call record is the one place you read them back.
+ * 
+ * Whatever carries the tags defines how many it may have. Tag names are unique: a send that repeats one is rejected, and on a call the first instance of a name wins.
+ */
 class Tag
 {
     /**

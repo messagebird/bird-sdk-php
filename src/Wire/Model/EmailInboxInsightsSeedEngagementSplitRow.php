@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How one provider treated engaged seeds against dormant ones. A gap means the provider is sorting the same mail differently by how the recipient behaves.
+ */
 class EmailInboxInsightsSeedEngagementSplitRow
 {
     /**

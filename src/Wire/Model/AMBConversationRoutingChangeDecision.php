@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Settles the conversation's pending `routing_change`. `message_id` names the change you reviewed: the request fails with `409` when the pending change has a different message ID, because a newer customer message replaced it or a teammate already settled it. Either action clears `routing_change`.
+ */
 class AMBConversationRoutingChangeDecision
 {
     /**

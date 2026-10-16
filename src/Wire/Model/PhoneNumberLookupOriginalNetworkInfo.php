@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The network a number belongs to.
+ */
 class PhoneNumberLookupOriginalNetworkInfo extends \ArrayObject
 {
     /**

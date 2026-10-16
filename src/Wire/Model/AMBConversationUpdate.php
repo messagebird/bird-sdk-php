@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Assignment, labels, inbox status, queue, routing change and workspace read state. Omit a field to leave it unchanged. Inbox status is independent of the Apple channel's open or closed state. `queue` moves the conversation and clears any pending `routing_change`; it can be combined with a `dismiss` decision but not with `apply`, which sets the queue itself.
+ */
 class AMBConversationUpdate extends \ArrayObject
 {
     /**

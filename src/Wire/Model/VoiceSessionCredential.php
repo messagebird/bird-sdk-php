@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A short-lived SIP digest credential for a calling client. The `password` is returned once and cannot be recovered. Create a new credential if you lose it.
+ */
 class VoiceSessionCredential
 {
     /**

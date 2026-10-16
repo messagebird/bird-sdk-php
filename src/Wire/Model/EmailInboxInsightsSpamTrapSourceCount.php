@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Trap hits attributed to one trap network.
+ */
 class EmailInboxInsightsSpamTrapSourceCount
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language of a version without its content. Fetch the language itself for the content.
+ */
 class WhatsAppTemplateLanguageSummary
 {
     /**

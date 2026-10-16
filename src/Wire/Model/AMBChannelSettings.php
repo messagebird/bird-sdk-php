@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A business's entry points, default locale, and landing-page brand settings. OpenID Connect providers use separate business authentication provider operations. Apple Pay merchant settings use the separate business Apple Pay configuration operations. Supply custom iMessage app metadata on each message.
+ */
 class AMBChannelSettings
 {
     /**

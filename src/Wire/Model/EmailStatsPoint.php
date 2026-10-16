@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Aggregate stats for one time bucket (a calendar day or hour, per the requested grain, in the requested `timezone` or UTC by default), bucketed by event time. Buckets with no activity are included with zero counts and null latency percentiles, so the series charts continuously without client-side gap handling.
+ */
 class EmailStatsPoint
 {
     /**

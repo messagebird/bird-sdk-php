@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Routing from the customer's latest message that names a different group or intent than the conversation's current `routing`. `message_id` is that inbound message and `received_at` is when it arrived. Routing rules select its queue when the message arrives, but the conversation keeps its current queue until you apply the change.
+ */
 class AMBConversationRoutingChange extends \ArrayObject
 {
     /**

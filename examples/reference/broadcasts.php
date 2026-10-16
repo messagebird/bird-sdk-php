@@ -16,6 +16,7 @@ $broadcast = $bird->broadcasts->create(
     from: 'newsletter@example.com',
     audienceId: 'adn_01krdgeqcxet5s7t44vh8rt9mg',
     template: 'emt_01krdgeqcxet5s7t44vh8rt9mg',
+    parameters: ['title' => 'Welcome', 'offer' => 'OCTOBER20', 'discount' => 20, 'featured' => false],
 );
 echo $broadcast->getId(), ' ', $broadcast->getStatus(); // "eb_…" "draft"
 
@@ -24,7 +25,7 @@ echo $broadcast->getStatus(), ' ', $broadcast->getSentCount(), ' ', $broadcast->
 
 $broadcast = $bird->broadcasts->update(
     'eb_01krdgeqcxet5s7t44vh8rt9mg',
-    ['template' => ['id' => 'emt_01krdgeqcxet5s7t44vh8rt9mg']],
+    ['template' => ['id' => 'emt_01krdgeqcxet5s7t44vh8rt9mg', 'parameters' => new \stdClass()]],
 );
 echo $broadcast->getStatus();
 
@@ -61,3 +62,19 @@ $links = $bird->broadcasts->listClickedLinks('eb_01krdgeqcxet5s7t44vh8rt9mg');
 foreach ($links->getData() ?? [] as $link) {
     echo $link->getUrl(), ' ', $link->getClickCount(), ' ', $link->getRecipientCount(), PHP_EOL;
 }
+
+$params = ['template' => ['parameters' => ['title' => 'Welcome', 'offer' => 'OCTOBER20', 'discount' => 20, 'featured' => false]]];
+$result = $bird->broadcasts->validate('eb_01krdgeqcxet5s7t44vh8rt9mg', $params);
+echo json_encode($result->getReadyForAdmission()), json_encode($result->getProblems());
+
+$params = ['template' => ['parameters' => ['title' => 'Welcome', 'offer' => 'OCTOBER20', 'discount' => 20, 'featured' => false]], 'contact_id' => 'con_01krdgeqcxet5s7t44vh8rt9mg'];
+$preview = $bird->broadcasts->preview('eb_01krdgeqcxet5s7t44vh8rt9mg', $params);
+echo $preview->getSubject(), ' ', $preview->getPreviewFingerprint();
+
+$params = ['template' => ['parameters' => ['title' => 'Welcome', 'offer' => 'OCTOBER20', 'discount' => 20, 'featured' => false]], 'contact_id' => 'con_01krdgeqcxet5s7t44vh8rt9mg'];
+$preview = $bird->broadcasts->preview('eb_01krdgeqcxet5s7t44vh8rt9mg', $params);
+$accepted = $bird->broadcasts->test('eb_01krdgeqcxet5s7t44vh8rt9mg', $params + ['to' => 'member@example.com', 'preview_fingerprint' => $preview->getPreviewFingerprint()], new \MessageBird\RequestOptions(idempotencyKey: 'broadcast-preview-intent-1'));
+echo $accepted->getId(), ' ', $accepted->getStatus();
+
+$discovery = $bird->email->templates->parameters('emt_01krdgeqcxet5s7t44vh8rt9mg');
+echo json_encode($discovery->getParameters()), json_encode($discovery->getVariables());

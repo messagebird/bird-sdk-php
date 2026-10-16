@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Failure detail for a message that could not be delivered or was rejected.
+ */
 class SMSError
 {
     /**

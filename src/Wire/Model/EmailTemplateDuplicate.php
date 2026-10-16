@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Optional parameters when duplicating an email template. The body may be omitted entirely to accept the defaults.
+ */
 class EmailTemplateDuplicate
 {
     /**

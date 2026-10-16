@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The daily limit this workspace set for itself. Null when it uses the default.
+ */
 class VoiceDailySpendLimitWorkspaceLimit extends \ArrayObject
 {
     /**

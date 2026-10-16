@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One address an inbound call to this trunk is forwarded to, and how that peer wants the call's two numbers spelled. A trunk can have several, tried in priority order until one answers.
+ */
 class VoiceTrunkGateway extends \ArrayObject
 {
     /**

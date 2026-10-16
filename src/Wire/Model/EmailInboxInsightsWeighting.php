@@ -2,6 +2,14 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How the placement figures in this response were weighted, so a number is
+ * self-describing wherever it is quoted or screenshotted.
+ * 
+ * Placement rates are a weighted average of per-provider rates against an
+ * audience mix (the share of recipients expected at each mailbox provider)
+ * rather than a share of delivered volume.
+ */
 class EmailInboxInsightsWeighting
 {
     /**

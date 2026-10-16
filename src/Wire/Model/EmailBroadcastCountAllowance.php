@@ -2,6 +2,11 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The organization's broadcast count allowance for the current window. This counts broadcasts rather than emails. The window is the billing period, or the UTC day when no current billing period is available.
+ * 
+ * Sending or scheduling a draft uses one broadcast from the window current when you submit the request. The scheduled send time does not determine the window. Sending an already scheduled broadcast again uses no additional broadcast allowance. `send_at` on the send-quota request does not change this allowance.
+ */
 class EmailBroadcastCountAllowance
 {
     /**

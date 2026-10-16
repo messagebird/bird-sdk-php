@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The person assigned to one eSIM. Assignment grants no workspace membership or permission to read installation credentials.
+ */
 class EsimAssignment extends \ArrayObject
 {
     /**

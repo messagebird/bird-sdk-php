@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Stops one sender's messages to one subscriber. Both ends are required, because a suppression covers a sender-and-subscriber pair rather than a subscriber alone.
+ */
 class SMSSuppressionCreate
 {
     /**

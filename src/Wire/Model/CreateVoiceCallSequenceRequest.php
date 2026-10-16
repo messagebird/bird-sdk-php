@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+ */
 class CreateVoiceCallSequenceRequest
 {
     /**

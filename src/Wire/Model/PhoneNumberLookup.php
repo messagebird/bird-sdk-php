@@ -2,6 +2,18 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Information about a phone number.
+ * 
+ * The number, its flags, and its line type are included in the base lookup and
+ * are always present. The country and two networks are present when identified.
+ * Each property you request through `type` is returned in a block with the same
+ * name and its own `status`. A property you did not request is absent. A
+ * property that could not be answered is present with only its `status`. Each
+ * requested property is billed only when its status is `ok`.
+ * 
+ * Fields with no value are omitted rather than returned as `null`.
+ */
 class PhoneNumberLookup
 {
     /**

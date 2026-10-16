@@ -39,12 +39,12 @@ class WebhookEndpointUpdate
      */
     protected $events;
     /**
-     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     * Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
      * 
      *
-     * @var WebhookEndpointUpdateCredentials|null
+     * @var WebhookDestinationUpdate|null
      */
-    protected $credentials;
+    protected $destination;
     /**
      * `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
      * 
@@ -143,26 +143,26 @@ class WebhookEndpointUpdate
         return $this;
     }
     /**
-     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     * Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
      * 
      *
-     * @return WebhookEndpointUpdateCredentials|null
+     * @return WebhookDestinationUpdate|null
      */
-    public function getCredentials(): ?WebhookEndpointUpdateCredentials
+    public function getDestination(): ?WebhookDestinationUpdate
     {
-        return $this->credentials;
+        return $this->destination;
     }
     /**
-     * New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+     * Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
      *
-     * @param WebhookEndpointUpdateCredentials|null $credentials
+     * @param WebhookDestinationUpdate|null $destination
      *
      * @return self
      */
-    public function setCredentials(?WebhookEndpointUpdateCredentials $credentials): self
+    public function setDestination(?WebhookDestinationUpdate $destination): self
     {
-        $this->initialized['credentials'] = true;
-        $this->credentials = $credentials;
+        $this->initialized['destination'] = true;
+        $this->destination = $destination;
         return $this;
     }
     /**

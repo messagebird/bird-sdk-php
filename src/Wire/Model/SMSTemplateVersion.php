@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One SMS template version with its content. A workspace template keeps one editable draft and immutable published versions. A built-in template exposes its current catalogue content as one synthetic published version.
+ */
 class SMSTemplateVersion
 {
     /**

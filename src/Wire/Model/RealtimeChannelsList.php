@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The app's occupied channels. The Realtime service does not paginate this listing, so all occupied channels are returned in one response.
+ */
 class RealtimeChannelsList
 {
     /**

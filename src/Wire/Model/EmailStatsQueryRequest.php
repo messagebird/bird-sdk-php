@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Select email metrics for one workspace and one time window. Group-only fields require group_by; defaults apply after grouping is selected. Queries are limited to 20,000 series points, 1,000,000 selected metric cells including period rows, and a 4 MiB JSON response. Unsupported combinations or unavailable history return 422.
+ */
 class EmailStatsQueryRequest
 {
     /**

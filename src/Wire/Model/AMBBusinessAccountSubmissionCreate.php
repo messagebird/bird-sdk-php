@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The submission commits three distinct attachments uploaded to this workspace. `readiness_attachment_id` identifies the PDF business readiness assessment; `use_cases_attachment_id` identifies the PDF describing proposed customer use cases; `video_attachment_id` identifies the MP4 demonstration of the customer experience. Invalid or duplicate evidence returns 422.
+ */
 class AMBBusinessAccountSubmissionCreate
 {
     /**

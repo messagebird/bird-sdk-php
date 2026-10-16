@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The most recent mobile network the device attached to.
+ */
 class EsimLastAttachment extends \ArrayObject
 {
     /**

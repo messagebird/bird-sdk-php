@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The attachments on a conversation message.
+ */
 class EmailThreadMessageAttachmentList
 {
     /**

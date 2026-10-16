@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata, extracted text, and attachments for its retention tier. The body and raw MIME of each message remain available for 30 days.
+ */
 class Mailbox
 {
     /**

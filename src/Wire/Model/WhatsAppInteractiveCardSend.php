@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One card in a carousel: media at the top, optional text of its own, and the buttons under it. A card has no footer, and its position in `cards` is the position it appears in.
+ */
 class WhatsAppInteractiveCardSend
 {
     /**

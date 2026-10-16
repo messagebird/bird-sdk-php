@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One version of a template, without its content. A version holds a full copy of every language it was submitted with. Listing versions therefore names the languages and what became of each without carrying their content. Read a single version for its content. Read its shallow language collection for content hashes.
+ */
 class WhatsAppTemplateVersionSummary
 {
     /**

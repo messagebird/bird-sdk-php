@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One language's full SMS template text and revision metadata.
+ */
 class SMSTemplateLanguage
 {
     /**

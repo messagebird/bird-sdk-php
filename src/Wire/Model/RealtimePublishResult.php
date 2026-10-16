@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The result of a Realtime publish. The event was accepted and fanned out to the requested channels; delivery to connected clients is asynchronous.
+ */
 class RealtimePublishResult
 {
     /**

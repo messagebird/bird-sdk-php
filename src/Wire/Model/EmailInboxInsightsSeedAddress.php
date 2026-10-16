@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One seed address to include in the tested send.
+ */
 class EmailInboxInsightsSeedAddress
 {
     /**

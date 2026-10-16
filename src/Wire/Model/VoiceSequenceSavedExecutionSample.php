@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Saved hypothetical values, which may be stale or incomplete in meaning. Each string is nonempty and limited to 128 bytes. Explicit preview and evaluation require valid typed identifiers and a timestamp.
+ */
 class VoiceSequenceSavedExecutionSample
 {
     /**

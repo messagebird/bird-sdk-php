@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Reported balance across packages in one coverage zone. Zones can overlap; check each package’s countries before using these totals to estimate allowance for a destination. The mobile network selects which eligible package serves a connection.
+ */
 class EsimZoneBalance
 {
     /**

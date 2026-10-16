@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The hour of the day a brand sends most of its mail in.
+ */
 class EmailCompetitiveSendTimeGridPeakSendWindow extends \ArrayObject
 {
     /**

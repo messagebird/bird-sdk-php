@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An email message, including a recipient's copy of a broadcast. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
+ */
 class EmailMessage
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An event addressed to one member rather than to a channel. Every connection that member currently holds receives it; if they hold none, the event is dropped.
+ */
 class RealtimeMemberPublish
 {
     /**

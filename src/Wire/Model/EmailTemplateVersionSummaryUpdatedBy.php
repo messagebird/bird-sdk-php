@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Who last saved this version: a member's own session, an OAuth token delegated from one, or a workspace API key. Publishing freezes a version, so on a published one this is whoever published it. Null means no actor is on record: a built-in template, which is code-defined rather than stored, or a version last saved by an API key before this field existed. Every other version has one, even when its display_name could not be resolved (a member whose account is gone, say).
+ */
 class EmailTemplateVersionSummaryUpdatedBy extends \ArrayObject
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A message pinned at the top of a group's chat.
+ */
 class WhatsAppGroupPinnedMessage
 {
     /**

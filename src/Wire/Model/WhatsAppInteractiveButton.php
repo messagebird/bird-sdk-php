@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One button the message offered. The field named by `type` is the one that is present. As on the message itself, the read vocabulary is open: dispatch on `type` and treat an unrecognized value as a button kind added since.
+ */
 class WhatsAppInteractiveButton
 {
     /**

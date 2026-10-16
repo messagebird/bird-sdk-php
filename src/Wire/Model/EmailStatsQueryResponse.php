@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Selected email metrics with normalized bounds. Ungrouped requests return one group and null cursors, including empty windows. Grouped requests without observed groups return an empty data array. Live page reads can reflect new events or changed ranking.
+ */
 class EmailStatsQueryResponse
 {
     /**

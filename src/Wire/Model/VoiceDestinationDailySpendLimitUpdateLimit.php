@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The daily spend limit for calls to this country, in your organization's wallet currency, from zero up to the workspace's `max_limit` in Voice settings, with at most six decimal places. Setting an amount needs an organization wallet; removing one does not. Null removes it, so only the workspace's daily limit applies.
+ */
 class VoiceDestinationDailySpendLimitUpdateLimit extends \ArrayObject
 {
     /**

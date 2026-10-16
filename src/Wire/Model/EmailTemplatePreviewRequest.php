@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Sample values and options for rendering a template preview. Omit the body entirely to preview the current draft: `bird.contact.` tokens then fill from stand-in values, and a parameter you give no value for renders as empty.
+ */
 class EmailTemplatePreviewRequest
 {
     /**

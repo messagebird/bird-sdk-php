@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Volume over time for the requested watched brands, plus your own sending, on one shared daily axis.
+ */
 class EmailCompetitiveVolumeSeries
 {
     /**

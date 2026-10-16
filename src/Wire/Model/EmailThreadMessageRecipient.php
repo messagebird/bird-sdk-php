@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One recipient's terminal delivery outcome on a sent conversation message, recorded once the outcome becomes known.
+ */
 class EmailThreadMessageRecipient
 {
     /**

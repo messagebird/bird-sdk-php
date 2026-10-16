@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Conversation lifecycle counts for the requested scope, attributed to when each event occurred. A conversation can start, reopen, and close more than once over its life, so `started`, `reopened`, and `closed` can each exceed `conversations`, the number of distinct conversations touched in scope. Very large counts are close estimates rather than exact tallies.
+ */
 class AMBConversationStatsCounts
 {
     /**

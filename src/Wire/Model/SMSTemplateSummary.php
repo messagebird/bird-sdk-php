@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * An SMS template without content or draft concurrency settings.
+ */
 class SMSTemplateSummary
 {
     /**

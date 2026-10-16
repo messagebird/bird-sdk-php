@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The values that fill one card of a carousel. Cards fill in the order the template was approved with, so send one entry per card and keep them in that order.
+ */
 class WhatsAppMessageTemplateCard
 {
     /**

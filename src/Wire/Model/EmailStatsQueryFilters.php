@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Predicates on the context recorded for each event. Dimensions combine with AND. Unsupported metric and dimension combinations return 422, including for an empty workspace.
+ */
 class EmailStatsQueryFilters
 {
     /**

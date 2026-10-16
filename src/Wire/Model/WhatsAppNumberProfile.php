@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The business profile WhatsApp shows to people this number messages. It is read from WhatsApp on each request rather than from a stored copy, so it is always current and a WhatsApp outage makes it briefly unavailable.
+ */
 class WhatsAppNumberProfile
 {
     /**

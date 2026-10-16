@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * A notification you sent the agent about one contact, and what came of it. The agent decides whether to write to the contact about it; that message, if any, shows up on the contact's conversation.
+ */
 class WhatsAppAgentNotification
 {
     /**

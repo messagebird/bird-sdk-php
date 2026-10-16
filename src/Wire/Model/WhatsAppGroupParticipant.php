@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Someone who joined the group. The business number that created the group is its admin and is not listed.
+ */
 class WhatsAppGroupParticipant
 {
     /**

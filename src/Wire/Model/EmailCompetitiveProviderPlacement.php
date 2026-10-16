@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * How one mailbox provider treated a brand's mail, beside your own.
+ */
 class EmailCompetitiveProviderPlacement
 {
     /**

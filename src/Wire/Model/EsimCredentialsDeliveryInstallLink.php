@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Non-secret link details for identifying and revoking a delivered installation link. Contains no token or installation credentials.
+ */
 class EsimCredentialsDeliveryInstallLink extends \ArrayObject
 {
     /**

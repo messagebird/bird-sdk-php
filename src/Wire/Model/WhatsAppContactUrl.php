@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One website on a shared contact card.
+ */
 class WhatsAppContactUrl
 {
     /**

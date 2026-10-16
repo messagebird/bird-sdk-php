@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * SMS lifecycle counts for one time bucket (a calendar day or hour), bucketed by send time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. Per-bucket values include counts only. The summary and breakdown endpoints report rates and latency as whole-window aggregates.
+ */
 class SMSStatsPoint
 {
     /**

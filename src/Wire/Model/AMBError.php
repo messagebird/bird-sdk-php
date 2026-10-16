@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Failure detail for a message or invitation that could not be sent or was rejected.
+ */
 class AMBError
 {
     /**

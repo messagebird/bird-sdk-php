@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Identification guidance for the countries covered by the offer. You collect and validate the information; this response does not verify a person or authorize a purchase.
+ */
 class EsimOfferRequirements
 {
     /**
