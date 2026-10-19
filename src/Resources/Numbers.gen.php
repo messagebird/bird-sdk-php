@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\NumberUpdate;
 class NumbersBase extends Resource
 {
     /**
-     * Pages the numbers allocated to the workspace, dedicated and shared alike. Narrows on country, type, prefix and capability, so one number is reached without walking every page.
+     * Pages the numbers allocated to the workspace, dedicated and shared alike, each with its `pricing` for your organization: `null` for a shared number or, when the price read succeeds, one with no live subscription, and `error` set with null prices when it fails. Narrows on country, type, prefix and capability, so one number is reached without walking every page.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -24,7 +24,6 @@ class NumbersBase extends Resource
      * @example List the numbers allocated to you
      * $page = $bird->numbers->list(['country_code' => 'GB']);
      * foreach ($page as $allocated) {
-     *     // kind distinguishes a number you bought from one Bird manages.
      *     echo $allocated->getNumber(), ' ', $allocated->getKind(), ' ', $allocated->getStatus(), "\n";
      * }
      */
@@ -47,7 +46,7 @@ class NumbersBase extends Resource
     }
 
     /**
-     * Reads one allocated number by the id `numbers.list` returns. Carries its status and, where a country demands ownership paperwork, what is still outstanding on it.
+     * Reads one allocated number by the id `numbers.list` returns. Carries its status, its `pricing` for your organization (`null` for a shared number or, when the price read succeeds, one with no live subscription; `error` set with null prices when it fails) and, where a country demands ownership paperwork, what is still outstanding on it.
      *
      * @example Read one number allocated to you
      * $allocated = $bird->numbers->get('nda_01krdgeqcxet5s7t44vh8rt9mg');
@@ -75,10 +74,10 @@ class NumbersBase extends Resource
     }
 
     /**
-     * Gives a dedicated number back now and stops its monthly charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
+     * Gives a dedicated number back now and stops its recurring charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
      *
      * @example Give a dedicated number back
-     * // Releasing stops the monthly charge and the number stops working for you.
+     * // Releasing stops the recurring charge and the number stops working for you.
      * // Only a dedicated number can be released; a shared one answers E14002.
      * $bird->numbers->release('nda_01krdgeqcxet5s7t44vh8rt9mg');
      */

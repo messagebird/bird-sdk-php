@@ -119,6 +119,12 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         elseif (\array_key_exists('ownership', $data) && $data['ownership'] === null) {
             $object->setOwnership(null);
         }
+        if (\array_key_exists('pricing', $data) && $data['pricing'] !== null) {
+            $object->setPricing($this->denormalizer->denormalize($data['pricing'], \MessageBird\Wire\Model\NumberPricing::class, 'json', $context));
+        }
+        elseif (\array_key_exists('pricing', $data) && $data['pricing'] === null) {
+            $object->setPricing(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -143,6 +149,7 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if ($data->isInitialized('ownership')) {
             $dataArray['ownership'] = $this->normalizer->normalize($data->getOwnership(), 'json', $context);
         }
+        $dataArray['pricing'] = $this->normalizer->normalize($data->getPricing(), 'json', $context);
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

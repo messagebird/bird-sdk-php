@@ -1736,9 +1736,25 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
 
+        \MessageBird\Wire\Model\NumberPricing::class => \MessageBird\Wire\Normalizer\NumberPricingNormalizer::class,
+
+        \MessageBird\Wire\Model\NumberPricingRecurringPrice::class => \MessageBird\Wire\Normalizer\NumberPricingRecurringPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\NumberPricingRecurringPeriod::class => \MessageBird\Wire\Normalizer\NumberPricingRecurringPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\NumberPricingError::class => \MessageBird\Wire\Normalizer\NumberPricingErrorNormalizer::class,
+
         \MessageBird\Wire\Model\Number::class => \MessageBird\Wire\Normalizer\NumberNormalizer::class,
 
         \MessageBird\Wire\Model\NumberList::class => \MessageBird\Wire\Normalizer\NumberListNormalizer::class,
+
+        \MessageBird\Wire\Model\AvailableNumberPricing::class => \MessageBird\Wire\Normalizer\AvailableNumberPricingNormalizer::class,
+
+        \MessageBird\Wire\Model\AvailableNumberPricingSetupPrice::class => \MessageBird\Wire\Normalizer\AvailableNumberPricingSetupPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\AvailableNumberPricingRecurringPrice::class => \MessageBird\Wire\Normalizer\AvailableNumberPricingRecurringPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\AvailableNumberPricingRecurringPeriod::class => \MessageBird\Wire\Normalizer\AvailableNumberPricingRecurringPeriodNormalizer::class,
 
         \MessageBird\Wire\Model\AvailableNumber::class => \MessageBird\Wire\Normalizer\AvailableNumberNormalizer::class,
 
@@ -2015,6 +2031,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => \MessageBird\Wire\Normalizer\EmailHealthSignalThresholdsWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class => \MessageBird\Wire\Normalizer\AvailableNumberPricingWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EsimPackageBalanceWrapper::class => \MessageBird\Wire\Normalizer\EsimPackageBalanceWrapperNormalizer::class,
 
@@ -2917,8 +2935,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceLeg::class => false,
             \MessageBird\Wire\Model\VoiceLegActor::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
+            \MessageBird\Wire\Model\NumberPricing::class => false,
+            \MessageBird\Wire\Model\NumberPricingRecurringPrice::class => false,
+            \MessageBird\Wire\Model\NumberPricingRecurringPeriod::class => false,
+            \MessageBird\Wire\Model\NumberPricingError::class => false,
             \MessageBird\Wire\Model\Number::class => false,
             \MessageBird\Wire\Model\NumberList::class => false,
+            \MessageBird\Wire\Model\AvailableNumberPricing::class => false,
+            \MessageBird\Wire\Model\AvailableNumberPricingSetupPrice::class => false,
+            \MessageBird\Wire\Model\AvailableNumberPricingRecurringPrice::class => false,
+            \MessageBird\Wire\Model\AvailableNumberPricingRecurringPeriod::class => false,
             \MessageBird\Wire\Model\AvailableNumber::class => false,
             \MessageBird\Wire\Model\AvailableNumberList::class => false,
             \MessageBird\Wire\Model\NumbersOrder::class => false,
@@ -3057,6 +3083,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => false,
             \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => false,
+            \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class => false,
             \MessageBird\Wire\Model\EsimPackageBalanceWrapper::class => false,
             \MessageBird\Wire\Model\EsimInstallationWrapper::class => false,
             \Jane\Component\JsonSchemaRuntime\Reference::class => false,

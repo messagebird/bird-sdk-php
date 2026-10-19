@@ -80,6 +80,12 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('ownership_address_scope', $data) && $data['ownership_address_scope'] === null) {
             $object->setOwnershipAddressScope(null);
         }
+        if (\array_key_exists('pricing', $data) && $data['pricing'] !== null) {
+            $object->setPricing($this->denormalizer->denormalize($data['pricing'], \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class, 'json', $context));
+        }
+        elseif (\array_key_exists('pricing', $data) && $data['pricing'] === null) {
+            $object->setPricing(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -96,6 +102,9 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray['ownership_registration_required'] = $data->getOwnershipRegistrationRequired();
         if ($data->isInitialized('ownershipAddressScope') && null !== $data->getOwnershipAddressScope()) {
             $dataArray['ownership_address_scope'] = $data->getOwnershipAddressScope();
+        }
+        if ($data->isInitialized('pricing') && null !== $data->getPricing()) {
+            $dataArray['pricing'] = $this->normalizer->normalize($data->getPricing(), 'json', $context);
         }
         return $dataArray;
     }

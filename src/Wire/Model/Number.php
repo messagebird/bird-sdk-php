@@ -102,6 +102,12 @@ class Number
      */
     protected $ownership;
     /**
+     * What your organization pays for this number. `null` for a `shared` number, and, when the price was read, for a number with no live subscription. Otherwise its prices are `null` when no price applies. When the price could not be read, every dedicated number carries this object with `error` set, whether or not it has a live subscription.
+     *
+     * @var NumberPricing|null
+     */
+    protected $pricing;
+    /**
      * The name you gave this number in your workspace. Null when no name is set.
      *
      * @return string|null
@@ -406,6 +412,28 @@ class Number
     {
         $this->initialized['ownership'] = true;
         $this->ownership = $ownership;
+        return $this;
+    }
+    /**
+     * What your organization pays for this number. `null` for a `shared` number, and, when the price was read, for a number with no live subscription. Otherwise its prices are `null` when no price applies. When the price could not be read, every dedicated number carries this object with `error` set, whether or not it has a live subscription.
+     *
+     * @return NumberPricing|null
+     */
+    public function getPricing(): ?NumberPricing
+    {
+        return $this->pricing;
+    }
+    /**
+     * What your organization pays for this number. `null` for a `shared` number, and, when the price was read, for a number with no live subscription. Otherwise its prices are `null` when no price applies. When the price could not be read, every dedicated number carries this object with `error` set, whether or not it has a live subscription.
+     *
+     * @param NumberPricing|null $pricing
+     *
+     * @return self
+     */
+    public function setPricing(?NumberPricing $pricing): self
+    {
+        $this->initialized['pricing'] = true;
+        $this->pricing = $pricing;
         return $this;
     }
 }

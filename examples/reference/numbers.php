@@ -49,7 +49,6 @@ foreach ($page as $order) {
 
 $page = $bird->numbers->list(['country_code' => 'GB']);
 foreach ($page as $allocated) {
-    // kind distinguishes a number you bought from one Bird manages.
     echo $allocated->getNumber(), ' ', $allocated->getKind(), ' ', $allocated->getStatus(), "\n";
 }
 
@@ -57,7 +56,7 @@ $allocated = $bird->numbers->get('nda_01krdgeqcxet5s7t44vh8rt9mg');
 // A country that asks for ownership paperwork answers here; most answer null.
 echo $allocated->getStatus(), "\n";
 
-// Releasing stops the monthly charge and the number stops working for you.
+// Releasing stops the recurring charge and the number stops working for you.
 // Only a dedicated number can be released; a shared one answers E14002.
 $bird->numbers->release('nda_01krdgeqcxet5s7t44vh8rt9mg');
 

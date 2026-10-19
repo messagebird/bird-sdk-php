@@ -37,7 +37,7 @@ class AvailableNumber
      */
     protected $capabilities;
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @var bool|null
      */
@@ -57,6 +57,12 @@ class AvailableNumber
      * @var string|null
      */
     protected $ownershipAddressScope;
+    /**
+     * What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
+     *
+     * @var AvailableNumberPricingWrapper|null
+     */
+    protected $pricing;
     /**
      * Phone number in E.164 format.
      *
@@ -146,7 +152,7 @@ class AvailableNumber
         return $this;
     }
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @return bool|null
      */
@@ -155,7 +161,7 @@ class AvailableNumber
         return $this->ownershipRegistrationRequired;
     }
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @param bool|null $ownershipRegistrationRequired
      *
@@ -205,6 +211,28 @@ class AvailableNumber
     {
         $this->initialized['ownershipAddressScope'] = true;
         $this->ownershipAddressScope = $ownershipAddressScope;
+        return $this;
+    }
+    /**
+     * What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
+     *
+     * @return AvailableNumberPricingWrapper|null
+     */
+    public function getPricing(): ?AvailableNumberPricingWrapper
+    {
+        return $this->pricing;
+    }
+    /**
+     * What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
+     *
+     * @param AvailableNumberPricingWrapper|AvailableNumberPricing|array|null $pricing
+     *
+     * @return self
+     */
+    public function setPricing($pricing): self
+    {
+        $this->initialized['pricing'] = true;
+        $this->pricing = \MessageBird\Core\ModelWrapper::normalize($pricing, AvailableNumberPricingWrapper::class);
         return $this;
     }
 }
