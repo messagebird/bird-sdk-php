@@ -6,6 +6,7 @@ namespace MessageBird\Exception;
 
 use MessageBird\Core\Serializer;
 use MessageBird\Wire\Model\NextAction;
+use MessageBird\Wire\Model\QuotaErrorContext;
 
 /**
  * An error the API returned. The error `type` is read from the response body,
@@ -22,6 +23,9 @@ final class ApiException extends BirdException
      *                                     Read `getKind()` before `getOperation()`: only an
      *                                     `operation` step carries one, and a kind this
      *                                     version does not know is display-only.
+     * @param QuotaErrorContext|null $quota the quota limit that refused a resource change;
+     *                                     null unless a quota refused the request. Its scope
+     *                                     is `organization` or `workspace`.
      */
     public function __construct(
         string $message,
@@ -31,6 +35,7 @@ final class ApiException extends BirdException
         public readonly ?string $errorCode = null,
         public readonly ?string $remediation = null,
         public readonly array $next = [],
+        public readonly ?QuotaErrorContext $quota = null,
     ) {
         parent::__construct($message);
     }
@@ -42,6 +47,7 @@ final class ApiException extends BirdException
         $message = "HTTP {$status}";
         $remediation = null;
         $next = [];
+        $quota = null;
 
         $decoded = json_decode($body, true);
         if (is_array($decoded) && isset($decoded['error']) && is_array($decoded['error'])) {
@@ -55,9 +61,32 @@ final class ApiException extends BirdException
 
             $serializer = new Serializer();
             $next = self::wireList($serializer, $error['next'] ?? null, NextAction::class);
+            $quota = self::wireObject($serializer, $error['quota'] ?? null, QuotaErrorContext::class);
         }
 
-        return new self($message, $status, $type, $errorCode, $remediation, $next);
+        return new self($message, $status, $type, $errorCode, $remediation, $next, $quota);
+    }
+
+    /**
+     * One nested wire object, typed the same way as wireList and dropped rather
+     * than raised when it does not denormalize.
+     *
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T|null
+     */
+    private static function wireObject(Serializer $serializer, mixed $raw, string $class): ?object
+    {
+        if (!is_array($raw)) {
+            return null;
+        }
+        try {
+            return $serializer->denormalize($raw, $class);
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     /**

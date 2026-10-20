@@ -84,6 +84,13 @@ class NumberPricingError extends \ArrayObject
      */
     protected $next;
     /**
+     * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+     * 
+     *
+     * @var QuotaErrorContext|null
+     */
+    protected $quota;
+    /**
      * Broad category for coarse client branching.
      *
      * @return string|null
@@ -325,6 +332,29 @@ class NumberPricingError extends \ArrayObject
     {
         $this->initialized['next'] = true;
         $this->next = $next;
+        return $this;
+    }
+    /**
+     * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+     * 
+     *
+     * @return QuotaErrorContext|null
+     */
+    public function getQuota(): ?QuotaErrorContext
+    {
+        return $this->quota;
+    }
+    /**
+     * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+     *
+     * @param QuotaErrorContext|null $quota
+     *
+     * @return self
+     */
+    public function setQuota(?QuotaErrorContext $quota): self
+    {
+        $this->initialized['quota'] = true;
+        $this->quota = $quota;
         return $this;
     }
 }

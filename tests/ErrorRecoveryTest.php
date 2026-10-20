@@ -23,6 +23,7 @@ final class ErrorRecoveryTest extends TestCase
         'message' => 'message',
         'remediation' => 'remediation',
         'next' => 'next',
+        'quota' => 'quota',
     ];
 
     /**
@@ -77,6 +78,17 @@ final class ErrorRecoveryTest extends TestCase
         foreach (self::NOT_YET_SURFACED as $field) {
             self::assertContains($field, $wire, "'{$field}' is not an ErrorBody field — drop it from NOT_YET_SURFACED");
         }
+    }
+
+    /** The refusing quota limit is read from the body and is absent when none was sent. */
+    public function testFromResponseSurfacesQuotaContext(): void
+    {
+        $refused = ApiException::fromResponse(422, '{"error":{"type":"validation_error","code":"E06009","message":"x","quota":{"quota_key":"webhook_subscriptions_max","scope":"workspace"}}}');
+        self::assertNotNull($refused->quota);
+        self::assertSame('webhook_subscriptions_max', $refused->quota->getQuotaKey());
+        self::assertSame('workspace', $refused->quota->getScope());
+
+        self::assertNull(ApiException::fromResponse(422, '{"error":{"type":"validation_error","code":"E06009","message":"x"}}')->quota);
     }
 
     public function testFromResponseSurfacesRecoverySteps(): void

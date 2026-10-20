@@ -111,6 +111,12 @@ class ErrorBodyNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('next', $data) && $data['next'] === null) {
             $object->setNext(null);
         }
+        if (\array_key_exists('quota', $data) && $data['quota'] !== null) {
+            $object->setQuota($this->denormalizer->denormalize($data['quota'], \MessageBird\Wire\Model\QuotaErrorContext::class, 'json', $context));
+        }
+        elseif (\array_key_exists('quota', $data) && $data['quota'] === null) {
+            $object->setQuota(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -144,6 +150,9 @@ class ErrorBodyNormalizer implements DenormalizerInterface, NormalizerInterface,
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['next'] = $values_1;
+        }
+        if ($data->isInitialized('quota') && null !== $data->getQuota()) {
+            $dataArray['quota'] = $this->normalizer->normalize($data->getQuota(), 'json', $context);
         }
         return $dataArray;
     }

@@ -122,6 +122,13 @@ class NumberPricingErrorNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('next', $data) && $data['next'] === null) {
             $object->setNext(null);
         }
+        if (\array_key_exists('quota', $data) && $data['quota'] !== null) {
+            $object->setQuota($this->denormalizer->denormalize($data['quota'], \MessageBird\Wire\Model\QuotaErrorContext::class, 'json', $context));
+            unset($data['quota']);
+        }
+        elseif (\array_key_exists('quota', $data) && $data['quota'] === null) {
+            $object->setQuota(null);
+        }
         foreach ($data as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value_2;
@@ -160,6 +167,9 @@ class NumberPricingErrorNormalizer implements DenormalizerInterface, NormalizerI
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['next'] = $values_1;
+        }
+        if ($data->isInitialized('quota') && null !== $data->getQuota()) {
+            $dataArray['quota'] = $this->normalizer->normalize($data->getQuota(), 'json', $context);
         }
         foreach ($data as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {

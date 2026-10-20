@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.80.1
+
+- Switching Inbox Insights on for a sending domain, by hand or for the main sending domain, now answers `412` with error code `E27009` when the measurement provider declines to measure that domain; retrying returns the same answer, so contact support with the domain name.
+
 ## 0.80.0
 
 - Add methods to upload a registration attachment, download an uploaded attachment, and download a blank registration form. A download returns the file's bytes with its content type and filename.

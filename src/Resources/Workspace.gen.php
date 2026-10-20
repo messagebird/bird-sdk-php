@@ -9,7 +9,7 @@ namespace MessageBird\Resources;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\Workspace;
 
-final class WorkspaceResource extends Resource
+class WorkspaceResourceBase extends Resource
 {
     /**
      * Fetch the current workspace's ID, name, and the ID of the organization owning it. This is the workspace the current credentials are scoped to.

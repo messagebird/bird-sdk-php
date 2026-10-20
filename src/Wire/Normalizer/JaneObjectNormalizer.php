@@ -22,6 +22,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NextAction::class => \MessageBird\Wire\Normalizer\NextActionNormalizer::class,
 
+        \MessageBird\Wire\Model\QuotaErrorContext::class => \MessageBird\Wire\Normalizer\QuotaErrorContextNormalizer::class,
+
         \MessageBird\Wire\Model\ErrorBody::class => \MessageBird\Wire\Normalizer\ErrorBodyNormalizer::class,
 
         \MessageBird\Wire\Model\Error::class => \MessageBird\Wire\Normalizer\ErrorNormalizer::class,
@@ -29,6 +31,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => \MessageBird\Wire\Normalizer\WorkspaceNotificationEmailsNormalizer::class,
 
         \MessageBird\Wire\Model\Workspace::class => \MessageBird\Wire\Normalizer\WorkspaceNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceQuotaUsage::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaUsageNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceQuota::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceQuotaWorkspaceLimit::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaWorkspaceLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceQuotaList::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaListNormalizer::class,
 
         \MessageBird\Wire\Model\RealtimePublish::class => \MessageBird\Wire\Normalizer\RealtimePublishNormalizer::class,
 
@@ -2150,10 +2160,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
             \MessageBird\Wire\Model\ErrorDetail::class => false,
             \MessageBird\Wire\Model\NextAction::class => false,
+            \MessageBird\Wire\Model\QuotaErrorContext::class => false,
             \MessageBird\Wire\Model\ErrorBody::class => false,
             \MessageBird\Wire\Model\Error::class => false,
             \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => false,
             \MessageBird\Wire\Model\Workspace::class => false,
+            \MessageBird\Wire\Model\WorkspaceQuotaUsage::class => false,
+            \MessageBird\Wire\Model\WorkspaceQuota::class => false,
+            \MessageBird\Wire\Model\WorkspaceQuotaWorkspaceLimit::class => false,
+            \MessageBird\Wire\Model\WorkspaceQuotaList::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
             \MessageBird\Wire\Model\RealtimeChannelListItem::class => false,
             \MessageBird\Wire\Model\RealtimePublishResult::class => false,
