@@ -135,6 +135,22 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->smsKeywordRules->create(...),
             $bird->smsKeywordRules->update(...),
             $bird->smsKeywordRules->delete(...),
+            $bird->smsSenders->list(...),
+            $bird->smsSenders->get(...),
+            $bird->smsSenderRequirements->list(...),
+            $bird->smsSenders->create(...),
+            $bird->smsSenderRegistrations->create(...),
+            $bird->complianceAttachments->create(...),
+            $bird->complianceAttachments->list(...),
+            $bird->complianceAttachments->get(...),
+            $bird->complianceAttachments->delete(...),
+            $bird->complianceDocumentTemplates->get(...),
+            $bird->complianceIdentities->list(...),
+            $bird->complianceIdentities->get(...),
+            $bird->complianceRequirements->get(...),
+            $bird->complianceSubmissions->get(...),
+            $bird->complianceSubmissions->create(...),
+            $bird->complianceSubmissions->resupply(...),
             $bird->whatsapp->send(...),
             $bird->whatsapp->get(...),
             $bird->whatsapp->list(...),
@@ -415,9 +431,14 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->assets->folders->get(...),
             $bird->assets->folders->update(...),
             $bird->assets->folders->delete(...),
+            $bird->complianceIdentities->create(...),
+            $bird->complianceIdentities->update(...),
+            $bird->complianceIdentities->delete(...),
+            $bird->billingPrices->resolve(...),
+            $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(395, $surface);
+        self::assertCount(416, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

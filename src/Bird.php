@@ -6,6 +6,7 @@ namespace MessageBird;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
+use MessageBird\Core\Multipart;
 use MessageBird\Core\Serializer;
 use MessageBird\Exception\ApiException;
 use MessageBird\Exception\ConnectionException;
@@ -13,6 +14,16 @@ use MessageBird\Exception\MissingApiKeyException;
 use MessageBird\Resources\Audiences;
 use MessageBird\Resources\Assets;
 use MessageBird\Resources\Broadcasts;
+use MessageBird\Resources\ComplianceAttachments;
+use MessageBird\Resources\ComplianceDocumentTemplates;
+use MessageBird\Resources\ComplianceIdentities;
+use MessageBird\Resources\BillingWallets;
+use MessageBird\Resources\BillingPrices;
+use MessageBird\Resources\SmsSenderRegistrations;
+use MessageBird\Resources\SmsSenderRequirements;
+use MessageBird\Resources\SmsSenders;
+use MessageBird\Resources\ComplianceRequirements;
+use MessageBird\Resources\ComplianceSubmissions;
 use MessageBird\Resources\ContactProperties;
 use MessageBird\Resources\Contacts;
 use MessageBird\Resources\Domains;
@@ -91,6 +102,16 @@ final class Bird
     public readonly Lookup $lookup;
 
     public readonly Numbers $numbers;
+    public readonly ComplianceRequirements $complianceRequirements;
+    public readonly ComplianceSubmissions $complianceSubmissions;
+    public readonly ComplianceAttachments $complianceAttachments;
+    public readonly ComplianceIdentities $complianceIdentities;
+    public readonly BillingWallets $billingWallets;
+    public readonly BillingPrices $billingPrices;
+    public readonly SmsSenderRegistrations $smsSenderRegistrations;
+    public readonly SmsSenderRequirements $smsSenderRequirements;
+    public readonly SmsSenders $smsSenders;
+    public readonly ComplianceDocumentTemplates $complianceDocumentTemplates;
     public readonly Webhooks $webhooks;
     public readonly Realtime $realtime;
 
@@ -154,6 +175,16 @@ final class Bird
         $this->voice = new Voice($this);
         $this->lookup = new Lookup($this);
         $this->numbers = new Numbers($this);
+        $this->complianceRequirements = new ComplianceRequirements($this);
+        $this->complianceSubmissions = new ComplianceSubmissions($this);
+        $this->complianceAttachments = new ComplianceAttachments($this);
+        $this->complianceIdentities = new ComplianceIdentities($this);
+        $this->billingWallets = new BillingWallets($this);
+        $this->billingPrices = new BillingPrices($this);
+        $this->smsSenderRegistrations = new SmsSenderRegistrations($this);
+        $this->smsSenderRequirements = new SmsSenderRequirements($this);
+        $this->smsSenders = new SmsSenders($this);
+        $this->complianceDocumentTemplates = new ComplianceDocumentTemplates($this);
         $this->webhooks = new Webhooks($this, $webhookSecret);
         // Extra credentials some operations require, keyed by the security scheme that
         // names them: [header, value, how-to-supply]. A generated method names its
@@ -480,7 +511,7 @@ final class Bird
     }
 
     /**
-     * @param object|array<mixed>|null $body a wire model, or a list of them for a batch body
+     * @param object|array<mixed>|null $body a wire model, a list of them for a batch body, or a Multipart upload
      * @param array<string, mixed>|null $query
      * @param list<string>|null $schemes security schemes whose credentials this operation requires
      */
@@ -537,7 +568,11 @@ final class Bird
             );
         }
 
-        if ($body !== null) {
+        if ($body instanceof Multipart) {
+            $request = $request
+                ->withHeader('Content-Type', $body->contentType)
+                ->withBody($this->streamFactory->createStream($body->body));
+        } elseif ($body !== null) {
             $request = $request
                 ->withHeader('Content-Type', 'application/json')
                 ->withBody($this->streamFactory->createStream($this->serializer->encode($body)));
@@ -612,7 +647,7 @@ final class Bird
     private static function isRetryable(int $status): bool
     {
         // 409 is a semantic conflict a retry cannot resolve; 501 is not implemented.
-        return $status === 429 || ($status >= 500 && $status < 600 && $status !== 501);
+        return $status === 408 || $status === 429 || ($status >= 500 && $status < 600 && $status !== 501);
     }
 
     private static function retryDelay(int $attempt, ?ResponseInterface $response): float

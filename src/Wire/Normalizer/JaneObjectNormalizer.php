@@ -274,7 +274,31 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => \MessageBird\Wire\Normalizer\SMSKeywordRuleUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\ComplianceRequirementFieldOption::class => \MessageBird\Wire\Normalizer\ComplianceRequirementFieldOptionNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceFieldValidation::class => \MessageBird\Wire\Normalizer\ComplianceFieldValidationNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceRequirementField::class => \MessageBird\Wire\Normalizer\ComplianceRequirementFieldNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceRequirementFieldValidation::class => \MessageBird\Wire\Normalizer\ComplianceRequirementFieldValidationNormalizer::class,
+
         \MessageBird\Wire\Model\Attachment::class => \MessageBird\Wire\Normalizer\AttachmentNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceIdentityAnswer::class => \MessageBird\Wire\Normalizer\ComplianceIdentityAnswerNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceIdentity::class => \MessageBird\Wire\Normalizer\ComplianceIdentityNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceIdentityList::class => \MessageBird\Wire\Normalizer\ComplianceIdentityListNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceIdentityCreate::class => \MessageBird\Wire\Normalizer\ComplianceIdentityCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\ValidationError::class => \MessageBird\Wire\Normalizer\ValidationErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceIdentityUpdate::class => \MessageBird\Wire\Normalizer\ComplianceIdentityUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AttachmentList::class => \MessageBird\Wire\Normalizer\AttachmentListNormalizer::class,
+
+        \MessageBird\Wire\Model\AttachmentUpload::class => \MessageBird\Wire\Normalizer\AttachmentUploadNormalizer::class,
 
         \MessageBird\Wire\Model\Asset::class => \MessageBird\Wire\Normalizer\AssetNormalizer::class,
 
@@ -295,6 +319,22 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AssetFolderCreate::class => \MessageBird\Wire\Normalizer\AssetFolderCreateNormalizer::class,
 
         \MessageBird\Wire\Model\AssetFolderUpdate::class => \MessageBird\Wire\Normalizer\AssetFolderUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceRequirement::class => \MessageBird\Wire\Normalizer\ComplianceRequirementNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceRequirementObligation::class => \MessageBird\Wire\Normalizer\ComplianceRequirementObligationNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmissionIdentity::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionIdentityNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceAnswer::class => \MessageBird\Wire\Normalizer\ComplianceAnswerNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmissionCreate::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmissionItem::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionItemNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmission::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionResupplyNormalizer::class,
 
         \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
 
@@ -405,6 +445,24 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundNumberStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByNumberResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderDestinations::class => \MessageBird\Wire\Normalizer\SMSSenderDestinationsNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSender::class => \MessageBird\Wire\Normalizer\SMSSenderNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderList::class => \MessageBird\Wire\Normalizer\SMSSenderListNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderCreate::class => \MessageBird\Wire\Normalizer\SMSSenderCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderRequirement::class => \MessageBird\Wire\Normalizer\SMSSenderRequirementNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderProgram::class => \MessageBird\Wire\Normalizer\SMSSenderProgramNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderRequirementList::class => \MessageBird\Wire\Normalizer\SMSSenderRequirementListNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCountryRegistrationCreate::class => \MessageBird\Wire\Normalizer\SMSCountryRegistrationCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCountryRegistration::class => \MessageBird\Wire\Normalizer\SMSCountryRegistrationNormalizer::class,
 
         \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => \MessageBird\Wire\Normalizer\PhoneNumberLookupRequestNormalizer::class,
 
@@ -1734,6 +1792,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
 
+        \MessageBird\Wire\Model\BillingPricingInterval::class => \MessageBird\Wire\Normalizer\BillingPricingIntervalNormalizer::class,
+
         \MessageBird\Wire\Model\NumberOwnership::class => \MessageBird\Wire\Normalizer\NumberOwnershipNormalizer::class,
 
         \MessageBird\Wire\Model\NumberPricing::class => \MessageBird\Wire\Normalizer\NumberPricingNormalizer::class,
@@ -1764,9 +1824,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NumbersOrderList::class => \MessageBird\Wire\Normalizer\NumbersOrderListNormalizer::class,
 
+        \MessageBird\Wire\Model\NumbersOrderCompliance::class => \MessageBird\Wire\Normalizer\NumbersOrderComplianceNormalizer::class,
+
         \MessageBird\Wire\Model\NumbersOrderCreate::class => \MessageBird\Wire\Normalizer\NumbersOrderCreateNormalizer::class,
 
         \MessageBird\Wire\Model\NumberUpdate::class => \MessageBird\Wire\Normalizer\NumberUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\BillingResolvedPrice::class => \MessageBird\Wire\Normalizer\BillingResolvedPriceNormalizer::class,
+
+        \MessageBird\Wire\Model\BillingWallet::class => \MessageBird\Wire\Normalizer\BillingWalletNormalizer::class,
+
+        \MessageBird\Wire\Model\BillingWalletList::class => \MessageBird\Wire\Normalizer\BillingWalletListNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunkIPACL::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLNormalizer::class,
 
@@ -1980,6 +2048,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EsimSummary::class => \MessageBird\Wire\Normalizer\EsimSummaryNormalizer::class,
 
+        \MessageBird\Wire\Model\EsimSummaryRenewal::class => \MessageBird\Wire\Normalizer\EsimSummaryRenewalNormalizer::class,
+
         \MessageBird\Wire\Model\EsimList::class => \MessageBird\Wire\Normalizer\EsimListNormalizer::class,
 
         \MessageBird\Wire\Model\EsimUpdate::class => \MessageBird\Wire\Normalizer\EsimUpdateNormalizer::class,
@@ -2009,6 +2079,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => \MessageBird\Wire\Normalizer\SMSSenderDestinationsWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveHeaderWrapperNormalizer::class,
 
@@ -2204,7 +2276,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSKeywordRuleList::class => false,
             \MessageBird\Wire\Model\SMSKeywordRuleCreate::class => false,
             \MessageBird\Wire\Model\SMSKeywordRuleUpdate::class => false,
+            \MessageBird\Wire\Model\ComplianceRequirementFieldOption::class => false,
+            \MessageBird\Wire\Model\ComplianceFieldValidation::class => false,
+            \MessageBird\Wire\Model\ComplianceRequirementField::class => false,
+            \MessageBird\Wire\Model\ComplianceRequirementFieldValidation::class => false,
             \MessageBird\Wire\Model\Attachment::class => false,
+            \MessageBird\Wire\Model\ComplianceIdentityAnswer::class => false,
+            \MessageBird\Wire\Model\ComplianceIdentity::class => false,
+            \MessageBird\Wire\Model\ComplianceIdentityList::class => false,
+            \MessageBird\Wire\Model\ComplianceIdentityCreate::class => false,
+            \MessageBird\Wire\Model\ValidationError::class => false,
+            \MessageBird\Wire\Model\ComplianceIdentityUpdate::class => false,
+            \MessageBird\Wire\Model\AttachmentList::class => false,
+            \MessageBird\Wire\Model\AttachmentUpload::class => false,
             \MessageBird\Wire\Model\Asset::class => false,
             \MessageBird\Wire\Model\AssetList::class => false,
             \MessageBird\Wire\Model\AssetUpload::class => false,
@@ -2215,6 +2299,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AssetFolderList::class => false,
             \MessageBird\Wire\Model\AssetFolderCreate::class => false,
             \MessageBird\Wire\Model\AssetFolderUpdate::class => false,
+            \MessageBird\Wire\Model\ComplianceRequirement::class => false,
+            \MessageBird\Wire\Model\ComplianceRequirementObligation::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmissionIdentity::class => false,
+            \MessageBird\Wire\Model\ComplianceAnswer::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmissionCreate::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmissionItem::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmission::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => false,
             \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
             \MessageBird\Wire\Model\SMSDeliveryStats::class => false,
             \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
@@ -2270,6 +2362,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => false,
+            \MessageBird\Wire\Model\SMSSenderDestinations::class => false,
+            \MessageBird\Wire\Model\SMSSender::class => false,
+            \MessageBird\Wire\Model\SMSSenderList::class => false,
+            \MessageBird\Wire\Model\SMSSenderCreate::class => false,
+            \MessageBird\Wire\Model\SMSSenderRequirement::class => false,
+            \MessageBird\Wire\Model\SMSSenderProgram::class => false,
+            \MessageBird\Wire\Model\SMSSenderRequirementList::class => false,
+            \MessageBird\Wire\Model\SMSCountryRegistrationCreate::class => false,
+            \MessageBird\Wire\Model\SMSCountryRegistration::class => false,
             \MessageBird\Wire\Model\PhoneNumberLookupRequest::class => false,
             \MessageBird\Wire\Model\LookupClassification::class => false,
             \MessageBird\Wire\Model\LookupPresence::class => false,
@@ -2934,6 +3035,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceLegCost::class => false,
             \MessageBird\Wire\Model\VoiceLeg::class => false,
             \MessageBird\Wire\Model\VoiceLegActor::class => false,
+            \MessageBird\Wire\Model\BillingPricingInterval::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
             \MessageBird\Wire\Model\NumberPricing::class => false,
             \MessageBird\Wire\Model\NumberPricingRecurringPrice::class => false,
@@ -2949,8 +3051,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AvailableNumberList::class => false,
             \MessageBird\Wire\Model\NumbersOrder::class => false,
             \MessageBird\Wire\Model\NumbersOrderList::class => false,
+            \MessageBird\Wire\Model\NumbersOrderCompliance::class => false,
             \MessageBird\Wire\Model\NumbersOrderCreate::class => false,
             \MessageBird\Wire\Model\NumberUpdate::class => false,
+            \MessageBird\Wire\Model\BillingResolvedPrice::class => false,
+            \MessageBird\Wire\Model\BillingWallet::class => false,
+            \MessageBird\Wire\Model\BillingWalletList::class => false,
             \MessageBird\Wire\Model\VoiceTrunkIPACL::class => false,
             \MessageBird\Wire\Model\VoiceTrunk::class => false,
             \MessageBird\Wire\Model\VoiceTrunkList::class => false,
@@ -3057,6 +3163,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EsimAssignment::class => false,
             \MessageBird\Wire\Model\EsimAssignmentCreate::class => false,
             \MessageBird\Wire\Model\EsimSummary::class => false,
+            \MessageBird\Wire\Model\EsimSummaryRenewal::class => false,
             \MessageBird\Wire\Model\EsimList::class => false,
             \MessageBird\Wire\Model\EsimUpdate::class => false,
             \MessageBird\Wire\Model\EsimInstallationInstructions::class => false,
@@ -3072,6 +3179,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EsimSettingsUpdate::class => false,
             \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => false,
+            \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveListWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrlWrapper::class => false,

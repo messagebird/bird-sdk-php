@@ -53,6 +53,12 @@ class EsimSummary
      */
     protected $displayName;
     /**
+     * The eSIM's recurring subscription that has not ended, or null when it has none. The single-eSIM read does not carry it; list the eSIM's subscriptions with `esim_id` for the full renewal history.
+     *
+     * @var EsimSummaryRenewal|null
+     */
+    protected $renewal;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -197,6 +203,28 @@ class EsimSummary
     {
         $this->initialized['displayName'] = true;
         $this->displayName = $displayName;
+        return $this;
+    }
+    /**
+     * The eSIM's recurring subscription that has not ended, or null when it has none. The single-eSIM read does not carry it; list the eSIM's subscriptions with `esim_id` for the full renewal history.
+     *
+     * @return EsimSummaryRenewal|null
+     */
+    public function getRenewal(): ?EsimSummaryRenewal
+    {
+        return $this->renewal;
+    }
+    /**
+     * The eSIM's recurring subscription that has not ended, or null when it has none. The single-eSIM read does not carry it; list the eSIM's subscriptions with `esim_id` for the full renewal history.
+     *
+     * @param EsimSummaryRenewal|null $renewal
+     *
+     * @return self
+     */
+    public function setRenewal(?EsimSummaryRenewal $renewal): self
+    {
+        $this->initialized['renewal'] = true;
+        $this->renewal = $renewal;
         return $this;
     }
     /**

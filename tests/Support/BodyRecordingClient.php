@@ -18,6 +18,9 @@ final class BodyRecordingClient implements ClientInterface
     /** @var list<string> */
     public array $bodies = [];
 
+    /** @var list<RequestInterface> */
+    public array $requests = [];
+
     /** @var list<ResponseInterface> */
     private array $queue;
 
@@ -28,6 +31,7 @@ final class BodyRecordingClient implements ClientInterface
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
+        $this->requests[] = $request;
         $this->bodies[] = $request->getBody()->getContents();
         $next = array_shift($this->queue);
         if ($next === null) {

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A supporting document uploaded for an SMS registration (10DLC campaign evidence, toll-free verification opt-in screenshots). Reference it from the registration's own attachment-id field to submit it as evidence.
+ * A supporting document uploaded for compliance answers or SMS registrations, including number ownership evidence, 10DLC campaign evidence and toll-free verification opt-in screenshots. Reference its ID from the relevant answer or registration attachment field to submit it as evidence.
  */
 class AMBBusinessAccountSubmissionVideoAttachment extends Attachment
 {

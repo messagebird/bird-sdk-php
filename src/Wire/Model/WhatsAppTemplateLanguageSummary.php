@@ -25,7 +25,7 @@ class WhatsAppTemplateLanguageSummary
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review.
+     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -34,7 +34,6 @@ class WhatsAppTemplateLanguageSummary
      * - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
      * - `deleted`: Permanently deleted.
      * - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-     * - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -95,7 +94,7 @@ class WhatsAppTemplateLanguageSummary
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review.
+     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -104,7 +103,6 @@ class WhatsAppTemplateLanguageSummary
      * - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
      * - `deleted`: Permanently deleted.
      * - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-     * - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -119,7 +117,7 @@ class WhatsAppTemplateLanguageSummary
     * Language review and health status:
     
     - `approved`: Passed review and can be sent.
-    - `pending`: Under review.
+    - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
     - `rejected`: Failed review.
     - `paused` or `disabled`: Sending is suspended.
     - `in_appeal`: A decision is being appealed.
@@ -128,7 +126,6 @@ class WhatsAppTemplateLanguageSummary
     - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
     - `deleted`: Permanently deleted.
     - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-    - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
     
     This is an open enum. Accept unrecognized values.
     

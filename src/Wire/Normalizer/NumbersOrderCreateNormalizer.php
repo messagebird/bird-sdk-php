@@ -49,6 +49,12 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
             $object->setReference(null);
         }
+        if (\array_key_exists('compliance', $data) && $data['compliance'] !== null) {
+            $object->setCompliance($this->denormalizer->denormalize($data['compliance'], \MessageBird\Wire\Model\NumbersOrderCompliance::class, 'json', $context));
+        }
+        elseif (\array_key_exists('compliance', $data) && $data['compliance'] === null) {
+            $object->setCompliance(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -57,6 +63,9 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
         $dataArray['number'] = $data->getNumber();
         if ($data->isInitialized('reference') && null !== $data->getReference()) {
             $dataArray['reference'] = $data->getReference();
+        }
+        if ($data->isInitialized('compliance') && null !== $data->getCompliance()) {
+            $dataArray['compliance'] = $this->normalizer->normalize($data->getCompliance(), 'json', $context);
         }
         return $dataArray;
     }

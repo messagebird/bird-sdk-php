@@ -44,7 +44,7 @@ class WhatsAppTemplateLanguageState
      */
     protected $rejection;
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @var WhatsAppTemplateLanguageStateError|null
@@ -143,7 +143,7 @@ class WhatsAppTemplateLanguageState
         return $this;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @return WhatsAppTemplateLanguageStateError|null
@@ -153,7 +153,7 @@ class WhatsAppTemplateLanguageState
         return $this->error;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
      * @param WhatsAppTemplateLanguageStateError|WhatsAppTemplateSubmissionError|array|null $error
      *

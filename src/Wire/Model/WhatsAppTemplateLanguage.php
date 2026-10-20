@@ -31,7 +31,7 @@ class WhatsAppTemplateLanguage
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review.
+     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -40,7 +40,6 @@ class WhatsAppTemplateLanguage
      * - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
      * - `deleted`: Permanently deleted.
      * - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-     * - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -102,7 +101,7 @@ class WhatsAppTemplateLanguage
      */
     protected $rejection;
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @var WhatsAppTemplateLanguageError|null
@@ -184,7 +183,7 @@ class WhatsAppTemplateLanguage
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review.
+     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -193,7 +192,6 @@ class WhatsAppTemplateLanguage
      * - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
      * - `deleted`: Permanently deleted.
      * - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-     * - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -208,7 +206,7 @@ class WhatsAppTemplateLanguage
     * Language review and health status:
     
     - `approved`: Passed review and can be sent.
-    - `pending`: Under review.
+    - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
     - `rejected`: Failed review.
     - `paused` or `disabled`: Sending is suspended.
     - `in_appeal`: A decision is being appealed.
@@ -217,7 +215,6 @@ class WhatsAppTemplateLanguage
     - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
     - `deleted`: Permanently deleted.
     - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
-    - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
     
     This is an open enum. Accept unrecognized values.
     
@@ -396,7 +393,7 @@ class WhatsAppTemplateLanguage
         return $this;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @return WhatsAppTemplateLanguageError|null
@@ -406,7 +403,7 @@ class WhatsAppTemplateLanguage
         return $this->error;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
      * @param WhatsAppTemplateLanguageError|WhatsAppTemplateSubmissionError|array|null $error
      *

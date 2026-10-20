@@ -79,6 +79,12 @@ class EsimSummaryNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('display_name', $data) && $data['display_name'] === null) {
             $object->setDisplayName(null);
         }
+        if (\array_key_exists('renewal', $data) && $data['renewal'] !== null) {
+            $object->setRenewal($this->denormalizer->denormalize($data['renewal'], \MessageBird\Wire\Model\EsimSummaryRenewal::class, 'json', $context));
+        }
+        elseif (\array_key_exists('renewal', $data) && $data['renewal'] === null) {
+            $object->setRenewal(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
         }

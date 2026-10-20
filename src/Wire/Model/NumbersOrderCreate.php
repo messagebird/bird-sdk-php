@@ -25,6 +25,13 @@ class NumbersOrderCreate
      */
     protected $reference;
     /**
+     * Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+     * 
+     *
+     * @var NumbersOrderCompliance|null
+     */
+    protected $compliance;
+    /**
      * The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
      *
      * @return string|null
@@ -66,6 +73,29 @@ class NumbersOrderCreate
     {
         $this->initialized['reference'] = true;
         $this->reference = $reference;
+        return $this;
+    }
+    /**
+     * Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+     * 
+     *
+     * @return NumbersOrderCompliance|null
+     */
+    public function getCompliance(): ?NumbersOrderCompliance
+    {
+        return $this->compliance;
+    }
+    /**
+     * Ownership paperwork for a number being ordered, where its country requires any. Optional always: the order completes and the number is yours either way, and supplying this only decides whether it can carry traffic sooner. Read `GET /v1/compliance/requirements` for the number to learn what is asked for, or file it after the order with `POST /v1/compliance/submissions`. Filing this cannot fail your order: if it is refused, the number is still yours and you can file again. The answers are a legal representation filed under the name of the business they describe. Sending this block uses the order's existing `numbers` scope at write level.
+     *
+     * @param NumbersOrderCompliance|null $compliance
+     *
+     * @return self
+     */
+    public function setCompliance(?NumbersOrderCompliance $compliance): self
+    {
+        $this->initialized['compliance'] = true;
+        $this->compliance = $compliance;
         return $this;
     }
 }
