@@ -4,6 +4,7 @@ namespace MessageBird\Wire\Model;
 
 /**
  * A contact card on this message: one the contact shared, or one this workspace sent.
+ * 
  * Nothing here is required. WhatsApp sends the parts the card holds and omits the rest, and a card that arrives with only an `origin` is still meaningful, so an empty card reads back empty rather than being dropped.
  */
 class WhatsAppContactCard

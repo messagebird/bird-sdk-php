@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.81.0
+
+- Read which quota refused a resource change, and whether the organization or workspace limit bound it, from `APIError.Quota` in Go, `BirdAPIError.quota` in TypeScript, `APIStatusError.quota` in Python and `ApiException::$quota` in PHP. CLI and MCP error responses include the same optional `quota` object with `quota_key` and `scope`.
+- Add `Workspace.Quotas.List` in Go, `workspace.quotas.list` in TypeScript, `workspace.quotas.list` in Python and `workspace->quotas->list` in PHP to read the resource and value quotas that apply to the current workspace: the shared organization limit, any workspace limit and its own usage. Organization usage and shared remaining capacity are withheld.
+
 ## 0.80.1
 
 - Switching Inbox Insights on for a sending domain, by hand or for the main sending domain, now answers `412` with error code `E27009` when the measurement provider declines to measure that domain; retrying returns the same answer, so contact support with the domain name.
