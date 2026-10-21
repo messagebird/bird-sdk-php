@@ -55,6 +55,12 @@ class WhatsAppMessageTemplateComponentParameterNormalizer implements Denormalize
         elseif (\array_key_exists('url', $data) && $data['url'] === null) {
             $object->setUrl(null);
         }
+        if (\array_key_exists('filename', $data) && $data['filename'] !== null) {
+            $object->setFilename($data['filename']);
+        }
+        elseif (\array_key_exists('filename', $data) && $data['filename'] === null) {
+            $object->setFilename(null);
+        }
         if (\array_key_exists('location', $data) && $data['location'] !== null) {
             $object->setLocation($this->denormalizer->denormalize($data['location'], \MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameterLocation::class, 'json', $context));
         }
@@ -78,6 +84,9 @@ class WhatsAppMessageTemplateComponentParameterNormalizer implements Denormalize
         }
         if ($data->isInitialized('url') && null !== $data->getUrl()) {
             $dataArray['url'] = $data->getUrl();
+        }
+        if ($data->isInitialized('filename') && null !== $data->getFilename()) {
+            $dataArray['filename'] = $data->getFilename();
         }
         if ($data->isInitialized('location') && null !== $data->getLocation()) {
             $dataArray['location'] = $this->normalizer->normalize($data->getLocation(), 'json', $context);

@@ -32,6 +32,13 @@ class WhatsAppMessageTemplateComponentParameter
      */
     protected $url;
     /**
+     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+     * 
+     *
+     * @var string|null
+     */
+    protected $filename;
+    /**
      * The point on the map a location header opens. Send it on a `location` parameter.
      *
      * @var WhatsAppMessageTemplateComponentParameterLocation|null
@@ -109,6 +116,29 @@ class WhatsAppMessageTemplateComponentParameter
     {
         $this->initialized['url'] = true;
         $this->url = $url;
+        return $this;
+    }
+    /**
+     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+     * 
+     *
+     * @return string|null
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+    /**
+     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+     *
+     * @param string|null $filename
+     *
+     * @return self
+     */
+    public function setFilename(?string $filename): self
+    {
+        $this->initialized['filename'] = true;
+        $this->filename = $filename;
         return $this;
     }
     /**
