@@ -1740,6 +1740,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailThreadMessageReplyRequest::class => \MessageBird\Wire\Normalizer\EmailThreadMessageReplyRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailMailboxScheduledMessage::class => \MessageBird\Wire\Normalizer\EmailMailboxScheduledMessageNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxScheduledMessageList::class => \MessageBird\Wire\Normalizer\EmailMailboxScheduledMessageListNormalizer::class,
+
         \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => \MessageBird\Wire\Normalizer\EmailMailboxComposeRequestNormalizer::class,
 
         \MessageBird\Wire\Model\EmailMailboxLabel::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelNormalizer::class,
@@ -3019,6 +3023,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailThreadMessageBody::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageAttachmentList::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageReplyRequest::class => false,
+            \MessageBird\Wire\Model\EmailMailboxScheduledMessage::class => false,
+            \MessageBird\Wire\Model\EmailMailboxScheduledMessageList::class => false,
             \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabel::class => false,
             \MessageBird\Wire\Model\EmailMailboxLabelList::class => false,

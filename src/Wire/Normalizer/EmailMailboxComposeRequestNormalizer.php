@@ -37,6 +37,15 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('cancel_on_reply', $data) && \is_int($data['cancel_on_reply'])) {
+            $data['cancel_on_reply'] = (bool) $data['cancel_on_reply'];
+        }
+        if (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] !== null) {
+            $object->setScheduledAt(new \DateTime($data['scheduled_at']));
+        }
+        elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
+            $object->setScheduledAt(null);
+        }
         if (\array_key_exists('to', $data) && $data['to'] !== null) {
             $values = [];
             foreach ($data['to'] as $value) {
@@ -131,11 +140,20 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
+        if (\array_key_exists('cancel_on_reply', $data) && $data['cancel_on_reply'] !== null) {
+            $object->setCancelOnReply($data['cancel_on_reply']);
+        }
+        elseif (\array_key_exists('cancel_on_reply', $data) && $data['cancel_on_reply'] === null) {
+            $object->setCancelOnReply(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('scheduledAt') && null !== $data->getScheduledAt()) {
+            $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
+        }
         $values = [];
         foreach ($data->getTo() as $value) {
             $values[] = $value;
@@ -192,6 +210,9 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
         }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
+        }
+        if ($data->isInitialized('cancelOnReply') && null !== $data->getCancelOnReply()) {
+            $dataArray['cancel_on_reply'] = $data->getCancelOnReply();
         }
         return $dataArray;
     }

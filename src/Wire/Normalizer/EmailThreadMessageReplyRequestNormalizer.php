@@ -40,6 +40,15 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
         if (\array_key_exists('reply_all', $data) && \is_int($data['reply_all'])) {
             $data['reply_all'] = (bool) $data['reply_all'];
         }
+        if (\array_key_exists('cancel_on_reply', $data) && \is_int($data['cancel_on_reply'])) {
+            $data['cancel_on_reply'] = (bool) $data['cancel_on_reply'];
+        }
+        if (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] !== null) {
+            $object->setScheduledAt(new \DateTime($data['scheduled_at']));
+        }
+        elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
+            $object->setScheduledAt(null);
+        }
         if (\array_key_exists('html', $data) && $data['html'] !== null) {
             $object->setHtml($data['html']);
         }
@@ -94,11 +103,20 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('attachments', $data) && $data['attachments'] === null) {
             $object->setAttachments(null);
         }
+        if (\array_key_exists('cancel_on_reply', $data) && $data['cancel_on_reply'] !== null) {
+            $object->setCancelOnReply($data['cancel_on_reply']);
+        }
+        elseif (\array_key_exists('cancel_on_reply', $data) && $data['cancel_on_reply'] === null) {
+            $object->setCancelOnReply(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('scheduledAt') && null !== $data->getScheduledAt()) {
+            $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
+        }
         if ($data->isInitialized('html') && null !== $data->getHtml()) {
             $dataArray['html'] = $data->getHtml();
         }
@@ -131,6 +149,9 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
                 $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
             }
             $dataArray['attachments'] = $values_2;
+        }
+        if ($data->isInitialized('cancelOnReply') && null !== $data->getCancelOnReply()) {
+            $dataArray['cancel_on_reply'] = $data->getCancelOnReply();
         }
         return $dataArray;
     }

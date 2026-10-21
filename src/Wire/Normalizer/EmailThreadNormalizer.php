@@ -129,6 +129,18 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('highlights', $data) && $data['highlights'] === null) {
             $object->setHighlights(null);
         }
+        if (\array_key_exists('scheduled_count', $data) && $data['scheduled_count'] !== null) {
+            $object->setScheduledCount($data['scheduled_count']);
+        }
+        elseif (\array_key_exists('scheduled_count', $data) && $data['scheduled_count'] === null) {
+            $object->setScheduledCount(null);
+        }
+        if (\array_key_exists('next_scheduled_at', $data) && $data['next_scheduled_at'] !== null) {
+            $object->setNextScheduledAt(new \DateTime($data['next_scheduled_at']));
+        }
+        elseif (\array_key_exists('next_scheduled_at', $data) && $data['next_scheduled_at'] === null) {
+            $object->setNextScheduledAt(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

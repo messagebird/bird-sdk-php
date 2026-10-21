@@ -16,6 +16,12 @@ class EmailThreadMessageReplyRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+     *
+     * @var \DateTime|null
+     */
+    protected $scheduledAt;
+    /**
      * HTML body of the reply. At least one of html or text must be provided.
      *
      * @var string|null
@@ -64,6 +70,34 @@ class EmailThreadMessageReplyRequest
      * @var list<EmailAttachment>|null
      */
     protected $attachments;
+    /**
+     * When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+     *
+     * @var bool|null
+     */
+    protected $cancelOnReply = false;
+    /**
+     * Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+     *
+     * @return \DateTime|null
+     */
+    public function getScheduledAt(): ?\DateTime
+    {
+        return $this->scheduledAt;
+    }
+    /**
+     * Send between 30 seconds and 30 days ahead, sharing the scheduled-email allowance. The scheduled send is listed separately and enters the conversation only at dispatch. Sender, mailbox and send-volume eligibility are rechecked then; refusal fails the schedule record without adding a conversation message. Retention starts at dispatch. Attachments are not supported on scheduled messages; send now or schedule without attachments.
+     *
+     * @param \DateTime|null $scheduledAt
+     *
+     * @return self
+     */
+    public function setScheduledAt(?\DateTime $scheduledAt): self
+    {
+        $this->initialized['scheduledAt'] = true;
+        $this->scheduledAt = $scheduledAt;
+        return $this;
+    }
     /**
      * HTML body of the reply. At least one of html or text must be provided.
      *
@@ -227,6 +261,28 @@ class EmailThreadMessageReplyRequest
     {
         $this->initialized['attachments'] = true;
         $this->attachments = $attachments;
+        return $this;
+    }
+    /**
+     * When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+     *
+     * @return bool|null
+     */
+    public function getCancelOnReply(): ?bool
+    {
+        return $this->cancelOnReply;
+    }
+    /**
+     * When scheduled_at is set, cancel if an inbound message arrives in the conversation before dispatch is claimed. Defaults to false: the frozen parent, recipients and content are sent unchanged even if new mail arrives.
+     *
+     * @param bool|null $cancelOnReply
+     *
+     * @return self
+     */
+    public function setCancelOnReply(?bool $cancelOnReply): self
+    {
+        $this->initialized['cancelOnReply'] = true;
+        $this->cancelOnReply = $cancelOnReply;
         return $this;
     }
 }

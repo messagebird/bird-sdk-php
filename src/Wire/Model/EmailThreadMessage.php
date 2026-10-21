@@ -4,6 +4,7 @@ namespace MessageBird\Wire\Model;
 
 /**
  * A message in a mailbox conversation, either direction. Message metadata, extracted text, and attachment bytes stay readable for the mailbox's retention tier. The body and raw MIME are available through the body and raw endpoints for 30 days after the message occurred.
+ * A scheduled acknowledgement reserves the message and thread IDs but is not stored in the conversation until dispatch. Use its scheduled_message_id and mailbox_id to inspect or cancel the separate schedule; body and raw reads are unavailable before dispatch.
  */
 class EmailThreadMessage
 {
@@ -15,6 +16,26 @@ class EmailThreadMessage
     {
         return array_key_exists($property, $this->initialized);
     }
+    /**
+     * @var string|null
+     */
+    protected $scheduledMessageId;
+    /**
+     * Planned send time on a scheduled acknowledgement.
+     *
+     * @var \DateTime|null
+     */
+    protected $scheduledAt;
+    /**
+     * @var string|null
+     */
+    protected $mailboxId;
+    /**
+     * Informational notice when conversation retention expires before dispatch; the reserved thread is recreated without expired messages.
+     *
+     * @var string|null
+     */
+    protected $notice;
     /**
      * Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
      * 
@@ -99,6 +120,7 @@ class EmailThreadMessage
     /**
      * Aggregate delivery status of a sent message:
      * 
+     * - `scheduled`: Acknowledgement only; the separate schedule is linked by scheduled_message_id.
      * - `accepted`: Accepted for sending.
      * - `sent`: Handed off to the provider.
      * - `delivered`: All attempted recipients delivered.
@@ -153,7 +175,7 @@ class EmailThreadMessage
      */
     protected $dmarcPass;
     /**
-     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. For a scheduled acknowledgement, this is based on the due time and replaced with actual dispatch-based retention once it sends. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @var \DateTime|null
@@ -192,11 +214,92 @@ class EmailThreadMessage
      */
     protected $source;
     /**
-     * When the message was received or accepted for sending.
+     * When the message was received or accepted for sending. For a scheduled acknowledgement, the time it is due to send, replaced by the actual send time once it sends.
+     * 
      *
      * @var \DateTime|null
      */
     protected $occurredAt;
+    /**
+     * @return string|null
+     */
+    public function getScheduledMessageId(): ?string
+    {
+        return $this->scheduledMessageId;
+    }
+    /**
+     * @param string|null $scheduledMessageId
+     *
+     * @return self
+     */
+    public function setScheduledMessageId(?string $scheduledMessageId): self
+    {
+        $this->initialized['scheduledMessageId'] = true;
+        $this->scheduledMessageId = $scheduledMessageId;
+        return $this;
+    }
+    /**
+     * Planned send time on a scheduled acknowledgement.
+     *
+     * @return \DateTime|null
+     */
+    public function getScheduledAt(): ?\DateTime
+    {
+        return $this->scheduledAt;
+    }
+    /**
+     * Planned send time on a scheduled acknowledgement.
+     *
+     * @param \DateTime|null $scheduledAt
+     *
+     * @return self
+     */
+    public function setScheduledAt(?\DateTime $scheduledAt): self
+    {
+        $this->initialized['scheduledAt'] = true;
+        $this->scheduledAt = $scheduledAt;
+        return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getMailboxId(): ?string
+    {
+        return $this->mailboxId;
+    }
+    /**
+     * @param string|null $mailboxId
+     *
+     * @return self
+     */
+    public function setMailboxId(?string $mailboxId): self
+    {
+        $this->initialized['mailboxId'] = true;
+        $this->mailboxId = $mailboxId;
+        return $this;
+    }
+    /**
+     * Informational notice when conversation retention expires before dispatch; the reserved thread is recreated without expired messages.
+     *
+     * @return string|null
+     */
+    public function getNotice(): ?string
+    {
+        return $this->notice;
+    }
+    /**
+     * Informational notice when conversation retention expires before dispatch; the reserved thread is recreated without expired messages.
+     *
+     * @param string|null $notice
+     *
+     * @return self
+     */
+    public function setNotice(?string $notice): self
+    {
+        $this->initialized['notice'] = true;
+        $this->notice = $notice;
+        return $this;
+    }
     /**
      * Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
      * 
@@ -479,6 +582,7 @@ class EmailThreadMessage
     /**
      * Aggregate delivery status of a sent message:
      * 
+     * - `scheduled`: Acknowledgement only; the separate schedule is linked by scheduled_message_id.
      * - `accepted`: Accepted for sending.
      * - `sent`: Handed off to the provider.
      * - `delivered`: All attempted recipients delivered.
@@ -496,6 +600,7 @@ class EmailThreadMessage
     /**
     * Aggregate delivery status of a sent message:
     
+    - `scheduled`: Acknowledgement only; the separate schedule is linked by scheduled_message_id.
     - `accepted`: Accepted for sending.
     - `sent`: Handed off to the provider.
     - `delivered`: All attempted recipients delivered.
@@ -648,7 +753,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. For a scheduled acknowledgement, this is based on the due time and replaced with actual dispatch-based retention once it sends. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      * 
      *
      * @return \DateTime|null
@@ -658,7 +763,7 @@ class EmailThreadMessage
         return $this->purgeAt;
     }
     /**
-     * Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+     * Scheduled permanent-deletion time. For a scheduled acknowledgement, this is based on the due time and replaced with actual dispatch-based retention once it sends. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
      *
      * @param \DateTime|null $purgeAt
      *
@@ -783,7 +888,8 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * When the message was received or accepted for sending.
+     * When the message was received or accepted for sending. For a scheduled acknowledgement, the time it is due to send, replaced by the actual send time once it sends.
+     * 
      *
      * @return \DateTime|null
      */
@@ -792,7 +898,7 @@ class EmailThreadMessage
         return $this->occurredAt;
     }
     /**
-     * When the message was received or accepted for sending.
+     * When the message was received or accepted for sending. For a scheduled acknowledgement, the time it is due to send, replaced by the actual send time once it sends.
      *
      * @param \DateTime|null $occurredAt
      *

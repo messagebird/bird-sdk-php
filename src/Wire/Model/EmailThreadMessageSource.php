@@ -22,7 +22,7 @@ class EmailThreadMessageSource
      */
     protected $resource;
     /**
-     * When the log entry (and the message's body and raw MIME) expires.
+     * When the log entry (and the message's body and raw MIME) expires. For a scheduled acknowledgement, calculated from the due time and replaced by the actual dispatch-based deadline once dispatched.
      *
      * @var \DateTime|null
      */
@@ -50,7 +50,7 @@ class EmailThreadMessageSource
         return $this;
     }
     /**
-     * When the log entry (and the message's body and raw MIME) expires.
+     * When the log entry (and the message's body and raw MIME) expires. For a scheduled acknowledgement, calculated from the due time and replaced by the actual dispatch-based deadline once dispatched.
      *
      * @return \DateTime|null
      */
@@ -59,7 +59,7 @@ class EmailThreadMessageSource
         return $this->availableUntil;
     }
     /**
-     * When the log entry (and the message's body and raw MIME) expires.
+     * When the log entry (and the message's body and raw MIME) expires. For a scheduled acknowledgement, calculated from the due time and replaced by the actual dispatch-based deadline once dispatched.
      *
      * @param \DateTime|null $availableUntil
      *

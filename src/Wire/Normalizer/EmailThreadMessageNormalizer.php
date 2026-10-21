@@ -46,6 +46,30 @@ class EmailThreadMessageNormalizer implements DenormalizerInterface, NormalizerI
         if (\array_key_exists('dmarc_pass', $data) && \is_int($data['dmarc_pass'])) {
             $data['dmarc_pass'] = (bool) $data['dmarc_pass'];
         }
+        if (\array_key_exists('scheduled_message_id', $data) && $data['scheduled_message_id'] !== null) {
+            $object->setScheduledMessageId($data['scheduled_message_id']);
+        }
+        elseif (\array_key_exists('scheduled_message_id', $data) && $data['scheduled_message_id'] === null) {
+            $object->setScheduledMessageId(null);
+        }
+        if (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] !== null) {
+            $object->setScheduledAt(new \DateTime($data['scheduled_at']));
+        }
+        elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
+            $object->setScheduledAt(null);
+        }
+        if (\array_key_exists('mailbox_id', $data) && $data['mailbox_id'] !== null) {
+            $object->setMailboxId($data['mailbox_id']);
+        }
+        elseif (\array_key_exists('mailbox_id', $data) && $data['mailbox_id'] === null) {
+            $object->setMailboxId(null);
+        }
+        if (\array_key_exists('notice', $data) && $data['notice'] !== null) {
+            $object->setNotice($data['notice']);
+        }
+        elseif (\array_key_exists('notice', $data) && $data['notice'] === null) {
+            $object->setNotice(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -225,6 +249,12 @@ class EmailThreadMessageNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('scheduledMessageId') && null !== $data->getScheduledMessageId()) {
+            $dataArray['scheduled_message_id'] = $data->getScheduledMessageId();
+        }
+        if ($data->isInitialized('mailboxId') && null !== $data->getMailboxId()) {
+            $dataArray['mailbox_id'] = $data->getMailboxId();
+        }
         $dataArray['thread_id'] = $data->getThreadId();
         $values = [];
         foreach ($data->getLabels() as $value) {

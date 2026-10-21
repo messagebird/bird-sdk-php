@@ -105,6 +105,18 @@ class EmailThread
      */
     protected $highlights;
     /**
+     * Scheduled or dispatching sends targeting this conversation. Returned by conversation get and list, including zero when none remain. Omitted by search.
+     *
+     * @var int|null
+     */
+    protected $scheduledCount;
+    /**
+     * Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
+     *
+     * @var \DateTime|null
+     */
+    protected $nextScheduledAt;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -419,6 +431,50 @@ class EmailThread
     {
         $this->initialized['highlights'] = true;
         $this->highlights = $highlights;
+        return $this;
+    }
+    /**
+     * Scheduled or dispatching sends targeting this conversation. Returned by conversation get and list, including zero when none remain. Omitted by search.
+     *
+     * @return int|null
+     */
+    public function getScheduledCount(): ?int
+    {
+        return $this->scheduledCount;
+    }
+    /**
+     * Scheduled or dispatching sends targeting this conversation. Returned by conversation get and list, including zero when none remain. Omitted by search.
+     *
+     * @param int|null $scheduledCount
+     *
+     * @return self
+     */
+    public function setScheduledCount(?int $scheduledCount): self
+    {
+        $this->initialized['scheduledCount'] = true;
+        $this->scheduledCount = $scheduledCount;
+        return $this;
+    }
+    /**
+     * Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
+     *
+     * @return \DateTime|null
+     */
+    public function getNextScheduledAt(): ?\DateTime
+    {
+        return $this->nextScheduledAt;
+    }
+    /**
+     * Earliest due time among scheduled or dispatching sends. Returned by conversation get and list only when scheduled_count is positive. Omitted by search and when no sends remain.
+     *
+     * @param \DateTime|null $nextScheduledAt
+     *
+     * @return self
+     */
+    public function setNextScheduledAt(?\DateTime $nextScheduledAt): self
+    {
+        $this->initialized['nextScheduledAt'] = true;
+        $this->nextScheduledAt = $nextScheduledAt;
         return $this;
     }
 }

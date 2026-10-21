@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.82.0
+
+- Add scheduled mailbox compose and replies, with optional cancellation on inbound reply. Their usual message acknowledgement links to the separate scheduled send through `scheduled_message_id`. Mailbox scheduled sends have list, get and cancel operations in all four SDKs. Attachments on scheduled sends are not supported yet.
+
 ## 0.81.0
 
 - Read which quota refused a resource change, and whether the organization or workspace limit bound it, from `APIError.Quota` in Go, `BirdAPIError.quota` in TypeScript, `APIStatusError.quota` in Python and `ApiException::$quota` in PHP. CLI and MCP error responses include the same optional `quota` object with `quota_key` and `scope`.
