@@ -89,6 +89,12 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('quality', $data) && $data['quality'] === null) {
             $object->setQuality(null);
         }
+        if (\array_key_exists('pause', $data) && $data['pause'] !== null) {
+            $object->setPause($this->denormalizer->denormalize($data['pause'], \MessageBird\Wire\Model\WhatsAppTemplatePause::class, 'json', $context));
+        }
+        elseif (\array_key_exists('pause', $data) && $data['pause'] === null) {
+            $object->setPause(null);
+        }
         if (\array_key_exists('rejection', $data) && $data['rejection'] !== null) {
             $object->setRejection($this->denormalizer->denormalize($data['rejection'], \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class, 'json', $context));
         }
@@ -148,6 +154,9 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         }
         if ($data->isInitialized('quality') && null !== $data->getQuality()) {
             $dataArray['quality'] = $this->normalizer->normalize($data->getQuality(), 'json', $context);
+        }
+        if ($data->isInitialized('pause') && null !== $data->getPause()) {
+            $dataArray['pause'] = $this->normalizer->normalize($data->getPause(), 'json', $context);
         }
         if ($data->isInitialized('rejection') && null !== $data->getRejection()) {
             $dataArray['rejection'] = $this->normalizer->normalize($data->getRejection(), 'json', $context);

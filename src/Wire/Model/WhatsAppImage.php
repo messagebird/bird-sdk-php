@@ -23,7 +23,7 @@ class WhatsAppImage extends \ArrayObject
      */
     protected $id;
     /**
-     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key. The file expires with the message, 30 days after it arrives, and the link returns `404` from then on. If the file is gone while the message is still readable, the link returns `410`. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      * 
      *
      * @var string|null
@@ -66,7 +66,7 @@ class WhatsAppImage extends \ArrayObject
         return $this;
     }
     /**
-     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key. The file expires with the message, 30 days after it arrives, and the link returns `404` from then on. If the file is gone while the message is still readable, the link returns `410`. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      * 
      *
      * @return string|null
@@ -76,7 +76,7 @@ class WhatsAppImage extends \ArrayObject
         return $this->url;
     }
     /**
-     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
+     * Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key. The file expires with the message, 30 days after it arrives, and the link returns `404` from then on. If the file is gone while the message is still readable, the link returns `410`. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
      *
      * @param string|null $url
      *

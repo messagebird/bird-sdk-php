@@ -1,0 +1,109 @@
+<?php
+
+namespace MessageBird\Wire\Normalizer;
+
+use Jane\Component\JsonSchemaRuntime\Reference;
+use MessageBird\Wire\Runtime\Normalizer\CheckArray;
+use MessageBird\Wire\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+class WhatsAppConversationUpdateRequestNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+    {
+        return $type === \MessageBird\Wire\Model\WhatsAppConversationUpdateRequest::class;
+    }
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppConversationUpdateRequest::class;
+    }
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $object = new \MessageBird\Wire\Model\WhatsAppConversationUpdateRequest();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
+        }
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        }
+        if (\array_key_exists('assigned_to', $data) && $data['assigned_to'] !== null) {
+            $object->setAssignedTo($data['assigned_to']);
+            unset($data['assigned_to']);
+        }
+        elseif (\array_key_exists('assigned_to', $data) && $data['assigned_to'] === null) {
+            $object->setAssignedTo(null);
+        }
+        if (\array_key_exists('inbox_status', $data) && $data['inbox_status'] !== null) {
+            $object->setInboxStatus($data['inbox_status']);
+            unset($data['inbox_status']);
+        }
+        elseif (\array_key_exists('inbox_status', $data) && $data['inbox_status'] === null) {
+            $object->setInboxStatus(null);
+        }
+        if (\array_key_exists('labels', $data) && $data['labels'] !== null) {
+            $values = [];
+            foreach ($data['labels'] as $value) {
+                $values[] = $value;
+            }
+            $object->setLabels($values);
+            unset($data['labels']);
+        }
+        elseif (\array_key_exists('labels', $data) && $data['labels'] === null) {
+            $object->setLabels(null);
+        }
+        if (\array_key_exists('read', $data) && $data['read'] !== null) {
+            $object->setRead(new \DateTime($data['read']));
+            unset($data['read']);
+        }
+        elseif (\array_key_exists('read', $data) && $data['read'] === null) {
+            $object->setRead(null);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
+            }
+        }
+        return $object;
+    }
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('assignedTo')) {
+            $dataArray['assigned_to'] = $data->getAssignedTo();
+        }
+        if ($data->isInitialized('inboxStatus') && null !== $data->getInboxStatus()) {
+            $dataArray['inbox_status'] = $data->getInboxStatus();
+        }
+        if ($data->isInitialized('labels') && null !== $data->getLabels()) {
+            $values = [];
+            foreach ($data->getLabels() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['labels'] = $values;
+        }
+        if ($data->isInitialized('read') && null !== $data->getRead()) {
+            $dataArray['read'] = $data->getRead()->format('Y-m-d\TH:i:sP');
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\MessageBird\Wire\Model\WhatsAppConversationUpdateRequest::class => false];
+    }
+}

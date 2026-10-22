@@ -9,10 +9,42 @@ namespace MessageBird\Resources;
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\WhatsAppTemplate;
+use MessageBird\Wire\Model\WhatsAppTemplateCreate;
+use MessageBird\Wire\Model\WhatsAppTemplateDuplicate;
 use MessageBird\Wire\Model\WhatsAppTemplateList;
+use MessageBird\Wire\Model\WhatsAppTemplateUpdate;
 
 class WhatsappTemplatesBase extends Resource
 {
+    /**
+     * Creates a WhatsApp template. Supply `languages` to seed its first draft in the same call, or omit it to create the template alone and add content through `whatsapp.templates.versions.create` and `whatsapp.templates.versions.languages.set`. Nothing here reaches WhatsApp: what comes back is a `draft`, and a draft cannot be sent. Submitting it for review is a separate, explicit step. The slug can change until that first submission. The declared category is fixed at creation, but Meta applies its own category per language and may move one, and the price follows that. Read the language for what a send actually costs.
+     *
+     * @example Create a template with its first draft
+     * $template = $bird->whatsapp->templates->create(
+     *     (new WhatsAppTemplateCreate())
+     *         ->setWaba('102290129340398')
+     *         ->setSlug('order_update')
+     *         ->setName('Order update')
+     *         ->setCategory('utility')
+     *         ->setDefaultLanguage('en')
+     *         ->setLanguages([
+     *             'en' => (new WhatsAppTemplateLanguageUpsert())->setComponents([
+     *                 (new WhatsAppTemplateComponentWrite())
+     *                     ->setType('body')
+     *                     ->setText('Your order {{order_id}} has shipped.')
+     *                     ->setExampleParameters([
+     *                         (new WhatsAppTemplateExampleParameterWrite())->setType('text')->setName('order_id')->setText('A-4192'),
+     *                     ]),
+     *             ]),
+     *         ]),
+     * );
+     * echo $template->getId(), ' ', $template->getDraftVersionId(), "\n";
+     */
+    public function create(WhatsAppTemplateCreate $params, ?RequestOptions $options = null): WhatsAppTemplate
+    {
+        return $this->single('POST', '/v1/whatsapp/templates', WhatsAppTemplate::class, $params, null, $options);
+    }
+
     /**
      * List the workspace's WhatsApp templates: each template's handle, its lifecycle, and where each of its languages stands. Content is not included; use `whatsapp.templates.versions.get` for that.
      *
@@ -53,5 +85,43 @@ class WhatsappTemplatesBase extends Resource
     public function get(string $templateRef, ?RequestOptions $options = null): WhatsAppTemplate
     {
         return $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef), WhatsAppTemplate::class, null, null, $options);
+    }
+
+    /**
+     * Changes a template's display name, description, and language policies. The slug can change before the first submission; the old slug then stops resolving, while the template ID stays the same. Content is edited separately on a language of the draft.
+     *
+     * @example Rename a template
+     * $template = $bird->whatsapp->templates->update('order_update', (new WhatsAppTemplateUpdate())->setName('Order shipped'));
+     * echo $template->getSlug(), ' ', $template->getName(), "\n";
+     */
+    public function update(string $templateRef, WhatsAppTemplateUpdate $params, ?RequestOptions $options = null): WhatsAppTemplate
+    {
+        return $this->single('PATCH', '/v1/whatsapp/templates/' . rawurlencode($templateRef), WhatsAppTemplate::class, $params, null, $options);
+    }
+
+    /**
+     * Deletes the template and every language it holds, here first and at WhatsApp afterwards. Sends by this slug stop working. Built-in templates cannot be deleted. To discard unsubmitted work while keeping the template, delete its draft with `whatsapp.templates.versions.delete` instead.
+     *
+     * @example Delete a template
+     * $bird->whatsapp->templates->delete('order_update');
+     */
+    public function delete(string $templateRef, ?RequestOptions $options = null): void
+    {
+        $this->none('DELETE', '/v1/whatsapp/templates/' . rawurlencode($templateRef), null, null, $options);
+    }
+
+    /**
+     * Copies a template into a new one holding the source's current content as an open draft. It is how a built-in template becomes something a workspace can edit, and how an approved template becomes the basis of a variant. The copy names the account it lands on rather than inheriting the source's, because a built-in template lives on an account you cannot submit against. The copy calls WhatsApp zero times: it is a draft you submit when it is ready.
+     *
+     * @example Copy a built-in template onto your account
+     * $copy = $bird->whatsapp->templates->duplicate(
+     *     'bird_otp',
+     *     (new WhatsAppTemplateDuplicate())->setWaba('102290129340398')->setSlug('acme_otp'),
+     * );
+     * echo $copy->getSlug(), ' ', $copy->getDraftVersionId(), "\n";
+     */
+    public function duplicate(string $templateRef, WhatsAppTemplateDuplicate $params, ?RequestOptions $options = null): WhatsAppTemplate
+    {
+        return $this->single('POST', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/duplicate', WhatsAppTemplate::class, $params, null, $options);
     }
 }

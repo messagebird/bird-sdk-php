@@ -1,0 +1,72 @@
+<?php
+
+namespace MessageBird\Wire\Normalizer;
+
+use Jane\Component\JsonSchemaRuntime\Reference;
+use MessageBird\Wire\Runtime\Normalizer\CheckArray;
+use MessageBird\Wire\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+class WhatsAppTemplatePauseNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+    {
+        return $type === \MessageBird\Wire\Model\WhatsAppTemplatePause::class;
+    }
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\WhatsAppTemplatePause::class;
+    }
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $object = new \MessageBird\Wire\Model\WhatsAppTemplatePause();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
+        }
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        }
+        if (\array_key_exists('started_at', $data) && $data['started_at'] !== null) {
+            $object->setStartedAt(new \DateTime($data['started_at']));
+        }
+        elseif (\array_key_exists('started_at', $data) && $data['started_at'] === null) {
+            $object->setStartedAt(null);
+        }
+        if (\array_key_exists('reason', $data) && $data['reason'] !== null) {
+            $object->setReason($data['reason']);
+        }
+        elseif (\array_key_exists('reason', $data) && $data['reason'] === null) {
+            $object->setReason(null);
+        }
+        if (\array_key_exists('description', $data) && $data['description'] !== null) {
+            $object->setDescription($data['description']);
+        }
+        elseif (\array_key_exists('description', $data) && $data['description'] === null) {
+            $object->setDescription(null);
+        }
+        return $object;
+    }
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('reason') && null !== $data->getReason()) {
+            $dataArray['reason'] = $data->getReason();
+        }
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\MessageBird\Wire\Model\WhatsAppTemplatePause::class => false];
+    }
+}

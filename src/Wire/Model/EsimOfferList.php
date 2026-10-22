@@ -37,7 +37,7 @@ class EsimOfferList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
-     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
      *
      * @var int|null
      */
@@ -131,7 +131,7 @@ class EsimOfferList extends \ArrayObject
         return $this;
     }
     /**
-     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
      *
      * @return int|null
      */
@@ -140,7 +140,7 @@ class EsimOfferList extends \ArrayObject
         return $this->total;
     }
     /**
-     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
      *
      * @param int|null $total
      *

@@ -37,6 +37,12 @@ class WhatsAppNumberList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+     *
+     * @var int|null
+     */
+    protected $total;
+    /**
      * The WhatsApp numbers your workspace can send from.
      *
      * @return list<WhatsAppNumber>|null
@@ -122,6 +128,28 @@ class WhatsAppNumberList extends \ArrayObject
     {
         $this->initialized['refreshCursor'] = true;
         $this->refreshCursor = $refreshCursor;
+        return $this;
+    }
+    /**
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+     *
+     * @return int|null
+     */
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+    /**
+     * Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed, and omitted otherwise.
+     *
+     * @param int|null $total
+     *
+     * @return self
+     */
+    public function setTotal(?int $total): self
+    {
+        $this->initialized['total'] = true;
+        $this->total = $total;
         return $this;
     }
 }

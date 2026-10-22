@@ -67,6 +67,12 @@ class WhatsAppNumberNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('number_id', $data) && $data['number_id'] === null) {
             $object->setNumberId(null);
         }
+        if (\array_key_exists('verified_until', $data) && $data['verified_until'] !== null) {
+            $object->setVerifiedUntil(new \DateTime($data['verified_until']));
+        }
+        elseif (\array_key_exists('verified_until', $data) && $data['verified_until'] === null) {
+            $object->setVerifiedUntil(null);
+        }
         if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
         }

@@ -94,6 +94,13 @@ class WhatsAppTemplateLanguage
      */
     protected $quality;
     /**
+     * WhatsApp's record of why it paused or disabled one language. Set when WhatsApp pauses or disables the language and removed once the language can send again. Present only on the version currently in service.
+     * 
+     *
+     * @var WhatsAppTemplatePause|null
+     */
+    protected $pause;
+    /**
      * Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
      * 
      *
@@ -101,7 +108,7 @@ class WhatsAppTemplateLanguage
      */
     protected $rejection;
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @var WhatsAppTemplateLanguageError|null
@@ -370,6 +377,29 @@ class WhatsAppTemplateLanguage
         return $this;
     }
     /**
+     * WhatsApp's record of why it paused or disabled one language. Set when WhatsApp pauses or disables the language and removed once the language can send again. Present only on the version currently in service.
+     * 
+     *
+     * @return WhatsAppTemplatePause|null
+     */
+    public function getPause(): ?WhatsAppTemplatePause
+    {
+        return $this->pause;
+    }
+    /**
+     * WhatsApp's record of why it paused or disabled one language. Set when WhatsApp pauses or disables the language and removed once the language can send again. Present only on the version currently in service.
+     *
+     * @param WhatsAppTemplatePause|null $pause
+     *
+     * @return self
+     */
+    public function setPause(?WhatsAppTemplatePause $pause): self
+    {
+        $this->initialized['pause'] = true;
+        $this->pause = $pause;
+        return $this;
+    }
+    /**
      * Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
      * 
      *
@@ -393,7 +423,7 @@ class WhatsAppTemplateLanguage
         return $this;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @return WhatsAppTemplateLanguageError|null
@@ -403,7 +433,7 @@ class WhatsAppTemplateLanguage
         return $this->error;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
      * @param WhatsAppTemplateLanguageError|WhatsAppTemplateSubmissionError|array|null $error
      *

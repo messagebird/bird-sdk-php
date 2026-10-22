@@ -48,6 +48,8 @@ final class Whatsapp extends WhatsappBase
 
     public readonly WhatsappAgents $agents;
 
+    public readonly WhatsappConversations $conversations;
+
     public function __construct(Bird $client)
     {
         parent::__construct($client);
@@ -61,6 +63,7 @@ final class Whatsapp extends WhatsappBase
         $this->keywordRules = new WhatsappKeywordRules($client);
         $this->suppressions = new WhatsappSuppressions($client);
         $this->agents = new WhatsappAgents($client);
+        $this->conversations = new WhatsappConversations($client);
     }
 
     /**

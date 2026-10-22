@@ -69,6 +69,13 @@ class WhatsAppNumberListNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('refresh_cursor', $data) && $data['refresh_cursor'] === null) {
             $object->setRefreshCursor(null);
         }
+        if (\array_key_exists('total', $data) && $data['total'] !== null) {
+            $object->setTotal($data['total']);
+            unset($data['total']);
+        }
+        elseif (\array_key_exists('total', $data) && $data['total'] === null) {
+            $object->setTotal(null);
+        }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value_1;
@@ -87,6 +94,9 @@ class WhatsAppNumberListNormalizer implements DenormalizerInterface, NormalizerI
         $dataArray['next_cursor'] = $data->getNextCursor();
         $dataArray['prev_cursor'] = $data->getPrevCursor();
         $dataArray['refresh_cursor'] = $data->getRefreshCursor();
+        if ($data->isInitialized('total')) {
+            $dataArray['total'] = $data->getTotal();
+        }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value_1;

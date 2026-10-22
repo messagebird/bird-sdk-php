@@ -8,7 +8,10 @@ namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\WhatsAppTemplateLanguage;
+use MessageBird\Wire\Model\WhatsAppTemplateLanguageDiscard;
 use MessageBird\Wire\Model\WhatsAppTemplateLanguageList;
+use MessageBird\Wire\Model\WhatsAppTemplateLanguageSaved;
+use MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert;
 
 final class WhatsappTemplatesVersionsLanguages extends Resource
 {
@@ -38,5 +41,57 @@ final class WhatsappTemplatesVersionsLanguages extends Resource
     public function get(string $templateRef, string $versionId, string $language, ?RequestOptions $options = null): WhatsAppTemplateLanguage
     {
         return $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId) . '/languages/' . rawurlencode($language), WhatsAppTemplateLanguage::class, null, null, $options);
+    }
+
+    /**
+     * Writes one language of the draft, whole: send the language's complete `components` every time, because this replaces rather than merges. Only the draft is writable. A submitted version is immutable, and a language under review at WhatsApp refuses the write until that review finishes. A body block is required before the language can be submitted, and every variable in a block needs an example value, which is what WhatsApp reviews against. Pass `revision` to make the write a compare-and-set against the copy you read; omit it for last-write-wins, which is what a single writer wants.
+     *
+     * @example Write one language's content
+     * $saved = $bird->whatsapp->templates->versions->languages->set(
+     *     'order_update',
+     *     'wav_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'es',
+     *     (new WhatsAppTemplateLanguageUpsert())->setComponents([
+     *         (new WhatsAppTemplateComponentWrite())
+     *             ->setType('body')
+     *             ->setText('Tu pedido {{order_id}} ya fue enviado.')
+     *             ->setExampleParameters([
+     *                 (new WhatsAppTemplateExampleParameterWrite())->setType('text')->setName('order_id')->setText('A-4192'),
+     *             ]),
+     *     ]),
+     * );
+     * echo $saved->getLanguage(), ' ', $saved->getRevision(), "\n";
+     */
+    public function set(string $templateRef, string $versionId, string $language, WhatsAppTemplateLanguageUpsert $params, ?RequestOptions $options = null): WhatsAppTemplateLanguageSaved
+    {
+        return $this->single('PUT', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId) . '/languages/' . rawurlencode($language), WhatsAppTemplateLanguageSaved::class, $params, null, $options);
+    }
+
+    /**
+     * Removes one language from the draft. The template's default language cannot be removed, and a language under review at WhatsApp refuses removal until that review finishes. WhatsApp is not told until the draft is submitted, and the version a send resolves is unaffected until then.
+     *
+     * @example Remove a language from the draft
+     * $bird->whatsapp->templates->versions->languages->delete('order_update', 'wav_01krdgeqcxet5s7t44vh8rt9mg', 'es');
+     */
+    public function delete(string $templateRef, string $versionId, string $language, ?RequestOptions $options = null): void
+    {
+        $this->none('DELETE', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId) . '/languages/' . rawurlencode($language), null, null, $options);
+    }
+
+    /**
+     * Restores one language of the draft to the copy it was branched from, discarding the edits made to it since. Only that language moves, which is what deleting the whole draft does not give you. A language the draft added, and a template that has never been submitted, have nothing to restore and are refused. Pass `revision` to make the discard a compare-and-set against the copy you read. Nothing reaches WhatsApp until the draft is submitted.
+     *
+     * @example Undo a language's draft edits
+     * $restored = $bird->whatsapp->templates->versions->languages->discard(
+     *     'order_update',
+     *     'wav_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'en',
+     *     new WhatsAppTemplateLanguageDiscard(),
+     * );
+     * echo $restored->getLanguage(), ' ', $restored->getRevision(), "\n";
+     */
+    public function discard(string $templateRef, string $versionId, string $language, WhatsAppTemplateLanguageDiscard $params, ?RequestOptions $options = null): WhatsAppTemplateLanguageSaved
+    {
+        return $this->single('POST', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId) . '/languages/' . rawurlencode($language) . '/discard', WhatsAppTemplateLanguageSaved::class, $params, null, $options);
     }
 }

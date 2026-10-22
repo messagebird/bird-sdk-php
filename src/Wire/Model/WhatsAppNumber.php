@@ -40,6 +40,13 @@ class WhatsAppNumber
      */
     protected $numberId;
     /**
+     * When we expect WhatsApp to release this pre-verified number if you have not finished signup by then. Present only while the number is `awaiting_signup`. Absent for a number pre-verified before we started recording this moment, and for a number you brought yourself.
+     * 
+     *
+     * @var \DateTime|null
+     */
+    protected $verifiedUntil;
+    /**
      * Your workspace's own label for this number, given when it was connected and changeable afterwards. It has no bearing on what WhatsApp displays to people the number messages; `GET /v1/whatsapp/numbers/{number_id}/profile` returns that as `display_name`. For a number we operate on your behalf, this is our own label instead and cannot be changed.
      * 
      *
@@ -236,6 +243,29 @@ class WhatsAppNumber
     {
         $this->initialized['numberId'] = true;
         $this->numberId = $numberId;
+        return $this;
+    }
+    /**
+     * When we expect WhatsApp to release this pre-verified number if you have not finished signup by then. Present only while the number is `awaiting_signup`. Absent for a number pre-verified before we started recording this moment, and for a number you brought yourself.
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getVerifiedUntil(): ?\DateTime
+    {
+        return $this->verifiedUntil;
+    }
+    /**
+     * When we expect WhatsApp to release this pre-verified number if you have not finished signup by then. Present only while the number is `awaiting_signup`. Absent for a number pre-verified before we started recording this moment, and for a number you brought yourself.
+     *
+     * @param \DateTime|null $verifiedUntil
+     *
+     * @return self
+     */
+    public function setVerifiedUntil(?\DateTime $verifiedUntil): self
+    {
+        $this->initialized['verifiedUntil'] = true;
+        $this->verifiedUntil = $verifiedUntil;
         return $this;
     }
     /**

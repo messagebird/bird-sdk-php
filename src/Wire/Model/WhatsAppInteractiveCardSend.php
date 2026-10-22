@@ -29,7 +29,7 @@ class WhatsAppInteractiveCardSend
      */
     protected $bodyText;
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCarouselButtonsMismatch`.
+     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      * 
      *
      * @var list<WhatsAppInteractiveButtonSend>|null
@@ -81,7 +81,7 @@ class WhatsAppInteractiveCardSend
         return $this;
     }
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCarouselButtonsMismatch`.
+     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      * 
      *
      * @return list<WhatsAppInteractiveButtonSend>|null
@@ -91,7 +91,7 @@ class WhatsAppInteractiveCardSend
         return $this->buttons;
     }
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCarouselButtonsMismatch`.
+     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      *
      * @param list<WhatsAppInteractiveButtonSend>|null $buttons
      *

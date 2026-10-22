@@ -57,7 +57,7 @@ class ComplianceRequirement
      */
     protected $satisfied;
     /**
-     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, or the registration needs correction as described by `reason`. False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
+     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, the registration needs correction as described by `reason`, or a closed submission accepts corrected details (`resubmission_allowed`). False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
      * 
      *
      * @var bool|null
@@ -70,6 +70,20 @@ class ComplianceRequirement
      * @var bool|null
      */
     protected $reviewPending;
+    /**
+     * Whether you may change any answer, not only one that was refused or has gone stale. True for a number, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $answersEditable;
+    /**
+     * Whether Bird closed the previous submission but accepts corrected details for this registration. When `submission_id` is set, update that submission with your corrected answers and it is reviewed again. When `submission_id` is `null`, the form has changed since: create a new submission. `reason` says why the previous one was closed. False when nothing was closed, and when a closed submission cannot be sent again; contact support then.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $resubmissionAllowed;
     /**
      * What to correct about the registration as a whole, or null when no registration-wide correction is requested. Reasons about individual answers are on the entries in fields.
      * 
@@ -262,7 +276,7 @@ class ComplianceRequirement
         return $this;
     }
     /**
-     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, or the registration needs correction as described by `reason`. False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
+     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, the registration needs correction as described by `reason`, or a closed submission accepts corrected details (`resubmission_allowed`). False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
      * 
      *
      * @return bool|null
@@ -272,7 +286,7 @@ class ComplianceRequirement
         return $this->needsInput;
     }
     /**
-     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, or the registration needs correction as described by `reason`. False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
+     * Whether anything is waiting on you. True when a required requirement has no answer, its answer was refused or has gone stale, the registration needs correction as described by `reason`, or a closed submission accepts corrected details (`resubmission_allowed`). False does not imply that review is pending: a closed verifier correction can leave the requirements unsatisfied with no editable answers. Read `review_pending` to determine whether an answer is awaiting review. Read this independently of `satisfied`, which reports whether your paperwork is accepted. An unresolved verifier correction also sets it while the matching grant is live and the correction deadline has not passed, until you supply updated details. At the deadline or after grant withdrawal, an unresolved rejection alone does not set it because accepted answers can no longer be replaced. A corrected optional answer that is rejected or expires still needs your input through ordinary resupply, including after that deadline.
      *
      * @param bool|null $needsInput
      *
@@ -305,6 +319,52 @@ class ComplianceRequirement
     {
         $this->initialized['reviewPending'] = true;
         $this->reviewPending = $reviewPending;
+        return $this;
+    }
+    /**
+     * Whether you may change any answer, not only one that was refused or has gone stale. True for a number, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getAnswersEditable(): ?bool
+    {
+        return $this->answersEditable;
+    }
+    /**
+     * Whether you may change any answer, not only one that was refused or has gone stale. True for a number, business identity or SMS sender registration whose submission has not been approved yet, including answers awaiting review or already accepted, and for a closed submission when `resubmission_allowed` is true. An SMS sender registration goes to the carrier or registry when it is approved, so it stays editable only until then. A changed answer loses its verdict and is reviewed again. Send only the answers you change. False once the submission is approved: replace only answers in `fields` whose state is `not_supplied`, `rejected` or `expired`, or those marked `editable_for_verifier_repair`.
+     *
+     * @param bool|null $answersEditable
+     *
+     * @return self
+     */
+    public function setAnswersEditable(?bool $answersEditable): self
+    {
+        $this->initialized['answersEditable'] = true;
+        $this->answersEditable = $answersEditable;
+        return $this;
+    }
+    /**
+     * Whether Bird closed the previous submission but accepts corrected details for this registration. When `submission_id` is set, update that submission with your corrected answers and it is reviewed again. When `submission_id` is `null`, the form has changed since: create a new submission. `reason` says why the previous one was closed. False when nothing was closed, and when a closed submission cannot be sent again; contact support then.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getResubmissionAllowed(): ?bool
+    {
+        return $this->resubmissionAllowed;
+    }
+    /**
+     * Whether Bird closed the previous submission but accepts corrected details for this registration. When `submission_id` is set, update that submission with your corrected answers and it is reviewed again. When `submission_id` is `null`, the form has changed since: create a new submission. `reason` says why the previous one was closed. False when nothing was closed, and when a closed submission cannot be sent again; contact support then.
+     *
+     * @param bool|null $resubmissionAllowed
+     *
+     * @return self
+     */
+    public function setResubmissionAllowed(?bool $resubmissionAllowed): self
+    {
+        $this->initialized['resubmissionAllowed'] = true;
+        $this->resubmissionAllowed = $resubmissionAllowed;
         return $this;
     }
     /**

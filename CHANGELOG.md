@@ -2,6 +2,16 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.84.0
+
+- Add `answers_editable` and `resubmission_allowed` to compliance requirements. `answers_editable` is true while you may change any answer on a number, business identity or SMS sender registration that is not yet approved, including answers already accepted, and on a closed submission whose `resubmission_allowed` is true; `resubmission_allowed` is true when Bird closed the submission but accepts corrected details.
+- **Breaking:** a WhatsApp carousel whose cards carry different buttons is now refused with the error name `WhatsAppInteractiveCardsButtonsMismatch`; the code stays `E15059`, so code that matched the old name should match the code instead.
+- Add the WhatsApp conversation methods under `whatsapp.conversations`: `list`, `get`, `update`, `listEvents`, `listMessages` and `getMessage`. Find the conversations that need an answer, read a thread and its history, then assign, label and resolve it. Reply with `whatsapp.send`. Taking control from the Meta Business Agent stays in the dashboard inbox.
+- Add `getVerifiedUntil()` to `WhatsAppNumber`, when WhatsApp is expected to release a pre-verified number awaiting signup. It returns `null` once signup is finished, and for a number pre-verified before this was recorded.
+- Add `$bird->whatsapp->templates` methods to create, update, duplicate and delete WhatsApp templates, open or discard a draft, write, remove or undo its languages, and submit it for review.
+- Add `getPause()` to `WhatsAppTemplateLanguage`, WhatsApp's record of why it paused or disabled the language, with `getStartedAt()`, `getReason()` and `getDescription()`. It returns `null` except on the version in service, and once the language can send again.
+- The WhatsApp message media docs now say the media expires with its message, 30 days after it arrives, and the download returns `404` from then on. A `410` means only the file expired while the message is still readable.
+
 ## 0.83.0
 
 - Add `filename` to a WhatsApp template's `document` header parameter, naming the file the recipient sees.

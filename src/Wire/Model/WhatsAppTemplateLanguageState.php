@@ -44,7 +44,7 @@ class WhatsAppTemplateLanguageState
      */
     protected $rejection;
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @var WhatsAppTemplateLanguageStateError|null
@@ -143,7 +143,7 @@ class WhatsAppTemplateLanguageState
         return $this;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @return WhatsAppTemplateLanguageStateError|null
@@ -153,7 +153,7 @@ class WhatsAppTemplateLanguageState
         return $this->error;
     }
     /**
-     * Why the submission did not complete, present when `status` is `submit_failed`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
      * @param WhatsAppTemplateLanguageStateError|WhatsAppTemplateSubmissionError|array|null $error
      *

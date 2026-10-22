@@ -32,12 +32,12 @@ class NumberOwnership extends \ArrayObject
      * Current ownership registration approval status. Operational activation is separate:
      * `blocked_at` records the ownership block on number use, and `next` describes remaining work.
      * 
-     * - `needs_input` means ownership details or a submission correction are needed.
-     * - `under_review` means your current answers are being reviewed.
+     * - `needs_input` means ownership details or a submission correction are needed, including when Bird closed a submission but accepts corrected details.
+     * - `under_review` means your current answers are being reviewed. Until the submission is approved, you can still change any answer; a changed answer is reviewed again.
      * - `approval_pending` means your paperwork is accepted but registration approval is still pending.
      * - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
      * - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
-     * - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
+     * - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
      * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
      * 
      *
@@ -107,12 +107,12 @@ class NumberOwnership extends \ArrayObject
      * Current ownership registration approval status. Operational activation is separate:
      * `blocked_at` records the ownership block on number use, and `next` describes remaining work.
      * 
-     * - `needs_input` means ownership details or a submission correction are needed.
-     * - `under_review` means your current answers are being reviewed.
+     * - `needs_input` means ownership details or a submission correction are needed, including when Bird closed a submission but accepts corrected details.
+     * - `under_review` means your current answers are being reviewed. Until the submission is approved, you can still change any answer; a changed answer is reviewed again.
      * - `approval_pending` means your paperwork is accepted but registration approval is still pending.
      * - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
      * - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
-     * - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
+     * - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
      * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
      * 
      *
@@ -126,12 +126,12 @@ class NumberOwnership extends \ArrayObject
     * Current ownership registration approval status. Operational activation is separate:
     `blocked_at` records the ownership block on number use, and `next` describes remaining work.
     
-    - `needs_input` means ownership details or a submission correction are needed.
-    - `under_review` means your current answers are being reviewed.
+    - `needs_input` means ownership details or a submission correction are needed, including when Bird closed a submission but accepts corrected details.
+    - `under_review` means your current answers are being reviewed. Until the submission is approved, you can still change any answer; a changed answer is reviewed again.
     - `approval_pending` means your paperwork is accepted but registration approval is still pending.
     - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
     - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
-    - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
+    - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
     - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
     
     *

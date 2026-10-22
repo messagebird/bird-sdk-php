@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 use MessageBird\Bird;
 use MessageBird\Wire\Model\WhatsAppAgentNotificationCreate;
+use MessageBird\Wire\Model\WhatsAppConversationUpdateRequest;
 use MessageBird\Wire\Model\WhatsAppGroupCreate;
 use MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecision;
 use MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate;
@@ -23,6 +24,14 @@ use MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter;
 use MessageBird\Wire\Model\WhatsAppReactionUpsert;
 use MessageBird\Wire\Model\WhatsAppReadReceiptRequest;
 use MessageBird\Wire\Model\WhatsAppSuppressionCreate;
+use MessageBird\Wire\Model\WhatsAppTemplateComponentWrite;
+use MessageBird\Wire\Model\WhatsAppTemplateCreate;
+use MessageBird\Wire\Model\WhatsAppTemplateDuplicate;
+use MessageBird\Wire\Model\WhatsAppTemplateExampleParameterWrite;
+use MessageBird\Wire\Model\WhatsAppTemplateLanguageDiscard;
+use MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert;
+use MessageBird\Wire\Model\WhatsAppTemplateSubmit;
+use MessageBird\Wire\Model\WhatsAppTemplateUpdate;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
@@ -165,6 +174,77 @@ $language = $bird->whatsapp->templates->versions->languages->get('bird_otp', 'wa
 foreach ($language->getComponents() ?? [] as $component) {
     echo $component->getType(), "\n";
 }
+
+$template = $bird->whatsapp->templates->create(
+    (new WhatsAppTemplateCreate())
+        ->setWaba('102290129340398')
+        ->setSlug('order_update')
+        ->setName('Order update')
+        ->setCategory('utility')
+        ->setDefaultLanguage('en')
+        ->setLanguages([
+            'en' => (new WhatsAppTemplateLanguageUpsert())->setComponents([
+                (new WhatsAppTemplateComponentWrite())
+                    ->setType('body')
+                    ->setText('Your order {{order_id}} has shipped.')
+                    ->setExampleParameters([
+                        (new WhatsAppTemplateExampleParameterWrite())->setType('text')->setName('order_id')->setText('A-4192'),
+                    ]),
+            ]),
+        ]),
+);
+echo $template->getId(), ' ', $template->getDraftVersionId(), "\n";
+
+$template = $bird->whatsapp->templates->update('order_update', (new WhatsAppTemplateUpdate())->setName('Order shipped'));
+echo $template->getSlug(), ' ', $template->getName(), "\n";
+
+$bird->whatsapp->templates->delete('order_update');
+
+$copy = $bird->whatsapp->templates->duplicate(
+    'bird_otp',
+    (new WhatsAppTemplateDuplicate())->setWaba('102290129340398')->setSlug('acme_otp'),
+);
+echo $copy->getSlug(), ' ', $copy->getDraftVersionId(), "\n";
+
+$draft = $bird->whatsapp->templates->versions->create('order_update');
+echo $draft->getId(), "\n";
+
+$bird->whatsapp->templates->versions->delete('order_update', 'wav_01krdgeqcxet5s7t44vh8rt9mg');
+
+$draftId = 'wav_01krdgeqcxet5s7t44vh8rt9mg';
+$check = $bird->whatsapp->templates->versions->submit('order_update', $draftId, (new WhatsAppTemplateSubmit())->setValidateOnly(true));
+foreach ($check->getErrors() ?? [] as $problem) {
+    echo $problem->getLanguage(), ' ', $problem->getField(), ' ', $problem->getMessage(), "\n";
+}
+if ($check->getValid()) {
+    $submitted = $bird->whatsapp->templates->versions->submit('order_update', $draftId, new WhatsAppTemplateSubmit());
+    echo $submitted->getVersion()?->getId(), "\n";
+}
+
+$saved = $bird->whatsapp->templates->versions->languages->set(
+    'order_update',
+    'wav_01krdgeqcxet5s7t44vh8rt9mg',
+    'es',
+    (new WhatsAppTemplateLanguageUpsert())->setComponents([
+        (new WhatsAppTemplateComponentWrite())
+            ->setType('body')
+            ->setText('Tu pedido {{order_id}} ya fue enviado.')
+            ->setExampleParameters([
+                (new WhatsAppTemplateExampleParameterWrite())->setType('text')->setName('order_id')->setText('A-4192'),
+            ]),
+    ]),
+);
+echo $saved->getLanguage(), ' ', $saved->getRevision(), "\n";
+
+$bird->whatsapp->templates->versions->languages->delete('order_update', 'wav_01krdgeqcxet5s7t44vh8rt9mg', 'es');
+
+$restored = $bird->whatsapp->templates->versions->languages->discard(
+    'order_update',
+    'wav_01krdgeqcxet5s7t44vh8rt9mg',
+    'en',
+    new WhatsAppTemplateLanguageDiscard(),
+);
+echo $restored->getLanguage(), ' ', $restored->getRevision(), "\n";
 
 foreach ($bird->whatsapp->numbers->list(['status' => ['connected']]) as $number) {
     echo $number->getId(), ' ', $number->getPhoneNumber(), ' ', $number->getStatus(), "\n";
@@ -321,3 +401,31 @@ foreach ($bird->whatsapp->agents->notifications->list(['from' => '+13124495648',
 // straight after create can throw a not-found ApiException.
 $notification = $bird->whatsapp->agents->notifications->get('waan_01krdgeqcxet5s7t44vh8rt9m7');
 echo $notification->getStatus(), ' ', $notification->getSkippedReason() ?? $notification->getError()?->getDescription();
+
+foreach ($bird->whatsapp->conversations->list(['inbox_status' => 'open', 'control' => 'bird', 'assigned_to' => 'unassigned']) as $conversation) {
+    echo $conversation->getId(), ' ', $conversation->getUnreadCount(), PHP_EOL;
+}
+
+$conversation = $bird->whatsapp->conversations->get('wacv_01krdgeqcxet5s7t44vh8rt9mg');
+echo $conversation->getControl(), ' ', $conversation->getAssignedTo() ?? 'unassigned';
+
+// labels replaces the whole set, so send every label to keep.
+$conversation = $bird->whatsapp->conversations->update(
+    'wacv_01krdgeqcxet5s7t44vh8rt9mg',
+    (new WhatsAppConversationUpdateRequest())
+        ->setAssignedTo('usr_01krdgeqcxet5s7t44vh8rt9mg')
+        ->setLabels(['billing', 'vip'])
+        ->setInboxStatus('resolved'),
+);
+echo $conversation->getInboxStatus();
+
+foreach ($bird->whatsapp->conversations->listEvents('wacv_01krdgeqcxet5s7t44vh8rt9mg') as $event) {
+    echo $event->getCreatedAt()?->format(DATE_ATOM), ' ', $event->getType(), ' ', $event->getSummary(), PHP_EOL;
+}
+
+foreach ($bird->whatsapp->conversations->listMessages('wacv_01krdgeqcxet5s7t44vh8rt9mg', ['direction' => 'inbound']) as $message) {
+    echo $message->getId(), ' ', $message->getCreatedAt()?->format(DATE_ATOM), PHP_EOL;
+}
+
+$message = $bird->whatsapp->conversations->getMessage('wacv_01krdgeqcxet5s7t44vh8rt9mg', 'wam_01krdgeqcxet5s7t44vh8rt9mg');
+echo $message->getDirection(), ' ', $message->getId();

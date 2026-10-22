@@ -8,12 +8,26 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\WhatsAppTemplateSubmit;
+use MessageBird\Wire\Model\WhatsAppTemplateSubmitResult;
 use MessageBird\Wire\Model\WhatsAppTemplateVersion;
 use MessageBird\Wire\Model\WhatsAppTemplateVersionList;
 use MessageBird\Wire\Model\WhatsAppTemplateVersionSummary;
 
 class WhatsappTemplatesVersionsBase extends Resource
 {
+    /**
+     * Opens the template's editable draft, seeded from the newest submitted version. A template has at most one open draft, so this is safe to call when you are unsure: it returns the existing draft rather than opening a second one. Read the template's `draft_version_id` first to skip the call. The draft is where every content edit lands, and nothing reaches WhatsApp until the draft is submitted.
+     *
+     * @example Open a draft to edit
+     * $draft = $bird->whatsapp->templates->versions->create('order_update');
+     * echo $draft->getId(), "\n";
+     */
+    public function create(string $templateRef, ?RequestOptions $options = null): WhatsAppTemplateVersion
+    {
+        return $this->single('POST', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions', WhatsAppTemplateVersion::class, null, null, $options);
+    }
+
     /**
      * List a WhatsApp template's versions, newest first. Each version is one immutable submission; an open draft, if one exists, appears alongside them. Use this to find the version a send resolves to, or the draft still being edited.
      *
@@ -54,5 +68,35 @@ class WhatsappTemplatesVersionsBase extends Resource
     public function get(string $templateRef, string $versionId, ?RequestOptions $options = null): WhatsAppTemplateVersion
     {
         return $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId), WhatsAppTemplateVersion::class, null, null, $options);
+    }
+
+    /**
+     * Deletes the open draft and every unsubmitted edit in it, leaving the template with no draft until `whatsapp.templates.versions.create` opens another. What sends resolve is unaffected, because a submitted version is immutable and keeps serving. To revert one language instead of discarding all of them, use `whatsapp.templates.versions.languages.discard`.
+     *
+     * @example Discard the open draft
+     * $bird->whatsapp->templates->versions->delete('order_update', 'wav_01krdgeqcxet5s7t44vh8rt9mg');
+     */
+    public function delete(string $templateRef, string $versionId, ?RequestOptions $options = null): void
+    {
+        $this->none('DELETE', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId), null, null, $options);
+    }
+
+    /**
+     * Checks the draft and, unless `validate_only` is set, freezes it as an immutable version and sends each changed language to WhatsApp for review. Call it once with `validate_only: true` first: that reports every problem across every language in one round trip and freezes nothing, which is cheaper than finding the problems one submit at a time. A real submit answers `202`, and only the languages whose content changed go to WhatsApp as `pending`: one whose content already matches its approved copy is carried forward still `approved` and is never sent. A submit where every language is unchanged is therefore settled the moment it returns, with nothing to poll for. A language an earlier version carried but the draft dropped is deleted at WhatsApp in the background; it is absent from the new version, so it has no `pending` state to poll. Read the version's languages to see which are which, and where any is `pending`, read the template's `pending_version_id` and those languages until they settle. A clean check does not guarantee WhatsApp approves, because WhatsApp offers no way to ask in advance. Use a different idempotency key for the check and the submit.
+     *
+     * @example Check the draft, then submit it for review
+     * $draftId = 'wav_01krdgeqcxet5s7t44vh8rt9mg';
+     * $check = $bird->whatsapp->templates->versions->submit('order_update', $draftId, (new WhatsAppTemplateSubmit())->setValidateOnly(true));
+     * foreach ($check->getErrors() ?? [] as $problem) {
+     *     echo $problem->getLanguage(), ' ', $problem->getField(), ' ', $problem->getMessage(), "\n";
+     * }
+     * if ($check->getValid()) {
+     *     $submitted = $bird->whatsapp->templates->versions->submit('order_update', $draftId, new WhatsAppTemplateSubmit());
+     *     echo $submitted->getVersion()?->getId(), "\n";
+     * }
+     */
+    public function submit(string $templateRef, string $versionId, WhatsAppTemplateSubmit $params, ?RequestOptions $options = null): WhatsAppTemplateSubmitResult
+    {
+        return $this->single('POST', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/versions/' . rawurlencode($versionId) . '/submit', WhatsAppTemplateSubmitResult::class, $params, null, $options);
     }
 }

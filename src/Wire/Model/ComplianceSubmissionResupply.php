@@ -4,7 +4,9 @@ namespace MessageBird\Wire\Model;
 
 /**
  * Replacement answers for an existing submission. Rejected, expired, or missing answers can
- * be supplied again; accepted answers normally cannot be changed.
+ * be supplied again; accepted answers normally cannot be changed. While the requirements
+ * response reports `answers_editable` with a `submission_id`, you can change any answer on that
+ * submission; send only the ones you change. With `submission_id` null, create a new submission instead.
  * 
  * When the requirements response marks an accepted answer as `editable_for_verifier_repair`,
  * you can replace it during that open correction and before its deadline. Accepted-answer

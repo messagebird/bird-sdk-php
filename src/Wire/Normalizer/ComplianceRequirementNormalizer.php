@@ -46,6 +46,12 @@ class ComplianceRequirementNormalizer implements DenormalizerInterface, Normaliz
         if (\array_key_exists('review_pending', $data) && \is_int($data['review_pending'])) {
             $data['review_pending'] = (bool) $data['review_pending'];
         }
+        if (\array_key_exists('answers_editable', $data) && \is_int($data['answers_editable'])) {
+            $data['answers_editable'] = (bool) $data['answers_editable'];
+        }
+        if (\array_key_exists('resubmission_allowed', $data) && \is_int($data['resubmission_allowed'])) {
+            $data['resubmission_allowed'] = (bool) $data['resubmission_allowed'];
+        }
         if (\array_key_exists('next', $data) && $data['next'] !== null) {
             $values = [];
             foreach ($data['next'] as $value) {
@@ -97,6 +103,18 @@ class ComplianceRequirementNormalizer implements DenormalizerInterface, Normaliz
         }
         elseif (\array_key_exists('review_pending', $data) && $data['review_pending'] === null) {
             $object->setReviewPending(null);
+        }
+        if (\array_key_exists('answers_editable', $data) && $data['answers_editable'] !== null) {
+            $object->setAnswersEditable($data['answers_editable']);
+        }
+        elseif (\array_key_exists('answers_editable', $data) && $data['answers_editable'] === null) {
+            $object->setAnswersEditable(null);
+        }
+        if (\array_key_exists('resubmission_allowed', $data) && $data['resubmission_allowed'] !== null) {
+            $object->setResubmissionAllowed($data['resubmission_allowed']);
+        }
+        elseif (\array_key_exists('resubmission_allowed', $data) && $data['resubmission_allowed'] === null) {
+            $object->setResubmissionAllowed(null);
         }
         if (\array_key_exists('reason', $data) && $data['reason'] !== null) {
             $object->setReason($data['reason']);

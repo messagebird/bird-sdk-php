@@ -160,12 +160,22 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->whatsapp->reaction->remove(...),
             $bird->whatsapp->reaction->listEvents(...),
             $bird->whatsapp->messages->media(...),
+            $bird->whatsapp->templates->create(...),
             $bird->whatsapp->templates->list(...),
             $bird->whatsapp->templates->get(...),
+            $bird->whatsapp->templates->update(...),
+            $bird->whatsapp->templates->delete(...),
+            $bird->whatsapp->templates->duplicate(...),
+            $bird->whatsapp->templates->versions->create(...),
             $bird->whatsapp->templates->versions->list(...),
             $bird->whatsapp->templates->versions->get(...),
+            $bird->whatsapp->templates->versions->delete(...),
+            $bird->whatsapp->templates->versions->submit(...),
             $bird->whatsapp->templates->versions->languages->list(...),
             $bird->whatsapp->templates->versions->languages->get(...),
+            $bird->whatsapp->templates->versions->languages->set(...),
+            $bird->whatsapp->templates->versions->languages->delete(...),
+            $bird->whatsapp->templates->versions->languages->discard(...),
             $bird->whatsapp->groups->create(...),
             $bird->whatsapp->groups->list(...),
             $bird->whatsapp->groups->get(...),
@@ -193,6 +203,12 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->whatsapp->suppressions->get(...),
             $bird->whatsapp->suppressions->add(...),
             $bird->whatsapp->suppressions->remove(...),
+            $bird->whatsapp->conversations->list(...),
+            $bird->whatsapp->conversations->get(...),
+            $bird->whatsapp->conversations->update(...),
+            $bird->whatsapp->conversations->listEvents(...),
+            $bird->whatsapp->conversations->listMessages(...),
+            $bird->whatsapp->conversations->getMessage(...),
             $bird->whatsapp->agents->notifications->list(...),
             $bird->whatsapp->agents->notifications->create(...),
             $bird->whatsapp->agents->notifications->get(...),
@@ -442,7 +458,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(420, $surface);
+        self::assertCount(436, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }
