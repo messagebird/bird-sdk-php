@@ -99,6 +99,13 @@ class AMBTemplateSummary
      */
     protected $contentKind;
     /**
+     * Whether this built-in template holds sample business details, such as a store location or product images, that must be replaced before it can be sent. Sending it returns `422`; duplicate it into your workspace and customize the copy. Always false on workspace templates.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $customizeBeforeUse;
+    /**
      * The permanent editable draft version. Null for a built-in template.
      *
      * @var string|null
@@ -406,6 +413,29 @@ class AMBTemplateSummary
     {
         $this->initialized['contentKind'] = true;
         $this->contentKind = $contentKind;
+        return $this;
+    }
+    /**
+     * Whether this built-in template holds sample business details, such as a store location or product images, that must be replaced before it can be sent. Sending it returns `422`; duplicate it into your workspace and customize the copy. Always false on workspace templates.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getCustomizeBeforeUse(): ?bool
+    {
+        return $this->customizeBeforeUse;
+    }
+    /**
+     * Whether this built-in template holds sample business details, such as a store location or product images, that must be replaced before it can be sent. Sending it returns `422`; duplicate it into your workspace and customize the copy. Always false on workspace templates.
+     *
+     * @param bool|null $customizeBeforeUse
+     *
+     * @return self
+     */
+    public function setCustomizeBeforeUse(?bool $customizeBeforeUse): self
+    {
+        $this->initialized['customizeBeforeUse'] = true;
+        $this->customizeBeforeUse = $customizeBeforeUse;
         return $this;
     }
     /**

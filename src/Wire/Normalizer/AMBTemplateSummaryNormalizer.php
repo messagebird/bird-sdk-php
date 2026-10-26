@@ -37,6 +37,9 @@ class AMBTemplateSummaryNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('customize_before_use', $data) && \is_int($data['customize_before_use'])) {
+            $data['customize_before_use'] = (bool) $data['customize_before_use'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -90,6 +93,12 @@ class AMBTemplateSummaryNormalizer implements DenormalizerInterface, NormalizerI
         }
         elseif (\array_key_exists('content_kind', $data) && $data['content_kind'] === null) {
             $object->setContentKind(null);
+        }
+        if (\array_key_exists('customize_before_use', $data) && $data['customize_before_use'] !== null) {
+            $object->setCustomizeBeforeUse($data['customize_before_use']);
+        }
+        elseif (\array_key_exists('customize_before_use', $data) && $data['customize_before_use'] === null) {
+            $object->setCustomizeBeforeUse(null);
         }
         if (\array_key_exists('draft_version_id', $data) && $data['draft_version_id'] !== null) {
             $object->setDraftVersionId($data['draft_version_id']);

@@ -73,6 +73,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
         }
+        if (\array_key_exists('binary', $data) && $data['binary'] !== null) {
+            $object->setBinary($this->denormalizer->denormalize($data['binary'], \MessageBird\Wire\Model\SMSMessageBinary::class, 'json', $context));
+        }
+        elseif (\array_key_exists('binary', $data) && $data['binary'] === null) {
+            $object->setBinary(null);
+        }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
         }
@@ -108,6 +114,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         elseif (\array_key_exists('template_content_hash', $data) && $data['template_content_hash'] === null) {
             $object->setTemplateContentHash(null);
+        }
+        if (\array_key_exists('messaging_profile_id', $data) && $data['messaging_profile_id'] !== null) {
+            $object->setMessagingProfileId($data['messaging_profile_id']);
+        }
+        elseif (\array_key_exists('messaging_profile_id', $data) && $data['messaging_profile_id'] === null) {
+            $object->setMessagingProfileId(null);
         }
         if (\array_key_exists('segments', $data) && $data['segments'] !== null) {
             $object->setSegments($this->denormalizer->denormalize($data['segments'], \MessageBird\Wire\Model\SMSSegments::class, 'json', $context));
@@ -153,6 +165,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('validity_period', $data) && $data['validity_period'] === null) {
             $object->setValidityPeriod(null);
         }
+        if (\array_key_exists('cost_center', $data) && $data['cost_center'] !== null) {
+            $object->setCostCenter($data['cost_center']);
+        }
+        elseif (\array_key_exists('cost_center', $data) && $data['cost_center'] === null) {
+            $object->setCostCenter(null);
+        }
         if (\array_key_exists('carrier', $data) && $data['carrier'] !== null) {
             $object->setCarrier($data['carrier']);
         }
@@ -170,6 +188,18 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         elseif (\array_key_exists('last_error', $data) && $data['last_error'] === null) {
             $object->setLastError(null);
+        }
+        if (\array_key_exists('country_code', $data) && $data['country_code'] !== null) {
+            $object->setCountryCode($data['country_code']);
+        }
+        elseif (\array_key_exists('country_code', $data) && $data['country_code'] === null) {
+            $object->setCountryCode(null);
+        }
+        if (\array_key_exists('in_reply_to_message', $data) && $data['in_reply_to_message'] !== null) {
+            $object->setInReplyToMessage($this->denormalizer->denormalize($data['in_reply_to_message'], \MessageBird\Wire\Model\SMSMessageInReplyToMessage::class, 'json', $context));
+        }
+        elseif (\array_key_exists('in_reply_to_message', $data) && $data['in_reply_to_message'] === null) {
+            $object->setInReplyToMessage(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
@@ -202,6 +232,9 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         if ($data->isInitialized('category')) {
             $dataArray['category'] = $data->getCategory();
+        }
+        if ($data->isInitialized('messagingProfileId') && null !== $data->getMessagingProfileId()) {
+            $dataArray['messaging_profile_id'] = $data->getMessagingProfileId();
         }
         $dataArray['segments'] = $this->normalizer->normalize($data->getSegments(), 'json', $context);
         if ($data->isInitialized('cost')) {

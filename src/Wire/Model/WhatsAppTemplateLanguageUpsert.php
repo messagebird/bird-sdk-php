@@ -16,6 +16,13 @@ class WhatsAppTemplateLanguageUpsert
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     * 
+     *
+     * @var WhatsAppTemplateLanguageUpsertOptimizationSpec|null
+     */
+    protected $optimizationSpec;
+    /**
      * The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
      * 
      *
@@ -29,6 +36,29 @@ class WhatsAppTemplateLanguageUpsert
      * @var int|null
      */
     protected $revision;
+    /**
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     * 
+     *
+     * @return WhatsAppTemplateLanguageUpsertOptimizationSpec|null
+     */
+    public function getOptimizationSpec(): ?WhatsAppTemplateLanguageUpsertOptimizationSpec
+    {
+        return $this->optimizationSpec;
+    }
+    /**
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     *
+     * @param WhatsAppTemplateLanguageUpsertOptimizationSpec|null $optimizationSpec
+     *
+     * @return self
+     */
+    public function setOptimizationSpec(?WhatsAppTemplateLanguageUpsertOptimizationSpec $optimizationSpec): self
+    {
+        $this->initialized['optimizationSpec'] = true;
+        $this->optimizationSpec = $optimizationSpec;
+        return $this;
+    }
     /**
      * The template's content blocks for this language. Header, footer and buttons are optional. Every variable needs an example value, which is what Meta reviews against. May be omitted or empty on a draft; a body block is required before the language can be submitted.
      * 

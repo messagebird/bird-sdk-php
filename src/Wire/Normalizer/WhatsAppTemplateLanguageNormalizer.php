@@ -37,6 +37,12 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] !== null) {
+            $object->setOptimizationSpec($this->denormalizer->denormalize($data['optimization_spec'], \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class, 'json', $context));
+        }
+        elseif (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] === null) {
+            $object->setOptimizationSpec(null);
+        }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
         }
@@ -136,6 +142,9 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('optimizationSpec')) {
+            $dataArray['optimization_spec'] = $this->normalizer->normalize($data->getOptimizationSpec(), 'json', $context);
+        }
         $dataArray['language'] = $data->getLanguage();
         $values = [];
         foreach ($data->getComponents() as $value) {

@@ -13,6 +13,12 @@ class BillingResolvedPrice
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Whether a published price matched. True includes an explicitly published zero price. False means no price matched and the zero amounts are placeholders, not a quote.
+     *
+     * @var bool|null
+     */
+    protected $isPriced;
+    /**
      * @var Money|null
      */
     protected $unitPrice;
@@ -104,6 +110,28 @@ class BillingResolvedPrice
      * @var int|null
      */
     protected $intervalsPerCharge;
+    /**
+     * Whether a published price matched. True includes an explicitly published zero price. False means no price matched and the zero amounts are placeholders, not a quote.
+     *
+     * @return bool|null
+     */
+    public function getIsPriced(): ?bool
+    {
+        return $this->isPriced;
+    }
+    /**
+     * Whether a published price matched. True includes an explicitly published zero price. False means no price matched and the zero amounts are placeholders, not a quote.
+     *
+     * @param bool|null $isPriced
+     *
+     * @return self
+     */
+    public function setIsPriced(?bool $isPriced): self
+    {
+        $this->initialized['isPriced'] = true;
+        $this->isPriced = $isPriced;
+        return $this;
+    }
     /**
      * @return Money|null
      */

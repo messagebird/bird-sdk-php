@@ -37,6 +37,15 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('is_priced', $data) && \is_int($data['is_priced'])) {
+            $data['is_priced'] = (bool) $data['is_priced'];
+        }
+        if (\array_key_exists('is_priced', $data) && $data['is_priced'] !== null) {
+            $object->setIsPriced($data['is_priced']);
+        }
+        elseif (\array_key_exists('is_priced', $data) && $data['is_priced'] === null) {
+            $object->setIsPriced(null);
+        }
         if (\array_key_exists('unit_price', $data) && $data['unit_price'] !== null) {
             $object->setUnitPrice($this->denormalizer->denormalize($data['unit_price'], \MessageBird\Wire\Model\Money::class, 'json', $context));
         }
@@ -130,6 +139,7 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        $dataArray['is_priced'] = $data->getIsPriced();
         $dataArray['unit_price'] = $this->normalizer->normalize($data->getUnitPrice(), 'json', $context);
         $dataArray['tax_rate'] = $data->getTaxRate();
         $dataArray['tax_amount'] = $this->normalizer->normalize($data->getTaxAmount(), 'json', $context);

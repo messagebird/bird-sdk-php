@@ -172,12 +172,6 @@ class AMBMessage
      */
     protected $sentAt;
     /**
-     * Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-     *
-     * @var AMBRichLinkReference|null
-     */
-    protected $dataRef;
-    /**
      * Apple department identifier carried by this message. Omitted when absent from the message or unavailable on a historical record.
      *
      * @var string|null
@@ -747,28 +741,6 @@ class AMBMessage
     {
         $this->initialized['sentAt'] = true;
         $this->sentAt = $sentAt;
-        return $this;
-    }
-    /**
-     * Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-     *
-     * @return AMBRichLinkReference|null
-     */
-    public function getDataRef(): ?AMBRichLinkReference
-    {
-        return $this->dataRef;
-    }
-    /**
-     * Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
-     *
-     * @param AMBRichLinkReference|null $dataRef
-     *
-     * @return self
-     */
-    public function setDataRef(?AMBRichLinkReference $dataRef): self
-    {
-        $this->initialized['dataRef'] = true;
-        $this->dataRef = $dataRef;
         return $this;
     }
     /**

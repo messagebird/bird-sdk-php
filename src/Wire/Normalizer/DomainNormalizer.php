@@ -37,6 +37,12 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('default_ip_pool_id', $data) && $data['default_ip_pool_id'] !== null) {
+            $object->setDefaultIpPoolId($data['default_ip_pool_id']);
+        }
+        elseif (\array_key_exists('default_ip_pool_id', $data) && $data['default_ip_pool_id'] === null) {
+            $object->setDefaultIpPoolId(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -140,6 +146,9 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('defaultIpPoolId')) {
+            $dataArray['default_ip_pool_id'] = $data->getDefaultIpPoolId();
+        }
         $dataArray['id'] = $data->getId();
         $dataArray['workspace_id'] = $data->getWorkspaceId();
         $dataArray['settings'] = $this->normalizer->normalize($data->getSettings(), 'json', $context);

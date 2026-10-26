@@ -56,6 +56,13 @@ class SMSError
      */
     protected $occurredAt;
     /**
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $permanent;
+    /**
      * Standardized failure reason:
      * 
      * - `invalid_destination`: The number is unassigned, ported out, or malformed.
@@ -173,6 +180,29 @@ class SMSError
     {
         $this->initialized['occurredAt'] = true;
         $this->occurredAt = $occurredAt;
+        return $this;
+    }
+    /**
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getPermanent(): ?bool
+    {
+        return $this->permanent;
+    }
+    /**
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     *
+     * @param bool|null $permanent
+     *
+     * @return self
+     */
+    public function setPermanent(?bool $permanent): self
+    {
+        $this->initialized['permanent'] = true;
+        $this->permanent = $permanent;
         return $this;
     }
 }

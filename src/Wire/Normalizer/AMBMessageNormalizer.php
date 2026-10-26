@@ -171,12 +171,6 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('sent_at', $data) && $data['sent_at'] === null) {
             $object->setSentAt(null);
         }
-        if (\array_key_exists('data_ref', $data) && $data['data_ref'] !== null) {
-            $object->setDataRef($this->denormalizer->denormalize($data['data_ref'], \MessageBird\Wire\Model\AMBRichLinkReference::class, 'json', $context));
-        }
-        elseif (\array_key_exists('data_ref', $data) && $data['data_ref'] === null) {
-            $object->setDataRef(null);
-        }
         if (\array_key_exists('group', $data) && $data['group'] !== null) {
             $object->setGroup($data['group']);
         }
@@ -240,9 +234,6 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
             $dataArray['reply_message_id'] = $data->getReplyMessageId();
         }
         $dataArray['cost'] = $this->normalizer->normalize($data->getCost(), 'json', $context);
-        if ($data->isInitialized('dataRef') && null !== $data->getDataRef()) {
-            $dataArray['data_ref'] = $this->normalizer->normalize($data->getDataRef(), 'json', $context);
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

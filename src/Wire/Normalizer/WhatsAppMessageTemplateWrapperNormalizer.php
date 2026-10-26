@@ -37,6 +37,9 @@ class WhatsAppMessageTemplateWrapperNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('bid_multiplier', $data) && \is_int($data['bid_multiplier'])) {
+            $data['bid_multiplier'] = (float) $data['bid_multiplier'];
+        }
         if (\array_key_exists('slug', $data) && $data['slug'] !== null) {
             $object->setSlug($data['slug']);
         }
@@ -54,6 +57,12 @@ class WhatsAppMessageTemplateWrapperNormalizer implements DenormalizerInterface,
         }
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
+        }
+        if (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] !== null) {
+            $object->setBidMultiplier($data['bid_multiplier']);
+        }
+        elseif (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] === null) {
+            $object->setBidMultiplier(null);
         }
         if (\array_key_exists('components', $data) && $data['components'] !== null) {
             $values = [];

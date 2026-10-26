@@ -16,6 +16,12 @@ class WhatsAppTemplateLanguage
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * This language's maximum price, or `null` when Meta's standard rate applies.
+     *
+     * @var WhatsAppTemplateLanguageOptimizationSpec|null
+     */
+    protected $optimizationSpec;
+    /**
      * A language tag in BCP-47 form, for example `en` or `pt-BR`.
      *
      * @var string|null
@@ -142,6 +148,28 @@ class WhatsAppTemplateLanguage
      * @var string|null
      */
     protected $updatedBy;
+    /**
+     * This language's maximum price, or `null` when Meta's standard rate applies.
+     *
+     * @return WhatsAppTemplateLanguageOptimizationSpec|null
+     */
+    public function getOptimizationSpec(): ?WhatsAppTemplateLanguageOptimizationSpec
+    {
+        return $this->optimizationSpec;
+    }
+    /**
+     * This language's maximum price, or `null` when Meta's standard rate applies.
+     *
+     * @param WhatsAppTemplateLanguageOptimizationSpec|null $optimizationSpec
+     *
+     * @return self
+     */
+    public function setOptimizationSpec(?WhatsAppTemplateLanguageOptimizationSpec $optimizationSpec): self
+    {
+        $this->initialized['optimizationSpec'] = true;
+        $this->optimizationSpec = $optimizationSpec;
+        return $this;
+    }
     /**
      * A language tag in BCP-47 form, for example `en` or `pt-BR`.
      *

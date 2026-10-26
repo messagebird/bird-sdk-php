@@ -37,6 +37,9 @@ class AMBTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('customize_before_use', $data) && \is_int($data['customize_before_use'])) {
+            $data['customize_before_use'] = (bool) $data['customize_before_use'];
+        }
         if (\array_key_exists('language_source_required', $data) && \is_int($data['language_source_required'])) {
             $data['language_source_required'] = (bool) $data['language_source_required'];
         }
@@ -93,6 +96,12 @@ class AMBTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         elseif (\array_key_exists('content_kind', $data) && $data['content_kind'] === null) {
             $object->setContentKind(null);
+        }
+        if (\array_key_exists('customize_before_use', $data) && $data['customize_before_use'] !== null) {
+            $object->setCustomizeBeforeUse($data['customize_before_use']);
+        }
+        elseif (\array_key_exists('customize_before_use', $data) && $data['customize_before_use'] === null) {
+            $object->setCustomizeBeforeUse(null);
         }
         if (\array_key_exists('draft_version_id', $data) && $data['draft_version_id'] !== null) {
             $object->setDraftVersionId($data['draft_version_id']);

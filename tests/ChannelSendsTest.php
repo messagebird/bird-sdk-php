@@ -110,6 +110,15 @@ final class ChannelSendsTest extends TestCase
         self::assertSame(['id' => 'wat_01krdgeqcxet5s7t44vh8rt9mg'], $body['template']);
     }
 
+    public function testWhatsappSendKeepsBidMultiplierWithoutTemplate(): void
+    {
+        $recording = $this->recording();
+        $this->bird($recording)->whatsapp->send(to: '+14155552671', from: '+14155552672', bidMultiplier: 0.8);
+
+        $body = $this->sentBody($recording);
+        self::assertSame(['bid_multiplier' => 0.8], $body['template']);
+    }
+
     public function testWhatsappSendCarriesFreeFormTextAndSender(): void
     {
         $recording = $this->recording();

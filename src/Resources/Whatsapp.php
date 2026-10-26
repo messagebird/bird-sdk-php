@@ -77,7 +77,8 @@ final class Whatsapp extends WhatsappBase
      * deliverable only inside an open 24-hour customer service window, and
      * every send but a Bird-managed template needs $from. Pass
      * $inReplyToMessageId to quote an earlier message from the same
-     * conversation.
+     * conversation. $bidMultiplier scales a marketing language's maximum price
+     * for this message only.
      *
      * @param string|null                                 $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
      * @param list<WhatsAppMessageTemplateComponent>|null $components fills the template's placeholders
@@ -104,14 +105,16 @@ final class Whatsapp extends WhatsappBase
         ?array $tags = null,
         ?array $metadata = null,
         ?RequestOptions $options = null,
+        // Last, so a caller passing every earlier argument positionally keeps working.
+        ?float $bidMultiplier = null,
     ): WhatsAppMessage {
         $request = (new WhatsAppMessageSendRequest())->setTo($to);
-        if ($template !== null) {
+        if ($template !== null || $language !== null || $components !== null || $bidMultiplier !== null) {
             $tmpl = new WhatsAppMessageSendRequestTemplate();
             // A wat_-prefixed value is the id; anything else is the slug handle.
-            if (str_starts_with($template, 'wat_')) {
+            if ($template !== null && str_starts_with($template, 'wat_')) {
                 $tmpl->setId($template);
-            } else {
+            } elseif ($template !== null) {
                 $tmpl->setSlug($template);
             }
             if ($language !== null) {
@@ -119,6 +122,9 @@ final class Whatsapp extends WhatsappBase
             }
             if ($components !== null) {
                 $tmpl->setComponents($components);
+            }
+            if ($bidMultiplier !== null) {
+                $tmpl->setBidMultiplier($bidMultiplier);
             }
             $request->setTemplate($tmpl);
         }

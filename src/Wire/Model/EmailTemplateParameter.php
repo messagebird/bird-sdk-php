@@ -29,10 +29,10 @@ class EmailTemplateParameter
      * - `ttl`: a whole number from 1 to 999.
      * - `count`: a whole number from 1 to 999.
      * - `ref`: up to 16 uppercase letters, digits or hyphens.
-     * - `date`: an ISO 8601 date (YYYY-MM-DD).
+     * - `date`: an ISO 8601 date (YYYY-MM-DD). A date and time is also accepted and shows as its date.
      * - `date_time`: an ISO 8601 date and time, with an optional offset.
      * - `amount`: a decimal amount in major units, with up to 4 decimal places.
-     * - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+     * - `currency`: a known ISO 4217 currency code of 3 uppercase letters.
      * 
      *
      * @var string|null
@@ -95,10 +95,10 @@ class EmailTemplateParameter
      * - `ttl`: a whole number from 1 to 999.
      * - `count`: a whole number from 1 to 999.
      * - `ref`: up to 16 uppercase letters, digits or hyphens.
-     * - `date`: an ISO 8601 date (YYYY-MM-DD).
+     * - `date`: an ISO 8601 date (YYYY-MM-DD). A date and time is also accepted and shows as its date.
      * - `date_time`: an ISO 8601 date and time, with an optional offset.
      * - `amount`: a decimal amount in major units, with up to 4 decimal places.
-     * - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+     * - `currency`: a known ISO 4217 currency code of 3 uppercase letters.
      * 
      *
      * @return string|null
@@ -115,10 +115,10 @@ class EmailTemplateParameter
     - `ttl`: a whole number from 1 to 999.
     - `count`: a whole number from 1 to 999.
     - `ref`: up to 16 uppercase letters, digits or hyphens.
-    - `date`: an ISO 8601 date (YYYY-MM-DD).
+    - `date`: an ISO 8601 date (YYYY-MM-DD). A date and time is also accepted and shows as its date.
     - `date_time`: an ISO 8601 date and time, with an optional offset.
     - `amount`: a decimal amount in major units, with up to 4 decimal places.
-    - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+    - `currency`: a known ISO 4217 currency code of 3 uppercase letters.
     
     *
     * @param string|null $type

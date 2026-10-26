@@ -63,7 +63,7 @@ class EmailMailboxesBase extends Resource
     }
 
     /**
-     * Read one mailbox by ID. A mailbox deleted within its 30-day restore window is still returned, with `deleted_at` set. Once that window closes it is gone and this returns `404`.
+     * Read one mailbox by ID or email address in this workspace. A mailbox deleted within its 30-day restore window is still returned, with `deleted_at` set. Once that window closes it is gone and this returns `404`.
      *
      * @example Fetch a mailbox by id
      * $mailbox = $bird->email->mailboxes->get('mbx_01krdgeqcxet5s7t44vh8rt9mg');

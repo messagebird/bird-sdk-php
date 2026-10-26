@@ -16,6 +16,13 @@ class DomainUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+     * 
+     *
+     * @var string|null
+     */
+    protected $defaultIpPoolId;
+    /**
      * Per-domain behavior toggles. Changes apply immediately to new sends.
      * 
      *
@@ -49,6 +56,29 @@ class DomainUpdate
      * @var DomainInboundConfig|null
      */
     protected $inbound;
+    /**
+     * Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+     * 
+     *
+     * @return string|null
+     */
+    public function getDefaultIpPoolId(): ?string
+    {
+        return $this->defaultIpPoolId;
+    }
+    /**
+     * Default IP pool for this domain in this workspace. Used only when a send omits `ip_pool_id`; an explicit send option takes precedence. The pool must belong to the same organization. Set to `null` to use normal organization routing.
+     *
+     * @param string|null $defaultIpPoolId
+     *
+     * @return self
+     */
+    public function setDefaultIpPoolId(?string $defaultIpPoolId): self
+    {
+        $this->initialized['defaultIpPoolId'] = true;
+        $this->defaultIpPoolId = $defaultIpPoolId;
+        return $this;
+    }
     /**
      * Per-domain behavior toggles. Changes apply immediately to new sends.
      * 

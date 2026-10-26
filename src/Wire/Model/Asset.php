@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A file in the workspace's media library, hosted at a permanent public URL. Embed or link `url` anywhere hosted media is needed, including in email that has already been sent: an asset's bytes and URL never change.
+ * A file in the workspace's media library, hosted at a permanent public URL. Embed or link `url` in your content. Metadata changes and removing a library entry preserve the URL and bytes; an abuse or security takedown can make the file unavailable.
  */
 class Asset extends \ArrayObject
 {
@@ -83,7 +83,7 @@ class Asset extends \ArrayObject
      */
     protected $height;
     /**
-     * Default alternative text describing the asset, carried along whenever it is placed. Most mail clients block images by default, so for an image this is often the only thing a recipient reads.
+     * Default alternative text for the asset. Use it as the starting point for an image description when inserting the asset into content. Updating this field does not update descriptions already copied into saved content.
      *
      * @var string|null
      */
@@ -345,7 +345,7 @@ class Asset extends \ArrayObject
         return $this;
     }
     /**
-     * Default alternative text describing the asset, carried along whenever it is placed. Most mail clients block images by default, so for an image this is often the only thing a recipient reads.
+     * Default alternative text for the asset. Use it as the starting point for an image description when inserting the asset into content. Updating this field does not update descriptions already copied into saved content.
      *
      * @return string|null
      */
@@ -354,7 +354,7 @@ class Asset extends \ArrayObject
         return $this->altText;
     }
     /**
-     * Default alternative text describing the asset, carried along whenever it is placed. Most mail clients block images by default, so for an image this is often the only thing a recipient reads.
+     * Default alternative text for the asset. Use it as the starting point for an image description when inserting the asset into content. Updating this field does not update descriptions already copied into saved content.
      *
      * @param string|null $altText
      *

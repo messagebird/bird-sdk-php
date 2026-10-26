@@ -37,6 +37,9 @@ class WhatsAppTemplateSendNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('bid_multiplier', $data) && \is_int($data['bid_multiplier'])) {
+            $data['bid_multiplier'] = (float) $data['bid_multiplier'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -54,6 +57,12 @@ class WhatsAppTemplateSendNormalizer implements DenormalizerInterface, Normalize
         }
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
+        }
+        if (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] !== null) {
+            $object->setBidMultiplier($data['bid_multiplier']);
+        }
+        elseif (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] === null) {
+            $object->setBidMultiplier(null);
         }
         if (\array_key_exists('components', $data) && $data['components'] !== null) {
             $values = [];
@@ -78,6 +87,9 @@ class WhatsAppTemplateSendNormalizer implements DenormalizerInterface, Normalize
         }
         if ($data->isInitialized('language') && null !== $data->getLanguage()) {
             $dataArray['language'] = $data->getLanguage();
+        }
+        if ($data->isInitialized('bidMultiplier') && null !== $data->getBidMultiplier()) {
+            $dataArray['bid_multiplier'] = $data->getBidMultiplier();
         }
         if ($data->isInitialized('components') && null !== $data->getComponents()) {
             $values = [];

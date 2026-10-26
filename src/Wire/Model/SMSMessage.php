@@ -41,12 +41,18 @@ class SMSMessage
      */
     protected $from;
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      * 
      *
      * @var string|null
      */
     protected $text;
+    /**
+     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     *
+     * @var SMSMessageBinary|null
+     */
+    protected $binary;
     /**
      * Content classification supplied for free text or derived from the template. Null for inbound messages.
      *
@@ -87,6 +93,10 @@ class SMSMessage
      */
     protected $templateContentHash;
     /**
+     * @var string|null
+     */
+    protected $messagingProfileId;
+    /**
      * Segment breakdown for the message body. Segment count drives billing.
      *
      * @var SMSSegments|null
@@ -119,11 +129,17 @@ class SMSMessage
      */
     protected $options;
     /**
-     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
+     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @var int|null
      */
     protected $validityPeriod;
+    /**
+     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     *
+     * @var string|null
+     */
+    protected $costCenter;
     /**
      * Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
      *
@@ -142,6 +158,20 @@ class SMSMessage
      * @var SMSError|null
      */
     protected $lastError;
+    /**
+     * On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. The same value as the message's `sms.*` events' `country_code`. Absent when not known.
+     * 
+     *
+     * @var string|null
+     */
+    protected $countryCode;
+    /**
+     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     * 
+     *
+     * @var SMSMessageInReplyToMessage|null
+     */
+    protected $inReplyToMessage;
     /**
      * When the message was accepted (outbound) or received (inbound).
      *
@@ -265,7 +295,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      * 
      *
      * @return string|null
@@ -275,7 +305,7 @@ class SMSMessage
         return $this->text;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
      *
      * @param string|null $text
      *
@@ -285,6 +315,28 @@ class SMSMessage
     {
         $this->initialized['text'] = true;
         $this->text = $text;
+        return $this;
+    }
+    /**
+     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     *
+     * @return SMSMessageBinary|null
+     */
+    public function getBinary(): ?SMSMessageBinary
+    {
+        return $this->binary;
+    }
+    /**
+     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     *
+     * @param SMSMessageBinary|SMSBinary|array|null $binary
+     *
+     * @return self
+     */
+    public function setBinary($binary): self
+    {
+        $this->initialized['binary'] = true;
+        $this->binary = \MessageBird\Core\ModelWrapper::normalize($binary, SMSMessageBinary::class);
         return $this;
     }
     /**
@@ -423,6 +475,24 @@ class SMSMessage
         return $this;
     }
     /**
+     * @return string|null
+     */
+    public function getMessagingProfileId(): ?string
+    {
+        return $this->messagingProfileId;
+    }
+    /**
+     * @param string|null $messagingProfileId
+     *
+     * @return self
+     */
+    public function setMessagingProfileId(?string $messagingProfileId): self
+    {
+        $this->initialized['messagingProfileId'] = true;
+        $this->messagingProfileId = $messagingProfileId;
+        return $this;
+    }
+    /**
      * Segment breakdown for the message body. Segment count drives billing.
      *
      * @return SMSSegments|null
@@ -535,7 +605,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
+     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @return int|null
      */
@@ -544,7 +614,7 @@ class SMSMessage
         return $this->validityPeriod;
     }
     /**
-     * Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
+     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @param int|null $validityPeriod
      *
@@ -554,6 +624,28 @@ class SMSMessage
     {
         $this->initialized['validityPeriod'] = true;
         $this->validityPeriod = $validityPeriod;
+        return $this;
+    }
+    /**
+     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     *
+     * @return string|null
+     */
+    public function getCostCenter(): ?string
+    {
+        return $this->costCenter;
+    }
+    /**
+     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     *
+     * @param string|null $costCenter
+     *
+     * @return self
+     */
+    public function setCostCenter(?string $costCenter): self
+    {
+        $this->initialized['costCenter'] = true;
+        $this->costCenter = $costCenter;
         return $this;
     }
     /**
@@ -620,6 +712,52 @@ class SMSMessage
     {
         $this->initialized['lastError'] = true;
         $this->lastError = $lastError;
+        return $this;
+    }
+    /**
+     * On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. The same value as the message's `sms.*` events' `country_code`. Absent when not known.
+     * 
+     *
+     * @return string|null
+     */
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+    /**
+     * On an outbound message, the country of the recipient's number. On a received message, the country of the sender's number, or of your number that received it when the sender is not a phone number, such as a short code or an alphanumeric sender. The same value as the message's `sms.*` events' `country_code`. Absent when not known.
+     *
+     * @param string|null $countryCode
+     *
+     * @return self
+     */
+    public function setCountryCode(?string $countryCode): self
+    {
+        $this->initialized['countryCode'] = true;
+        $this->countryCode = $countryCode;
+        return $this;
+    }
+    /**
+     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     * 
+     *
+     * @return SMSMessageInReplyToMessage|null
+     */
+    public function getInReplyToMessage(): ?SMSMessageInReplyToMessage
+    {
+        return $this->inReplyToMessage;
+    }
+    /**
+     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     *
+     * @param SMSMessageInReplyToMessage|SMSInReplyToMessage|array|null $inReplyToMessage
+     *
+     * @return self
+     */
+    public function setInReplyToMessage($inReplyToMessage): self
+    {
+        $this->initialized['inReplyToMessage'] = true;
+        $this->inReplyToMessage = \MessageBird\Core\ModelWrapper::normalize($inReplyToMessage, SMSMessageInReplyToMessage::class);
         return $this;
     }
     /**

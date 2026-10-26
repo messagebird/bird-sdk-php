@@ -35,6 +35,13 @@ class WhatsAppMessageTemplate
      */
     protected $language;
     /**
+     * The `bid_multiplier` the message was sent with. Absent when the send named none, which bids at 1. Also absent on messages sent before Bird stored it.
+     * 
+     *
+     * @var float|null
+     */
+    protected $bidMultiplier;
+    /**
      * The values that filled the template's placeholders. Empty for an authentication template, whose content is never returned.
      * 
      *
@@ -106,6 +113,29 @@ class WhatsAppMessageTemplate
     {
         $this->initialized['language'] = true;
         $this->language = $language;
+        return $this;
+    }
+    /**
+     * The `bid_multiplier` the message was sent with. Absent when the send named none, which bids at 1. Also absent on messages sent before Bird stored it.
+     * 
+     *
+     * @return float|null
+     */
+    public function getBidMultiplier(): ?float
+    {
+        return $this->bidMultiplier;
+    }
+    /**
+     * The `bid_multiplier` the message was sent with. Absent when the send named none, which bids at 1. Also absent on messages sent before Bird stored it.
+     *
+     * @param float|null $bidMultiplier
+     *
+     * @return self
+     */
+    public function setBidMultiplier(?float $bidMultiplier): self
+    {
+        $this->initialized['bidMultiplier'] = true;
+        $this->bidMultiplier = $bidMultiplier;
         return $this;
     }
     /**

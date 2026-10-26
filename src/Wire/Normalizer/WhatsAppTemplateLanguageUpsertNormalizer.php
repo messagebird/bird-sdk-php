@@ -37,6 +37,12 @@ class WhatsAppTemplateLanguageUpsertNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] !== null) {
+            $object->setOptimizationSpec($this->denormalizer->denormalize($data['optimization_spec'], \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class, 'json', $context));
+        }
+        elseif (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] === null) {
+            $object->setOptimizationSpec(null);
+        }
         if (\array_key_exists('components', $data) && $data['components'] !== null) {
             $values = [];
             foreach ($data['components'] as $value) {
@@ -58,6 +64,9 @@ class WhatsAppTemplateLanguageUpsertNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('optimizationSpec')) {
+            $dataArray['optimization_spec'] = $this->normalizer->normalize($data->getOptimizationSpec(), 'json', $context);
+        }
         if ($data->isInitialized('components') && null !== $data->getComponents()) {
             $values = [];
             foreach ($data->getComponents() as $value) {

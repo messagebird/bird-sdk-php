@@ -116,7 +116,7 @@ class EmailMessageSendRequest
      */
     protected $trackClicks = true;
     /**
-     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use the sending domain's default pool in this workspace, or the organization's default when the domain has none. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
      * 
      *
      * @var string|null
@@ -497,7 +497,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use the sending domain's default pool in this workspace, or the organization's default when the domain has none. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
      * 
      *
      * @return string|null
@@ -507,7 +507,7 @@ class EmailMessageSendRequest
         return $this->ipPoolId;
     }
     /**
-     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+     * ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use the sending domain's default pool in this workspace, or the organization's default when the domain has none. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
      *
      * @param string|null $ipPoolId
      *

@@ -37,6 +37,9 @@ class SMSErrorNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('permanent', $data) && \is_int($data['permanent'])) {
+            $data['permanent'] = (bool) $data['permanent'];
+        }
         if (\array_key_exists('code', $data) && $data['code'] !== null) {
             $object->setCode($data['code']);
         }
@@ -61,6 +64,12 @@ class SMSErrorNormalizer implements DenormalizerInterface, NormalizerInterface, 
         elseif (\array_key_exists('occurred_at', $data) && $data['occurred_at'] === null) {
             $object->setOccurredAt(null);
         }
+        if (\array_key_exists('permanent', $data) && $data['permanent'] !== null) {
+            $object->setPermanent($data['permanent']);
+        }
+        elseif (\array_key_exists('permanent', $data) && $data['permanent'] === null) {
+            $object->setPermanent(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -72,6 +81,9 @@ class SMSErrorNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $dataArray['carrier_error_code'] = $data->getCarrierErrorCode();
         }
         $dataArray['occurred_at'] = $data->getOccurredAt()->format('Y-m-d\TH:i:sP');
+        if ($data->isInitialized('permanent')) {
+            $dataArray['permanent'] = $data->getPermanent();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

@@ -40,6 +40,330 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WorkspaceQuotaList::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaListNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBounceStatsWithRates::class => \MessageBird\Wire\Normalizer\EmailBounceStatsWithRatesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsBouncesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailEngagementStats::class => \MessageBird\Wire\Normalizer\EmailEngagementStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailLatencyQuantiles::class => \MessageBird\Wire\Normalizer\EmailLatencyQuantilesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailLatencyStats::class => \MessageBird\Wire\Normalizer\EmailLatencyStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsComparison::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSummary::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSummaryEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsPoint::class => \MessageBird\Wire\Normalizer\EmailStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailSendingIpDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailSendingIpDeliveryStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailSendingIpDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailSendingIpDeliveryStatsBouncesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailDeliveryLatencyStats::class => \MessageBird\Wire\Normalizer\EmailDeliveryLatencyStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsSeriesPoint::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTagStatsPoint::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTagStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsTagsResponse::class => \MessageBird\Wire\Normalizer\EmailStatsTagsResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderDeliveryStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderDeliveryStatsBouncesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderStatsPoint::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsByMailboxProviderResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByMailboxProviderResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailRecipientDomainStatsPoint::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsByRecipientDomainResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByRecipientDomainResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBounceStats::class => \MessageBird\Wire\Normalizer\EmailBounceStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBounceCodeStatsPoint::class => \MessageBird\Wire\Normalizer\EmailBounceCodeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBounceCodeStatsPointBounces::class => \MessageBird\Wire\Normalizer\EmailBounceCodeStatsPointBouncesNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsByBounceCodeResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByBounceCodeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailComplaintTypeStatsPoint::class => \MessageBird\Wire\Normalizer\EmailComplaintTypeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsByComplaintTypeResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByComplaintTypeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSDeliveryStats::class => \MessageBird\Wire\Normalizer\SMSDeliveryStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSLatencyQuantiles::class => \MessageBird\Wire\Normalizer\SMSLatencyQuantilesNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSLatencyStats::class => \MessageBird\Wire\Normalizer\SMSLatencyStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsComparison::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsSummary::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSDeliveryCounts::class => \MessageBird\Wire\Normalizer\SMSDeliveryCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCountryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCarrierResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCategoryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSTagStatsPoint::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByTagResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByTagResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByErrorCodeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsComparison::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundCountryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByCountryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundOperatorStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByOperatorResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppDeliveryStats::class => \MessageBird\Wire\Normalizer\WhatsAppDeliveryStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppEngagementStats::class => \MessageBird\Wire\Normalizer\WhatsAppEngagementStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => \MessageBird\Wire\Normalizer\WhatsAppLatencyQuantilesNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppLatencyStats::class => \MessageBird\Wire\Normalizer\WhatsAppLatencyStatsNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparison::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummary::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppDeliveryCounts::class => \MessageBird\Wire\Normalizer\WhatsAppDeliveryCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppEngagementCounts::class => \MessageBird\Wire\Normalizer\WhatsAppEngagementCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTemplateCategoryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTagResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByCountryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppErrorCodeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByErrorCodeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsComparison::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => \MessageBird\Wire\Normalizer\AMBOutboundStatsCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsQuantiles::class => \MessageBird\Wire\Normalizer\AMBStatsQuantilesNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsLatency::class => \MessageBird\Wire\Normalizer\AMBStatsLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsComparison::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsSummary::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsPoint::class => \MessageBird\Wire\Normalizer\AMBStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => \MessageBird\Wire\Normalizer\AMBMessageKindStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByMessageKindResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\AMBCategoryStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByCategoryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTagStatsPoint::class => \MessageBird\Wire\Normalizer\AMBTagStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByTagResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByTagResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\AMBErrorCodeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByErrorCodeResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsComparison::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsSummary::class => \MessageBird\Wire\Normalizer\AMBInboundStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsCounts::class => \MessageBird\Wire\Normalizer\AMBConversationStatsCountsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonDeltaNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsComparison::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsSummary::class => \MessageBird\Wire\Normalizer\AMBConversationStatsSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationStatsPoint::class => \MessageBird\Wire\Normalizer\AMBConversationStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
+
         \MessageBird\Wire\Model\RealtimePublish::class => \MessageBird\Wire\Normalizer\RealtimePublishNormalizer::class,
 
         \MessageBird\Wire\Model\RealtimeChannelListItem::class => \MessageBird\Wire\Normalizer\RealtimeChannelListItemNormalizer::class,
@@ -97,8 +421,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailEventList::class => \MessageBird\Wire\Normalizer\EmailEventListNormalizer::class,
 
         \MessageBird\Wire\Model\EmailMessageContent::class => \MessageBird\Wire\Normalizer\EmailMessageContentNormalizer::class,
-
-        \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
 
@@ -212,6 +534,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AudienceContactsRemoveRequest::class => \MessageBird\Wire\Normalizer\AudienceContactsRemoveRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSBinary::class => \MessageBird\Wire\Normalizer\SMSBinaryNormalizer::class,
+
         \MessageBird\Wire\Model\SMSSegments::class => \MessageBird\Wire\Normalizer\SMSSegmentsNormalizer::class,
 
         \MessageBird\Wire\Model\MessageCost::class => \MessageBird\Wire\Normalizer\MessageCostNormalizer::class,
@@ -220,9 +544,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSError::class => \MessageBird\Wire\Normalizer\SMSErrorNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSInReplyToMessage::class => \MessageBird\Wire\Normalizer\SMSInReplyToMessageNormalizer::class,
+
         \MessageBird\Wire\Model\SMSMessage::class => \MessageBird\Wire\Normalizer\SMSMessageNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSMessageBinary::class => \MessageBird\Wire\Normalizer\SMSMessageBinaryNormalizer::class,
+
         \MessageBird\Wire\Model\SMSMessageOptions::class => \MessageBird\Wire\Normalizer\SMSMessageOptionsNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSMessageInReplyToMessage::class => \MessageBird\Wire\Normalizer\SMSMessageInReplyToMessageNormalizer::class,
 
         \MessageBird\Wire\Model\SMSMessageList::class => \MessageBird\Wire\Normalizer\SMSMessageListNormalizer::class,
 
@@ -346,37 +676,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionResupplyNormalizer::class,
 
-        \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSDeliveryStats::class => \MessageBird\Wire\Normalizer\SMSDeliveryStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSLatencyQuantiles::class => \MessageBird\Wire\Normalizer\SMSLatencyQuantilesNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSLatencyStats::class => \MessageBird\Wire\Normalizer\SMSLatencyStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsComparison::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsSummary::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\SMSStatsSummaryComparisonNormalizer::class,
-
         \MessageBird\Wire\Model\SMSStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\SMSStatsSeriesPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSDeliveryCounts::class => \MessageBird\Wire\Normalizer\SMSDeliveryCountsNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSStatsPointDeliveryNormalizer::class,
 
         \MessageBird\Wire\Model\SMSStatsResponse::class => \MessageBird\Wire\Normalizer\SMSStatsResponseNormalizer::class,
 
@@ -388,69 +688,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByOriginatorResponseNormalizer::class,
 
-        \MessageBird\Wire\Model\SMSCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCountryStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCountryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCategoryStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCategoryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSErrorCodeStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByErrorCodeResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCarrierStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCarrierResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSTagStatsPoint::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSStatsByTagResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByTagResponseNormalizer::class,
-
         \MessageBird\Wire\Model\SMSStatusStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatusStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByStatusResponseNormalizer::class,
 
-        \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsComparison::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\SMSInboundStatsSummaryResponseComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundStatsPointNormalizer::class,
-
         \MessageBird\Wire\Model\SMSInboundStatsResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundCountryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByCountryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundOperatorStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByOperatorResponseNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundNumberStatsPointNormalizer::class,
 
@@ -840,6 +1082,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageUpsertNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageUpsertOptimizationSpecNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCreateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateUpdate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateUpdateNormalizer::class,
@@ -876,6 +1120,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageOptimizationSpecNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageRejectionNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageErrorNormalizer::class,
@@ -884,55 +1130,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageDiscard::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageDiscardNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppDeliveryStats::class => \MessageBird\Wire\Normalizer\WhatsAppDeliveryStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppEngagementStats::class => \MessageBird\Wire\Normalizer\WhatsAppEngagementStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => \MessageBird\Wire\Normalizer\WhatsAppLatencyQuantilesNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppLatencyStats::class => \MessageBird\Wire\Normalizer\WhatsAppLatencyStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsComparison::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsSummary::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSummaryComparisonNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\WhatsAppStatsSeriesPeriodNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppDeliveryCounts::class => \MessageBird\Wire\Normalizer\WhatsAppDeliveryCountsNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppEngagementCounts::class => \MessageBird\Wire\Normalizer\WhatsAppEngagementCountsNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppStatsPointLatencyNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppStatsResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppErrorCodeStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByErrorCodeResponseNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateStatsPointNormalizer::class,
 
@@ -944,26 +1144,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppStatsByTemplateResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTemplateResponseNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCategoryStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTemplateCategoryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppTagStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByTagResponseNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointDeliveryNormalizer::class,
@@ -973,26 +1153,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppPhoneNumberStatsPointLatencyNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppStatsByPhoneNumberResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByPhoneNumberResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => \MessageBird\Wire\Normalizer\WhatsAppCountryStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppStatsByCountryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsComparison::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsSummaryResponseComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsResponseNormalizer::class,
 
@@ -1060,8 +1220,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleUpdateNormalizer::class,
 
-        \MessageBird\Wire\Model\AMBRichLinkReference::class => \MessageBird\Wire\Normalizer\AMBRichLinkReferenceNormalizer::class,
-
         \MessageBird\Wire\Model\AMBError::class => \MessageBird\Wire\Normalizer\AMBErrorNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessage::class => \MessageBird\Wire\Normalizer\AMBMessageNormalizer::class,
@@ -1100,33 +1258,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBSuppressionCreate::class => \MessageBird\Wire\Normalizer\AMBSuppressionCreateNormalizer::class,
 
-        \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => \MessageBird\Wire\Normalizer\AMBOutboundStatsCountsNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsQuantiles::class => \MessageBird\Wire\Normalizer\AMBStatsQuantilesNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsLatency::class => \MessageBird\Wire\Normalizer\AMBStatsLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsComparison::class => \MessageBird\Wire\Normalizer\AMBStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsSummary::class => \MessageBird\Wire\Normalizer\AMBStatsSummaryNormalizer::class,
-
         \MessageBird\Wire\Model\AMBStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\AMBStatsSeriesPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsPoint::class => \MessageBird\Wire\Normalizer\AMBStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBStatsResponse::class => \MessageBird\Wire\Normalizer\AMBStatsResponseNormalizer::class,
 
         \MessageBird\Wire\Model\AMBBusinessAccountStatsPoint::class => \MessageBird\Wire\Normalizer\AMBBusinessAccountStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBStatsByBusinessResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByBusinessResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => \MessageBird\Wire\Normalizer\AMBMessageKindStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByMessageKindResponseNormalizer::class,
 
         \MessageBird\Wire\Model\AMBIntentStatsPoint::class => \MessageBird\Wire\Normalizer\AMBIntentStatsPointNormalizer::class,
 
@@ -1135,26 +1273,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBGroupStatsPoint::class => \MessageBird\Wire\Normalizer\AMBGroupStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBStatsByGroupResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByGroupResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => \MessageBird\Wire\Normalizer\AMBCategoryStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByCategoryResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBTagStatsPoint::class => \MessageBird\Wire\Normalizer\AMBTagStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsByTagResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByTagResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => \MessageBird\Wire\Normalizer\AMBErrorCodeStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => \MessageBird\Wire\Normalizer\AMBStatsByErrorCodeResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBInboundStatsComparison::class => \MessageBird\Wire\Normalizer\AMBInboundStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBInboundStatsSummary::class => \MessageBird\Wire\Normalizer\AMBInboundStatsSummaryNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBInboundStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBInboundStatsResponse::class => \MessageBird\Wire\Normalizer\AMBInboundStatsResponseNormalizer::class,
 
@@ -1165,16 +1283,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBInboundIntentStatsPoint::class => \MessageBird\Wire\Normalizer\AMBInboundIntentStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBInboundStatsByIntentResponse::class => \MessageBird\Wire\Normalizer\AMBInboundStatsByIntentResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBConversationStatsCounts::class => \MessageBird\Wire\Normalizer\AMBConversationStatsCountsNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBConversationStatsComparison::class => \MessageBird\Wire\Normalizer\AMBConversationStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBConversationStatsSummary::class => \MessageBird\Wire\Normalizer\AMBConversationStatsSummaryNormalizer::class,
-
-        \MessageBird\Wire\Model\AMBConversationStatsPoint::class => \MessageBird\Wire\Normalizer\AMBConversationStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationStatsResponse::class => \MessageBird\Wire\Normalizer\AMBConversationStatsResponseNormalizer::class,
 
@@ -1217,6 +1325,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppBusinessAccountMetaHealthStatus::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountMetaHealthStatusNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountListNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppReachEstimateRow::class => \MessageBird\Wire\Normalizer\WhatsAppReachEstimateRowNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppReachEstimate::class => \MessageBird\Wire\Normalizer\WhatsAppReachEstimateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppSuppression::class => \MessageBird\Wire\Normalizer\WhatsAppSuppressionNormalizer::class,
 
@@ -1354,41 +1466,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPeriodNormalizer::class,
 
-        \MessageBird\Wire\Model\EmailBounceStatsWithRates::class => \MessageBird\Wire\Normalizer\EmailBounceStatsWithRatesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailDeliveryStatsBouncesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailEngagementStats::class => \MessageBird\Wire\Normalizer\EmailEngagementStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailLatencyQuantiles::class => \MessageBird\Wire\Normalizer\EmailLatencyQuantilesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailLatencyStats::class => \MessageBird\Wire\Normalizer\EmailLatencyStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsPoint::class => \MessageBird\Wire\Normalizer\EmailStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailStatsPointLatencyNormalizer::class,
-
         \MessageBird\Wire\Model\EmailStatsResponse::class => \MessageBird\Wire\Normalizer\EmailStatsResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSeriesPoint::class => \MessageBird\Wire\Normalizer\EmailStatsSeriesPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailTagStatsPoint::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailTagStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailTagStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailTagStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsTagsResponse::class => \MessageBird\Wire\Normalizer\EmailStatsTagsResponseNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryStringFilterNormalizer::class,
 
@@ -1418,34 +1496,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailStatsQueryResponse::class => \MessageBird\Wire\Normalizer\EmailStatsQueryResponseNormalizer::class,
 
-        \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryPeriodNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparison::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparisonLatency::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSummary::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSummaryDelivery::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSummaryEngagement::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSummaryLatency::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsSummaryComparison::class => \MessageBird\Wire\Normalizer\EmailStatsSummaryComparisonNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailSendingIpDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailSendingIpDeliveryStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailSendingIpDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailSendingIpDeliveryStatsBouncesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailDeliveryLatencyStats::class => \MessageBird\Wire\Normalizer\EmailDeliveryLatencyStatsNormalizer::class,
-
         \MessageBird\Wire\Model\EmailSendingIpStatsPoint::class => \MessageBird\Wire\Normalizer\EmailSendingIpStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\EmailSendingIpStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailSendingIpStatsPointDeliveryNormalizer::class,
@@ -1474,20 +1524,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByCategoryResponseNormalizer::class,
 
-        \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStats::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderDeliveryStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStatsBounces::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderDeliveryStatsBouncesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxProviderStatsPoint::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxProviderStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsByMailboxProviderResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByMailboxProviderResponseNormalizer::class,
-
         \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPoint::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderRegionStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderRegionStatsPointDeliveryNormalizer::class,
@@ -1497,16 +1533,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailMailboxProviderRegionStatsPointLatencyNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsByMailboxProviderRegionResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByMailboxProviderRegionResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailRecipientDomainStatsPoint::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointDeliveryNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointEngagementNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailRecipientDomainStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailRecipientDomainStatsPointLatencyNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsByRecipientDomainResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByRecipientDomainResponseNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplateStatsPoint::class => \MessageBird\Wire\Normalizer\EmailTemplateStatsPointNormalizer::class,
 
@@ -1531,18 +1557,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailClientStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailClientStatsPointEngagementNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsByClientResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByClientResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailBounceStats::class => \MessageBird\Wire\Normalizer\EmailBounceStatsNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailBounceCodeStatsPoint::class => \MessageBird\Wire\Normalizer\EmailBounceCodeStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailBounceCodeStatsPointBounces::class => \MessageBird\Wire\Normalizer\EmailBounceCodeStatsPointBouncesNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsByBounceCodeResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByBounceCodeResponseNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailComplaintTypeStatsPoint::class => \MessageBird\Wire\Normalizer\EmailComplaintTypeStatsPointNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsByComplaintTypeResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByComplaintTypeResponseNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastStatsPoint::class => \MessageBird\Wire\Normalizer\EmailBroadcastStatsPointNormalizer::class,
 
@@ -2138,9 +2152,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EsimSettingsUpdate::class => \MessageBird\Wire\Normalizer\EsimSettingsUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaWrapperNormalizer::class,
+
         \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\SMSInboundStatsComparisonDeltaWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeltaWrapperNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => \MessageBird\Wire\Normalizer\SMSSenderDestinationsWrapperNormalizer::class,
 
@@ -2154,17 +2174,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppConversationRecipientWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppConversationRecipientWrapperNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppStatsComparisonDeltaWrapperNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaWrapperNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanWrapperNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\EmailStatsComparisonDeltaWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => \MessageBird\Wire\Normalizer\EmailHealthSignalThresholdsWrapperNormalizer::class,
 
@@ -2223,6 +2237,168 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WorkspaceQuota::class => false,
             \MessageBird\Wire\Model\WorkspaceQuotaWorkspaceLimit::class => false,
             \MessageBird\Wire\Model\WorkspaceQuotaList::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\EmailBounceStatsWithRates::class => false,
+            \MessageBird\Wire\Model\EmailDeliveryStats::class => false,
+            \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => false,
+            \MessageBird\Wire\Model\EmailEngagementStats::class => false,
+            \MessageBird\Wire\Model\EmailLatencyQuantiles::class => false,
+            \MessageBird\Wire\Model\EmailLatencyStats::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparison::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparisonLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummary::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummaryDelivery::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummaryEngagement::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummaryLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsSummaryComparison::class => false,
+            \MessageBird\Wire\Model\EmailStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\EmailStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\EmailStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsPeriod::class => false,
+            \MessageBird\Wire\Model\EmailSendingIpDeliveryStats::class => false,
+            \MessageBird\Wire\Model\EmailSendingIpDeliveryStatsBounces::class => false,
+            \MessageBird\Wire\Model\EmailDeliveryLatencyStats::class => false,
+            \MessageBird\Wire\Model\EmailStatsSeriesPoint::class => false,
+            \MessageBird\Wire\Model\EmailTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailTagStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\EmailTagStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\EmailTagStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsTagsResponse::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStats::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStatsBounces::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsByMailboxProviderResponse::class => false,
+            \MessageBird\Wire\Model\EmailRecipientDomainStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsByRecipientDomainResponse::class => false,
+            \MessageBird\Wire\Model\EmailBounceStats::class => false,
+            \MessageBird\Wire\Model\EmailBounceCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailBounceCodeStatsPointBounces::class => false,
+            \MessageBird\Wire\Model\EmailStatsByBounceCodeResponse::class => false,
+            \MessageBird\Wire\Model\EmailComplaintTypeStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailStatsByComplaintTypeResponse::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\SMSDeliveryStats::class => false,
+            \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
+            \MessageBird\Wire\Model\SMSLatencyStats::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparison::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => false,
+            \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummary::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => false,
+            \MessageBird\Wire\Model\SMSDeliveryCounts::class => false,
+            \MessageBird\Wire\Model\SMSStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsComparison::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\WhatsAppDeliveryStats::class => false,
+            \MessageBird\Wire\Model\WhatsAppEngagementStats::class => false,
+            \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => false,
+            \MessageBird\Wire\Model\WhatsAppLatencyStats::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummary::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppDeliveryCounts::class => false,
+            \MessageBird\Wire\Model\WhatsAppEngagementCounts::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => false,
+            \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => false,
+            \MessageBird\Wire\Model\AMBStatsQuantiles::class => false,
+            \MessageBird\Wire\Model\AMBStatsLatency::class => false,
+            \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => false,
+            \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => false,
+            \MessageBird\Wire\Model\AMBTagStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByTagResponse::class => false,
+            \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBInboundStatsPoint::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsCounts::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsComparison::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsSummary::class => false,
+            \MessageBird\Wire\Model\AMBConversationStatsPoint::class => false,
+            \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
             \MessageBird\Wire\Model\RealtimeChannelListItem::class => false,
             \MessageBird\Wire\Model\RealtimePublishResult::class => false,
@@ -2252,7 +2428,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEvent::class => false,
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
-            \MessageBird\Wire\Model\Money::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => false,
             \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => false,
@@ -2309,12 +2484,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AudienceMemberList::class => false,
             \MessageBird\Wire\Model\AudienceContactsAddRequest::class => false,
             \MessageBird\Wire\Model\AudienceContactsRemoveRequest::class => false,
+            \MessageBird\Wire\Model\SMSBinary::class => false,
             \MessageBird\Wire\Model\SMSSegments::class => false,
             \MessageBird\Wire\Model\MessageCost::class => false,
             \MessageBird\Wire\Model\SMSMessageEffectiveOptions::class => false,
             \MessageBird\Wire\Model\SMSError::class => false,
+            \MessageBird\Wire\Model\SMSInReplyToMessage::class => false,
             \MessageBird\Wire\Model\SMSMessage::class => false,
+            \MessageBird\Wire\Model\SMSMessageBinary::class => false,
             \MessageBird\Wire\Model\SMSMessageOptions::class => false,
+            \MessageBird\Wire\Model\SMSMessageInReplyToMessage::class => false,
             \MessageBird\Wire\Model\SMSMessageList::class => false,
             \MessageBird\Wire\Model\SMSSendOptions::class => false,
             \MessageBird\Wire\Model\SMSTemplateSend::class => false,
@@ -2376,59 +2555,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ComplianceSubmissionItem::class => false,
             \MessageBird\Wire\Model\ComplianceSubmission::class => false,
             \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => false,
-            \MessageBird\Wire\Model\SMSStatsSummaryPeriod::class => false,
-            \MessageBird\Wire\Model\SMSDeliveryStats::class => false,
-            \MessageBird\Wire\Model\SMSLatencyQuantiles::class => false,
-            \MessageBird\Wire\Model\SMSLatencyStats::class => false,
-            \MessageBird\Wire\Model\SMSStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\SMSStatsComparison::class => false,
-            \MessageBird\Wire\Model\SMSStatsComparisonDelivery::class => false,
-            \MessageBird\Wire\Model\SMSStatsComparisonLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsSummary::class => false,
-            \MessageBird\Wire\Model\SMSStatsSummaryDelivery::class => false,
-            \MessageBird\Wire\Model\SMSStatsSummaryLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsSummaryComparison::class => false,
             \MessageBird\Wire\Model\SMSStatsSeriesPeriod::class => false,
-            \MessageBird\Wire\Model\SMSDeliveryCounts::class => false,
-            \MessageBird\Wire\Model\SMSStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\SMSStatsResponse::class => false,
             \MessageBird\Wire\Model\SMSOriginatorStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSOriginatorStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\SMSOriginatorStatsPointLatency::class => false,
             \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => false,
-            \MessageBird\Wire\Model\SMSCountryStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSCountryStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\SMSCountryStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsByCountryResponse::class => false,
-            \MessageBird\Wire\Model\SMSCategoryStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => false,
-            \MessageBird\Wire\Model\SMSErrorCodeStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSErrorCodeStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\SMSErrorCodeStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsByErrorCodeResponse::class => false,
-            \MessageBird\Wire\Model\SMSCarrierStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSCarrierStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\SMSCarrierStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsByCarrierResponse::class => false,
-            \MessageBird\Wire\Model\SMSTagStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\SMSStatsByTagResponse::class => false,
             \MessageBird\Wire\Model\SMSStatusStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsComparison::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponse::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsSummaryResponseComparison::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsResponse::class => false,
-            \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => false,
-            \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => false,
-            \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByNumberResponse::class => false,
             \MessageBird\Wire\Model\SMSSenderDestinations::class => false,
@@ -2623,6 +2758,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateCardWrite::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateComponentWrite::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateUpdate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => false,
@@ -2641,65 +2777,23 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplatePause::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageSaved::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageDiscard::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => false,
-            \MessageBird\Wire\Model\WhatsAppDeliveryStats::class => false,
-            \MessageBird\Wire\Model\WhatsAppEngagementStats::class => false,
-            \MessageBird\Wire\Model\WhatsAppLatencyQuantiles::class => false,
-            \MessageBird\Wire\Model\WhatsAppLatencyStats::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparison::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparisonDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparisonEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparisonLatency::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummary::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummaryDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummaryEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummaryLatency::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsSummaryComparison::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsSeriesPeriod::class => false,
-            \MessageBird\Wire\Model\WhatsAppDeliveryCounts::class => false,
-            \MessageBird\Wire\Model\WhatsAppEngagementCounts::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsPoint::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsPointLatency::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppErrorCodeStatsPoint::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsByErrorCodeResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateStatsPointLatency::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsByTemplateResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPoint::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateCategoryStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsByTemplateCategoryResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppTagStatsPoint::class => false,
-            \MessageBird\Wire\Model\WhatsAppTagStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppTagStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppTagStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsByTagResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\WhatsAppPhoneNumberStatsPointLatency::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsByPhoneNumberResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppCountryStatsPoint::class => false,
-            \MessageBird\Wire\Model\WhatsAppCountryStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\WhatsAppCountryStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\WhatsAppCountryStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsByCountryResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsComparison::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponse::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsSummaryResponseComparison::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundPhoneNumberStatsPoint::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsByPhoneNumberResponse::class => false,
@@ -2733,7 +2827,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBRoutingRuleList::class => false,
             \MessageBird\Wire\Model\AMBRoutingRuleCreate::class => false,
             \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => false,
-            \MessageBird\Wire\Model\AMBRichLinkReference::class => false,
             \MessageBird\Wire\Model\AMBError::class => false,
             \MessageBird\Wire\Model\AMBMessage::class => false,
             \MessageBird\Wire\Model\AMBMessageList::class => false,
@@ -2753,44 +2846,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBConversationTypingRequest::class => false,
             \MessageBird\Wire\Model\AMBSuppressionList::class => false,
             \MessageBird\Wire\Model\AMBSuppressionCreate::class => false,
-            \MessageBird\Wire\Model\AMBStatsSummaryPeriod::class => false,
-            \MessageBird\Wire\Model\AMBOutboundStatsCounts::class => false,
-            \MessageBird\Wire\Model\AMBStatsQuantiles::class => false,
-            \MessageBird\Wire\Model\AMBStatsLatency::class => false,
-            \MessageBird\Wire\Model\AMBStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\AMBStatsComparison::class => false,
-            \MessageBird\Wire\Model\AMBStatsSummary::class => false,
             \MessageBird\Wire\Model\AMBStatsSeriesPeriod::class => false,
-            \MessageBird\Wire\Model\AMBStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBStatsResponse::class => false,
             \MessageBird\Wire\Model\AMBBusinessAccountStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBStatsByBusinessResponse::class => false,
-            \MessageBird\Wire\Model\AMBMessageKindStatsPoint::class => false,
-            \MessageBird\Wire\Model\AMBStatsByMessageKindResponse::class => false,
             \MessageBird\Wire\Model\AMBIntentStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBStatsByIntentResponse::class => false,
             \MessageBird\Wire\Model\AMBGroupStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBStatsByGroupResponse::class => false,
-            \MessageBird\Wire\Model\AMBCategoryStatsPoint::class => false,
-            \MessageBird\Wire\Model\AMBStatsByCategoryResponse::class => false,
-            \MessageBird\Wire\Model\AMBTagStatsPoint::class => false,
-            \MessageBird\Wire\Model\AMBStatsByTagResponse::class => false,
-            \MessageBird\Wire\Model\AMBErrorCodeStatsPoint::class => false,
-            \MessageBird\Wire\Model\AMBStatsByErrorCodeResponse::class => false,
-            \MessageBird\Wire\Model\AMBInboundStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\AMBInboundStatsComparison::class => false,
-            \MessageBird\Wire\Model\AMBInboundStatsSummary::class => false,
-            \MessageBird\Wire\Model\AMBInboundStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBInboundStatsResponse::class => false,
             \MessageBird\Wire\Model\AMBInboundBusinessStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBInboundStatsByBusinessResponse::class => false,
             \MessageBird\Wire\Model\AMBInboundIntentStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBInboundStatsByIntentResponse::class => false,
-            \MessageBird\Wire\Model\AMBConversationStatsCounts::class => false,
-            \MessageBird\Wire\Model\AMBConversationStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\AMBConversationStatsComparison::class => false,
-            \MessageBird\Wire\Model\AMBConversationStatsSummary::class => false,
-            \MessageBird\Wire\Model\AMBConversationStatsPoint::class => false,
             \MessageBird\Wire\Model\AMBConversationStatsResponse::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\AMBTemplateSummary::class => false,
@@ -2812,6 +2880,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppBusinessAccountPortfolio::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountMetaHealthStatus::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountList::class => false,
+            \MessageBird\Wire\Model\WhatsAppReachEstimateRow::class => false,
+            \MessageBird\Wire\Model\WhatsAppReachEstimate::class => false,
             \MessageBird\Wire\Model\WhatsAppSuppression::class => false,
             \MessageBird\Wire\Model\WhatsAppSuppressionList::class => false,
             \MessageBird\Wire\Model\WhatsAppSuppressionCreate::class => false,
@@ -2880,24 +2950,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailInboxInsightsDomainUpdate::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsDomainMonitoringResult::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
-            \MessageBird\Wire\Model\EmailBounceStatsWithRates::class => false,
-            \MessageBird\Wire\Model\EmailDeliveryStats::class => false,
-            \MessageBird\Wire\Model\EmailDeliveryStatsBounces::class => false,
-            \MessageBird\Wire\Model\EmailEngagementStats::class => false,
-            \MessageBird\Wire\Model\EmailLatencyQuantiles::class => false,
-            \MessageBird\Wire\Model\EmailLatencyStats::class => false,
-            \MessageBird\Wire\Model\EmailStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\EmailStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\EmailStatsPointLatency::class => false,
             \MessageBird\Wire\Model\EmailStatsResponse::class => false,
-            \MessageBird\Wire\Model\EmailStatsPeriod::class => false,
-            \MessageBird\Wire\Model\EmailStatsSeriesPoint::class => false,
-            \MessageBird\Wire\Model\EmailTagStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailTagStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\EmailTagStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\EmailTagStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\EmailStatsTagsResponse::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryCategoryFilter::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryTemplateFilter::class => false,
@@ -2912,20 +2965,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailStatsQueryGroup::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryPeriod::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryResponse::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummaryPeriod::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparisonDelta::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparison::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparisonDelivery::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparisonEngagement::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparisonLatency::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummary::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummaryDelivery::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummaryEngagement::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummaryLatency::class => false,
-            \MessageBird\Wire\Model\EmailStatsSummaryComparison::class => false,
-            \MessageBird\Wire\Model\EmailSendingIpDeliveryStats::class => false,
-            \MessageBird\Wire\Model\EmailSendingIpDeliveryStatsBounces::class => false,
-            \MessageBird\Wire\Model\EmailDeliveryLatencyStats::class => false,
             \MessageBird\Wire\Model\EmailSendingIpStatsPoint::class => false,
             \MessageBird\Wire\Model\EmailSendingIpStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\EmailSendingIpStatsPointLatency::class => false,
@@ -2940,23 +2979,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailCategoryStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\EmailCategoryStatsPointLatency::class => false,
             \MessageBird\Wire\Model\EmailStatsByCategoryResponse::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStats::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderDeliveryStatsBounces::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\EmailMailboxProviderStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\EmailStatsByMailboxProviderResponse::class => false,
             \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPoint::class => false,
             \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\EmailMailboxProviderRegionStatsPointLatency::class => false,
             \MessageBird\Wire\Model\EmailStatsByMailboxProviderRegionResponse::class => false,
-            \MessageBird\Wire\Model\EmailRecipientDomainStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointDelivery::class => false,
-            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointEngagement::class => false,
-            \MessageBird\Wire\Model\EmailRecipientDomainStatsPointLatency::class => false,
-            \MessageBird\Wire\Model\EmailStatsByRecipientDomainResponse::class => false,
             \MessageBird\Wire\Model\EmailTemplateStatsPoint::class => false,
             \MessageBird\Wire\Model\EmailTemplateStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\EmailTemplateStatsPointEngagement::class => false,
@@ -2969,12 +2996,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailClientStatsPoint::class => false,
             \MessageBird\Wire\Model\EmailClientStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\EmailStatsByClientResponse::class => false,
-            \MessageBird\Wire\Model\EmailBounceStats::class => false,
-            \MessageBird\Wire\Model\EmailBounceCodeStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailBounceCodeStatsPointBounces::class => false,
-            \MessageBird\Wire\Model\EmailStatsByBounceCodeResponse::class => false,
-            \MessageBird\Wire\Model\EmailComplaintTypeStatsPoint::class => false,
-            \MessageBird\Wire\Model\EmailStatsByComplaintTypeResponse::class => false,
             \MessageBird\Wire\Model\EmailBroadcastStatsPoint::class => false,
             \MessageBird\Wire\Model\EmailBroadcastStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\EmailBroadcastStatsPointEngagement::class => false,
@@ -3272,20 +3293,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EsimCompatibleOfferList::class => false,
             \MessageBird\Wire\Model\EsimSettings::class => false,
             \MessageBird\Wire\Model\EsimSettingsUpdate::class => false,
+            \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\SMSStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => false,
+            \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => false,
+            \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveListWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveCtaUrlWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTemplateWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppConversationRecipientWrapper::class => false,
-            \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => false,
-            \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => false,
-            \MessageBird\Wire\Model\EmailStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => false,
             \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class => false,
             \MessageBird\Wire\Model\EsimPackageBalanceWrapper::class => false,

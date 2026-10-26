@@ -35,12 +35,14 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
+     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+     * 
      *
      * @var string|null
      */
     protected $encoding;
     /**
-     * Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
+     * Character count of the body, counted in Unicode code points under `GSM_7BIT` and `UCS2`; under `BINARY` it is the payload's octets, header included. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
      * 
      *
      * @var int|null
@@ -82,6 +84,8 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
+     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+     * 
      *
      * @return string|null
      */
@@ -103,6 +107,8 @@ class SMSSegments
     outside the Basic Multilingual Plane is a surrogate pair costing two code
     units, so 35 of those fill a single segment.
     
+    `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+    
     *
     * @param string|null $encoding
     *
@@ -115,7 +121,7 @@ class SMSSegments
         return $this;
     }
     /**
-     * Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
+     * Character count of the body, counted in Unicode code points under `GSM_7BIT` and `UCS2`; under `BINARY` it is the payload's octets, header included. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
      * 
      *
      * @return int|null
@@ -125,7 +131,7 @@ class SMSSegments
         return $this->characters;
     }
     /**
-     * Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
+     * Character count of the body, counted in Unicode code points under `GSM_7BIT` and `UCS2`; under `BINARY` it is the payload's octets, header included. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
      *
      * @param int|null $characters
      *

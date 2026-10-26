@@ -27,7 +27,7 @@ class SmsBase extends Resource
     }
 
     /**
-     * List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
+     * List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, country, or tag.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

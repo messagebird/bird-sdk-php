@@ -33,6 +33,13 @@ class WhatsAppTemplateSend
      */
     protected $language;
     /**
+     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+     * 
+     *
+     * @var float|null
+     */
+    protected $bidMultiplier;
+    /**
      * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
      * 
      *
@@ -100,6 +107,29 @@ class WhatsAppTemplateSend
     {
         $this->initialized['language'] = true;
         $this->language = $language;
+        return $this;
+    }
+    /**
+     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+     * 
+     *
+     * @return float|null
+     */
+    public function getBidMultiplier(): ?float
+    {
+        return $this->bidMultiplier;
+    }
+    /**
+     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+     *
+     * @param float|null $bidMultiplier
+     *
+     * @return self
+     */
+    public function setBidMultiplier(?float $bidMultiplier): self
+    {
+        $this->initialized['bidMultiplier'] = true;
+        $this->bidMultiplier = $bidMultiplier;
         return $this;
     }
     /**
