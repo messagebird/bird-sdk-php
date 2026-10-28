@@ -165,6 +165,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('validity_period', $data) && $data['validity_period'] === null) {
             $object->setValidityPeriod(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('cost_center', $data) && $data['cost_center'] !== null) {
             $object->setCostCenter($data['cost_center']);
         }

@@ -50,6 +50,12 @@ class VoiceTrunkUpdate
      */
     protected $mediaBypass;
     /**
+     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     *
+     * @var VoiceTrunkMediaUpdate|null
+     */
+    protected $media;
+    /**
      * Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
      * 
      *
@@ -166,6 +172,28 @@ class VoiceTrunkUpdate
     {
         $this->initialized['mediaBypass'] = true;
         $this->mediaBypass = $mediaBypass;
+        return $this;
+    }
+    /**
+     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     *
+     * @return VoiceTrunkMediaUpdate|null
+     */
+    public function getMedia(): ?VoiceTrunkMediaUpdate
+    {
+        return $this->media;
+    }
+    /**
+     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     *
+     * @param VoiceTrunkMediaUpdate|null $media
+     *
+     * @return self
+     */
+    public function setMedia(?VoiceTrunkMediaUpdate $media): self
+    {
+        $this->initialized['media'] = true;
+        $this->media = $media;
         return $this;
     }
     /**

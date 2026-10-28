@@ -53,8 +53,7 @@ $result = $bird->webhooks->test(
 );
 echo $result->getStatus();
 
-$attempts = $bird->webhooks->attempts('whk_01krdgeqcxet5s7t44vh8rt9mg');
-foreach ($attempts->getData() ?? [] as $attempt) {
+foreach ($bird->webhooks->attempts('whk_01krdgeqcxet5s7t44vh8rt9mg') as $attempt) {
     echo $attempt->getStatus(), PHP_EOL;
 }
 

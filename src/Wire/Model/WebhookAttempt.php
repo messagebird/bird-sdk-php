@@ -47,14 +47,14 @@ class WebhookAttempt
      */
     protected $status;
     /**
-     * URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
+     * URL the request was sent to. For a webhook endpoint, its `url` at the time of the attempt, which can differ from the current configuration after an update. For an SMS callback, the callback URL resolved for the message's event.
      * 
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     * Why the attempt failed when no HTTP response explains it: a failure before any request was sent, such as a connector body that could not be rendered, or a TLS failure, such as an endpoint certificate that could not be verified. Absent for other attempts.
      * 
      *
      * @var string|null
@@ -193,7 +193,7 @@ class WebhookAttempt
         return $this;
     }
     /**
-     * URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
+     * URL the request was sent to. For a webhook endpoint, its `url` at the time of the attempt, which can differ from the current configuration after an update. For an SMS callback, the callback URL resolved for the message's event.
      * 
      *
      * @return string|null
@@ -203,7 +203,7 @@ class WebhookAttempt
         return $this->url;
     }
     /**
-     * URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
+     * URL the request was sent to. For a webhook endpoint, its `url` at the time of the attempt, which can differ from the current configuration after an update. For an SMS callback, the callback URL resolved for the message's event.
      *
      * @param string|null $url
      *
@@ -216,7 +216,7 @@ class WebhookAttempt
         return $this;
     }
     /**
-     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     * Why the attempt failed when no HTTP response explains it: a failure before any request was sent, such as a connector body that could not be rendered, or a TLS failure, such as an endpoint certificate that could not be verified. Absent for other attempts.
      * 
      *
      * @return string|null
@@ -226,7 +226,7 @@ class WebhookAttempt
         return $this->failureReason;
     }
     /**
-     * Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+     * Why the attempt failed when no HTTP response explains it: a failure before any request was sent, such as a connector body that could not be rendered, or a TLS failure, such as an endpoint certificate that could not be verified. Absent for other attempts.
      *
      * @param string|null $failureReason
      *

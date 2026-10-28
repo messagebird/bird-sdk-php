@@ -68,6 +68,21 @@ class WhatsAppBusinessAccount
      */
     protected $ban;
     /**
+     * What to do next about this account's ban. Each entry names one action and says why
+     * it is worth taking. An empty list means Bird holds no `ban` record for this account.
+     * A ban Bird was never told of still shows as `banned` on the account's numbers, whose
+     * own `next` carries the appeal, and as Meta error `141014` on the `waba` entity in
+     * `meta_health_status`. Neither list says whether the account can send;
+     * `meta_health_status` does.
+     * 
+     * While `ban` is present this links the account restrictions and appeals guide, which
+     * names `ban.appeal_url`, because neither Bird nor this API can lift a ban.
+     * 
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
      *
      * @var WhatsAppBusinessAccountMetaHealthStatus|null
@@ -288,6 +303,46 @@ class WhatsAppBusinessAccount
     {
         $this->initialized['ban'] = true;
         $this->ban = \MessageBird\Core\ModelWrapper::normalize($ban, WhatsAppBusinessAccountBanWrapper::class);
+        return $this;
+    }
+    /**
+     * What to do next about this account's ban. Each entry names one action and says why
+     * it is worth taking. An empty list means Bird holds no `ban` record for this account.
+     * A ban Bird was never told of still shows as `banned` on the account's numbers, whose
+     * own `next` carries the appeal, and as Meta error `141014` on the `waba` entity in
+     * `meta_health_status`. Neither list says whether the account can send;
+     * `meta_health_status` does.
+     * 
+     * While `ban` is present this links the account restrictions and appeals guide, which
+     * names `ban.appeal_url`, because neither Bird nor this API can lift a ban.
+     * 
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+    * What to do next about this account's ban. Each entry names one action and says why
+    it is worth taking. An empty list means Bird holds no `ban` record for this account.
+    A ban Bird was never told of still shows as `banned` on the account's numbers, whose
+    own `next` carries the appeal, and as Meta error `141014` on the `waba` entity in
+    `meta_health_status`. Neither list says whether the account can send;
+    `meta_health_status` does.
+    
+    While `ban` is present this links the account restrictions and appeals guide, which
+    names `ban.appeal_url`, because neither Bird nor this API can lift a ban.
+    
+    *
+    * @param list<NextAction>|null $next
+    *
+    * @return self
+    */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
     /**

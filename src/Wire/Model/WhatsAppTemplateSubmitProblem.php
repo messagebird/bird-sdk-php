@@ -16,7 +16,7 @@ class WhatsAppTemplateSubmitProblem
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The language the problem belongs to, or null when it concerns the version as a whole.
+     * The language the problem belongs to, or null when it concerns the version as a whole. Always null in an analysis, which checks one language's unsaved content.
      * 
      *
      * @var string|null
@@ -43,7 +43,7 @@ class WhatsAppTemplateSubmitProblem
      */
     protected $message;
     /**
-     * The language the problem belongs to, or null when it concerns the version as a whole.
+     * The language the problem belongs to, or null when it concerns the version as a whole. Always null in an analysis, which checks one language's unsaved content.
      * 
      *
      * @return string|null
@@ -53,7 +53,7 @@ class WhatsAppTemplateSubmitProblem
         return $this->language;
     }
     /**
-     * The language the problem belongs to, or null when it concerns the version as a whole.
+     * The language the problem belongs to, or null when it concerns the version as a whole. Always null in an analysis, which checks one language's unsaved content.
      *
      * @param string|null $language
      *

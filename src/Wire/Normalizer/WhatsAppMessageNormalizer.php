@@ -239,6 +239,12 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

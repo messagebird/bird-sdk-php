@@ -32,6 +32,7 @@ use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Numbers;
 use MessageBird\Resources\Preferences;
 use MessageBird\Resources\WorkspaceResource;
+use MessageBird\Resources\Organization;
 use MessageBird\Resources\Realtime;
 use MessageBird\Resources\Amb;
 use MessageBird\Resources\EsimResource;
@@ -84,6 +85,7 @@ final class Bird
     public readonly Broadcasts $broadcasts;
 
     public readonly WorkspaceResource $workspace;
+    public readonly Organization $organization;
     public readonly Contacts $contacts;
     public readonly ContactProperties $contactProperties;
     public readonly Audiences $audiences;
@@ -158,6 +160,7 @@ final class Bird
         $this->assets = new Assets($this);
         $this->broadcasts = new Broadcasts($this);
         $this->workspace = new WorkspaceResource($this);
+        $this->organization = new Organization($this);
         $this->contacts = new Contacts($this);
         $this->contactProperties = new ContactProperties($this);
         $this->audiences = new Audiences($this);

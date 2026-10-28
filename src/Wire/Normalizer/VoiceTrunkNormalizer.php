@@ -149,6 +149,13 @@ class VoiceTrunkNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('session_credentials_enabled', $data) && $data['session_credentials_enabled'] === null) {
             $object->setSessionCredentialsEnabled(null);
         }
+        if (\array_key_exists('media', $data) && $data['media'] !== null) {
+            $object->setMedia($this->denormalizer->denormalize($data['media'], \MessageBird\Wire\Model\VoiceTrunkMedia::class, 'json', $context));
+            unset($data['media']);
+        }
+        elseif (\array_key_exists('media', $data) && $data['media'] === null) {
+            $object->setMedia(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -176,6 +183,7 @@ class VoiceTrunkNormalizer implements DenormalizerInterface, NormalizerInterface
         $dataArray['id'] = $data->getId();
         $dataArray['workspace_id'] = $data->getWorkspaceId();
         $dataArray['name'] = $data->getName();
+        $dataArray['media'] = $this->normalizer->normalize($data->getMedia(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

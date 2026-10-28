@@ -137,6 +137,12 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
             $values_7 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['parameters'] as $key_2 => $value_7) {
@@ -254,6 +260,9 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
                 $values_6[$key_1] = $value_6;
             }
             $dataArray['metadata'] = (object) $values_6;
+        }
+        if ($data->isInitialized('reference') && null !== $data->getReference()) {
+            $dataArray['reference'] = $data->getReference();
         }
         if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
             $values_7 = [];

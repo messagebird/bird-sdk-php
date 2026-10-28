@@ -114,6 +114,13 @@ class WhatsAppMessageSendRequest
      */
     protected $metadata;
     /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     * 
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
      * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
      * 
      *
@@ -449,6 +456,29 @@ class WhatsAppMessageSendRequest
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     * 
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
         return $this;
     }
 }

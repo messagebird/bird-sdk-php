@@ -147,6 +147,12 @@ class AMBMessage
      */
     protected $tags;
     /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
      * What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
      * 
      *
@@ -652,6 +658,28 @@ class AMBMessage
     {
         $this->initialized['tags'] = true;
         $this->tags = $tags;
+        return $this;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
         return $this;
     }
     /**

@@ -35,7 +35,7 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
-     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
      * 
      *
      * @var string|null
@@ -84,7 +84,7 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
-     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+     * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
      * 
      *
      * @return string|null
@@ -107,7 +107,7 @@ class SMSSegments
     outside the Basic Multilingual Plane is a surrogate pair costing two code
     units, so 35 of those fill a single segment.
     
-    `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only the preview binary send produces it; it is declared ahead of general availability so clients see the value before any message carries it outside the preview.
+    `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
     
     *
     * @param string|null $encoding

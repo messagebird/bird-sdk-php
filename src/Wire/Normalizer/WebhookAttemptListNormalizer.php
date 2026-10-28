@@ -47,6 +47,24 @@ class WebhookAttemptListNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('data', $data) && $data['data'] === null) {
             $object->setData(null);
         }
+        if (\array_key_exists('next_cursor', $data) && $data['next_cursor'] !== null) {
+            $object->setNextCursor($data['next_cursor']);
+        }
+        elseif (\array_key_exists('next_cursor', $data) && $data['next_cursor'] === null) {
+            $object->setNextCursor(null);
+        }
+        if (\array_key_exists('prev_cursor', $data) && $data['prev_cursor'] !== null) {
+            $object->setPrevCursor($data['prev_cursor']);
+        }
+        elseif (\array_key_exists('prev_cursor', $data) && $data['prev_cursor'] === null) {
+            $object->setPrevCursor(null);
+        }
+        if (\array_key_exists('refresh_cursor', $data) && $data['refresh_cursor'] !== null) {
+            $object->setRefreshCursor($data['refresh_cursor']);
+        }
+        elseif (\array_key_exists('refresh_cursor', $data) && $data['refresh_cursor'] === null) {
+            $object->setRefreshCursor(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -57,6 +75,9 @@ class WebhookAttemptListNormalizer implements DenormalizerInterface, NormalizerI
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        $dataArray['next_cursor'] = $data->getNextCursor();
+        $dataArray['prev_cursor'] = $data->getPrevCursor();
+        $dataArray['refresh_cursor'] = $data->getRefreshCursor();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

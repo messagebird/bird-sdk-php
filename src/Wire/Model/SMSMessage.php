@@ -48,7 +48,7 @@ class SMSMessage
      */
     protected $text;
     /**
-     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     * The payload of a binary send, in place of `text`. Absent on every other message.
      *
      * @var SMSMessageBinary|null
      */
@@ -122,20 +122,26 @@ class SMSMessage
      */
     protected $metadata;
     /**
-     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on received messages, and on any outbound message for which no settings were recorded.
      * 
      *
      * @var SMSMessageOptions|null
      */
     protected $options;
     /**
-     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
+     * The `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @var int|null
      */
     protected $validityPeriod;
     /**
-     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
+     * The `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
      *
      * @var string|null
      */
@@ -166,7 +172,7 @@ class SMSMessage
      */
     protected $countryCode;
     /**
-     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     * On a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
      * 
      *
      * @var SMSMessageInReplyToMessage|null
@@ -318,7 +324,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     * The payload of a binary send, in place of `text`. Absent on every other message.
      *
      * @return SMSMessageBinary|null
      */
@@ -327,7 +333,7 @@ class SMSMessage
         return $this->binary;
     }
     /**
-     * Preview feature: the payload of a binary send, in place of `text`. Absent on every other message.
+     * The payload of a binary send, in place of `text`. Absent on every other message.
      *
      * @param SMSMessageBinary|SMSBinary|array|null $binary
      *
@@ -582,7 +588,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on received messages, and on any outbound message for which no settings were recorded.
      * 
      *
      * @return SMSMessageOptions|null
@@ -592,7 +598,7 @@ class SMSMessage
         return $this->options;
     }
     /**
-     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
+     * The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on received messages, and on any outbound message for which no settings were recorded.
      *
      * @param SMSMessageOptions|SMSMessageEffectiveOptions|array|null $options
      *
@@ -605,7 +611,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
+     * The `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @return int|null
      */
@@ -614,7 +620,7 @@ class SMSMessage
         return $this->validityPeriod;
     }
     /**
-     * Preview feature: the `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
+     * The `validity_period` applied to the message, in seconds: the send's own, or else its messaging profile's. Absent when neither set one.
      *
      * @param int|null $validityPeriod
      *
@@ -627,7 +633,29 @@ class SMSMessage
         return $this;
     }
     /**
-     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
+        return $this;
+    }
+    /**
+     * The `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
      *
      * @return string|null
      */
@@ -636,7 +664,7 @@ class SMSMessage
         return $this->costCenter;
     }
     /**
-     * Preview feature: the `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
+     * The `cost_center` applied to the message: the send's own, or else its messaging profile's. Absent when neither set one, and on inbound messages.
      *
      * @param string|null $costCenter
      *
@@ -738,7 +766,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     * On a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
      * 
      *
      * @return SMSMessageInReplyToMessage|null
@@ -748,7 +776,7 @@ class SMSMessage
         return $this->inReplyToMessage;
     }
     /**
-     * Preview feature: on a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
+     * On a received message, the outbound message it was paired with through its messaging profile's outbound matching. Absent on outbound messages and on received messages that were not paired.
      *
      * @param SMSMessageInReplyToMessage|SMSInReplyToMessage|array|null $inReplyToMessage
      *

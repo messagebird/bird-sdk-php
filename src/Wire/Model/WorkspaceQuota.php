@@ -80,17 +80,40 @@ class WorkspaceQuota
      */
     protected $organizationSource;
     /**
-     * The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+     * The workspace's own saved limit. `null` when none is saved; `limit_source` and `automatic_limit` then show whether an automatic share applies.
      *
      * @var WorkspaceQuotaWorkspaceLimit|null
      */
     protected $workspaceLimit;
     /**
-     * The lower of the organization limit currently applied to requests and any active workspace limit. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
      *
      * @var int|null
      */
     protected $limit;
+    /**
+     * Which limit bounds the workspace's own usage.
+     * 
+     * - `manual`: the workspace's own active limit.
+     * - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+     * - `organization`: no workspace limit applies; only the shared organization limit does. This includes an automatic allocation of an unlimited organization limit.
+     * 
+     *
+     * @var string|null
+     */
+    protected $limitSource;
+    /**
+     * The workspace's share under the organization's automatic allocation. Set only when `limit_source` is `automatic`; it is never saved as a workspace limit.
+     *
+     * @var int|null
+     */
+    protected $automaticLimit;
+    /**
+     * Whether the organization has an automatic allocation of this quota. It can be `true` while `limit_source` is `manual`, or `organization` when the organization limit is unlimited. When `true`, changing or removing this workspace's limit can change other workspaces' automatic shares.
+     *
+     * @var bool|null
+     */
+    protected $allocationEnabled;
     /**
      * Current usage. `null` for a `value` quota, which counts nothing.
      *
@@ -316,7 +339,7 @@ class WorkspaceQuota
         return $this;
     }
     /**
-     * The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+     * The workspace's own saved limit. `null` when none is saved; `limit_source` and `automatic_limit` then show whether an automatic share applies.
      *
      * @return WorkspaceQuotaWorkspaceLimit|null
      */
@@ -325,7 +348,7 @@ class WorkspaceQuota
         return $this->workspaceLimit;
     }
     /**
-     * The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+     * The workspace's own saved limit. `null` when none is saved; `limit_source` and `automatic_limit` then show whether an automatic share applies.
      *
      * @param WorkspaceQuotaWorkspaceLimit|null $workspaceLimit
      *
@@ -338,7 +361,7 @@ class WorkspaceQuota
         return $this;
     }
     /**
-     * The lower of the organization limit currently applied to requests and any active workspace limit. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
      *
      * @return int|null
      */
@@ -347,7 +370,7 @@ class WorkspaceQuota
         return $this->limit;
     }
     /**
-     * The lower of the organization limit currently applied to requests and any active workspace limit. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
      *
      * @param int|null $limit
      *
@@ -357,6 +380,82 @@ class WorkspaceQuota
     {
         $this->initialized['limit'] = true;
         $this->limit = $limit;
+        return $this;
+    }
+    /**
+     * Which limit bounds the workspace's own usage.
+     * 
+     * - `manual`: the workspace's own active limit.
+     * - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+     * - `organization`: no workspace limit applies; only the shared organization limit does. This includes an automatic allocation of an unlimited organization limit.
+     * 
+     *
+     * @return string|null
+     */
+    public function getLimitSource(): ?string
+    {
+        return $this->limitSource;
+    }
+    /**
+    * Which limit bounds the workspace's own usage.
+    
+    - `manual`: the workspace's own active limit.
+    - `automatic`: the workspace's share of the organization limit under its automatic allocation.
+    - `organization`: no workspace limit applies; only the shared organization limit does. This includes an automatic allocation of an unlimited organization limit.
+    
+    *
+    * @param string|null $limitSource
+    *
+    * @return self
+    */
+    public function setLimitSource(?string $limitSource): self
+    {
+        $this->initialized['limitSource'] = true;
+        $this->limitSource = $limitSource;
+        return $this;
+    }
+    /**
+     * The workspace's share under the organization's automatic allocation. Set only when `limit_source` is `automatic`; it is never saved as a workspace limit.
+     *
+     * @return int|null
+     */
+    public function getAutomaticLimit(): ?int
+    {
+        return $this->automaticLimit;
+    }
+    /**
+     * The workspace's share under the organization's automatic allocation. Set only when `limit_source` is `automatic`; it is never saved as a workspace limit.
+     *
+     * @param int|null $automaticLimit
+     *
+     * @return self
+     */
+    public function setAutomaticLimit(?int $automaticLimit): self
+    {
+        $this->initialized['automaticLimit'] = true;
+        $this->automaticLimit = $automaticLimit;
+        return $this;
+    }
+    /**
+     * Whether the organization has an automatic allocation of this quota. It can be `true` while `limit_source` is `manual`, or `organization` when the organization limit is unlimited. When `true`, changing or removing this workspace's limit can change other workspaces' automatic shares.
+     *
+     * @return bool|null
+     */
+    public function getAllocationEnabled(): ?bool
+    {
+        return $this->allocationEnabled;
+    }
+    /**
+     * Whether the organization has an automatic allocation of this quota. It can be `true` while `limit_source` is `manual`, or `organization` when the organization limit is unlimited. When `true`, changing or removing this workspace's limit can change other workspaces' automatic shares.
+     *
+     * @param bool|null $allocationEnabled
+     *
+     * @return self
+     */
+    public function setAllocationEnabled(?bool $allocationEnabled): self
+    {
+        $this->initialized['allocationEnabled'] = true;
+        $this->allocationEnabled = $allocationEnabled;
         return $this;
     }
     /**

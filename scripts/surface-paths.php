@@ -246,6 +246,8 @@ return [
     "/v1/email/threads/{thread_id}/messages/{message_id}/body",
     "/v1/email/threads/{thread_id}/messages/{message_id}/reply",
     "/v1/email/threads/{thread_id}/messages/{message_id}/attachments",
+    "/v1/organization/workspaces",
+    "/v1/organization/workspaces/{workspace_id}",
     "/v1/realtime/apps/{realtime_app_id}/events",
     "/v1/realtime/apps/{realtime_app_id}/batch-events",
     "/v1/realtime/apps/{realtime_app_id}/channels",

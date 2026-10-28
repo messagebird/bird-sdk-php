@@ -147,6 +147,12 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('cost', $data) && $data['cost'] !== null) {
             $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\MessageCost::class, 'json', $context));
         }

@@ -73,6 +73,12 @@ class VoiceTrunkUpdateNormalizer implements DenormalizerInterface, NormalizerInt
         elseif (\array_key_exists('media_bypass', $data) && $data['media_bypass'] === null) {
             $object->setMediaBypass(null);
         }
+        if (\array_key_exists('media', $data) && $data['media'] !== null) {
+            $object->setMedia($this->denormalizer->denormalize($data['media'], \MessageBird\Wire\Model\VoiceTrunkMediaUpdate::class, 'json', $context));
+        }
+        elseif (\array_key_exists('media', $data) && $data['media'] === null) {
+            $object->setMedia(null);
+        }
         if (\array_key_exists('ip_acls', $data) && $data['ip_acls'] !== null) {
             $values = [];
             foreach ($data['ip_acls'] as $value) {
@@ -125,6 +131,9 @@ class VoiceTrunkUpdateNormalizer implements DenormalizerInterface, NormalizerInt
         }
         if ($data->isInitialized('mediaBypass') && null !== $data->getMediaBypass()) {
             $dataArray['media_bypass'] = $data->getMediaBypass();
+        }
+        if ($data->isInitialized('media') && null !== $data->getMedia()) {
+            $dataArray['media'] = $this->normalizer->normalize($data->getMedia(), 'json', $context);
         }
         if ($data->isInitialized('ipAcls') && null !== $data->getIpAcls()) {
             $values = [];

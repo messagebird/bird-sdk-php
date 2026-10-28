@@ -191,6 +191,12 @@ class EmailBroadcastTestResult extends \ArrayObject
      */
     protected $metadata;
     /**
+     * The `reference` from the send request. Absent when the send set none.
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
      * The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
      * 
      *
@@ -864,6 +870,28 @@ class EmailBroadcastTestResult extends \ArrayObject
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none.
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
         return $this;
     }
     /**

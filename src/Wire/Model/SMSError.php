@@ -56,7 +56,7 @@ class SMSError
      */
     protected $occurredAt;
     /**
-     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, such as when the provider returned no code or one without a known permanence, or when Bird blocked the message itself.
      * 
      *
      * @var bool|null
@@ -183,7 +183,7 @@ class SMSError
         return $this;
     }
     /**
-     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, such as when the provider returned no code or one without a known permanence, or when Bird blocked the message itself.
      * 
      *
      * @return bool|null
@@ -193,7 +193,7 @@ class SMSError
         return $this->permanent;
     }
     /**
-     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, which is currently always.
+     * Whether the cause is permanent, so sending the same message again would fail the same way. Describes the cause, not whether Bird retries. Null when Bird cannot tell, such as when the provider returned no code or one without a known permanence, or when Bird blocked the message itself.
      *
      * @param bool|null $permanent
      *

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or the preview `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
+ * A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
  */
 class SMSMessageSendRequest
 {
@@ -23,6 +23,13 @@ class SMSMessageSendRequest
      */
     protected $to;
     /**
+     * The ISO 3166-1 alpha-2 country whose national numbering plan `to` is written in, such as `NL` for `0612345678`. Bird converts `to` to E.164 before checking the destination, price and sender. An E.164 `to` is still accepted when its country calling code matches this country; a mismatch, or a national number that is not valid in this country, returns a `422` `SMSInvalidRecipient`. Omit it to send `to` in E.164.
+     * 
+     *
+     * @var string|null
+     */
+    protected $toCountryCode;
+    /**
      * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template, unless `messaging_profile_id` is set and the profile selects a sender for the destination country or has a default sender. Omitting it otherwise returns `422`. A built-in template selects its sender automatically and rejects `from`.
      * 
      *
@@ -37,6 +44,13 @@ class SMSMessageSendRequest
      */
     protected $text;
     /**
+     * Send an 8-bit binary payload instead of `text` or `template`. Requires `category` `transactional` and refuses `options.smart_encoding`. It is sent and charged as one segment.
+     * 
+     *
+     * @var SMSMessageSendRequestBinary|null
+     */
+    protected $binary;
+    /**
      * Content classification: why you are sending. Required on a free-text send unless the messaging profile in `messaging_profile_id` sets a default category; omit it on a template send, where the category is derived from the template. Where the destination country requires the sender to be registered, a category outside what that registration covers returns a `422` `SenderCategoryNotPermitted`.
      * 
      *
@@ -44,12 +58,26 @@ class SMSMessageSendRequest
      */
     protected $category;
     /**
-     * Preview feature: how long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none. Organizations outside the preview receive `422 SMSUnsupportedFeature`.
+     * How long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none.
      * 
      *
      * @var int|null
      */
     protected $validityPeriod;
+    /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     * 
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
+     * Your accounting identifier for this message, such as a department code. Stored on the message and its usage record, returned on reads, and echoed in webhook payloads. Omit it to use the cost center of the messaging profile in `messaging_profile_id`. Accepting it does not change how the message is priced.
+     * 
+     *
+     * @var string|null
+     */
+    protected $costCenter;
     /**
      * Structured `{name, value}` labels for filtering and analytics. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics by tag, and surface in webhook payloads. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
      * 
@@ -78,7 +106,7 @@ class SMSMessageSendRequest
      */
     protected $mediaUrls;
     /**
-     * Preview feature: the messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url`, `options.ignore_delivery_window` and `options.ignore_suppression`, which Bird records on the message; the profile's `options.validation.network` is not inherited. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`. Organizations outside the preview get `422` `SMSUnsupportedFeature`.
+     * The messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url` and `options.ignore_suppression`, which apply to the message. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
      * 
      *
      * @var string|null
@@ -157,6 +185,29 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
+     * The ISO 3166-1 alpha-2 country whose national numbering plan `to` is written in, such as `NL` for `0612345678`. Bird converts `to` to E.164 before checking the destination, price and sender. An E.164 `to` is still accepted when its country calling code matches this country; a mismatch, or a national number that is not valid in this country, returns a `422` `SMSInvalidRecipient`. Omit it to send `to` in E.164.
+     * 
+     *
+     * @return string|null
+     */
+    public function getToCountryCode(): ?string
+    {
+        return $this->toCountryCode;
+    }
+    /**
+     * The ISO 3166-1 alpha-2 country whose national numbering plan `to` is written in, such as `NL` for `0612345678`. Bird converts `to` to E.164 before checking the destination, price and sender. An E.164 `to` is still accepted when its country calling code matches this country; a mismatch, or a national number that is not valid in this country, returns a `422` `SMSInvalidRecipient`. Omit it to send `to` in E.164.
+     *
+     * @param string|null $toCountryCode
+     *
+     * @return self
+     */
+    public function setToCountryCode(?string $toCountryCode): self
+    {
+        $this->initialized['toCountryCode'] = true;
+        $this->toCountryCode = $toCountryCode;
+        return $this;
+    }
+    /**
      * Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template, unless `messaging_profile_id` is set and the profile selects a sender for the destination country or has a default sender. Omitting it otherwise returns `422`. A built-in template selects its sender automatically and rejects `from`.
      * 
      *
@@ -203,6 +254,29 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
+     * Send an 8-bit binary payload instead of `text` or `template`. Requires `category` `transactional` and refuses `options.smart_encoding`. It is sent and charged as one segment.
+     * 
+     *
+     * @return SMSMessageSendRequestBinary|null
+     */
+    public function getBinary(): ?SMSMessageSendRequestBinary
+    {
+        return $this->binary;
+    }
+    /**
+     * Send an 8-bit binary payload instead of `text` or `template`. Requires `category` `transactional` and refuses `options.smart_encoding`. It is sent and charged as one segment.
+     *
+     * @param SMSMessageSendRequestBinary|SMSBinary|array|null $binary
+     *
+     * @return self
+     */
+    public function setBinary($binary): self
+    {
+        $this->initialized['binary'] = true;
+        $this->binary = \MessageBird\Core\ModelWrapper::normalize($binary, SMSMessageSendRequestBinary::class);
+        return $this;
+    }
+    /**
      * Content classification: why you are sending. Required on a free-text send unless the messaging profile in `messaging_profile_id` sets a default category; omit it on a template send, where the category is derived from the template. Where the destination country requires the sender to be registered, a category outside what that registration covers returns a `422` `SenderCategoryNotPermitted`.
      * 
      *
@@ -226,7 +300,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Preview feature: how long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none. Organizations outside the preview receive `422 SMSUnsupportedFeature`.
+     * How long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none.
      * 
      *
      * @return int|null
@@ -236,7 +310,7 @@ class SMSMessageSendRequest
         return $this->validityPeriod;
     }
     /**
-     * Preview feature: how long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none. Organizations outside the preview receive `422 SMSUnsupportedFeature`.
+     * How long, in seconds (60-172800), the message may wait for delivery, counted from acceptance. Bird does not submit the message to the carrier after this deadline and passes the remaining time to the carrier where the route supports it. A message that misses the deadline before reaching the carrier ends `rejected` or `failed`, not `expired`; `expired` comes only from a carrier report. Omit it to use the validity period of the messaging profile in `messaging_profile_id`, or the carrier's own validity rules when the profile sets none.
      *
      * @param int|null $validityPeriod
      *
@@ -246,6 +320,52 @@ class SMSMessageSendRequest
     {
         $this->initialized['validityPeriod'] = true;
         $this->validityPeriod = $validityPeriod;
+        return $this;
+    }
+    /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     * 
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
+        return $this;
+    }
+    /**
+     * Your accounting identifier for this message, such as a department code. Stored on the message and its usage record, returned on reads, and echoed in webhook payloads. Omit it to use the cost center of the messaging profile in `messaging_profile_id`. Accepting it does not change how the message is priced.
+     * 
+     *
+     * @return string|null
+     */
+    public function getCostCenter(): ?string
+    {
+        return $this->costCenter;
+    }
+    /**
+     * Your accounting identifier for this message, such as a department code. Stored on the message and its usage record, returned on reads, and echoed in webhook payloads. Omit it to use the cost center of the messaging profile in `messaging_profile_id`. Accepting it does not change how the message is priced.
+     *
+     * @param string|null $costCenter
+     *
+     * @return self
+     */
+    public function setCostCenter(?string $costCenter): self
+    {
+        $this->initialized['costCenter'] = true;
+        $this->costCenter = $costCenter;
         return $this;
     }
     /**
@@ -340,7 +460,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Preview feature: the messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url`, `options.ignore_delivery_window` and `options.ignore_suppression`, which Bird records on the message; the profile's `options.validation.network` is not inherited. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`. Organizations outside the preview get `422` `SMSUnsupportedFeature`.
+     * The messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url` and `options.ignore_suppression`, which apply to the message. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
      * 
      *
      * @return string|null
@@ -350,7 +470,7 @@ class SMSMessageSendRequest
         return $this->messagingProfileId;
     }
     /**
-     * Preview feature: the messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url`, `options.ignore_delivery_window` and `options.ignore_suppression`, which Bird records on the message; the profile's `options.validation.network` is not inherited. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`. Organizations outside the preview get `422` `SMSUnsupportedFeature`.
+     * The messaging profile that supplies this message's sender and defaults. When `from` is omitted, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send takes the profile's default category, and `smart_encoding`, `cost_center` and `validity_period` take the profile's settings. So do `options.callback_url` and `options.ignore_suppression`, which apply to the message. Values you set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`; a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
      *
      * @param string|null $messagingProfileId
      *

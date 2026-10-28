@@ -43,6 +43,12 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('to', $data) && $data['to'] === null) {
             $object->setTo(null);
         }
+        if (\array_key_exists('to_country_code', $data) && $data['to_country_code'] !== null) {
+            $object->setToCountryCode($data['to_country_code']);
+        }
+        elseif (\array_key_exists('to_country_code', $data) && $data['to_country_code'] === null) {
+            $object->setToCountryCode(null);
+        }
         if (\array_key_exists('from', $data) && $data['from'] !== null) {
             $object->setFrom($data['from']);
         }
@@ -55,6 +61,12 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
         }
+        if (\array_key_exists('binary', $data) && $data['binary'] !== null) {
+            $object->setBinary($this->denormalizer->denormalize($data['binary'], \MessageBird\Wire\Model\SMSMessageSendRequestBinary::class, 'json', $context));
+        }
+        elseif (\array_key_exists('binary', $data) && $data['binary'] === null) {
+            $object->setBinary(null);
+        }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
         }
@@ -66,6 +78,18 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         }
         elseif (\array_key_exists('validity_period', $data) && $data['validity_period'] === null) {
             $object->setValidityPeriod(null);
+        }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
+        if (\array_key_exists('cost_center', $data) && $data['cost_center'] !== null) {
+            $object->setCostCenter($data['cost_center']);
+        }
+        elseif (\array_key_exists('cost_center', $data) && $data['cost_center'] === null) {
+            $object->setCostCenter(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
             $values = [];
@@ -167,17 +191,29 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
     {
         $dataArray = [];
         $dataArray['to'] = $data->getTo();
+        if ($data->isInitialized('toCountryCode') && null !== $data->getToCountryCode()) {
+            $dataArray['to_country_code'] = $data->getToCountryCode();
+        }
         if ($data->isInitialized('from') && null !== $data->getFrom()) {
             $dataArray['from'] = $data->getFrom();
         }
         if ($data->isInitialized('text') && null !== $data->getText()) {
             $dataArray['text'] = $data->getText();
         }
+        if ($data->isInitialized('binary') && null !== $data->getBinary()) {
+            $dataArray['binary'] = $this->normalizer->normalize($data->getBinary(), 'json', $context);
+        }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
         }
         if ($data->isInitialized('validityPeriod') && null !== $data->getValidityPeriod()) {
             $dataArray['validity_period'] = $data->getValidityPeriod();
+        }
+        if ($data->isInitialized('reference') && null !== $data->getReference()) {
+            $dataArray['reference'] = $data->getReference();
+        }
+        if ($data->isInitialized('costCenter') && null !== $data->getCostCenter()) {
+            $dataArray['cost_center'] = $data->getCostCenter();
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
             $values = [];

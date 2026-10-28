@@ -242,6 +242,12 @@ class WhatsAppMessage
      */
     protected $metadata;
     /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @var string|null
+     */
+    protected $reference;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -998,6 +1004,28 @@ class WhatsAppMessage
     {
         $this->initialized['metadata'] = true;
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+    /**
+     * The `reference` from the send request. Absent when the send set none, and on inbound messages.
+     *
+     * @param string|null $reference
+     *
+     * @return self
+     */
+    public function setReference(?string $reference): self
+    {
+        $this->initialized['reference'] = true;
+        $this->reference = $reference;
         return $this;
     }
 }

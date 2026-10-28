@@ -43,6 +43,9 @@ class SMSSendOptionsNormalizer implements DenormalizerInterface, NormalizerInter
         if (\array_key_exists('smart_encoding', $data) && \is_int($data['smart_encoding'])) {
             $data['smart_encoding'] = (bool) $data['smart_encoding'];
         }
+        if (\array_key_exists('ignore_suppression', $data) && \is_int($data['ignore_suppression'])) {
+            $data['ignore_suppression'] = (bool) $data['ignore_suppression'];
+        }
         if (\array_key_exists('track_clicks', $data) && \is_int($data['track_clicks'])) {
             $data['track_clicks'] = (bool) $data['track_clicks'];
         }
@@ -51,6 +54,18 @@ class SMSSendOptionsNormalizer implements DenormalizerInterface, NormalizerInter
         }
         elseif (\array_key_exists('smart_encoding', $data) && $data['smart_encoding'] === null) {
             $object->setSmartEncoding(null);
+        }
+        if (\array_key_exists('ignore_suppression', $data) && $data['ignore_suppression'] !== null) {
+            $object->setIgnoreSuppression($data['ignore_suppression']);
+        }
+        elseif (\array_key_exists('ignore_suppression', $data) && $data['ignore_suppression'] === null) {
+            $object->setIgnoreSuppression(null);
+        }
+        if (\array_key_exists('callback_url', $data) && $data['callback_url'] !== null) {
+            $object->setCallbackUrl($data['callback_url']);
+        }
+        elseif (\array_key_exists('callback_url', $data) && $data['callback_url'] === null) {
+            $object->setCallbackUrl(null);
         }
         if (\array_key_exists('track_clicks', $data) && $data['track_clicks'] !== null) {
             $object->setTrackClicks($data['track_clicks']);
@@ -71,6 +86,12 @@ class SMSSendOptionsNormalizer implements DenormalizerInterface, NormalizerInter
         $dataArray = [];
         if ($data->isInitialized('smartEncoding') && null !== $data->getSmartEncoding()) {
             $dataArray['smart_encoding'] = $data->getSmartEncoding();
+        }
+        if ($data->isInitialized('ignoreSuppression') && null !== $data->getIgnoreSuppression()) {
+            $dataArray['ignore_suppression'] = $data->getIgnoreSuppression();
+        }
+        if ($data->isInitialized('callbackUrl')) {
+            $dataArray['callback_url'] = $data->getCallbackUrl();
         }
         if ($data->isInitialized('trackClicks') && null !== $data->getTrackClicks()) {
             $dataArray['track_clicks'] = $data->getTrackClicks();

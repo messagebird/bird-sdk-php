@@ -364,6 +364,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\Money::class => \MessageBird\Wire\Normalizer\MoneyNormalizer::class,
 
+        \MessageBird\Wire\Model\OrganizationWorkspaceList::class => \MessageBird\Wire\Normalizer\OrganizationWorkspaceListNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceCreate::class => \MessageBird\Wire\Normalizer\WorkspaceCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\OrganizationWorkspaceUpdate::class => \MessageBird\Wire\Normalizer\OrganizationWorkspaceUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\RealtimePublish::class => \MessageBird\Wire\Normalizer\RealtimePublishNormalizer::class,
 
         \MessageBird\Wire\Model\RealtimeChannelListItem::class => \MessageBird\Wire\Normalizer\RealtimeChannelListItemNormalizer::class,
@@ -561,6 +567,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSTemplateSend::class => \MessageBird\Wire\Normalizer\SMSTemplateSendNormalizer::class,
 
         \MessageBird\Wire\Model\SMSMessageSendRequest::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSMessageSendRequestBinary::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestBinaryNormalizer::class,
 
         \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => \MessageBird\Wire\Normalizer\SMSMessageSendRequestOptionsNormalizer::class,
 
@@ -1086,6 +1094,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCreateNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateSubmitProblem::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmitProblemNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateUpdate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionSummaryNormalizer::class,
@@ -1103,8 +1113,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppTemplateDuplicate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateDuplicateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateSubmit::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmitNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTemplateSubmitProblem::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmitProblemNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateSubmitResult::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmitResultNormalizer::class,
 
@@ -1862,11 +1870,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceLegMediaPath::class => \MessageBird\Wire\Normalizer\VoiceLegMediaPathNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceLegCost::class => \MessageBird\Wire\Normalizer\VoiceLegCostNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLeg::class => \MessageBird\Wire\Normalizer\VoiceLegNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceLegActor::class => \MessageBird\Wire\Normalizer\VoiceLegActorNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegMedia::class => \MessageBird\Wire\Normalizer\VoiceLegMediaNormalizer::class,
 
         \MessageBird\Wire\Model\BillingPricingInterval::class => \MessageBird\Wire\Normalizer\BillingPricingIntervalNormalizer::class,
 
@@ -1914,11 +1926,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceTrunkIPACL::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceTrunkMedia::class => \MessageBird\Wire\Normalizer\VoiceTrunkMediaNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceTrunk::class => \MessageBird\Wire\Normalizer\VoiceTrunkNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunkList::class => \MessageBird\Wire\Normalizer\VoiceTrunkListNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceTrunkMediaCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkMediaCreateNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceTrunkCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceTrunkMediaUpdate::class => \MessageBird\Wire\Normalizer\VoiceTrunkMediaUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => \MessageBird\Wire\Normalizer\VoiceTrunkIPACLCreateNormalizer::class,
 
@@ -2399,6 +2417,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBConversationStatsSummary::class => false,
             \MessageBird\Wire\Model\AMBConversationStatsPoint::class => false,
             \MessageBird\Wire\Model\Money::class => false,
+            \MessageBird\Wire\Model\OrganizationWorkspaceList::class => false,
+            \MessageBird\Wire\Model\WorkspaceCreate::class => false,
+            \MessageBird\Wire\Model\OrganizationWorkspaceUpdate::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
             \MessageBird\Wire\Model\RealtimeChannelListItem::class => false,
             \MessageBird\Wire\Model\RealtimePublishResult::class => false,
@@ -2498,6 +2519,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSSendOptions::class => false,
             \MessageBird\Wire\Model\SMSTemplateSend::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequest::class => false,
+            \MessageBird\Wire\Model\SMSMessageSendRequestBinary::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequestOptions::class => false,
             \MessageBird\Wire\Model\SMSMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\SMSMessageBatchRequest::class => false,
@@ -2760,6 +2782,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateSubmitProblem::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateUpdate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionList::class => false,
@@ -2769,7 +2792,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateDuplicate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmit::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateSubmitProblem::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmitResult::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmitResultVersion::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageSummary::class => false,
@@ -3148,9 +3170,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceParty::class => false,
             \MessageBird\Wire\Model\VoiceSessionCredential::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
+            \MessageBird\Wire\Model\VoiceLegMediaPath::class => false,
             \MessageBird\Wire\Model\VoiceLegCost::class => false,
             \MessageBird\Wire\Model\VoiceLeg::class => false,
             \MessageBird\Wire\Model\VoiceLegActor::class => false,
+            \MessageBird\Wire\Model\VoiceLegMedia::class => false,
             \MessageBird\Wire\Model\BillingPricingInterval::class => false,
             \MessageBird\Wire\Model\NumberOwnership::class => false,
             \MessageBird\Wire\Model\NumberPricing::class => false,
@@ -3174,9 +3198,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\BillingWallet::class => false,
             \MessageBird\Wire\Model\BillingWalletList::class => false,
             \MessageBird\Wire\Model\VoiceTrunkIPACL::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkMedia::class => false,
             \MessageBird\Wire\Model\VoiceTrunk::class => false,
             \MessageBird\Wire\Model\VoiceTrunkList::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkMediaCreate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkCreate::class => false,
+            \MessageBird\Wire\Model\VoiceTrunkMediaUpdate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkIPACLCreate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkUpdate::class => false,
             \MessageBird\Wire\Model\VoiceTrunkGateway::class => false,

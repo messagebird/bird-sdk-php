@@ -68,7 +68,7 @@ class AMBConversation
      */
     protected $origin;
     /**
-     * The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
+     * The device capability tokens recorded for this conversation. When an inbound message creates, reopens, or updates an open conversation, a non-empty list replaces the previous tokens. Empty lists and delayed messages that leave the conversation closed preserve the previous tokens. An empty stored list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
      * 
      *
      * @var list<string>|null
@@ -82,7 +82,7 @@ class AMBConversation
      */
     protected $supportedContentKinds;
     /**
-     * The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
+     * The customer's locale recorded for this conversation. Messages without a locale and delayed messages that leave the conversation closed preserve the previous value. Empty when no locale is known. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
      * 
      *
      * @var string|null
@@ -325,7 +325,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
+     * The device capability tokens recorded for this conversation. When an inbound message creates, reopens, or updates an open conversation, a non-empty list replaces the previous tokens. Empty lists and delayed messages that leave the conversation closed preserve the previous tokens. An empty stored list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
      * 
      *
      * @return list<string>|null
@@ -335,7 +335,7 @@ class AMBConversation
         return $this->deviceCapabilities;
     }
     /**
-     * The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
+     * The device capability tokens recorded for this conversation. When an inbound message creates, reopens, or updates an open conversation, a non-empty list replaces the previous tokens. Empty lists and delayed messages that leave the conversation closed preserve the previous tokens. An empty stored list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
      *
      * @param list<string>|null $deviceCapabilities
      *
@@ -371,7 +371,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
+     * The customer's locale recorded for this conversation. Messages without a locale and delayed messages that leave the conversation closed preserve the previous value. Empty when no locale is known. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
      * 
      *
      * @return string|null
@@ -381,7 +381,7 @@ class AMBConversation
         return $this->locale;
     }
     /**
-     * The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
+     * The customer's locale recorded for this conversation. Messages without a locale and delayed messages that leave the conversation closed preserve the previous value. Empty when no locale is known. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
      *
      * @param string|null $locale
      *

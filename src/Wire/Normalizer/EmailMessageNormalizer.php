@@ -235,6 +235,12 @@ class EmailMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
             $values_6 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['parameters'] as $key_1 => $value_6) {

@@ -37,6 +37,9 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('allocation_enabled', $data) && \is_int($data['allocation_enabled'])) {
+            $data['allocation_enabled'] = (bool) $data['allocation_enabled'];
+        }
         if (\array_key_exists('key', $data) && $data['key'] !== null) {
             $object->setKey($data['key']);
         }
@@ -103,6 +106,24 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('limit', $data) && $data['limit'] === null) {
             $object->setLimit(null);
         }
+        if (\array_key_exists('limit_source', $data) && $data['limit_source'] !== null) {
+            $object->setLimitSource($data['limit_source']);
+        }
+        elseif (\array_key_exists('limit_source', $data) && $data['limit_source'] === null) {
+            $object->setLimitSource(null);
+        }
+        if (\array_key_exists('automatic_limit', $data) && $data['automatic_limit'] !== null) {
+            $object->setAutomaticLimit($data['automatic_limit']);
+        }
+        elseif (\array_key_exists('automatic_limit', $data) && $data['automatic_limit'] === null) {
+            $object->setAutomaticLimit(null);
+        }
+        if (\array_key_exists('allocation_enabled', $data) && $data['allocation_enabled'] !== null) {
+            $object->setAllocationEnabled($data['allocation_enabled']);
+        }
+        elseif (\array_key_exists('allocation_enabled', $data) && $data['allocation_enabled'] === null) {
+            $object->setAllocationEnabled(null);
+        }
         if (\array_key_exists('usage', $data) && $data['usage'] !== null) {
             $object->setUsage($this->denormalizer->denormalize($data['usage'], \MessageBird\Wire\Model\WorkspaceQuotaUsage::class, 'json', $context));
         }
@@ -125,6 +146,9 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
         $dataArray['organization_source'] = $data->getOrganizationSource();
         $dataArray['workspace_limit'] = $this->normalizer->normalize($data->getWorkspaceLimit(), 'json', $context);
         $dataArray['limit'] = $data->getLimit();
+        $dataArray['limit_source'] = $data->getLimitSource();
+        $dataArray['automatic_limit'] = $data->getAutomaticLimit();
+        $dataArray['allocation_enabled'] = $data->getAllocationEnabled();
         $dataArray['usage'] = $this->normalizer->normalize($data->getUsage(), 'json', $context);
         return $dataArray;
     }

@@ -139,6 +139,12 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -198,6 +204,9 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
                 $values_2[$key] = $value_2;
             }
             $dataArray['metadata'] = (object) $values_2;
+        }
+        if ($data->isInitialized('reference') && null !== $data->getReference()) {
+            $dataArray['reference'] = $data->getReference();
         }
         return $dataArray;
     }

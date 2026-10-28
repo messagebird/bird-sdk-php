@@ -137,6 +137,12 @@ class VoiceLeg
      */
     protected $mediaQuality;
     /**
+     * How the leg's audio travelled between us and your side. Absent when we recorded nothing about it, including on legs recorded before this field existed.
+     *
+     * @var VoiceLegMedia|null
+     */
+    protected $media;
+    /**
      * What was charged for a leg, split into the components that make it up.
      * 
      *
@@ -598,6 +604,28 @@ class VoiceLeg
     {
         $this->initialized['mediaQuality'] = true;
         $this->mediaQuality = $mediaQuality;
+        return $this;
+    }
+    /**
+     * How the leg's audio travelled between us and your side. Absent when we recorded nothing about it, including on legs recorded before this field existed.
+     *
+     * @return VoiceLegMedia|null
+     */
+    public function getMedia(): ?VoiceLegMedia
+    {
+        return $this->media;
+    }
+    /**
+     * How the leg's audio travelled between us and your side. Absent when we recorded nothing about it, including on legs recorded before this field existed.
+     *
+     * @param VoiceLegMedia|VoiceLegMediaPath|array|null $media
+     *
+     * @return self
+     */
+    public function setMedia($media): self
+    {
+        $this->initialized['media'] = true;
+        $this->media = \MessageBird\Core\ModelWrapper::normalize($media, VoiceLegMedia::class);
         return $this;
     }
     /**

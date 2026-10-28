@@ -175,12 +175,28 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
         $dataArray['status'] = $data->getStatus();
         $dataArray['origin'] = $data->getOrigin();
-        $dataArray['assigned_to'] = $data->getAssignedTo();
         $values = [];
-        foreach ($data->getLabels() as $value) {
+        foreach ($data->getDeviceCapabilities() as $value) {
             $values[] = $value;
         }
-        $dataArray['labels'] = $values;
+        $dataArray['device_capabilities'] = $values;
+        $values_1 = [];
+        foreach ($data->getSupportedContentKinds() as $value_1) {
+            $values_1[] = $value_1;
+        }
+        $dataArray['supported_content_kinds'] = $values_1;
+        $dataArray['locale'] = $data->getLocale();
+        $dataArray['unread_count'] = $data->getUnreadCount();
+        $dataArray['assigned_to'] = $data->getAssignedTo();
+        $values_2 = [];
+        foreach ($data->getLabels() as $value_2) {
+            $values_2[] = $value_2;
+        }
+        $dataArray['labels'] = $values_2;
+        $dataArray['closed_at'] = $data->getClosedAt()?->format('Y-m-d\TH:i:sP');
+        $dataArray['closed_reason'] = $data->getClosedReason();
+        $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

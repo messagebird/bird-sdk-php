@@ -93,6 +93,12 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
+        if (\array_key_exists('reference', $data) && $data['reference'] !== null) {
+            $object->setReference($data['reference']);
+        }
+        elseif (\array_key_exists('reference', $data) && $data['reference'] === null) {
+            $object->setReference(null);
+        }
         if (\array_key_exists('group', $data) && $data['group'] !== null) {
             $object->setGroup($data['group']);
         }
@@ -143,6 +149,9 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['tags'] = $values_1;
+        }
+        if ($data->isInitialized('reference') && null !== $data->getReference()) {
+            $dataArray['reference'] = $data->getReference();
         }
         if ($data->isInitialized('group') && null !== $data->getGroup()) {
             $dataArray['group'] = $data->getGroup();

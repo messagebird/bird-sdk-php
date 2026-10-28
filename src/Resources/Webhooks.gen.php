@@ -8,6 +8,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\WebhookAttempt;
 use MessageBird\Wire\Model\WebhookAttemptList;
 use MessageBird\Wire\Model\WebhookEndpoint;
 use MessageBird\Wire\Model\WebhookEndpointCreate;
@@ -107,19 +108,33 @@ class WebhooksBase extends Resource
     }
 
     /**
-     * List an endpoint's recent delivery attempts, newest first. Each entry is one HTTP request, so a retried event appears once per try. Pagination uses the `before`/`after` timestamps; page further back by passing the oldest `attempted_at` you received as `before`.
+     * List an endpoint's recent delivery attempts, newest first. Each entry is one HTTP request, so a retried event appears once per try. Pass `next_cursor` as `starting_after` to page to older attempts. `before` and `after` bound the time window and combine with a cursor. Pass only one of `starting_after` and `ending_before`; both returns 422.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
+     * @return Page<WebhookAttempt>
+     *
      * @example Inspect recent delivery attempts
-     * $attempts = $bird->webhooks->attempts('whk_01krdgeqcxet5s7t44vh8rt9mg');
-     * foreach ($attempts->getData() ?? [] as $attempt) {
+     * foreach ($bird->webhooks->attempts('whk_01krdgeqcxet5s7t44vh8rt9mg') as $attempt) {
      *     echo $attempt->getStatus(), PHP_EOL;
      * }
      */
-    public function attempts(string $webhookId, ?array $query = null, ?RequestOptions $options = null): WebhookAttemptList
+    public function attempts(string $webhookId, ?array $query = null, ?RequestOptions $options = null): Page
     {
-        return $this->single('GET', '/v1/webhooks/' . rawurlencode($webhookId) . '/attempts', WebhookAttemptList::class, null, $query, $options);
+        return $this->paginate(
+            WebhookAttempt::class,
+            fn (?string $cursor): WebhookAttemptList => $this->single('GET', '/v1/webhooks/' . rawurlencode($webhookId) . '/attempts', WebhookAttemptList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof WebhookAttemptList);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof WebhookAttemptList);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**

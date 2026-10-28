@@ -93,6 +93,12 @@ class VoiceTrunk extends \ArrayObject
      */
     protected $sessionCredentialsEnabled;
     /**
+     * How the trunk carries call audio. Set it through the trunk update operation.
+     *
+     * @var VoiceTrunkMedia|null
+     */
+    protected $media;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -363,6 +369,28 @@ class VoiceTrunk extends \ArrayObject
     {
         $this->initialized['sessionCredentialsEnabled'] = true;
         $this->sessionCredentialsEnabled = $sessionCredentialsEnabled;
+        return $this;
+    }
+    /**
+     * How the trunk carries call audio. Set it through the trunk update operation.
+     *
+     * @return VoiceTrunkMedia|null
+     */
+    public function getMedia(): ?VoiceTrunkMedia
+    {
+        return $this->media;
+    }
+    /**
+     * How the trunk carries call audio. Set it through the trunk update operation.
+     *
+     * @param VoiceTrunkMedia|null $media
+     *
+     * @return self
+     */
+    public function setMedia(?VoiceTrunkMedia $media): self
+    {
+        $this->initialized['media'] = true;
+        $this->media = $media;
         return $this;
     }
     /**

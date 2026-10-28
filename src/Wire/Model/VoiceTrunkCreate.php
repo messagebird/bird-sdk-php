@@ -40,6 +40,12 @@ class VoiceTrunkCreate
      */
     protected $mediaBypass = false;
     /**
+     * How the new trunk carries call audio. An omitted member takes its default.
+     *
+     * @var VoiceTrunkMediaCreate|null
+     */
+    protected $media;
+    /**
      * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
      * 
      *
@@ -142,6 +148,28 @@ class VoiceTrunkCreate
     {
         $this->initialized['mediaBypass'] = true;
         $this->mediaBypass = $mediaBypass;
+        return $this;
+    }
+    /**
+     * How the new trunk carries call audio. An omitted member takes its default.
+     *
+     * @return VoiceTrunkMediaCreate|null
+     */
+    public function getMedia(): ?VoiceTrunkMediaCreate
+    {
+        return $this->media;
+    }
+    /**
+     * How the new trunk carries call audio. An omitted member takes its default.
+     *
+     * @param VoiceTrunkMediaCreate|null $media
+     *
+     * @return self
+     */
+    public function setMedia(?VoiceTrunkMediaCreate $media): self
+    {
+        $this->initialized['media'] = true;
+        $this->media = $media;
         return $this;
     }
     /**

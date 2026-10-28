@@ -167,6 +167,12 @@ class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, 
         elseif (\array_key_exists('media_quality', $data) && $data['media_quality'] === null) {
             $object->setMediaQuality(null);
         }
+        if (\array_key_exists('media', $data) && $data['media'] !== null) {
+            $object->setMedia($this->denormalizer->denormalize($data['media'], \MessageBird\Wire\Model\VoiceLegMedia::class, 'json', $context));
+        }
+        elseif (\array_key_exists('media', $data) && $data['media'] === null) {
+            $object->setMedia(null);
+        }
         if (\array_key_exists('cost', $data) && $data['cost'] !== null) {
             $object->setCost($this->denormalizer->denormalize($data['cost'], \MessageBird\Wire\Model\VoiceLegCost::class, 'json', $context));
         }

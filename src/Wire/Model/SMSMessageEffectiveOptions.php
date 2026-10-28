@@ -23,19 +23,13 @@ class SMSMessageEffectiveOptions
      */
     protected $smartEncoding;
     /**
-     * Preview feature: `true` when this message is excluded from any future quiet-hours delivery window. Absent otherwise.
-     *
-     * @var bool|null
-     */
-    protected $ignoreDeliveryWindow;
-    /**
-     * Preview feature: `true` when the send asked to skip opt-outs. Recorded only: every opt-out still applied. Absent otherwise.
+     * `true` when the send may reach the recipient even if they are suppressed for the sender, including after replying STOP. Only `authentication` and `transactional` messages can set it. Absent otherwise.
      *
      * @var bool|null
      */
     protected $ignoreSuppression;
     /**
-     * Preview feature: the callback URL the send recorded. Absent when it recorded none. Recorded only: status events go to your webhook subscriptions either way.
+     * The callback URL that applies to this message, which receives its events instead of your webhook endpoints. Absent when the message has none, in which case its events go to your webhook subscriptions.
      * 
      *
      * @var string|null
@@ -65,29 +59,7 @@ class SMSMessageEffectiveOptions
         return $this;
     }
     /**
-     * Preview feature: `true` when this message is excluded from any future quiet-hours delivery window. Absent otherwise.
-     *
-     * @return bool|null
-     */
-    public function getIgnoreDeliveryWindow(): ?bool
-    {
-        return $this->ignoreDeliveryWindow;
-    }
-    /**
-     * Preview feature: `true` when this message is excluded from any future quiet-hours delivery window. Absent otherwise.
-     *
-     * @param bool|null $ignoreDeliveryWindow
-     *
-     * @return self
-     */
-    public function setIgnoreDeliveryWindow(?bool $ignoreDeliveryWindow): self
-    {
-        $this->initialized['ignoreDeliveryWindow'] = true;
-        $this->ignoreDeliveryWindow = $ignoreDeliveryWindow;
-        return $this;
-    }
-    /**
-     * Preview feature: `true` when the send asked to skip opt-outs. Recorded only: every opt-out still applied. Absent otherwise.
+     * `true` when the send may reach the recipient even if they are suppressed for the sender, including after replying STOP. Only `authentication` and `transactional` messages can set it. Absent otherwise.
      *
      * @return bool|null
      */
@@ -96,7 +68,7 @@ class SMSMessageEffectiveOptions
         return $this->ignoreSuppression;
     }
     /**
-     * Preview feature: `true` when the send asked to skip opt-outs. Recorded only: every opt-out still applied. Absent otherwise.
+     * `true` when the send may reach the recipient even if they are suppressed for the sender, including after replying STOP. Only `authentication` and `transactional` messages can set it. Absent otherwise.
      *
      * @param bool|null $ignoreSuppression
      *
@@ -109,7 +81,7 @@ class SMSMessageEffectiveOptions
         return $this;
     }
     /**
-     * Preview feature: the callback URL the send recorded. Absent when it recorded none. Recorded only: status events go to your webhook subscriptions either way.
+     * The callback URL that applies to this message, which receives its events instead of your webhook endpoints. Absent when the message has none, in which case its events go to your webhook subscriptions.
      * 
      *
      * @return string|null
@@ -119,7 +91,7 @@ class SMSMessageEffectiveOptions
         return $this->callbackUrl;
     }
     /**
-     * Preview feature: the callback URL the send recorded. Absent when it recorded none. Recorded only: status events go to your webhook subscriptions either way.
+     * The callback URL that applies to this message, which receives its events instead of your webhook endpoints. Absent when the message has none, in which case its events go to your webhook subscriptions.
      *
      * @param string|null $callbackUrl
      *
