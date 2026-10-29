@@ -210,6 +210,7 @@ return [
     "/v1/webhooks/{webhook_id}/replay",
     "/v1/webhooks/{webhook_id}/rotate-secret",
     "/v1/workspace",
+    "/v1/workspace/rate-limits",
     "/v1/workspace/quotas",
     "/v1/preferences",
     "/v1/preferences/{preference_id}",

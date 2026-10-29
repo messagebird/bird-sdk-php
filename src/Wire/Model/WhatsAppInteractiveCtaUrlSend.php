@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A button that opens a link in the recipient's browser, so a long or opaque address never has to appear in the message body.
+ * Button that opens a link in the recipient's browser.
  */
 class WhatsAppInteractiveCtaUrlSend
 {
@@ -22,8 +22,7 @@ class WhatsAppInteractiveCtaUrlSend
      */
     protected $text;
     /**
-     * The address the button opens. It is fixed for every recipient, so per recipient tracking belongs in the address you supply, for example as a query parameter you generate per send.
-     * 
+     * Destination URL. Include per-recipient tracking in the supplied URL.
      *
      * @var string|null
      */
@@ -51,8 +50,7 @@ class WhatsAppInteractiveCtaUrlSend
         return $this;
     }
     /**
-     * The address the button opens. It is fixed for every recipient, so per recipient tracking belongs in the address you supply, for example as a query parameter you generate per send.
-     * 
+     * Destination URL. Include per-recipient tracking in the supplied URL.
      *
      * @return string|null
      */
@@ -61,7 +59,7 @@ class WhatsAppInteractiveCtaUrlSend
         return $this->url;
     }
     /**
-     * The address the button opens. It is fixed for every recipient, so per recipient tracking belongs in the address you supply, for example as a query parameter you generate per send.
+     * Destination URL. Include per-recipient tracking in the supplied URL.
      *
      * @param string|null $url
      *

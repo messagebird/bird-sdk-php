@@ -42,8 +42,7 @@ class WhatsAppContactAddressSend
      */
     protected $countryCode;
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @var string|null
      */
@@ -161,8 +160,7 @@ class WhatsAppContactAddressSend
         return $this;
     }
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @return string|null
      */
@@ -171,7 +169,7 @@ class WhatsAppContactAddressSend
         return $this->type;
     }
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @param string|null $type
      *

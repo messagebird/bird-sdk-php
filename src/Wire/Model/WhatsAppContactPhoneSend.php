@@ -16,22 +16,19 @@ class WhatsAppContactPhoneSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The number to show. Send it in E.164 to get a card the recipient can message from; any other form still renders, with an invite button.
-     * 
+     * E.164 enables a chat button; other formats show an invite button.
      *
      * @var string|null
      */
     protected $phoneNumber;
     /**
-     * A label for the number, shown beside it. Free text: WhatsApp defines no vocabulary, and the label is sent exactly as written.
-     * 
+     * Free-text label shown beside the number, sent verbatim.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The number to show. Send it in E.164 to get a card the recipient can message from; any other form still renders, with an invite button.
-     * 
+     * E.164 enables a chat button; other formats show an invite button.
      *
      * @return string|null
      */
@@ -40,7 +37,7 @@ class WhatsAppContactPhoneSend
         return $this->phoneNumber;
     }
     /**
-     * The number to show. Send it in E.164 to get a card the recipient can message from; any other form still renders, with an invite button.
+     * E.164 enables a chat button; other formats show an invite button.
      *
      * @param string|null $phoneNumber
      *
@@ -53,8 +50,7 @@ class WhatsAppContactPhoneSend
         return $this;
     }
     /**
-     * A label for the number, shown beside it. Free text: WhatsApp defines no vocabulary, and the label is sent exactly as written.
-     * 
+     * Free-text label shown beside the number, sent verbatim.
      *
      * @return string|null
      */
@@ -63,7 +59,7 @@ class WhatsAppContactPhoneSend
         return $this->type;
     }
     /**
-     * A label for the number, shown beside it. Free text: WhatsApp defines no vocabulary, and the label is sent exactly as written.
+     * Free-text label shown beside the number, sent verbatim.
      *
      * @param string|null $type
      *

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
+ * Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `components`.
  */
 class WhatsAppMessageSendRequestTemplate extends WhatsAppTemplateSend
 {

@@ -23,6 +23,7 @@ final class ErrorRecoveryTest extends TestCase
         'message' => 'message',
         'remediation' => 'remediation',
         'next' => 'next',
+        'rateLimit' => 'rateLimit',
         'quota' => 'quota',
     ];
 
@@ -145,6 +146,20 @@ final class ErrorRecoveryTest extends TestCase
         self::assertCount(1, $e->next);
         self::assertSame('teleport', $e->next[0]->getKind());
         self::assertSame('Something new', $e->next[0]->getDescription());
+    }
+
+    public function testFromResponseSurfacesTheRefusingRateLimit(): void
+    {
+        $body = '{"error":{"type":"rate_limit_error","code":"E01003","message":"x","rate_limit":{"policy_key":"email_send","scope":"workspace","window_seconds":60,"limit":300}}}';
+
+        $e = ApiException::fromResponse(429, $body);
+
+        self::assertNotNull($e->rateLimit);
+        self::assertSame('email_send', $e->rateLimit->getPolicyKey());
+        self::assertSame('workspace', $e->rateLimit->getScope());
+        self::assertSame(60, $e->rateLimit->getWindowSeconds());
+        self::assertSame(300, $e->rateLimit->getLimit());
+        self::assertNull(ApiException::fromResponse(429, '{"error":{"type":"rate_limit_error","code":"E01003","message":"x"}}')->rateLimit);
     }
 
     /**

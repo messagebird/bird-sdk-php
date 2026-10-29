@@ -16,8 +16,7 @@ class WhatsAppDocumentSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
-     * 
+     * Public HTTPS URL fetched at send time, up to 100 MB. PDF, Word, Excel, PowerPoint, and plain text render reliably.
      *
      * @var string|null
      */
@@ -29,15 +28,13 @@ class WhatsAppDocumentSend
      */
     protected $caption;
     /**
-     * Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
-     * 
+     * Recipient-visible filename with extension.
      *
      * @var string|null
      */
     protected $filename;
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
-     * 
+     * Public HTTPS URL fetched at send time, up to 100 MB. PDF, Word, Excel, PowerPoint, and plain text render reliably.
      *
      * @return string|null
      */
@@ -46,7 +43,7 @@ class WhatsAppDocumentSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
+     * Public HTTPS URL fetched at send time, up to 100 MB. PDF, Word, Excel, PowerPoint, and plain text render reliably.
      *
      * @param string|null $url
      *
@@ -81,8 +78,7 @@ class WhatsAppDocumentSend
         return $this;
     }
     /**
-     * Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
-     * 
+     * Recipient-visible filename with extension.
      *
      * @return string|null
      */
@@ -91,7 +87,7 @@ class WhatsAppDocumentSend
         return $this->filename;
     }
     /**
-     * Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
+     * Recipient-visible filename with extension.
      *
      * @param string|null $filename
      *

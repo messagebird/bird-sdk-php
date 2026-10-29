@@ -16,22 +16,19 @@ class WhatsAppAudioSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then. AAC, AMR, MP3, M4A or OGG (OPUS codec, mono), up to 16 MB.
-     * 
+     * Public HTTPS URL fetched at send time. AAC, AMR, MP3, M4A, or OGG (OPUS, mono), up to 16 MB.
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Whether to send this as a voice note rather than an audio file. A voice note needs an `.ogg` file encoded with the OPUS codec.
-     * 
+     * Send as a voice note; requires an `.ogg` file with the OPUS codec.
      *
      * @var bool|null
      */
     protected $voice = false;
     /**
-     * Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then. AAC, AMR, MP3, M4A or OGG (OPUS codec, mono), up to 16 MB.
-     * 
+     * Public HTTPS URL fetched at send time. AAC, AMR, MP3, M4A, or OGG (OPUS, mono), up to 16 MB.
      *
      * @return string|null
      */
@@ -40,7 +37,7 @@ class WhatsAppAudioSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then. AAC, AMR, MP3, M4A or OGG (OPUS codec, mono), up to 16 MB.
+     * Public HTTPS URL fetched at send time. AAC, AMR, MP3, M4A, or OGG (OPUS, mono), up to 16 MB.
      *
      * @param string|null $url
      *
@@ -53,8 +50,7 @@ class WhatsAppAudioSend
         return $this;
     }
     /**
-     * Whether to send this as a voice note rather than an audio file. A voice note needs an `.ogg` file encoded with the OPUS codec.
-     * 
+     * Send as a voice note; requires an `.ogg` file with the OPUS codec.
      *
      * @return bool|null
      */
@@ -63,7 +59,7 @@ class WhatsAppAudioSend
         return $this->voice;
     }
     /**
-     * Whether to send this as a voice note rather than an audio file. A voice note needs an `.ogg` file encoded with the OPUS codec.
+     * Send as a voice note; requires an `.ogg` file with the OPUS codec.
      *
      * @param bool|null $voice
      *

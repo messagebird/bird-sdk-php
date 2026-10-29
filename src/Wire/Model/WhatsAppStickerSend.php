@@ -16,15 +16,13 @@ class WhatsAppStickerSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
-     * 
+     * Public HTTPS URL fetched at send time. WebP, up to 100 KB static or 500 KB animated.
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
-     * 
+     * Public HTTPS URL fetched at send time. WebP, up to 100 KB static or 500 KB animated.
      *
      * @return string|null
      */
@@ -33,7 +31,7 @@ class WhatsAppStickerSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
+     * Public HTTPS URL fetched at send time. WebP, up to 100 KB static or 500 KB animated.
      *
      * @param string|null $url
      *

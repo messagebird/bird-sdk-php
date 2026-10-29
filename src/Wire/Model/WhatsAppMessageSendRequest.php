@@ -16,113 +16,103 @@ class WhatsAppMessageSendRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
-     * 
+     * Recipient E.164 number, business-scoped user ID (BSUID, such as `US.13491208655302741918`), or group ID (such as `wag_01krdgeqcxet5s7t44vh8rt9mg`). OTP templates require a phone number. For replies, use the inbound sender identity and receiving business number.
      *
      * @var string|null
      */
     protected $to;
     /**
-     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
-     * 
+     * Connected E.164 number owned by this workspace; for authored templates, use the same WhatsApp Business Account. Omit for Bird-managed templates and groups; required otherwise.
      *
      * @var string|null
      */
     protected $from;
     /**
-     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
-     * 
+     * Required outside the customer service window. Groups accept workspace-authored, non-authentication templates only.
      *
      * @var WhatsAppMessageSendRequestTemplate|null
      */
     protected $template;
     /**
-     * Free-form text. Deliverable only inside an open customer service window.
+     * Free-form text; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestText|null
      */
     protected $text;
     /**
-     * A free-form image. Deliverable only inside an open customer service window.
+     * Free-form image; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestImage|null
      */
     protected $image;
     /**
-     * A free-form video. Deliverable only inside an open customer service window.
+     * Free-form video; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestVideo|null
      */
     protected $video;
     /**
-     * Free-form audio. Deliverable only inside an open customer service window.
+     * Free-form audio; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestAudio|null
      */
     protected $audio;
     /**
-     * A free-form sticker. Deliverable only inside an open customer service window.
+     * Free-form sticker; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestSticker|null
      */
     protected $sticker;
     /**
-     * A free-form document. Deliverable only inside an open customer service window.
+     * Free-form document; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestDocument|null
      */
     protected $document;
     /**
-     * A free-form location. Deliverable only inside an open customer service window.
+     * Free-form location; requires an open customer service window.
      *
      * @var WhatsAppMessageSendRequestLocation|null
      */
     protected $location;
     /**
-     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
-     * 
+     * Reply buttons, a list, a link button, media cards, or a location/contact request. Requires an open customer service window; unsupported for groups.
      *
      * @var WhatsAppMessageSendRequestInteractive|null
      */
     protected $interactive;
     /**
-     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
-     * 
+     * Up to five cards. Each name needs `formatted_name` and another name part. Requires an open customer service window.
      *
      * @var list<WhatsAppContactCardSend>|null
      */
     protected $contactCards;
     /**
-     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
-     * 
+     * Message to quote, from this conversation (`to` and `from`) within the last 15 days.
      *
      * @var string|null
      */
     protected $inReplyToMessageId;
     /**
-     * Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
-     * 
+     * Up to 20 `{name, value}` labels, filterable by name. Use for low-cardinality dimensions such as category; put other context in `metadata`.
      *
      * @var list<Tag>|null
      */
     protected $tags;
     /**
-     * Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
-     * 
+     * Per-message JSON context, such as internal IDs, returned on reads. Maximum 2 KB serialized. Use `tags` for filterable labels.
      *
      * @var array<string, mixed>|null
      */
     protected $metadata;
     /**
-     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
-     * 
+     * Identifier matched exactly by the message list's `reference` filter; returned on reads and webhooks. May be shared by multiple messages. Put non-searchable context in `metadata`.
      *
      * @var string|null
      */
     protected $reference;
     /**
-     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
-     * 
+     * Recipient E.164 number, business-scoped user ID (BSUID, such as `US.13491208655302741918`), or group ID (such as `wag_01krdgeqcxet5s7t44vh8rt9mg`). OTP templates require a phone number. For replies, use the inbound sender identity and receiving business number.
      *
      * @return string|null
      */
@@ -131,7 +121,7 @@ class WhatsAppMessageSendRequest
         return $this->to;
     }
     /**
-     * The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
+     * Recipient E.164 number, business-scoped user ID (BSUID, such as `US.13491208655302741918`), or group ID (such as `wag_01krdgeqcxet5s7t44vh8rt9mg`). OTP templates require a phone number. For replies, use the inbound sender identity and receiving business number.
      *
      * @param string|null $to
      *
@@ -144,8 +134,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
-     * 
+     * Connected E.164 number owned by this workspace; for authored templates, use the same WhatsApp Business Account. Omit for Bird-managed templates and groups; required otherwise.
      *
      * @return string|null
      */
@@ -154,7 +143,7 @@ class WhatsAppMessageSendRequest
         return $this->from;
     }
     /**
-     * The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
+     * Connected E.164 number owned by this workspace; for authored templates, use the same WhatsApp Business Account. Omit for Bird-managed templates and groups; required otherwise.
      *
      * @param string|null $from
      *
@@ -167,8 +156,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
-     * 
+     * Required outside the customer service window. Groups accept workspace-authored, non-authentication templates only.
      *
      * @return WhatsAppMessageSendRequestTemplate|null
      */
@@ -177,7 +165,7 @@ class WhatsAppMessageSendRequest
         return $this->template;
     }
     /**
-     * The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
+     * Required outside the customer service window. Groups accept workspace-authored, non-authentication templates only.
      *
      * @param WhatsAppMessageSendRequestTemplate|WhatsAppTemplateSend|array|null $template
      *
@@ -190,7 +178,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form text. Deliverable only inside an open customer service window.
+     * Free-form text; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestText|null
      */
@@ -199,7 +187,7 @@ class WhatsAppMessageSendRequest
         return $this->text;
     }
     /**
-     * Free-form text. Deliverable only inside an open customer service window.
+     * Free-form text; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestText|WhatsAppTextSend|array|null $text
      *
@@ -212,7 +200,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form image. Deliverable only inside an open customer service window.
+     * Free-form image; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestImage|null
      */
@@ -221,7 +209,7 @@ class WhatsAppMessageSendRequest
         return $this->image;
     }
     /**
-     * A free-form image. Deliverable only inside an open customer service window.
+     * Free-form image; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestImage|WhatsAppImageSend|array|null $image
      *
@@ -234,7 +222,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form video. Deliverable only inside an open customer service window.
+     * Free-form video; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestVideo|null
      */
@@ -243,7 +231,7 @@ class WhatsAppMessageSendRequest
         return $this->video;
     }
     /**
-     * A free-form video. Deliverable only inside an open customer service window.
+     * Free-form video; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestVideo|WhatsAppVideoSend|array|null $video
      *
@@ -256,7 +244,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form audio. Deliverable only inside an open customer service window.
+     * Free-form audio; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestAudio|null
      */
@@ -265,7 +253,7 @@ class WhatsAppMessageSendRequest
         return $this->audio;
     }
     /**
-     * Free-form audio. Deliverable only inside an open customer service window.
+     * Free-form audio; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestAudio|WhatsAppAudioSend|array|null $audio
      *
@@ -278,7 +266,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form sticker. Deliverable only inside an open customer service window.
+     * Free-form sticker; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestSticker|null
      */
@@ -287,7 +275,7 @@ class WhatsAppMessageSendRequest
         return $this->sticker;
     }
     /**
-     * A free-form sticker. Deliverable only inside an open customer service window.
+     * Free-form sticker; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestSticker|WhatsAppStickerSend|array|null $sticker
      *
@@ -300,7 +288,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form document. Deliverable only inside an open customer service window.
+     * Free-form document; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestDocument|null
      */
@@ -309,7 +297,7 @@ class WhatsAppMessageSendRequest
         return $this->document;
     }
     /**
-     * A free-form document. Deliverable only inside an open customer service window.
+     * Free-form document; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestDocument|WhatsAppDocumentSend|array|null $document
      *
@@ -322,7 +310,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * A free-form location. Deliverable only inside an open customer service window.
+     * Free-form location; requires an open customer service window.
      *
      * @return WhatsAppMessageSendRequestLocation|null
      */
@@ -331,7 +319,7 @@ class WhatsAppMessageSendRequest
         return $this->location;
     }
     /**
-     * A free-form location. Deliverable only inside an open customer service window.
+     * Free-form location; requires an open customer service window.
      *
      * @param WhatsAppMessageSendRequestLocation|WhatsAppLocationSend|array|null $location
      *
@@ -344,8 +332,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
-     * 
+     * Reply buttons, a list, a link button, media cards, or a location/contact request. Requires an open customer service window; unsupported for groups.
      *
      * @return WhatsAppMessageSendRequestInteractive|null
      */
@@ -354,7 +341,7 @@ class WhatsAppMessageSendRequest
         return $this->interactive;
     }
     /**
-     * Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
+     * Reply buttons, a list, a link button, media cards, or a location/contact request. Requires an open customer service window; unsupported for groups.
      *
      * @param WhatsAppMessageSendRequestInteractive|WhatsAppInteractiveSend|array|null $interactive
      *
@@ -367,8 +354,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
-     * 
+     * Up to five cards. Each name needs `formatted_name` and another name part. Requires an open customer service window.
      *
      * @return list<WhatsAppContactCardSend>|null
      */
@@ -377,7 +363,7 @@ class WhatsAppMessageSendRequest
         return $this->contactCards;
     }
     /**
-     * Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
+     * Up to five cards. Each name needs `formatted_name` and another name part. Requires an open customer service window.
      *
      * @param list<WhatsAppContactCardSend>|null $contactCards
      *
@@ -390,8 +376,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
-     * 
+     * Message to quote, from this conversation (`to` and `from`) within the last 15 days.
      *
      * @return string|null
      */
@@ -400,7 +385,7 @@ class WhatsAppMessageSendRequest
         return $this->inReplyToMessageId;
     }
     /**
-     * An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
+     * Message to quote, from this conversation (`to` and `from`) within the last 15 days.
      *
      * @param string|null $inReplyToMessageId
      *
@@ -413,8 +398,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
-     * 
+     * Up to 20 `{name, value}` labels, filterable by name. Use for low-cardinality dimensions such as category; put other context in `metadata`.
      *
      * @return list<Tag>|null
      */
@@ -423,7 +407,7 @@ class WhatsAppMessageSendRequest
         return $this->tags;
     }
     /**
-     * Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
+     * Up to 20 `{name, value}` labels, filterable by name. Use for low-cardinality dimensions such as category; put other context in `metadata`.
      *
      * @param list<Tag>|null $tags
      *
@@ -436,8 +420,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
-     * 
+     * Per-message JSON context, such as internal IDs, returned on reads. Maximum 2 KB serialized. Use `tags` for filterable labels.
      *
      * @return array<string, mixed>|null
      */
@@ -446,7 +429,7 @@ class WhatsAppMessageSendRequest
         return $this->metadata;
     }
     /**
-     * Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
+     * Per-message JSON context, such as internal IDs, returned on reads. Maximum 2 KB serialized. Use `tags` for filterable labels.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -459,8 +442,7 @@ class WhatsAppMessageSendRequest
         return $this;
     }
     /**
-     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
-     * 
+     * Identifier matched exactly by the message list's `reference` filter; returned on reads and webhooks. May be shared by multiple messages. Put non-searchable context in `metadata`.
      *
      * @return string|null
      */
@@ -469,7 +451,7 @@ class WhatsAppMessageSendRequest
         return $this->reference;
     }
     /**
-     * An identifier you want to find this message by, such as an order or ticket number, matched exactly by the message list's `reference` filter. Set it only when you need to search on it, and put any other data in `metadata`. Stored on the message, returned on reads and echoed in webhook payloads. Several messages can share one.
+     * Identifier matched exactly by the message list's `reference` filter; returned on reads and webhooks. May be shared by multiple messages. Put non-searchable context in `metadata`.
      *
      * @param string|null $reference
      *

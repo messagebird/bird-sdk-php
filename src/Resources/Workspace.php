@@ -8,11 +8,13 @@ use MessageBird\Bird;
 
 final class WorkspaceResource extends WorkspaceResourceBase
 {
+    public readonly WorkspaceRateLimits $rateLimits;
     public readonly WorkspaceQuotas $quotas;
 
     public function __construct(Bird $client)
     {
         parent::__construct($client);
+        $this->rateLimits = new WorkspaceRateLimits($client);
         $this->quotas = new WorkspaceQuotas($client);
     }
 }

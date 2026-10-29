@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
+ * Supply exactly one of `id` or `slug`, optionally a language, and fill required placeholders through `components`.
  */
 class WhatsAppTemplateSend
 {
@@ -20,28 +20,25 @@ class WhatsAppTemplateSend
      */
     protected $id;
     /**
-     * The template to send, by its slug handle (for example `bird_otp`).
+     * Template slug, such as `bird_otp`.
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
-     * 
+     * BCP-47 tag (`en-US`; `en_US` also accepted). Defaults to the template's default language unless `language_source_required` is set. Missing variants follow `on_missing_language`. The resolved language determines pricing and is echoed in the accepted message.
      *
      * @var string|null
      */
     protected $language;
     /**
-     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
-     * 
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
      *
      * @var float|null
      */
     protected $bidMultiplier;
     /**
-     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
-     * 
+     * Copy each language component's `example_parameters` into that part's `parameters`, replacing examples with real values. Map `buttons` to one `button` part per button with examples, in order; map `carousel` to `cards`, built likewise. A location header requires a `location` parameter. Omit other blocks without examples.
      *
      * @var list<WhatsAppMessageTemplateComponent>|null
      */
@@ -65,7 +62,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * The template to send, by its slug handle (for example `bird_otp`).
+     * Template slug, such as `bird_otp`.
      *
      * @return string|null
      */
@@ -74,7 +71,7 @@ class WhatsAppTemplateSend
         return $this->slug;
     }
     /**
-     * The template to send, by its slug handle (for example `bird_otp`).
+     * Template slug, such as `bird_otp`.
      *
      * @param string|null $slug
      *
@@ -87,8 +84,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
-     * 
+     * BCP-47 tag (`en-US`; `en_US` also accepted). Defaults to the template's default language unless `language_source_required` is set. Missing variants follow `on_missing_language`. The resolved language determines pricing and is echoed in the accepted message.
      *
      * @return string|null
      */
@@ -97,7 +93,7 @@ class WhatsAppTemplateSend
         return $this->language;
     }
     /**
-     * Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
+     * BCP-47 tag (`en-US`; `en_US` also accepted). Defaults to the template's default language unless `language_source_required` is set. Missing variants follow `on_missing_language`. The resolved language determines pricing and is echoed in the accepted message.
      *
      * @param string|null $language
      *
@@ -110,8 +106,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
-     * 
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
      *
      * @return float|null
      */
@@ -120,7 +115,7 @@ class WhatsAppTemplateSend
         return $this->bidMultiplier;
     }
     /**
-     * Scales the language's maximum price for this message only. The effective bid is the language's `optimization_spec.bid_amount`, times its country multiplier, times this value. At least 0.01 and at most 100; 1 when omitted. Only a language with an `optimization_spec`, on a template still in the `marketing` category, accepts it.
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
      *
      * @param float|null $bidMultiplier
      *
@@ -133,8 +128,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
-     * 
+     * Copy each language component's `example_parameters` into that part's `parameters`, replacing examples with real values. Map `buttons` to one `button` part per button with examples, in order; map `carousel` to `cards`, built likewise. A location header requires a `location` parameter. Omit other blocks without examples.
      *
      * @return list<WhatsAppMessageTemplateComponent>|null
      */
@@ -143,7 +137,7 @@ class WhatsAppTemplateSend
         return $this->components;
     }
     /**
-     * Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
+     * Copy each language component's `example_parameters` into that part's `parameters`, replacing examples with real values. Map `buttons` to one `button` part per button with examples, in order; map `carousel` to `cards`, built likewise. A location header requires a `location` parameter. Omit other blocks without examples.
      *
      * @param list<WhatsAppMessageTemplateComponent>|null $components
      *

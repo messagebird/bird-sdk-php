@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A menu of options behind a single button. The recipient taps the button, WhatsApp opens the menu, and choosing one option sends it back as a reply.
+ * Button-opened menu; selecting an option sends a reply.
  */
 class WhatsAppInteractiveListSend
 {
@@ -22,8 +22,7 @@ class WhatsAppInteractiveListSend
      */
     protected $buttonText;
     /**
-     * The groups of options in the menu, in the order shown. At most 10 rows across all groups combined, each carrying a label unique across the whole message.
-     * 
+     * Sections in display order. At most 10 rows total, with labels unique across the message.
      *
      * @var list<WhatsAppInteractiveListSectionSend>|null
      */
@@ -51,8 +50,7 @@ class WhatsAppInteractiveListSend
         return $this;
     }
     /**
-     * The groups of options in the menu, in the order shown. At most 10 rows across all groups combined, each carrying a label unique across the whole message.
-     * 
+     * Sections in display order. At most 10 rows total, with labels unique across the message.
      *
      * @return list<WhatsAppInteractiveListSectionSend>|null
      */
@@ -61,7 +59,7 @@ class WhatsAppInteractiveListSend
         return $this->sections;
     }
     /**
-     * The groups of options in the menu, in the order shown. At most 10 rows across all groups combined, each carrying a label unique across the whole message.
+     * Sections in display order. At most 10 rows total, with labels unique across the message.
      *
      * @param list<WhatsAppInteractiveListSectionSend>|null $sections
      *

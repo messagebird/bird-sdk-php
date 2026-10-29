@@ -14,6 +14,11 @@ $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 $workspace = $bird->workspace->get();
 echo $workspace->getId() . ' ' . $workspace->getName() . PHP_EOL;
 
+// Workspace limits matter with several workspaces, or one that kept a limit after a deletion.
+$limits = $bird->workspace->rateLimits->list();
+foreach ($limits->getData() ?? [] as $policy) {
+    echo $policy->getKey() . ' ' . $policy->getLimit() . PHP_EOL;
+}
 $quotas = $bird->workspace->quotas->list();
 foreach ($quotas->getData() ?? [] as $quota) {
     echo $quota->getKey() . ' ' . $quota->getLimit() . PHP_EOL;

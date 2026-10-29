@@ -3,9 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A contact card to send. WhatsApp shows the name on the card and the rest in a profile view the recipient opens from it.
- * 
- * A card carrying a phone number renders buttons that message or save the contact; a card without one can only be added to an address book.
+ * Contact card with a name and profile details. With a phone number, recipients can message or save it; without one, they can save it.
  */
 class WhatsAppContactCardSend
 {
@@ -28,15 +26,13 @@ class WhatsAppContactCardSend
      */
     protected $org;
     /**
-     * The contact's birthday, as `YYYY-MM-DD`. WhatsApp rejects any other shape, and a date no calendar holds is rejected too.
-     * 
+     * Valid calendar date in `YYYY-MM-DD` format.
      *
      * @var string|null
      */
     protected $birthday;
     /**
-     * The numbers on the card. A number in E.164 renders a button that opens a WhatsApp chat with it; one that is not renders an invite instead.
-     * 
+     * E.164 numbers get a WhatsApp chat button; other formats get an invite button.
      *
      * @var list<WhatsAppContactPhoneSend>|null
      */
@@ -94,8 +90,7 @@ class WhatsAppContactCardSend
         return $this;
     }
     /**
-     * The contact's birthday, as `YYYY-MM-DD`. WhatsApp rejects any other shape, and a date no calendar holds is rejected too.
-     * 
+     * Valid calendar date in `YYYY-MM-DD` format.
      *
      * @return string|null
      */
@@ -104,7 +99,7 @@ class WhatsAppContactCardSend
         return $this->birthday;
     }
     /**
-     * The contact's birthday, as `YYYY-MM-DD`. WhatsApp rejects any other shape, and a date no calendar holds is rejected too.
+     * Valid calendar date in `YYYY-MM-DD` format.
      *
      * @param string|null $birthday
      *
@@ -117,8 +112,7 @@ class WhatsAppContactCardSend
         return $this;
     }
     /**
-     * The numbers on the card. A number in E.164 renders a button that opens a WhatsApp chat with it; one that is not renders an invite instead.
-     * 
+     * E.164 numbers get a WhatsApp chat button; other formats get an invite button.
      *
      * @return list<WhatsAppContactPhoneSend>|null
      */
@@ -127,7 +121,7 @@ class WhatsAppContactCardSend
         return $this->phoneNumbers;
     }
     /**
-     * The numbers on the card. A number in E.164 renders a button that opens a WhatsApp chat with it; one that is not renders an invite instead.
+     * E.164 numbers get a WhatsApp chat button; other formats get an invite button.
      *
      * @param list<WhatsAppContactPhoneSend>|null $phoneNumbers
      *

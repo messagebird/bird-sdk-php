@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One button on an interactive message or on a carousel card. `type` names the kind and the field that carries it, so a button kind WhatsApp adds later arrives as another `type` here rather than as a new shape somewhere else.
+ * Interactive or carousel button. Set `type` and its matching field.
  */
 class WhatsAppInteractiveButtonSend
 {
@@ -16,25 +16,25 @@ class WhatsAppInteractiveButtonSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Which kind of button this is, and which field carries it.
+     * Button kind; determines which field to supply.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The button's label and the handle it sends back. Send this on a `quick_reply` button.
+     * Label and reply identifier for `quick_reply`.
      *
      * @var WhatsAppInteractiveButtonSendQuickReply|null
      */
     protected $quickReply;
     /**
-     * The button's label and the address it opens. Send this on a `cta_url` button.
+     * Label and destination for `cta_url`.
      *
      * @var WhatsAppInteractiveButtonSendCtaUrl|null
      */
     protected $ctaUrl;
     /**
-     * Which kind of button this is, and which field carries it.
+     * Button kind; determines which field to supply.
      *
      * @return string|null
      */
@@ -43,7 +43,7 @@ class WhatsAppInteractiveButtonSend
         return $this->type;
     }
     /**
-     * Which kind of button this is, and which field carries it.
+     * Button kind; determines which field to supply.
      *
      * @param string|null $type
      *
@@ -56,7 +56,7 @@ class WhatsAppInteractiveButtonSend
         return $this;
     }
     /**
-     * The button's label and the handle it sends back. Send this on a `quick_reply` button.
+     * Label and reply identifier for `quick_reply`.
      *
      * @return WhatsAppInteractiveButtonSendQuickReply|null
      */
@@ -65,7 +65,7 @@ class WhatsAppInteractiveButtonSend
         return $this->quickReply;
     }
     /**
-     * The button's label and the handle it sends back. Send this on a `quick_reply` button.
+     * Label and reply identifier for `quick_reply`.
      *
      * @param WhatsAppInteractiveButtonSendQuickReply|WhatsAppInteractiveQuickReplyButtonSend|array|null $quickReply
      *
@@ -78,7 +78,7 @@ class WhatsAppInteractiveButtonSend
         return $this;
     }
     /**
-     * The button's label and the address it opens. Send this on a `cta_url` button.
+     * Label and destination for `cta_url`.
      *
      * @return WhatsAppInteractiveButtonSendCtaUrl|null
      */
@@ -87,7 +87,7 @@ class WhatsAppInteractiveButtonSend
         return $this->ctaUrl;
     }
     /**
-     * The button's label and the address it opens. Send this on a `cta_url` button.
+     * Label and destination for `cta_url`.
      *
      * @param WhatsAppInteractiveButtonSendCtaUrl|WhatsAppInteractiveCtaUrlSend|array|null $ctaUrl
      *

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * What to show above an interactive message's body: `text` for a line of copy, or `url` for an image, video or document. A `list` accepts a `text` header only.
+ * Content above the body: `text` or a media `url`. Lists accept text headers only.
  */
 class WhatsAppInteractiveHeaderSend
 {
@@ -16,26 +16,25 @@ class WhatsAppInteractiveHeaderSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Which kind of header this is, and which field carries it.
+     * Header kind; determines which field to supply.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * A single line of text above the body. Send it on a `text` header.
+     * Single line above the body, for `text` headers.
      *
      * @var string|null
      */
     protected $text;
     /**
-     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
-     * 
+     * Public HTTPS URL fetched at send time for `image`, `video`, or `document` headers. The corresponding free-form media limits apply.
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Which kind of header this is, and which field carries it.
+     * Header kind; determines which field to supply.
      *
      * @return string|null
      */
@@ -44,7 +43,7 @@ class WhatsAppInteractiveHeaderSend
         return $this->type;
     }
     /**
-     * Which kind of header this is, and which field carries it.
+     * Header kind; determines which field to supply.
      *
      * @param string|null $type
      *
@@ -57,7 +56,7 @@ class WhatsAppInteractiveHeaderSend
         return $this;
     }
     /**
-     * A single line of text above the body. Send it on a `text` header.
+     * Single line above the body, for `text` headers.
      *
      * @return string|null
      */
@@ -66,7 +65,7 @@ class WhatsAppInteractiveHeaderSend
         return $this->text;
     }
     /**
-     * A single line of text above the body. Send it on a `text` header.
+     * Single line above the body, for `text` headers.
      *
      * @param string|null $text
      *
@@ -79,8 +78,7 @@ class WhatsAppInteractiveHeaderSend
         return $this;
     }
     /**
-     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
-     * 
+     * Public HTTPS URL fetched at send time for `image`, `video`, or `document` headers. The corresponding free-form media limits apply.
      *
      * @return string|null
      */
@@ -89,7 +87,7 @@ class WhatsAppInteractiveHeaderSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
+     * Public HTTPS URL fetched at send time for `image`, `video`, or `document` headers. The corresponding free-form media limits apply.
      *
      * @param string|null $url
      *

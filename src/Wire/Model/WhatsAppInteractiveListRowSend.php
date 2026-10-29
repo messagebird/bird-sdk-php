@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One option in a list's menu. Choosing it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+ * Menu option; selection returns `slug` in an inbound `interactive_reply`.
  */
 class WhatsAppInteractiveListRowSend
 {
@@ -16,28 +16,25 @@ class WhatsAppInteractiveListRowSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Your own handle for this option, echoed back on the reply. You choose the value and it is never shown to the recipient. Any characters, up to 200.
-     * 
+     * Hidden reply identifier, echoed on selection. Any characters, up to 200.
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * The option's label, shown as the row's title in the menu. It must differ from every other row's label and from every button's label in the same message, not merely within its own group; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
-     * 
+     * Row label, unique across every section's rows; duplicates return `422` `WhatsAppInteractiveDuplicateLabel`.
      *
      * @var string|null
      */
     protected $text;
     /**
-     * A second line under the label, for detail that will not fit in it.
+     * Detail shown below the label.
      *
      * @var string|null
      */
     protected $description;
     /**
-     * Your own handle for this option, echoed back on the reply. You choose the value and it is never shown to the recipient. Any characters, up to 200.
-     * 
+     * Hidden reply identifier, echoed on selection. Any characters, up to 200.
      *
      * @return string|null
      */
@@ -46,7 +43,7 @@ class WhatsAppInteractiveListRowSend
         return $this->slug;
     }
     /**
-     * Your own handle for this option, echoed back on the reply. You choose the value and it is never shown to the recipient. Any characters, up to 200.
+     * Hidden reply identifier, echoed on selection. Any characters, up to 200.
      *
      * @param string|null $slug
      *
@@ -59,8 +56,7 @@ class WhatsAppInteractiveListRowSend
         return $this;
     }
     /**
-     * The option's label, shown as the row's title in the menu. It must differ from every other row's label and from every button's label in the same message, not merely within its own group; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
-     * 
+     * Row label, unique across every section's rows; duplicates return `422` `WhatsAppInteractiveDuplicateLabel`.
      *
      * @return string|null
      */
@@ -69,7 +65,7 @@ class WhatsAppInteractiveListRowSend
         return $this->text;
     }
     /**
-     * The option's label, shown as the row's title in the menu. It must differ from every other row's label and from every button's label in the same message, not merely within its own group; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+     * Row label, unique across every section's rows; duplicates return `422` `WhatsAppInteractiveDuplicateLabel`.
      *
      * @param string|null $text
      *
@@ -82,7 +78,7 @@ class WhatsAppInteractiveListRowSend
         return $this;
     }
     /**
-     * A second line under the label, for detail that will not fit in it.
+     * Detail shown below the label.
      *
      * @return string|null
      */
@@ -91,7 +87,7 @@ class WhatsAppInteractiveListRowSend
         return $this->description;
     }
     /**
-     * A second line under the label, for detail that will not fit in it.
+     * Detail shown below the label.
      *
      * @param string|null $description
      *

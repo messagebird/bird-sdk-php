@@ -20,8 +20,7 @@ class WhatsAppContactEmailSend
      */
     protected $email;
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @var string|null
      */
@@ -45,8 +44,7 @@ class WhatsAppContactEmailSend
         return $this;
     }
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @return string|null
      */
@@ -55,7 +53,7 @@ class WhatsAppContactEmailSend
         return $this->type;
     }
     /**
-     * A label for the address, shown beside it. Free text, sent exactly as written.
+     * Free-text label shown beside the address, sent verbatim.
      *
      * @param string|null $type
      *

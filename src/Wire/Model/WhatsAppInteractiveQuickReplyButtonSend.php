@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One tappable reply button. Tapping it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+ * Reply button; tapping returns `slug` in an inbound `interactive_reply`.
  */
 class WhatsAppInteractiveQuickReplyButtonSend
 {
@@ -16,22 +16,19 @@ class WhatsAppInteractiveQuickReplyButtonSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Your own handle for this button, echoed back on the reply. You choose the value and it is never shown to the recipient, so it can carry whatever your application needs to route the answer. Any characters, up to 256.
-     * 
+     * Hidden reply identifier, echoed on tap. Any characters, up to 256.
      *
      * @var string|null
      */
     protected $slug;
     /**
-     * The button's label. It must differ from every other button's label in the same message, because the recipient's reply is identified to them by the label they tapped.
-     * 
+     * Button label, unique within its message or carousel card.
      *
      * @var string|null
      */
     protected $text;
     /**
-     * Your own handle for this button, echoed back on the reply. You choose the value and it is never shown to the recipient, so it can carry whatever your application needs to route the answer. Any characters, up to 256.
-     * 
+     * Hidden reply identifier, echoed on tap. Any characters, up to 256.
      *
      * @return string|null
      */
@@ -40,7 +37,7 @@ class WhatsAppInteractiveQuickReplyButtonSend
         return $this->slug;
     }
     /**
-     * Your own handle for this button, echoed back on the reply. You choose the value and it is never shown to the recipient, so it can carry whatever your application needs to route the answer. Any characters, up to 256.
+     * Hidden reply identifier, echoed on tap. Any characters, up to 256.
      *
      * @param string|null $slug
      *
@@ -53,8 +50,7 @@ class WhatsAppInteractiveQuickReplyButtonSend
         return $this;
     }
     /**
-     * The button's label. It must differ from every other button's label in the same message, because the recipient's reply is identified to them by the label they tapped.
-     * 
+     * Button label, unique within its message or carousel card.
      *
      * @return string|null
      */
@@ -63,7 +59,7 @@ class WhatsAppInteractiveQuickReplyButtonSend
         return $this->text;
     }
     /**
-     * The button's label. It must differ from every other button's label in the same message, because the recipient's reply is identified to them by the label they tapped.
+     * Button label, unique within its message or carousel card.
      *
      * @param string|null $text
      *

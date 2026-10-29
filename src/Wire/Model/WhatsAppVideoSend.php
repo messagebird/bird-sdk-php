@@ -16,8 +16,7 @@ class WhatsAppVideoSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then. MP4 with H.264 video and AAC audio, up to 16 MB.
-     * 
+     * Public HTTPS URL fetched at send time. MP4 with H.264 video and AAC audio, up to 16 MB.
      *
      * @var string|null
      */
@@ -29,8 +28,7 @@ class WhatsAppVideoSend
      */
     protected $caption;
     /**
-     * Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then. MP4 with H.264 video and AAC audio, up to 16 MB.
-     * 
+     * Public HTTPS URL fetched at send time. MP4 with H.264 video and AAC audio, up to 16 MB.
      *
      * @return string|null
      */
@@ -39,7 +37,7 @@ class WhatsAppVideoSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then. MP4 with H.264 video and AAC audio, up to 16 MB.
+     * Public HTTPS URL fetched at send time. MP4 with H.264 video and AAC audio, up to 16 MB.
      *
      * @param string|null $url
      *

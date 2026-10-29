@@ -81,6 +81,13 @@ class ErrorBody
      */
     protected $next;
     /**
+     * The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
+     * 
+     *
+     * @var RateLimitErrorContext|null
+     */
+    protected $rateLimit;
+    /**
      * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
      * 
      *
@@ -329,6 +336,29 @@ class ErrorBody
     {
         $this->initialized['next'] = true;
         $this->next = $next;
+        return $this;
+    }
+    /**
+     * The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
+     * 
+     *
+     * @return RateLimitErrorContext|null
+     */
+    public function getRateLimit(): ?RateLimitErrorContext
+    {
+        return $this->rateLimit;
+    }
+    /**
+     * The rate-limit policy that refused the request. Present only on `rate_limit_error` responses from a rate-limit policy. A workspace-targeted request is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both are exhausted.
+     *
+     * @param RateLimitErrorContext|null $rateLimit
+     *
+     * @return self
+     */
+    public function setRateLimit(?RateLimitErrorContext $rateLimit): self
+    {
+        $this->initialized['rateLimit'] = true;
+        $this->rateLimit = $rateLimit;
         return $this;
     }
     /**

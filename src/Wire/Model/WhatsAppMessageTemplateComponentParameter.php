@@ -13,46 +13,43 @@ class WhatsAppMessageTemplateComponentParameter
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The kind of value this parameter carries, which decides which of the fields below to send.
+     * Value kind; determines which field to supply.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
+     * Placeholder value for a `text` parameter.
      *
      * @var string|null
      */
     protected $text;
     /**
-     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
-     * 
+     * Public HTTPS media-header URL, fetched at send time. For `image`, `video`, `gif`, or `document` parameters.
      *
      * @var string|null
      */
     protected $url;
     /**
-     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
-     * 
+     * Document name with extension; rejected on other parameter types.
      *
      * @var string|null
      */
     protected $filename;
     /**
-     * The point on the map a location header opens. Send it on a `location` parameter.
+     * Map point for a `location` header parameter.
      *
      * @var WhatsAppMessageTemplateComponentParameterLocation|null
      */
     protected $location;
     /**
-     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
-     * 
+     * Placeholder name, such as `first_name`; required on every named parameter. Omit for positional templates and supply values in `{{n}}` order.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * The kind of value this parameter carries, which decides which of the fields below to send.
+     * Value kind; determines which field to supply.
      *
      * @return string|null
      */
@@ -61,7 +58,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->type;
     }
     /**
-     * The kind of value this parameter carries, which decides which of the fields below to send.
+     * Value kind; determines which field to supply.
      *
      * @param string|null $type
      *
@@ -74,7 +71,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
+     * Placeholder value for a `text` parameter.
      *
      * @return string|null
      */
@@ -83,7 +80,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->text;
     }
     /**
-     * The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
+     * Placeholder value for a `text` parameter.
      *
      * @param string|null $text
      *
@@ -96,8 +93,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
-     * 
+     * Public HTTPS media-header URL, fetched at send time. For `image`, `video`, `gif`, or `document` parameters.
      *
      * @return string|null
      */
@@ -106,7 +102,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->url;
     }
     /**
-     * Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
+     * Public HTTPS media-header URL, fetched at send time. For `image`, `video`, `gif`, or `document` parameters.
      *
      * @param string|null $url
      *
@@ -119,8 +115,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
-     * 
+     * Document name with extension; rejected on other parameter types.
      *
      * @return string|null
      */
@@ -129,7 +124,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->filename;
     }
     /**
-     * Name the recipient sees on the document, including the extension. Without it, the document arrives untitled. Send it only on a `document` parameter; Bird rejects it on any other kind.
+     * Document name with extension; rejected on other parameter types.
      *
      * @param string|null $filename
      *
@@ -142,7 +137,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * The point on the map a location header opens. Send it on a `location` parameter.
+     * Map point for a `location` header parameter.
      *
      * @return WhatsAppMessageTemplateComponentParameterLocation|null
      */
@@ -151,7 +146,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->location;
     }
     /**
-     * The point on the map a location header opens. Send it on a `location` parameter.
+     * Map point for a `location` header parameter.
      *
      * @param WhatsAppMessageTemplateComponentParameterLocation|WhatsAppLocationSend|array|null $location
      *
@@ -164,8 +159,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this;
     }
     /**
-     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
-     * 
+     * Placeholder name, such as `first_name`; required on every named parameter. Omit for positional templates and supply values in `{{n}}` order.
      *
      * @return string|null
      */
@@ -174,7 +168,7 @@ class WhatsAppMessageTemplateComponentParameter
         return $this->name;
     }
     /**
-     * The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
+     * Placeholder name, such as `first_name`; required on every named parameter. Omit for positional templates and supply values in `{{n}}` order.
      *
      * @param string|null $name
      *

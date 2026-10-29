@@ -28,13 +28,13 @@ class WhatsAppLocationSend
      */
     protected $longitude;
     /**
-     * Name of the place, shown above the address.
+     * Place name, shown above the address.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Street address of the place. Shown only when `name` is also set.
+     * Street address; shown only with `name`.
      *
      * @var string|null
      */
@@ -84,7 +84,7 @@ class WhatsAppLocationSend
         return $this;
     }
     /**
-     * Name of the place, shown above the address.
+     * Place name, shown above the address.
      *
      * @return string|null
      */
@@ -93,7 +93,7 @@ class WhatsAppLocationSend
         return $this->name;
     }
     /**
-     * Name of the place, shown above the address.
+     * Place name, shown above the address.
      *
      * @param string|null $name
      *
@@ -106,7 +106,7 @@ class WhatsAppLocationSend
         return $this;
     }
     /**
-     * Street address of the place. Shown only when `name` is also set.
+     * Street address; shown only with `name`.
      *
      * @return string|null
      */
@@ -115,7 +115,7 @@ class WhatsAppLocationSend
         return $this->address;
     }
     /**
-     * Street address of the place. Shown only when `name` is also set.
+     * Street address; shown only with `name`.
      *
      * @param string|null $address
      *

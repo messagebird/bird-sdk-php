@@ -122,6 +122,13 @@ class NumberPricingErrorNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('next', $data) && $data['next'] === null) {
             $object->setNext(null);
         }
+        if (\array_key_exists('rate_limit', $data) && $data['rate_limit'] !== null) {
+            $object->setRateLimit($this->denormalizer->denormalize($data['rate_limit'], \MessageBird\Wire\Model\RateLimitErrorContext::class, 'json', $context));
+            unset($data['rate_limit']);
+        }
+        elseif (\array_key_exists('rate_limit', $data) && $data['rate_limit'] === null) {
+            $object->setRateLimit(null);
+        }
         if (\array_key_exists('quota', $data) && $data['quota'] !== null) {
             $object->setQuota($this->denormalizer->denormalize($data['quota'], \MessageBird\Wire\Model\QuotaErrorContext::class, 'json', $context));
             unset($data['quota']);
@@ -167,6 +174,9 @@ class NumberPricingErrorNormalizer implements DenormalizerInterface, NormalizerI
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
             $dataArray['next'] = $values_1;
+        }
+        if ($data->isInitialized('rateLimit') && null !== $data->getRateLimit()) {
+            $dataArray['rate_limit'] = $this->normalizer->normalize($data->getRateLimit(), 'json', $context);
         }
         if ($data->isInitialized('quota') && null !== $data->getQuota()) {
             $dataArray['quota'] = $this->normalizer->normalize($data->getQuota(), 'json', $context);

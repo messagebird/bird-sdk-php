@@ -16,8 +16,7 @@ class WhatsAppImageSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
-     * 
+     * Public HTTPS URL fetched at send time. JPEG/PNG, up to 5 MB.
      *
      * @var string|null
      */
@@ -29,8 +28,7 @@ class WhatsAppImageSend
      */
     protected $caption;
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
-     * 
+     * Public HTTPS URL fetched at send time. JPEG/PNG, up to 5 MB.
      *
      * @return string|null
      */
@@ -39,7 +37,7 @@ class WhatsAppImageSend
         return $this->url;
     }
     /**
-     * Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
+     * Public HTTPS URL fetched at send time. JPEG/PNG, up to 5 MB.
      *
      * @param string|null $url
      *

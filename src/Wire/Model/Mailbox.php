@@ -26,7 +26,7 @@ class Mailbox
      */
     protected $address;
     /**
-     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     * An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
      *
      * @var string|null
      */
@@ -142,7 +142,7 @@ class Mailbox
      */
     protected $deletedAt;
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
      *
      * @var list<NextAction>|null
      */
@@ -188,7 +188,7 @@ class Mailbox
         return $this;
     }
     /**
-     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     * An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
      *
      * @return string|null
      */
@@ -197,7 +197,7 @@ class Mailbox
         return $this->forwardingAddress;
     }
     /**
-     * An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+     * An address we generate on our receiving domain, either when the mailbox is created on a domain not set up for receiving with us or later, when you set up forwarding for the mailbox. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable once set. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable or disable receiving on the domain. `null` until set up; always `null` on the shared domain, which receives directly.
      *
      * @param string|null $forwardingAddress
      *
@@ -599,7 +599,7 @@ class Mailbox
         return $this;
     }
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
      *
      * @return list<NextAction>|null
      */
@@ -608,7 +608,7 @@ class Mailbox
         return $this->next;
     }
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
      *
      * @param list<NextAction>|null $next
      *

@@ -25,15 +25,13 @@ class WhatsAppMessageTemplateComponent
      */
     protected $type;
     /**
-     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
-     * 
+     * Placeholder values in `{{n}}` order, or named. Required except for `carousel`, which uses `cards`. Omit button parts without variables.
      *
      * @var list<WhatsAppMessageTemplateComponentParameter>|null
      */
     protected $parameters;
     /**
-     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
-     * 
+     * For `carousel` only: one entry per approved card, in approval order.
      *
      * @var list<WhatsAppMessageTemplateCard>|null
      */
@@ -73,8 +71,7 @@ class WhatsAppMessageTemplateComponent
         return $this;
     }
     /**
-     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
-     * 
+     * Placeholder values in `{{n}}` order, or named. Required except for `carousel`, which uses `cards`. Omit button parts without variables.
      *
      * @return list<WhatsAppMessageTemplateComponentParameter>|null
      */
@@ -83,7 +80,7 @@ class WhatsAppMessageTemplateComponent
         return $this->parameters;
     }
     /**
-     * The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
+     * Placeholder values in `{{n}}` order, or named. Required except for `carousel`, which uses `cards`. Omit button parts without variables.
      *
      * @param list<WhatsAppMessageTemplateComponentParameter>|null $parameters
      *
@@ -96,8 +93,7 @@ class WhatsAppMessageTemplateComponent
         return $this;
     }
     /**
-     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
-     * 
+     * For `carousel` only: one entry per approved card, in approval order.
      *
      * @return list<WhatsAppMessageTemplateCard>|null
      */
@@ -106,7 +102,7 @@ class WhatsAppMessageTemplateComponent
         return $this->cards;
     }
     /**
-     * Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
+     * For `carousel` only: one entry per approved card, in approval order.
      *
      * @param list<WhatsAppMessageTemplateCard>|null $cards
      *

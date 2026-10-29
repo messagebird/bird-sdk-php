@@ -289,6 +289,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->webhooks->rotateSecret(...),
             $bird->webhooks->update(...),
             $bird->workspace->get(...),
+            $bird->workspace->rateLimits->list(...),
             $bird->workspace->quotas->list(...),
             $bird->webhooks->unwrap(...),
             $bird->preferences->list(...),
@@ -464,7 +465,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(442, $surface);
+        self::assertCount(443, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

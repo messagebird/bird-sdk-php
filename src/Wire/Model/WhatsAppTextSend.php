@@ -16,22 +16,19 @@ class WhatsAppTextSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The message text. The WhatsApp client turns any URL it contains into a clickable link.
-     * 
+     * Message text; URLs become clickable links.
      *
      * @var string|null
      */
     protected $body;
     /**
-     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
-     * 
+     * Preview the first link in `body`. Omitted on reads.
      *
      * @var bool|null
      */
     protected $previewUrl = false;
     /**
-     * The message text. The WhatsApp client turns any URL it contains into a clickable link.
-     * 
+     * Message text; URLs become clickable links.
      *
      * @return string|null
      */
@@ -40,7 +37,7 @@ class WhatsAppTextSend
         return $this->body;
     }
     /**
-     * The message text. The WhatsApp client turns any URL it contains into a clickable link.
+     * Message text; URLs become clickable links.
      *
      * @param string|null $body
      *
@@ -53,8 +50,7 @@ class WhatsAppTextSend
         return $this;
     }
     /**
-     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
-     * 
+     * Preview the first link in `body`. Omitted on reads.
      *
      * @return bool|null
      */
@@ -63,7 +59,7 @@ class WhatsAppTextSend
         return $this->previewUrl;
     }
     /**
-     * Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
+     * Preview the first link in `body`. Omitted on reads.
      *
      * @param bool|null $previewUrl
      *

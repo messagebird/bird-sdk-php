@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One group of options in a list's menu. A menu with a single group still carries a title, which WhatsApp shows above its rows.
+ * Menu section. A title is required even for a single section.
  */
 class WhatsAppInteractiveListSectionSend
 {
@@ -22,8 +22,7 @@ class WhatsAppInteractiveListSectionSend
      */
     protected $title;
     /**
-     * The options in this group. A message carries at most 10 rows across all its groups combined, so this per-group maximum is not additive: more than 10 in total returns a `422` `WhatsAppInteractiveLimitExceeded`. Row labels must be unique across the whole message too, not just within a group.
-     * 
+     * At most 10 rows across the message (`422` `WhatsAppInteractiveLimitExceeded` otherwise). Labels must be unique across sections.
      *
      * @var list<WhatsAppInteractiveListRowSend>|null
      */
@@ -51,8 +50,7 @@ class WhatsAppInteractiveListSectionSend
         return $this;
     }
     /**
-     * The options in this group. A message carries at most 10 rows across all its groups combined, so this per-group maximum is not additive: more than 10 in total returns a `422` `WhatsAppInteractiveLimitExceeded`. Row labels must be unique across the whole message too, not just within a group.
-     * 
+     * At most 10 rows across the message (`422` `WhatsAppInteractiveLimitExceeded` otherwise). Labels must be unique across sections.
      *
      * @return list<WhatsAppInteractiveListRowSend>|null
      */
@@ -61,7 +59,7 @@ class WhatsAppInteractiveListSectionSend
         return $this->rows;
     }
     /**
-     * The options in this group. A message carries at most 10 rows across all its groups combined, so this per-group maximum is not additive: more than 10 in total returns a `422` `WhatsAppInteractiveLimitExceeded`. Row labels must be unique across the whole message too, not just within a group.
+     * At most 10 rows across the message (`422` `WhatsAppInteractiveLimitExceeded` otherwise). Labels must be unique across sections.
      *
      * @param list<WhatsAppInteractiveListRowSend>|null $rows
      *

@@ -16,22 +16,19 @@ class WhatsAppContactUrlSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
-     * 
+     * Website address; bare domains accepted without URL validation.
      *
      * @var string|null
      */
     protected $url;
     /**
-     * A label for the website, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the website, sent verbatim.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
-     * 
+     * Website address; bare domains accepted without URL validation.
      *
      * @return string|null
      */
@@ -40,7 +37,7 @@ class WhatsAppContactUrlSend
         return $this->url;
     }
     /**
-     * The address to show. Not validated as a URL, because a card commonly carries a bare domain.
+     * Website address; bare domains accepted without URL validation.
      *
      * @param string|null $url
      *
@@ -53,8 +50,7 @@ class WhatsAppContactUrlSend
         return $this;
     }
     /**
-     * A label for the website, shown beside it. Free text, sent exactly as written.
-     * 
+     * Free-text label shown beside the website, sent verbatim.
      *
      * @return string|null
      */
@@ -63,7 +59,7 @@ class WhatsAppContactUrlSend
         return $this->type;
     }
     /**
-     * A label for the website, shown beside it. Free text, sent exactly as written.
+     * Free-text label shown beside the website, sent verbatim.
      *
      * @param string|null $type
      *

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One card in a carousel: media at the top, optional text of its own, and the buttons under it. A card has no footer, and its position in `cards` is the position it appears in.
+ * Carousel card: media, optional text, and buttons. No footer. Array order determines display order.
  */
 class WhatsAppInteractiveCardSend
 {
@@ -22,15 +22,13 @@ class WhatsAppInteractiveCardSend
      */
     protected $header;
     /**
-     * The card's own text, below its media, with at most two line breaks. Optional: a card can carry media and buttons alone.
-     * 
+     * Optional text below the media, with at most two line breaks.
      *
      * @var string|null
      */
     protected $bodyText;
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
-     * 
+     * One `cta_url` or up to three `quick_reply` buttons, in display order. Cards must match button kinds and count, or return `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      *
      * @var list<WhatsAppInteractiveButtonSend>|null
      */
@@ -58,8 +56,7 @@ class WhatsAppInteractiveCardSend
         return $this;
     }
     /**
-     * The card's own text, below its media, with at most two line breaks. Optional: a card can carry media and buttons alone.
-     * 
+     * Optional text below the media, with at most two line breaks.
      *
      * @return string|null
      */
@@ -68,7 +65,7 @@ class WhatsAppInteractiveCardSend
         return $this->bodyText;
     }
     /**
-     * The card's own text, below its media, with at most two line breaks. Optional: a card can carry media and buttons alone.
+     * Optional text below the media, with at most two line breaks.
      *
      * @param string|null $bodyText
      *
@@ -81,8 +78,7 @@ class WhatsAppInteractiveCardSend
         return $this;
     }
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
-     * 
+     * One `cta_url` or up to three `quick_reply` buttons, in display order. Cards must match button kinds and count, or return `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      *
      * @return list<WhatsAppInteractiveButtonSend>|null
      */
@@ -91,7 +87,7 @@ class WhatsAppInteractiveCardSend
         return $this->buttons;
     }
     /**
-     * The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCardsButtonsMismatch`.
+     * One `cta_url` or up to three `quick_reply` buttons, in display order. Cards must match button kinds and count, or return `422` `WhatsAppInteractiveCardsButtonsMismatch`.
      *
      * @param list<WhatsAppInteractiveButtonSend>|null $buttons
      *

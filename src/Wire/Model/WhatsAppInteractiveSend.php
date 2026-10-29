@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * An interactive message: body text plus something for the recipient to tap. Name the kind in `type` and send that kind's field: `buttons`, `list`, `cta_url` or `cards`. `location_request_message` and `request_contact_info` carry only `body_text`.
+ * Set `type` and its matching field: `buttons`, `list`, `cta_url`, or `cards`. `location_request_message` and `request_contact_info` take only `body_text`.
  */
 class WhatsAppInteractiveSend
 {
@@ -16,60 +16,55 @@ class WhatsAppInteractiveSend
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Which kind of interactive message this is, and which field carries it.
+     * Message kind; determines which content field to supply.
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
-     * 
+     * For `list`: text only. For `button` and `cta_url`: text, image, video, or document. Unsupported for carousel and request kinds.
      *
      * @var WhatsAppInteractiveSendHeader|null
      */
     protected $header;
     /**
-     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
-     * 
+     * Required main text. Maximum 1024 characters, or 4096 for `list`.
      *
      * @var string|null
      */
     protected $bodyText;
     /**
-     * Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
-     * 
+     * Small print below the body. Unsupported for carousel and request kinds.
      *
      * @var string|null
      */
     protected $footerText;
     /**
-     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
-     * 
+     * Ordered `quick_reply` buttons for `button` messages. Labels must be unique within the message.
      *
      * @var list<WhatsAppInteractiveButtonSend>|null
      */
     protected $buttons;
     /**
-     * The menu to show. Send this on a `list` message.
+     * Menu for a `list` message.
      *
      * @var WhatsAppInteractiveSendList|null
      */
     protected $list;
     /**
-     * The link button to show. Send this on a `cta_url` message.
+     * Link button for a `cta_url` message.
      *
      * @var WhatsAppInteractiveSendCtaUrl|null
      */
     protected $ctaUrl;
     /**
-     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
-     * 
+     * 2–10 carousel cards, in display order. No message-level header or footer.
      *
      * @var list<WhatsAppInteractiveCardSend>|null
      */
     protected $cards;
     /**
-     * Which kind of interactive message this is, and which field carries it.
+     * Message kind; determines which content field to supply.
      *
      * @return string|null
      */
@@ -78,7 +73,7 @@ class WhatsAppInteractiveSend
         return $this->type;
     }
     /**
-     * Which kind of interactive message this is, and which field carries it.
+     * Message kind; determines which content field to supply.
      *
      * @param string|null $type
      *
@@ -91,8 +86,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
-     * 
+     * For `list`: text only. For `button` and `cta_url`: text, image, video, or document. Unsupported for carousel and request kinds.
      *
      * @return WhatsAppInteractiveSendHeader|null
      */
@@ -101,7 +95,7 @@ class WhatsAppInteractiveSend
         return $this->header;
     }
     /**
-     * Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
+     * For `list`: text only. For `button` and `cta_url`: text, image, video, or document. Unsupported for carousel and request kinds.
      *
      * @param WhatsAppInteractiveSendHeader|WhatsAppInteractiveHeaderSend|array|null $header
      *
@@ -114,8 +108,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
-     * 
+     * Required main text. Maximum 1024 characters, or 4096 for `list`.
      *
      * @return string|null
      */
@@ -124,7 +117,7 @@ class WhatsAppInteractiveSend
         return $this->bodyText;
     }
     /**
-     * The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
+     * Required main text. Maximum 1024 characters, or 4096 for `list`.
      *
      * @param string|null $bodyText
      *
@@ -137,8 +130,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
-     * 
+     * Small print below the body. Unsupported for carousel and request kinds.
      *
      * @return string|null
      */
@@ -147,7 +139,7 @@ class WhatsAppInteractiveSend
         return $this->footerText;
     }
     /**
-     * Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
+     * Small print below the body. Unsupported for carousel and request kinds.
      *
      * @param string|null $footerText
      *
@@ -160,8 +152,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
-     * 
+     * Ordered `quick_reply` buttons for `button` messages. Labels must be unique within the message.
      *
      * @return list<WhatsAppInteractiveButtonSend>|null
      */
@@ -170,7 +161,7 @@ class WhatsAppInteractiveSend
         return $this->buttons;
     }
     /**
-     * The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
+     * Ordered `quick_reply` buttons for `button` messages. Labels must be unique within the message.
      *
      * @param list<WhatsAppInteractiveButtonSend>|null $buttons
      *
@@ -183,7 +174,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The menu to show. Send this on a `list` message.
+     * Menu for a `list` message.
      *
      * @return WhatsAppInteractiveSendList|null
      */
@@ -192,7 +183,7 @@ class WhatsAppInteractiveSend
         return $this->list;
     }
     /**
-     * The menu to show. Send this on a `list` message.
+     * Menu for a `list` message.
      *
      * @param WhatsAppInteractiveSendList|WhatsAppInteractiveListSend|array|null $list
      *
@@ -205,7 +196,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The link button to show. Send this on a `cta_url` message.
+     * Link button for a `cta_url` message.
      *
      * @return WhatsAppInteractiveSendCtaUrl|null
      */
@@ -214,7 +205,7 @@ class WhatsAppInteractiveSend
         return $this->ctaUrl;
     }
     /**
-     * The link button to show. Send this on a `cta_url` message.
+     * Link button for a `cta_url` message.
      *
      * @param WhatsAppInteractiveSendCtaUrl|WhatsAppInteractiveCtaUrlSend|array|null $ctaUrl
      *
@@ -227,8 +218,7 @@ class WhatsAppInteractiveSend
         return $this;
     }
     /**
-     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
-     * 
+     * 2–10 carousel cards, in display order. No message-level header or footer.
      *
      * @return list<WhatsAppInteractiveCardSend>|null
      */
@@ -237,7 +227,7 @@ class WhatsAppInteractiveSend
         return $this->cards;
     }
     /**
-     * The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
+     * 2–10 carousel cards, in display order. No message-level header or footer.
      *
      * @param list<WhatsAppInteractiveCardSend>|null $cards
      *

@@ -22,6 +22,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\NextAction::class => \MessageBird\Wire\Normalizer\NextActionNormalizer::class,
 
+        \MessageBird\Wire\Model\RateLimitErrorContext::class => \MessageBird\Wire\Normalizer\RateLimitErrorContextNormalizer::class,
+
         \MessageBird\Wire\Model\QuotaErrorContext::class => \MessageBird\Wire\Normalizer\QuotaErrorContextNormalizer::class,
 
         \MessageBird\Wire\Model\ErrorBody::class => \MessageBird\Wire\Normalizer\ErrorBodyNormalizer::class,
@@ -31,6 +33,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => \MessageBird\Wire\Normalizer\WorkspaceNotificationEmailsNormalizer::class,
 
         \MessageBird\Wire\Model\Workspace::class => \MessageBird\Wire\Normalizer\WorkspaceNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceRateLimitAttribution::class => \MessageBird\Wire\Normalizer\WorkspaceRateLimitAttributionNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceRateLimitUsage::class => \MessageBird\Wire\Normalizer\WorkspaceRateLimitUsageNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceRateLimit::class => \MessageBird\Wire\Normalizer\WorkspaceRateLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceRateLimitWorkspaceLimit::class => \MessageBird\Wire\Normalizer\WorkspaceRateLimitWorkspaceLimitNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceRateLimitList::class => \MessageBird\Wire\Normalizer\WorkspaceRateLimitListNormalizer::class,
 
         \MessageBird\Wire\Model\WorkspaceQuotaUsage::class => \MessageBird\Wire\Normalizer\WorkspaceQuotaUsageNormalizer::class,
 
@@ -2356,11 +2368,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
             \MessageBird\Wire\Model\ErrorDetail::class => false,
             \MessageBird\Wire\Model\NextAction::class => false,
+            \MessageBird\Wire\Model\RateLimitErrorContext::class => false,
             \MessageBird\Wire\Model\QuotaErrorContext::class => false,
             \MessageBird\Wire\Model\ErrorBody::class => false,
             \MessageBird\Wire\Model\Error::class => false,
             \MessageBird\Wire\Model\WorkspaceNotificationEmails::class => false,
             \MessageBird\Wire\Model\Workspace::class => false,
+            \MessageBird\Wire\Model\WorkspaceRateLimitAttribution::class => false,
+            \MessageBird\Wire\Model\WorkspaceRateLimitUsage::class => false,
+            \MessageBird\Wire\Model\WorkspaceRateLimit::class => false,
+            \MessageBird\Wire\Model\WorkspaceRateLimitWorkspaceLimit::class => false,
+            \MessageBird\Wire\Model\WorkspaceRateLimitList::class => false,
             \MessageBird\Wire\Model\WorkspaceQuotaUsage::class => false,
             \MessageBird\Wire\Model\WorkspaceQuota::class => false,
             \MessageBird\Wire\Model\WorkspaceQuotaWorkspaceLimit::class => false,
