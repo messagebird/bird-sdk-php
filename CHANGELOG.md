@@ -2,6 +2,12 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.92.0
+
+- Apple Messages sends gain `skip_typing`. Set it after you send `typing_start` for the conversation, and Bird sends the first part without its own typing indicator and one-second pause. When Bird splits a message into parts, such as text around a link, later parts keep their indicator.
+- Add `Email.Mailboxes.ForwardingAddress.Create` in Go, `email.mailboxes.forwardingAddress.create` in TypeScript, `email.mailboxes.forwarding_address.create` in Python and `email->mailboxes->forwardingAddress->create` in PHP to set up a stable forwarding address for an existing own-domain mailbox. To create an address, the domain must be verified in the current workspace and must not receive mail through another workspace. Configure forwarding at your email provider after creating the address.
+- `$bird->sms->send()` now takes the named arguments messagingProfileId, toCountryCode, validityPeriod, costCenter, reference and binary for `messaging_profile_id`, `to_country_code`, `validity_period`, `cost_center`, `reference` and `binary`, and a sendOptions argument, a `\MessageBird\Wire\Model\SMSMessageSendRequestOptions`, for the `ignore_suppression` and `callback_url` options. Call `setCallbackUrl('https://…')` to set the URL, `setCallbackUrl(null)` to send the message's events to your webhook subscriptions, or leave it uncalled to use the messaging profile's URL.
+
 ## 0.91.0
 
 - Creating a verification accepts `options.autofill_origin`, the website the passcode is entered on, so the SMS ends with an `@host #code` line browsers can autofill and the email carries an OTP-Token header. For a code entered in a cross-origin iframe, also set `options.autofill_top_level_origin` to the embedding page, which must differ from `autofill_origin`; such verifications send no email header.

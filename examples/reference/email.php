@@ -252,6 +252,9 @@ echo $mailbox->getState();
 $mailbox = $bird->email->mailboxes->resume('mbx_01krdgeqcxet5s7t44vh8rt9mg');
 echo $mailbox->getState();
 
+$mailbox = $bird->email->mailboxes->forwardingAddress->create('mbx_01krdgeqcxet5s7t44vh8rt9mg');
+echo $mailbox->getForwardingAddress();
+
 $stats = $bird->email->mailboxes->stats(
     'mbx_01krdgeqcxet5s7t44vh8rt9mg',
     ['from' => '2026-05-01', 'to' => '2026-05-31'],

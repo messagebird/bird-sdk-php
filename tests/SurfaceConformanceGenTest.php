@@ -327,6 +327,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->mailboxes->delete(...),
             $bird->email->mailboxes->restore(...),
             $bird->email->mailboxes->resume(...),
+            $bird->email->mailboxes->forwardingAddress->create(...),
             $bird->email->mailboxes->stats(...),
             $bird->email->mailboxes->scheduledMessages->list(...),
             $bird->email->mailboxes->scheduledMessages->get(...),
@@ -465,7 +466,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(443, $surface);
+        self::assertCount(444, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

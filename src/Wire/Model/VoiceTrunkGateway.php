@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One address an inbound call to this trunk is forwarded to, and how that peer wants the call's two numbers spelled. A trunk can have several, tried in priority order until one answers.
+ * One address an inbound call to this trunk is forwarded to, and how that peer wants the call's two numbers spelled. A trunk can have several, and its **All gateways (automatic)** hunt group tries them in priority order until one answers.
  */
 class VoiceTrunkGateway extends \ArrayObject
 {
@@ -31,7 +31,7 @@ class VoiceTrunkGateway extends \ArrayObject
      */
     protected $sipUri;
     /**
-     * The order gateways are tried in, lowest first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      * 
      *
      * @var int|null
@@ -133,7 +133,7 @@ class VoiceTrunkGateway extends \ArrayObject
         return $this;
     }
     /**
-     * The order gateways are tried in, lowest first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      * 
      *
      * @return int|null
@@ -143,7 +143,7 @@ class VoiceTrunkGateway extends \ArrayObject
         return $this->priority;
     }
     /**
-     * The order gateways are tried in, lowest first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      *
      * @param int|null $priority
      *

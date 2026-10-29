@@ -114,6 +114,13 @@ class AMBMessageSendRequest
      */
     protected $locale;
     /**
+     * Send the first part without the typing indicator and one-second pause Bird otherwise shows before it. Set it only after you sent `typing_start` with the conversation typing operation, so the customer already sees typing. A first part that Apple accepts clears that indicator when it arrives. If Bird accepts the message but it fails before then, such as a failed send or a rejection during processing, Bird sends `typing_end` instead. If the request itself returns an error, nothing is sent, so send `typing_end` yourself. When Bird splits the message into several parts, such as text around a link, the parts after the first keep their typing indicator.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $skipTyping = false;
+    /**
      * Apple business identifier of the brand sending the message. Read it from the business’s apple_business_id. The customer must have opened the conversation with this business.
      *
      * @return string|null
@@ -445,6 +452,29 @@ class AMBMessageSendRequest
     {
         $this->initialized['locale'] = true;
         $this->locale = $locale;
+        return $this;
+    }
+    /**
+     * Send the first part without the typing indicator and one-second pause Bird otherwise shows before it. Set it only after you sent `typing_start` with the conversation typing operation, so the customer already sees typing. A first part that Apple accepts clears that indicator when it arrives. If Bird accepts the message but it fails before then, such as a failed send or a rejection during processing, Bird sends `typing_end` instead. If the request itself returns an error, nothing is sent, so send `typing_end` yourself. When Bird splits the message into several parts, such as text around a link, the parts after the first keep their typing indicator.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getSkipTyping(): ?bool
+    {
+        return $this->skipTyping;
+    }
+    /**
+     * Send the first part without the typing indicator and one-second pause Bird otherwise shows before it. Set it only after you sent `typing_start` with the conversation typing operation, so the customer already sees typing. A first part that Apple accepts clears that indicator when it arrives. If Bird accepts the message but it fails before then, such as a failed send or a rejection during processing, Bird sends `typing_end` instead. If the request itself returns an error, nothing is sent, so send `typing_end` yourself. When Bird splits the message into several parts, such as text around a link, the parts after the first keep their typing indicator.
+     *
+     * @param bool|null $skipTyping
+     *
+     * @return self
+     */
+    public function setSkipTyping(?bool $skipTyping): self
+    {
+        $this->initialized['skipTyping'] = true;
+        $this->skipTyping = $skipTyping;
         return $this;
     }
 }

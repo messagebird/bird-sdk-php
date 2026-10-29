@@ -20,7 +20,7 @@ class VoiceTrunkGatewayCreate
      */
     protected $sipUri;
     /**
-     * The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      * 
      *
      * @var int|null
@@ -84,7 +84,7 @@ class VoiceTrunkGatewayCreate
         return $this;
     }
     /**
-     * The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      * 
      *
      * @return int|null
@@ -94,7 +94,7 @@ class VoiceTrunkGatewayCreate
         return $this->priority;
     }
     /**
-     * The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+     * The gateway's place in the trunk's **All gateways (automatic)** hunt group, which tries the lowest priority first. Give two gateways the same priority to share calls between them evenly. Hunt groups you build in the trunk's inbound routing in the dashboard set their own order.
      *
      * @param int|null $priority
      *

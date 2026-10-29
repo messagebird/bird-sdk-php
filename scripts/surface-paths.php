@@ -233,6 +233,7 @@ return [
     "/v1/email/mailboxes/{mailbox_id}",
     "/v1/email/mailboxes/{mailbox_id}/restore",
     "/v1/email/mailboxes/{mailbox_id}/resume",
+    "/v1/email/mailboxes/{mailbox_id}/forwarding-address",
     "/v1/email/mailboxes/{mailbox_id}/stats",
     "/v1/email/mailboxes/{mailbox_id}/scheduled-messages",
     "/v1/email/mailboxes/{mailbox_id}/scheduled-messages/{scheduled_message_id}",

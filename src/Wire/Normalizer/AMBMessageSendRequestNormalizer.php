@@ -37,6 +37,9 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('skip_typing', $data) && \is_int($data['skip_typing'])) {
+            $data['skip_typing'] = (bool) $data['skip_typing'];
+        }
         if (\array_key_exists('from', $data) && $data['from'] !== null) {
             $object->setFrom($data['from']);
         }
@@ -129,6 +132,12 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('locale', $data) && $data['locale'] === null) {
             $object->setLocale(null);
         }
+        if (\array_key_exists('skip_typing', $data) && $data['skip_typing'] !== null) {
+            $object->setSkipTyping($data['skip_typing']);
+        }
+        elseif (\array_key_exists('skip_typing', $data) && $data['skip_typing'] === null) {
+            $object->setSkipTyping(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -179,6 +188,9 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         }
         if ($data->isInitialized('locale') && null !== $data->getLocale()) {
             $dataArray['locale'] = $data->getLocale();
+        }
+        if ($data->isInitialized('skipTyping') && null !== $data->getSkipTyping()) {
+            $dataArray['skip_typing'] = $data->getSkipTyping();
         }
         return $dataArray;
     }

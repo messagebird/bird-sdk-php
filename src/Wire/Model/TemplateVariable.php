@@ -16,7 +16,7 @@ class TemplateVariable
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
      * 
      *
      * @var string|null
@@ -58,7 +58,7 @@ class TemplateVariable
      */
     protected $system = false;
     /**
-     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
      * 
      *
      * @return string|null
@@ -68,7 +68,7 @@ class TemplateVariable
         return $this->key;
     }
     /**
-     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`.
+     * The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` on the matching parameter inside `components`, or, in the template parameters preview, the key in the send's `template.parameters`. A WhatsApp template whose placeholders are positional uses the position itself as `1`, `2` and so on, and values with no placeholder use fixed keys: `header_url`, `header_filename`, `header_location` and `code`, plus `button_url` (or `button_url_1`, `button_url_2` for a carousel card) for a url button whose suffix is numbered.
      *
      * @param string|null $key
      *

@@ -10,6 +10,7 @@ use MessageBird\EmailDefaults;
 use MessageBird\Tests\Support\RecordingClient;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
 use MessageBird\Wire\Model\SMSMessageSendRequest;
+use MessageBird\Wire\Model\SMSMessageSendRequestOptions;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -71,6 +72,41 @@ final class ChannelSendsTest extends TestCase
         $recording2 = $this->recording();
         $this->bird($recording2)->sms->send(to: '+15551234567', template: 'welcome');
         self::assertSame(['slug' => 'welcome'], $this->sentBody($recording2)['template']);
+    }
+
+    public function testSmsSendOptionsOmitSetAndClearCallbackUrl(): void
+    {
+        $recording = $this->recording();
+        $this->bird($recording)->sms->send(to: '+15551234567', text: 'Hi', category: 'marketing');
+        self::assertArrayNotHasKey('options', $this->sentBody($recording));
+
+        $recording = $this->recording();
+        $this->bird($recording)->sms->send(to: '+15551234567', text: 'Hi', category: 'marketing', sendOptions: (new SMSMessageSendRequestOptions())->setCallbackUrl('https://example.test/cb'));
+        self::assertSame(['callback_url' => 'https://example.test/cb'], $this->sentBody($recording)['options']);
+
+        $recording = $this->recording();
+        $this->bird($recording)->sms->send(to: '+15551234567', text: 'Hi', category: 'marketing', sendOptions: (new SMSMessageSendRequestOptions())->setCallbackUrl(null));
+        self::assertSame(['callback_url' => null], $this->sentBody($recording)['options']);
+    }
+
+    public function testSmsSendSmartEncodingArgumentWinsOverSendOptions(): void
+    {
+        $recording = $this->recording();
+        $this->bird($recording)->sms->send(
+            to: '+15551234567',
+            text: 'Hi',
+            category: 'marketing',
+            smartEncoding: true,
+            sendOptions: (new SMSMessageSendRequestOptions())->setSmartEncoding(false)->setIgnoreSuppression(true),
+        );
+        self::assertSame(['smart_encoding' => true, 'ignore_suppression' => true], $this->sentBody($recording)['options']);
+    }
+
+    public function testSmsSendLeavesTheCallersOptionsUnchanged(): void
+    {
+        $sendOptions = (new SMSMessageSendRequestOptions())->setIgnoreSuppression(true);
+        $this->bird($this->recording())->sms->send(to: '+15551234567', text: 'Hi', category: 'marketing', smartEncoding: true, sendOptions: $sendOptions);
+        self::assertFalse($sendOptions->isInitialized('smartEncoding'));
     }
 
     public function testSmsSendBatchWrapsMessagesEnvelope(): void

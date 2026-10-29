@@ -6,12 +6,9 @@ namespace MessageBird\Resources;
 
 use MessageBird\Bird;
 
-/**
- * Email mailboxes. Its own operations are generated on EmailMailboxesBase; this
- * parent adds the nested `$bird->email->mailboxes->messages` and `->receiveRules`.
- */
 final class EmailMailboxes extends EmailMailboxesBase
 {
+    public readonly EmailMailboxesForwardingAddress $forwardingAddress;
     public readonly EmailMailboxesMessages $messages;
     public readonly EmailMailboxesScheduledMessages $scheduledMessages;
     public readonly EmailMailboxesReceiveRules $receiveRules;
@@ -19,6 +16,7 @@ final class EmailMailboxes extends EmailMailboxesBase
     public function __construct(Bird $client)
     {
         parent::__construct($client);
+        $this->forwardingAddress = new EmailMailboxesForwardingAddress($client);
         $this->scheduledMessages = new EmailMailboxesScheduledMessages($client);
         $this->messages = new EmailMailboxesMessages($client);
         $this->receiveRules = new EmailMailboxesReceiveRules($client);
