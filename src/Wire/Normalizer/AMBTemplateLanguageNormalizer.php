@@ -43,11 +43,23 @@ class AMBTemplateLanguageNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
         }
-        if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $object->setContent($data['content']);
+        if (\array_key_exists('text', $data) && $data['text'] !== null) {
+            $object->setText($this->denormalizer->denormalize($data['text'], \MessageBird\Wire\Model\AMBTemplateLanguageText::class, 'json', $context));
         }
-        elseif (\array_key_exists('content', $data) && $data['content'] === null) {
-            $object->setContent(null);
+        elseif (\array_key_exists('text', $data) && $data['text'] === null) {
+            $object->setText(null);
+        }
+        if (\array_key_exists('rich_link', $data) && $data['rich_link'] !== null) {
+            $object->setRichLink($this->denormalizer->denormalize($data['rich_link'], \MessageBird\Wire\Model\AMBTemplateLanguageRichLink::class, 'json', $context));
+        }
+        elseif (\array_key_exists('rich_link', $data) && $data['rich_link'] === null) {
+            $object->setRichLink(null);
+        }
+        if (\array_key_exists('interactive', $data) && $data['interactive'] !== null) {
+            $object->setInteractive($this->denormalizer->denormalize($data['interactive'], \MessageBird\Wire\Model\AMBTemplateLanguageInteractive::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
+            $object->setInteractive(null);
         }
         if (\array_key_exists('revision', $data) && $data['revision'] !== null) {
             $object->setRevision($data['revision']);
@@ -73,7 +85,6 @@ class AMBTemplateLanguageNormalizer implements DenormalizerInterface, Normalizer
     {
         $dataArray = [];
         $dataArray['language'] = $data->getLanguage();
-        $dataArray['content'] = $data->getContent();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

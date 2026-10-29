@@ -16,7 +16,7 @@ class AMBMessageKindStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -55,7 +55,7 @@ class AMBMessageKindStatsPoint
      */
     protected $firstResponse;
     /**
-     * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -76,7 +76,7 @@ class AMBMessageKindStatsPoint
         return $this->messageKind;
     }
     /**
-    * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
     
     - text: Text, optionally with a subject.
     - attachment: One or more files, images, audio clips, or videos.

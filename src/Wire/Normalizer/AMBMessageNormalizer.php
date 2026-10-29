@@ -91,11 +91,29 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('source', $data) && $data['source'] === null) {
             $object->setSource(null);
         }
-        if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $object->setContent($data['content']);
+        if (\array_key_exists('text', $data) && $data['text'] !== null) {
+            $object->setText($this->denormalizer->denormalize($data['text'], \MessageBird\Wire\Model\AMBMessageText::class, 'json', $context));
         }
-        elseif (\array_key_exists('content', $data) && $data['content'] === null) {
-            $object->setContent(null);
+        elseif (\array_key_exists('text', $data) && $data['text'] === null) {
+            $object->setText(null);
+        }
+        if (\array_key_exists('rich_link', $data) && $data['rich_link'] !== null) {
+            $object->setRichLink($this->denormalizer->denormalize($data['rich_link'], \MessageBird\Wire\Model\AMBMessageRichLink::class, 'json', $context));
+        }
+        elseif (\array_key_exists('rich_link', $data) && $data['rich_link'] === null) {
+            $object->setRichLink(null);
+        }
+        if (\array_key_exists('interactive', $data) && $data['interactive'] !== null) {
+            $object->setInteractive($this->denormalizer->denormalize($data['interactive'], \MessageBird\Wire\Model\AMBMessageInteractive::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
+            $object->setInteractive(null);
+        }
+        if (\array_key_exists('interactive_reply', $data) && $data['interactive_reply'] !== null) {
+            $object->setInteractiveReply($this->denormalizer->denormalize($data['interactive_reply'], \MessageBird\Wire\Model\AMBMessageInteractiveReply::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive_reply', $data) && $data['interactive_reply'] === null) {
+            $object->setInteractiveReply(null);
         }
         if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
             $object->setInReplyToMessageId($data['in_reply_to_message_id']);

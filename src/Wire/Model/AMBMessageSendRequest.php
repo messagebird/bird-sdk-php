@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A message to send. Supply exactly one of `content` (native content) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
+ * A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` sent first as its own bubble), or `template` (a stored template, whose category is derived).
  */
 class AMBMessageSendRequest
 {
@@ -46,13 +46,25 @@ class AMBMessageSendRequest
      */
     protected $source;
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
      *
-     * @var mixed|null
+     * @var AMBMessageSendRequestText|null
      */
-    protected $content;
+    protected $text;
     /**
-     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     * A link with a preview card.
+     *
+     * @var AMBMessageSendRequestRichLink|null
+     */
+    protected $richLink;
+    /**
+     * Something for the customer to tap, such as quick replies, a list picker, a time picker, a form or a custom iMessage app.
+     *
+     * @var AMBMessageSendRequestInteractive|null
+     */
+    protected $interactive;
+    /**
+     * Send using a stored template instead of `text`, `rich_link` or `interactive`. The category is derived from the template, so `category` is rejected alongside it.
      * 
      *
      * @var AMBMessageSendRequestTemplate|null
@@ -192,29 +204,73 @@ class AMBMessageSendRequest
         return $this;
     }
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
      *
-     * @return mixed
+     * @return AMBMessageSendRequestText|null
      */
-    public function getContent()
+    public function getText(): ?AMBMessageSendRequestText
     {
-        return $this->content;
+        return $this->text;
     }
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
      *
-     * @param mixed $content
+     * @param AMBMessageSendRequestText|AMBText|array|null $text
      *
      * @return self
      */
-    public function setContent($content): self
+    public function setText($text): self
     {
-        $this->initialized['content'] = true;
-        $this->content = $content;
+        $this->initialized['text'] = true;
+        $this->text = \MessageBird\Core\ModelWrapper::normalize($text, AMBMessageSendRequestText::class);
         return $this;
     }
     /**
-     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     * A link with a preview card.
+     *
+     * @return AMBMessageSendRequestRichLink|null
+     */
+    public function getRichLink(): ?AMBMessageSendRequestRichLink
+    {
+        return $this->richLink;
+    }
+    /**
+     * A link with a preview card.
+     *
+     * @param AMBMessageSendRequestRichLink|AMBRichLink|array|null $richLink
+     *
+     * @return self
+     */
+    public function setRichLink($richLink): self
+    {
+        $this->initialized['richLink'] = true;
+        $this->richLink = \MessageBird\Core\ModelWrapper::normalize($richLink, AMBMessageSendRequestRichLink::class);
+        return $this;
+    }
+    /**
+     * Something for the customer to tap, such as quick replies, a list picker, a time picker, a form or a custom iMessage app.
+     *
+     * @return AMBMessageSendRequestInteractive|null
+     */
+    public function getInteractive(): ?AMBMessageSendRequestInteractive
+    {
+        return $this->interactive;
+    }
+    /**
+     * Something for the customer to tap, such as quick replies, a list picker, a time picker, a form or a custom iMessage app.
+     *
+     * @param AMBMessageSendRequestInteractive|AMBInteractive|array|null $interactive
+     *
+     * @return self
+     */
+    public function setInteractive($interactive): self
+    {
+        $this->initialized['interactive'] = true;
+        $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, AMBMessageSendRequestInteractive::class);
+        return $this;
+    }
+    /**
+     * Send using a stored template instead of `text`, `rich_link` or `interactive`. The category is derived from the template, so `category` is rejected alongside it.
      * 
      *
      * @return AMBMessageSendRequestTemplate|null
@@ -224,7 +280,7 @@ class AMBMessageSendRequest
         return $this->template;
     }
     /**
-     * Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+     * Send using a stored template instead of `text`, `rich_link` or `interactive`. The category is derived from the template, so `category` is rejected alongside it.
      *
      * @param AMBMessageSendRequestTemplate|AMBTemplateSend|array|null $template
      *

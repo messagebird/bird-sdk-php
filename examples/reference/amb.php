@@ -62,7 +62,7 @@ $bird->amb->get('amb_01krdgeqcxet5s7t44vh8rt9mg');
 
 $bird->amb->list(['business_account_id' => 'abz_01krdgeqcxet5s7t44vh8rt9mg', 'limit' => '2']);
 
-$bird->amb->send((new Model\AMBMessageSendRequest())->setFrom('b52d6267-2b62-4f8a-8842-0533d0f1dc07')->setTo('opaque-customer')->setContent(['type' => 'text', 'body' => 'Your order is ready.']));
+$bird->amb->send((new Model\AMBMessageSendRequest())->setFrom('b52d6267-2b62-4f8a-8842-0533d0f1dc07')->setTo('opaque-customer')->setText((new Model\AMBText())->setBody('Your order is ready.')));
 
 $bird->amb->routingRules->get('arr_01krdgeqcxet5s7t44vh8rt9mg');
 

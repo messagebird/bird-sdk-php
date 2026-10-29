@@ -6,6 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use MessageBird\Bird;
 use MessageBird\Wire\Model\AMBMessageSendRequest;
+use MessageBird\Wire\Model\AMBText;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 $conversation = $bird->amb->conversations->get(getenv('AMB_CONVERSATION_ID') ?: '');
@@ -21,7 +22,7 @@ $message = $bird->amb->send(
     (new AMBMessageSendRequest())
         ->setFrom($business->getAppleBusinessId())
         ->setTo($conversation->getRecipient()->getOpaqueUserId())
-        ->setContent(['type' => 'text', 'body' => 'Your order is ready.']),
+        ->setText((new AMBText())->setBody('Your order is ready.')),
 );
 echo $message->getId() . PHP_EOL;
 $messageId = $message->getId();

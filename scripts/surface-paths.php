@@ -91,6 +91,7 @@ return [
     "/v1/sms/stats/statuses",
     "/v1/sms/stats/error-codes",
     "/v1/sms/stats/tags",
+    "/v1/sms/stats/cost-centers",
     "/v1/sms/stats/inbound/summary",
     "/v1/sms/stats/inbound/daily",
     "/v1/sms/stats/inbound/hourly",

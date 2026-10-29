@@ -116,6 +116,13 @@ foreach ($byTag->getData() ?? [] as $row) {
     echo $row->getTag(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
 }
 
+$byCostCenter = $bird->sms->stats->byCostCenter(['from' => '2026-05-01', 'to' => '2026-05-31']);
+foreach ($byCostCenter->getData() ?? [] as $row) {
+    // Messages sent without a cost center are not counted, so rows do not sum to
+    // the period total.
+    echo $row->getCostCenter(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
 $inbound = $bird->sms->stats->inbound->summary(['from' => '2026-05-01', 'to' => '2026-05-31']);
 echo $inbound->getReceived();
 

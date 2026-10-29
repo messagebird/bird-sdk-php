@@ -67,7 +67,7 @@ class AMBMessage
      */
     protected $status;
     /**
-     * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -103,11 +103,29 @@ class AMBMessage
      */
     protected $source;
     /**
-     * Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
+     * The message's text and files. Next to `rich_link`, `interactive` or `interactive_reply`, it is the text that came with them.
      *
-     * @var mixed|null
+     * @var AMBMessageText|null
      */
-    protected $content;
+    protected $text;
+    /**
+     * The link preview an outbound message carried.
+     *
+     * @var AMBMessageRichLink|null
+     */
+    protected $richLink;
+    /**
+     * What an outbound message offered the customer to tap.
+     *
+     * @var AMBMessageInteractive|null
+     */
+    protected $interactive;
+    /**
+     * What the customer answered, on an inbound message replying to an interactive message.
+     *
+     * @var AMBMessageInteractiveReply|null
+     */
+    protected $interactiveReply;
     /**
      * @var string|null
      */
@@ -401,7 +419,7 @@ class AMBMessage
         return $this;
     }
     /**
-     * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -422,7 +440,7 @@ class AMBMessage
         return $this->kind;
     }
     /**
-    * Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
     
     - text: Text, optionally with a subject.
     - attachment: One or more files, images, audio clips, or videos.
@@ -493,25 +511,91 @@ class AMBMessage
         return $this;
     }
     /**
-     * Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
+     * The message's text and files. Next to `rich_link`, `interactive` or `interactive_reply`, it is the text that came with them.
      *
-     * @return mixed
+     * @return AMBMessageText|null
      */
-    public function getContent()
+    public function getText(): ?AMBMessageText
     {
-        return $this->content;
+        return $this->text;
     }
     /**
-     * Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
+     * The message's text and files. Next to `rich_link`, `interactive` or `interactive_reply`, it is the text that came with them.
      *
-     * @param mixed $content
+     * @param AMBMessageText|AMBText|array|null $text
      *
      * @return self
      */
-    public function setContent($content): self
+    public function setText($text): self
     {
-        $this->initialized['content'] = true;
-        $this->content = $content;
+        $this->initialized['text'] = true;
+        $this->text = \MessageBird\Core\ModelWrapper::normalize($text, AMBMessageText::class);
+        return $this;
+    }
+    /**
+     * The link preview an outbound message carried.
+     *
+     * @return AMBMessageRichLink|null
+     */
+    public function getRichLink(): ?AMBMessageRichLink
+    {
+        return $this->richLink;
+    }
+    /**
+     * The link preview an outbound message carried.
+     *
+     * @param AMBMessageRichLink|AMBRichLink|array|null $richLink
+     *
+     * @return self
+     */
+    public function setRichLink($richLink): self
+    {
+        $this->initialized['richLink'] = true;
+        $this->richLink = \MessageBird\Core\ModelWrapper::normalize($richLink, AMBMessageRichLink::class);
+        return $this;
+    }
+    /**
+     * What an outbound message offered the customer to tap.
+     *
+     * @return AMBMessageInteractive|null
+     */
+    public function getInteractive(): ?AMBMessageInteractive
+    {
+        return $this->interactive;
+    }
+    /**
+     * What an outbound message offered the customer to tap.
+     *
+     * @param AMBMessageInteractive|AMBInteractive|array|null $interactive
+     *
+     * @return self
+     */
+    public function setInteractive($interactive): self
+    {
+        $this->initialized['interactive'] = true;
+        $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, AMBMessageInteractive::class);
+        return $this;
+    }
+    /**
+     * What the customer answered, on an inbound message replying to an interactive message.
+     *
+     * @return AMBMessageInteractiveReply|null
+     */
+    public function getInteractiveReply(): ?AMBMessageInteractiveReply
+    {
+        return $this->interactiveReply;
+    }
+    /**
+     * What the customer answered, on an inbound message replying to an interactive message.
+     *
+     * @param AMBMessageInteractiveReply|AMBInteractiveReply|array|null $interactiveReply
+     *
+     * @return self
+     */
+    public function setInteractiveReply($interactiveReply): self
+    {
+        $this->initialized['interactiveReply'] = true;
+        $this->interactiveReply = \MessageBird\Core\ModelWrapper::normalize($interactiveReply, AMBMessageInteractiveReply::class);
         return $this;
     }
     /**

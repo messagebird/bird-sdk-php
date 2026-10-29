@@ -16,11 +16,23 @@ class AMBTemplateVersionLanguage
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * Stored text and files. Includes its `{{ variable }}` placeholders.
      *
-     * @var mixed|null
+     * @var AMBTemplateVersionLanguageText|null
      */
-    protected $content;
+    protected $text;
+    /**
+     * Stored link preview. Includes its `{{ variable }}` placeholders.
+     *
+     * @var AMBTemplateVersionLanguageRichLink|null
+     */
+    protected $richLink;
+    /**
+     * Stored interaction. Includes its `{{ variable }}` placeholders.
+     *
+     * @var AMBTemplateVersionLanguageInteractive|null
+     */
+    protected $interactive;
     /**
      * This language's revision counter.
      *
@@ -41,25 +53,69 @@ class AMBTemplateVersionLanguage
      */
     protected $updatedAt;
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * Stored text and files. Includes its `{{ variable }}` placeholders.
      *
-     * @return mixed
+     * @return AMBTemplateVersionLanguageText|null
      */
-    public function getContent()
+    public function getText(): ?AMBTemplateVersionLanguageText
     {
-        return $this->content;
+        return $this->text;
     }
     /**
-     * Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+     * Stored text and files. Includes its `{{ variable }}` placeholders.
      *
-     * @param mixed $content
+     * @param AMBTemplateVersionLanguageText|AMBText|array|null $text
      *
      * @return self
      */
-    public function setContent($content): self
+    public function setText($text): self
     {
-        $this->initialized['content'] = true;
-        $this->content = $content;
+        $this->initialized['text'] = true;
+        $this->text = \MessageBird\Core\ModelWrapper::normalize($text, AMBTemplateVersionLanguageText::class);
+        return $this;
+    }
+    /**
+     * Stored link preview. Includes its `{{ variable }}` placeholders.
+     *
+     * @return AMBTemplateVersionLanguageRichLink|null
+     */
+    public function getRichLink(): ?AMBTemplateVersionLanguageRichLink
+    {
+        return $this->richLink;
+    }
+    /**
+     * Stored link preview. Includes its `{{ variable }}` placeholders.
+     *
+     * @param AMBTemplateVersionLanguageRichLink|AMBRichLink|array|null $richLink
+     *
+     * @return self
+     */
+    public function setRichLink($richLink): self
+    {
+        $this->initialized['richLink'] = true;
+        $this->richLink = \MessageBird\Core\ModelWrapper::normalize($richLink, AMBTemplateVersionLanguageRichLink::class);
+        return $this;
+    }
+    /**
+     * Stored interaction. Includes its `{{ variable }}` placeholders.
+     *
+     * @return AMBTemplateVersionLanguageInteractive|null
+     */
+    public function getInteractive(): ?AMBTemplateVersionLanguageInteractive
+    {
+        return $this->interactive;
+    }
+    /**
+     * Stored interaction. Includes its `{{ variable }}` placeholders.
+     *
+     * @param AMBTemplateVersionLanguageInteractive|AMBInteractive|array|null $interactive
+     *
+     * @return self
+     */
+    public function setInteractive($interactive): self
+    {
+        $this->initialized['interactive'] = true;
+        $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, AMBTemplateVersionLanguageInteractive::class);
         return $this;
     }
     /**

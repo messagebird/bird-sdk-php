@@ -9,6 +9,7 @@ namespace MessageBird\Resources;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSStatsByCarrierResponse;
 use MessageBird\Wire\Model\SMSStatsByCategoryResponse;
+use MessageBird\Wire\Model\SMSStatsByCostCenterResponse;
 use MessageBird\Wire\Model\SMSStatsByCountryResponse;
 use MessageBird\Wire\Model\SMSStatsByErrorCodeResponse;
 use MessageBird\Wire\Model\SMSStatsByOriginatorResponse;
@@ -182,5 +183,23 @@ class SmsStatsBase extends Resource
     public function byTag(?array $query = null, ?RequestOptions $options = null): SMSStatsByTagResponse
     {
         return $this->single('GET', '/v1/sms/stats/tags', SMSStatsByTagResponse::class, null, $query, $options);
+    }
+
+    /**
+     * SMS delivery and latency stats grouped by the `cost_center` messages were sent with, ranked by the `sort` metric (default `accepted`) and capped by `limit` (default 50, maximum 200). Messages sent without a cost center are not counted, so rows do not sum to the period total.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Compare cost centers
+     * $byCostCenter = $bird->sms->stats->byCostCenter(['from' => '2026-05-01', 'to' => '2026-05-31']);
+     * foreach ($byCostCenter->getData() ?? [] as $row) {
+     *     // Messages sent without a cost center are not counted, so rows do not sum to
+     *     // the period total.
+     *     echo $row->getCostCenter(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+     * }
+     */
+    public function byCostCenter(?array $query = null, ?RequestOptions $options = null): SMSStatsByCostCenterResponse
+    {
+        return $this->single('GET', '/v1/sms/stats/cost-centers', SMSStatsByCostCenterResponse::class, null, $query, $options);
     }
 }

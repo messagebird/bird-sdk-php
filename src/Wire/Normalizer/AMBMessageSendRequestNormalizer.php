@@ -55,11 +55,23 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('source', $data) && $data['source'] === null) {
             $object->setSource(null);
         }
-        if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $object->setContent($data['content']);
+        if (\array_key_exists('text', $data) && $data['text'] !== null) {
+            $object->setText($this->denormalizer->denormalize($data['text'], \MessageBird\Wire\Model\AMBMessageSendRequestText::class, 'json', $context));
         }
-        elseif (\array_key_exists('content', $data) && $data['content'] === null) {
-            $object->setContent(null);
+        elseif (\array_key_exists('text', $data) && $data['text'] === null) {
+            $object->setText(null);
+        }
+        if (\array_key_exists('rich_link', $data) && $data['rich_link'] !== null) {
+            $object->setRichLink($this->denormalizer->denormalize($data['rich_link'], \MessageBird\Wire\Model\AMBMessageSendRequestRichLink::class, 'json', $context));
+        }
+        elseif (\array_key_exists('rich_link', $data) && $data['rich_link'] === null) {
+            $object->setRichLink(null);
+        }
+        if (\array_key_exists('interactive', $data) && $data['interactive'] !== null) {
+            $object->setInteractive($this->denormalizer->denormalize($data['interactive'], \MessageBird\Wire\Model\AMBMessageSendRequestInteractive::class, 'json', $context));
+        }
+        elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
+            $object->setInteractive(null);
         }
         if (\array_key_exists('template', $data) && $data['template'] !== null) {
             $object->setTemplate($this->denormalizer->denormalize($data['template'], \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class, 'json', $context));
@@ -127,8 +139,14 @@ class AMBMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         if ($data->isInitialized('source') && null !== $data->getSource()) {
             $dataArray['source'] = $data->getSource();
         }
-        if ($data->isInitialized('content') && null !== $data->getContent()) {
-            $dataArray['content'] = $data->getContent();
+        if ($data->isInitialized('text') && null !== $data->getText()) {
+            $dataArray['text'] = $this->normalizer->normalize($data->getText(), 'json', $context);
+        }
+        if ($data->isInitialized('richLink') && null !== $data->getRichLink()) {
+            $dataArray['rich_link'] = $this->normalizer->normalize($data->getRichLink(), 'json', $context);
+        }
+        if ($data->isInitialized('interactive') && null !== $data->getInteractive()) {
+            $dataArray['interactive'] = $this->normalizer->normalize($data->getInteractive(), 'json', $context);
         }
         if ($data->isInitialized('template') && null !== $data->getTemplate()) {
             $dataArray['template'] = $this->normalizer->normalize($data->getTemplate(), 'json', $context);

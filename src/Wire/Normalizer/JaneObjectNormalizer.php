@@ -696,6 +696,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByOriginatorResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSCostCenterStatsPoint::class => \MessageBird\Wire\Normalizer\SMSCostCenterStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCostCenterStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSCostCenterStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSCostCenterStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSCostCenterStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByCostCenterResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCostCenterResponseNormalizer::class,
+
         \MessageBird\Wire\Model\SMSStatusStatsPoint::class => \MessageBird\Wire\Normalizer\SMSStatusStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByStatusResponseNormalizer::class,
@@ -1228,15 +1236,105 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => \MessageBird\Wire\Normalizer\AMBRoutingRuleUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBNativeAttachment::class => \MessageBird\Wire\Normalizer\AMBNativeAttachmentNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBText::class => \MessageBird\Wire\Normalizer\AMBTextNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeRichLinkImage::class => \MessageBird\Wire\Normalizer\AMBNativeRichLinkImageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeRichLinkVideo::class => \MessageBird\Wire\Normalizer\AMBNativeRichLinkVideoNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeRichLinkAssets::class => \MessageBird\Wire\Normalizer\AMBNativeRichLinkAssetsNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeRichLinkData::class => \MessageBird\Wire\Normalizer\AMBNativeRichLinkDataNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRichLinkConstruct::class => \MessageBird\Wire\Normalizer\AMBRichLinkConstructNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBRichLink::class => \MessageBird\Wire\Normalizer\AMBRichLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageBubble::class => \MessageBird\Wire\Normalizer\AMBMessageBubbleNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeImage::class => \MessageBird\Wire\Normalizer\AMBNativeImageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBQuickReplyItem::class => \MessageBird\Wire\Normalizer\AMBQuickReplyItemNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeQuickReply::class => \MessageBird\Wire\Normalizer\AMBNativeQuickReplyNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBListPickerItem::class => \MessageBird\Wire\Normalizer\AMBListPickerItemNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBListPickerSection::class => \MessageBird\Wire\Normalizer\AMBListPickerSectionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeListPicker::class => \MessageBird\Wire\Normalizer\AMBNativeListPickerNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBLocation::class => \MessageBird\Wire\Normalizer\AMBLocationNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTimeSlot::class => \MessageBird\Wire\Normalizer\AMBTimeSlotNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeEvent::class => \MessageBird\Wire\Normalizer\AMBNativeEventNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBFormSplash::class => \MessageBird\Wire\Normalizer\AMBFormSplashNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeFormData::class => \MessageBird\Wire\Normalizer\AMBNativeFormDataNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeDynamic::class => \MessageBird\Wire\Normalizer\AMBNativeDynamicNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBIMessageApp::class => \MessageBird\Wire\Normalizer\AMBIMessageAppNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativePayment::class => \MessageBird\Wire\Normalizer\AMBNativePaymentNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeAuthentication::class => \MessageBird\Wire\Normalizer\AMBNativeAuthenticationNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInteractive::class => \MessageBird\Wire\Normalizer\AMBInteractiveNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundImage::class => \MessageBird\Wire\Normalizer\AMBNativeInboundImageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundQuickReply::class => \MessageBird\Wire\Normalizer\AMBNativeInboundQuickReplyNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundListPickerSection::class => \MessageBird\Wire\Normalizer\AMBNativeInboundListPickerSectionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundListPicker::class => \MessageBird\Wire\Normalizer\AMBNativeInboundListPickerNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundEvent::class => \MessageBird\Wire\Normalizer\AMBNativeInboundEventNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundFormItem::class => \MessageBird\Wire\Normalizer\AMBInboundFormItemNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundFormSelection::class => \MessageBird\Wire\Normalizer\AMBInboundFormSelectionNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundFormData::class => \MessageBird\Wire\Normalizer\AMBNativeInboundFormDataNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundDynamic::class => \MessageBird\Wire\Normalizer\AMBNativeInboundDynamicNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundPayment::class => \MessageBird\Wire\Normalizer\AMBNativeInboundPaymentNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBNativeInboundAuthentication::class => \MessageBird\Wire\Normalizer\AMBNativeInboundAuthenticationNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInboundIMessageApp::class => \MessageBird\Wire\Normalizer\AMBInboundIMessageAppNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBInteractiveReply::class => \MessageBird\Wire\Normalizer\AMBInteractiveReplyNormalizer::class,
+
         \MessageBird\Wire\Model\AMBError::class => \MessageBird\Wire\Normalizer\AMBErrorNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessage::class => \MessageBird\Wire\Normalizer\AMBMessageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageText::class => \MessageBird\Wire\Normalizer\AMBMessageTextNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageRichLink::class => \MessageBird\Wire\Normalizer\AMBMessageRichLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageInteractive::class => \MessageBird\Wire\Normalizer\AMBMessageInteractiveNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageInteractiveReply::class => \MessageBird\Wire\Normalizer\AMBMessageInteractiveReplyNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessageList::class => \MessageBird\Wire\Normalizer\AMBMessageListNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateSend::class => \MessageBird\Wire\Normalizer\AMBTemplateSendNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessageSendRequest::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageSendRequestText::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestTextNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageSendRequestRichLink::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestRichLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessageSendRequestInteractive::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestInteractiveNormalizer::class,
 
         \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class => \MessageBird\Wire\Normalizer\AMBMessageSendRequestTemplateNormalizer::class,
 
@@ -1308,6 +1406,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBTemplateVersionLanguage::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBTemplateVersionLanguageText::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageTextNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersionLanguageRichLink::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageRichLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateVersionLanguageInteractive::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageInteractiveNormalizer::class,
+
         \MessageBird\Wire\Model\AMBTemplateVersion::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageSummaryNormalizer::class,
@@ -1315,6 +1419,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBTemplateLanguageList::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageListNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateLanguage::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageText::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageTextNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageRichLink::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageRichLinkNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageInteractive::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageInteractiveNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessPortfolioNormalizer::class,
 
@@ -2583,6 +2693,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSOriginatorStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\SMSOriginatorStatsPointLatency::class => false,
             \MessageBird\Wire\Model\SMSStatsByOriginatorResponse::class => false,
+            \MessageBird\Wire\Model\SMSCostCenterStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSCostCenterStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSCostCenterStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByCostCenterResponse::class => false,
             \MessageBird\Wire\Model\SMSStatusStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSStatsByStatusResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsResponse::class => false,
@@ -2849,11 +2963,56 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBRoutingRuleList::class => false,
             \MessageBird\Wire\Model\AMBRoutingRuleCreate::class => false,
             \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => false,
+            \MessageBird\Wire\Model\AMBNativeAttachment::class => false,
+            \MessageBird\Wire\Model\AMBText::class => false,
+            \MessageBird\Wire\Model\AMBNativeRichLinkImage::class => false,
+            \MessageBird\Wire\Model\AMBNativeRichLinkVideo::class => false,
+            \MessageBird\Wire\Model\AMBNativeRichLinkAssets::class => false,
+            \MessageBird\Wire\Model\AMBNativeRichLinkData::class => false,
+            \MessageBird\Wire\Model\AMBRichLinkConstruct::class => false,
+            \MessageBird\Wire\Model\AMBRichLink::class => false,
+            \MessageBird\Wire\Model\AMBMessageBubble::class => false,
+            \MessageBird\Wire\Model\AMBNativeImage::class => false,
+            \MessageBird\Wire\Model\AMBQuickReplyItem::class => false,
+            \MessageBird\Wire\Model\AMBNativeQuickReply::class => false,
+            \MessageBird\Wire\Model\AMBListPickerItem::class => false,
+            \MessageBird\Wire\Model\AMBListPickerSection::class => false,
+            \MessageBird\Wire\Model\AMBNativeListPicker::class => false,
+            \MessageBird\Wire\Model\AMBLocation::class => false,
+            \MessageBird\Wire\Model\AMBTimeSlot::class => false,
+            \MessageBird\Wire\Model\AMBNativeEvent::class => false,
+            \MessageBird\Wire\Model\AMBFormSplash::class => false,
+            \MessageBird\Wire\Model\AMBNativeFormData::class => false,
+            \MessageBird\Wire\Model\AMBNativeDynamic::class => false,
+            \MessageBird\Wire\Model\AMBIMessageApp::class => false,
+            \MessageBird\Wire\Model\AMBNativePayment::class => false,
+            \MessageBird\Wire\Model\AMBNativeAuthentication::class => false,
+            \MessageBird\Wire\Model\AMBInteractive::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundImage::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundQuickReply::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundListPickerSection::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundListPicker::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundEvent::class => false,
+            \MessageBird\Wire\Model\AMBInboundFormItem::class => false,
+            \MessageBird\Wire\Model\AMBInboundFormSelection::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundFormData::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundDynamic::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundPayment::class => false,
+            \MessageBird\Wire\Model\AMBNativeInboundAuthentication::class => false,
+            \MessageBird\Wire\Model\AMBInboundIMessageApp::class => false,
+            \MessageBird\Wire\Model\AMBInteractiveReply::class => false,
             \MessageBird\Wire\Model\AMBError::class => false,
             \MessageBird\Wire\Model\AMBMessage::class => false,
+            \MessageBird\Wire\Model\AMBMessageText::class => false,
+            \MessageBird\Wire\Model\AMBMessageRichLink::class => false,
+            \MessageBird\Wire\Model\AMBMessageInteractive::class => false,
+            \MessageBird\Wire\Model\AMBMessageInteractiveReply::class => false,
             \MessageBird\Wire\Model\AMBMessageList::class => false,
             \MessageBird\Wire\Model\AMBTemplateSend::class => false,
             \MessageBird\Wire\Model\AMBMessageSendRequest::class => false,
+            \MessageBird\Wire\Model\AMBMessageSendRequestText::class => false,
+            \MessageBird\Wire\Model\AMBMessageSendRequestRichLink::class => false,
+            \MessageBird\Wire\Model\AMBMessageSendRequestInteractive::class => false,
             \MessageBird\Wire\Model\AMBMessageSendRequestTemplate::class => false,
             \MessageBird\Wire\Model\AMBMessageEvent::class => false,
             \MessageBird\Wire\Model\AMBMessageEventList::class => false,
@@ -2889,10 +3048,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBTemplateVersionSummary::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionList::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionLanguage::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionLanguageText::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionLanguageRichLink::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionLanguageInteractive::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersion::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageList::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguage::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageText::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageRichLink::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageInteractive::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
             \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => false,
