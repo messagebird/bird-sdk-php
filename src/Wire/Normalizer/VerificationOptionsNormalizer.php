@@ -59,6 +59,18 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('language', $data) && $data['language'] === null) {
             $object->setLanguage(null);
         }
+        if (\array_key_exists('autofill_origin', $data) && $data['autofill_origin'] !== null) {
+            $object->setAutofillOrigin($data['autofill_origin']);
+        }
+        elseif (\array_key_exists('autofill_origin', $data) && $data['autofill_origin'] === null) {
+            $object->setAutofillOrigin(null);
+        }
+        if (\array_key_exists('autofill_top_level_origin', $data) && $data['autofill_top_level_origin'] !== null) {
+            $object->setAutofillTopLevelOrigin($data['autofill_top_level_origin']);
+        }
+        elseif (\array_key_exists('autofill_top_level_origin', $data) && $data['autofill_top_level_origin'] === null) {
+            $object->setAutofillTopLevelOrigin(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -76,6 +88,12 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
         }
         if ($data->isInitialized('language') && null !== $data->getLanguage()) {
             $dataArray['language'] = $data->getLanguage();
+        }
+        if ($data->isInitialized('autofillOrigin') && null !== $data->getAutofillOrigin()) {
+            $dataArray['autofill_origin'] = $data->getAutofillOrigin();
+        }
+        if ($data->isInitialized('autofillTopLevelOrigin') && null !== $data->getAutofillTopLevelOrigin()) {
+            $dataArray['autofill_top_level_origin'] = $data->getAutofillTopLevelOrigin();
         }
         return $dataArray;
     }
