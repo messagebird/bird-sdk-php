@@ -23,14 +23,14 @@ class TemplateVariable
      */
     protected $key;
     /**
-     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`, `location`, `timezone`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. A `location` value is an object with `latitude` and `longitude`, and optionally `name` and `address`. On Apple Messages, `name` becomes the location's title and `address` is not shown. Workspace SMS parameters must be scalar values.
      * 
      *
      * @var string|null
      */
     protected $type;
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
      * 
      *
      * @var bool|null
@@ -81,7 +81,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`, `location`, `timezone`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. A `location` value is an object with `latitude` and `longitude`, and optionally `name` and `address`. On Apple Messages, `name` becomes the location's title and `address` is not shown. Workspace SMS parameters must be scalar values.
      * 
      *
      * @return string|null
@@ -91,7 +91,7 @@ class TemplateVariable
         return $this->type;
     }
     /**
-     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
+     * The value type this slot accepts. Each typed slot rejects a value that does not match its `constraint`. Built-in SMS templates use typed slots (`code`, `amount` and the rest). Apple Messages templates type a variable from its content: the field it fills (`url`, `image`, `timestamp`, `location`, `timezone`) or the formatting filter applied to it (`date`, `date_time`, `amount`, `currency`). Email and workspace SMS templates use `text`. WhatsApp templates use `text`, plus `url` for a media header's file and `location` for a location header. A `location` value is an object with `latitude` and `longitude`, and optionally `name` and `address`. On Apple Messages, `name` becomes the location's title and `address` is not shown. Workspace SMS parameters must be scalar values.
      *
      * @param string|null $type
      *
@@ -104,7 +104,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
      * 
      *
      * @return bool|null
@@ -114,7 +114,7 @@ class TemplateVariable
         return $this->required;
     }
     /**
-     * Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
+     * Whether the send must supply this variable. Omitting a required value returns `422` on every channel. On Apple Messages, a later time slot's start that is used nowhere else is optional: a send that omits it drops that slot. Always false when `system` is true, because you do not supply that slot's value.
      *
      * @param bool|null $required
      *

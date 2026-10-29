@@ -34,7 +34,7 @@ class AMBTemplateSend
      */
     protected $language;
     /**
-     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A `location` variable takes an object with `latitude` and `longitude`, and optionally `name`, which becomes the location's title. `address` is accepted for parity with WhatsApp and is not shown on Apple Messages. Every other variable takes a string, number or boolean. A missing required key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      * 
      *
      * @var array<string, mixed>|null
@@ -105,7 +105,7 @@ class AMBTemplateSend
         return $this;
     }
     /**
-     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A `location` variable takes an object with `latitude` and `longitude`, and optionally `name`, which becomes the location's title. `address` is accepted for parity with WhatsApp and is not shown on Apple Messages. Every other variable takes a string, number or boolean. A missing required key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      * 
      *
      * @return array<string, mixed>|null
@@ -115,7 +115,7 @@ class AMBTemplateSend
         return $this->parameters;
     }
     /**
-     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+     * Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A `location` variable takes an object with `latitude` and `longitude`, and optionally `name`, which becomes the location's title. `address` is accepted for parity with WhatsApp and is not shown on Apple Messages. Every other variable takes a string, number or boolean. A missing required key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
      *
      * @param array<string, mixed>|null $parameters
      *

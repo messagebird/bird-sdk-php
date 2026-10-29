@@ -37,7 +37,7 @@ class EmailInboxInsightsSeedTestCreate
      */
     protected $engagementProfile;
     /**
-     * The regions to place seeds in, as the seed-test configuration names them.
+     * Region names exactly as returned by the seed-test configuration.
      *
      * @var list<string>|null
      */
@@ -118,7 +118,7 @@ class EmailInboxInsightsSeedTestCreate
         return $this;
     }
     /**
-     * The regions to place seeds in, as the seed-test configuration names them.
+     * Region names exactly as returned by the seed-test configuration.
      *
      * @return list<string>|null
      */
@@ -127,7 +127,7 @@ class EmailInboxInsightsSeedTestCreate
         return $this->regions;
     }
     /**
-     * The regions to place seeds in, as the seed-test configuration names them.
+     * Region names exactly as returned by the seed-test configuration.
      *
      * @param list<string>|null $regions
      *
