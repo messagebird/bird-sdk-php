@@ -71,6 +71,12 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('autofill_top_level_origin', $data) && $data['autofill_top_level_origin'] === null) {
             $object->setAutofillTopLevelOrigin(null);
         }
+        if (\array_key_exists('android_app_hash', $data) && $data['android_app_hash'] !== null) {
+            $object->setAndroidAppHash($data['android_app_hash']);
+        }
+        elseif (\array_key_exists('android_app_hash', $data) && $data['android_app_hash'] === null) {
+            $object->setAndroidAppHash(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -94,6 +100,9 @@ class VerificationOptionsNormalizer implements DenormalizerInterface, Normalizer
         }
         if ($data->isInitialized('autofillTopLevelOrigin') && null !== $data->getAutofillTopLevelOrigin()) {
             $dataArray['autofill_top_level_origin'] = $data->getAutofillTopLevelOrigin();
+        }
+        if ($data->isInitialized('androidAppHash') && null !== $data->getAndroidAppHash()) {
+            $dataArray['android_app_hash'] = $data->getAndroidAppHash();
         }
         return $dataArray;
     }
