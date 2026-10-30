@@ -1978,6 +1978,26 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WebhookAttemptList::class => \MessageBird\Wire\Normalizer\WebhookAttemptListNormalizer::class,
 
+        \MessageBird\Wire\Model\WebhookClientCertificateSigningRequest::class => \MessageBird\Wire\Normalizer\WebhookClientCertificateSigningRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookClientCertificate::class => \MessageBird\Wire\Normalizer\WebhookClientCertificateNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookClientCertificateCertificate::class => \MessageBird\Wire\Normalizer\WebhookClientCertificateCertificateNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookClientCertificateUpdate::class => \MessageBird\Wire\Normalizer\WebhookClientCertificateUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\WebhookClientCertificateUpload::class => \MessageBird\Wire\Normalizer\WebhookClientCertificateUploadNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceMTLSSettings::class => \MessageBird\Wire\Normalizer\WorkspaceMTLSSettingsNormalizer::class,
+
+        \MessageBird\Wire\Model\WorkspaceMTLSSettingsUpdate::class => \MessageBird\Wire\Normalizer\WorkspaceMTLSSettingsUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\MTLSCertificateAuthority::class => \MessageBird\Wire\Normalizer\MTLSCertificateAuthorityNormalizer::class,
+
+        \MessageBird\Wire\Model\MTLSCertificateAuthorityList::class => \MessageBird\Wire\Normalizer\MTLSCertificateAuthorityListNormalizer::class,
+
+        \MessageBird\Wire\Model\MTLSCertificateAuthorityCreate::class => \MessageBird\Wire\Normalizer\MTLSCertificateAuthorityCreateNormalizer::class,
+
         \MessageBird\Wire\Model\VoicePartySIPEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartySIPEndpointNormalizer::class,
 
         \MessageBird\Wire\Model\VoicePartyBridgePSTNEndpoint::class => \MessageBird\Wire\Normalizer\VoicePartyBridgePSTNEndpointNormalizer::class,
@@ -3346,6 +3366,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WebhookReplayRequest::class => false,
             \MessageBird\Wire\Model\WebhookAttempt::class => false,
             \MessageBird\Wire\Model\WebhookAttemptList::class => false,
+            \MessageBird\Wire\Model\WebhookClientCertificateSigningRequest::class => false,
+            \MessageBird\Wire\Model\WebhookClientCertificate::class => false,
+            \MessageBird\Wire\Model\WebhookClientCertificateCertificate::class => false,
+            \MessageBird\Wire\Model\WebhookClientCertificateUpdate::class => false,
+            \MessageBird\Wire\Model\WebhookClientCertificateUpload::class => false,
+            \MessageBird\Wire\Model\WorkspaceMTLSSettings::class => false,
+            \MessageBird\Wire\Model\WorkspaceMTLSSettingsUpdate::class => false,
+            \MessageBird\Wire\Model\MTLSCertificateAuthority::class => false,
+            \MessageBird\Wire\Model\MTLSCertificateAuthorityList::class => false,
+            \MessageBird\Wire\Model\MTLSCertificateAuthorityCreate::class => false,
             \MessageBird\Wire\Model\VoicePartySIPEndpoint::class => false,
             \MessageBird\Wire\Model\VoicePartyBridgePSTNEndpoint::class => false,
             \MessageBird\Wire\Model\VoicePartyBridgeSIPEndpoint::class => false,

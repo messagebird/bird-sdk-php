@@ -52,6 +52,17 @@ class WebhookTestResponse
      */
     protected $error;
     /**
+     * What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
+     * 
+     * - `presented`: your endpoint asked for the certificate and accepted it.
+     * - `not_requested`: your endpoint did not ask for a certificate.
+     * - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
+     * 
+     *
+     * @var string|null
+     */
+    protected $clientCertificate;
+    /**
      * Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
      * 
      *
@@ -184,6 +195,38 @@ class WebhookTestResponse
     {
         $this->initialized['error'] = true;
         $this->error = $error;
+        return $this;
+    }
+    /**
+     * What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
+     * 
+     * - `presented`: your endpoint asked for the certificate and accepted it.
+     * - `not_requested`: your endpoint did not ask for a certificate.
+     * - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
+     * 
+     *
+     * @return string|null
+     */
+    public function getClientCertificate(): ?string
+    {
+        return $this->clientCertificate;
+    }
+    /**
+    * What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
+    
+    - `presented`: your endpoint asked for the certificate and accepted it.
+    - `not_requested`: your endpoint did not ask for a certificate.
+    - `rejected`: your endpoint rejected the certificate. If your workspace allows deliveries without the certificate, we sent the test again without it, and the other fields show the result of that second request.
+    
+    *
+    * @param string|null $clientCertificate
+    *
+    * @return self
+    */
+    public function setClientCertificate(?string $clientCertificate): self
+    {
+        $this->initialized['clientCertificate'] = true;
+        $this->clientCertificate = $clientCertificate;
         return $this;
     }
 }

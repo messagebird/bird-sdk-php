@@ -216,6 +216,10 @@ foreach (array_unique($wrapperBases) as $base) {
     if (!isset($document['components']['schemas'][$base]['type'])) {
         $document['components']['schemas'][$base]['type'] = 'object';
     }
+    // Keep composed bases model-typed without closing their additional properties.
+    if (isset($document['components']['schemas'][$base]['allOf']) && !isset($document['components']['schemas'][$base]['properties'])) {
+        $document['components']['schemas'][$base]['properties'] = new \stdClass();
+    }
 }
 // Jane guesses a type: object composition with no properties of its own as an open map, since its
 // additionalProperties guess precedes its allOf guess. Untyped, the allOf guess names the model.

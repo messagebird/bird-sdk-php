@@ -64,6 +64,18 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('unit', $data) && $data['unit'] === null) {
             $object->setUnit(null);
         }
+        if (\array_key_exists('label', $data) && $data['label'] !== null) {
+            $object->setLabel($data['label']);
+        }
+        elseif (\array_key_exists('label', $data) && $data['label'] === null) {
+            $object->setLabel(null);
+        }
+        if (\array_key_exists('type', $data) && $data['type'] !== null) {
+            $object->setType($data['type']);
+        }
+        elseif (\array_key_exists('type', $data) && $data['type'] === null) {
+            $object->setType(null);
+        }
         if (\array_key_exists('kind', $data) && $data['kind'] !== null) {
             $object->setKind($data['kind']);
         }
@@ -139,6 +151,8 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
         $dataArray['name'] = $data->getName();
         $dataArray['description'] = $data->getDescription();
         $dataArray['unit'] = $data->getUnit();
+        $dataArray['label'] = $data->getLabel();
+        $dataArray['type'] = $data->getType();
         $dataArray['kind'] = $data->getKind();
         $dataArray['enforcement'] = $data->getEnforcement();
         $dataArray['maximum_value'] = $data->getMaximumValue();

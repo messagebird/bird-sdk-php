@@ -10,6 +10,7 @@ use MessageBird\ComplianceFile;
 use MessageBird\Exception\ApiException;
 use MessageBird\Tests\Support\BodyRecordingClient;
 use MessageBird\Tests\Support\SequenceClient;
+use MessageBird\Wire\Model\Attachment;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -66,7 +67,11 @@ final class ComplianceAttachmentsTest extends TestCase
 
     public function testCreateSendsTheFileAndDescriptionAsMultipart(): void
     {
-        [$bird, $client] = $this->bird(0, $this->response(201, self::ATTACHMENT, ['Content-Type' => 'application/json']));
+        [$bird, $client] = $this->bird(
+            0,
+            $this->response(201, self::ATTACHMENT, ['Content-Type' => 'application/json']),
+            $this->response(200, '{"data":[' . self::ATTACHMENT . '],"next_cursor":null,"prev_cursor":null,"refresh_cursor":"first"}', ['Content-Type' => 'application/json']),
+        );
 
         $attachment = $bird->complianceAttachments->create(self::PDF, 'proof.pdf', 'Utility bill');
 
@@ -76,6 +81,11 @@ final class ComplianceAttachmentsTest extends TestCase
         self::assertNotSame('', $request->getHeaderLine('Idempotency-Key'));
         self::assertSame(['file' => ['proof.pdf', self::PDF], 'description' => [null, 'Utility bill']], self::parts($request));
         self::assertSame('tca_01krdgeqcxet5s7t44vh8rt9mg', $attachment->getId());
+
+        $page = $bird->complianceAttachments->list()->fetch();
+        self::assertCount(1, $page->data);
+        self::assertInstanceOf(Attachment::class, $page->data[0]);
+        self::assertSame($attachment->getId(), $page->data[0]->getId());
     }
 
     public function testCreateOmitsAnUnsetDescription(): void

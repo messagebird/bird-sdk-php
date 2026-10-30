@@ -2,6 +2,12 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.93.0
+
+- Add `getType()` to `WorkspaceQuota`: integer for a count or amount, or boolean for a feature switch whose limit is 1 (on) or 0 (off).
+- **Breaking:** `getUnit()` on `WorkspaceQuota` now returns what the limit is measured in (count, bytes, days or microunits), and `null` for a boolean quota. The display text it used to return moves to the new `getLabel()`.
+- When your workspace presents an mTLS client certificate, webhook test results now report whether the endpoint accepted it: `presented`, `not_requested` or `rejected`. The result is absent when no certificate is presented or the test fails before the endpoint answers.
+
 ## 0.92.0
 
 - Apple Messages sends gain `skip_typing`. Set it after you send `typing_start` for the conversation, and Bird sends the first part without its own typing indicator and one-second pause. When Bird splits a message into parts, such as text around a link, later parts keep their indicator.

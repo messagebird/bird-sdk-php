@@ -30,11 +30,33 @@ class WorkspaceQuota
      */
     protected $description;
     /**
-     * What the limit counts, such as `mailboxes`, `bytes` or `days`.
+     * What the quota's limit is measured in. `null` for a quota whose `type` is `boolean`, because its limit is a switch rather than an amount. `label` names what is counted.
+     * 
+     * - `count`: a plain number: a count of things, such as domains or mailboxes, or a ratio such as a percentage or multiple.
+     * - `bytes`: stored data, in bytes.
+     * - `days`: a period, in days.
+     * - `microunits`: an amount of money in millionths of the billing currency's main unit.
+     * 
      *
      * @var string|null
      */
     protected $unit;
+    /**
+     * What the product calls the thing the limit applies to, such as `domains` or `seed tests`, for display next to the limit.
+     *
+     * @var string|null
+     */
+    protected $label;
+    /**
+     * How to read the quota's limit.
+     * 
+     * - `integer`: a count or amount, measured in `unit`.
+     * - `boolean`: a feature switch. A limit of `1` turns the feature on and `0` turns it off.
+     * 
+     *
+     * @var string|null
+     */
+    protected $type;
     /**
      * What the quota limits.
      * 
@@ -179,7 +201,13 @@ class WorkspaceQuota
         return $this;
     }
     /**
-     * What the limit counts, such as `mailboxes`, `bytes` or `days`.
+     * What the quota's limit is measured in. `null` for a quota whose `type` is `boolean`, because its limit is a switch rather than an amount. `label` names what is counted.
+     * 
+     * - `count`: a plain number: a count of things, such as domains or mailboxes, or a ratio such as a percentage or multiple.
+     * - `bytes`: stored data, in bytes.
+     * - `days`: a period, in days.
+     * - `microunits`: an amount of money in millionths of the billing currency's main unit.
+     * 
      *
      * @return string|null
      */
@@ -188,16 +216,74 @@ class WorkspaceQuota
         return $this->unit;
     }
     /**
-     * What the limit counts, such as `mailboxes`, `bytes` or `days`.
-     *
-     * @param string|null $unit
-     *
-     * @return self
-     */
+    * What the quota's limit is measured in. `null` for a quota whose `type` is `boolean`, because its limit is a switch rather than an amount. `label` names what is counted.
+    
+    - `count`: a plain number: a count of things, such as domains or mailboxes, or a ratio such as a percentage or multiple.
+    - `bytes`: stored data, in bytes.
+    - `days`: a period, in days.
+    - `microunits`: an amount of money in millionths of the billing currency's main unit.
+    
+    *
+    * @param string|null $unit
+    *
+    * @return self
+    */
     public function setUnit(?string $unit): self
     {
         $this->initialized['unit'] = true;
         $this->unit = $unit;
+        return $this;
+    }
+    /**
+     * What the product calls the thing the limit applies to, such as `domains` or `seed tests`, for display next to the limit.
+     *
+     * @return string|null
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+    /**
+     * What the product calls the thing the limit applies to, such as `domains` or `seed tests`, for display next to the limit.
+     *
+     * @param string|null $label
+     *
+     * @return self
+     */
+    public function setLabel(?string $label): self
+    {
+        $this->initialized['label'] = true;
+        $this->label = $label;
+        return $this;
+    }
+    /**
+     * How to read the quota's limit.
+     * 
+     * - `integer`: a count or amount, measured in `unit`.
+     * - `boolean`: a feature switch. A limit of `1` turns the feature on and `0` turns it off.
+     * 
+     *
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+    /**
+    * How to read the quota's limit.
+    
+    - `integer`: a count or amount, measured in `unit`.
+    - `boolean`: a feature switch. A limit of `1` turns the feature on and `0` turns it off.
+    
+    *
+    * @param string|null $type
+    *
+    * @return self
+    */
+    public function setType(?string $type): self
+    {
+        $this->initialized['type'] = true;
+        $this->type = $type;
         return $this;
     }
     /**

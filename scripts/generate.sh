@@ -17,16 +17,18 @@ set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 repo_root="$(cd "$here/../.." && pwd)"
 
-bundle="$repo_root/backend/openapi/.generated/openapi.public.bundle.yaml"
+# Synthetic parity uses the same pipeline with its own original 3.1 fixture.
+bundle="${1:-$repo_root/backend/openapi/.generated/openapi.public.bundle.yaml}"
 gendir="$here/.generated"
-compat="$gendir/openapi.public.compat.yaml"
 # The parity check points BEAK_STAGE at a temp tree, so the comparison never
 # touches the committed one. A direct invocation regenerates in place.
 if [ -n "${BEAK_STAGE:-}" ]; then
     wire="$BEAK_STAGE/clients/sdk-php/src/Wire"
+    gendir="$BEAK_STAGE/clients/sdk-php/.generated"
 else
     wire="$here/src/Wire"
 fi
+compat="$gendir/openapi.public.compat.yaml"
 
 # Skips cleanly without the PHP toolchain. The parity check treats an empty
 # result as a failure rather than a pass, so a silent skip cannot read as
@@ -40,7 +42,7 @@ mkdir -p "$gendir"
 
 echo "==> openapi-compat: 3.1 -> 3.0"
 ( cd "$repo_root/backend" && go run -trimpath scripts/openapi-compat.go \
-    "openapi/.generated/openapi.public.bundle.yaml" "$compat" )
+    "$bundle" "$compat" )
 
 # Jane resolves parameter defaults, then reads them from the unresolved reference and crashes.
 php "$here/scripts/prepare-jane.php" "$compat" "$gendir/openapi.public.jane.json" "$bundle"

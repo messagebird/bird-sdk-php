@@ -73,6 +73,12 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('error', $data) && $data['error'] === null) {
             $object->setError(null);
         }
+        if (\array_key_exists('client_certificate', $data) && $data['client_certificate'] !== null) {
+            $object->setClientCertificate($data['client_certificate']);
+        }
+        elseif (\array_key_exists('client_certificate', $data) && $data['client_certificate'] === null) {
+            $object->setClientCertificate(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -89,6 +95,9 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         }
         if ($data->isInitialized('error') && null !== $data->getError()) {
             $dataArray['error'] = $data->getError();
+        }
+        if ($data->isInitialized('clientCertificate') && null !== $data->getClientCertificate()) {
+            $dataArray['client_certificate'] = $data->getClientCertificate();
         }
         return $dataArray;
     }
