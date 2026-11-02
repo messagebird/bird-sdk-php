@@ -54,10 +54,11 @@ class EmailTemplateCreate
      * - Comparing against `empty`/`blank` (use `.size == 0` instead).
      * - Blocks nested far deeper than real email markup needs.
      * 
-     * A broadcast's template additionally cannot use a `{% for %}` loop,
-     * because a broadcast supplies one value per contact property, so there
-     * is nothing to iterate. Send with the messages API instead if the
-     * template needs one.
+     * Broadcast template parameters accept scalar values; arrays and objects are unsupported.
+     * Broadcasts support `{% for %}` over a local collection created with `split`.
+     * Broadcasts without caller-supplied parameters also support literal ranges and
+     * `{% tablerow %}`. When a broadcast uses caller parameters, ranges and
+     * `{% tablerow %}` are unsupported.
      * 
      *
      * @var string|null
@@ -72,10 +73,17 @@ class EmailTemplateCreate
      * 
      * The example's `{{ first_name }}` is a parameter, filled from
      * `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
-     * placeholder reads a contact record instead. A send to an email address
-     * has no contact record, so it refuses such a template. A broadcast fills
-     * it from each recipient's contact, and a preview from the `contact` or
-     * `parameters` you supply.
+     * placeholder reads a contact attribute. Broadcasts resolve each audience
+     * contact during preparation; previews use the selected contact or sample
+     * values. Missing attributes use their configured fallbacks, while explicit
+     * empty strings remain empty.
+     * 
+     * Public API sends, including batch and scheduled sends, look up each To
+     * address in this workspace when the selected language reads contact
+     * attributes. A missing contact returns `422` (`E04099`), even if Liquid
+     * supplies a default. Each To receives its own personalized email, with Cc
+     * and Bcc copied on each. Resolved values are saved at acceptance for
+     * delivery and later content reads.
      * 
      *
      * @var array<string, EmailTemplateLanguageContent>|null
@@ -204,10 +212,11 @@ class EmailTemplateCreate
      * - Comparing against `empty`/`blank` (use `.size == 0` instead).
      * - Blocks nested far deeper than real email markup needs.
      * 
-     * A broadcast's template additionally cannot use a `{% for %}` loop,
-     * because a broadcast supplies one value per contact property, so there
-     * is nothing to iterate. Send with the messages API instead if the
-     * template needs one.
+     * Broadcast template parameters accept scalar values; arrays and objects are unsupported.
+     * Broadcasts support `{% for %}` over a local collection created with `split`.
+     * Broadcasts without caller-supplied parameters also support literal ranges and
+     * `{% tablerow %}`. When a broadcast uses caller parameters, ranges and
+     * `{% tablerow %}` are unsupported.
      * 
      *
      * @return string|null
@@ -229,10 +238,11 @@ class EmailTemplateCreate
     - Comparing against `empty`/`blank` (use `.size == 0` instead).
     - Blocks nested far deeper than real email markup needs.
     
-    A broadcast's template additionally cannot use a `{% for %}` loop,
-    because a broadcast supplies one value per contact property, so there
-    is nothing to iterate. Send with the messages API instead if the
-    template needs one.
+    Broadcast template parameters accept scalar values; arrays and objects are unsupported.
+    Broadcasts support `{% for %}` over a local collection created with `split`.
+    Broadcasts without caller-supplied parameters also support literal ranges and
+    `{% tablerow %}`. When a broadcast uses caller parameters, ranges and
+    `{% tablerow %}` are unsupported.
     
     *
     * @param string|null $source
@@ -254,10 +264,17 @@ class EmailTemplateCreate
      * 
      * The example's `{{ first_name }}` is a parameter, filled from
      * `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
-     * placeholder reads a contact record instead. A send to an email address
-     * has no contact record, so it refuses such a template. A broadcast fills
-     * it from each recipient's contact, and a preview from the `contact` or
-     * `parameters` you supply.
+     * placeholder reads a contact attribute. Broadcasts resolve each audience
+     * contact during preparation; previews use the selected contact or sample
+     * values. Missing attributes use their configured fallbacks, while explicit
+     * empty strings remain empty.
+     * 
+     * Public API sends, including batch and scheduled sends, look up each To
+     * address in this workspace when the selected language reads contact
+     * attributes. A missing contact returns `422` (`E04099`), even if Liquid
+     * supplies a default. Each To receives its own personalized email, with Cc
+     * and Bcc copied on each. Resolved values are saved at acceptance for
+     * delivery and later content reads.
      * 
      *
      * @return array<string, EmailTemplateLanguageContent>|null
@@ -275,10 +292,17 @@ class EmailTemplateCreate
     
     The example's `{{ first_name }}` is a parameter, filled from
     `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
-    placeholder reads a contact record instead. A send to an email address
-    has no contact record, so it refuses such a template. A broadcast fills
-    it from each recipient's contact, and a preview from the `contact` or
-    `parameters` you supply.
+    placeholder reads a contact attribute. Broadcasts resolve each audience
+    contact during preparation; previews use the selected contact or sample
+    values. Missing attributes use their configured fallbacks, while explicit
+    empty strings remain empty.
+    
+    Public API sends, including batch and scheduled sends, look up each To
+    address in this workspace when the selected language reads contact
+    attributes. A missing contact returns `422` (`E04099`), even if Liquid
+    supplies a default. Each To receives its own personalized email, with Cc
+    and Bcc copied on each. Resolved values are saved at acceptance for
+    delivery and later content reads.
     
     *
     * @param array<string, EmailTemplateLanguageContent>|null $languages

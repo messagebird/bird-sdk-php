@@ -44,7 +44,7 @@ class TemplateVariable
      */
     protected $constraint;
     /**
-     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
+     * Whether this slot requires redacted message history. Published email template sends that store recipient snapshots reject sensitive inputs before acceptance. Other channels retain their own sensitive-input delivery and retention rules.
      * 
      *
      * @var bool|null
@@ -150,7 +150,7 @@ class TemplateVariable
         return $this;
     }
     /**
-     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
+     * Whether this slot requires redacted message history. Published email template sends that store recipient snapshots reject sensitive inputs before acceptance. Other channels retain their own sensitive-input delivery and retention rules.
      * 
      *
      * @return bool|null
@@ -160,7 +160,7 @@ class TemplateVariable
         return $this->sensitive;
     }
     /**
-     * Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
+     * Whether this slot requires redacted message history. Published email template sends that store recipient snapshots reject sensitive inputs before acceptance. Other channels retain their own sensitive-input delivery and retention rules.
      *
      * @param bool|null $sensitive
      *

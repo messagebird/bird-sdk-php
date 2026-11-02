@@ -97,6 +97,13 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('subject', $data) && $data['subject'] === null) {
             $object->setSubject(null);
         }
+        if (\array_key_exists('subject_recipient_id', $data) && $data['subject_recipient_id'] !== null) {
+            $object->setSubjectRecipientId($data['subject_recipient_id']);
+            unset($data['subject_recipient_id']);
+        }
+        elseif (\array_key_exists('subject_recipient_id', $data) && $data['subject_recipient_id'] === null) {
+            $object->setSubjectRecipientId(null);
+        }
         if (\array_key_exists('category', $data) && $data['category'] !== null) {
             $object->setCategory($data['category']);
             unset($data['category']);
@@ -373,6 +380,9 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
             $dataArray['bcc'] = $values_2;
         }
         $dataArray['subject'] = $data->getSubject();
+        if ($data->isInitialized('subjectRecipientId') && null !== $data->getSubjectRecipientId()) {
+            $dataArray['subject_recipient_id'] = $data->getSubjectRecipientId();
+        }
         $dataArray['category'] = $data->getCategory();
         if ($data->isInitialized('replyTo')) {
             $values_3 = [];

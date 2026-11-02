@@ -67,6 +67,18 @@ class EmailRecipientNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('name', $data) && $data['name'] === null) {
             $object->setName(null);
         }
+        if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
+            $object->setSubject($data['subject']);
+        }
+        elseif (\array_key_exists('subject', $data) && $data['subject'] === null) {
+            $object->setSubject(null);
+        }
+        if (\array_key_exists('copy_of_recipient_id', $data) && $data['copy_of_recipient_id'] !== null) {
+            $object->setCopyOfRecipientId($data['copy_of_recipient_id']);
+        }
+        elseif (\array_key_exists('copy_of_recipient_id', $data) && $data['copy_of_recipient_id'] === null) {
+            $object->setCopyOfRecipientId(null);
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }
@@ -150,6 +162,9 @@ class EmailRecipientNormalizer implements DenormalizerInterface, NormalizerInter
         $dataArray['recipient'] = $data->getRecipient();
         if ($data->isInitialized('name')) {
             $dataArray['name'] = $data->getName();
+        }
+        if ($data->isInitialized('copyOfRecipientId') && null !== $data->getCopyOfRecipientId()) {
+            $dataArray['copy_of_recipient_id'] = $data->getCopyOfRecipientId();
         }
         return $dataArray;
     }

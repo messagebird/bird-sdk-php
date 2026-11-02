@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * The body content of a sent email message, as delivered. A send that used a template stores the template's body, so these report it with the send's `parameters` substituted in.
+ * The body content of a sent email message, as delivered. A send that used a template reports its stored body with the accepted caller parameters and the selected recipient's saved contact values substituted in. A contextual send with multiple recipients requires the recipient_id query parameter.
  */
 class EmailMessageContent
 {

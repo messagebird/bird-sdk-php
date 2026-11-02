@@ -34,6 +34,16 @@ use MessageBird\Wire\Model\ReceiveRuleCreate;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
+$content = $bird->email->content('em_01krdgeqcxet5s7t44vh8rt9mg', [
+    'recipient_id' => 'er_01krdgeqcxet5s7t44vh8rt9mg',
+]);
+echo $content->getHtml(), ' ', $content->getText();
+
+foreach ($bird->email->recipients('em_01krdgeqcxet5s7t44vh8rt9mg') as $recipient) {
+    echo $recipient->getId(), ' ', $recipient->getSubject();
+}
+
+
 $message = $bird->email->send(
     from: 'Bird <onboarding@messagebird.dev>',
     to: ['delivered@messagebird.dev'],
@@ -78,6 +88,7 @@ foreach ($batch->getData() ?? [] as $item) {
 
 $message = $bird->email->get('em_01krdgeqcxet5s7t44vh8rt9mg');
 echo $message->getStatus();
+echo $message->getSubject(), ' ', $message->getSubjectRecipientId();
 
 foreach ($bird->email->list(['status' => 'delivered']) as $message) {
     echo $message->getId(), "\n";

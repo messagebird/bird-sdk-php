@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * One email delivery. For a contact-personalized template send, `copy_of_recipient_id` links a Cc or Bcc delivery to the To recipient whose saved values it carries. Each Cc and Bcc address receives one copy per To recipient. Its visible To header uses that To mailbox unless a different visible mailbox was specified for this copy. The link is absent for To recipients and sends without personalized copies.
+ */
 class EmailRecipient
 {
     /**
@@ -39,6 +42,16 @@ class EmailRecipient
      */
     protected $name;
     /**
+     * Resolved subject accepted for this recipient, available independently of body storage. Legacy messages report their message-wide subject. Omitted if a retained recipient snapshot is unavailable.
+     *
+     * @var string|null
+     */
+    protected $subject;
+    /**
+     * @var string|null
+     */
+    protected $copyOfRecipientId;
+    /**
      * Delivery status for this recipient:
      * 
      * - `accepted`: The send has been taken and is being prepared for delivery.
@@ -47,7 +60,7 @@ class EmailRecipient
      * - `delivered`: The recipient's mail server accepted the message.
      * - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
      * - `complained`: The recipient reported the message as spam.
-     * - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
+     * - `rejected`: Delivery was never attempted. Check `rejection_reason`, or the message status for a schedule canceled before delivery.
      * 
      *
      * @var string|null
@@ -242,6 +255,46 @@ class EmailRecipient
         return $this;
     }
     /**
+     * Resolved subject accepted for this recipient, available independently of body storage. Legacy messages report their message-wide subject. Omitted if a retained recipient snapshot is unavailable.
+     *
+     * @return string|null
+     */
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+    /**
+     * Resolved subject accepted for this recipient, available independently of body storage. Legacy messages report their message-wide subject. Omitted if a retained recipient snapshot is unavailable.
+     *
+     * @param string|null $subject
+     *
+     * @return self
+     */
+    public function setSubject(?string $subject): self
+    {
+        $this->initialized['subject'] = true;
+        $this->subject = $subject;
+        return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getCopyOfRecipientId(): ?string
+    {
+        return $this->copyOfRecipientId;
+    }
+    /**
+     * @param string|null $copyOfRecipientId
+     *
+     * @return self
+     */
+    public function setCopyOfRecipientId(?string $copyOfRecipientId): self
+    {
+        $this->initialized['copyOfRecipientId'] = true;
+        $this->copyOfRecipientId = $copyOfRecipientId;
+        return $this;
+    }
+    /**
      * Delivery status for this recipient:
      * 
      * - `accepted`: The send has been taken and is being prepared for delivery.
@@ -250,7 +303,7 @@ class EmailRecipient
      * - `delivered`: The recipient's mail server accepted the message.
      * - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
      * - `complained`: The recipient reported the message as spam.
-     * - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
+     * - `rejected`: Delivery was never attempted. Check `rejection_reason`, or the message status for a schedule canceled before delivery.
      * 
      *
      * @return string|null
@@ -268,7 +321,7 @@ class EmailRecipient
     - `delivered`: The recipient's mail server accepted the message.
     - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
     - `complained`: The recipient reported the message as spam.
-    - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
+    - `rejected`: Delivery was never attempted. Check `rejection_reason`, or the message status for a schedule canceled before delivery.
     
     *
     * @param string|null $status

@@ -44,12 +44,16 @@ class EmailMessage
      */
     protected $bcc;
     /**
-     * The subject line as delivered. For a send that used a template, the stored subject is the template's, so this reports it with the send's `parameters` substituted in, which is what the recipient saw.
+     * The resolved subject. For a template send with recipient snapshots, this is the subject accepted for the first To recipient in the original request. It remains available when body storage is disabled. Legacy messages use their message-wide subject and caller parameters. For sends with recipient snapshots, `subject_recipient_id` identifies the recipient represented by `subject` and is present for scheduled and canceled messages too.
      * 
      *
      * @var string|null
      */
     protected $subject;
+    /**
+     * @var string|null
+     */
+    protected $subjectRecipientId;
     /**
      * Content classification, which controls suppression policy:
      * 
@@ -358,7 +362,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * The subject line as delivered. For a send that used a template, the stored subject is the template's, so this reports it with the send's `parameters` substituted in, which is what the recipient saw.
+     * The resolved subject. For a template send with recipient snapshots, this is the subject accepted for the first To recipient in the original request. It remains available when body storage is disabled. Legacy messages use their message-wide subject and caller parameters. For sends with recipient snapshots, `subject_recipient_id` identifies the recipient represented by `subject` and is present for scheduled and canceled messages too.
      * 
      *
      * @return string|null
@@ -368,7 +372,7 @@ class EmailMessage
         return $this->subject;
     }
     /**
-     * The subject line as delivered. For a send that used a template, the stored subject is the template's, so this reports it with the send's `parameters` substituted in, which is what the recipient saw.
+     * The resolved subject. For a template send with recipient snapshots, this is the subject accepted for the first To recipient in the original request. It remains available when body storage is disabled. Legacy messages use their message-wide subject and caller parameters. For sends with recipient snapshots, `subject_recipient_id` identifies the recipient represented by `subject` and is present for scheduled and canceled messages too.
      *
      * @param string|null $subject
      *
@@ -378,6 +382,24 @@ class EmailMessage
     {
         $this->initialized['subject'] = true;
         $this->subject = $subject;
+        return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getSubjectRecipientId(): ?string
+    {
+        return $this->subjectRecipientId;
+    }
+    /**
+     * @param string|null $subjectRecipientId
+     *
+     * @return self
+     */
+    public function setSubjectRecipientId(?string $subjectRecipientId): self
+    {
+        $this->initialized['subjectRecipientId'] = true;
+        $this->subjectRecipientId = $subjectRecipientId;
         return $this;
     }
     /**

@@ -49,7 +49,7 @@ final class ContactProperties extends Resource
      * Get a single contact property by ID: key, type, fallback value, and archived state.
      *
      * @example Fetch a contact property by id
-     * $property = $bird->contactProperties->get('cp_01krdgeqcxet5s7t44vh8rt9mg');
+     * $property = $bird->contactProperties->get('prp_01krdgeqcxet5s7t44vh8rt9mg');
      * echo $property->getKey(), ' ', $property->getType();
      */
     public function get(string $propertyId, ?RequestOptions $options = null): ContactProperty
@@ -64,7 +64,7 @@ final class ContactProperties extends Resource
      * $property = $bird->contactProperties->create(
      *     (new ContactPropertyCreateRequest())->setKey('plan')->setType('string'),
      * );
-     * echo $property->getId(); // "cp_…"
+     * echo $property->getId(); // "prp_…"
      */
     public function create(ContactPropertyCreateRequest $params, ?RequestOptions $options = null): ContactProperty
     {
@@ -76,7 +76,7 @@ final class ContactProperties extends Resource
      *
      * @example Change a property's fallback value
      * $bird->contactProperties->update(
-     *     'cp_01krdgeqcxet5s7t44vh8rt9mg',
+     *     'prp_01krdgeqcxet5s7t44vh8rt9mg',
      *     (new ContactPropertyUpdateRequest())->setFallbackValue('free'),
      * );
      */
@@ -89,7 +89,7 @@ final class ContactProperties extends Resource
      * Archive a contact property to remove it, and restore it with `contact_properties.unarchive`. It disappears from pickers and cannot be used in new template versions. Published templates keep sending. Stored values remain available, and API writes and imports still accept values of the property's type. Returns a 409 conflict if the property is already archived. Also returns a 409 while a published automation, including a paused one, uses the property in a trigger or contact write, or while an active run writes it. Remove the property from those automations or archive them, and let active runs finish or cancel them before retrying. The key stays reserved and counts toward the 200-property limit.
      *
      * @example Remove a property with Archive and keep its values
-     * $property = $bird->contactProperties->archive('cp_01krdgeqcxet5s7t44vh8rt9mg');
+     * $property = $bird->contactProperties->archive('prp_01krdgeqcxet5s7t44vh8rt9mg');
      * echo $property->getKey(), ' ', var_export($property->getArchived(), true);
      */
     public function archive(string $propertyId, ?RequestOptions $options = null): ContactProperty
@@ -101,7 +101,7 @@ final class ContactProperties extends Resource
      * Restore an archived contact property with its stored values. It appears in property pickers again and can be used in new template versions. Unarchiving a property that is not archived returns a `409` conflict.
      *
      * @example Restore an archived property
-     * $bird->contactProperties->unarchive('cp_01krdgeqcxet5s7t44vh8rt9mg');
+     * $bird->contactProperties->unarchive('prp_01krdgeqcxet5s7t44vh8rt9mg');
      */
     public function unarchive(string $propertyId, ?RequestOptions $options = null): ContactProperty
     {

@@ -10,7 +10,10 @@ use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailHealth;
 use MessageBird\Wire\Model\EmailMessage;
+use MessageBird\Wire\Model\EmailMessageContent;
 use MessageBird\Wire\Model\EmailMessageList;
+use MessageBird\Wire\Model\EmailRecipient;
+use MessageBird\Wire\Model\EmailRecipientList;
 
 class EmailBase extends Resource
 {
@@ -20,6 +23,7 @@ class EmailBase extends Resource
      * @example Fetch a message by id
      * $message = $bird->email->get('em_01krdgeqcxet5s7t44vh8rt9mg');
      * echo $message->getStatus();
+     * echo $message->getSubject(), ' ', $message->getSubjectRecipientId();
      */
     public function get(string $messageId, ?RequestOptions $options = null): EmailMessage
     {
@@ -82,5 +86,51 @@ class EmailBase extends Resource
     public function health(?array $query = null, ?RequestOptions $options = null): EmailHealth
     {
         return $this->single('GET', '/v1/email/health', EmailHealth::class, null, $query, $options);
+    }
+
+    /**
+     * Read the stored HTML and text bodies of a sent message. Content exists only if the message had content storage enabled, and only for 30 days after sending. A broadcast message can return `404` even when workspace content storage is enabled. Verify email previews preserve the message with the verification code masked. A `404` means content is unavailable. A scheduled send of a workspace template, rather than a built-in one, stores its content when it sends, so it answers `404` until then. A `425` means the content is still being stored, and the call can be retried. A `410` means it has expired.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Read the content for one recipient
+     * $content = $bird->email->content('em_01krdgeqcxet5s7t44vh8rt9mg', [
+     *     'recipient_id' => 'er_01krdgeqcxet5s7t44vh8rt9mg',
+     * ]);
+     * echo $content->getHtml(), ' ', $content->getText();
+     */
+    public function content(string $messageId, ?array $query = null, ?RequestOptions $options = null): EmailMessageContent
+    {
+        return $this->single('GET', '/v1/email/messages/' . rawurlencode($messageId) . '/content', EmailMessageContent::class, null, $query, $options);
+    }
+
+    /**
+     * List a message's per-recipient delivery state as a cursor page: each `to`/`cc`/`bcc` address with its role, current `status`, bounce or rejection detail, and open and click counts. This is how you find which specific addresses failed when the message's own `status` is mixed, such as `partial_failure`. It works for a broadcast-sent message too, which has exactly one recipient: the address that copy of the broadcast went to.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailRecipient>
+     *
+     * @example Read recipient subjects
+     * foreach ($bird->email->recipients('em_01krdgeqcxet5s7t44vh8rt9mg') as $recipient) {
+     *     echo $recipient->getId(), ' ', $recipient->getSubject();
+     * }
+     */
+    public function recipients(string $messageId, ?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailRecipient::class,
+            fn (?string $cursor): EmailRecipientList => $this->single('GET', '/v1/email/messages/' . rawurlencode($messageId) . '/recipients', EmailRecipientList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailRecipientList);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailRecipientList);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 }

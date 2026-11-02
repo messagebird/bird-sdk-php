@@ -36,12 +36,23 @@ class EmailTemplateSend
      * 
      * Caller parameters have `system` set to false or absent in the template's
      * `variables` list. Supply each required caller parameter used by the
-     * resolved send language; omitting one returns `422`. A version's list
+     * resolved send language; omitting one or supplying null returns `422`. A version's list
      * covers all its languages, and values unused by the resolved language are
      * ignored.
      * 
      * The `bird` namespace is reserved for values filled by Bird, so a send that
      * sets it is rejected. `parameters` is capped at 16 KB once serialized.
+     * 
+     * Bird resolves the referenced
+     * `bird.contact` attributes from each original To recipient's matching contact
+     * in this workspace. Each To receives its own personalized email; Cc and Bcc receive
+     * a copy of each To's email and do not need matching contacts. A missing To
+     * contact rejects the send with `422` (`E04099`), including when Liquid uses
+     * a default or condition. Empty name fields on an existing contact render
+     * empty unless Liquid supplies a default; configured contact-property
+     * fallbacks still apply. Values are saved at acceptance and reused for
+     * delivery and content history. Individual, batch, and scheduled sends
+     * support this behavior.
      * 
      *
      * @var array<string, mixed>|null
@@ -114,12 +125,23 @@ class EmailTemplateSend
      * 
      * Caller parameters have `system` set to false or absent in the template's
      * `variables` list. Supply each required caller parameter used by the
-     * resolved send language; omitting one returns `422`. A version's list
+     * resolved send language; omitting one or supplying null returns `422`. A version's list
      * covers all its languages, and values unused by the resolved language are
      * ignored.
      * 
      * The `bird` namespace is reserved for values filled by Bird, so a send that
      * sets it is rejected. `parameters` is capped at 16 KB once serialized.
+     * 
+     * Bird resolves the referenced
+     * `bird.contact` attributes from each original To recipient's matching contact
+     * in this workspace. Each To receives its own personalized email; Cc and Bcc receive
+     * a copy of each To's email and do not need matching contacts. A missing To
+     * contact rejects the send with `422` (`E04099`), including when Liquid uses
+     * a default or condition. Empty name fields on an existing contact render
+     * empty unless Liquid supplies a default; configured contact-property
+     * fallbacks still apply. Values are saved at acceptance and reused for
+     * delivery and content history. Individual, batch, and scheduled sends
+     * support this behavior.
      * 
      *
      * @return array<string, mixed>|null
@@ -133,12 +155,23 @@ class EmailTemplateSend
     
     Caller parameters have `system` set to false or absent in the template's
     `variables` list. Supply each required caller parameter used by the
-    resolved send language; omitting one returns `422`. A version's list
+    resolved send language; omitting one or supplying null returns `422`. A version's list
     covers all its languages, and values unused by the resolved language are
     ignored.
     
     The `bird` namespace is reserved for values filled by Bird, so a send that
     sets it is rejected. `parameters` is capped at 16 KB once serialized.
+    
+    Bird resolves the referenced
+    `bird.contact` attributes from each original To recipient's matching contact
+    in this workspace. Each To receives its own personalized email; Cc and Bcc receive
+    a copy of each To's email and do not need matching contacts. A missing To
+    contact rejects the send with `422` (`E04099`), including when Liquid uses
+    a default or condition. Empty name fields on an existing contact render
+    empty unless Liquid supplies a default; configured contact-property
+    fallbacks still apply. Values are saved at acceptance and reused for
+    delivery and content history. Individual, batch, and scheduled sends
+    support this behavior.
     
     *
     * @param array<string, mixed>|null $parameters

@@ -20,13 +20,13 @@ $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 $property = $bird->contactProperties->create(
     (new ContactPropertyCreateRequest())->setKey('plan')->setType('string'),
 );
-echo $property->getId(); // "cp_…"
+echo $property->getId(); // "prp_…"
 
-$property = $bird->contactProperties->get('cp_01krdgeqcxet5s7t44vh8rt9mg');
+$property = $bird->contactProperties->get('prp_01krdgeqcxet5s7t44vh8rt9mg');
 echo $property->getKey(), ' ', $property->getType();
 
 $bird->contactProperties->update(
-    'cp_01krdgeqcxet5s7t44vh8rt9mg',
+    'prp_01krdgeqcxet5s7t44vh8rt9mg',
     (new ContactPropertyUpdateRequest())->setFallbackValue('free'),
 );
 
@@ -34,7 +34,7 @@ foreach ($bird->contactProperties->list() as $property) {
     echo $property->getKey(), ' ', $property->getType(), "\n";
 }
 
-$property = $bird->contactProperties->archive('cp_01krdgeqcxet5s7t44vh8rt9mg');
+$property = $bird->contactProperties->archive('prp_01krdgeqcxet5s7t44vh8rt9mg');
 echo $property->getKey(), ' ', var_export($property->getArchived(), true);
 
-$bird->contactProperties->unarchive('cp_01krdgeqcxet5s7t44vh8rt9mg');
+$bird->contactProperties->unarchive('prp_01krdgeqcxet5s7t44vh8rt9mg');
