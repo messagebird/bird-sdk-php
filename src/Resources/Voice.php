@@ -23,6 +23,8 @@ final class Voice
 
     public readonly VoiceSessionCredentials $sessionCredentials;
 
+    public readonly VoiceRingGroups $ringGroups;
+
 
     public function __construct(Bird $client)
     {
@@ -34,5 +36,6 @@ final class Voice
         $this->destinations = new VoiceDestinations($client);
         $this->sessionCredentials = new VoiceSessionCredentials($client);
         $this->calls = new VoiceCalls($client);
+        $this->ringGroups = new VoiceRingGroups($client);
     }
 }

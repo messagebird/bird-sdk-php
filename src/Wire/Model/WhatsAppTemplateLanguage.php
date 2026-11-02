@@ -22,6 +22,13 @@ class WhatsAppTemplateLanguage
      */
     protected $optimizationSpec;
     /**
+     * How long WhatsApp keeps trying to deliver a message from this language, in seconds, or `null` when the language uses WhatsApp's default (10 minutes for authentication, 30 days otherwise).
+     * 
+     *
+     * @var int|null
+     */
+    protected $messageSendTtlSeconds;
+    /**
      * A language tag in BCP-47 form, for example `en` or `pt-BR`.
      *
      * @var string|null
@@ -114,7 +121,7 @@ class WhatsAppTemplateLanguage
      */
     protected $rejection;
     /**
-     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @var WhatsAppTemplateLanguageError|null
@@ -168,6 +175,29 @@ class WhatsAppTemplateLanguage
     {
         $this->initialized['optimizationSpec'] = true;
         $this->optimizationSpec = $optimizationSpec;
+        return $this;
+    }
+    /**
+     * How long WhatsApp keeps trying to deliver a message from this language, in seconds, or `null` when the language uses WhatsApp's default (10 minutes for authentication, 30 days otherwise).
+     * 
+     *
+     * @return int|null
+     */
+    public function getMessageSendTtlSeconds(): ?int
+    {
+        return $this->messageSendTtlSeconds;
+    }
+    /**
+     * How long WhatsApp keeps trying to deliver a message from this language, in seconds, or `null` when the language uses WhatsApp's default (10 minutes for authentication, 30 days otherwise).
+     *
+     * @param int|null $messageSendTtlSeconds
+     *
+     * @return self
+     */
+    public function setMessageSendTtlSeconds(?int $messageSendTtlSeconds): self
+    {
+        $this->initialized['messageSendTtlSeconds'] = true;
+        $this->messageSendTtlSeconds = $messageSendTtlSeconds;
         return $this;
     }
     /**
@@ -451,7 +481,7 @@ class WhatsAppTemplateLanguage
         return $this;
     }
     /**
-     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      * 
      *
      * @return WhatsAppTemplateLanguageError|null
@@ -461,7 +491,7 @@ class WhatsAppTemplateLanguage
         return $this->error;
     }
     /**
-     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec`; the language keeps sending on the maximum price WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+     * Why the submission did not complete. Present when `status` is `submit_failed`. Also present when WhatsApp refused a change to `optimization_spec` or `message_send_ttl_seconds`; the language keeps sending on the maximum price and time-to-live WhatsApp already held. Absent otherwise, including on a rejection, whose reason is in `rejection`.
      *
      * @param WhatsAppTemplateLanguageError|WhatsAppTemplateSubmissionError|array|null $error
      *

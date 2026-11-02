@@ -43,6 +43,12 @@ class WhatsAppTemplateLanguageUpsertNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] === null) {
             $object->setOptimizationSpec(null);
         }
+        if (\array_key_exists('message_send_ttl_seconds', $data) && $data['message_send_ttl_seconds'] !== null) {
+            $object->setMessageSendTtlSeconds($data['message_send_ttl_seconds']);
+        }
+        elseif (\array_key_exists('message_send_ttl_seconds', $data) && $data['message_send_ttl_seconds'] === null) {
+            $object->setMessageSendTtlSeconds(null);
+        }
         if (\array_key_exists('components', $data) && $data['components'] !== null) {
             $values = [];
             foreach ($data['components'] as $value) {
@@ -66,6 +72,9 @@ class WhatsAppTemplateLanguageUpsertNormalizer implements DenormalizerInterface,
         $dataArray = [];
         if ($data->isInitialized('optimizationSpec')) {
             $dataArray['optimization_spec'] = $this->normalizer->normalize($data->getOptimizationSpec(), 'json', $context);
+        }
+        if ($data->isInitialized('messageSendTtlSeconds')) {
+            $dataArray['message_send_ttl_seconds'] = $data->getMessageSendTtlSeconds();
         }
         if ($data->isInitialized('components') && null !== $data->getComponents()) {
             $values = [];

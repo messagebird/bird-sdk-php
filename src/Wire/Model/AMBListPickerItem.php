@@ -13,7 +13,7 @@ class AMBListPickerItem
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Opaque item identifier returned in interactive_data.data.list_picker.sections.
+     * Opaque item identifier returned in `interactive_reply.list_picker.sections[].items[]`.
      *
      * @var string|null
      */
@@ -31,7 +31,7 @@ class AMBListPickerItem
      */
     protected $subtitle;
     /**
-     * Identifier of an image in interactive_data.data.images, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
      *
      * @var string|null
      */
@@ -43,7 +43,7 @@ class AMBListPickerItem
      */
     protected $order;
     /**
-     * Opaque item identifier returned in interactive_data.data.list_picker.sections.
+     * Opaque item identifier returned in `interactive_reply.list_picker.sections[].items[]`.
      *
      * @return string|null
      */
@@ -52,7 +52,7 @@ class AMBListPickerItem
         return $this->identifier;
     }
     /**
-     * Opaque item identifier returned in interactive_data.data.list_picker.sections.
+     * Opaque item identifier returned in `interactive_reply.list_picker.sections[].items[]`.
      *
      * @param string|null $identifier
      *
@@ -109,7 +109,7 @@ class AMBListPickerItem
         return $this;
     }
     /**
-     * Identifier of an image in interactive_data.data.images, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
      *
      * @return string|null
      */
@@ -118,7 +118,7 @@ class AMBListPickerItem
         return $this->imageIdentifier;
     }
     /**
-     * Identifier of an image in interactive_data.data.images, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
      *
      * @param string|null $imageIdentifier
      *

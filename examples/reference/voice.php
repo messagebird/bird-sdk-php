@@ -11,6 +11,9 @@ use MessageBird\Wire\Model\VoiceTrunkCreate;
 use MessageBird\Wire\Model\VoiceTrunkUpdate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayCreate;
 use MessageBird\Wire\Model\VoiceTrunkGatewayUpdate;
+use MessageBird\Wire\Model\VoiceRingGroupCreate;
+use MessageBird\Wire\Model\VoiceRingGroupMemberCreate;
+use MessageBird\Wire\Model\VoiceRingGroupUpdate;
 use MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest;
 use MessageBird\Wire\Model\VoiceVerifiedNumberCreate;
 use MessageBird\Wire\Model\VoiceVerifiedNumberUpdate;
@@ -83,6 +86,32 @@ $gateway = $bird->voice->trunks->gateways->update(
 echo $gateway->getId(), ' ', $gateway->getPriority(), "\n";
 
 $bird->voice->trunks->gateways->delete('TRUNK_ID', 'GATEWAY_ID');
+
+$groups = $bird->voice->ringGroups->list();
+foreach ($groups->getData() ?? [] as $group) {
+    echo $group->getId(), ' ', $group->getName(), ' ', $group->getOnlineMemberCount(), "\n";
+}
+
+$group = $bird->voice->ringGroups->get('RING_GROUP_ID');
+echo $group->getId(), ' ', $group->getName(), ' ', $group->getOnlineMemberCount(), "\n";
+
+$group = $bird->voice->ringGroups->create((new VoiceRingGroupCreate())->setName('Support'));
+echo $group->getId(), ' ', $group->getName(), "\n";
+
+$group = $bird->voice->ringGroups->update('RING_GROUP_ID', (new VoiceRingGroupUpdate())->setName('Tier 2 support'));
+echo $group->getId(), ' ', $group->getName(), "\n";
+
+$bird->voice->ringGroups->delete('RING_GROUP_ID');
+
+$members = $bird->voice->ringGroups->members->list('RING_GROUP_ID');
+foreach ($members->getData() ?? [] as $member) {
+    echo $member->getUserId(), "\n";
+}
+
+$member = $bird->voice->ringGroups->members->create('RING_GROUP_ID', (new VoiceRingGroupMemberCreate())->setUserId('USER_ID'));
+echo $member->getUserId(), "\n";
+
+$bird->voice->ringGroups->members->delete('RING_GROUP_ID', 'USER_ID');
 
 foreach ($bird->voice->numbers->list() as $number) {
     echo $number->getId(), ' ', $number->getPhoneNumber(), "\n";

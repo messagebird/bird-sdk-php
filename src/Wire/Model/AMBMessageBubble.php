@@ -31,7 +31,7 @@ class AMBMessageBubble
      */
     protected $style;
     /**
-     * Identifier of an image in interactive_data.data.images. Apple ignores it for custom iMessage apps.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply. Apple ignores it for custom iMessage apps.
      *
      * @var string|null
      */
@@ -127,7 +127,7 @@ class AMBMessageBubble
         return $this;
     }
     /**
-     * Identifier of an image in interactive_data.data.images. Apple ignores it for custom iMessage apps.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply. Apple ignores it for custom iMessage apps.
      *
      * @return string|null
      */
@@ -136,7 +136,7 @@ class AMBMessageBubble
         return $this->imageIdentifier;
     }
     /**
-     * Identifier of an image in interactive_data.data.images. Apple ignores it for custom iMessage apps.
+     * Identifier of an image in `interactive.images`, or `interactive_reply.images` on a reply. Apple ignores it for custom iMessage apps.
      *
      * @param string|null $imageIdentifier
      *

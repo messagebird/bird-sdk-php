@@ -35,7 +35,7 @@ class AMBNativeInboundEvent
      */
     protected $timeslots;
     /**
-     * Identifier of the event image in interactive_data.data.images.
+     * Identifier of the event image in `interactive_reply.images`.
      *
      * @var string|null
      */
@@ -131,7 +131,7 @@ class AMBNativeInboundEvent
         return $this;
     }
     /**
-     * Identifier of the event image in interactive_data.data.images.
+     * Identifier of the event image in `interactive_reply.images`.
      *
      * @return string|null
      */
@@ -140,7 +140,7 @@ class AMBNativeInboundEvent
         return $this->imageIdentifier;
     }
     /**
-     * Identifier of the event image in interactive_data.data.images.
+     * Identifier of the event image in `interactive_reply.images`.
      *
      * @param string|null $imageIdentifier
      *

@@ -13,7 +13,7 @@ class AMBTimeSlot
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
+     * Opaque slot identifier. Apple may instead return only a localized label in `interactive_reply.reply_message.title`.
      *
      * @var string|null
      */
@@ -31,7 +31,7 @@ class AMBTimeSlot
      */
     protected $durationSeconds;
     /**
-     * Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
+     * Opaque slot identifier. Apple may instead return only a localized label in `interactive_reply.reply_message.title`.
      *
      * @return string|null
      */
@@ -40,7 +40,7 @@ class AMBTimeSlot
         return $this->identifier;
     }
     /**
-     * Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
+     * Opaque slot identifier. Apple may instead return only a localized label in `interactive_reply.reply_message.title`.
      *
      * @param string|null $identifier
      *

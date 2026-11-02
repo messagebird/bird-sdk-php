@@ -43,6 +43,12 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] === null) {
             $object->setOptimizationSpec(null);
         }
+        if (\array_key_exists('message_send_ttl_seconds', $data) && $data['message_send_ttl_seconds'] !== null) {
+            $object->setMessageSendTtlSeconds($data['message_send_ttl_seconds']);
+        }
+        elseif (\array_key_exists('message_send_ttl_seconds', $data) && $data['message_send_ttl_seconds'] === null) {
+            $object->setMessageSendTtlSeconds(null);
+        }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
         }
@@ -144,6 +150,9 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         $dataArray = [];
         if ($data->isInitialized('optimizationSpec')) {
             $dataArray['optimization_spec'] = $this->normalizer->normalize($data->getOptimizationSpec(), 'json', $context);
+        }
+        if ($data->isInitialized('messageSendTtlSeconds')) {
+            $dataArray['message_send_ttl_seconds'] = $data->getMessageSendTtlSeconds();
         }
         $dataArray['language'] = $data->getLanguage();
         $values = [];

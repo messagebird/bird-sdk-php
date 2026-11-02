@@ -13,7 +13,7 @@ class AMBQuickReplyItem
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Opaque choice identifier returned in interactive_data.data.quick_reply.selected_identifier.
+     * Opaque choice identifier returned in `interactive_reply.quick_reply.selected_identifier`.
      *
      * @var string|null
      */
@@ -25,7 +25,7 @@ class AMBQuickReplyItem
      */
     protected $title;
     /**
-     * Opaque choice identifier returned in interactive_data.data.quick_reply.selected_identifier.
+     * Opaque choice identifier returned in `interactive_reply.quick_reply.selected_identifier`.
      *
      * @return string|null
      */
@@ -34,7 +34,7 @@ class AMBQuickReplyItem
         return $this->identifier;
     }
     /**
-     * Opaque choice identifier returned in interactive_data.data.quick_reply.selected_identifier.
+     * Opaque choice identifier returned in `interactive_reply.quick_reply.selected_identifier`.
      *
      * @param string|null $identifier
      *

@@ -2140,6 +2140,20 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => \MessageBird\Wire\Normalizer\VoiceVerifiedNumberVerifyRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceRingGroup::class => \MessageBird\Wire\Normalizer\VoiceRingGroupNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupList::class => \MessageBird\Wire\Normalizer\VoiceRingGroupListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupCreate::class => \MessageBird\Wire\Normalizer\VoiceRingGroupCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupUpdate::class => \MessageBird\Wire\Normalizer\VoiceRingGroupUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupMember::class => \MessageBird\Wire\Normalizer\VoiceRingGroupMemberNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupMemberList::class => \MessageBird\Wire\Normalizer\VoiceRingGroupMemberListNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceRingGroupMemberCreate::class => \MessageBird\Wire\Normalizer\VoiceRingGroupMemberCreateNormalizer::class,
+
         \MessageBird\Wire\Model\EsimZone::class => \MessageBird\Wire\Normalizer\EsimZoneNormalizer::class,
 
         \MessageBird\Wire\Model\EsimServiceCapabilities::class => \MessageBird\Wire\Normalizer\EsimServiceCapabilitiesNormalizer::class,
@@ -3447,6 +3461,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoiceVerifiedNumberCreate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberUpdate::class => false,
             \MessageBird\Wire\Model\VoiceVerifiedNumberVerifyRequest::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroup::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupList::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupCreate::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupUpdate::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupMember::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupMemberList::class => false,
+            \MessageBird\Wire\Model\VoiceRingGroupMemberCreate::class => false,
             \MessageBird\Wire\Model\EsimZone::class => false,
             \MessageBird\Wire\Model\EsimServiceCapabilities::class => false,
             \MessageBird\Wire\Model\EsimInstallation::class => false,
