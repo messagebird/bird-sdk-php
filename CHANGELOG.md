@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.95.1
+
+- SMS message `text` and reply context `in_reply_to_message.text` documentation describe the retained body and masked authentication codes.
+- The voice ring groups resource, and a `ring_group` route on a voice number or the workspace voice settings, no longer require preview access to inbound browser calling, so these calls no longer return `404` for an organization outside the preview.
+
 ## 0.95.0
 
 - Add `message_send_ttl_seconds` to a WhatsApp template language, to set how long WhatsApp retries an undelivered message.

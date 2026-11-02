@@ -41,7 +41,7 @@ class SMSMessage
      */
     protected $from;
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      * 
      *
      * @var string|null
@@ -301,7 +301,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      * 
      *
      * @return string|null
@@ -311,7 +311,7 @@ class SMSMessage
         return $this->text;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
+     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      *
      * @param string|null $text
      *

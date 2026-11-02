@@ -20,7 +20,7 @@ class SMSInReplyToMessage
      */
     protected $id;
     /**
-     * Text of the outbound message as Bird stored it. Authentication messages read `**REDACTED**`. Absent once that message is past the read window.
+     * Text of the outbound message as Bird stored it, with sensitive template values masked. Authentication messages without declared sensitive variables read `**REDACTED**`. Absent once that message is past the read window.
      * 
      *
      * @var string|null
@@ -52,7 +52,7 @@ class SMSInReplyToMessage
         return $this;
     }
     /**
-     * Text of the outbound message as Bird stored it. Authentication messages read `**REDACTED**`. Absent once that message is past the read window.
+     * Text of the outbound message as Bird stored it, with sensitive template values masked. Authentication messages without declared sensitive variables read `**REDACTED**`. Absent once that message is past the read window.
      * 
      *
      * @return string|null
@@ -62,7 +62,7 @@ class SMSInReplyToMessage
         return $this->text;
     }
     /**
-     * Text of the outbound message as Bird stored it. Authentication messages read `**REDACTED**`. Absent once that message is past the read window.
+     * Text of the outbound message as Bird stored it, with sensitive template values masked. Authentication messages without declared sensitive variables read `**REDACTED**`. Absent once that message is past the read window.
      *
      * @param string|null $text
      *
