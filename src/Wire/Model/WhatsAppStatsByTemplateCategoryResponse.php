@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Per-template-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+ * Per-message-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
  */
 class WhatsAppStatsByTemplateCategoryResponse
 {

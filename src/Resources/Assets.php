@@ -8,12 +8,14 @@ use MessageBird\Bird;
 
 final class Assets extends AssetsBase
 {
+    public readonly AssetsUploads $uploads;
     public readonly AssetsFolders $folders;
     public readonly AssetsReferences $references;
 
     public function __construct(Bird $client)
     {
         parent::__construct($client);
+        $this->uploads = new AssetsUploads($client);
         $this->folders = new AssetsFolders($client);
         $this->references = new AssetsReferences($client);
     }

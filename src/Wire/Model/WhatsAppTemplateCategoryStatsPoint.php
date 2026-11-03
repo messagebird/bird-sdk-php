@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Lifecycle counts, derived rates, and engagement for a single WhatsApp template category over the requested period.
+ * Lifecycle counts, derived rates, and engagement for a single WhatsApp message category over the requested period. A template send counts under its template's category; a free-form send counts under `service`.
  */
 class WhatsAppTemplateCategoryStatsPoint
 {
@@ -16,7 +16,7 @@ class WhatsAppTemplateCategoryStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The template category this row aggregates.
+     * The category this row aggregates. `service` aggregates free-form messages.
      *
      * @var string|null
      */
@@ -34,7 +34,7 @@ class WhatsAppTemplateCategoryStatsPoint
      */
     protected $latency;
     /**
-     * The template category this row aggregates.
+     * The category this row aggregates. `service` aggregates free-form messages.
      *
      * @return string|null
      */
@@ -43,7 +43,7 @@ class WhatsAppTemplateCategoryStatsPoint
         return $this->category;
     }
     /**
-     * The template category this row aggregates.
+     * The category this row aggregates. `service` aggregates free-form messages.
      *
      * @param string|null $category
      *

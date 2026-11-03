@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies.
+ * The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and its workspace's limit, whether set manually or derived from the organization's automatic allocation; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can adjust the workspace limit or the automatic allocation; the shared organization limit still applies. Bird sets the mTLS limits, so for those, contact your Bird representative.
  */
 class QuotaErrorContext
 {

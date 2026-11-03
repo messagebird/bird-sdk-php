@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\AssetUploadFile;
+use MessageBird\Wire\Model\AssetUploadSessionCreate;
 use MessageBird\Wire\Model\AssetUpdate;
 use MessageBird\Wire\Model\AssetFolderCreate;
 use MessageBird\Wire\Model\AssetFolderUpdate;
@@ -41,3 +43,30 @@ $folder = $bird->assets->folders->update('asf_01krdgeqcxet5s7t44vh8rt9mg', $para
 echo $folder->getPath();
 
 $bird->assets->folders->delete('asf_01krdgeqcxet5s7t44vh8rt9mg');
+
+$data = file_get_contents('invoice.pdf');
+if ($data === false) {
+    throw new RuntimeException('Cannot read invoice.pdf');
+}
+$file = new AssetUploadFile();
+$file->setFilename('invoice.pdf');
+$file->setContentType('application/pdf');
+$file->setSizeBytes(strlen($data));
+$file->setSha256(hash('sha256', $data));
+$params = new AssetUploadSessionCreate();
+$params->setClientReference('4ca4145c-782a-4d03-bc80-a27e3e431780');
+$params->setFile($file);
+$upload = $bird->assets->uploads->create($params);
+echo $upload->getId();
+
+$upload = $bird->assets->uploads->get('aus_01krdgeqcxet5s7t44vh8rt9mg');
+echo $upload->getState();
+
+$upload = $bird->assets->uploads->prepare('aus_01krdgeqcxet5s7t44vh8rt9mg');
+echo $upload->getState();
+
+$upload = $bird->assets->uploads->complete('aus_01krdgeqcxet5s7t44vh8rt9mg');
+echo $upload->getState();
+
+$upload = $bird->assets->uploads->cancel('aus_01krdgeqcxet5s7t44vh8rt9mg');
+echo $upload->getState();

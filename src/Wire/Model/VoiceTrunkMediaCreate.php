@@ -21,7 +21,7 @@ class VoiceTrunkMediaCreate
      *
      * @var string|null
      */
-    protected $encryption;
+    protected $encryption = 'preferred';
     /**
      * Omit it for `preferred`, which encrypts whenever your equipment and gateways allow and otherwise carries calls as before.
      * 

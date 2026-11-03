@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.97.0
+
+- Add media-library upload-session methods to create, inspect, refresh, complete and cancel an upload. Creation returns session metadata and an optional temporary upload instruction. A successful prepare returns a pending session with a required upload instruction. Your application transfers the original file bytes with HTTPS before completing the session; these methods do not transfer the file themselves. Retries recover the same intent and saved result.
+- WhatsApp statistics by message category include free-form messages as a `service` row, and the `category` filter on summary, daily and hourly statistics accepts `service`.
+
 ## 0.96.0
 
 - Add `email.content` and `email.recipients` SDK methods, with `recipient_id` selection for stored content and `copy_of_recipient_id` for personalized copies, and resolved subjects in email responses.

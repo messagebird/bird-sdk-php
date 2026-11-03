@@ -660,7 +660,25 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AttachmentUpload::class => \MessageBird\Wire\Normalizer\AttachmentUploadNormalizer::class,
 
+        \MessageBird\Wire\Model\AssetUploadFile::class => \MessageBird\Wire\Normalizer\AssetUploadFileNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionCreate::class => \MessageBird\Wire\Normalizer\AssetUploadSessionCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionResult::class => \MessageBird\Wire\Normalizer\AssetUploadSessionResultNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionLastError::class => \MessageBird\Wire\Normalizer\AssetUploadSessionLastErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadInstruction::class => \MessageBird\Wire\Normalizer\AssetUploadInstructionNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionInstruction::class => \MessageBird\Wire\Normalizer\AssetUploadSessionInstructionNormalizer::class,
+
         \MessageBird\Wire\Model\Asset::class => \MessageBird\Wire\Normalizer\AssetNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionDetails::class => \MessageBird\Wire\Normalizer\AssetUploadSessionDetailsNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionPrepared::class => \MessageBird\Wire\Normalizer\AssetUploadSessionPreparedNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadSessionPreparedUpload::class => \MessageBird\Wire\Normalizer\AssetUploadSessionPreparedUploadNormalizer::class,
 
         \MessageBird\Wire\Model\AssetList::class => \MessageBird\Wire\Normalizer\AssetListNormalizer::class,
 
@@ -2721,7 +2739,16 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ComplianceIdentityUpdate::class => false,
             \MessageBird\Wire\Model\AttachmentList::class => false,
             \MessageBird\Wire\Model\AttachmentUpload::class => false,
+            \MessageBird\Wire\Model\AssetUploadFile::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionCreate::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionResult::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionLastError::class => false,
+            \MessageBird\Wire\Model\AssetUploadInstruction::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionInstruction::class => false,
             \MessageBird\Wire\Model\Asset::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionDetails::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionPrepared::class => false,
+            \MessageBird\Wire\Model\AssetUploadSessionPreparedUpload::class => false,
             \MessageBird\Wire\Model\AssetList::class => false,
             \MessageBird\Wire\Model\AssetUpload::class => false,
             \MessageBird\Wire\Model\AssetUpdate::class => false,
