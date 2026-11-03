@@ -49,6 +49,12 @@ class MailboxCreateNormalizer implements DenormalizerInterface, NormalizerInterf
         elseif (\array_key_exists('domain', $data) && $data['domain'] === null) {
             $object->setDomain(null);
         }
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
+        }
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
+        }
         if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
             $object->setDisplayName($data['display_name']);
         }
@@ -93,6 +99,9 @@ class MailboxCreateNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         if ($data->isInitialized('domain') && null !== $data->getDomain()) {
             $dataArray['domain'] = $data->getDomain();
+        }
+        if ($data->isInitialized('name') && null !== $data->getName()) {
+            $dataArray['name'] = $data->getName();
         }
         if ($data->isInitialized('displayName') && null !== $data->getDisplayName()) {
             $dataArray['display_name'] = $data->getDisplayName();

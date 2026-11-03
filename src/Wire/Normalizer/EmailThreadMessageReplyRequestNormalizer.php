@@ -61,6 +61,26 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('text', $data) && $data['text'] === null) {
             $object->setText(null);
         }
+        if (\array_key_exists('cc', $data) && $data['cc'] !== null) {
+            $values = [];
+            foreach ($data['cc'] as $value) {
+                $values[] = $value;
+            }
+            $object->setCc($values);
+        }
+        elseif (\array_key_exists('cc', $data) && $data['cc'] === null) {
+            $object->setCc(null);
+        }
+        if (\array_key_exists('bcc', $data) && $data['bcc'] !== null) {
+            $values_1 = [];
+            foreach ($data['bcc'] as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setBcc($values_1);
+        }
+        elseif (\array_key_exists('bcc', $data) && $data['bcc'] === null) {
+            $object->setBcc(null);
+        }
         if (\array_key_exists('reply_all', $data) && $data['reply_all'] !== null) {
             $object->setReplyAll($data['reply_all']);
         }
@@ -68,21 +88,21 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
             $object->setReplyAll(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
-            $values = [];
-            foreach ($data['tags'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            $values_2 = [];
+            foreach ($data['tags'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\Tag::class, 'json', $context);
             }
-            $object->setTags($values);
+            $object->setTags($values_2);
         }
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value_1) {
-                $values_1[$key] = $value_1;
+            $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['metadata'] as $key => $value_3) {
+                $values_3[$key] = $value_3;
             }
-            $object->setMetadata($values_1);
+            $object->setMetadata($values_3);
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
@@ -94,11 +114,11 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
             $object->setCategory(null);
         }
         if (\array_key_exists('attachments', $data) && $data['attachments'] !== null) {
-            $values_2 = [];
-            foreach ($data['attachments'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\EmailAttachment::class, 'json', $context);
+            $values_4 = [];
+            foreach ($data['attachments'] as $value_4) {
+                $values_4[] = $this->denormalizer->denormalize($value_4, \MessageBird\Wire\Model\EmailAttachment::class, 'json', $context);
             }
-            $object->setAttachments($values_2);
+            $object->setAttachments($values_4);
         }
         elseif (\array_key_exists('attachments', $data) && $data['attachments'] === null) {
             $object->setAttachments(null);
@@ -123,32 +143,46 @@ class EmailThreadMessageReplyRequestNormalizer implements DenormalizerInterface,
         if ($data->isInitialized('text') && null !== $data->getText()) {
             $dataArray['text'] = $data->getText();
         }
+        if ($data->isInitialized('cc') && null !== $data->getCc()) {
+            $values = [];
+            foreach ($data->getCc() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['cc'] = $values;
+        }
+        if ($data->isInitialized('bcc') && null !== $data->getBcc()) {
+            $values_1 = [];
+            foreach ($data->getBcc() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['bcc'] = $values_1;
+        }
         if ($data->isInitialized('replyAll') && null !== $data->getReplyAll()) {
             $dataArray['reply_all'] = $data->getReplyAll();
         }
         if ($data->isInitialized('tags') && null !== $data->getTags()) {
-            $values = [];
-            foreach ($data->getTags() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values_2 = [];
+            foreach ($data->getTags() as $value_2) {
+                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
             }
-            $dataArray['tags'] = $values;
+            $dataArray['tags'] = $values_2;
         }
         if ($data->isInitialized('metadata') && null !== $data->getMetadata()) {
-            $values_1 = [];
-            foreach ($data->getMetadata() as $key => $value_1) {
-                $values_1[$key] = $value_1;
+            $values_3 = [];
+            foreach ($data->getMetadata() as $key => $value_3) {
+                $values_3[$key] = $value_3;
             }
-            $dataArray['metadata'] = (object) $values_1;
+            $dataArray['metadata'] = (object) $values_3;
         }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
         }
         if ($data->isInitialized('attachments') && null !== $data->getAttachments()) {
-            $values_2 = [];
-            foreach ($data->getAttachments() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+            $values_4 = [];
+            foreach ($data->getAttachments() as $value_4) {
+                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
             }
-            $dataArray['attachments'] = $values_2;
+            $dataArray['attachments'] = $values_4;
         }
         if ($data->isInitialized('cancelOnReply') && null !== $data->getCancelOnReply()) {
             $dataArray['cancel_on_reply'] = $data->getCancelOnReply();

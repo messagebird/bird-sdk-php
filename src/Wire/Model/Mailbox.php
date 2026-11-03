@@ -32,7 +32,13 @@ class Mailbox
      */
     protected $forwardingAddress;
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` when unset.
+     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     *
+     * @var string|null
+     */
+    protected $name;
+    /**
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @var string|null
      */
@@ -210,7 +216,29 @@ class Mailbox
         return $this;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` when unset.
+     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+    /**
+     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     *
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name): self
+    {
+        $this->initialized['name'] = true;
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @return string|null
      */
@@ -219,7 +247,7 @@ class Mailbox
         return $this->displayName;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` when unset.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @param string|null $displayName
      *

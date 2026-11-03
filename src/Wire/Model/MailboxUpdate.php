@@ -16,7 +16,13 @@ class MailboxUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` clears it.
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     *
+     * @var string|null
+     */
+    protected $name;
+    /**
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @var string|null
      */
@@ -54,7 +60,29 @@ class MailboxUpdate
      */
     protected $metadata;
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` clears it.
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+    /**
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     *
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name): self
+    {
+        $this->initialized['name'] = true;
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @return string|null
      */
@@ -63,7 +91,7 @@ class MailboxUpdate
         return $this->displayName;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox. `null` clears it.
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @param string|null $displayName
      *

@@ -72,15 +72,19 @@ class EmailThread
      */
     protected $lastDirection;
     /**
-     * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
-     * 
-     * - `inbox`: The conversation is in the inbox.
-     * - `archive`: The conversation was filed away and is done for now.
-     * - `spam`: The conversation's opening message is filed in Spam.
-     * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
-     * 
-     * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
-     * 
+     * Primary conversation folder. The supported folders are inbox, archive, spam, blocked, sent, and trash. Blocked and sent are assigned automatically. The sent filter also includes sent conversations that received replies and still sit in the inbox; moving them with PATCH removes them from the sent filter.
+     *
+     * @var string|null
+     */
+    protected $folder;
+    /**
+     * Whether every retained received message is read, including trash, spam and blocked messages. Outbound messages do not affect this state.
+     *
+     * @var bool|null
+     */
+    protected $read;
+    /**
+     * Custom labels applied to this conversation. Folder and read state are separate fields.
      *
      * @var list<string>|null
      */
@@ -329,15 +333,51 @@ class EmailThread
         return $this;
     }
     /**
-     * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
-     * 
-     * - `inbox`: The conversation is in the inbox.
-     * - `archive`: The conversation was filed away and is done for now.
-     * - `spam`: The conversation's opening message is filed in Spam.
-     * - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
-     * 
-     * Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
-     * 
+     * Primary conversation folder. The supported folders are inbox, archive, spam, blocked, sent, and trash. Blocked and sent are assigned automatically. The sent filter also includes sent conversations that received replies and still sit in the inbox; moving them with PATCH removes them from the sent filter.
+     *
+     * @return string|null
+     */
+    public function getFolder(): ?string
+    {
+        return $this->folder;
+    }
+    /**
+     * Primary conversation folder. The supported folders are inbox, archive, spam, blocked, sent, and trash. Blocked and sent are assigned automatically. The sent filter also includes sent conversations that received replies and still sit in the inbox; moving them with PATCH removes them from the sent filter.
+     *
+     * @param string|null $folder
+     *
+     * @return self
+     */
+    public function setFolder(?string $folder): self
+    {
+        $this->initialized['folder'] = true;
+        $this->folder = $folder;
+        return $this;
+    }
+    /**
+     * Whether every retained received message is read, including trash, spam and blocked messages. Outbound messages do not affect this state.
+     *
+     * @return bool|null
+     */
+    public function getRead(): ?bool
+    {
+        return $this->read;
+    }
+    /**
+     * Whether every retained received message is read, including trash, spam and blocked messages. Outbound messages do not affect this state.
+     *
+     * @param bool|null $read
+     *
+     * @return self
+     */
+    public function setRead(?bool $read): self
+    {
+        $this->initialized['read'] = true;
+        $this->read = $read;
+        return $this;
+    }
+    /**
+     * Custom labels applied to this conversation. Folder and read state are separate fields.
      *
      * @return list<string>|null
      */
@@ -346,20 +386,12 @@ class EmailThread
         return $this->labels;
     }
     /**
-    * Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
-    
-    - `inbox`: The conversation is in the inbox.
-    - `archive`: The conversation was filed away and is done for now.
-    - `spam`: The conversation's opening message is filed in Spam.
-    - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
-    
-    Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
-    
-    *
-    * @param list<string>|null $labels
-    *
-    * @return self
-    */
+     * Custom labels applied to this conversation. Folder and read state are separate fields.
+     *
+     * @param list<string>|null $labels
+     *
+     * @return self
+     */
     public function setLabels(?array $labels): self
     {
         $this->initialized['labels'] = true;

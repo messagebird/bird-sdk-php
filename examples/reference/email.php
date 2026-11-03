@@ -22,7 +22,7 @@ use MessageBird\Exception\ApiException;
 use MessageBird\Exception\ConnectionException;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailAddress;
-use MessageBird\Wire\Model\EmailLabelsUpdate;
+use MessageBird\Wire\Model\EmailThreadLabelsUpdate;
 use MessageBird\Wire\Model\EmailMessageSendRequest;
 use MessageBird\Wire\Model\EmailMessageSendRequestTemplate;
 use MessageBird\Wire\Model\EmailTemplateSubmit;
@@ -239,7 +239,7 @@ foreach ($stats->getData() ?? [] as $row) {
 
 $mailbox = $bird->email->mailboxes->create(
     (new MailboxCreate())
-        ->setDisplayName('Acme Support'),
+        ->setName('Acme Support'),
 );
 echo $mailbox->getId(), ' ', $mailbox->getAddress();
 
@@ -252,7 +252,7 @@ foreach ($bird->email->mailboxes->list() as $mailbox) {
 
 $bird->email->mailboxes->update(
     'mbx_01krdgeqcxet5s7t44vh8rt9mg',
-    (new MailboxUpdate())->setDisplayName('Acme Help'),
+    (new MailboxUpdate())->setName('Acme Help'),
 );
 
 $bird->email->mailboxes->delete('mbx_01krdgeqcxet5s7t44vh8rt9mg');
@@ -305,9 +305,12 @@ echo $thread->getSubject(), ' ', $thread->getMessageCount();
 $bird->email->threads->update(
     'thr_01krdgeqcxet5s7t44vh8rt9mg',
     (new EmailThreadUpdateRequest())
-        ->setLabels((new EmailLabelsUpdate())->setAdd(['escalated']))
+        ->setLabels((new EmailThreadLabelsUpdate())->setAdd(['escalated']))
         ->setContactId('con_01krdgeqcxet5s7t44vh8rt9mg'),
 );
+
+$thread = $bird->email->threads->restore('thr_01krdgeqcxet5s7t44vh8rt9mg');
+echo $thread->getId();
 
 $bird->email->threads->delete('thr_01krdgeqcxet5s7t44vh8rt9mg');
 

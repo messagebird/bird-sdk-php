@@ -248,6 +248,7 @@ return [
     "/v1/email/mailboxes/{mailbox_id}/receive-rules/{rule_id}",
     "/v1/email/threads",
     "/v1/email/threads/{thread_id}",
+    "/v1/email/threads/{thread_id}/restore",
     "/v1/email/threads/{thread_id}/messages",
     "/v1/email/threads/{thread_id}/messages/{message_id}",
     "/v1/email/threads/{thread_id}/messages/{message_id}/body",

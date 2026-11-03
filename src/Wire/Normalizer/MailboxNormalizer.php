@@ -58,6 +58,12 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('forwarding_address', $data) && $data['forwarding_address'] === null) {
             $object->setForwardingAddress(null);
         }
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
+            $object->setName($data['name']);
+        }
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
+            $object->setName(null);
+        }
         if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
             $object->setDisplayName($data['display_name']);
         }
@@ -180,6 +186,7 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
     {
         $dataArray = [];
         $dataArray['id'] = $data->getId();
+        $dataArray['name'] = $data->getName();
         $dataArray['display_name'] = $data->getDisplayName();
         $dataArray['default_reply_to'] = $data->getDefaultReplyTo();
         $dataArray['receive_policy'] = $data->getReceivePolicy();

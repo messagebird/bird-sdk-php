@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
+ * A reply to a conversation message. For a received message, recipients are derived from its Reply-To address when present, otherwise its From address. For a message the mailbox sent, recipients are derived from its original To line. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). Add `cc` or `bcc` to copy further recipients. The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
  */
 class EmailThreadMessageReplyRequest
 {
@@ -33,6 +33,18 @@ class EmailThreadMessageReplyRequest
      * @var string|null
      */
     protected $text;
+    /**
+     * Additional Cc recipients, merged with recipients derived by `reply_all`. Addresses already on the derived To line are dropped (case-insensitive). The merged Cc set must contain at most 50 addresses; larger sets return 422.
+     *
+     * @var list<string>|null
+     */
+    protected $cc;
+    /**
+     * Blind-copy recipients. Addresses already on the derived To or merged Cc line are dropped (case-insensitive). Bcc addresses are omitted from conversation participants, visible recipient headers, and the 202 response. Bcc delivery outcomes are excluded from the message's `recipients` list.
+     *
+     * @var list<string>|null
+     */
+    protected $bcc;
     /**
      * Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
      *
@@ -140,6 +152,50 @@ class EmailThreadMessageReplyRequest
     {
         $this->initialized['text'] = true;
         $this->text = $text;
+        return $this;
+    }
+    /**
+     * Additional Cc recipients, merged with recipients derived by `reply_all`. Addresses already on the derived To line are dropped (case-insensitive). The merged Cc set must contain at most 50 addresses; larger sets return 422.
+     *
+     * @return list<string>|null
+     */
+    public function getCc(): ?array
+    {
+        return $this->cc;
+    }
+    /**
+     * Additional Cc recipients, merged with recipients derived by `reply_all`. Addresses already on the derived To line are dropped (case-insensitive). The merged Cc set must contain at most 50 addresses; larger sets return 422.
+     *
+     * @param list<string>|null $cc
+     *
+     * @return self
+     */
+    public function setCc(?array $cc): self
+    {
+        $this->initialized['cc'] = true;
+        $this->cc = $cc;
+        return $this;
+    }
+    /**
+     * Blind-copy recipients. Addresses already on the derived To or merged Cc line are dropped (case-insensitive). Bcc addresses are omitted from conversation participants, visible recipient headers, and the 202 response. Bcc delivery outcomes are excluded from the message's `recipients` list.
+     *
+     * @return list<string>|null
+     */
+    public function getBcc(): ?array
+    {
+        return $this->bcc;
+    }
+    /**
+     * Blind-copy recipients. Addresses already on the derived To or merged Cc line are dropped (case-insensitive). Bcc addresses are omitted from conversation participants, visible recipient headers, and the 202 response. Bcc delivery outcomes are excluded from the message's `recipients` list.
+     *
+     * @param list<string>|null $bcc
+     *
+     * @return self
+     */
+    public function setBcc(?array $bcc): self
+    {
+        $this->initialized['bcc'] = true;
+        $this->bcc = $bcc;
         return $this;
     }
     /**

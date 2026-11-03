@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\EmailThreadUpdateRequest;
 class EmailThreadsBase extends Resource
 {
     /**
-     * List mailbox conversations as a cursor page, most recently active first. `label` selects the view: inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
+     * List mailbox conversations as a cursor page, most recently active first. `folder` selects the view: inbox (default), archive, spam, blocked, sent, or trash. `labels` matches custom labels. Filter by mailbox, contact, participant address, or subject substring.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -57,13 +57,13 @@ class EmailThreadsBase extends Resource
     }
 
     /**
-     * Add or remove labels on a conversation, or link and unlink a contact. Adding `spam` files it as spam, `archive` clears it out of the inbox, and `inbox` brings it back.
+     * Set read state, move a conversation with folder, add or remove custom labels, or link and unlink a contact. Use `email.threads.delete` to trash a conversation and `email.threads.restore` to recover it. Restore a trashed conversation before changing its folder. Blocked and sent are assigned automatically.
      *
      * @example Relabel a thread and link it to a contact
      * $bird->email->threads->update(
      *     'thr_01krdgeqcxet5s7t44vh8rt9mg',
      *     (new EmailThreadUpdateRequest())
-     *         ->setLabels((new EmailLabelsUpdate())->setAdd(['escalated']))
+     *         ->setLabels((new EmailThreadLabelsUpdate())->setAdd(['escalated']))
      *         ->setContactId('con_01krdgeqcxet5s7t44vh8rt9mg'),
      * );
      */
@@ -73,7 +73,7 @@ class EmailThreadsBase extends Resource
     }
 
     /**
-     * Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with `?permanent=true`.
+     * Move a conversation and all its messages to trash. Restore retained messages during the 30-day trash window with `email.threads.restore`, or delete permanently with `?permanent=true` without a restore window.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -83,5 +83,17 @@ class EmailThreadsBase extends Resource
     public function delete(string $threadId, ?array $query = null, ?RequestOptions $options = null): void
     {
         $this->none('DELETE', '/v1/email/threads/' . rawurlencode($threadId), null, $query, $options);
+    }
+
+    /**
+     * Restore messages that remain within their trash deadline and the mailbox retention period. Preserves folder and read state. Repeating the operation does not change messages already restored; canceled scheduled sends remain canceled.
+     *
+     * @example Restore retained messages in a thread
+     * $thread = $bird->email->threads->restore('thr_01krdgeqcxet5s7t44vh8rt9mg');
+     * echo $thread->getId();
+     */
+    public function restore(string $threadId, ?RequestOptions $options = null): EmailThread
+    {
+        return $this->single('POST', '/v1/email/threads/' . rawurlencode($threadId) . '/restore', EmailThread::class, null, null, $options);
     }
 }

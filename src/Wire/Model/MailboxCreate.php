@@ -28,7 +28,13 @@ class MailboxCreate
      */
     protected $domain = 'inbox.ai';
     /**
-     * Display name used as the sender name on mail from this mailbox.
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     *
+     * @var string|null
+     */
+    protected $name;
+    /**
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @var string|null
      */
@@ -110,7 +116,29 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox.
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+    /**
+     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     *
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name): self
+    {
+        $this->initialized['name'] = true;
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @return string|null
      */
@@ -119,7 +147,7 @@ class MailboxCreate
         return $this->displayName;
     }
     /**
-     * Display name used as the sender name on mail from this mailbox.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
      *
      * @param string|null $displayName
      *

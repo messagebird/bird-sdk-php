@@ -18,7 +18,7 @@ use MessageBird\Wire\Model\MailboxUpdate;
 class EmailMailboxesBase extends Resource
 {
     /**
-     * List the workspace's mailboxes as a cursor page, newest first. Search addresses and display names with q, or filter by exact address, state, or domain.
+     * List the workspace's mailboxes as a cursor page, newest first. Search address, name and display_name with q, or filter by exact address, state, or domain.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -53,7 +53,7 @@ class EmailMailboxesBase extends Resource
      * @example Create a mailbox, letting Bird mint the address
      * $mailbox = $bird->email->mailboxes->create(
      *     (new MailboxCreate())
-     *         ->setDisplayName('Acme Support'),
+     *         ->setName('Acme Support'),
      * );
      * echo $mailbox->getId(), ' ', $mailbox->getAddress();
      */
@@ -79,10 +79,10 @@ class EmailMailboxesBase extends Resource
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
-     * @example Change a mailbox's display name
+     * @example Change a mailbox's sender name
      * $bird->email->mailboxes->update(
      *     'mbx_01krdgeqcxet5s7t44vh8rt9mg',
-     *     (new MailboxUpdate())->setDisplayName('Acme Help'),
+     *     (new MailboxUpdate())->setName('Acme Help'),
      * );
      */
     public function update(string $mailboxId, MailboxUpdate $params, ?array $query = null, ?RequestOptions $options = null): Mailbox

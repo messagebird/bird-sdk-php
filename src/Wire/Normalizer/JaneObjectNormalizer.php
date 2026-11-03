@@ -1928,7 +1928,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailThreadList::class => \MessageBird\Wire\Normalizer\EmailThreadListNormalizer::class,
 
-        \MessageBird\Wire\Model\EmailLabelsUpdate::class => \MessageBird\Wire\Normalizer\EmailLabelsUpdateNormalizer::class,
+        \MessageBird\Wire\Model\EmailThreadLabelsUpdate::class => \MessageBird\Wire\Normalizer\EmailThreadLabelsUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailThreadUpdateRequest::class => \MessageBird\Wire\Normalizer\EmailThreadUpdateRequestNormalizer::class,
 
@@ -1941,6 +1941,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailThreadMessage::class => \MessageBird\Wire\Normalizer\EmailThreadMessageNormalizer::class,
 
         \MessageBird\Wire\Model\EmailThreadMessageList::class => \MessageBird\Wire\Normalizer\EmailThreadMessageListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailLabelsUpdate::class => \MessageBird\Wire\Normalizer\EmailLabelsUpdateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailThreadMessageUpdateRequest::class => \MessageBird\Wire\Normalizer\EmailThreadMessageUpdateRequestNormalizer::class,
 
@@ -3373,13 +3375,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailThreadHighlights::class => false,
             \MessageBird\Wire\Model\EmailThread::class => false,
             \MessageBird\Wire\Model\EmailThreadList::class => false,
-            \MessageBird\Wire\Model\EmailLabelsUpdate::class => false,
+            \MessageBird\Wire\Model\EmailThreadLabelsUpdate::class => false,
             \MessageBird\Wire\Model\EmailThreadUpdateRequest::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageRecipient::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageAttachment::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageSource::class => false,
             \MessageBird\Wire\Model\EmailThreadMessage::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageList::class => false,
+            \MessageBird\Wire\Model\EmailLabelsUpdate::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageUpdateRequest::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageBody::class => false,
             \MessageBird\Wire\Model\EmailThreadMessageAttachmentList::class => false,

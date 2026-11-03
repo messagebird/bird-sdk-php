@@ -37,8 +37,23 @@ class EmailThreadUpdateRequestNormalizer implements DenormalizerInterface, Norma
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('read', $data) && \is_int($data['read'])) {
+            $data['read'] = (bool) $data['read'];
+        }
+        if (\array_key_exists('read', $data) && $data['read'] !== null) {
+            $object->setRead($data['read']);
+        }
+        elseif (\array_key_exists('read', $data) && $data['read'] === null) {
+            $object->setRead(null);
+        }
+        if (\array_key_exists('folder', $data) && $data['folder'] !== null) {
+            $object->setFolder($data['folder']);
+        }
+        elseif (\array_key_exists('folder', $data) && $data['folder'] === null) {
+            $object->setFolder(null);
+        }
         if (\array_key_exists('labels', $data) && $data['labels'] !== null) {
-            $object->setLabels($this->denormalizer->denormalize($data['labels'], \MessageBird\Wire\Model\EmailLabelsUpdate::class, 'json', $context));
+            $object->setLabels($this->denormalizer->denormalize($data['labels'], \MessageBird\Wire\Model\EmailThreadLabelsUpdate::class, 'json', $context));
         }
         elseif (\array_key_exists('labels', $data) && $data['labels'] === null) {
             $object->setLabels(null);
@@ -54,6 +69,12 @@ class EmailThreadUpdateRequestNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('read') && null !== $data->getRead()) {
+            $dataArray['read'] = $data->getRead();
+        }
+        if ($data->isInitialized('folder') && null !== $data->getFolder()) {
+            $dataArray['folder'] = $data->getFolder();
+        }
         if ($data->isInitialized('labels') && null !== $data->getLabels()) {
             $dataArray['labels'] = $this->normalizer->normalize($data->getLabels(), 'json', $context);
         }

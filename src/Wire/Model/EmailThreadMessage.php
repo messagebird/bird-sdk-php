@@ -133,7 +133,7 @@ class EmailThreadMessage
      */
     protected $status;
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal delivery outcomes for the visible To and Cc recipients of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Bcc recipients are omitted; aggregate status still includes every attempted recipient. Null for received messages and before any visible recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      * 
      *
      * @var list<EmailThreadMessageRecipient>|null
@@ -620,7 +620,7 @@ class EmailThreadMessage
         return $this;
     }
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal delivery outcomes for the visible To and Cc recipients of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Bcc recipients are omitted; aggregate status still includes every attempted recipient. Null for received messages and before any visible recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      * 
      *
      * @return list<EmailThreadMessageRecipient>|null
@@ -630,7 +630,7 @@ class EmailThreadMessage
         return $this->recipients;
     }
     /**
-     * Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+     * Terminal delivery outcomes for the visible To and Cc recipients of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Bcc recipients are omitted; aggregate status still includes every attempted recipient. Null for received messages and before any visible recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
      *
      * @param list<EmailThreadMessageRecipient>|null $recipients
      *

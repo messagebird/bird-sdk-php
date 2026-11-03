@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Changes to apply to a thread. Omitted fields are left unchanged.
+ * Changes to apply to a thread. Omitted fields are left unchanged. Folder changes accept inbox, archive or spam and reject trashed threads with 422; first use [Restore a thread from trash](/docs/api/reference/restore-email-thread). Read and custom-label updates remain available in trash.
  */
 class EmailThreadUpdateRequest
 {
@@ -16,10 +16,21 @@ class EmailThreadUpdateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
-     * 
+     * Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
      *
-     * @var EmailLabelsUpdate|null
+     * @var bool|null
+     */
+    protected $read;
+    /**
+     * Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
+     *
+     * @var string|null
+     */
+    protected $folder;
+    /**
+     * Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+     *
+     * @var EmailThreadLabelsUpdate|null
      */
     protected $labels;
     /**
@@ -29,23 +40,66 @@ class EmailThreadUpdateRequest
      */
     protected $contactId;
     /**
-     * Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
-     * 
+     * Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
      *
-     * @return EmailLabelsUpdate|null
+     * @return bool|null
      */
-    public function getLabels(): ?EmailLabelsUpdate
+    public function getRead(): ?bool
+    {
+        return $this->read;
+    }
+    /**
+     * Mark all retained received messages read or unread. Includes trash, spam and blocked messages; unread_count continues to exclude them.
+     *
+     * @param bool|null $read
+     *
+     * @return self
+     */
+    public function setRead(?bool $read): self
+    {
+        $this->initialized['read'] = true;
+        $this->read = $read;
+        return $this;
+    }
+    /**
+     * Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
+     *
+     * @return string|null
+     */
+    public function getFolder(): ?string
+    {
+        return $this->folder;
+    }
+    /**
+     * Folder a caller can choose through PATCH. Use DELETE to move a thread to trash and [Restore a thread from trash](/docs/api/reference/restore-email-thread) (POST /v1/email/threads/{thread_id}/restore) to recover it.
+     *
+     * @param string|null $folder
+     *
+     * @return self
+     */
+    public function setFolder(?string $folder): self
+    {
+        $this->initialized['folder'] = true;
+        $this->folder = $folder;
+        return $this;
+    }
+    /**
+     * Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
+     *
+     * @return EmailThreadLabelsUpdate|null
+     */
+    public function getLabels(): ?EmailThreadLabelsUpdate
     {
         return $this->labels;
     }
     /**
-     * Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+     * Custom labels to add or remove. System and reserved names are refused; use read and folder for thread state. The resulting custom-label set must contain at most 20 labels; larger sets return 422.
      *
-     * @param EmailLabelsUpdate|null $labels
+     * @param EmailThreadLabelsUpdate|null $labels
      *
      * @return self
      */
-    public function setLabels(?EmailLabelsUpdate $labels): self
+    public function setLabels(?EmailThreadLabelsUpdate $labels): self
     {
         $this->initialized['labels'] = true;
         $this->labels = $labels;

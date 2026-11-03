@@ -37,6 +37,9 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('read', $data) && \is_int($data['read'])) {
+            $data['read'] = (bool) $data['read'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -101,6 +104,18 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('last_direction', $data) && $data['last_direction'] === null) {
             $object->setLastDirection(null);
         }
+        if (\array_key_exists('folder', $data) && $data['folder'] !== null) {
+            $object->setFolder($data['folder']);
+        }
+        elseif (\array_key_exists('folder', $data) && $data['folder'] === null) {
+            $object->setFolder(null);
+        }
+        if (\array_key_exists('read', $data) && $data['read'] !== null) {
+            $object->setRead($data['read']);
+        }
+        elseif (\array_key_exists('read', $data) && $data['read'] === null) {
+            $object->setRead(null);
+        }
         if (\array_key_exists('labels', $data) && $data['labels'] !== null) {
             $values_1 = [];
             foreach ($data['labels'] as $value_1) {
@@ -148,12 +163,33 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         $dataArray = [];
         $dataArray['id'] = $data->getId();
         $dataArray['mailbox_id'] = $data->getMailboxId();
+        $dataArray['channel'] = $data->getChannel();
         $dataArray['contact_id'] = $data->getContactId();
+        $dataArray['subject'] = $data->getSubject();
         $values = [];
-        foreach ($data->getLabels() as $value) {
+        foreach ($data->getParticipants() as $value) {
             $values[] = $value;
         }
-        $dataArray['labels'] = $values;
+        $dataArray['participants'] = $values;
+        $dataArray['message_count'] = $data->getMessageCount();
+        $dataArray['unread_count'] = $data->getUnreadCount();
+        $dataArray['last_message_at'] = $data->getLastMessageAt()->format('Y-m-d\TH:i:sP');
+        $dataArray['last_direction'] = $data->getLastDirection();
+        $dataArray['folder'] = $data->getFolder();
+        $dataArray['read'] = $data->getRead();
+        $values_1 = [];
+        foreach ($data->getLabels() as $value_1) {
+            $values_1[] = $value_1;
+        }
+        $dataArray['labels'] = $values_1;
+        $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        if ($data->isInitialized('scheduledCount') && null !== $data->getScheduledCount()) {
+            $dataArray['scheduled_count'] = $data->getScheduledCount();
+        }
+        if ($data->isInitialized('nextScheduledAt') && null !== $data->getNextScheduledAt()) {
+            $dataArray['next_scheduled_at'] = $data->getNextScheduledAt()->format('Y-m-d\TH:i:sP');
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
