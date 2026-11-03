@@ -44,7 +44,7 @@ class WhatsAppTemplateLanguage
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+     * - `pending`: Not yet approved or rejected.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -141,6 +141,13 @@ class WhatsAppTemplateLanguage
      * @var \DateTime|null
      */
     protected $approvedAt;
+    /**
+     * Opens this language in Meta's WhatsApp Manager, for people with access to the business portfolio. Null until WhatsApp holds the language, which can take a minute after submitting, and null again once WhatsApp has deleted it. Always null for a built-in template's language.
+     * 
+     *
+     * @var string|null
+     */
+    protected $whatsappManagerUrl;
     /**
      * When this language last changed. Null for a built-in template's language, which Bird ships rather than stores.
      * 
@@ -248,7 +255,7 @@ class WhatsAppTemplateLanguage
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+     * - `pending`: Not yet approved or rejected.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -271,7 +278,7 @@ class WhatsAppTemplateLanguage
     * Language review and health status:
     
     - `approved`: Passed review and can be sent.
-    - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+    - `pending`: Not yet approved or rejected.
     - `rejected`: Failed review.
     - `paused` or `disabled`: Sending is suspended.
     - `in_appeal`: A decision is being appealed.
@@ -547,6 +554,29 @@ class WhatsAppTemplateLanguage
     {
         $this->initialized['approvedAt'] = true;
         $this->approvedAt = $approvedAt;
+        return $this;
+    }
+    /**
+     * Opens this language in Meta's WhatsApp Manager, for people with access to the business portfolio. Null until WhatsApp holds the language, which can take a minute after submitting, and null again once WhatsApp has deleted it. Always null for a built-in template's language.
+     * 
+     *
+     * @return string|null
+     */
+    public function getWhatsappManagerUrl(): ?string
+    {
+        return $this->whatsappManagerUrl;
+    }
+    /**
+     * Opens this language in Meta's WhatsApp Manager, for people with access to the business portfolio. Null until WhatsApp holds the language, which can take a minute after submitting, and null again once WhatsApp has deleted it. Always null for a built-in template's language.
+     *
+     * @param string|null $whatsappManagerUrl
+     *
+     * @return self
+     */
+    public function setWhatsappManagerUrl(?string $whatsappManagerUrl): self
+    {
+        $this->initialized['whatsappManagerUrl'] = true;
+        $this->whatsappManagerUrl = $whatsappManagerUrl;
         return $this;
     }
     /**

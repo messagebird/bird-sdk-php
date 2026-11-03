@@ -16,26 +16,19 @@ class SMSSendOptions
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Replace characters outside the GSM-7 alphabet with their closest GSM-7 equivalent before sending: typically curly quotes, dashes, ellipses, fullwidth forms, and non-breaking spaces.
-     * 
-     * One such character forces the whole body into `UCS2`, which more than halves the characters that fit in a segment, so replacing them often lowers the segment count and the cost.
-     * 
-     * Disabled by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet afterwards, such as an emoji or a non-Latin script, is sent exactly as you supplied it. Read the message back to see what was applied: `text` is the body as sent.
-     * 
+     * Replace characters outside the GSM-7 alphabet, typically curly quotes, dashes, ellipses, fullwidth forms and non-breaking spaces, with their closest GSM-7 equivalent before sending. One such character forces the whole body into `UCS2`, which more than halves the characters per segment, so replacing them often lowers the segment count and the cost. Off by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet, such as an emoji or a non-Latin script, is sent exactly as supplied. The message's `text` on a read is the body as sent.
      *
      * @var bool|null
      */
     protected $smartEncoding = false;
     /**
-     * Send this message even if the recipient is suppressed for the sender, including after replying STOP. Bird skips every suppression reason and records the flag on the message; communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages can use it; setting it to `true` on a `marketing` or `service` message returns `422`. Bird must enable it for your workspace first; until then, a message that uses it is refused with `422`. Omit it to use the setting of the messaging profile in `messaging_profile_id`.
-     * 
+     * Send even if the recipient is suppressed for the sender, including after replying STOP: Bird skips every suppression reason and records the flag on the message, while communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages take it; `true` on a `marketing` or `service` message returns `422`, as does any use before Bird enables it for your workspace. Omit it to use the setting of the profile in `messaging_profile_id`.
      *
      * @var bool|null
      */
     protected $ignoreSuppression = false;
     /**
-     * An HTTPS URL that receives this message's events instead of your webhook endpoints. It must be a public address: a private, loopback or link-local host returns `422`. Bird fixes the URL when it accepts the message, so later profile changes do not reroute it. Each event is a signed POST, retried on failure, and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, this message's events skip your plain webhook endpoints, and a failed callback never falls back to them. MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the messaging profile in `messaging_profile_id` choose which events go to the URL. Omit the field to use the callback URL of that profile; send `null` to send this message's events to your webhook subscriptions.
-     * 
+     * An HTTPS URL that receives this message's events instead of your webhook endpoints; a private, loopback or link-local host returns `422`. The URL is fixed when Bird accepts the message, so later profile changes do not reroute it. Each event is a POST, retried on failure and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While the URL applies, the message's events skip your plain webhook endpoints, with no fallback when the callback fails; MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the profile in `messaging_profile_id` choose which events go to the URL. Omit it to use that profile's callback URL, or send `null` to send the events to your webhook subscriptions.
      *
      * @var string|null
      */
@@ -53,12 +46,7 @@ class SMSSendOptions
      */
     protected $maxPricePerSegment;
     /**
-     * Replace characters outside the GSM-7 alphabet with their closest GSM-7 equivalent before sending: typically curly quotes, dashes, ellipses, fullwidth forms, and non-breaking spaces.
-     * 
-     * One such character forces the whole body into `UCS2`, which more than halves the characters that fit in a segment, so replacing them often lowers the segment count and the cost.
-     * 
-     * Disabled by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet afterwards, such as an emoji or a non-Latin script, is sent exactly as you supplied it. Read the message back to see what was applied: `text` is the body as sent.
-     * 
+     * Replace characters outside the GSM-7 alphabet, typically curly quotes, dashes, ellipses, fullwidth forms and non-breaking spaces, with their closest GSM-7 equivalent before sending. One such character forces the whole body into `UCS2`, which more than halves the characters per segment, so replacing them often lowers the segment count and the cost. Off by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet, such as an emoji or a non-Latin script, is sent exactly as supplied. The message's `text` on a read is the body as sent.
      *
      * @return bool|null
      */
@@ -67,17 +55,12 @@ class SMSSendOptions
         return $this->smartEncoding;
     }
     /**
-    * Replace characters outside the GSM-7 alphabet with their closest GSM-7 equivalent before sending: typically curly quotes, dashes, ellipses, fullwidth forms, and non-breaking spaces.
-    
-    One such character forces the whole body into `UCS2`, which more than halves the characters that fit in a segment, so replacing them often lowers the segment count and the cost.
-    
-    Disabled by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet afterwards, such as an emoji or a non-Latin script, is sent exactly as you supplied it. Read the message back to see what was applied: `text` is the body as sent.
-    
-    *
-    * @param bool|null $smartEncoding
-    *
-    * @return self
-    */
+     * Replace characters outside the GSM-7 alphabet, typically curly quotes, dashes, ellipses, fullwidth forms and non-breaking spaces, with their closest GSM-7 equivalent before sending. One such character forces the whole body into `UCS2`, which more than halves the characters per segment, so replacing them often lowers the segment count and the cost. Off by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet, such as an emoji or a non-Latin script, is sent exactly as supplied. The message's `text` on a read is the body as sent.
+     *
+     * @param bool|null $smartEncoding
+     *
+     * @return self
+     */
     public function setSmartEncoding(?bool $smartEncoding): self
     {
         $this->initialized['smartEncoding'] = true;
@@ -85,8 +68,7 @@ class SMSSendOptions
         return $this;
     }
     /**
-     * Send this message even if the recipient is suppressed for the sender, including after replying STOP. Bird skips every suppression reason and records the flag on the message; communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages can use it; setting it to `true` on a `marketing` or `service` message returns `422`. Bird must enable it for your workspace first; until then, a message that uses it is refused with `422`. Omit it to use the setting of the messaging profile in `messaging_profile_id`.
-     * 
+     * Send even if the recipient is suppressed for the sender, including after replying STOP: Bird skips every suppression reason and records the flag on the message, while communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages take it; `true` on a `marketing` or `service` message returns `422`, as does any use before Bird enables it for your workspace. Omit it to use the setting of the profile in `messaging_profile_id`.
      *
      * @return bool|null
      */
@@ -95,7 +77,7 @@ class SMSSendOptions
         return $this->ignoreSuppression;
     }
     /**
-     * Send this message even if the recipient is suppressed for the sender, including after replying STOP. Bird skips every suppression reason and records the flag on the message; communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages can use it; setting it to `true` on a `marketing` or `service` message returns `422`. Bird must enable it for your workspace first; until then, a message that uses it is refused with `422`. Omit it to use the setting of the messaging profile in `messaging_profile_id`.
+     * Send even if the recipient is suppressed for the sender, including after replying STOP: Bird skips every suppression reason and records the flag on the message, while communication preferences the recipient revoked still apply. Only `authentication` and `transactional` messages take it; `true` on a `marketing` or `service` message returns `422`, as does any use before Bird enables it for your workspace. Omit it to use the setting of the profile in `messaging_profile_id`.
      *
      * @param bool|null $ignoreSuppression
      *
@@ -108,8 +90,7 @@ class SMSSendOptions
         return $this;
     }
     /**
-     * An HTTPS URL that receives this message's events instead of your webhook endpoints. It must be a public address: a private, loopback or link-local host returns `422`. Bird fixes the URL when it accepts the message, so later profile changes do not reroute it. Each event is a signed POST, retried on failure, and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, this message's events skip your plain webhook endpoints, and a failed callback never falls back to them. MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the messaging profile in `messaging_profile_id` choose which events go to the URL. Omit the field to use the callback URL of that profile; send `null` to send this message's events to your webhook subscriptions.
-     * 
+     * An HTTPS URL that receives this message's events instead of your webhook endpoints; a private, loopback or link-local host returns `422`. The URL is fixed when Bird accepts the message, so later profile changes do not reroute it. Each event is a POST, retried on failure and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While the URL applies, the message's events skip your plain webhook endpoints, with no fallback when the callback fails; MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the profile in `messaging_profile_id` choose which events go to the URL. Omit it to use that profile's callback URL, or send `null` to send the events to your webhook subscriptions.
      *
      * @return string|null
      */
@@ -118,7 +99,7 @@ class SMSSendOptions
         return $this->callbackUrl;
     }
     /**
-     * An HTTPS URL that receives this message's events instead of your webhook endpoints. It must be a public address: a private, loopback or link-local host returns `422`. Bird fixes the URL when it accepts the message, so later profile changes do not reroute it. Each event is a signed POST, retried on failure, and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While a URL applies, this message's events skip your plain webhook endpoints, and a failed callback never falls back to them. MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the messaging profile in `messaging_profile_id` choose which events go to the URL. Omit the field to use the callback URL of that profile; send `null` to send this message's events to your webhook subscriptions.
+     * An HTTPS URL that receives this message's events instead of your webhook endpoints; a private, loopback or link-local host returns `422`. The URL is fixed when Bird accepts the message, so later profile changes do not reroute it. Each event is a POST, retried on failure and signed with your workspace callback signing secret, which `rotateWebhookCallbackSigningSecret` creates and returns once. While the URL applies, the message's events skip your plain webhook endpoints, with no fallback when the callback fails; MCP Events subscriptions and connector endpoints still receive them. The `callback_events` of the profile in `messaging_profile_id` choose which events go to the URL. Omit it to use that profile's callback URL, or send `null` to send the events to your webhook subscriptions.
      *
      * @param string|null $callbackUrl
      *

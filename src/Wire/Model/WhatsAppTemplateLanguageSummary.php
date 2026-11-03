@@ -25,7 +25,7 @@ class WhatsAppTemplateLanguageSummary
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+     * - `pending`: Not yet approved or rejected.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -94,7 +94,7 @@ class WhatsAppTemplateLanguageSummary
      * Language review and health status:
      * 
      * - `approved`: Passed review and can be sent.
-     * - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+     * - `pending`: Not yet approved or rejected.
      * - `rejected`: Failed review.
      * - `paused` or `disabled`: Sending is suspended.
      * - `in_appeal`: A decision is being appealed.
@@ -117,7 +117,7 @@ class WhatsAppTemplateLanguageSummary
     * Language review and health status:
     
     - `approved`: Passed review and can be sent.
-    - `pending`: Under review, or submitted while Bird confirms the result with WhatsApp.
+    - `pending`: Not yet approved or rejected.
     - `rejected`: Failed review.
     - `paused` or `disabled`: Sending is suspended.
     - `in_appeal`: A decision is being appealed.

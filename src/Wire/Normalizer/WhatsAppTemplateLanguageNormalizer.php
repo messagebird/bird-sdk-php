@@ -131,6 +131,12 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('approved_at', $data) && $data['approved_at'] === null) {
             $object->setApprovedAt(null);
         }
+        if (\array_key_exists('whatsapp_manager_url', $data) && $data['whatsapp_manager_url'] !== null) {
+            $object->setWhatsappManagerUrl($data['whatsapp_manager_url']);
+        }
+        elseif (\array_key_exists('whatsapp_manager_url', $data) && $data['whatsapp_manager_url'] === null) {
+            $object->setWhatsappManagerUrl(null);
+        }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
             $object->setUpdatedAt(new \DateTime($data['updated_at']));
         }

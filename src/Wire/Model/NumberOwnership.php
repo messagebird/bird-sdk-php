@@ -38,7 +38,7 @@ class NumberOwnership extends \ArrayObject
      * - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
      * - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
      * - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
-     * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
+     * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block; if `unavailable_at` is present, contact support, otherwise retry the read.
      * 
      *
      * @var string|null
@@ -51,6 +51,18 @@ class NumberOwnership extends \ArrayObject
      * @var \DateTime|null
      */
     protected $blockedAt;
+    /**
+     * When the number became unavailable. It cannot be activated; contact support. Absent while the number is available.
+     *
+     * @var \DateTime|null
+     */
+    protected $unavailableAt;
+    /**
+     * The deadline for completing the number's ownership details. A number with incomplete or inaccurate details can be removed sooner. Absent when no deadline is known or while `unavailable_at` is set.
+     *
+     * @var \DateTime|null
+     */
+    protected $registrationDueAt;
     /**
      * Actions that advance ownership registration or activation, in order. Empty when neither needs further action. A `wait` step means no customer action is needed now, including while accepted paperwork awaits activation. Read this list again after each change.
      * 
@@ -113,7 +125,7 @@ class NumberOwnership extends \ArrayObject
      * - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
      * - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
      * - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
-     * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
+     * - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block; if `unavailable_at` is present, contact support, otherwise retry the read.
      * 
      *
      * @return string|null
@@ -132,7 +144,7 @@ class NumberOwnership extends \ArrayObject
     - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
     - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
     - `rejected` means the submission was closed without accepting another one, or the verifier correction deadline passed. Corrections are no longer accepted for this submission. Contact support.
-    - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
+    - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block; if `unavailable_at` is present, contact support, otherwise retry the read.
     
     *
     * @param string|null $status
@@ -166,6 +178,50 @@ class NumberOwnership extends \ArrayObject
     {
         $this->initialized['blockedAt'] = true;
         $this->blockedAt = $blockedAt;
+        return $this;
+    }
+    /**
+     * When the number became unavailable. It cannot be activated; contact support. Absent while the number is available.
+     *
+     * @return \DateTime|null
+     */
+    public function getUnavailableAt(): ?\DateTime
+    {
+        return $this->unavailableAt;
+    }
+    /**
+     * When the number became unavailable. It cannot be activated; contact support. Absent while the number is available.
+     *
+     * @param \DateTime|null $unavailableAt
+     *
+     * @return self
+     */
+    public function setUnavailableAt(?\DateTime $unavailableAt): self
+    {
+        $this->initialized['unavailableAt'] = true;
+        $this->unavailableAt = $unavailableAt;
+        return $this;
+    }
+    /**
+     * The deadline for completing the number's ownership details. A number with incomplete or inaccurate details can be removed sooner. Absent when no deadline is known or while `unavailable_at` is set.
+     *
+     * @return \DateTime|null
+     */
+    public function getRegistrationDueAt(): ?\DateTime
+    {
+        return $this->registrationDueAt;
+    }
+    /**
+     * The deadline for completing the number's ownership details. A number with incomplete or inaccurate details can be removed sooner. Absent when no deadline is known or while `unavailable_at` is set.
+     *
+     * @param \DateTime|null $registrationDueAt
+     *
+     * @return self
+     */
+    public function setRegistrationDueAt(?\DateTime $registrationDueAt): self
+    {
+        $this->initialized['registrationDueAt'] = true;
+        $this->registrationDueAt = $registrationDueAt;
         return $this;
     }
     /**

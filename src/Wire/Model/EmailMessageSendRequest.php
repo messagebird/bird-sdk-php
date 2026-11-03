@@ -70,21 +70,13 @@ class EmailMessageSendRequest
      */
     protected $headers;
     /**
-     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
-     * 
-     * - Filter the list endpoint by tag name.
-     * - Slice analytics rollups by tag.
-     * - Surface in webhook payloads.
-     * 
-     * Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
-     * 
+     * Structured `{name, value}` labels, up to 20 per send. You can filter the list endpoint by tag name, slice analytics by tag, and read them in webhook payloads. Use them for low-cardinality dimensions such as `category`, `experiment_variant` or `template_id`, and `metadata` for context you do not filter by.
      *
      * @var list<Tag>|null
      */
     protected $tags;
     /**
-     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
-     * 
+     * JSON object returned on reads and in webhook payloads, up to 2 KB serialized. Analytics can query its paths, such as `metadata.order_id`, but the dashboard cannot filter by it. Use it for per-send context such as order IDs and customer references, and `tags` for low-cardinality labels you filter by.
      *
      * @var array<string, mixed>|null
      */
@@ -97,8 +89,7 @@ class EmailMessageSendRequest
      */
     protected $reference;
     /**
-     * Parameter values used to personalize inline content, shared across all recipients of this send. Tokens such as `{{ animal }}` are replaced with matching values; missing values render empty. Include this object, even as `{}`, to use Liquid, or omit it to leave tokens unchanged. Use single-word names other than `bird`. Cap: 16 KB serialized. For a stored template, use `template.parameters` instead. See [inline personalization](https://bird.com/docs/guides/email/sending-email#content) for validation and URL encoding examples.
-     * 
+     * Values for the Liquid tokens in inline content, shared by every recipient: `{{ animal }}` takes the `animal` value, and a missing value renders empty. Include the object, even as `{}`, to render Liquid, or omit it to leave tokens unchanged. Names are single words other than `bird`, and the object is capped at 16 KB serialized. A stored template takes `template.parameters` instead. [Inline personalization](https://bird.com/docs/guides/email/sending-email#content) covers validation and URL encoding.
      *
      * @var array<string, mixed>|null
      */
@@ -140,15 +131,13 @@ class EmailMessageSendRequest
      */
     protected $category;
     /**
-     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
-     * 
+     * Files to attach, up to 20 per message. A generated message is capped at 20 MB, and a send over it is refused. The cap counts the HTML and text bodies and every attachment and inline image after base64 encoding, which adds about a third, so 15 MB of raw files uses most of it. Each batch item has the same cap, and the whole request body is capped at 20 MB too.
      *
      * @var list<EmailAttachment>|null
      */
     protected $attachments;
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. For a stored template, the published version, language and parameter values are pinned when we accept the request, so a later publication does not change what sends. If the template is deleted before the message is due, the message is rejected with `generation_failure`. We also check sender eligibility and send-volume allowance when the message is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
-     * 
+     * Send at this future time instead of immediately, at least 30 seconds and at most 30 days ahead; outside that range returns `422`. The message returns `accepted` and reads as `scheduled` until it sends, and the message cancel endpoint cancels it before then. Scheduled sends count against your plan's monthly scheduled-email allowance, and a send over it returns `422`. A stored template's published version, language and parameter values are pinned at acceptance, so a later publication does not change what sends; deleting the template before the message is due rejects it with `generation_failure`. Sender eligibility and send-volume allowance are checked again when it is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
      *
      * @var \DateTime|null
      */
@@ -355,14 +344,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
-     * 
-     * - Filter the list endpoint by tag name.
-     * - Slice analytics rollups by tag.
-     * - Surface in webhook payloads.
-     * 
-     * Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
-     * 
+     * Structured `{name, value}` labels, up to 20 per send. You can filter the list endpoint by tag name, slice analytics by tag, and read them in webhook payloads. Use them for low-cardinality dimensions such as `category`, `experiment_variant` or `template_id`, and `metadata` for context you do not filter by.
      *
      * @return list<Tag>|null
      */
@@ -371,19 +353,12 @@ class EmailMessageSendRequest
         return $this->tags;
     }
     /**
-    * Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
-    
-    - Filter the list endpoint by tag name.
-    - Slice analytics rollups by tag.
-    - Surface in webhook payloads.
-    
-    Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
-    
-    *
-    * @param list<Tag>|null $tags
-    *
-    * @return self
-    */
+     * Structured `{name, value}` labels, up to 20 per send. You can filter the list endpoint by tag name, slice analytics by tag, and read them in webhook payloads. Use them for low-cardinality dimensions such as `category`, `experiment_variant` or `template_id`, and `metadata` for context you do not filter by.
+     *
+     * @param list<Tag>|null $tags
+     *
+     * @return self
+     */
     public function setTags(?array $tags): self
     {
         $this->initialized['tags'] = true;
@@ -391,8 +366,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
-     * 
+     * JSON object returned on reads and in webhook payloads, up to 2 KB serialized. Analytics can query its paths, such as `metadata.order_id`, but the dashboard cannot filter by it. Use it for per-send context such as order IDs and customer references, and `tags` for low-cardinality labels you filter by.
      *
      * @return array<string, mixed>|null
      */
@@ -401,7 +375,7 @@ class EmailMessageSendRequest
         return $this->metadata;
     }
     /**
-     * Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
+     * JSON object returned on reads and in webhook payloads, up to 2 KB serialized. Analytics can query its paths, such as `metadata.order_id`, but the dashboard cannot filter by it. Use it for per-send context such as order IDs and customer references, and `tags` for low-cardinality labels you filter by.
      *
      * @param array<string, mixed>|null $metadata
      *
@@ -437,8 +411,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Parameter values used to personalize inline content, shared across all recipients of this send. Tokens such as `{{ animal }}` are replaced with matching values; missing values render empty. Include this object, even as `{}`, to use Liquid, or omit it to leave tokens unchanged. Use single-word names other than `bird`. Cap: 16 KB serialized. For a stored template, use `template.parameters` instead. See [inline personalization](https://bird.com/docs/guides/email/sending-email#content) for validation and URL encoding examples.
-     * 
+     * Values for the Liquid tokens in inline content, shared by every recipient: `{{ animal }}` takes the `animal` value, and a missing value renders empty. Include the object, even as `{}`, to render Liquid, or omit it to leave tokens unchanged. Names are single words other than `bird`, and the object is capped at 16 KB serialized. A stored template takes `template.parameters` instead. [Inline personalization](https://bird.com/docs/guides/email/sending-email#content) covers validation and URL encoding.
      *
      * @return array<string, mixed>|null
      */
@@ -447,7 +420,7 @@ class EmailMessageSendRequest
         return $this->parameters;
     }
     /**
-     * Parameter values used to personalize inline content, shared across all recipients of this send. Tokens such as `{{ animal }}` are replaced with matching values; missing values render empty. Include this object, even as `{}`, to use Liquid, or omit it to leave tokens unchanged. Use single-word names other than `bird`. Cap: 16 KB serialized. For a stored template, use `template.parameters` instead. See [inline personalization](https://bird.com/docs/guides/email/sending-email#content) for validation and URL encoding examples.
+     * Values for the Liquid tokens in inline content, shared by every recipient: `{{ animal }}` takes the `animal` value, and a missing value renders empty. Include the object, even as `{}`, to render Liquid, or omit it to leave tokens unchanged. Names are single words other than `bird`, and the object is capped at 16 KB serialized. A stored template takes `template.parameters` instead. [Inline personalization](https://bird.com/docs/guides/email/sending-email#content) covers validation and URL encoding.
      *
      * @param array<string, mixed>|null $parameters
      *
@@ -580,8 +553,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
-     * 
+     * Files to attach, up to 20 per message. A generated message is capped at 20 MB, and a send over it is refused. The cap counts the HTML and text bodies and every attachment and inline image after base64 encoding, which adds about a third, so 15 MB of raw files uses most of it. Each batch item has the same cap, and the whole request body is capped at 20 MB too.
      *
      * @return list<EmailAttachment>|null
      */
@@ -590,7 +562,7 @@ class EmailMessageSendRequest
         return $this->attachments;
     }
     /**
-     * Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
+     * Files to attach, up to 20 per message. A generated message is capped at 20 MB, and a send over it is refused. The cap counts the HTML and text bodies and every attachment and inline image after base64 encoding, which adds about a third, so 15 MB of raw files uses most of it. Each batch item has the same cap, and the whole request body is capped at 20 MB too.
      *
      * @param list<EmailAttachment>|null $attachments
      *
@@ -603,8 +575,7 @@ class EmailMessageSendRequest
         return $this;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. For a stored template, the published version, language and parameter values are pinned when we accept the request, so a later publication does not change what sends. If the template is deleted before the message is due, the message is rejected with `generation_failure`. We also check sender eligibility and send-volume allowance when the message is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
-     * 
+     * Send at this future time instead of immediately, at least 30 seconds and at most 30 days ahead; outside that range returns `422`. The message returns `accepted` and reads as `scheduled` until it sends, and the message cancel endpoint cancels it before then. Scheduled sends count against your plan's monthly scheduled-email allowance, and a send over it returns `422`. A stored template's published version, language and parameter values are pinned at acceptance, so a later publication does not change what sends; deleting the template before the message is due rejects it with `generation_failure`. Sender eligibility and send-volume allowance are checked again when it is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
      *
      * @return \DateTime|null
      */
@@ -613,7 +584,7 @@ class EmailMessageSendRequest
         return $this->scheduledAt;
     }
     /**
-     * Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. For a stored template, the published version, language and parameter values are pinned when we accept the request, so a later publication does not change what sends. If the template is deleted before the message is due, the message is rejected with `generation_failure`. We also check sender eligibility and send-volume allowance when the message is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
+     * Send at this future time instead of immediately, at least 30 seconds and at most 30 days ahead; outside that range returns `422`. The message returns `accepted` and reads as `scheduled` until it sends, and the message cancel endpoint cancels it before then. Scheduled sends count against your plan's monthly scheduled-email allowance, and a send over it returns `422`. A stored template's published version, language and parameter values are pinned at acceptance, so a later publication does not change what sends; deleting the template before the message is due rejects it with `generation_failure`. Sender eligibility and send-volume allowance are checked again when it is due. Batch items take this field too, so one batch can mix scheduled and immediate messages.
      *
      * @param \DateTime|null $scheduledAt
      *

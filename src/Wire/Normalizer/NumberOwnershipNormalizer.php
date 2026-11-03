@@ -68,6 +68,20 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('blocked_at', $data) && $data['blocked_at'] === null) {
             $object->setBlockedAt(null);
         }
+        if (\array_key_exists('unavailable_at', $data) && $data['unavailable_at'] !== null) {
+            $object->setUnavailableAt(new \DateTime($data['unavailable_at']));
+            unset($data['unavailable_at']);
+        }
+        elseif (\array_key_exists('unavailable_at', $data) && $data['unavailable_at'] === null) {
+            $object->setUnavailableAt(null);
+        }
+        if (\array_key_exists('registration_due_at', $data) && $data['registration_due_at'] !== null) {
+            $object->setRegistrationDueAt(new \DateTime($data['registration_due_at']));
+            unset($data['registration_due_at']);
+        }
+        elseif (\array_key_exists('registration_due_at', $data) && $data['registration_due_at'] === null) {
+            $object->setRegistrationDueAt(null);
+        }
         if (\array_key_exists('next', $data) && $data['next'] !== null) {
             $values = [];
             foreach ($data['next'] as $value) {
@@ -92,6 +106,12 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray['satisfied'] = $data->getSatisfied();
         if ($data->isInitialized('blockedAt')) {
             $dataArray['blocked_at'] = $data->getBlockedAt()?->format('Y-m-d\TH:i:sP');
+        }
+        if ($data->isInitialized('unavailableAt') && null !== $data->getUnavailableAt()) {
+            $dataArray['unavailable_at'] = $data->getUnavailableAt()->format('Y-m-d\TH:i:sP');
+        }
+        if ($data->isInitialized('registrationDueAt') && null !== $data->getRegistrationDueAt()) {
+            $dataArray['registration_due_at'] = $data->getRegistrationDueAt()->format('Y-m-d\TH:i:sP');
         }
         $values = [];
         foreach ($data->getNext() as $value) {

@@ -32,28 +32,9 @@ class EmailTemplateSend
      */
     protected $language;
     /**
-     * Values for caller parameters, keyed by name. A parameter name is a single word.
+     * Values for the template's caller parameters, keyed by single-word name. Caller parameters are those with `system` false or absent in the template's `variables`. Supply every required one the resolved language uses; omitting one or sending `null` returns `422`, and values the resolved language does not use are ignored. The `bird` namespace is reserved, so a send that sets it is rejected, and the object is capped at 16 KB serialized.
      * 
-     * Caller parameters have `system` set to false or absent in the template's
-     * `variables` list. Supply each required caller parameter used by the
-     * resolved send language; omitting one or supplying null returns `422`. A version's list
-     * covers all its languages, and values unused by the resolved language are
-     * ignored.
-     * 
-     * The `bird` namespace is reserved for values filled by Bird, so a send that
-     * sets it is rejected. `parameters` is capped at 16 KB once serialized.
-     * 
-     * Bird resolves the referenced
-     * `bird.contact` attributes from each original To recipient's matching contact
-     * in this workspace. Each To receives its own personalized email; Cc and Bcc receive
-     * a copy of each To's email and do not need matching contacts. A missing To
-     * contact rejects the send with `422` (`E04099`), including when Liquid uses
-     * a default or condition. Empty name fields on an existing contact render
-     * empty unless Liquid supplies a default; configured contact-property
-     * fallbacks still apply. Values are saved at acceptance and reused for
-     * delivery and content history. Individual, batch, and scheduled sends
-     * support this behavior.
-     * 
+     * Referenced `bird.contact` attributes come from each To recipient's contact in this workspace, so each To receives its own email, and Cc and Bcc receive a copy of each without needing a contact of their own. A To with no contact rejects the send with `422` (`E04099`), even when Liquid sets a default or condition. Empty name fields on an existing contact render empty unless Liquid supplies a default, and configured contact-property fallbacks still apply. Values are saved at acceptance and reused for delivery and content history, for individual, batch and scheduled sends alike.
      *
      * @var array<string, mixed>|null
      */
@@ -121,28 +102,9 @@ class EmailTemplateSend
         return $this;
     }
     /**
-     * Values for caller parameters, keyed by name. A parameter name is a single word.
+     * Values for the template's caller parameters, keyed by single-word name. Caller parameters are those with `system` false or absent in the template's `variables`. Supply every required one the resolved language uses; omitting one or sending `null` returns `422`, and values the resolved language does not use are ignored. The `bird` namespace is reserved, so a send that sets it is rejected, and the object is capped at 16 KB serialized.
      * 
-     * Caller parameters have `system` set to false or absent in the template's
-     * `variables` list. Supply each required caller parameter used by the
-     * resolved send language; omitting one or supplying null returns `422`. A version's list
-     * covers all its languages, and values unused by the resolved language are
-     * ignored.
-     * 
-     * The `bird` namespace is reserved for values filled by Bird, so a send that
-     * sets it is rejected. `parameters` is capped at 16 KB once serialized.
-     * 
-     * Bird resolves the referenced
-     * `bird.contact` attributes from each original To recipient's matching contact
-     * in this workspace. Each To receives its own personalized email; Cc and Bcc receive
-     * a copy of each To's email and do not need matching contacts. A missing To
-     * contact rejects the send with `422` (`E04099`), including when Liquid uses
-     * a default or condition. Empty name fields on an existing contact render
-     * empty unless Liquid supplies a default; configured contact-property
-     * fallbacks still apply. Values are saved at acceptance and reused for
-     * delivery and content history. Individual, batch, and scheduled sends
-     * support this behavior.
-     * 
+     * Referenced `bird.contact` attributes come from each To recipient's contact in this workspace, so each To receives its own email, and Cc and Bcc receive a copy of each without needing a contact of their own. A To with no contact rejects the send with `422` (`E04099`), even when Liquid sets a default or condition. Empty name fields on an existing contact render empty unless Liquid supplies a default, and configured contact-property fallbacks still apply. Values are saved at acceptance and reused for delivery and content history, for individual, batch and scheduled sends alike.
      *
      * @return array<string, mixed>|null
      */
@@ -151,28 +113,9 @@ class EmailTemplateSend
         return $this->parameters;
     }
     /**
-    * Values for caller parameters, keyed by name. A parameter name is a single word.
+    * Values for the template's caller parameters, keyed by single-word name. Caller parameters are those with `system` false or absent in the template's `variables`. Supply every required one the resolved language uses; omitting one or sending `null` returns `422`, and values the resolved language does not use are ignored. The `bird` namespace is reserved, so a send that sets it is rejected, and the object is capped at 16 KB serialized.
     
-    Caller parameters have `system` set to false or absent in the template's
-    `variables` list. Supply each required caller parameter used by the
-    resolved send language; omitting one or supplying null returns `422`. A version's list
-    covers all its languages, and values unused by the resolved language are
-    ignored.
-    
-    The `bird` namespace is reserved for values filled by Bird, so a send that
-    sets it is rejected. `parameters` is capped at 16 KB once serialized.
-    
-    Bird resolves the referenced
-    `bird.contact` attributes from each original To recipient's matching contact
-    in this workspace. Each To receives its own personalized email; Cc and Bcc receive
-    a copy of each To's email and do not need matching contacts. A missing To
-    contact rejects the send with `422` (`E04099`), including when Liquid uses
-    a default or condition. Empty name fields on an existing contact render
-    empty unless Liquid supplies a default; configured contact-property
-    fallbacks still apply. Values are saved at acceptance and reused for
-    delivery and content history. Individual, batch, and scheduled sends
-    support this behavior.
-    
+    Referenced `bird.contact` attributes come from each To recipient's contact in this workspace, so each To receives its own email, and Cc and Bcc receive a copy of each without needing a contact of their own. A To with no contact rejects the send with `422` (`E04099`), even when Liquid sets a default or condition. Empty name fields on an existing contact render empty unless Liquid supplies a default, and configured contact-property fallbacks still apply. Values are saved at acceptance and reused for delivery and content history, for individual, batch and scheduled sends alike.
     *
     * @param array<string, mixed>|null $parameters
     *
