@@ -37,6 +37,12 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('kind', $data) && $data['kind'] !== null) {
+            $object->setKind($data['kind']);
+        }
+        elseif (\array_key_exists('kind', $data) && $data['kind'] === null) {
+            $object->setKind(null);
+        }
         if (\array_key_exists('status', $data) && $data['status'] !== null) {
             $object->setStatus($data['status']);
         }
@@ -73,6 +79,12 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('error', $data) && $data['error'] === null) {
             $object->setError(null);
         }
+        if (\array_key_exists('field', $data) && $data['field'] !== null) {
+            $object->setField($data['field']);
+        }
+        elseif (\array_key_exists('field', $data) && $data['field'] === null) {
+            $object->setField(null);
+        }
         if (\array_key_exists('client_certificate', $data) && $data['client_certificate'] !== null) {
             $object->setClientCertificate($data['client_certificate']);
         }
@@ -84,6 +96,9 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('kind') && null !== $data->getKind()) {
+            $dataArray['kind'] = $data->getKind();
+        }
         $dataArray['status'] = $data->getStatus();
         $dataArray['response_status_code'] = $data->getResponseStatusCode();
         if ($data->isInitialized('responseBody') && null !== $data->getResponseBody()) {
@@ -95,6 +110,9 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         }
         if ($data->isInitialized('error') && null !== $data->getError()) {
             $dataArray['error'] = $data->getError();
+        }
+        if ($data->isInitialized('field') && null !== $data->getField()) {
+            $dataArray['field'] = $data->getField();
         }
         if ($data->isInitialized('clientCertificate') && null !== $data->getClientCertificate()) {
             $dataArray['client_certificate'] = $data->getClientCertificate();

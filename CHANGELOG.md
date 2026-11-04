@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.101.0
+
+- Testing a webhook now returns `kind`, whether the test sent an event or read a connector's platform, and `field`, the connector field the platform's answer shows is wrong, each when it applies; creating or updating a connector webhook returns `next` with the step to test it when the response includes the connector's `destination`.
+
 ## 0.100.0
 
 - Add `new Bird(clientCert: ..., clientKey: ...)` to present a client certificate on every request. Without `baseUrl: ...`, it also sends requests to the region's mTLS endpoint. It needs the openssl extension.

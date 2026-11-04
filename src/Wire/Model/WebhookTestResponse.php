@@ -13,7 +13,14 @@ class WebhookTestResponse
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
+     * What the test did. `delivery` sent the test event to the endpoint. `probe` read the connected platform instead, which checks a connector endpoint's fields, sends no event and starts nothing; the status, HTTP details and latency are then the platform's answer to that read. Absent when the test stopped before sending anything, with `error` saying why.
+     * 
+     *
+     * @var string|null
+     */
+    protected $kind;
+    /**
+     * Whether the test succeeded. For a `delivery`, `delivered` means your endpoint returned a `2xx` status to the test event. For a `probe`, `delivered` means the platform accepted the endpoint's fields, though no event was sent. `failed` means a non-`2xx` status or no answer at all (see `error` for the latter).
      * 
      *
      * @var string|null
@@ -33,7 +40,8 @@ class WebhookTestResponse
      */
     protected $responseBody;
     /**
-     * Round-trip delivery latency in milliseconds.
+     * Round-trip latency of the request the test sent, in milliseconds; `0` when it sent none.
+     * 
      *
      * @var int|null
      */
@@ -46,11 +54,19 @@ class WebhookTestResponse
      */
     protected $eventPayload;
     /**
-     * A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
+     * A short explanation of a failed test that got no HTTP answer: the endpoint or platform could not be reached, or the test stopped before sending anything, such as for a connector endpoint whose connection no longer exists (then `kind` is absent).
+     * 
      *
      * @var string|null
      */
     protected $error;
+    /**
+     * For a connector endpoint, the request field that the platform's answer shows is wrong, such as `destination.connector.credentials.api_key`. Correct it with [Update a webhook endpoint](/docs/api/reference/update-webhook). Present only when `status` is `failed` and the connector maps that answer to a field.
+     * 
+     *
+     * @var string|null
+     */
+    protected $field;
     /**
      * What your endpoint did with the client certificate that we present for your workspace. Omitted when your workspace presents no client certificate, or when the test failed before your endpoint answered.
      * 
@@ -63,7 +79,30 @@ class WebhookTestResponse
      */
     protected $clientCertificate;
     /**
-     * Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
+     * What the test did. `delivery` sent the test event to the endpoint. `probe` read the connected platform instead, which checks a connector endpoint's fields, sends no event and starts nothing; the status, HTTP details and latency are then the platform's answer to that read. Absent when the test stopped before sending anything, with `error` saying why.
+     * 
+     *
+     * @return string|null
+     */
+    public function getKind(): ?string
+    {
+        return $this->kind;
+    }
+    /**
+     * What the test did. `delivery` sent the test event to the endpoint. `probe` read the connected platform instead, which checks a connector endpoint's fields, sends no event and starts nothing; the status, HTTP details and latency are then the platform's answer to that read. Absent when the test stopped before sending anything, with `error` saying why.
+     *
+     * @param string|null $kind
+     *
+     * @return self
+     */
+    public function setKind(?string $kind): self
+    {
+        $this->initialized['kind'] = true;
+        $this->kind = $kind;
+        return $this;
+    }
+    /**
+     * Whether the test succeeded. For a `delivery`, `delivered` means your endpoint returned a `2xx` status to the test event. For a `probe`, `delivered` means the platform accepted the endpoint's fields, though no event was sent. `failed` means a non-`2xx` status or no answer at all (see `error` for the latter).
      * 
      *
      * @return string|null
@@ -73,7 +112,7 @@ class WebhookTestResponse
         return $this->status;
     }
     /**
-     * Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
+     * Whether the test succeeded. For a `delivery`, `delivered` means your endpoint returned a `2xx` status to the test event. For a `probe`, `delivered` means the platform accepted the endpoint's fields, though no event was sent. `failed` means a non-`2xx` status or no answer at all (see `error` for the latter).
      *
      * @param string|null $status
      *
@@ -131,7 +170,8 @@ class WebhookTestResponse
         return $this;
     }
     /**
-     * Round-trip delivery latency in milliseconds.
+     * Round-trip latency of the request the test sent, in milliseconds; `0` when it sent none.
+     * 
      *
      * @return int|null
      */
@@ -140,7 +180,7 @@ class WebhookTestResponse
         return $this->responseDurationMs;
     }
     /**
-     * Round-trip delivery latency in milliseconds.
+     * Round-trip latency of the request the test sent, in milliseconds; `0` when it sent none.
      *
      * @param int|null $responseDurationMs
      *
@@ -176,7 +216,8 @@ class WebhookTestResponse
         return $this;
     }
     /**
-     * A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
+     * A short explanation of a failed test that got no HTTP answer: the endpoint or platform could not be reached, or the test stopped before sending anything, such as for a connector endpoint whose connection no longer exists (then `kind` is absent).
+     * 
      *
      * @return string|null
      */
@@ -185,7 +226,7 @@ class WebhookTestResponse
         return $this->error;
     }
     /**
-     * A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
+     * A short explanation of a failed test that got no HTTP answer: the endpoint or platform could not be reached, or the test stopped before sending anything, such as for a connector endpoint whose connection no longer exists (then `kind` is absent).
      *
      * @param string|null $error
      *
@@ -195,6 +236,29 @@ class WebhookTestResponse
     {
         $this->initialized['error'] = true;
         $this->error = $error;
+        return $this;
+    }
+    /**
+     * For a connector endpoint, the request field that the platform's answer shows is wrong, such as `destination.connector.credentials.api_key`. Correct it with [Update a webhook endpoint](/docs/api/reference/update-webhook). Present only when `status` is `failed` and the connector maps that answer to a field.
+     * 
+     *
+     * @return string|null
+     */
+    public function getField(): ?string
+    {
+        return $this->field;
+    }
+    /**
+     * For a connector endpoint, the request field that the platform's answer shows is wrong, such as `destination.connector.credentials.api_key`. Correct it with [Update a webhook endpoint](/docs/api/reference/update-webhook). Present only when `status` is `failed` and the connector maps that answer to a field.
+     *
+     * @param string|null $field
+     *
+     * @return self
+     */
+    public function setField(?string $field): self
+    {
+        $this->initialized['field'] = true;
+        $this->field = $field;
         return $this;
     }
     /**

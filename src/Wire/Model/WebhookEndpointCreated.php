@@ -67,6 +67,12 @@ class WebhookEndpointCreated extends \ArrayObject
      */
     protected $destination;
     /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -81,12 +87,6 @@ class WebhookEndpointCreated extends \ArrayObject
      * @var string|null
      */
     protected $secret;
-    /**
-     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
-     *
-     * @var list<NextAction>|null
-     */
-    protected $next;
     /**
      * @return string|null
      */
@@ -265,6 +265,28 @@ class WebhookEndpointCreated extends \ArrayObject
         return $this;
     }
     /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @param list<NextAction>|null $next
+     *
+     * @return self
+     */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
+        return $this;
+    }
+    /**
      * @return \DateTime|null
      */
     public function getCreatedAt(): ?\DateTime
@@ -321,28 +343,6 @@ class WebhookEndpointCreated extends \ArrayObject
     {
         $this->initialized['secret'] = true;
         $this->secret = $secret;
-        return $this;
-    }
-    /**
-     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
-     *
-     * @return list<NextAction>|null
-     */
-    public function getNext(): ?array
-    {
-        return $this->next;
-    }
-    /**
-     * What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
-     *
-     * @param list<NextAction>|null $next
-     *
-     * @return self
-     */
-    public function setNext(?array $next): self
-    {
-        $this->initialized['next'] = true;
-        $this->next = $next;
         return $this;
     }
 }

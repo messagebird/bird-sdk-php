@@ -90,6 +90,17 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('destination', $data) && $data['destination'] === null) {
             $object->setDestination(null);
         }
+        if (\array_key_exists('next', $data) && $data['next'] !== null) {
+            $values_1 = [];
+            foreach ($data['next'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
+            }
+            $object->setNext($values_1);
+            unset($data['next']);
+        }
+        elseif (\array_key_exists('next', $data) && $data['next'] === null) {
+            $object->setNext(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -110,17 +121,6 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         }
         elseif (\array_key_exists('secret', $data) && $data['secret'] === null) {
             $object->setSecret(null);
-        }
-        if (\array_key_exists('next', $data) && $data['next'] !== null) {
-            $values_1 = [];
-            foreach ($data['next'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
-            }
-            $object->setNext($values_1);
-            unset($data['next']);
-        }
-        elseif (\array_key_exists('next', $data) && $data['next'] === null) {
-            $object->setNext(null);
         }
         foreach ($data as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {

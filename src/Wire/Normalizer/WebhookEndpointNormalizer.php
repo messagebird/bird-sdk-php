@@ -90,6 +90,17 @@ class WebhookEndpointNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('destination', $data) && $data['destination'] === null) {
             $object->setDestination(null);
         }
+        if (\array_key_exists('next', $data) && $data['next'] !== null) {
+            $values_1 = [];
+            foreach ($data['next'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
+            }
+            $object->setNext($values_1);
+            unset($data['next']);
+        }
+        elseif (\array_key_exists('next', $data) && $data['next'] === null) {
+            $object->setNext(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);
@@ -104,9 +115,9 @@ class WebhookEndpointNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
-        foreach ($data as $key => $value_1) {
+        foreach ($data as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
+                $object[$key] = $value_2;
             }
         }
         return $object;

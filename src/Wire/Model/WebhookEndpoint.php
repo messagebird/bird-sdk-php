@@ -67,6 +67,12 @@ class WebhookEndpoint extends \ArrayObject
      */
     protected $destination;
     /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @var list<NextAction>|null
+     */
+    protected $next;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -249,6 +255,28 @@ class WebhookEndpoint extends \ArrayObject
     {
         $this->initialized['destination'] = true;
         $this->destination = $destination;
+        return $this;
+    }
+    /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @return list<NextAction>|null
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+    /**
+     * What to do next with this endpoint. The responses that create or update a connector endpoint suggest testing it, which checks its fields with the connected platform. Other responses that return one endpoint return an empty list, and lists omit it.
+     *
+     * @param list<NextAction>|null $next
+     *
+     * @return self
+     */
+    public function setNext(?array $next): self
+    {
+        $this->initialized['next'] = true;
+        $this->next = $next;
         return $this;
     }
     /**
