@@ -40,7 +40,7 @@ class AMBConversation
      */
     protected $routingChange;
     /**
-     * Most recent message, or null when its identity has not been recorded.
+     * Most recent message, or null when no message identity has been recorded for the conversation, for example one opened by an invitation acceptance before its first message.
      *
      * @var AMBConversationLastMessage|null
      */
@@ -61,7 +61,7 @@ class AMBConversation
      */
     protected $status;
     /**
-     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation, which opened the conversation, or whose first message opened it when the acceptance could not (for example while the business was disconnected). This is set once when the conversation is created and never changes.
      * 
      *
      * @var string|null
@@ -221,7 +221,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * Most recent message, or null when its identity has not been recorded.
+     * Most recent message, or null when no message identity has been recorded for the conversation, for example one opened by an invitation acceptance before its first message.
      *
      * @return AMBConversationLastMessage|null
      */
@@ -230,7 +230,7 @@ class AMBConversation
         return $this->lastMessage;
     }
     /**
-     * Most recent message, or null when its identity has not been recorded.
+     * Most recent message, or null when no message identity has been recorded for the conversation, for example one opened by an invitation acceptance before its first message.
      *
      * @param AMBConversationLastMessage|null $lastMessage
      *
@@ -302,7 +302,7 @@ class AMBConversation
         return $this;
     }
     /**
-     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation, which opened the conversation, or whose first message opened it when the acceptance could not (for example while the business was disconnected). This is set once when the conversation is created and never changes.
      * 
      *
      * @return string|null
@@ -312,7 +312,7 @@ class AMBConversation
         return $this->origin;
     }
     /**
-     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+     * How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation, which opened the conversation, or whose first message opened it when the acceptance could not (for example while the business was disconnected). This is set once when the conversation is created and never changes.
      *
      * @param string|null $origin
      *

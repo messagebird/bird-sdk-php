@@ -40,6 +40,9 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('is_priced', $data) && \is_int($data['is_priced'])) {
             $data['is_priced'] = (bool) $data['is_priced'];
         }
+        if (\array_key_exists('included', $data) && \is_int($data['included'])) {
+            $data['included'] = (bool) $data['included'];
+        }
         if (\array_key_exists('is_priced', $data) && $data['is_priced'] !== null) {
             $object->setIsPriced($data['is_priced']);
         }
@@ -110,6 +113,12 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
         elseif (\array_key_exists('pricing_model', $data) && $data['pricing_model'] === null) {
             $object->setPricingModel(null);
         }
+        if (\array_key_exists('included', $data) && $data['included'] !== null) {
+            $object->setIncluded($data['included']);
+        }
+        elseif (\array_key_exists('included', $data) && $data['included'] === null) {
+            $object->setIncluded(null);
+        }
         if (\array_key_exists('billing_interval', $data) && $data['billing_interval'] !== null) {
             $object->setBillingInterval($data['billing_interval']);
         }
@@ -155,6 +164,7 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
         $dataArray['dimensions'] = (object) $values;
         $dataArray['name'] = $data->getName();
         $dataArray['pricing_model'] = $data->getPricingModel();
+        $dataArray['included'] = $data->getIncluded();
         if ($data->isInitialized('billingInterval') && null !== $data->getBillingInterval()) {
             $dataArray['billing_interval'] = $data->getBillingInterval();
         }

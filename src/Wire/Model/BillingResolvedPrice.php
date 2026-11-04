@@ -85,6 +85,12 @@ class BillingResolvedPrice
      */
     protected $pricingModel;
     /**
+     * Whether your organization's next unit of this `unit_subscription` product, with the requested `dimensions`, is free because a plan includes it. It reflects the organization's current active entitlements, whatever `plan_id` is requested, so it does not describe a candidate plan. A unit with dimensions that no included pattern matches is not free. `unit_price` and `gross_price` stay the published price a unit pays beyond the included units. Always `false` for other pricing models.
+     *
+     * @var bool|null
+     */
+    protected $included;
+    /**
      * The recurring interval one subscription charge covers.
      *
      * @var string|null
@@ -362,6 +368,28 @@ class BillingResolvedPrice
     {
         $this->initialized['pricingModel'] = true;
         $this->pricingModel = $pricingModel;
+        return $this;
+    }
+    /**
+     * Whether your organization's next unit of this `unit_subscription` product, with the requested `dimensions`, is free because a plan includes it. It reflects the organization's current active entitlements, whatever `plan_id` is requested, so it does not describe a candidate plan. A unit with dimensions that no included pattern matches is not free. `unit_price` and `gross_price` stay the published price a unit pays beyond the included units. Always `false` for other pricing models.
+     *
+     * @return bool|null
+     */
+    public function getIncluded(): ?bool
+    {
+        return $this->included;
+    }
+    /**
+     * Whether your organization's next unit of this `unit_subscription` product, with the requested `dimensions`, is free because a plan includes it. It reflects the organization's current active entitlements, whatever `plan_id` is requested, so it does not describe a candidate plan. A unit with dimensions that no included pattern matches is not free. `unit_price` and `gross_price` stay the published price a unit pays beyond the included units. Always `false` for other pricing models.
+     *
+     * @param bool|null $included
+     *
+     * @return self
+     */
+    public function setIncluded(?bool $included): self
+    {
+        $this->initialized['included'] = true;
+        $this->included = $included;
         return $this;
     }
     /**

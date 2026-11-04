@@ -44,6 +44,8 @@ use MessageBird\Resources\Suppressions;
 use MessageBird\Resources\Verify;
 use MessageBird\Resources\Voice;
 use MessageBird\Resources\Whatsapp;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\Psr18Client;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -124,7 +126,10 @@ final class Bird
      * explicit $region or $baseUrl. $email carries channel-level send defaults;
      * $webhookSecret is the signing secret `$bird->webhooks->unwrap()` verifies with;
      * alone (no $apiKey) it constructs a receiver-only client that can verify but not
-     * call the API.
+     * call the API. $clientCert (a PEM chain, leaf first) and $clientKey (its
+     * unencrypted PEM key) present a client certificate on every request and,
+     * unless $baseUrl is set, send requests to the region's mTLS endpoint
+     * (https://mtls.{region}.platform.bird.com); they cannot be combined with $httpClient.
      */
     public function __construct(
         #[\SensitiveParameter] ?string $apiKey = null,
@@ -135,6 +140,8 @@ final class Bird
         int $maxRetries = self::DEFAULT_MAX_RETRIES,
         #[\SensitiveParameter] ?string $webhookSecret = null,
         ?RealtimeOptions $realtime = null,
+        ?string $clientCert = null,
+        ?string $clientKey = null,
     ) {
         // The documented pattern `getenv('BIRD_API_KEY') ?: ''` hands an empty
         // string when the env is unset; every SDK treats that as absent.
@@ -145,11 +152,20 @@ final class Bird
             throw new \InvalidArgumentException('configure $apiKey for API calls, or webhookSecret for a receiver-only client');
         }
         $this->emailDefaults = $email;
+        $clientCert = $clientCert === '' ? null : $clientCert;
+        $clientKey = $clientKey === '' ? null : $clientKey;
+        $mtls = $clientCert !== null || $clientKey !== null;
+        if ($mtls) {
+            if ($httpClient !== null) {
+                throw new \InvalidArgumentException('$clientCert cannot apply to an $httpClient you pass; configure the certificate on that client instead');
+            }
+            $httpClient = self::certificateClient($clientCert, $clientKey);
+        }
         // A receiver-only client (no key, no explicit host) never makes a
         // request, so the region error moves to the first API call.
         $this->baseUrl = $apiKey === null && $baseUrl === null && $region === null
             ? null
-            : rtrim(self::resolveBaseUrl($apiKey, $baseUrl, $region), '/');
+            : rtrim(self::resolveBaseUrl($apiKey, $baseUrl, $region, $mtls), '/');
         $this->maxRetries = $maxRetries;
         $this->httpClient = $httpClient ?? Psr18ClientDiscovery::find();
         $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
@@ -713,7 +729,42 @@ final class Bird
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
     }
 
-    private static function resolveBaseUrl(?string $apiKey, ?string $baseUrl, ?string $region): string
+    /**
+     * A Symfony HttpClient (a runtime dependency) that presents the pair: PSR-18
+     * has no portable way to set a client certificate.
+     */
+    private static function certificateClient(?string $clientCert, ?string $clientKey): ClientInterface
+    {
+        if ($clientCert === null) {
+            throw new \InvalidArgumentException('a client key needs its certificate: pass $clientCert');
+        }
+        if ($clientKey === null) {
+            throw new \InvalidArgumentException('a client certificate needs its key: pass $clientKey');
+        }
+        foreach ([$clientCert, $clientKey] as $path) {
+            if (!is_readable($path)) {
+                throw new \InvalidArgumentException("client certificate file not readable: {$path}");
+            }
+        }
+        if (!\extension_loaded('openssl')) {
+            throw new \InvalidArgumentException('$clientCert needs the openssl extension to check the certificate and key');
+        }
+        $cert = openssl_x509_read((string) file_get_contents($clientCert));
+        if ($cert === false) {
+            throw new \InvalidArgumentException("client certificate {$clientCert} is not a PEM certificate");
+        }
+        $key = openssl_pkey_get_private((string) file_get_contents($clientKey));
+        if ($key === false) {
+            throw new \InvalidArgumentException("client key {$clientKey} is not an unencrypted PEM key");
+        }
+        if (!openssl_x509_check_private_key($cert, $key)) {
+            throw new \InvalidArgumentException("client key {$clientKey} does not match the certificate {$clientCert}");
+        }
+
+        return new Psr18Client(HttpClient::create(['local_cert' => $clientCert, 'local_pk' => $clientKey]));
+    }
+
+    private static function resolveBaseUrl(?string $apiKey, ?string $baseUrl, ?string $region, bool $mtls = false): string
     {
         if ($baseUrl !== null && $baseUrl !== '') {
             return $baseUrl;
@@ -728,7 +779,7 @@ final class Bird
             );
         }
 
-        return 'https://' . $region . '.platform.bird.com';
+        return 'https://' . ($mtls ? 'mtls.' : '') . $region . '.platform.bird.com';
     }
 
     /**

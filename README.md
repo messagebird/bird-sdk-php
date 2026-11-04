@@ -290,6 +290,8 @@ new Bird(
     region: null,           // resolve a region for a key without a prefix
     email: null,            // EmailDefaults (see above)
     maxRetries: 2,          // retry budget for transient failures
+    clientCert: null,       // PEM client certificate chain; with clientKey, uses the region's mTLS endpoint
+    clientKey: null,        // its unencrypted PEM key, needs ext-openssl, not with httpClient
 );
 ```
 
