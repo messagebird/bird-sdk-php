@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.102.0
+
+- Add `live_default_language` to email templates and email template list entries: the live version's default language, the one a single send falls back to when the template's language settings allow. It is null until the template is first published, and a built-in template reports its `default_language`.
+- Listing an audience's contacts with `q` now matches first and last name as well as email address and phone number.
+
 ## 0.101.0
 
 - Testing a webhook now returns `kind`, whether the test sent an event or read a connector's platform, and `field`, the connector field the platform's answer shows is wrong, each when it applies; creating or updating a connector webhook returns `next` with the step to test it when the response includes the connector's `destination`.

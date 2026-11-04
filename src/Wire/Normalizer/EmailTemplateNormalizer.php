@@ -146,6 +146,12 @@ class EmailTemplateNormalizer implements DenormalizerInterface, NormalizerInterf
         elseif (\array_key_exists('default_language', $data) && $data['default_language'] === null) {
             $object->setDefaultLanguage(null);
         }
+        if (\array_key_exists('live_default_language', $data) && $data['live_default_language'] !== null) {
+            $object->setLiveDefaultLanguage($data['live_default_language']);
+        }
+        elseif (\array_key_exists('live_default_language', $data) && $data['live_default_language'] === null) {
+            $object->setLiveDefaultLanguage(null);
+        }
         if (\array_key_exists('available_languages', $data) && $data['available_languages'] !== null) {
             $values_1 = [];
             foreach ($data['available_languages'] as $value_1) {

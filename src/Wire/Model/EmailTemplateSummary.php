@@ -130,6 +130,13 @@ class EmailTemplateSummary
      */
     protected $defaultLanguage;
     /**
+     * The live version's default language. While the template's `language_source_required` is false, a send that names no language gets it, and a broadcast that selects no language gets the default of the published version it sends. A single send that names a language also gets it when the template's `on_missing_language` is `fallback` and the live version stocks no form of that language, even one only the draft has added: a request for `pt-BR` is served by the live version's `pt-BR`, then by its `pt` or another `pt` variant, and only then by this default. Null if the template has never been published. A built-in `system` template is always published and reports the same language as `default_language`.
+     * 
+     *
+     * @var string|null
+     */
+    protected $liveDefaultLanguage;
+    /**
      * Every language this template has, keyed by language tag, each with its state. Enough to show which templates need attention in a list without a request per row.
      * 
      *
@@ -543,6 +550,29 @@ class EmailTemplateSummary
     {
         $this->initialized['defaultLanguage'] = true;
         $this->defaultLanguage = $defaultLanguage;
+        return $this;
+    }
+    /**
+     * The live version's default language. While the template's `language_source_required` is false, a send that names no language gets it, and a broadcast that selects no language gets the default of the published version it sends. A single send that names a language also gets it when the template's `on_missing_language` is `fallback` and the live version stocks no form of that language, even one only the draft has added: a request for `pt-BR` is served by the live version's `pt-BR`, then by its `pt` or another `pt` variant, and only then by this default. Null if the template has never been published. A built-in `system` template is always published and reports the same language as `default_language`.
+     * 
+     *
+     * @return string|null
+     */
+    public function getLiveDefaultLanguage(): ?string
+    {
+        return $this->liveDefaultLanguage;
+    }
+    /**
+     * The live version's default language. While the template's `language_source_required` is false, a send that names no language gets it, and a broadcast that selects no language gets the default of the published version it sends. A single send that names a language also gets it when the template's `on_missing_language` is `fallback` and the live version stocks no form of that language, even one only the draft has added: a request for `pt-BR` is served by the live version's `pt-BR`, then by its `pt` or another `pt` variant, and only then by this default. Null if the template has never been published. A built-in `system` template is always published and reports the same language as `default_language`.
+     *
+     * @param string|null $liveDefaultLanguage
+     *
+     * @return self
+     */
+    public function setLiveDefaultLanguage(?string $liveDefaultLanguage): self
+    {
+        $this->initialized['liveDefaultLanguage'] = true;
+        $this->liveDefaultLanguage = $liveDefaultLanguage;
         return $this;
     }
     /**
