@@ -72,10 +72,25 @@ class WebhookClientCertificateNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('state')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificate.state missing');
+        }
         $dataArray['state'] = $data->getState();
+        if (!$data->isInitialized('crlCheck')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificate.crl_check missing');
+        }
         $dataArray['crl_check'] = $data->getCrlCheck();
+        if (!$data->isInitialized('certificate')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificate.certificate missing');
+        }
         $dataArray['certificate'] = $this->normalizer->normalize($data->getCertificate(), 'json', $context);
+        if (!$data->isInitialized('signingRequest')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificate.signing_request missing');
+        }
         $dataArray['signing_request'] = $this->normalizer->normalize($data->getSigningRequest(), 'json', $context);
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificate.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

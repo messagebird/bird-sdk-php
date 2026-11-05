@@ -12,6 +12,7 @@ use MessageBird\RequestOptions;
 use MessageBird\Tests\Support\RecordingClient;
 use MessageBird\Wire\Model\RealtimeBatchEvent;
 use MessageBird\Wire\Model\RealtimeBatchPublish;
+use MessageBird\Wire\Model\RealtimeMemberPublish;
 use MessageBird\Wire\Model\RealtimePublish;
 use PHPUnit\Framework\TestCase;
 
@@ -35,13 +36,13 @@ final class RealtimeEncryptionTest extends TestCase
         return json_decode($raw, true, flags: JSON_THROW_ON_ERROR);
     }
 
-    private function recording(string $body = '{"data":[]}'): RecordingClient
+    private function recording(string $body = '{"data":[]}', int $status = 200): RecordingClient
     {
         $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
         return new RecordingClient(
-            $responseFactory->createResponse(200)->withBody($streamFactory->createStream($body)),
+            $responseFactory->createResponse($status)->withBody($streamFactory->createStream($body)),
         );
     }
 
@@ -164,6 +165,53 @@ final class RealtimeEncryptionTest extends TestCase
             ),
         );
         self::assertSame(['order_id' => 'ord_123'], $params->getData(), 'the caller keeps their plaintext request object');
+    }
+
+    public function testPayloadPresenceWithEncryptionConfigured(): void
+    {
+        foreach (['publish', 'publishBatch', 'members.send'] as $method) {
+            foreach (['unset', 'null', 'value'] as $state) {
+                $recording = $this->recording(status: $method === 'members.send' ? 204 : 200);
+                $bird = $this->bird($recording);
+                $data = $state === 'null' ? null : ['items' => [null, 'value']];
+                if ($method === 'publishBatch') {
+                    $payload = (new RealtimeBatchEvent())->setEvent('changed')->setChannel('private-encrypted-orders');
+                    if ($state !== 'unset') {
+                        $payload->setData($data);
+                    }
+                    $bird->realtime->publishBatch('rap_1', (new RealtimeBatchPublish())->setEvents([$payload]));
+                } elseif ($method === 'members.send') {
+                    $payload = (new RealtimeMemberPublish())->setEvent('changed');
+                    if ($state !== 'unset') {
+                        $payload->setData($data);
+                    }
+                    $bird->realtime->members->send('rap_1', 'member_1', $payload);
+                } else {
+                    $payload = (new RealtimePublish())->setEvent('changed')->setChannels(['private-encrypted-orders']);
+                    if ($state !== 'unset') {
+                        $payload->setData($data);
+                    }
+                    $bird->realtime->publish('rap_1', $payload);
+                }
+                $body = $this->lastBody($recording);
+                if ($method === 'publishBatch') {
+                    $body = $body['events'][0];
+                }
+                self::assertSame($state !== 'unset', $payload->isInitialized('data'), 'the caller retains payload presence');
+                if ($state === 'unset') {
+                    self::assertArrayNotHasKey('data', $body);
+                } elseif ($method === 'members.send') {
+                    self::assertSame($data, $body['data']);
+                } else {
+                    self::assertSame(json_encode($data, JSON_THROW_ON_ERROR), sodium_crypto_secretbox_open(
+                        base64_decode($body['data']['ciphertext'], true),
+                        base64_decode($body['data']['nonce'], true),
+                        RealtimeCrypto::deriveSharedSecret('private-encrypted-orders', base64_decode(self::MASTER_KEY, true)),
+                    ));
+                    self::assertSame($data, $payload->getData(), 'the caller retains plaintext');
+                }
+            }
+        }
     }
 
     public function testEachEncryptedPublishUsesAFreshNonce(): void

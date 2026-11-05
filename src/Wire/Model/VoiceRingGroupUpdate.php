@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A change to the ring group. An omitted field is left unchanged.
+ * A change to the ring group's name.
  */
 class VoiceRingGroupUpdate
 {

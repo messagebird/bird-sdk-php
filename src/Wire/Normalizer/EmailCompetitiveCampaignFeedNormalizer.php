@@ -120,10 +120,25 @@ class EmailCompetitiveCampaignFeedNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('period')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveCampaignFeed.period missing');
+        }
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
+        if (!$data->isInitialized('panelStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveCampaignFeed.panel_status missing');
+        }
         $dataArray['panel_status'] = $data->getPanelStatus();
+        if (!$data->isInitialized('nextCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveCampaignFeed.next_cursor missing');
+        }
         $dataArray['next_cursor'] = $data->getNextCursor();
+        if (!$data->isInitialized('prevCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveCampaignFeed.prev_cursor missing');
+        }
         $dataArray['prev_cursor'] = $data->getPrevCursor();
+        if (!$data->isInitialized('refreshCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveCampaignFeed.refresh_cursor missing');
+        }
         $dataArray['refresh_cursor'] = $data->getRefreshCursor();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

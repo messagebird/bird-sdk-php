@@ -48,6 +48,28 @@ final class BroadcastsRequestTest extends TestCase
         self::assertSame('{}', (string) $recording->lastRequest?->getBody());
     }
 
+    public function testEmptyNestedTemplateRemainsAnObjectAcrossBroadcastOperations(): void
+    {
+        foreach (['update', 'validate', 'preview', 'test'] as $operation) {
+            [$bird, $recording] = $this->makeClient();
+            $params = json_decode('{"template":{}}', true, 512, JSON_THROW_ON_ERROR);
+            if ($operation === 'test') {
+                $params['to'] = 'member@example.com';
+                $params['preview_fingerprint'] = 'matching';
+            }
+            $bird->broadcasts->{$operation}(
+                'eb_01krdgeqcxet5s7t44vh8rt9mg',
+                $params,
+                new RequestOptions(idempotencyKey: 'empty-template-' . $operation),
+            );
+
+            $expected = $operation === 'test'
+                ? '{"template":{},"to":"member@example.com","preview_fingerprint":"matching"}'
+                : '{"template":{}}';
+            self::assertSame($expected, (string) $recording->lastRequest?->getBody(), $operation);
+        }
+    }
+
     public function testCreateWithNoFieldsSendsAnEmptyObject(): void
     {
         [$bird, $recording] = $this->makeClient();

@@ -54,7 +54,13 @@ class WhatsAppInteractiveButtonSendCtaUrlNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('text')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveButtonSendCtaUrl.text missing');
+        }
         $dataArray['text'] = $data->getText();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveButtonSendCtaUrl.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         return $dataArray;
     }

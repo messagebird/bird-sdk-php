@@ -60,7 +60,13 @@ class ReceiveRuleCreateNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('action')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ReceiveRuleCreate.action missing');
+        }
         $dataArray['action'] = $data->getAction();
+        if (!$data->isInitialized('entry')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ReceiveRuleCreate.entry missing');
+        }
         $dataArray['entry'] = $data->getEntry();
         if ($data->isInitialized('note') && null !== $data->getNote()) {
             $dataArray['note'] = $data->getNote();

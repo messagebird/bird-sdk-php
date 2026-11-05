@@ -66,7 +66,13 @@ class EmailAttachmentNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('filename')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailAttachment.filename missing');
+        }
         $dataArray['filename'] = $data->getFilename();
+        if (!$data->isInitialized('content')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailAttachment.content missing');
+        }
         $dataArray['content'] = $data->getContent();
         if ($data->isInitialized('contentType') && null !== $data->getContentType()) {
             $dataArray['content_type'] = $data->getContentType();

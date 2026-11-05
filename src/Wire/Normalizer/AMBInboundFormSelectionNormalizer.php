@@ -70,9 +70,21 @@ class AMBInboundFormSelectionNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('pageIdentifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormSelection.page_identifier missing');
+        }
         $dataArray['page_identifier'] = $data->getPageIdentifier();
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormSelection.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
+        if (!$data->isInitialized('subtitle')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormSelection.subtitle missing');
+        }
         $dataArray['subtitle'] = $data->getSubtitle();
+        if (!$data->isInitialized('items')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormSelection.items missing');
+        }
         $values = [];
         foreach ($data->getItems() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

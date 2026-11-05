@@ -61,7 +61,13 @@ class AvailableNumberPricingRecurringPeriodNormalizer implements DenormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('unit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingRecurringPeriod.unit missing');
+        }
         $dataArray['unit'] = $data->getUnit();
+        if (!$data->isInitialized('count')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingRecurringPeriod.count missing');
+        }
         $dataArray['count'] = $data->getCount();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

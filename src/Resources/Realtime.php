@@ -66,9 +66,10 @@ final class Realtime extends RealtimeBase
         }
 
         $masterKey = RealtimeCrypto::decodeMasterKey($this->encryptionMasterKey($options));
-        $sealed = (clone $params)->setData(
-            RealtimeCrypto::sealPayload($encrypted[0], $params->getData(), $masterKey),
-        );
+        $sealed = clone $params;
+        if ($params->isInitialized('data')) {
+            $sealed->setData(RealtimeCrypto::sealPayload($encrypted[0], $params->getData(), $masterKey));
+        }
 
         return parent::publish($realtimeAppId, $sealed, $options);
     }
@@ -97,7 +98,7 @@ final class Realtime extends RealtimeBase
         $sealedEvents = [];
         foreach ($events as $event) {
             $channel = $event->getChannel() ?? '';
-            $sealedEvents[] = RealtimeCrypto::isEncryptedChannel($channel)
+            $sealedEvents[] = RealtimeCrypto::isEncryptedChannel($channel) && $event->isInitialized('data')
                 ? (clone $event)->setData(RealtimeCrypto::sealPayload($channel, $event->getData(), $masterKey))
                 : $event;
         }

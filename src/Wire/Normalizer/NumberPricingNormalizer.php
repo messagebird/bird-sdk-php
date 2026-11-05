@@ -75,9 +75,21 @@ class NumberPricingNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('recurringPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricing.recurring_price missing');
+        }
         $dataArray['recurring_price'] = $this->normalizer->normalize($data->getRecurringPrice(), 'json', $context);
+        if (!$data->isInitialized('recurringPeriod')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricing.recurring_period missing');
+        }
         $dataArray['recurring_period'] = $this->normalizer->normalize($data->getRecurringPeriod(), 'json', $context);
+        if (!$data->isInitialized('intervalsPerCharge')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricing.intervals_per_charge missing');
+        }
         $dataArray['intervals_per_charge'] = $data->getIntervalsPerCharge();
+        if (!$data->isInitialized('error')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricing.error missing');
+        }
         $dataArray['error'] = $this->normalizer->normalize($data->getError(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

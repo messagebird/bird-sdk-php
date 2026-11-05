@@ -81,8 +81,17 @@ class VoiceRingGroupNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroup.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroup.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('onlineMemberCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroup.online_member_count missing');
+        }
         $dataArray['online_member_count'] = $data->getOnlineMemberCount();
         return $dataArray;
     }

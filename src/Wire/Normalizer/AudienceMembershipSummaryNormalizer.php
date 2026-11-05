@@ -54,7 +54,13 @@ class AudienceMembershipSummaryNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('total')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipSummary.total missing');
+        }
         $dataArray['total'] = $data->getTotal();
+        if (!$data->isInitialized('dataAsOf')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipSummary.data_as_of missing');
+        }
         $dataArray['data_as_of'] = $data->getDataAsOf()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

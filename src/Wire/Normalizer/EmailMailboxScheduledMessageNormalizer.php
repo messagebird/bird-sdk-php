@@ -159,14 +159,32 @@ class EmailMailboxScheduledMessageNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('mailboxId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.mailbox_id missing');
+        }
         $dataArray['mailbox_id'] = $data->getMailboxId();
+        if (!$data->isInitialized('threadId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.thread_id missing');
+        }
         $dataArray['thread_id'] = $data->getThreadId();
         if ($data->isInitialized('messageId') && null !== $data->getMessageId()) {
             $dataArray['message_id'] = $data->getMessageId();
         }
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('scheduledAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.scheduled_at missing');
+        }
         $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('cancelOnReply')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.cancel_on_reply missing');
+        }
         $dataArray['cancel_on_reply'] = $data->getCancelOnReply();
         if ($data->isInitialized('failureReason') && null !== $data->getFailureReason()) {
             $dataArray['failure_reason'] = $data->getFailureReason();
@@ -174,13 +192,25 @@ class EmailMailboxScheduledMessageNormalizer implements DenormalizerInterface, N
         if ($data->isInitialized('cancellationReason') && null !== $data->getCancellationReason()) {
             $dataArray['cancellation_reason'] = $data->getCancellationReason();
         }
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
+        if (!$data->isInitialized('snippet')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.snippet missing');
+        }
         $dataArray['snippet'] = $data->getSnippet();
+        if (!$data->isInitialized('recipients')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.recipients missing');
+        }
         $values = [];
         foreach ($data->getRecipients() as $value) {
             $values[] = $value;
         }
         $dataArray['recipients'] = $values;
+        if (!$data->isInitialized('createdBy')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxScheduledMessage.created_by missing');
+        }
         $dataArray['created_by'] = $this->normalizer->normalize($data->getCreatedBy(), 'json', $context);
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

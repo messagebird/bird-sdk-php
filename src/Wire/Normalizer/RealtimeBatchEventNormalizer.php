@@ -76,9 +76,15 @@ class RealtimeBatchEventNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('event')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeBatchEvent.event missing');
+        }
         $dataArray['event'] = $data->getEvent();
+        if (!$data->isInitialized('channel')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeBatchEvent.channel missing');
+        }
         $dataArray['channel'] = $data->getChannel();
-        if ($data->isInitialized('data') && null !== $data->getData()) {
+        if ($data->isInitialized('data')) {
             $dataArray['data'] = $data->getData();
         }
         if ($data->isInitialized('excludeConnectionId') && null !== $data->getExcludeConnectionId()) {

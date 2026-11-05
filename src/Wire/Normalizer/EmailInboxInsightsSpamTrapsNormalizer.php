@@ -149,10 +149,19 @@ class EmailInboxInsightsSpamTrapsNormalizer implements DenormalizerInterface, No
         if ($data->isInitialized('measurement') && null !== $data->getMeasurement()) {
             $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
         }
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTraps.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
+        if (!$data->isInitialized('window')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTraps.window missing');
+        }
         $dataArray['window'] = $this->normalizer->normalize($data->getWindow(), 'json', $context);
         if ($data->isInitialized('comparedTo') && null !== $data->getComparedTo()) {
             $dataArray['compared_to'] = $this->normalizer->normalize($data->getComparedTo(), 'json', $context);
+        }
+        if (!$data->isInitialized('hitRows')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTraps.hit_rows missing');
         }
         $dataArray['hit_rows'] = $this->normalizer->normalize($data->getHitRows(), 'json', $context);
         foreach ($data as $key => $value) {

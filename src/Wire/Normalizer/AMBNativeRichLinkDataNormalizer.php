@@ -60,8 +60,17 @@ class AMBNativeRichLinkDataNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeRichLinkData.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeRichLinkData.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
+        if (!$data->isInitialized('assets')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeRichLinkData.assets missing');
+        }
         $dataArray['assets'] = $this->normalizer->normalize($data->getAssets(), 'json', $context);
         return $dataArray;
     }

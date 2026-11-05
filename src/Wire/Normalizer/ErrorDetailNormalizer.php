@@ -54,7 +54,13 @@ class ErrorDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('param')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ErrorDetail.param missing');
+        }
         $dataArray['param'] = $data->getParam();
+        if (!$data->isInitialized('message')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ErrorDetail.message missing');
+        }
         $dataArray['message'] = $data->getMessage();
         return $dataArray;
     }

@@ -51,6 +51,9 @@ class EsimSettingsNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('credentialDeliveryEnabled')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimSettings.credential_delivery_enabled missing');
+        }
         $dataArray['credential_delivery_enabled'] = $data->getCredentialDeliveryEnabled();
         return $dataArray;
     }

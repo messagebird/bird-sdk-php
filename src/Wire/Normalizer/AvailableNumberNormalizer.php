@@ -91,14 +91,29 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('number')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumber.number missing');
+        }
         $dataArray['number'] = $data->getNumber();
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumber.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
+        if (!$data->isInitialized('numberType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumber.number_type missing');
+        }
         $dataArray['number_type'] = $data->getNumberType();
+        if (!$data->isInitialized('capabilities')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumber.capabilities missing');
+        }
         $values = [];
         foreach ($data->getCapabilities() as $value) {
             $values[] = $value;
         }
         $dataArray['capabilities'] = $values;
+        if (!$data->isInitialized('ownershipRegistrationRequired')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumber.ownership_registration_required missing');
+        }
         $dataArray['ownership_registration_required'] = $data->getOwnershipRegistrationRequired();
         if ($data->isInitialized('ownershipAddressScope') && null !== $data->getOwnershipAddressScope()) {
             $dataArray['ownership_address_scope'] = $data->getOwnershipAddressScope();

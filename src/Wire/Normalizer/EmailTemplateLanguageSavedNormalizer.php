@@ -110,7 +110,13 @@ class EmailTemplateLanguageSavedNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateLanguageSaved.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
+        if (!$data->isInitialized('versionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateLanguageSaved.version_id missing');
+        }
         $dataArray['version_id'] = $data->getVersionId();
         return $dataArray;
     }

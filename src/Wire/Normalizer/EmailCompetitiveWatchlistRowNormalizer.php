@@ -163,7 +163,13 @@ class EmailCompetitiveWatchlistRowNormalizer implements DenormalizerInterface, N
         if ($data->isInitialized('watchlistBrandId') && null !== $data->getWatchlistBrandId()) {
             $dataArray['watchlist_brand_id'] = $data->getWatchlistBrandId();
         }
+        if (!$data->isInitialized('panelStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRow.panel_status missing');
+        }
         $dataArray['panel_status'] = $data->getPanelStatus();
+        if (!$data->isInitialized('provenance')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRow.provenance missing');
+        }
         $dataArray['provenance'] = $this->normalizer->normalize($data->getProvenance(), 'json', $context);
         return $dataArray;
     }

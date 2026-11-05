@@ -52,6 +52,9 @@ class AudienceContactsRemoveRequestNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('contactIds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceContactsRemoveRequest.contact_ids missing');
+        }
         $values = [];
         foreach ($data->getContactIds() as $value) {
             $values[] = $value;

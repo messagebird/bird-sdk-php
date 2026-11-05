@@ -147,22 +147,73 @@ class WorkspaceQuotaNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('key')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.key missing');
+        }
         $dataArray['key'] = $data->getKey();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('unit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.unit missing');
+        }
         $dataArray['unit'] = $data->getUnit();
+        if (!$data->isInitialized('label')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.label missing');
+        }
         $dataArray['label'] = $data->getLabel();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('kind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.kind missing');
+        }
         $dataArray['kind'] = $data->getKind();
+        if (!$data->isInitialized('enforcement')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.enforcement missing');
+        }
         $dataArray['enforcement'] = $data->getEnforcement();
+        if (!$data->isInitialized('maximumValue')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.maximum_value missing');
+        }
         $dataArray['maximum_value'] = $data->getMaximumValue();
+        if (!$data->isInitialized('organizationLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.organization_limit missing');
+        }
         $dataArray['organization_limit'] = $data->getOrganizationLimit();
+        if (!$data->isInitialized('organizationSource')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.organization_source missing');
+        }
         $dataArray['organization_source'] = $data->getOrganizationSource();
+        if (!$data->isInitialized('workspaceLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.workspace_limit missing');
+        }
         $dataArray['workspace_limit'] = $this->normalizer->normalize($data->getWorkspaceLimit(), 'json', $context);
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.limit missing');
+        }
         $dataArray['limit'] = $data->getLimit();
+        if (!$data->isInitialized('limitSource')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.limit_source missing');
+        }
         $dataArray['limit_source'] = $data->getLimitSource();
+        if (!$data->isInitialized('automaticLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.automatic_limit missing');
+        }
         $dataArray['automatic_limit'] = $data->getAutomaticLimit();
+        if (!$data->isInitialized('allocationEnabled')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.allocation_enabled missing');
+        }
         $dataArray['allocation_enabled'] = $data->getAllocationEnabled();
+        if (!$data->isInitialized('usage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuota.usage missing');
+        }
         $dataArray['usage'] = $this->normalizer->normalize($data->getUsage(), 'json', $context);
         return $dataArray;
     }

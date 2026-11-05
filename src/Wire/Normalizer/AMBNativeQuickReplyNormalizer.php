@@ -58,7 +58,13 @@ class AMBNativeQuickReplyNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('summaryText')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeQuickReply.summary_text missing');
+        }
         $dataArray['summary_text'] = $data->getSummaryText();
+        if (!$data->isInitialized('items')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeQuickReply.items missing');
+        }
         $values = [];
         foreach ($data->getItems() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

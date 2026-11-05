@@ -130,24 +130,63 @@ class NumberNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('reference')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.reference missing');
+        }
         $dataArray['reference'] = $data->getReference();
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('kind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.kind missing');
+        }
         $dataArray['kind'] = $data->getKind();
+        if (!$data->isInitialized('number')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.number missing');
+        }
         $dataArray['number'] = $data->getNumber();
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
+        if (!$data->isInitialized('numberType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.number_type missing');
+        }
         $dataArray['number_type'] = $data->getNumberType();
+        if (!$data->isInitialized('capabilities')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.capabilities missing');
+        }
         $values = [];
         foreach ($data->getCapabilities() as $value) {
             $values[] = $value;
         }
         $dataArray['capabilities'] = $values;
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('allocatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.allocated_at missing');
+        }
         $dataArray['allocated_at'] = $data->getAllocatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('releasesAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.releases_at missing');
+        }
         $dataArray['releases_at'] = $data->getReleasesAt()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('releasedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.released_at missing');
+        }
         $dataArray['released_at'] = $data->getReleasedAt()?->format('Y-m-d\TH:i:sP');
         if ($data->isInitialized('ownership')) {
             $dataArray['ownership'] = $this->normalizer->normalize($data->getOwnership(), 'json', $context);
+        }
+        if (!$data->isInitialized('pricing')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Number.pricing missing');
         }
         $dataArray['pricing'] = $this->normalizer->normalize($data->getPricing(), 'json', $context);
         return $dataArray;

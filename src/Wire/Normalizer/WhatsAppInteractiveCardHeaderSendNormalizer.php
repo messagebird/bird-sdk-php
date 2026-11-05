@@ -54,7 +54,13 @@ class WhatsAppInteractiveCardHeaderSendNormalizer implements DenormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCardHeaderSend.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCardHeaderSend.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         return $dataArray;
     }

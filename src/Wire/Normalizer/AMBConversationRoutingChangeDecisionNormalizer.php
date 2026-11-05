@@ -54,7 +54,13 @@ class AMBConversationRoutingChangeDecisionNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('action')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChangeDecision.action missing');
+        }
         $dataArray['action'] = $data->getAction();
+        if (!$data->isInitialized('messageId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChangeDecision.message_id missing');
+        }
         $dataArray['message_id'] = $data->getMessageId();
         return $dataArray;
     }

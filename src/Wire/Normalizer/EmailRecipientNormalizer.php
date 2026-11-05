@@ -156,9 +156,21 @@ class EmailRecipientNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailRecipient.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('parentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailRecipient.parent_id missing');
+        }
         $dataArray['parent_id'] = $data->getParentId();
+        if (!$data->isInitialized('role')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailRecipient.role missing');
+        }
         $dataArray['role'] = $data->getRole();
+        if (!$data->isInitialized('recipient')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailRecipient.recipient missing');
+        }
         $dataArray['recipient'] = $data->getRecipient();
         if ($data->isInitialized('name')) {
             $dataArray['name'] = $data->getName();

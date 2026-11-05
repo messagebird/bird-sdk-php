@@ -72,6 +72,9 @@ class AMBFormSplashNormalizer implements DenormalizerInterface, NormalizerInterf
         if ($data->isInitialized('splashText') && null !== $data->getSplashText()) {
             $dataArray['splash_text'] = $data->getSplashText();
         }
+        if (!$data->isInitialized('buttonTitle')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBFormSplash.button_title missing');
+        }
         $dataArray['button_title'] = $data->getButtonTitle();
         if ($data->isInitialized('imageIdentifier') && null !== $data->getImageIdentifier()) {
             $dataArray['image_identifier'] = $data->getImageIdentifier();

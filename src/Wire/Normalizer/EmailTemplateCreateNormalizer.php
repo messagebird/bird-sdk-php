@@ -103,6 +103,9 @@ class EmailTemplateCreateNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('slug')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateCreate.slug missing');
+        }
         $dataArray['slug'] = $data->getSlug();
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();
@@ -110,7 +113,13 @@ class EmailTemplateCreateNormalizer implements DenormalizerInterface, Normalizer
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
         }
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateCreate.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateCreate.source missing');
+        }
         $dataArray['source'] = $data->getSource();
         if ($data->isInitialized('languages') && null !== $data->getLanguages()) {
             $values = [];

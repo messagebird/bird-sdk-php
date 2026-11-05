@@ -54,6 +54,9 @@ class WhatsAppContactEmailSendNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppContactEmailSend.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
         if ($data->isInitialized('type') && null !== $data->getType()) {
             $dataArray['type'] = $data->getType();

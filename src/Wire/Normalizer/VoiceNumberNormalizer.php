@@ -90,9 +90,21 @@ class VoiceNumberNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceNumber.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('provider')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceNumber.provider missing');
+        }
         $dataArray['provider'] = $data->getProvider();
+        if (!$data->isInitialized('directions')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceNumber.directions missing');
+        }
         $dataArray['directions'] = $this->normalizer->normalize($data->getDirections(), 'json', $context);
+        if (!$data->isInitialized('inboundConfiguration')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceNumber.inbound_configuration missing');
+        }
         $dataArray['inbound_configuration'] = $this->normalizer->normalize($data->getInboundConfiguration(), 'json', $context);
         return $dataArray;
     }

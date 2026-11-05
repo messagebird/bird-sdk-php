@@ -76,14 +76,29 @@ class AssetUploadInstructionNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('method')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadInstruction.method missing');
+        }
         $dataArray['method'] = $data->getMethod();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadInstruction.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
+        if (!$data->isInitialized('requiredHeaders')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadInstruction.required_headers missing');
+        }
         $values = [];
         foreach ($data->getRequiredHeaders() as $key => $value) {
             $values[$key] = $value;
         }
         $dataArray['required_headers'] = (object) $values;
+        if (!$data->isInitialized('contentLength')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadInstruction.content_length missing');
+        }
         $dataArray['content_length'] = $data->getContentLength();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadInstruction.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

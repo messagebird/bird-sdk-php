@@ -120,8 +120,17 @@ class EmailInboxInsightsSeedTestDetailNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('providers')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestDetail.providers missing');
+        }
         $dataArray['providers'] = $this->normalizer->normalize($data->getProviders(), 'json', $context);
+        if (!$data->isInitialized('auth')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestDetail.auth missing');
+        }
         $dataArray['auth'] = $this->normalizer->normalize($data->getAuth(), 'json', $context);
+        if (!$data->isInitialized('engagementSplit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestDetail.engagement_split missing');
+        }
         $dataArray['engagement_split'] = $this->normalizer->normalize($data->getEngagementSplit(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

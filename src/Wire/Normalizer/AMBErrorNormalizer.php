@@ -60,8 +60,17 @@ class AMBErrorNormalizer implements DenormalizerInterface, NormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBError.code missing');
+        }
         $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBError.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('occurredAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBError.occurred_at missing');
+        }
         $dataArray['occurred_at'] = $data->getOccurredAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

@@ -74,6 +74,9 @@ class RealtimeChannelListItemNormalizer implements DenormalizerInterface, Normal
         if ($data->isInitialized('connectionCount') && null !== $data->getConnectionCount()) {
             $dataArray['connection_count'] = $data->getConnectionCount();
         }
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeChannelListItem.name missing');
+        }
         $dataArray['name'] = $data->getName();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

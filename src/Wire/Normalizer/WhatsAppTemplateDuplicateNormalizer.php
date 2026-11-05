@@ -76,6 +76,9 @@ class WhatsAppTemplateDuplicateNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('waba')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateDuplicate.waba missing');
+        }
         $dataArray['waba'] = $data->getWaba();
         if ($data->isInitialized('slug') && null !== $data->getSlug()) {
             $dataArray['slug'] = $data->getSlug();

@@ -103,13 +103,37 @@ class VoiceSettingsDailySpendLimitNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('currencyCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.currency_code missing');
+        }
         $dataArray['currency_code'] = $data->getCurrencyCode();
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.limit missing');
+        }
         $dataArray['limit'] = $this->normalizer->normalize($data->getLimit(), 'json', $context);
+        if (!$data->isInitialized('used')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.used missing');
+        }
         $dataArray['used'] = $this->normalizer->normalize($data->getUsed(), 'json', $context);
+        if (!$data->isInitialized('remaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.remaining missing');
+        }
         $dataArray['remaining'] = $this->normalizer->normalize($data->getRemaining(), 'json', $context);
+        if (!$data->isInitialized('resetsAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.resets_at missing');
+        }
         $dataArray['resets_at'] = $data->getResetsAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('defaultLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.default_limit missing');
+        }
         $dataArray['default_limit'] = $this->normalizer->normalize($data->getDefaultLimit(), 'json', $context);
+        if (!$data->isInitialized('maxLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.max_limit missing');
+        }
         $dataArray['max_limit'] = $this->normalizer->normalize($data->getMaxLimit(), 'json', $context);
+        if (!$data->isInitialized('workspaceLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsDailySpendLimit.workspace_limit missing');
+        }
         $dataArray['workspace_limit'] = $this->normalizer->normalize($data->getWorkspaceLimit(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

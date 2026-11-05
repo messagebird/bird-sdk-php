@@ -54,6 +54,9 @@ class DomainUpdateTrackingNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainUpdateTracking.name missing');
+        }
         $dataArray['name'] = $data->getName();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

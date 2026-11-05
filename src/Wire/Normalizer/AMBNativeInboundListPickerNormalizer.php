@@ -52,6 +52,9 @@ class AMBNativeInboundListPickerNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('sections')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundListPicker.sections missing');
+        }
         $values = [];
         foreach ($data->getSections() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

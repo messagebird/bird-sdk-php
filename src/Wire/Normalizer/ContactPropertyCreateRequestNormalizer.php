@@ -60,9 +60,15 @@ class ContactPropertyCreateRequestNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('key')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactPropertyCreateRequest.key missing');
+        }
         $dataArray['key'] = $data->getKey();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactPropertyCreateRequest.type missing');
+        }
         $dataArray['type'] = $data->getType();
-        if ($data->isInitialized('fallbackValue') && null !== $data->getFallbackValue()) {
+        if ($data->isInitialized('fallbackValue')) {
             $dataArray['fallback_value'] = $data->getFallbackValue();
         }
         return $dataArray;

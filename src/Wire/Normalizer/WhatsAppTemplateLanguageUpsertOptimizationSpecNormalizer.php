@@ -72,7 +72,13 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpecNormalizer implements Denorm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('bidAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguageUpsertOptimizationSpec.bid_amount missing');
+        }
         $dataArray['bid_amount'] = $data->getBidAmount();
+        if (!$data->isInitialized('bidStrategy')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguageUpsertOptimizationSpec.bid_strategy missing');
+        }
         $dataArray['bid_strategy'] = $data->getBidStrategy();
         if ($data->isInitialized('bidCountryMultiplierOverrides') && null !== $data->getBidCountryMultiplierOverrides()) {
             $values = [];

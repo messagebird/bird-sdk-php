@@ -66,9 +66,21 @@ class AssetUploadFileNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('filename')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadFile.filename missing');
+        }
         $dataArray['filename'] = $data->getFilename();
+        if (!$data->isInitialized('contentType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadFile.content_type missing');
+        }
         $dataArray['content_type'] = $data->getContentType();
+        if (!$data->isInitialized('sizeBytes')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadFile.size_bytes missing');
+        }
         $dataArray['size_bytes'] = $data->getSizeBytes();
+        if (!$data->isInitialized('sha256')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadFile.sha256 missing');
+        }
         $dataArray['sha256'] = $data->getSha256();
         return $dataArray;
     }

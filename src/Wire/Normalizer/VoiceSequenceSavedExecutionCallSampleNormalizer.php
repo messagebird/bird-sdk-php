@@ -66,9 +66,21 @@ class VoiceSequenceSavedExecutionCallSampleNormalizer implements DenormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedExecutionCallSample.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('sessionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedExecutionCallSample.session_id missing');
+        }
         $dataArray['session_id'] = $data->getSessionId();
+        if (!$data->isInitialized('orig')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedExecutionCallSample.orig missing');
+        }
         $dataArray['orig'] = $this->normalizer->normalize($data->getOrig(), 'json', $context);
+        if (!$data->isInitialized('dest')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedExecutionCallSample.dest missing');
+        }
         $dataArray['dest'] = $this->normalizer->normalize($data->getDest(), 'json', $context);
         return $dataArray;
     }

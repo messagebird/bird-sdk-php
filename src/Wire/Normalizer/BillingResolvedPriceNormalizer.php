@@ -148,22 +148,52 @@ class BillingResolvedPriceNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('isPriced')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.is_priced missing');
+        }
         $dataArray['is_priced'] = $data->getIsPriced();
+        if (!$data->isInitialized('unitPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.unit_price missing');
+        }
         $dataArray['unit_price'] = $this->normalizer->normalize($data->getUnitPrice(), 'json', $context);
+        if (!$data->isInitialized('taxRate')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.tax_rate missing');
+        }
         $dataArray['tax_rate'] = $data->getTaxRate();
+        if (!$data->isInitialized('taxAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.tax_amount missing');
+        }
         $dataArray['tax_amount'] = $this->normalizer->normalize($data->getTaxAmount(), 'json', $context);
+        if (!$data->isInitialized('grossPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.gross_price missing');
+        }
         $dataArray['gross_price'] = $this->normalizer->normalize($data->getGrossPrice(), 'json', $context);
+        if (!$data->isInitialized('billingUnitSize')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.billing_unit_size missing');
+        }
         $dataArray['billing_unit_size'] = $data->getBillingUnitSize();
         if ($data->isInitialized('increment')) {
             $dataArray['increment'] = $data->getIncrement();
+        }
+        if (!$data->isInitialized('dimensions')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.dimensions missing');
         }
         $values = [];
         foreach ($data->getDimensions() as $key => $value) {
             $values[$key] = $value;
         }
         $dataArray['dimensions'] = (object) $values;
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('pricingModel')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.pricing_model missing');
+        }
         $dataArray['pricing_model'] = $data->getPricingModel();
+        if (!$data->isInitialized('included')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingResolvedPrice.included missing');
+        }
         $dataArray['included'] = $data->getIncluded();
         if ($data->isInitialized('billingInterval') && null !== $data->getBillingInterval()) {
             $dataArray['billing_interval'] = $data->getBillingInterval();

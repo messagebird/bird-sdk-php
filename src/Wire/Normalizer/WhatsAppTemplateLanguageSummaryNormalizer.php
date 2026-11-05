@@ -76,9 +76,15 @@ class WhatsAppTemplateLanguageSummaryNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguageSummary.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
         if ($data->isInitialized('status') && null !== $data->getStatus()) {
             $dataArray['status'] = $data->getStatus();
+        }
+        if (!$data->isInitialized('revision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguageSummary.revision missing');
         }
         $dataArray['revision'] = $data->getRevision();
         return $dataArray;

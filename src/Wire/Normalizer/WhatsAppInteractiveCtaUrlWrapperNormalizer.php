@@ -54,7 +54,13 @@ class WhatsAppInteractiveCtaUrlWrapperNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('text')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCtaUrlWrapper.text missing');
+        }
         $dataArray['text'] = $data->getText();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCtaUrlWrapper.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         return $dataArray;
     }

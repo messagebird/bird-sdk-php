@@ -69,9 +69,21 @@ class EsimCheckoutFundingNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('taxAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutFunding.tax_amount missing');
+        }
         $dataArray['tax_amount'] = $this->normalizer->normalize($data->getTaxAmount(), 'json', $context);
+        if (!$data->isInitialized('total')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutFunding.total missing');
+        }
         $dataArray['total'] = $this->normalizer->normalize($data->getTotal(), 'json', $context);
+        if (!$data->isInitialized('covered')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutFunding.covered missing');
+        }
         $dataArray['covered'] = $data->getCovered();
+        if (!$data->isInitialized('shortfall')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutFunding.shortfall missing');
+        }
         $dataArray['shortfall'] = $this->normalizer->normalize($data->getShortfall(), 'json', $context);
         return $dataArray;
     }

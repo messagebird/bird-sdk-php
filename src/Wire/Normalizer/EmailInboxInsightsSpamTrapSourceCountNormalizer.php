@@ -54,6 +54,9 @@ class EmailInboxInsightsSpamTrapSourceCountNormalizer implements DenormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTrapSourceCount.source missing');
+        }
         $dataArray['source'] = $data->getSource();
         return $dataArray;
     }

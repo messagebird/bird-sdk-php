@@ -99,10 +99,19 @@ class WebhookTestResponseNormalizer implements DenormalizerInterface, Normalizer
         if ($data->isInitialized('kind') && null !== $data->getKind()) {
             $dataArray['kind'] = $data->getKind();
         }
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookTestResponse.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('responseStatusCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookTestResponse.response_status_code missing');
+        }
         $dataArray['response_status_code'] = $data->getResponseStatusCode();
         if ($data->isInitialized('responseBody') && null !== $data->getResponseBody()) {
             $dataArray['response_body'] = $data->getResponseBody();
+        }
+        if (!$data->isInitialized('responseDurationMs')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookTestResponse.response_duration_ms missing');
         }
         $dataArray['response_duration_ms'] = $data->getResponseDurationMs();
         if ($data->isInitialized('eventPayload') && null !== $data->getEventPayload()) {

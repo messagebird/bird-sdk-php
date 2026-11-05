@@ -64,12 +64,21 @@ class SMSStatsByCostCenterResponseNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('period')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSStatsByCostCenterResponse.period missing');
+        }
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSStatsByCostCenterResponse.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('total')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSStatsByCostCenterResponse.total missing');
+        }
         $dataArray['total'] = $data->getTotal();
         return $dataArray;
     }

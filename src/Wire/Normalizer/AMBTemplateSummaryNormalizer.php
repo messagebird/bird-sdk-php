@@ -167,11 +167,29 @@ class AMBTemplateSummaryNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
+        if (!$data->isInitialized('contentKind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.content_kind missing');
+        }
         $dataArray['content_kind'] = $data->getContentKind();
+        if (!$data->isInitialized('defaultLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateSummary.default_language missing');
+        }
         $dataArray['default_language'] = $data->getDefaultLanguage();
         return $dataArray;
     }

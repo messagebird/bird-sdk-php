@@ -93,8 +93,17 @@ class WhatsAppTemplateSubmitResultVersionNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateSubmitResultVersion.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('templateId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateSubmitResultVersion.template_id missing');
+        }
         $dataArray['template_id'] = $data->getTemplateId();
+        if (!$data->isInitialized('languages')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateSubmitResultVersion.languages missing');
+        }
         $values = [];
         foreach ($data->getLanguages() as $key => $value) {
             $values[$key] = $this->normalizer->normalize($value, 'json', $context);

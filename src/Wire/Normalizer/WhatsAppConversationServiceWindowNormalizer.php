@@ -61,7 +61,13 @@ class WhatsAppConversationServiceWindowNormalizer implements DenormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationServiceWindow.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('endsAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationServiceWindow.ends_at missing');
+        }
         $dataArray['ends_at'] = $data->getEndsAt()?->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -89,11 +89,29 @@ class AMBConversationRoutingChangeNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('groupId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.group_id missing');
+        }
         $dataArray['group_id'] = $data->getGroupId();
+        if (!$data->isInitialized('intentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.intent_id missing');
+        }
         $dataArray['intent_id'] = $data->getIntentId();
+        if (!$data->isInitialized('entryPoint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.entry_point missing');
+        }
         $dataArray['entry_point'] = $data->getEntryPoint();
+        if (!$data->isInitialized('queue')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.queue missing');
+        }
         $dataArray['queue'] = $data->getQueue();
+        if (!$data->isInitialized('messageId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.message_id missing');
+        }
         $dataArray['message_id'] = $data->getMessageId();
+        if (!$data->isInitialized('receivedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRoutingChange.received_at missing');
+        }
         $dataArray['received_at'] = $data->getReceivedAt()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

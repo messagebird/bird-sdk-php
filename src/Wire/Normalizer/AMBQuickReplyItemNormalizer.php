@@ -54,7 +54,13 @@ class AMBQuickReplyItemNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('identifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBQuickReplyItem.identifier missing');
+        }
         $dataArray['identifier'] = $data->getIdentifier();
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBQuickReplyItem.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
         return $dataArray;
     }

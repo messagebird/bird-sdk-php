@@ -70,7 +70,13 @@ class EmailTemplateVariableNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('path')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVariable.path missing');
+        }
         $dataArray['path'] = $data->getPath();
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVariable.source missing');
+        }
         $dataArray['source'] = $data->getSource();
         if ($data->isInitialized('sourceType') && null !== $data->getSourceType()) {
             $dataArray['source_type'] = $data->getSourceType();

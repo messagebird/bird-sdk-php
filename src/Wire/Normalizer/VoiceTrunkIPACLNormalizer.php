@@ -72,7 +72,13 @@ class VoiceTrunkIPACLNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkIPACL.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('trunkId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkIPACL.trunk_id missing');
+        }
         $dataArray['trunk_id'] = $data->getTrunkId();
         if ($data->isInitialized('description')) {
             $dataArray['description'] = $data->getDescription();

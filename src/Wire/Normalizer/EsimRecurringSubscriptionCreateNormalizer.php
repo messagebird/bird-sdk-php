@@ -72,10 +72,25 @@ class EsimRecurringSubscriptionCreateNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('esimId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionCreate.esim_id missing');
+        }
         $dataArray['esim_id'] = $data->getEsimId();
+        if (!$data->isInitialized('offerId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionCreate.offer_id missing');
+        }
         $dataArray['offer_id'] = $data->getOfferId();
+        if (!$data->isInitialized('offerRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionCreate.offer_revision missing');
+        }
         $dataArray['offer_revision'] = $data->getOfferRevision();
+        if (!$data->isInitialized('recurrenceRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionCreate.recurrence_revision missing');
+        }
         $dataArray['recurrence_revision'] = $data->getRecurrenceRevision();
+        if (!$data->isInitialized('acceptedPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionCreate.accepted_price missing');
+        }
         $dataArray['accepted_price'] = $this->normalizer->normalize($data->getAcceptedPrice(), 'json', $context);
         return $dataArray;
     }

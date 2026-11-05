@@ -60,6 +60,9 @@ class WhatsAppDocumentSendNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppDocumentSend.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('caption') && null !== $data->getCaption()) {
             $dataArray['caption'] = $data->getCaption();

@@ -66,9 +66,21 @@ class RateLimitErrorContextNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('policyKey')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RateLimitErrorContext.policy_key missing');
+        }
         $dataArray['policy_key'] = $data->getPolicyKey();
+        if (!$data->isInitialized('scope')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RateLimitErrorContext.scope missing');
+        }
         $dataArray['scope'] = $data->getScope();
+        if (!$data->isInitialized('windowSeconds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RateLimitErrorContext.window_seconds missing');
+        }
         $dataArray['window_seconds'] = $data->getWindowSeconds();
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RateLimitErrorContext.limit missing');
+        }
         $dataArray['limit'] = $data->getLimit();
         return $dataArray;
     }

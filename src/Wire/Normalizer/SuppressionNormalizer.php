@@ -96,11 +96,29 @@ class SuppressionNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
+        if (!$data->isInitialized('scope')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.scope missing');
+        }
         $dataArray['scope'] = $this->normalizer->normalize($data->getScope(), 'json', $context);
+        if (!$data->isInitialized('reason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.reason missing');
+        }
         $dataArray['reason'] = $data->getReason();
+        if (!$data->isInitialized('origin')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.origin missing');
+        }
         $dataArray['origin'] = $data->getOrigin();
+        if (!$data->isInitialized('appliesTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Suppression.applies_to missing');
+        }
         $dataArray['applies_to'] = $data->getAppliesTo();
         if ($data->isInitialized('sourceEmailId')) {
             $dataArray['source_email_id'] = $data->getSourceEmailId();

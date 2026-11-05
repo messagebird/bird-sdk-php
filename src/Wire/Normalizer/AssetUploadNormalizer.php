@@ -66,6 +66,9 @@ class AssetUploadNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('file')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUpload.file missing');
+        }
         $dataArray['file'] = $data->getFile();
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

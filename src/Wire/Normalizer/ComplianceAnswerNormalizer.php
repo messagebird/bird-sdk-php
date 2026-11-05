@@ -80,6 +80,9 @@ class ComplianceAnswerNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('key')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceAnswer.key missing');
+        }
         $dataArray['key'] = $data->getKey();
         if ($data->isInitialized('value') && null !== $data->getValue()) {
             $dataArray['value'] = $data->getValue();

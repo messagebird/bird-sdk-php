@@ -111,11 +111,15 @@ class EmailBroadcastTestRequestNormalizer implements DenormalizerInterface, Norm
             $dataArray['from'] = $data->getFrom();
         }
         if ($data->isInitialized('replyTo')) {
-            $values = [];
-            foreach ($data->getReplyTo() as $value) {
-                $values[] = $value;
+            if (null === $data->getReplyTo()) {
+                $dataArray['reply_to'] = null;
+            } else {
+                $values = [];
+                foreach ($data->getReplyTo() as $value) {
+                    $values[] = $value;
+                }
+                $dataArray['reply_to'] = $values;
             }
-            $dataArray['reply_to'] = $values;
         }
         if ($data->isInitialized('headers') && null !== $data->getHeaders()) {
             $values_1 = [];
@@ -127,7 +131,13 @@ class EmailBroadcastTestRequestNormalizer implements DenormalizerInterface, Norm
         if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
             $dataArray['contact_id'] = $data->getContactId();
         }
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestRequest.to missing');
+        }
         $dataArray['to'] = $data->getTo();
+        if (!$data->isInitialized('previewFingerprint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestRequest.preview_fingerprint missing');
+        }
         $dataArray['preview_fingerprint'] = $data->getPreviewFingerprint();
         foreach ($data as $key_1 => $value_2) {
             if (preg_match('/.*/', (string) $key_1)) {

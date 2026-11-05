@@ -127,14 +127,26 @@ class EmailInboxInsightsSeedTestsNormalizer implements DenormalizerInterface, No
         if ($data->isInitialized('measurement') && null !== $data->getMeasurement()) {
             $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
         }
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTests.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
+        if (!$data->isInitialized('window')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTests.window missing');
+        }
         $dataArray['window'] = $this->normalizer->normalize($data->getWindow(), 'json', $context);
         if ($data->isInitialized('comparedTo') && null !== $data->getComparedTo()) {
             $dataArray['compared_to'] = $this->normalizer->normalize($data->getComparedTo(), 'json', $context);
         }
+        if (!$data->isInitialized('tests')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTests.tests missing');
+        }
         $dataArray['tests'] = $this->normalizer->normalize($data->getTests(), 'json', $context);
         if ($data->isInitialized('latest') && null !== $data->getLatest()) {
             $dataArray['latest'] = $this->normalizer->normalize($data->getLatest(), 'json', $context);
+        }
+        if (!$data->isInitialized('quota')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTests.quota missing');
         }
         $dataArray['quota'] = $this->normalizer->normalize($data->getQuota(), 'json', $context);
         foreach ($data as $key => $value) {

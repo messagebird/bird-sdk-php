@@ -75,9 +75,21 @@ class VoiceDestinationDailySpendLimitNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimit.limit missing');
+        }
         $dataArray['limit'] = $this->normalizer->normalize($data->getLimit(), 'json', $context);
+        if (!$data->isInitialized('used')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimit.used missing');
+        }
         $dataArray['used'] = $this->normalizer->normalize($data->getUsed(), 'json', $context);
+        if (!$data->isInitialized('remaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimit.remaining missing');
+        }
         $dataArray['remaining'] = $this->normalizer->normalize($data->getRemaining(), 'json', $context);
+        if (!$data->isInitialized('resetsAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimit.resets_at missing');
+        }
         $dataArray['resets_at'] = $data->getResetsAt()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -61,7 +61,13 @@ class EsimSummaryRenewalNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('subscriptionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimSummaryRenewal.subscription_id missing');
+        }
         $dataArray['subscription_id'] = $data->getSubscriptionId();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimSummaryRenewal.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

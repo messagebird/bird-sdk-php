@@ -74,6 +74,9 @@ class RealtimeBatchPublishResultItemNormalizer implements DenormalizerInterface,
         if ($data->isInitialized('connectionCount') && null !== $data->getConnectionCount()) {
             $dataArray['connection_count'] = $data->getConnectionCount();
         }
+        if (!$data->isInitialized('channel')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeBatchPublishResultItem.channel missing');
+        }
         $dataArray['channel'] = $data->getChannel();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

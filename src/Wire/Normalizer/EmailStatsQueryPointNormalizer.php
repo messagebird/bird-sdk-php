@@ -54,6 +54,9 @@ class EmailStatsQueryPointNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('bucket')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryPoint.bucket missing');
+        }
         $dataArray['bucket'] = $data->getBucket()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

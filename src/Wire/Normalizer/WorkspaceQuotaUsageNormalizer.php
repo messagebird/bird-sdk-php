@@ -103,13 +103,37 @@ class WorkspaceQuotaUsageNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('observedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.observed_at missing');
+        }
         $dataArray['observed_at'] = $data->getObservedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('organizationLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.organization_limit missing');
+        }
         $dataArray['organization_limit'] = $data->getOrganizationLimit();
+        if (!$data->isInitialized('organizationUsed')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.organization_used missing');
+        }
         $dataArray['organization_used'] = $data->getOrganizationUsed();
+        if (!$data->isInitialized('workspaceUsed')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.workspace_used missing');
+        }
         $dataArray['workspace_used'] = $data->getWorkspaceUsed();
+        if (!$data->isInitialized('organizationRemaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.organization_remaining missing');
+        }
         $dataArray['organization_remaining'] = $data->getOrganizationRemaining();
+        if (!$data->isInitialized('workspaceRemaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.workspace_remaining missing');
+        }
         $dataArray['workspace_remaining'] = $data->getWorkspaceRemaining();
+        if (!$data->isInitialized('remaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaUsage.remaining missing');
+        }
         $dataArray['remaining'] = $data->getRemaining();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

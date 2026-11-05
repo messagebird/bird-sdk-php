@@ -66,6 +66,9 @@ class WhatsAppErrorNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppError.code missing');
+        }
         $dataArray['code'] = $data->getCode();
         return $dataArray;
     }

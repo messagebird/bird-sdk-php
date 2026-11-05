@@ -13,9 +13,7 @@ use MessageBird\Wire\Model\EmailBroadcast;
  * `cancel` and `delete` are generated on BroadcastsBase; this parent
  * hand-writes `create`, `update` and `send`. `create` and `send` carry a
  * `scheduled_at` the generated normalizer would render with a "+00:00" offset
- * where every other surface writes "Z"; `update` takes a plain array because
- * the generated request model turns an unset `reply_to` into an empty list
- * rather than a clear.
+ * where every other surface writes "Z"; `update` retains its public array input.
  */
 final class Broadcasts extends BroadcastsBase
 {
@@ -170,9 +168,6 @@ final class Broadcasts extends BroadcastsBase
      */
     public function update(string $broadcastId, array $changes, ?RequestOptions $options = null): EmailBroadcast
     {
-        // A plain array rather than the generated EmailBroadcastUpdateRequest:
-        // that model's normalizer renders an initialized-but-null `reply_to` as
-        // `[]`, which the server reads as an empty list rather than a clear.
         return $this->single('PATCH', '/v1/email/broadcasts/' . rawurlencode($broadcastId), EmailBroadcast::class, self::objectifyEmptyMaps($changes), null, $options);
     }
 
@@ -212,6 +207,12 @@ final class Broadcasts extends BroadcastsBase
                 $overrides[$language] = is_array($values) ? (object) $values : $values;
             }
             $body['template']['parameter_overrides'] = (object) $overrides;
+        }
+
+        // An empty nested update keeps the template/version; encoding it as
+        // a list would instead send a body the API cannot accept.
+        if (is_array($body['template'] ?? null)) {
+            $body['template'] = (object) $body['template'];
         }
 
         return $body === [] ? new \stdClass() : $body;

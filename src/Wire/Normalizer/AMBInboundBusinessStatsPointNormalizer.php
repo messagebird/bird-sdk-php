@@ -54,6 +54,9 @@ class AMBInboundBusinessStatsPointNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('businessAccountId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundBusinessStatsPoint.business_account_id missing');
+        }
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
         return $dataArray;
     }

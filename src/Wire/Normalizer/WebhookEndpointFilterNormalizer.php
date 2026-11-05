@@ -54,6 +54,9 @@ class WebhookEndpointFilterNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('mailboxId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointFilter.mailbox_id missing');
+        }
         $dataArray['mailbox_id'] = $data->getMailboxId();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

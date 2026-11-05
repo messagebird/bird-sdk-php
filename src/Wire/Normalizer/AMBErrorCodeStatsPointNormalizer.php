@@ -66,6 +66,9 @@ class AMBErrorCodeStatsPointNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('errorCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBErrorCodeStatsPoint.error_code missing');
+        }
         $dataArray['error_code'] = $data->getErrorCode();
         return $dataArray;
     }

@@ -60,8 +60,17 @@ class AudienceMembershipStatisticsResponsePeriodNormalizer implements Denormaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsResponsePeriod.from missing');
+        }
         $dataArray['from'] = $data->getFrom()->format('Y-m-d');
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsResponsePeriod.to missing');
+        }
         $dataArray['to'] = $data->getTo()->format('Y-m-d');
+        if (!$data->isInitialized('dataAsOf')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsResponsePeriod.data_as_of missing');
+        }
         $dataArray['data_as_of'] = $data->getDataAsOf()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

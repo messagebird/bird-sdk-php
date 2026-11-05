@@ -78,6 +78,9 @@ class EmailStatsSummaryNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('period')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsSummary.period missing');
+        }
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
         return $dataArray;
     }

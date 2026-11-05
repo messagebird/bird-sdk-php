@@ -7,7 +7,9 @@ namespace MessageBird\Wire\Model;
  * 
  * The organization shares this allowance across its email sends. `allowed` can change as other sends use the allowance. `recipients` can change with audience membership and suppressions. These counts are live estimates. Other sends can use the allowance before a broadcast sends, even if its audience fits now.
  * 
- * `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit.
+ * The optional `can_start` and `on_insufficient_funds` fields are declared ahead of server support for funding recovery. If `can_start` is absent, use `allowed` to check the current allowance and do not assume automatic waiting or resumability. An absent field is different from `can_start: false`, which explicitly says the broadcast cannot start.
+ * 
+ * `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit. `on_insufficient_funds` says what happens if the balance runs out mid-send. Like `limit_reason`, it is present only when you have `org:billing` read access.
  */
 class EmailBroadcastSendQuota
 {
@@ -31,7 +33,7 @@ class EmailBroadcastSendQuota
      * 
      * Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
      * 
-     * A value of 0 means no recipients would receive the broadcast. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch.
+     * A value of 0 means no recipients are currently covered. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
      * 
      *
      * @var int|null
@@ -81,7 +83,7 @@ class EmailBroadcastSendQuota
      * - `plan`: the organization's monthly email limit. This is the plan's included volume unless we have set a different limit for the organization. If the limit matches the included volume, a plan with more included volume raises it. Otherwise, contact Bird support.
      * - `overage_off`: email overage is turned off, so sending stops at the included volume. Turn email overage back on to raise the monthly email limit.
      * - `overdue_payment`: an overdue payment pauses email overage, so sending stops at the included volume. Pay the overdue invoice to raise the monthly email limit.
-     * - `unfunded`: the wallet cannot cover email overage, or its funding cannot be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. Email overage resumes once sufficient funding is confirmed.
+     * - `unfunded`: funding for email overage could not be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. If it has sufficient funds, retry the allowance check. Email overage resumes once sufficient funding is confirmed.
      * - `overage_ceiling`: email overage is billed up to a configured multiple of the included volume. A plan with more included volume raises the email overage ceiling.
      * - `custom_limit`: we have set a monthly email limit for the organization that differs from the plan's included volume. Contact Bird support to change it. These limits currently report as `plan`. This enum value is declared in advance so reporting them as `custom_limit` will not be a breaking change.
      * 
@@ -98,6 +100,25 @@ class EmailBroadcastSendQuota
      * @var EmailBroadcastCountAllowance|null
      */
     protected $broadcasts;
+    /**
+     * Declared ahead of server support for funding recovery. When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
+     * 
+     * - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when funds cover the next batch of recipients, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
+     * - `pause`: The broadcast pauses until you add funds and resume it.
+     * 
+     *
+     * @var string|null
+     */
+    protected $onInsufficientFunds;
+    /**
+     * When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. A balance that cannot pay for the next batch does not make this `false`: once started, the broadcast waits or pauses until funds return, as `on_insufficient_funds` describes.
+     * 
+     * It is `false` when no recipient would be sent, including when the audience exceeds the full daily or monthly limit or none of that limit remains. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $canStart;
     /**
      * Number of contacts the broadcast could reach now. Excludes contacts without an email address and contacts suppressed for the broadcast's category. Matches the sendable count from the broadcast's audience counts.
      * 
@@ -126,7 +147,7 @@ class EmailBroadcastSendQuota
      * 
      * Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
      * 
-     * A value of 0 means no recipients would receive the broadcast. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch.
+     * A value of 0 means no recipients are currently covered. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
      * 
      *
      * @return int|null
@@ -140,7 +161,7 @@ class EmailBroadcastSendQuota
     
     Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
     
-    A value of 0 means no recipients would receive the broadcast. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch.
+    A value of 0 means no recipients are currently covered. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch. When `can_start` is present, use it to decide whether a balance-limited broadcast can start and wait for funds. If it is absent, a zero allowance does not provide a way to send.
     
     *
     * @param int|null $allowed
@@ -273,7 +294,7 @@ class EmailBroadcastSendQuota
      * - `plan`: the organization's monthly email limit. This is the plan's included volume unless we have set a different limit for the organization. If the limit matches the included volume, a plan with more included volume raises it. Otherwise, contact Bird support.
      * - `overage_off`: email overage is turned off, so sending stops at the included volume. Turn email overage back on to raise the monthly email limit.
      * - `overdue_payment`: an overdue payment pauses email overage, so sending stops at the included volume. Pay the overdue invoice to raise the monthly email limit.
-     * - `unfunded`: the wallet cannot cover email overage, or its funding cannot be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. Email overage resumes once sufficient funding is confirmed.
+     * - `unfunded`: funding for email overage could not be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. If it has sufficient funds, retry the allowance check. Email overage resumes once sufficient funding is confirmed.
      * - `overage_ceiling`: email overage is billed up to a configured multiple of the included volume. A plan with more included volume raises the email overage ceiling.
      * - `custom_limit`: we have set a monthly email limit for the organization that differs from the plan's included volume. Contact Bird support to change it. These limits currently report as `plan`. This enum value is declared in advance so reporting them as `custom_limit` will not be a breaking change.
      * 
@@ -290,7 +311,7 @@ class EmailBroadcastSendQuota
     - `plan`: the organization's monthly email limit. This is the plan's included volume unless we have set a different limit for the organization. If the limit matches the included volume, a plan with more included volume raises it. Otherwise, contact Bird support.
     - `overage_off`: email overage is turned off, so sending stops at the included volume. Turn email overage back on to raise the monthly email limit.
     - `overdue_payment`: an overdue payment pauses email overage, so sending stops at the included volume. Pay the overdue invoice to raise the monthly email limit.
-    - `unfunded`: the wallet cannot cover email overage, or its funding cannot be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. Email overage resumes once sufficient funding is confirmed.
+    - `unfunded`: funding for email overage could not be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. If it has sufficient funds, retry the allowance check. Email overage resumes once sufficient funding is confirmed.
     - `overage_ceiling`: email overage is billed up to a configured multiple of the included volume. A plan with more included volume raises the email overage ceiling.
     - `custom_limit`: we have set a monthly email limit for the organization that differs from the plan's included volume. Contact Bird support to change it. These limits currently report as `plan`. This enum value is declared in advance so reporting them as `custom_limit` will not be a breaking change.
     
@@ -331,6 +352,64 @@ class EmailBroadcastSendQuota
     {
         $this->initialized['broadcasts'] = true;
         $this->broadcasts = $broadcasts;
+        return $this;
+    }
+    /**
+     * Declared ahead of server support for funding recovery. When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
+     * 
+     * - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when funds cover the next batch of recipients, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
+     * - `pause`: The broadcast pauses until you add funds and resume it.
+     * 
+     *
+     * @return string|null
+     */
+    public function getOnInsufficientFunds(): ?string
+    {
+        return $this->onInsufficientFunds;
+    }
+    /**
+    * Declared ahead of server support for funding recovery. When returned in the send-allowance response, this describes what a broadcast does if your balance runs out while it is sending. Recipients already sent to are not affected either way.
+    
+    - `wait_for_top_up`: The broadcast waits up to 20 minutes for a manual or automatic top-up. It checks once a minute and continues by itself when funds cover the next batch of recipients, then pauses if the wait ends. Waiting does not change your automatic top-up settings or initiate a payment.
+    - `pause`: The broadcast pauses until you add funds and resume it.
+    
+    *
+    * @param string|null $onInsufficientFunds
+    *
+    * @return self
+    */
+    public function setOnInsufficientFunds(?string $onInsufficientFunds): self
+    {
+        $this->initialized['onInsufficientFunds'] = true;
+        $this->onInsufficientFunds = $onInsufficientFunds;
+        return $this;
+    }
+    /**
+     * When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. A balance that cannot pay for the next batch does not make this `false`: once started, the broadcast waits or pauses until funds return, as `on_insufficient_funds` describes.
+     * 
+     * It is `false` when no recipient would be sent, including when the audience exceeds the full daily or monthly limit or none of that limit remains. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getCanStart(): ?bool
+    {
+        return $this->canStart;
+    }
+    /**
+    * When present, whether the organization's email limits let this broadcast start at `send_at`, or now if you omit it. A balance that cannot pay for the next batch does not make this `false`: once started, the broadcast waits or pauses until funds return, as `on_insufficient_funds` describes.
+    
+    It is `false` when no recipient would be sent, including when the audience exceeds the full daily or monthly limit or none of that limit remains. A `true` value does not reserve allowance or promise that every recipient is sent. Other checks still apply when you send.
+    
+    *
+    * @param bool|null $canStart
+    *
+    * @return self
+    */
+    public function setCanStart(?bool $canStart): self
+    {
+        $this->initialized['canStart'] = true;
+        $this->canStart = $canStart;
         return $this;
     }
 }

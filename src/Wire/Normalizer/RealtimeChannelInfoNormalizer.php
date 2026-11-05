@@ -77,6 +77,9 @@ class RealtimeChannelInfoNormalizer implements DenormalizerInterface, Normalizer
         if ($data->isInitialized('connectionCount') && null !== $data->getConnectionCount()) {
             $dataArray['connection_count'] = $data->getConnectionCount();
         }
+        if (!$data->isInitialized('occupied')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeChannelInfo.occupied missing');
+        }
         $dataArray['occupied'] = $data->getOccupied();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -76,9 +76,21 @@ class ComplianceIdentityNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceIdentity.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceIdentity.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceIdentity.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceIdentity.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

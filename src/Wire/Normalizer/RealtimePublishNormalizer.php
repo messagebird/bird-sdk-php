@@ -80,13 +80,19 @@ class RealtimePublishNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('event')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimePublish.event missing');
+        }
         $dataArray['event'] = $data->getEvent();
+        if (!$data->isInitialized('channels')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimePublish.channels missing');
+        }
         $values = [];
         foreach ($data->getChannels() as $value) {
             $values[] = $value;
         }
         $dataArray['channels'] = $values;
-        if ($data->isInitialized('data') && null !== $data->getData()) {
+        if ($data->isInitialized('data')) {
             $dataArray['data'] = $data->getData();
         }
         if ($data->isInitialized('excludeConnectionId') && null !== $data->getExcludeConnectionId()) {

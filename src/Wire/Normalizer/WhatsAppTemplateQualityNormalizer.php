@@ -60,6 +60,9 @@ class WhatsAppTemplateQualityNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('currentScore')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateQuality.current_score missing');
+        }
         $dataArray['current_score'] = $data->getCurrentScore();
         if ($data->isInitialized('previousScore') && null !== $data->getPreviousScore()) {
             $dataArray['previous_score'] = $data->getPreviousScore();

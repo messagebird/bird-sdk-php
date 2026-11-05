@@ -73,7 +73,13 @@ class EmailCompetitiveNotableFeedNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('period')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableFeed.period missing');
+        }
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
+        if (!$data->isInitialized('panelStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableFeed.panel_status missing');
+        }
         $dataArray['panel_status'] = $data->getPanelStatus();
         return $dataArray;
     }

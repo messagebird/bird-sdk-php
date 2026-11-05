@@ -97,11 +97,15 @@ class EmailBroadcastPreviewRequestNormalizer implements DenormalizerInterface, N
             $dataArray['from'] = $data->getFrom();
         }
         if ($data->isInitialized('replyTo')) {
-            $values = [];
-            foreach ($data->getReplyTo() as $value) {
-                $values[] = $value;
+            if (null === $data->getReplyTo()) {
+                $dataArray['reply_to'] = null;
+            } else {
+                $values = [];
+                foreach ($data->getReplyTo() as $value) {
+                    $values[] = $value;
+                }
+                $dataArray['reply_to'] = $values;
             }
-            $dataArray['reply_to'] = $values;
         }
         if ($data->isInitialized('headers') && null !== $data->getHeaders()) {
             $values_1 = [];

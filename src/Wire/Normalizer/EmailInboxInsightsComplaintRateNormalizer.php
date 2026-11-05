@@ -75,6 +75,9 @@ class EmailInboxInsightsComplaintRateNormalizer implements DenormalizerInterface
         if ($data->isInitialized('peak') && null !== $data->getPeak()) {
             $dataArray['peak'] = $this->normalizer->normalize($data->getPeak(), 'json', $context);
         }
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsComplaintRate.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         return $dataArray;
     }

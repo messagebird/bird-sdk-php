@@ -60,8 +60,17 @@ class EmailBroadcastCountAllowanceNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastCountAllowance.limit missing');
+        }
         $dataArray['limit'] = $data->getLimit();
+        if (!$data->isInitialized('remaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastCountAllowance.remaining missing');
+        }
         $dataArray['remaining'] = $data->getRemaining();
+        if (!$data->isInitialized('resetsAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastCountAllowance.resets_at missing');
+        }
         $dataArray['resets_at'] = $data->getResetsAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

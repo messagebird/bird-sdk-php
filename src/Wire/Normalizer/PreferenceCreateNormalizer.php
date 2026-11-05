@@ -96,8 +96,17 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('handle')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.handle missing');
+        }
         $dataArray['handle'] = $data->getHandle();
+        if (!$data->isInitialized('channel')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.channel missing');
+        }
         $dataArray['channel'] = $data->getChannel();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         if ($data->isInitialized('coverage') && null !== $data->getCoverage()) {
             $dataArray['coverage'] = $data->getCoverage();

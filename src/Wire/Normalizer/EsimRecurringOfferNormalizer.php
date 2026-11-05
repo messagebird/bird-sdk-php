@@ -78,11 +78,29 @@ class EsimRecurringOfferNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('deliveryMode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.delivery_mode missing');
+        }
         $dataArray['delivery_mode'] = $data->getDeliveryMode();
+        if (!$data->isInitialized('offerId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.offer_id missing');
+        }
         $dataArray['offer_id'] = $data->getOfferId();
+        if (!$data->isInitialized('model')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.model missing');
+        }
         $dataArray['model'] = $data->getModel();
+        if (!$data->isInitialized('intervalCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.interval_count missing');
+        }
         $dataArray['interval_count'] = $data->getIntervalCount();
+        if (!$data->isInitialized('revision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.revision missing');
+        }
         $dataArray['revision'] = $data->getRevision();
+        if (!$data->isInitialized('price')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringOffer.price missing');
+        }
         $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         return $dataArray;
     }

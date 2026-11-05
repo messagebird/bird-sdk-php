@@ -48,6 +48,9 @@ class VoicePartyBridgeSIPEndpointNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('trunkId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoicePartyBridgeSIPEndpoint.trunk_id missing');
+        }
         $dataArray['trunk_id'] = $data->getTrunkId();
         return $dataArray;
     }

@@ -54,6 +54,9 @@ class AssetFolderCreateNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetFolderCreate.name missing');
+        }
         $dataArray['name'] = $data->getName();
         if ($data->isInitialized('parentId')) {
             $dataArray['parent_id'] = $data->getParentId();

@@ -48,6 +48,9 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('error')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Error.error missing');
+        }
         $dataArray['error'] = $this->normalizer->normalize($data->getError(), 'json', $context);
         return $dataArray;
     }

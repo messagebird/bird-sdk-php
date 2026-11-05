@@ -132,10 +132,25 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('address')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.address missing');
+        }
         $dataArray['address'] = $data->getAddress();
+        if (!$data->isInitialized('addressType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.address_type missing');
+        }
         $dataArray['address_type'] = $data->getAddressType();
+        if (!$data->isInitialized('reason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.reason missing');
+        }
         $dataArray['reason'] = $data->getReason();
+        if (!$data->isInitialized('origin')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.origin missing');
+        }
         $dataArray['origin'] = $data->getOrigin();
         if ($data->isInitialized('sourceMessageId') && null !== $data->getSourceMessageId()) {
             $dataArray['source_message_id'] = $data->getSourceMessageId();

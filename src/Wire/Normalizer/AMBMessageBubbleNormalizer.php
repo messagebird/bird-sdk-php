@@ -90,6 +90,9 @@ class AMBMessageBubbleNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessageBubble.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
         if ($data->isInitialized('subtitle') && null !== $data->getSubtitle()) {
             $dataArray['subtitle'] = $data->getSubtitle();

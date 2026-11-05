@@ -149,10 +149,25 @@ class DomainNormalizer implements DenormalizerInterface, NormalizerInterface, De
         if ($data->isInitialized('defaultIpPoolId')) {
             $dataArray['default_ip_pool_id'] = $data->getDefaultIpPoolId();
         }
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Domain.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('workspaceId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Domain.workspace_id missing');
+        }
         $dataArray['workspace_id'] = $data->getWorkspaceId();
+        if (!$data->isInitialized('settings')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Domain.settings missing');
+        }
         $dataArray['settings'] = $this->normalizer->normalize($data->getSettings(), 'json', $context);
+        if (!$data->isInitialized('dkim')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Domain.dkim missing');
+        }
         $dataArray['dkim'] = $this->normalizer->normalize($data->getDkim(), 'json', $context);
+        if (!$data->isInitialized('capabilities')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Domain.capabilities missing');
+        }
         $dataArray['capabilities'] = $this->normalizer->normalize($data->getCapabilities(), 'json', $context);
         return $dataArray;
     }

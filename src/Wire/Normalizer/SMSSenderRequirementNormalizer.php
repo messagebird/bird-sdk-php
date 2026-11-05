@@ -164,6 +164,9 @@ class SMSSenderRequirementNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('programEntry')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSSenderRequirement.program_entry missing');
+        }
         $dataArray['program_entry'] = $data->getProgramEntry();
         return $dataArray;
     }

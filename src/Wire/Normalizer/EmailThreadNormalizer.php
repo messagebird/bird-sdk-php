@@ -161,28 +161,73 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('mailboxId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.mailbox_id missing');
+        }
         $dataArray['mailbox_id'] = $data->getMailboxId();
+        if (!$data->isInitialized('channel')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.channel missing');
+        }
         $dataArray['channel'] = $data->getChannel();
+        if (!$data->isInitialized('contactId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.contact_id missing');
+        }
         $dataArray['contact_id'] = $data->getContactId();
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
+        if (!$data->isInitialized('participants')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.participants missing');
+        }
         $values = [];
         foreach ($data->getParticipants() as $value) {
             $values[] = $value;
         }
         $dataArray['participants'] = $values;
+        if (!$data->isInitialized('messageCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.message_count missing');
+        }
         $dataArray['message_count'] = $data->getMessageCount();
+        if (!$data->isInitialized('unreadCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.unread_count missing');
+        }
         $dataArray['unread_count'] = $data->getUnreadCount();
+        if (!$data->isInitialized('lastMessageAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.last_message_at missing');
+        }
         $dataArray['last_message_at'] = $data->getLastMessageAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('lastDirection')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.last_direction missing');
+        }
         $dataArray['last_direction'] = $data->getLastDirection();
+        if (!$data->isInitialized('folder')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.folder missing');
+        }
         $dataArray['folder'] = $data->getFolder();
+        if (!$data->isInitialized('read')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.read missing');
+        }
         $dataArray['read'] = $data->getRead();
+        if (!$data->isInitialized('labels')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.labels missing');
+        }
         $values_1 = [];
         foreach ($data->getLabels() as $value_1) {
             $values_1[] = $value_1;
         }
         $dataArray['labels'] = $values_1;
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         if ($data->isInitialized('scheduledCount') && null !== $data->getScheduledCount()) {
             $dataArray['scheduled_count'] = $data->getScheduledCount();

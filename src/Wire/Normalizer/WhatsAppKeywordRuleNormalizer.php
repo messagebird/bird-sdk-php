@@ -110,8 +110,17 @@ class WhatsAppKeywordRuleNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('scope')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.scope missing');
+        }
         $dataArray['scope'] = $data->getScope();
+        if (!$data->isInitialized('operation')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.operation missing');
+        }
         $dataArray['operation'] = $data->getOperation();
         if ($data->isInitialized('country')) {
             $dataArray['country'] = $data->getCountry();
@@ -119,11 +128,17 @@ class WhatsAppKeywordRuleNormalizer implements DenormalizerInterface, Normalizer
         if ($data->isInitialized('waba')) {
             $dataArray['waba'] = $data->getWaba();
         }
+        if (!$data->isInitialized('keywords')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.keywords missing');
+        }
         $values = [];
         foreach ($data->getKeywords() as $value) {
             $values[] = $value;
         }
         $dataArray['keywords'] = $values;
+        if (!$data->isInitialized('effectiveKeywords')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.effective_keywords missing');
+        }
         $values_1 = [];
         foreach ($data->getEffectiveKeywords() as $value_1) {
             $values_1[] = $value_1;
@@ -132,7 +147,13 @@ class WhatsAppKeywordRuleNormalizer implements DenormalizerInterface, Normalizer
         if ($data->isInitialized('reply')) {
             $dataArray['reply'] = $data->getReply();
         }
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

@@ -102,10 +102,25 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('address')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.address missing');
+        }
         $dataArray['address'] = $data->getAddress();
+        if (!$data->isInitialized('reason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.reason missing');
+        }
         $dataArray['reason'] = $data->getReason();
+        if (!$data->isInitialized('origin')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.origin missing');
+        }
         $dataArray['origin'] = $data->getOrigin();
+        if (!$data->isInitialized('appliesTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.applies_to missing');
+        }
         $dataArray['applies_to'] = $data->getAppliesTo();
         if ($data->isInitialized('sourceWhatsappId') && null !== $data->getSourceWhatsappId()) {
             $dataArray['source_whatsapp_id'] = $data->getSourceWhatsappId();

@@ -68,8 +68,17 @@ class EsimCredentialsDeliveryInstallLinkNormalizer implements DenormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCredentialsDeliveryInstallLink.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCredentialsDeliveryInstallLink.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('revokedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCredentialsDeliveryInstallLink.revoked_at missing');
+        }
         $dataArray['revoked_at'] = $data->getRevokedAt()?->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

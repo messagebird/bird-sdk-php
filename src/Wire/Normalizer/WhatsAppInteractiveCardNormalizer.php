@@ -64,9 +64,15 @@ class WhatsAppInteractiveCardNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('header')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCard.header missing');
+        }
         $dataArray['header'] = $this->normalizer->normalize($data->getHeader(), 'json', $context);
         if ($data->isInitialized('bodyText') && null !== $data->getBodyText()) {
             $dataArray['body_text'] = $data->getBodyText();
+        }
+        if (!$data->isInitialized('buttons')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveCard.buttons missing');
         }
         $values = [];
         foreach ($data->getButtons() as $value) {

@@ -75,6 +75,9 @@ class VoicePartyEndpointNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoicePartyEndpoint.type missing');
+        }
         $dataArray['type'] = $data->getType();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

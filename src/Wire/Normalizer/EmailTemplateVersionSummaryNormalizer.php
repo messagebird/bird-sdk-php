@@ -116,8 +116,17 @@ class EmailTemplateVersionSummaryNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVersionSummary.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('templateId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVersionSummary.template_id missing');
+        }
         $dataArray['template_id'] = $data->getTemplateId();
+        if (!$data->isInitialized('defaultLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVersionSummary.default_language missing');
+        }
         $dataArray['default_language'] = $data->getDefaultLanguage();
         return $dataArray;
     }

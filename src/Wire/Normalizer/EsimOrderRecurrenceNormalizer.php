@@ -54,7 +54,13 @@ class EsimOrderRecurrenceNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('recurrenceRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOrderRecurrence.recurrence_revision missing');
+        }
         $dataArray['recurrence_revision'] = $data->getRecurrenceRevision();
+        if (!$data->isInitialized('acceptedPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOrderRecurrence.accepted_price missing');
+        }
         $dataArray['accepted_price'] = $this->normalizer->normalize($data->getAcceptedPrice(), 'json', $context);
         return $dataArray;
     }

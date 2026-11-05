@@ -96,9 +96,21 @@ class WorkspaceNormalizer implements DenormalizerInterface, NormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Workspace.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('organizationId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Workspace.organization_id missing');
+        }
         $dataArray['organization_id'] = $data->getOrganizationId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Workspace.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('notificationEmails')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Workspace.notification_emails missing');
+        }
         $dataArray['notification_emails'] = $this->normalizer->normalize($data->getNotificationEmails(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

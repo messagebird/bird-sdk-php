@@ -57,6 +57,9 @@ class WhatsAppTextSendNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('body')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTextSend.body missing');
+        }
         $dataArray['body'] = $data->getBody();
         if ($data->isInitialized('previewUrl') && null !== $data->getPreviewUrl()) {
             $dataArray['preview_url'] = $data->getPreviewUrl();

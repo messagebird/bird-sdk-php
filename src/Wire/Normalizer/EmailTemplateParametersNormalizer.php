@@ -92,18 +92,36 @@ class EmailTemplateParametersNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('templateId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.template_id missing');
+        }
         $dataArray['template_id'] = $data->getTemplateId();
+        if (!$data->isInitialized('observedVersionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.observed_version_id missing');
+        }
         $dataArray['observed_version_id'] = $data->getObservedVersionId();
         if ($data->isInitialized('requestedLanguage') && null !== $data->getRequestedLanguage()) {
             $dataArray['requested_language'] = $data->getRequestedLanguage();
         }
+        if (!$data->isInitialized('effectiveLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.effective_language missing');
+        }
         $dataArray['effective_language'] = $data->getEffectiveLanguage();
+        if (!$data->isInitialized('requirementsFingerprint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.requirements_fingerprint missing');
+        }
         $dataArray['requirements_fingerprint'] = $data->getRequirementsFingerprint();
+        if (!$data->isInitialized('parameters')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.parameters missing');
+        }
         $values = [];
         foreach ($data->getParameters() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['parameters'] = $values;
+        if (!$data->isInitialized('variables')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameters.variables missing');
+        }
         $values_1 = [];
         foreach ($data->getVariables() as $value_1) {
             $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);

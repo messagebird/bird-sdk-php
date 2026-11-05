@@ -63,8 +63,17 @@ class EsimCheckoutRecurrenceNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('available')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrence.available missing');
+        }
         $dataArray['available'] = $data->getAvailable();
+        if (!$data->isInitialized('quote')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrence.quote missing');
+        }
         $dataArray['quote'] = $this->normalizer->normalize($data->getQuote(), 'json', $context);
+        if (!$data->isInitialized('unavailableReason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrence.unavailable_reason missing');
+        }
         $dataArray['unavailable_reason'] = $data->getUnavailableReason();
         return $dataArray;
     }

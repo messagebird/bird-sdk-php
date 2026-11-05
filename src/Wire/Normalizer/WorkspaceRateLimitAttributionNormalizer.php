@@ -54,7 +54,13 @@ class WorkspaceRateLimitAttributionNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitAttribution.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('readyAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitAttribution.ready_at missing');
+        }
         $dataArray['ready_at'] = $data->getReadyAt()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

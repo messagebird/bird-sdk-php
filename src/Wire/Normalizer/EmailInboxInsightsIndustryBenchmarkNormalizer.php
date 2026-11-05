@@ -130,7 +130,13 @@ class EmailInboxInsightsIndustryBenchmarkNormalizer implements DenormalizerInter
         if ($data->isInitialized('measurement') && null !== $data->getMeasurement()) {
             $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
         }
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsIndustryBenchmark.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsIndustryBenchmark.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -62,11 +62,17 @@ class SMSSenderRequirementListNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSSenderRequirementList.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('programs')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSSenderRequirementList.programs missing');
+        }
         $values_1 = [];
         foreach ($data->getPrograms() as $value_1) {
             $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);

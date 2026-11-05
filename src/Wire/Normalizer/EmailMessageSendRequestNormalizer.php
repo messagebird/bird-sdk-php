@@ -204,7 +204,13 @@ class EmailMessageSendRequestNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageSendRequest.from missing');
+        }
         $dataArray['from'] = $data->getFrom();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageSendRequest.to missing');
+        }
         $values = [];
         foreach ($data->getTo() as $value) {
             $values[] = $value;

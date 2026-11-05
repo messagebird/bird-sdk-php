@@ -102,15 +102,45 @@ class WorkspaceRateLimitNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('key')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.key missing');
+        }
         $dataArray['key'] = $data->getKey();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('unit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.unit missing');
+        }
         $dataArray['unit'] = $data->getUnit();
+        if (!$data->isInitialized('windowSeconds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.window_seconds missing');
+        }
         $dataArray['window_seconds'] = $data->getWindowSeconds();
+        if (!$data->isInitialized('organizationLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.organization_limit missing');
+        }
         $dataArray['organization_limit'] = $data->getOrganizationLimit();
+        if (!$data->isInitialized('workspaceLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.workspace_limit missing');
+        }
         $dataArray['workspace_limit'] = $this->normalizer->normalize($data->getWorkspaceLimit(), 'json', $context);
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.limit missing');
+        }
         $dataArray['limit'] = $data->getLimit();
+        if (!$data->isInitialized('attribution')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.attribution missing');
+        }
         $dataArray['attribution'] = $this->normalizer->normalize($data->getAttribution(), 'json', $context);
+        if (!$data->isInitialized('usage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.usage missing');
+        }
         $dataArray['usage'] = $this->normalizer->normalize($data->getUsage(), 'json', $context);
         return $dataArray;
     }

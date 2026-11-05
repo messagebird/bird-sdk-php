@@ -60,8 +60,17 @@ class WorkspaceMTLSSettingsNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('state')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceMTLSSettings.state missing');
+        }
         $dataArray['state'] = $data->getState();
+        if (!$data->isInitialized('expectedSan')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceMTLSSettings.expected_san missing');
+        }
         $dataArray['expected_san'] = $data->getExpectedSan();
+        if (!$data->isInitialized('crlCheck')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceMTLSSettings.crl_check missing');
+        }
         $dataArray['crl_check'] = $data->getCrlCheck();
         return $dataArray;
     }

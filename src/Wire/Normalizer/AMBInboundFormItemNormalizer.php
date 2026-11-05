@@ -66,9 +66,21 @@ class AMBInboundFormItemNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('identifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormItem.identifier missing');
+        }
         $dataArray['identifier'] = $data->getIdentifier();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormItem.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormItem.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
+        if (!$data->isInitialized('value')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBInboundFormItem.value missing');
+        }
         $dataArray['value'] = $data->getValue();
         return $dataArray;
     }

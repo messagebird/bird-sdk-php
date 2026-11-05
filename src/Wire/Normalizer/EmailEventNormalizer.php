@@ -153,8 +153,17 @@ class EmailEventNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailEvent.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('occurredAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailEvent.occurred_at missing');
+        }
         $dataArray['occurred_at'] = $data->getOccurredAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('recipientId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailEvent.recipient_id missing');
+        }
         $dataArray['recipient_id'] = $data->getRecipientId();
         if ($data->isInitialized('bounceType')) {
             $dataArray['bounce_type'] = $data->getBounceType();

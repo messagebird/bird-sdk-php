@@ -48,6 +48,9 @@ class WhatsAppMessageUnsupportedNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppMessageUnsupported.type missing');
+        }
         $dataArray['type'] = $data->getType();
         return $dataArray;
     }

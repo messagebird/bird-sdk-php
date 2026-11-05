@@ -54,7 +54,13 @@ class WhatsAppInteractiveReplyButtonNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('slug')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveReplyButton.slug missing');
+        }
         $dataArray['slug'] = $data->getSlug();
+        if (!$data->isInitialized('text')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveReplyButton.text missing');
+        }
         $dataArray['text'] = $data->getText();
         return $dataArray;
     }

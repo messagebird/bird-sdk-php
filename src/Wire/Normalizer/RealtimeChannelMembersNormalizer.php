@@ -52,6 +52,9 @@ class RealtimeChannelMembersNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('members')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field RealtimeChannelMembers.members missing');
+        }
         $values = [];
         foreach ($data->getMembers() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

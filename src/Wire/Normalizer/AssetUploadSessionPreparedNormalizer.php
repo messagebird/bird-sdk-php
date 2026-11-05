@@ -128,20 +128,53 @@ class AssetUploadSessionPreparedNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('state')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.state missing');
+        }
         $dataArray['state'] = $data->getState();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('altText')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.alt_text missing');
+        }
         $dataArray['alt_text'] = $data->getAltText();
+        if (!$data->isInitialized('folderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.folder_id missing');
+        }
         $dataArray['folder_id'] = $data->getFolderId();
+        if (!$data->isInitialized('file')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.file missing');
+        }
         $dataArray['file'] = $this->normalizer->normalize($data->getFile(), 'json', $context);
+        if (!$data->isInitialized('result')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.result missing');
+        }
         $dataArray['result'] = $this->normalizer->normalize($data->getResult(), 'json', $context);
+        if (!$data->isInitialized('lastError')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.last_error missing');
+        }
         $dataArray['last_error'] = $this->normalizer->normalize($data->getLastError(), 'json', $context);
+        if (!$data->isInitialized('next')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.next missing');
+        }
         $values = [];
         foreach ($data->getNext() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['next'] = $values;
+        if (!$data->isInitialized('upload')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionPrepared.upload missing');
+        }
         $dataArray['upload'] = $this->normalizer->normalize($data->getUpload(), 'json', $context);
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

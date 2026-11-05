@@ -72,7 +72,13 @@ class AssetUploadSessionCreateNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('clientReference')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionCreate.client_reference missing');
+        }
         $dataArray['client_reference'] = $data->getClientReference();
+        if (!$data->isInitialized('file')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionCreate.file missing');
+        }
         $dataArray['file'] = $this->normalizer->normalize($data->getFile(), 'json', $context);
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

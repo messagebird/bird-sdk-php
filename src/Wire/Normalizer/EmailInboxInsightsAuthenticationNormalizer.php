@@ -134,14 +134,32 @@ class EmailInboxInsightsAuthenticationNormalizer implements DenormalizerInterfac
         if ($data->isInitialized('measurement') && null !== $data->getMeasurement()) {
             $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
         }
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
+        if (!$data->isInitialized('window')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.window missing');
+        }
         $dataArray['window'] = $this->normalizer->normalize($data->getWindow(), 'json', $context);
         if ($data->isInitialized('comparedTo') && null !== $data->getComparedTo()) {
             $dataArray['compared_to'] = $this->normalizer->normalize($data->getComparedTo(), 'json', $context);
         }
+        if (!$data->isInitialized('spf')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.spf missing');
+        }
         $dataArray['spf'] = $this->normalizer->normalize($data->getSpf(), 'json', $context);
+        if (!$data->isInitialized('dkim')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.dkim missing');
+        }
         $dataArray['dkim'] = $this->normalizer->normalize($data->getDkim(), 'json', $context);
+        if (!$data->isInitialized('dmarc')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.dmarc missing');
+        }
         $dataArray['dmarc'] = $this->normalizer->normalize($data->getDmarc(), 'json', $context);
+        if (!$data->isInitialized('sources')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthentication.sources missing');
+        }
         $dataArray['sources'] = $this->normalizer->normalize($data->getSources(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

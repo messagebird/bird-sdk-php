@@ -132,7 +132,13 @@ class VerificationNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Verification.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Verification.to missing');
+        }
         $dataArray['to'] = $this->normalizer->normalize($data->getTo(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

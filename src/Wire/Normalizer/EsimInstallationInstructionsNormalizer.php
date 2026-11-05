@@ -68,12 +68,21 @@ class EsimInstallationInstructionsNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimInstallationInstructions.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
+        if (!$data->isInitialized('ios')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimInstallationInstructions.ios missing');
+        }
         $values = [];
         foreach ($data->getIos() as $value) {
             $values[] = $value;
         }
         $dataArray['ios'] = $values;
+        if (!$data->isInitialized('android')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimInstallationInstructions.android missing');
+        }
         $values_1 = [];
         foreach ($data->getAndroid() as $value_1) {
             $values_1[] = $value_1;

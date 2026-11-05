@@ -72,6 +72,9 @@ class EmailTemplateLanguageUpsertNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateLanguageUpsert.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
         if ($data->isInitialized('previewText') && null !== $data->getPreviewText()) {
             $dataArray['preview_text'] = $data->getPreviewText();

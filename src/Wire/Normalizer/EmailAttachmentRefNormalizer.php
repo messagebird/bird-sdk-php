@@ -84,9 +84,15 @@ class EmailAttachmentRefNormalizer implements DenormalizerInterface, NormalizerI
         if ($data->isInitialized('id') && null !== $data->getId()) {
             $dataArray['id'] = $data->getId();
         }
+        if (!$data->isInitialized('filename')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailAttachmentRef.filename missing');
+        }
         $dataArray['filename'] = $data->getFilename();
         if ($data->isInitialized('contentType') && null !== $data->getContentType()) {
             $dataArray['content_type'] = $data->getContentType();
+        }
+        if (!$data->isInitialized('size')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailAttachmentRef.size missing');
         }
         $dataArray['size'] = $data->getSize();
         if ($data->isInitialized('inline') && null !== $data->getInline()) {

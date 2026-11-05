@@ -51,6 +51,9 @@ class WhatsAppReadReceiptNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('typingIndicator')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReadReceipt.typing_indicator missing');
+        }
         $dataArray['typing_indicator'] = $data->getTypingIndicator();
         return $dataArray;
     }

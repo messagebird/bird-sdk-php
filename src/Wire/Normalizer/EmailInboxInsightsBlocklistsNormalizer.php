@@ -110,6 +110,9 @@ class EmailInboxInsightsBlocklistsNormalizer implements DenormalizerInterface, N
         if ($data->isInitialized('measurement') && null !== $data->getMeasurement()) {
             $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
         }
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsBlocklists.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

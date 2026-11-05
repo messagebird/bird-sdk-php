@@ -48,6 +48,9 @@ class VoiceRingGroupMemberCreateNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('userId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroupMemberCreate.user_id missing');
+        }
         $dataArray['user_id'] = $data->getUserId();
         return $dataArray;
     }

@@ -57,6 +57,9 @@ class WhatsAppMessageSendRequestAudioNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppMessageSendRequestAudio.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('voice') && null !== $data->getVoice()) {
             $dataArray['voice'] = $data->getVoice();

@@ -60,8 +60,17 @@ class EsimCheckoutOptionsNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('offerId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOptions.offer_id missing');
+        }
         $dataArray['offer_id'] = $data->getOfferId();
+        if (!$data->isInitialized('oneTime')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOptions.one_time missing');
+        }
         $dataArray['one_time'] = $this->normalizer->normalize($data->getOneTime(), 'json', $context);
+        if (!$data->isInitialized('recurrence')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOptions.recurrence missing');
+        }
         $dataArray['recurrence'] = $this->normalizer->normalize($data->getRecurrence(), 'json', $context);
         return $dataArray;
     }

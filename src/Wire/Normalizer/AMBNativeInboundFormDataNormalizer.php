@@ -64,6 +64,9 @@ class AMBNativeInboundFormDataNormalizer implements DenormalizerInterface, Norma
         if ($data->isInitialized('private') && null !== $data->getPrivate()) {
             $dataArray['private'] = $data->getPrivate();
         }
+        if (!$data->isInitialized('selections')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundFormData.selections missing');
+        }
         $values = [];
         foreach ($data->getSelections() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

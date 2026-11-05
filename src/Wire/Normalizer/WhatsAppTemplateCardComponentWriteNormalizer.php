@@ -80,6 +80,9 @@ class WhatsAppTemplateCardComponentWriteNormalizer implements DenormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateCardComponentWrite.type missing');
+        }
         $dataArray['type'] = $data->getType();
         if ($data->isInitialized('format') && null !== $data->getFormat()) {
             $dataArray['format'] = $data->getFormat();

@@ -73,9 +73,15 @@ class AMBListPickerSectionNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('title')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBListPickerSection.title missing');
+        }
         $dataArray['title'] = $data->getTitle();
         if ($data->isInitialized('order')) {
             $dataArray['order'] = $data->getOrder();
+        }
+        if (!$data->isInitialized('items')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBListPickerSection.items missing');
         }
         $values = [];
         foreach ($data->getItems() as $value) {

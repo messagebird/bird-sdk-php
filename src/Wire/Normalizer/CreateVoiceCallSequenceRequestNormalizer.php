@@ -76,7 +76,13 @@ class CreateVoiceCallSequenceRequestNormalizer implements DenormalizerInterface,
         if ($data->isInitialized('definition') && null !== $data->getDefinition()) {
             $dataArray['definition'] = $this->normalizer->normalize($data->getDefinition(), 'json', $context);
         }
+        if (!$data->isInitialized('entryNodeId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field CreateVoiceCallSequenceRequest.entry_node_id missing');
+        }
         $dataArray['entry_node_id'] = $data->getEntryNodeId();
+        if (!$data->isInitialized('triggerData')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field CreateVoiceCallSequenceRequest.trigger_data missing');
+        }
         $values = [];
         foreach ($data->getTriggerData() as $key => $value) {
             $values[$key] = $value;

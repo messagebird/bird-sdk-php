@@ -94,10 +94,25 @@ class EsimOfferSummaryPhoneNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('included')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOfferSummaryPhone.included missing');
+        }
         $dataArray['included'] = $data->getIncluded();
+        if (!$data->isInitialized('voiceInbound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOfferSummaryPhone.voice_inbound missing');
+        }
         $dataArray['voice_inbound'] = $data->getVoiceInbound();
+        if (!$data->isInitialized('voiceOutbound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOfferSummaryPhone.voice_outbound missing');
+        }
         $dataArray['voice_outbound'] = $data->getVoiceOutbound();
+        if (!$data->isInitialized('smsInbound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOfferSummaryPhone.sms_inbound missing');
+        }
         $dataArray['sms_inbound'] = $data->getSmsInbound();
+        if (!$data->isInitialized('smsOutbound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOfferSummaryPhone.sms_outbound missing');
+        }
         $dataArray['sms_outbound'] = $data->getSmsOutbound();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

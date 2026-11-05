@@ -72,10 +72,25 @@ class WhatsAppAgentNotificationCreateNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppAgentNotificationCreate.from missing');
+        }
         $dataArray['from'] = $data->getFrom();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppAgentNotificationCreate.to missing');
+        }
         $dataArray['to'] = $data->getTo();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppAgentNotificationCreate.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppAgentNotificationCreate.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('payload')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppAgentNotificationCreate.payload missing');
+        }
         $dataArray['payload'] = $data->getPayload();
         return $dataArray;
     }

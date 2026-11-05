@@ -81,6 +81,9 @@ class EmailTemplateUpdateNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('revision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateUpdate.revision missing');
+        }
         $dataArray['revision'] = $data->getRevision();
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

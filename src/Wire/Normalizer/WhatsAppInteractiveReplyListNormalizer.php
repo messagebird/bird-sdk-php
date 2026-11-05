@@ -60,7 +60,13 @@ class WhatsAppInteractiveReplyListNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('slug')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveReplyList.slug missing');
+        }
         $dataArray['slug'] = $data->getSlug();
+        if (!$data->isInitialized('text')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractiveReplyList.text missing');
+        }
         $dataArray['text'] = $data->getText();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();

@@ -82,6 +82,9 @@ class WebhookEndpointCreateNormalizer implements DenormalizerInterface, Normaliz
         if ($data->isInitialized('filter') && null !== $data->getFilter()) {
             $dataArray['filter'] = $this->normalizer->normalize($data->getFilter(), 'json', $context);
         }
+        if (!$data->isInitialized('events')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreate.events missing');
+        }
         $values = [];
         foreach ($data->getEvents() as $value) {
             $values[] = $value;

@@ -60,8 +60,17 @@ class EsimCheckoutOneTimeNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('funding')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOneTime.funding missing');
+        }
         $dataArray['funding'] = $this->normalizer->normalize($data->getFunding(), 'json', $context);
+        if (!$data->isInitialized('offerRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOneTime.offer_revision missing');
+        }
         $dataArray['offer_revision'] = $data->getOfferRevision();
+        if (!$data->isInitialized('price')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutOneTime.price missing');
+        }
         $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         return $dataArray;
     }

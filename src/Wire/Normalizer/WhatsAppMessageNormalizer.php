@@ -250,6 +250,9 @@ class WhatsAppMessageNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppMessage.id missing');
+        }
         $dataArray['id'] = $data->getId();
         if ($data->isInitialized('cost')) {
             $dataArray['cost'] = $this->normalizer->normalize($data->getCost(), 'json', $context);

@@ -60,6 +60,9 @@ class NumbersOrderCreateNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('number')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumbersOrderCreate.number missing');
+        }
         $dataArray['number'] = $data->getNumber();
         if ($data->isInitialized('reference') && null !== $data->getReference()) {
             $dataArray['reference'] = $data->getReference();

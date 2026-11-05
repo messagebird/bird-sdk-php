@@ -79,13 +79,25 @@ class EmailMessageListNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageList.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('nextCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageList.next_cursor missing');
+        }
         $dataArray['next_cursor'] = $data->getNextCursor();
+        if (!$data->isInitialized('prevCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageList.prev_cursor missing');
+        }
         $dataArray['prev_cursor'] = $data->getPrevCursor();
+        if (!$data->isInitialized('refreshCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMessageList.refresh_cursor missing');
+        }
         $dataArray['refresh_cursor'] = $data->getRefreshCursor();
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

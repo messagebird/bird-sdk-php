@@ -76,14 +76,29 @@ class WhatsAppConversationEventNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationEvent.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationEvent.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('summary')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationEvent.summary missing');
+        }
         $dataArray['summary'] = $data->getSummary();
+        if (!$data->isInitialized('metadata')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationEvent.metadata missing');
+        }
         $values = [];
         foreach ($data->getMetadata() as $key => $value) {
             $values[$key] = $value;
         }
         $dataArray['metadata'] = (object) $values;
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationEvent.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

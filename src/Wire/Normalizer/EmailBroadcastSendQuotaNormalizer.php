@@ -37,6 +37,9 @@ class EmailBroadcastSendQuotaNormalizer implements DenormalizerInterface, Normal
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('can_start', $data) && \is_int($data['can_start'])) {
+            $data['can_start'] = (bool) $data['can_start'];
+        }
         if (\array_key_exists('recipients', $data) && $data['recipients'] !== null) {
             $object->setRecipients($data['recipients']);
         }
@@ -85,14 +88,32 @@ class EmailBroadcastSendQuotaNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('broadcasts', $data) && $data['broadcasts'] === null) {
             $object->setBroadcasts(null);
         }
+        if (\array_key_exists('on_insufficient_funds', $data) && $data['on_insufficient_funds'] !== null) {
+            $object->setOnInsufficientFunds($data['on_insufficient_funds']);
+        }
+        elseif (\array_key_exists('on_insufficient_funds', $data) && $data['on_insufficient_funds'] === null) {
+            $object->setOnInsufficientFunds(null);
+        }
+        if (\array_key_exists('can_start', $data) && $data['can_start'] !== null) {
+            $object->setCanStart($data['can_start']);
+        }
+        elseif (\array_key_exists('can_start', $data) && $data['can_start'] === null) {
+            $object->setCanStart(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('limitedBy')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastSendQuota.limited_by missing');
+        }
         $dataArray['limited_by'] = $data->getLimitedBy();
         if ($data->isInitialized('limitReason') && null !== $data->getLimitReason()) {
             $dataArray['limit_reason'] = $data->getLimitReason();
+        }
+        if ($data->isInitialized('onInsufficientFunds') && null !== $data->getOnInsufficientFunds()) {
+            $dataArray['on_insufficient_funds'] = $data->getOnInsufficientFunds();
         }
         return $dataArray;
     }

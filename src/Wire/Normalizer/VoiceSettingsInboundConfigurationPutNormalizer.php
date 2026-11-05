@@ -48,6 +48,9 @@ class VoiceSettingsInboundConfigurationPutNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('route')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettingsInboundConfigurationPut.route missing');
+        }
         $dataArray['route'] = $data->getRoute();
         return $dataArray;
     }

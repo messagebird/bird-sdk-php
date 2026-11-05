@@ -57,7 +57,13 @@ class DomainReceivingNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('state')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainReceiving.state missing');
+        }
         $dataArray['state'] = $data->getState();
+        if (!$data->isInitialized('managedElsewhere')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainReceiving.managed_elsewhere missing');
+        }
         $dataArray['managed_elsewhere'] = $data->getManagedElsewhere();
         return $dataArray;
     }

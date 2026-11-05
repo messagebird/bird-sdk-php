@@ -60,9 +60,15 @@ class AMBNativeInboundImageNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('identifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundImage.identifier missing');
+        }
         $dataArray['identifier'] = $data->getIdentifier();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
+        }
+        if (!$data->isInitialized('downloadUrl')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundImage.download_url missing');
         }
         $dataArray['download_url'] = $data->getDownloadUrl();
         return $dataArray;

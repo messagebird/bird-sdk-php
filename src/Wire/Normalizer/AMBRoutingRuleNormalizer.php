@@ -120,8 +120,17 @@ class AMBRoutingRuleNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('businessAccountId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.business_account_id missing');
+        }
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
+        if (!$data->isInitialized('matchKind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.match_kind missing');
+        }
         $dataArray['match_kind'] = $data->getMatchKind();
         if ($data->isInitialized('matchIntentId')) {
             $dataArray['match_intent_id'] = $data->getMatchIntentId();
@@ -129,8 +138,17 @@ class AMBRoutingRuleNormalizer implements DenormalizerInterface, NormalizerInter
         if ($data->isInitialized('matchGroupId')) {
             $dataArray['match_group_id'] = $data->getMatchGroupId();
         }
+        if (!$data->isInitialized('queue')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.queue missing');
+        }
         $dataArray['queue'] = $data->getQueue();
+        if (!$data->isInitialized('precedence')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.precedence missing');
+        }
         $dataArray['precedence'] = $data->getPrecedence();
+        if (!$data->isInitialized('isDefault')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRoutingRule.is_default missing');
+        }
         $dataArray['is_default'] = $data->getIsDefault();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

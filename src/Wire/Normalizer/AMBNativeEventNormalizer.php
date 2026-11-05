@@ -100,6 +100,9 @@ class AMBNativeEventNormalizer implements DenormalizerInterface, NormalizerInter
         if ($data->isInitialized('timezone') && null !== $data->getTimezone()) {
             $dataArray['timezone'] = $data->getTimezone();
         }
+        if (!$data->isInitialized('timeslots')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeEvent.timeslots missing');
+        }
         $values = [];
         foreach ($data->getTimeslots() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

@@ -54,7 +54,13 @@ class WhatsAppReactionAcceptedNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReactionAccepted.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('emoji')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReactionAccepted.emoji missing');
+        }
         $dataArray['emoji'] = $data->getEmoji();
         return $dataArray;
     }

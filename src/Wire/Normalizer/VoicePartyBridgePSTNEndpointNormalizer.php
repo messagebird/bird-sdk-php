@@ -54,7 +54,13 @@ class VoicePartyBridgePSTNEndpointNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('forwardTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoicePartyBridgePSTNEndpoint.forward_to missing');
+        }
         $dataArray['forward_to'] = $data->getForwardTo();
+        if (!$data->isInitialized('forwardAs')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoicePartyBridgePSTNEndpoint.forward_as missing');
+        }
         $dataArray['forward_as'] = $data->getForwardAs();
         return $dataArray;
     }

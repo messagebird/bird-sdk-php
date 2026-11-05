@@ -78,12 +78,24 @@ class EmailBroadcastResolutionNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('templateId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastResolution.template_id missing');
+        }
         $dataArray['template_id'] = $data->getTemplateId();
+        if (!$data->isInitialized('observedVersionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastResolution.observed_version_id missing');
+        }
         $dataArray['observed_version_id'] = $data->getObservedVersionId();
         if ($data->isInitialized('requestedLanguage') && null !== $data->getRequestedLanguage()) {
             $dataArray['requested_language'] = $data->getRequestedLanguage();
         }
+        if (!$data->isInitialized('effectiveLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastResolution.effective_language missing');
+        }
         $dataArray['effective_language'] = $data->getEffectiveLanguage();
+        if (!$data->isInitialized('requirementsFingerprint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastResolution.requirements_fingerprint missing');
+        }
         $dataArray['requirements_fingerprint'] = $data->getRequirementsFingerprint();
         if ($data->isInitialized('defaultLanguage') && null !== $data->getDefaultLanguage()) {
             $dataArray['default_language'] = $data->getDefaultLanguage();

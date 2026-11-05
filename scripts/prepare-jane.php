@@ -53,6 +53,64 @@ foreach ($document['paths'] as &$path) {
 }
 unset($path);
 
+// Jane ignores nullable beside a reference to an untyped value. Resolve only
+// that representation; typed/model references must retain their class identity.
+$inlineNullableUntypedRefs = static function (array $schema) use (&$inlineNullableUntypedRefs, $resolve): array {
+    if (isset($schema['$ref']) && ($schema['nullable'] ?? false) === true) {
+        // Jane's 3.0 reference documentation comes from the target, even when
+        // inlining is needed to preserve the nullable arbitrary-JSON value.
+        $reference = $schema;
+        unset($reference['description']);
+        $resolved = $resolve($reference);
+        $typed = false;
+        foreach (['type', 'properties', 'items', 'additionalProperties', 'allOf', 'oneOf', 'anyOf', 'enum'] as $key) {
+            $typed = $typed || array_key_exists($key, $resolved);
+        }
+        if (!$typed) {
+            $schema = $resolved;
+        }
+    }
+    foreach (['properties', 'patternProperties', '$defs', 'definitions', 'dependentSchemas'] as $key) {
+        foreach ($schema[$key] ?? [] as $name => $child) {
+            if (is_array($child)) {
+                $schema[$key][$name] = $inlineNullableUntypedRefs($child);
+            }
+        }
+    }
+    foreach (['items', 'additionalProperties', 'not', 'if', 'then', 'else', 'propertyNames', 'contains'] as $key) {
+        if (isset($schema[$key]) && is_array($schema[$key])) {
+            $schema[$key] = $inlineNullableUntypedRefs($schema[$key]);
+        }
+    }
+    foreach (['allOf', 'oneOf', 'anyOf', 'prefixItems'] as $key) {
+        foreach ($schema[$key] ?? [] as $index => $child) {
+            if (is_array($child)) {
+                $schema[$key][$index] = $inlineNullableUntypedRefs($child);
+            }
+        }
+    }
+
+    return $schema;
+};
+// Only enter schemas through OpenAPI schema-bearing objects. Examples, defaults,
+// extensions and arbitrary payloads may contain the same keys as real schemas.
+$prepareSchemaCarrier = static function (array $node) use (&$prepareSchemaCarrier, $inlineNullableUntypedRefs): array {
+    if (isset($node['schema']) && is_array($node['schema'])) {
+        $node['schema'] = $inlineNullableUntypedRefs($node['schema']);
+    }
+    foreach ($node['content'] ?? [] as $media => $value) {
+        if (isset($value['schema']) && is_array($value['schema'])) {
+            $node['content'][$media]['schema'] = $inlineNullableUntypedRefs($value['schema']);
+        }
+    }
+    foreach ($node['headers'] ?? [] as $name => $header) {
+        if (is_array($header)) {
+            $node['headers'][$name] = $prepareSchemaCarrier($header);
+        }
+    }
+
+    return $node;
+};
 // Jane does not apply an allOf arm's required list to properties inherited from another arm.
 $propertiesOf = static function (array $schema, int $depth = 0) use (&$propertiesOf, $resolve): array {
     if ($depth > 64) {
@@ -249,6 +307,37 @@ foreach ($document['components']['schemas'] as $name => &$schema) {
 }
 unset($schema);
 $document['x-sdk-wrapper-bases'] = $wrapperBases;
+
+// Run after inheritance preparation, which can copy properties from the original
+// reference targets back into the staged document.
+foreach ($document['components']['schemas'] as $name => $schema) {
+    $document['components']['schemas'][$name] = $inlineNullableUntypedRefs($schema);
+}
+foreach (['parameters', 'headers', 'requestBodies', 'responses'] as $key) {
+    foreach ($document['components'][$key] ?? [] as $name => $value) {
+        $document['components'][$key][$name] = $prepareSchemaCarrier($value);
+    }
+}
+foreach ($document['paths'] as &$path) {
+    foreach ($path['parameters'] ?? [] as $index => $parameter) {
+        $path['parameters'][$index] = $prepareSchemaCarrier($parameter);
+    }
+    foreach (['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace'] as $method) {
+        if (!isset($path[$method])) {
+            continue;
+        }
+        foreach ($path[$method]['parameters'] ?? [] as $index => $parameter) {
+            $path[$method]['parameters'][$index] = $prepareSchemaCarrier($parameter);
+        }
+        if (isset($path[$method]['requestBody'])) {
+            $path[$method]['requestBody'] = $prepareSchemaCarrier($path[$method]['requestBody']);
+        }
+        foreach ($path[$method]['responses'] ?? [] as $status => $response) {
+            $path[$method]['responses'][$status] = $prepareSchemaCarrier($response);
+        }
+    }
+}
+unset($path);
 
 $output = json_encode($document, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 if (file_put_contents($argv[2], $output) === false) {

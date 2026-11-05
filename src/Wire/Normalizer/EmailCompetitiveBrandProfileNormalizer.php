@@ -64,7 +64,13 @@ class EmailCompetitiveBrandProfileNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('period')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveBrandProfile.period missing');
+        }
         $dataArray['period'] = $this->normalizer->normalize($data->getPeriod(), 'json', $context);
+        if (!$data->isInitialized('brand')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveBrandProfile.brand missing');
+        }
         $dataArray['brand'] = $this->normalizer->normalize($data->getBrand(), 'json', $context);
         return $dataArray;
     }

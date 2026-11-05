@@ -108,16 +108,49 @@ class EsimRecurringPeriodNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('deliveryMode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.delivery_mode missing');
+        }
         $dataArray['delivery_mode'] = $data->getDeliveryMode();
+        if (!$data->isInitialized('periodStart')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.period_start missing');
+        }
         $dataArray['period_start'] = $data->getPeriodStart()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('periodEnd')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.period_end missing');
+        }
         $dataArray['period_end'] = $data->getPeriodEnd()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('netAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.net_amount missing');
+        }
         $dataArray['net_amount'] = $this->normalizer->normalize($data->getNetAmount(), 'json', $context);
+        if (!$data->isInitialized('taxAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.tax_amount missing');
+        }
         $dataArray['tax_amount'] = $this->normalizer->normalize($data->getTaxAmount(), 'json', $context);
+        if (!$data->isInitialized('totalAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.total_amount missing');
+        }
         $dataArray['total_amount'] = $this->normalizer->normalize($data->getTotalAmount(), 'json', $context);
+        if (!$data->isInitialized('walletTransactionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.wallet_transaction_id missing');
+        }
         $dataArray['wallet_transaction_id'] = $data->getWalletTransactionId();
+        if (!$data->isInitialized('refundTransactionId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.refund_transaction_id missing');
+        }
         $dataArray['refund_transaction_id'] = $data->getRefundTransactionId();
+        if (!$data->isInitialized('orderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.order_id missing');
+        }
         $dataArray['order_id'] = $data->getOrderId();
+        if (!$data->isInitialized('orderStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringPeriod.order_status missing');
+        }
         $dataArray['order_status'] = $data->getOrderStatus();
         return $dataArray;
     }

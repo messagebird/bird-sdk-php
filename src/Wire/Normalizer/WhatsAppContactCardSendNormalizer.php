@@ -100,6 +100,9 @@ class WhatsAppContactCardSendNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppContactCardSend.name missing');
+        }
         $dataArray['name'] = $this->normalizer->normalize($data->getName(), 'json', $context);
         if ($data->isInitialized('org') && null !== $data->getOrg()) {
             $dataArray['org'] = $this->normalizer->normalize($data->getOrg(), 'json', $context);

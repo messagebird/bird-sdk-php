@@ -121,8 +121,17 @@ class VoiceCallNormalizer implements DenormalizerInterface, NormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceCall.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('workspaceId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceCall.workspace_id missing');
+        }
         $dataArray['workspace_id'] = $data->getWorkspaceId();
+        if (!$data->isInitialized('initialLegId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceCall.initial_leg_id missing');
+        }
         $dataArray['initial_leg_id'] = $data->getInitialLegId();
         if ($data->isInitialized('sequence') && null !== $data->getSequence()) {
             $dataArray['sequence'] = $this->normalizer->normalize($data->getSequence(), 'json', $context);

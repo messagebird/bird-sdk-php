@@ -66,7 +66,13 @@ class VoiceTrunkGatewayCreateNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('sipUri')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGatewayCreate.sip_uri missing');
+        }
         $dataArray['sip_uri'] = $data->getSipUri();
+        if (!$data->isInitialized('priority')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGatewayCreate.priority missing');
+        }
         $dataArray['priority'] = $data->getPriority();
         if ($data->isInitialized('originationFormat') && null !== $data->getOriginationFormat()) {
             $dataArray['origination_format'] = $data->getOriginationFormat();

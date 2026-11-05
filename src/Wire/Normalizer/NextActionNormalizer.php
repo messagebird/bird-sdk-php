@@ -76,7 +76,13 @@ class NextActionNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('kind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NextAction.kind missing');
+        }
         $dataArray['kind'] = $data->getKind();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NextAction.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
         if ($data->isInitialized('operation') && null !== $data->getOperation()) {
             $dataArray['operation'] = $data->getOperation();

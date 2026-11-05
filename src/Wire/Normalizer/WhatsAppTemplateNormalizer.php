@@ -186,11 +186,29 @@ class WhatsAppTemplateNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
+        if (!$data->isInitialized('defaultLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.default_language missing');
+        }
         $dataArray['default_language'] = $data->getDefaultLanguage();
+        if (!$data->isInitialized('languageSourceRequired')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplate.language_source_required missing');
+        }
         $dataArray['language_source_required'] = $data->getLanguageSourceRequired();
         return $dataArray;
     }

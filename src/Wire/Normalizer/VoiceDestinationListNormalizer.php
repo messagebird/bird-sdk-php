@@ -58,11 +58,17 @@ class VoiceDestinationListNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationList.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('total')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationList.total missing');
+        }
         $dataArray['total'] = $data->getTotal();
         return $dataArray;
     }

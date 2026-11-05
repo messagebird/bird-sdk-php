@@ -54,6 +54,9 @@ class VoiceTrunkIPACLCreateNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('cidr')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkIPACLCreate.cidr missing');
+        }
         $dataArray['cidr'] = $data->getCidr();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();

@@ -54,6 +54,9 @@ class ValidationErrorNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('error')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ValidationError.error missing');
+        }
         $dataArray['error'] = $this->normalizer->normalize($data->getError(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

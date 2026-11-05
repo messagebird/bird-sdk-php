@@ -78,6 +78,9 @@ class WhatsAppContactCardSendNameNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('formattedName')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppContactCardSendName.formatted_name missing');
+        }
         $dataArray['formatted_name'] = $data->getFormattedName();
         if ($data->isInitialized('firstName') && null !== $data->getFirstName()) {
             $dataArray['first_name'] = $data->getFirstName();

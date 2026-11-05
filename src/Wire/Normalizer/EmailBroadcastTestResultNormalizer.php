@@ -358,8 +358,17 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.from missing');
+        }
         $dataArray['from'] = $this->normalizer->normalize($data->getFrom(), 'json', $context);
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.to missing');
+        }
         $values = [];
         foreach ($data->getTo() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
@@ -379,17 +388,27 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
             }
             $dataArray['bcc'] = $values_2;
         }
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
         if ($data->isInitialized('subjectRecipientId') && null !== $data->getSubjectRecipientId()) {
             $dataArray['subject_recipient_id'] = $data->getSubjectRecipientId();
         }
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
         if ($data->isInitialized('replyTo')) {
-            $values_3 = [];
-            foreach ($data->getReplyTo() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+            if (null === $data->getReplyTo()) {
+                $dataArray['reply_to'] = null;
+            } else {
+                $values_3 = [];
+                foreach ($data->getReplyTo() as $value_3) {
+                    $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                }
+                $dataArray['reply_to'] = $values_3;
             }
-            $dataArray['reply_to'] = $values_3;
         }
         if ($data->isInitialized('broadcastId') && null !== $data->getBroadcastId()) {
             $dataArray['broadcast_id'] = $data->getBroadcastId();
@@ -415,7 +434,13 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
             }
             $dataArray['attachments'] = $values_6;
         }
+        if (!$data->isInitialized('trackOpens')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.track_opens missing');
+        }
         $dataArray['track_opens'] = $data->getTrackOpens();
+        if (!$data->isInitialized('trackClicks')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastTestResult.track_clicks missing');
+        }
         $dataArray['track_clicks'] = $data->getTrackClicks();
         foreach ($data as $key_1 => $value_7) {
             if (preg_match('/.*/', (string) $key_1)) {

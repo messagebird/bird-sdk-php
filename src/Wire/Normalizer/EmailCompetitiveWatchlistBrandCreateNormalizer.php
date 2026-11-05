@@ -48,6 +48,9 @@ class EmailCompetitiveWatchlistBrandCreateNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('brandId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistBrandCreate.brand_id missing');
+        }
         $dataArray['brand_id'] = $data->getBrandId();
         return $dataArray;
     }

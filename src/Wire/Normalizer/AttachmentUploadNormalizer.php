@@ -54,6 +54,9 @@ class AttachmentUploadNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('file')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AttachmentUpload.file missing');
+        }
         $dataArray['file'] = $data->getFile();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();

@@ -70,6 +70,9 @@ class AMBChannelSettingsNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('entryPoints')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBChannelSettings.entry_points missing');
+        }
         $values = [];
         foreach ($data->getEntryPoints() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
@@ -78,7 +81,13 @@ class AMBChannelSettingsNormalizer implements DenormalizerInterface, NormalizerI
         if ($data->isInitialized('defaultLocale')) {
             $dataArray['default_locale'] = $data->getDefaultLocale();
         }
+        if (!$data->isInitialized('brandName')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBChannelSettings.brand_name missing');
+        }
         $dataArray['brand_name'] = $data->getBrandName();
+        if (!$data->isInitialized('logoAssetId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBChannelSettings.logo_asset_id missing');
+        }
         $dataArray['logo_asset_id'] = $data->getLogoAssetId();
         return $dataArray;
     }

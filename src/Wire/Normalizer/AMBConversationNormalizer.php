@@ -168,34 +168,85 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('inboxStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.inbox_status missing');
+        }
         $dataArray['inbox_status'] = $data->getInboxStatus();
+        if (!$data->isInitialized('routingChange')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.routing_change missing');
+        }
         $dataArray['routing_change'] = $this->normalizer->normalize($data->getRoutingChange(), 'json', $context);
+        if (!$data->isInitialized('lastMessage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.last_message missing');
+        }
         $dataArray['last_message'] = $this->normalizer->normalize($data->getLastMessage(), 'json', $context);
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('businessAccountId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.business_account_id missing');
+        }
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('origin')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.origin missing');
+        }
         $dataArray['origin'] = $data->getOrigin();
+        if (!$data->isInitialized('deviceCapabilities')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.device_capabilities missing');
+        }
         $values = [];
         foreach ($data->getDeviceCapabilities() as $value) {
             $values[] = $value;
         }
         $dataArray['device_capabilities'] = $values;
+        if (!$data->isInitialized('supportedContentKinds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.supported_content_kinds missing');
+        }
         $values_1 = [];
         foreach ($data->getSupportedContentKinds() as $value_1) {
             $values_1[] = $value_1;
         }
         $dataArray['supported_content_kinds'] = $values_1;
+        if (!$data->isInitialized('locale')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.locale missing');
+        }
         $dataArray['locale'] = $data->getLocale();
+        if (!$data->isInitialized('unreadCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.unread_count missing');
+        }
         $dataArray['unread_count'] = $data->getUnreadCount();
+        if (!$data->isInitialized('assignedTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.assigned_to missing');
+        }
         $dataArray['assigned_to'] = $data->getAssignedTo();
+        if (!$data->isInitialized('labels')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.labels missing');
+        }
         $values_2 = [];
         foreach ($data->getLabels() as $value_2) {
             $values_2[] = $value_2;
         }
         $dataArray['labels'] = $values_2;
+        if (!$data->isInitialized('closedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.closed_at missing');
+        }
         $dataArray['closed_at'] = $data->getClosedAt()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('closedReason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.closed_reason missing');
+        }
         $dataArray['closed_reason'] = $data->getClosedReason();
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

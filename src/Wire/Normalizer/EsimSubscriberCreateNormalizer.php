@@ -48,6 +48,9 @@ class EsimSubscriberCreateNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('contactId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimSubscriberCreate.contact_id missing');
+        }
         $dataArray['contact_id'] = $data->getContactId();
         return $dataArray;
     }

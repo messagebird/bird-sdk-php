@@ -100,6 +100,9 @@ class VoiceTrunkCreateNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkCreate.name missing');
+        }
         $dataArray['name'] = $data->getName();
         if ($data->isInitialized('outboundEnabled') && null !== $data->getOutboundEnabled()) {
             $dataArray['outbound_enabled'] = $data->getOutboundEnabled();

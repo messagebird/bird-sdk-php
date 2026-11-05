@@ -69,6 +69,9 @@ class VerificationCheckResultNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('verification')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VerificationCheckResult.verification missing');
+        }
         $dataArray['verification'] = $this->normalizer->normalize($data->getVerification(), 'json', $context);
         return $dataArray;
     }

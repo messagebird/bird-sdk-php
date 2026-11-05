@@ -90,8 +90,17 @@ class EmailBroadcastParameterProblemNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastParameterProblem.code missing');
+        }
         $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('phase')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastParameterProblem.phase missing');
+        }
         $dataArray['phase'] = $data->getPhase();
+        if (!$data->isInitialized('severity')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastParameterProblem.severity missing');
+        }
         $dataArray['severity'] = $data->getSeverity();
         if ($data->isInitialized('pointer') && null !== $data->getPointer()) {
             $dataArray['pointer'] = $data->getPointer();

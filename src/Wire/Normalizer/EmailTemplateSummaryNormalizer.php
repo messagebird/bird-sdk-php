@@ -176,11 +176,29 @@ class EmailTemplateSummaryNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.source missing');
+        }
         $dataArray['source'] = $data->getSource();
+        if (!$data->isInitialized('defaultLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateSummary.default_language missing');
+        }
         $dataArray['default_language'] = $data->getDefaultLanguage();
         return $dataArray;
     }

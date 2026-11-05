@@ -52,6 +52,9 @@ class WhatsAppGroupJoinRequestDecisionNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('joinRequestIds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppGroupJoinRequestDecision.join_request_ids missing');
+        }
         $values = [];
         foreach ($data->getJoinRequestIds() as $value) {
             $values[] = $value;

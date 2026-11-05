@@ -108,6 +108,7 @@ final class WireSerializationTest extends TestCase
     public function testEmptyMapStaysObjectWhileEmptyListStaysArray(): void
     {
         $request = (new EmailMessageSendRequest())
+            ->setFrom('sender@example.com')
             ->setTo([])
             ->setParameters([])
             ->setMetadata(['0' => 'zero', '1' => 'one']);

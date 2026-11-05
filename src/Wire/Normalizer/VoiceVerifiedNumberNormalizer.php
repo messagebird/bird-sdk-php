@@ -113,12 +113,33 @@ class VoiceVerifiedNumberNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('workspaceId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.workspace_id missing');
+        }
         $dataArray['workspace_id'] = $data->getWorkspaceId();
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('outboundEnabled')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.outbound_enabled missing');
+        }
         $dataArray['outbound_enabled'] = $data->getOutboundEnabled();
+        if (!$data->isInitialized('verifiedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumber.verified_at missing');
+        }
         $dataArray['verified_at'] = $data->getVerifiedAt()?->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

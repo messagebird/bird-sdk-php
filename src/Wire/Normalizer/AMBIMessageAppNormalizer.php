@@ -81,11 +81,29 @@ class AMBIMessageAppNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('appId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.app_id missing');
+        }
         $dataArray['app_id'] = $data->getAppId();
+        if (!$data->isInitialized('appName')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.app_name missing');
+        }
         $dataArray['app_name'] = $data->getAppName();
+        if (!$data->isInitialized('bid')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.bid missing');
+        }
         $dataArray['bid'] = $data->getBid();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
+        if (!$data->isInitialized('appIconSourceUrl')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.app_icon_source_url missing');
+        }
         $dataArray['app_icon_source_url'] = $data->getAppIconSourceUrl();
+        if (!$data->isInitialized('useLiveLayout')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBIMessageApp.use_live_layout missing');
+        }
         $dataArray['use_live_layout'] = $data->getUseLiveLayout();
         return $dataArray;
     }

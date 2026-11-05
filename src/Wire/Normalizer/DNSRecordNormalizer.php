@@ -108,10 +108,25 @@ class DNSRecordNormalizer implements DenormalizerInterface, NormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DNSRecord.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DNSRecord.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('host')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DNSRecord.host missing');
+        }
         $dataArray['host'] = $data->getHost();
+        if (!$data->isInitialized('value')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DNSRecord.value missing');
+        }
         $dataArray['value'] = $data->getValue();
+        if (!$data->isInitialized('purpose')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DNSRecord.purpose missing');
+        }
         $dataArray['purpose'] = $data->getPurpose();
         return $dataArray;
     }

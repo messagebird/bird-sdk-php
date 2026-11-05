@@ -66,6 +66,9 @@ class AMBTemplateLanguageSummaryNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTemplateLanguageSummary.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
         return $dataArray;
     }

@@ -66,6 +66,9 @@ class SMSMessageOptionsNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('smartEncoding')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessageOptions.smart_encoding missing');
+        }
         $dataArray['smart_encoding'] = $data->getSmartEncoding();
         if ($data->isInitialized('ignoreSuppression') && null !== $data->getIgnoreSuppression()) {
             $dataArray['ignore_suppression'] = $data->getIgnoreSuppression();

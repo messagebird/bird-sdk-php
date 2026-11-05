@@ -78,11 +78,29 @@ class EmailCompetitiveWatchlistRowProvenanceNormalizer implements DenormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('sends')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.sends missing');
+        }
         $dataArray['sends'] = $data->getSends();
+        if (!$data->isInitialized('cadencePerWeek')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.cadence_per_week missing');
+        }
         $dataArray['cadence_per_week'] = $data->getCadencePerWeek();
+        if (!$data->isInitialized('inboxPlacementRate')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.inbox_placement_rate missing');
+        }
         $dataArray['inbox_placement_rate'] = $data->getInboxPlacementRate();
+        if (!$data->isInitialized('readRate')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.read_rate missing');
+        }
         $dataArray['read_rate'] = $data->getReadRate();
+        if (!$data->isInitialized('audienceOverlapRate')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.audience_overlap_rate missing');
+        }
         $dataArray['audience_overlap_rate'] = $data->getAudienceOverlapRate();
+        if (!$data->isInitialized('lastCampaign')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveWatchlistRowProvenance.last_campaign missing');
+        }
         $dataArray['last_campaign'] = $data->getLastCampaign();
         return $dataArray;
     }

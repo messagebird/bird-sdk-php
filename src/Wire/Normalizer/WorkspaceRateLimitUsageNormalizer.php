@@ -84,12 +84,33 @@ class WorkspaceRateLimitUsageNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('observedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.observed_at missing');
+        }
         $dataArray['observed_at'] = $data->getObservedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('organizationLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.organization_limit missing');
+        }
         $dataArray['organization_limit'] = $data->getOrganizationLimit();
+        if (!$data->isInitialized('organizationRemaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.organization_remaining missing');
+        }
         $dataArray['organization_remaining'] = $data->getOrganizationRemaining();
+        if (!$data->isInitialized('workspaceLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.workspace_limit missing');
+        }
         $dataArray['workspace_limit'] = $data->getWorkspaceLimit();
+        if (!$data->isInitialized('workspaceRemaining')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.workspace_remaining missing');
+        }
         $dataArray['workspace_remaining'] = $data->getWorkspaceRemaining();
+        if (!$data->isInitialized('resetsInSeconds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitUsage.resets_in_seconds missing');
+        }
         $dataArray['resets_in_seconds'] = $data->getResetsInSeconds();
         return $dataArray;
     }

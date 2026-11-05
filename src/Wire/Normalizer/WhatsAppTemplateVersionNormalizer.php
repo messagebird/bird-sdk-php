@@ -82,8 +82,17 @@ class WhatsAppTemplateVersionNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateVersion.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('templateId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateVersion.template_id missing');
+        }
         $dataArray['template_id'] = $data->getTemplateId();
+        if (!$data->isInitialized('languages')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateVersion.languages missing');
+        }
         $values = [];
         foreach ($data->getLanguages() as $key => $value) {
             $values[$key] = $this->normalizer->normalize($value, 'json', $context);

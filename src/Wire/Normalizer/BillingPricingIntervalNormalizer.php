@@ -54,7 +54,13 @@ class BillingPricingIntervalNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('unit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingPricingInterval.unit missing');
+        }
         $dataArray['unit'] = $data->getUnit();
+        if (!$data->isInitialized('count')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingPricingInterval.count missing');
+        }
         $dataArray['count'] = $data->getCount();
         return $dataArray;
     }

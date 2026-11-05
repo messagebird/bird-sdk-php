@@ -255,13 +255,25 @@ class EmailThreadMessageNormalizer implements DenormalizerInterface, NormalizerI
         if ($data->isInitialized('mailboxId') && null !== $data->getMailboxId()) {
             $dataArray['mailbox_id'] = $data->getMailboxId();
         }
+        if (!$data->isInitialized('threadId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThreadMessage.thread_id missing');
+        }
         $dataArray['thread_id'] = $data->getThreadId();
+        if (!$data->isInitialized('labels')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThreadMessage.labels missing');
+        }
         $values = [];
         foreach ($data->getLabels() as $value) {
             $values[] = $value;
         }
         $dataArray['labels'] = $values;
+        if (!$data->isInitialized('contactId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThreadMessage.contact_id missing');
+        }
         $dataArray['contact_id'] = $data->getContactId();
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThreadMessage.source missing');
+        }
         $dataArray['source'] = $this->normalizer->normalize($data->getSource(), 'json', $context);
         return $dataArray;
     }

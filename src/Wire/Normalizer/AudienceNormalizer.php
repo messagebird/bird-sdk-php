@@ -89,10 +89,19 @@ class AudienceNormalizer implements DenormalizerInterface, NormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Audience.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Audience.name missing');
+        }
         $dataArray['name'] = $data->getName();
         if ($data->isInitialized('description')) {
             $dataArray['description'] = $data->getDescription();
+        }
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Audience.type missing');
         }
         $dataArray['type'] = $data->getType();
         foreach ($data as $key => $value) {

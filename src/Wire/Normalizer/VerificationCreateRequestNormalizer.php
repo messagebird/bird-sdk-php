@@ -64,6 +64,9 @@ class VerificationCreateRequestNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VerificationCreateRequest.to missing');
+        }
         $dataArray['to'] = $this->normalizer->normalize($data->getTo(), 'json', $context);
         if ($data->isInitialized('options') && null !== $data->getOptions()) {
             $dataArray['options'] = $this->normalizer->normalize($data->getOptions(), 'json', $context);

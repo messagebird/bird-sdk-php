@@ -54,7 +54,13 @@ class VoiceSettingsNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('inboundConfiguration')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettings.inbound_configuration missing');
+        }
         $dataArray['inbound_configuration'] = $this->normalizer->normalize($data->getInboundConfiguration(), 'json', $context);
+        if (!$data->isInitialized('dailySpendLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSettings.daily_spend_limit missing');
+        }
         $dataArray['daily_spend_limit'] = $this->normalizer->normalize($data->getDailySpendLimit(), 'json', $context);
         return $dataArray;
     }

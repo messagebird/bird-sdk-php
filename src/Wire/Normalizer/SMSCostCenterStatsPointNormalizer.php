@@ -70,8 +70,17 @@ class SMSCostCenterStatsPointNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('costCenter')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSCostCenterStatsPoint.cost_center missing');
+        }
         $dataArray['cost_center'] = $data->getCostCenter();
+        if (!$data->isInitialized('delivery')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSCostCenterStatsPoint.delivery missing');
+        }
         $dataArray['delivery'] = $this->normalizer->normalize($data->getDelivery(), 'json', $context);
+        if (!$data->isInitialized('latency')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSCostCenterStatsPoint.latency missing');
+        }
         $dataArray['latency'] = $this->normalizer->normalize($data->getLatency(), 'json', $context);
         if ($data->isInitialized('trend') && null !== $data->getTrend()) {
             $values = [];

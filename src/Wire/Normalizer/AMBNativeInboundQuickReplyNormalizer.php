@@ -64,6 +64,9 @@ class AMBNativeInboundQuickReplyNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('selectedIdentifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundQuickReply.selected_identifier missing');
+        }
         $dataArray['selected_identifier'] = $data->getSelectedIdentifier();
         if ($data->isInitialized('selectedIndex') && null !== $data->getSelectedIndex()) {
             $dataArray['selected_index'] = $data->getSelectedIndex();

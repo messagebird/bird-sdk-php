@@ -84,15 +84,24 @@ class VoiceSequenceDefinitionNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('schemaVersion')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceDefinition.schema_version missing');
+        }
         $dataArray['schema_version'] = $data->getSchemaVersion();
+        if (!$data->isInitialized('expressionEnvironment')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceDefinition.expression_environment missing');
+        }
         $dataArray['expression_environment'] = $data->getExpressionEnvironment();
+        if (!$data->isInitialized('nodes')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceDefinition.nodes missing');
+        }
         $values = [];
         foreach ($data->getNodes() as $value) {
             $values_1 = [];
             foreach ($value as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
-            $values[] = $values_1;
+            $values[] = (object) $values_1;
         }
         $dataArray['nodes'] = $values;
         if ($data->isInitialized('settings') && null !== $data->getSettings()) {

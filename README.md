@@ -310,3 +310,7 @@ MIT
 Browse assets, organize folders, and inspect permitted references with the media-library resources. Upload files through the [HTTP API or CLI](https://bird.com/docs/guides/media-library), then use their IDs with the SDK. Deleting a library entry leaves its public URL serving.
 
 See the [media-library example](examples/quickstart-media-library.php).
+
+## Required nullable request fields
+
+Set required nullable fields explicitly to a value or null: voice number update's `inbound_configuration.route`, voice settings update's `daily_spend_limit.workspace_limit`, voice destinations update's `destinations[].daily_spend_limit.limit`, voice verified-number update's `name`, and voice call creation's `sequence.definition.presentation.preview.execution_sample.call.orig` and `.dest`. Leaving them uninitialized raises a local error before sending.

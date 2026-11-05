@@ -90,6 +90,9 @@ class EmailInboxInsightsPlacementProviderNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('rawCounts')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacementProvider.raw_counts missing');
+        }
         $dataArray['raw_counts'] = $this->normalizer->normalize($data->getRawCounts(), 'json', $context);
         return $dataArray;
     }

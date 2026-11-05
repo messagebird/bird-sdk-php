@@ -125,8 +125,17 @@ class ContactNormalizer implements DenormalizerInterface, NormalizerInterface, D
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Contact.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Contact.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Contact.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
         if ($data->isInitialized('firstName')) {
             $dataArray['first_name'] = $data->getFirstName();

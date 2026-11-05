@@ -48,6 +48,9 @@ class AMBConversationTypingRequestNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('event')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationTypingRequest.event missing');
+        }
         $dataArray['event'] = $data->getEvent();
         return $dataArray;
     }

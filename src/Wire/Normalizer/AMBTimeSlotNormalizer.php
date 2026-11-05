@@ -60,8 +60,17 @@ class AMBTimeSlotNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('identifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTimeSlot.identifier missing');
+        }
         $dataArray['identifier'] = $data->getIdentifier();
+        if (!$data->isInitialized('startAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTimeSlot.start_at missing');
+        }
         $dataArray['start_at'] = $data->getStartAt();
+        if (!$data->isInitialized('durationSeconds')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBTimeSlot.duration_seconds missing');
+        }
         $dataArray['duration_seconds'] = $data->getDurationSeconds();
         return $dataArray;
     }

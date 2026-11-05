@@ -48,6 +48,9 @@ class VoicePartySIPEndpointNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('contact')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoicePartySIPEndpoint.contact missing');
+        }
         $dataArray['contact'] = $data->getContact();
         return $dataArray;
     }

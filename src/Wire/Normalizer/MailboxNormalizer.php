@@ -185,14 +185,41 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('displayName')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.display_name missing');
+        }
         $dataArray['display_name'] = $data->getDisplayName();
+        if (!$data->isInitialized('defaultReplyTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.default_reply_to missing');
+        }
         $dataArray['default_reply_to'] = $data->getDefaultReplyTo();
+        if (!$data->isInitialized('receivePolicy')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.receive_policy missing');
+        }
         $dataArray['receive_policy'] = $data->getReceivePolicy();
+        if (!$data->isInitialized('owner')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.owner missing');
+        }
         $dataArray['owner'] = $this->normalizer->normalize($data->getOwner(), 'json', $context);
+        if (!$data->isInitialized('inboundAddressId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.inbound_address_id missing');
+        }
         $dataArray['inbound_address_id'] = $data->getInboundAddressId();
+        if (!$data->isInitialized('retentionTier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.retention_tier missing');
+        }
         $dataArray['retention_tier'] = $data->getRetentionTier();
+        if (!$data->isInitialized('metadata')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.metadata missing');
+        }
         $values = [];
         foreach ($data->getMetadata() as $key => $value) {
             $values[$key] = $value;

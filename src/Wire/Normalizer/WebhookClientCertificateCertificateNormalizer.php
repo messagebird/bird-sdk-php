@@ -89,11 +89,29 @@ class WebhookClientCertificateCertificateNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
+        if (!$data->isInitialized('issuer')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.issuer missing');
+        }
         $dataArray['issuer'] = $data->getIssuer();
+        if (!$data->isInitialized('serialNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.serial_number missing');
+        }
         $dataArray['serial_number'] = $data->getSerialNumber();
+        if (!$data->isInitialized('fingerprintSha256')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.fingerprint_sha256 missing');
+        }
         $dataArray['fingerprint_sha256'] = $data->getFingerprintSha256();
+        if (!$data->isInitialized('notBefore')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.not_before missing');
+        }
         $dataArray['not_before'] = $data->getNotBefore()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('notAfter')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateCertificate.not_after missing');
+        }
         $dataArray['not_after'] = $data->getNotAfter()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

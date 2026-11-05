@@ -50,7 +50,7 @@ class VoiceTrunkUpdate
      */
     protected $mediaBypass;
     /**
-     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     * A change to how the trunk encrypts call audio.
      *
      * @var VoiceTrunkMediaUpdate|null
      */
@@ -175,7 +175,7 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     * A change to how the trunk encrypts call audio.
      *
      * @return VoiceTrunkMediaUpdate|null
      */
@@ -184,7 +184,7 @@ class VoiceTrunkUpdate
         return $this->media;
     }
     /**
-     * A change to how the trunk carries call audio. An omitted member is left unchanged.
+     * A change to how the trunk encrypts call audio.
      *
      * @param VoiceTrunkMediaUpdate|null $media
      *

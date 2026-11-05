@@ -72,9 +72,21 @@ class DomainCapabilitiesNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('sending')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainCapabilities.sending missing');
+        }
         $dataArray['sending'] = $this->normalizer->normalize($data->getSending(), 'json', $context);
+        if (!$data->isInitialized('returnPath')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainCapabilities.return_path missing');
+        }
         $dataArray['return_path'] = $this->normalizer->normalize($data->getReturnPath(), 'json', $context);
+        if (!$data->isInitialized('dmarc')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainCapabilities.dmarc missing');
+        }
         $dataArray['dmarc'] = $this->normalizer->normalize($data->getDmarc(), 'json', $context);
+        if (!$data->isInitialized('tracking')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DomainCapabilities.tracking missing');
+        }
         $dataArray['tracking'] = $this->normalizer->normalize($data->getTracking(), 'json', $context);
         if ($data->isInitialized('inbound') && null !== $data->getInbound()) {
             $dataArray['inbound'] = $this->normalizer->normalize($data->getInbound(), 'json', $context);

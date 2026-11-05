@@ -173,10 +173,25 @@ class SMSTemplateNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSTemplate.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSTemplate.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('description')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSTemplate.description missing');
+        }
         $dataArray['description'] = $data->getDescription();
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSTemplate.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
+        if (!$data->isInitialized('defaultLanguage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSTemplate.default_language missing');
+        }
         $dataArray['default_language'] = $data->getDefaultLanguage();
         return $dataArray;
     }

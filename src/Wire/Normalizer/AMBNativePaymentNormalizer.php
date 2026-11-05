@@ -48,6 +48,9 @@ class AMBNativePaymentNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('paymentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativePayment.payment_id missing');
+        }
         $dataArray['payment_id'] = $data->getPaymentId();
         return $dataArray;
     }

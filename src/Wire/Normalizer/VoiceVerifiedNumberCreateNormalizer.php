@@ -54,6 +54,9 @@ class VoiceVerifiedNumberCreateNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumberCreate.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

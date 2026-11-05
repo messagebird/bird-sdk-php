@@ -78,11 +78,29 @@ class MTLSCertificateAuthorityNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
+        if (!$data->isInitialized('fingerprintSha256')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.fingerprint_sha256 missing');
+        }
         $dataArray['fingerprint_sha256'] = $data->getFingerprintSha256();
+        if (!$data->isInitialized('notBefore')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.not_before missing');
+        }
         $dataArray['not_before'] = $data->getNotBefore()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('notAfter')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.not_after missing');
+        }
         $dataArray['not_after'] = $data->getNotAfter()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field MTLSCertificateAuthority.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

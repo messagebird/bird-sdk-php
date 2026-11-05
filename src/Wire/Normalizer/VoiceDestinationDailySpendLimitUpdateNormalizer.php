@@ -48,6 +48,9 @@ class VoiceDestinationDailySpendLimitUpdateNormalizer implements DenormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('limit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimitUpdate.limit missing');
+        }
         $dataArray['limit'] = $this->normalizer->normalize($data->getLimit(), 'json', $context);
         return $dataArray;
     }

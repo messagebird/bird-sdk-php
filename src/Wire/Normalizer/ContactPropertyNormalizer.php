@@ -99,8 +99,17 @@ class ContactPropertyNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactProperty.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('key')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactProperty.key missing');
+        }
         $dataArray['key'] = $data->getKey();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactProperty.type missing');
+        }
         $dataArray['type'] = $data->getType();
         if ($data->isInitialized('fallbackValue') && null !== $data->getFallbackValue()) {
             $dataArray['fallback_value'] = $data->getFallbackValue();

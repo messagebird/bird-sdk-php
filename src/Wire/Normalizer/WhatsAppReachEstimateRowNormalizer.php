@@ -84,11 +84,29 @@ class WhatsAppReachEstimateRowNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('bidAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.bid_amount missing');
+        }
         $dataArray['bid_amount'] = $data->getBidAmount();
+        if (!$data->isInitialized('users')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.users missing');
+        }
         $dataArray['users'] = $data->getUsers();
+        if (!$data->isInitialized('deliveriesLowerBound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.deliveries_lower_bound missing');
+        }
         $dataArray['deliveries_lower_bound'] = $data->getDeliveriesLowerBound();
+        if (!$data->isInitialized('deliveriesUpperBound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.deliveries_upper_bound missing');
+        }
         $dataArray['deliveries_upper_bound'] = $data->getDeliveriesUpperBound();
+        if (!$data->isInitialized('costLowerBound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.cost_lower_bound missing');
+        }
         $dataArray['cost_lower_bound'] = $data->getCostLowerBound();
+        if (!$data->isInitialized('costUpperBound')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppReachEstimateRow.cost_upper_bound missing');
+        }
         $dataArray['cost_upper_bound'] = $data->getCostUpperBound();
         return $dataArray;
     }

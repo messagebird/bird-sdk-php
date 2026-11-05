@@ -442,6 +442,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastFundingHold::class => \MessageBird\Wire\Normalizer\EmailBroadcastFundingHoldNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => \MessageBird\Wire\Normalizer\EmailBroadcastParameterProblemNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => \MessageBird\Wire\Normalizer\EmailBroadcastFailureParametersNormalizer::class,
@@ -2632,6 +2634,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastFundingHold::class => false,
             \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => false,
             \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => false,
             \MessageBird\Wire\Model\EmailBroadcast::class => false,

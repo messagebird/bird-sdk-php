@@ -48,7 +48,7 @@ class ContactPropertyUpdateRequestNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('fallbackValue') && null !== $data->getFallbackValue()) {
+        if ($data->isInitialized('fallbackValue')) {
             $dataArray['fallback_value'] = $data->getFallbackValue();
         }
         return $dataArray;

@@ -48,6 +48,9 @@ class WebhookClientCertificateUploadNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('certificateChain')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateUpload.certificate_chain missing');
+        }
         $dataArray['certificate_chain'] = $data->getCertificateChain();
         return $dataArray;
     }

@@ -61,7 +61,13 @@ class EsimOrderFundingNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('requiredAmount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOrderFunding.required_amount missing');
+        }
         $dataArray['required_amount'] = $this->normalizer->normalize($data->getRequiredAmount(), 'json', $context);
+        if (!$data->isInitialized('lapsesAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOrderFunding.lapses_at missing');
+        }
         $dataArray['lapses_at'] = $data->getLapsesAt()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

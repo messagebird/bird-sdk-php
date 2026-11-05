@@ -54,7 +54,13 @@ class VoiceDestinationDailySpendLimitLimitNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('amount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimitLimit.amount missing');
+        }
         $dataArray['amount'] = $data->getAmount();
+        if (!$data->isInitialized('currencyCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestinationDailySpendLimitLimit.currency_code missing');
+        }
         $dataArray['currency_code'] = $data->getCurrencyCode();
         return $dataArray;
     }

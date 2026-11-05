@@ -84,9 +84,21 @@ class EmailCompetitiveNotableCampaignNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('watchlistBrandId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableCampaign.watchlist_brand_id missing');
+        }
         $dataArray['watchlist_brand_id'] = $data->getWatchlistBrandId();
+        if (!$data->isInitialized('signal')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableCampaign.signal missing');
+        }
         $dataArray['signal'] = $data->getSignal();
+        if (!$data->isInitialized('evidence')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableCampaign.evidence missing');
+        }
         $dataArray['evidence'] = $this->normalizer->normalize($data->getEvidence(), 'json', $context);
+        if (!$data->isInitialized('campaign')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveNotableCampaign.campaign missing');
+        }
         $dataArray['campaign'] = $this->normalizer->normalize($data->getCampaign(), 'json', $context);
         return $dataArray;
     }

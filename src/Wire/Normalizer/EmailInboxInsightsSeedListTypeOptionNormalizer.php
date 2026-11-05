@@ -57,6 +57,9 @@ class EmailInboxInsightsSeedListTypeOptionNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('value')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedListTypeOption.value missing');
+        }
         $dataArray['value'] = $data->getValue();
         return $dataArray;
     }

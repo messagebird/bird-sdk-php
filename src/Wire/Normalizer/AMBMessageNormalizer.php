@@ -242,11 +242,29 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('conversationId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.conversation_id missing');
+        }
         $dataArray['conversation_id'] = $data->getConversationId();
+        if (!$data->isInitialized('businessAccountId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.business_account_id missing');
+        }
         $dataArray['business_account_id'] = $data->getBusinessAccountId();
+        if (!$data->isInitialized('direction')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.direction missing');
+        }
         $dataArray['direction'] = $data->getDirection();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('kind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.kind missing');
+        }
         $dataArray['kind'] = $data->getKind();
         if ($data->isInitialized('source') && null !== $data->getSource()) {
             $dataArray['source'] = $data->getSource();
@@ -256,6 +274,9 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         if ($data->isInitialized('replyMessageId') && null !== $data->getReplyMessageId()) {
             $dataArray['reply_message_id'] = $data->getReplyMessageId();
+        }
+        if (!$data->isInitialized('cost')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBMessage.cost missing');
         }
         $dataArray['cost'] = $this->normalizer->normalize($data->getCost(), 'json', $context);
         return $dataArray;

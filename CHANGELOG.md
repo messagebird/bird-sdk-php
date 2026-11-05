@@ -2,6 +2,19 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.103.0
+
+- **Breaking:** ContactPropertyCreateRequest and ContactPropertyUpdateRequest preserve explicit null for `fallback_value`; RealtimePublish, RealtimeBatchEvent and RealtimeMemberPublish preserve null for `data`. Leave the setter uncalled to omit the field; set null to clear a contact fallback or deliver a null payload.
+- **Breaking:** VoiceVerifiedNumberUpdate requires `name` to be initialized to a label or null. VoiceRingGroupUpdate requires `name`, and VoiceTrunkMediaUpdate requires `encryption`; call setName("Support") and setEncryption($mode) before sending those update objects.
+- Add broadcast `waiting_for_funds` and `paused` states, `funding_hold` details, and send-quota fields `can_start` and `on_insufficient_funds` ahead of server support. If `can_start` is absent from the send-quota response, use `allowed` for the current allowance and do not assume the broadcast can wait or resume.
+- Go also exports `EmailBroadcastFundingHold`, `EmailBroadcastFundingHoldReason`, and `EmailBroadcastInsufficientFundsBehavior`, with constants for their enum values.
+- **Breaking:** Encrypted Realtime publishes and batch events now omit data when the caller leaves it unset, instead of encrypting JSON null. Supply an explicit null payload to keep sending encrypted null: use `bird.Null[any]()` in Go, None in Python, `null` in Node, or `setData(null)` in PHP.
+- **Breaking:** missing required model fields now raise a local error before sending. Initialize every required model field explicitly; for example, `voice.numbers.update` needs an inbound configuration route value or `setRoute(null)` to clear it. The [required nullable field migration](https://github.com/messagebird/bird-sdk-php#required-nullable-request-fields) lists every affected nullable input, including voice settings, destination limits and call samples.
+- Broadcast update, validate, preview and test preserve an empty template object supplied as an empty PHP array, instead of sending a JSON array.
+- Nullable array and map request fields now send explicit null unchanged instead of an empty collection.
+- `bird contact-properties update` and the public SDK contact-property update methods now preserve the stored fallback when `fallback_value` is omitted. Send explicit JSON null to clear the fallback; an empty update no longer erases the stored value.
+- Voice calls preserve empty `sequence.trigger_data` objects and empty objects inside `sequence.definition.nodes` arrays instead of encoding them as empty lists.
+
 ## 0.102.0
 
 - Add `live_default_language` to email templates and email template list entries: the live version's default language, the one a single send falls back to when the template's language settings allow. It is null until the template is first published, and a built-in template reports its `default_language`.

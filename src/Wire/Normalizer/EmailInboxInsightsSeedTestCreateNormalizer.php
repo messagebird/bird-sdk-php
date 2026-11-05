@@ -76,9 +76,21 @@ class EmailInboxInsightsSeedTestCreateNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('sendingDomain')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestCreate.sending_domain missing');
+        }
         $dataArray['sending_domain'] = $data->getSendingDomain();
+        if (!$data->isInitialized('listType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestCreate.list_type missing');
+        }
         $dataArray['list_type'] = $data->getListType();
+        if (!$data->isInitialized('engagementProfile')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestCreate.engagement_profile missing');
+        }
         $dataArray['engagement_profile'] = $data->getEngagementProfile();
+        if (!$data->isInitialized('regions')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSeedTestCreate.regions missing');
+        }
         $values = [];
         foreach ($data->getRegions() as $value) {
             $values[] = $value;

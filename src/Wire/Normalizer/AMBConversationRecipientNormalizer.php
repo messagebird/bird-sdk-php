@@ -54,7 +54,13 @@ class AMBConversationRecipientNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('opaqueUserId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRecipient.opaque_user_id missing');
+        }
         $dataArray['opaque_user_id'] = $data->getOpaqueUserId();
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRecipient.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
         return $dataArray;
     }

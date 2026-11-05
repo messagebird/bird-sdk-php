@@ -82,6 +82,9 @@ class AMBNativeFormDataNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('startPageIdentifier')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeFormData.start_page_identifier missing');
+        }
         $dataArray['start_page_identifier'] = $data->getStartPageIdentifier();
         if ($data->isInitialized('private') && null !== $data->getPrivate()) {
             $dataArray['private'] = $data->getPrivate();
@@ -91,6 +94,9 @@ class AMBNativeFormDataNormalizer implements DenormalizerInterface, NormalizerIn
         }
         if ($data->isInitialized('splash') && null !== $data->getSplash()) {
             $dataArray['splash'] = $this->normalizer->normalize($data->getSplash(), 'json', $context);
+        }
+        if (!$data->isInitialized('pages')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeFormData.pages missing');
         }
         $values = [];
         foreach ($data->getPages() as $value) {

@@ -84,7 +84,13 @@ class EmailInboxInsightsSpamTrapHitNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTrapHit.source missing');
+        }
         $dataArray['source'] = $data->getSource();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTrapHit.type missing');
+        }
         $dataArray['type'] = $data->getType();
         return $dataArray;
     }

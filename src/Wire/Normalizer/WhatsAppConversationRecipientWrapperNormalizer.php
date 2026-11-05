@@ -72,9 +72,21 @@ class WhatsAppConversationRecipientWrapperNormalizer implements DenormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('bsuid')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationRecipientWrapper.bsuid missing');
+        }
         $dataArray['bsuid'] = $data->getBsuid();
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationRecipientWrapper.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
+        if (!$data->isInitialized('displayName')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationRecipientWrapper.display_name missing');
+        }
         $dataArray['display_name'] = $data->getDisplayName();
+        if (!$data->isInitialized('username')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversationRecipientWrapper.username missing');
+        }
         $dataArray['username'] = $data->getUsername();
         if ($data->isInitialized('groupId') && null !== $data->getGroupId()) {
             $dataArray['group_id'] = $data->getGroupId();

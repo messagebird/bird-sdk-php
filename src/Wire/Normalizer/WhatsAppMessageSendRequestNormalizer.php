@@ -150,6 +150,9 @@ class WhatsAppMessageSendRequestNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppMessageSendRequest.to missing');
+        }
         $dataArray['to'] = $data->getTo();
         if ($data->isInitialized('from') && null !== $data->getFrom()) {
             $dataArray['from'] = $data->getFrom();

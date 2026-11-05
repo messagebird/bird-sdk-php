@@ -159,24 +159,81 @@ class EsimRecurringSubscriptionNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('deliveryMode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.delivery_mode missing');
+        }
         $dataArray['delivery_mode'] = $data->getDeliveryMode();
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('esimId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.esim_id missing');
+        }
         $dataArray['esim_id'] = $data->getEsimId();
+        if (!$data->isInitialized('initialOrderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.initial_order_id missing');
+        }
         $dataArray['initial_order_id'] = $data->getInitialOrderId();
+        if (!$data->isInitialized('subscriberId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.subscriber_id missing');
+        }
         $dataArray['subscriber_id'] = $data->getSubscriberId();
+        if (!$data->isInitialized('offerId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.offer_id missing');
+        }
         $dataArray['offer_id'] = $data->getOfferId();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('billingStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.billing_status missing');
+        }
         $dataArray['billing_status'] = $data->getBillingStatus();
+        if (!$data->isInitialized('currentPeriodStart')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.current_period_start missing');
+        }
         $dataArray['current_period_start'] = $data->getCurrentPeriodStart()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('currentPeriodEnd')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.current_period_end missing');
+        }
         $dataArray['current_period_end'] = $data->getCurrentPeriodEnd()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('cancelAtPeriodEnd')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.cancel_at_period_end missing');
+        }
         $dataArray['cancel_at_period_end'] = $data->getCancelAtPeriodEnd();
+        if (!$data->isInitialized('latestOrderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.latest_order_id missing');
+        }
         $dataArray['latest_order_id'] = $data->getLatestOrderId();
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('price')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.price missing');
+        }
         $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
+        if (!$data->isInitialized('model')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.model missing');
+        }
         $dataArray['model'] = $data->getModel();
+        if (!$data->isInitialized('intervalCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.interval_count missing');
+        }
         $dataArray['interval_count'] = $data->getIntervalCount();
+        if (!$data->isInitialized('nextRenewalAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.next_renewal_at missing');
+        }
         $dataArray['next_renewal_at'] = $data->getNextRenewalAt()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('cancellationEffectiveAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.cancellation_effective_at missing');
+        }
         $dataArray['cancellation_effective_at'] = $data->getCancellationEffectiveAt()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('stopReason')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscription.stop_reason missing');
+        }
         $dataArray['stop_reason'] = $data->getStopReason();
         return $dataArray;
     }

@@ -79,12 +79,23 @@ class EmailBroadcast
      */
     protected $headers;
     /**
-     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why.
+     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why. When it is `waiting_for_funds` or `paused`, `funding_hold` says why and what happens next.
      * 
      *
      * @var string|null
      */
     protected $status;
+    /**
+     * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+     * 
+     * Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * 
+     * The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+     * 
+     *
+     * @var EmailBroadcastFundingHold|null
+     */
+    protected $fundingHold;
     /**
      * What to do next about this broadcast, given the state it is in. Each entry names one action and
      * says why it is worth taking. Present on reads that compute it: an empty list means there is
@@ -232,7 +243,7 @@ class EmailBroadcast
      */
     protected $scheduledAt;
     /**
-     * When the broadcast started sending. Absent until then. Compare with `sent_at`, which is when the broadcast finished sending.
+     * When the broadcast started sending. Absent until then. Older broadcasts waiting or paused for funds may lack that timestamp; they report their send authorization time, or creation time if that is also missing, so late-resume confirmation uses the same conservative time as the server. Compare with `sent_at`, which is when the broadcast finished sending.
      *
      * @var \DateTime|null
      */
@@ -496,7 +507,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why.
+     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why. When it is `waiting_for_funds` or `paused`, `funding_hold` says why and what happens next.
      * 
      *
      * @return string|null
@@ -506,7 +517,7 @@ class EmailBroadcast
         return $this->status;
     }
     /**
-     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why.
+     * Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why. When it is `waiting_for_funds` or `paused`, `funding_hold` says why and what happens next.
      *
      * @param string|null $status
      *
@@ -516,6 +527,38 @@ class EmailBroadcast
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+     * 
+     * Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * 
+     * The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+     * 
+     *
+     * @return EmailBroadcastFundingHold|null
+     */
+    public function getFundingHold(): ?EmailBroadcastFundingHold
+    {
+        return $this->fundingHold;
+    }
+    /**
+    * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+    
+    Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+    
+    The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+    
+    *
+    * @param EmailBroadcastFundingHold|null $fundingHold
+    *
+    * @return self
+    */
+    public function setFundingHold(?EmailBroadcastFundingHold $fundingHold): self
+    {
+        $this->initialized['fundingHold'] = true;
+        $this->fundingHold = $fundingHold;
         return $this;
     }
     /**
@@ -1020,7 +1063,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * When the broadcast started sending. Absent until then. Compare with `sent_at`, which is when the broadcast finished sending.
+     * When the broadcast started sending. Absent until then. Older broadcasts waiting or paused for funds may lack that timestamp; they report their send authorization time, or creation time if that is also missing, so late-resume confirmation uses the same conservative time as the server. Compare with `sent_at`, which is when the broadcast finished sending.
      *
      * @return \DateTime|null
      */
@@ -1029,7 +1072,7 @@ class EmailBroadcast
         return $this->startedAt;
     }
     /**
-     * When the broadcast started sending. Absent until then. Compare with `sent_at`, which is when the broadcast finished sending.
+     * When the broadcast started sending. Absent until then. Older broadcasts waiting or paused for funds may lack that timestamp; they report their send authorization time, or creation time if that is also missing, so late-resume confirmation uses the same conservative time as the server. Compare with `sent_at`, which is when the broadcast finished sending.
      *
      * @param \DateTime|null $startedAt
      *

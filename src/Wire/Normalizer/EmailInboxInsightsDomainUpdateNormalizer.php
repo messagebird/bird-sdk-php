@@ -51,6 +51,9 @@ class EmailInboxInsightsDomainUpdateNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('monitored')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsDomainUpdate.monitored missing');
+        }
         $dataArray['monitored'] = $data->getMonitored();
         return $dataArray;
     }

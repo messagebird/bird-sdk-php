@@ -72,9 +72,21 @@ class VoiceSessionCredentialNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('username')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSessionCredential.username missing');
+        }
         $dataArray['username'] = $data->getUsername();
+        if (!$data->isInitialized('password')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSessionCredential.password missing');
+        }
         $dataArray['password'] = $data->getPassword();
+        if (!$data->isInitialized('realm')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSessionCredential.realm missing');
+        }
         $dataArray['realm'] = $data->getRealm();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSessionCredential.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()->format('Y-m-d\TH:i:sP');
         if ($data->isInitialized('handshakeToken') && null !== $data->getHandshakeToken()) {
             $dataArray['handshake_token'] = $data->getHandshakeToken();

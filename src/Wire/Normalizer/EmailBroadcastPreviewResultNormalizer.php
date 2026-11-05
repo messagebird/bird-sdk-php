@@ -104,24 +104,48 @@ class EmailBroadcastPreviewResultNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('resolution')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.resolution missing');
+        }
         $dataArray['resolution'] = $this->normalizer->normalize($data->getResolution(), 'json', $context);
         if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
             $dataArray['contact_id'] = $data->getContactId();
         }
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
+        if (!$data->isInitialized('preheader')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.preheader missing');
+        }
         $dataArray['preheader'] = $data->getPreheader();
+        if (!$data->isInitialized('html')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.html missing');
+        }
         $dataArray['html'] = $data->getHtml();
+        if (!$data->isInitialized('text')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.text missing');
+        }
         $dataArray['text'] = $data->getText();
+        if (!$data->isInitialized('resolvedParameters')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.resolved_parameters missing');
+        }
         $values = [];
         foreach ($data->getResolvedParameters() as $key => $value) {
             $values[$key] = $value;
         }
         $dataArray['resolved_parameters'] = (object) $values;
+        if (!$data->isInitialized('problems')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.problems missing');
+        }
         $values_1 = [];
         foreach ($data->getProblems() as $value_1) {
             $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
         }
         $dataArray['problems'] = $values_1;
+        if (!$data->isInitialized('previewFingerprint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastPreviewResult.preview_fingerprint missing');
+        }
         $dataArray['preview_fingerprint'] = $data->getPreviewFingerprint();
         return $dataArray;
     }

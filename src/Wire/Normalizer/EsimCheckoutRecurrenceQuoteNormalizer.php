@@ -96,12 +96,33 @@ class EsimCheckoutRecurrenceQuoteNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('funding')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.funding missing');
+        }
         $dataArray['funding'] = $this->normalizer->normalize($data->getFunding(), 'json', $context);
+        if (!$data->isInitialized('deliveryMode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.delivery_mode missing');
+        }
         $dataArray['delivery_mode'] = $data->getDeliveryMode();
+        if (!$data->isInitialized('offerRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.offer_revision missing');
+        }
         $dataArray['offer_revision'] = $data->getOfferRevision();
+        if (!$data->isInitialized('recurrenceRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.recurrence_revision missing');
+        }
         $dataArray['recurrence_revision'] = $data->getRecurrenceRevision();
+        if (!$data->isInitialized('price')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.price missing');
+        }
         $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
+        if (!$data->isInitialized('model')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.model missing');
+        }
         $dataArray['model'] = $data->getModel();
+        if (!$data->isInitialized('intervalCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCheckoutRecurrenceQuote.interval_count missing');
+        }
         $dataArray['interval_count'] = $data->getIntervalCount();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

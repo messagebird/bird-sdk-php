@@ -54,7 +54,13 @@ class SMSSuppressionCreateNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('destination')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSSuppressionCreate.destination missing');
+        }
         $dataArray['destination'] = $data->getDestination();
+        if (!$data->isInitialized('originator')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSSuppressionCreate.originator missing');
+        }
         $dataArray['originator'] = $data->getOriginator();
         return $dataArray;
     }

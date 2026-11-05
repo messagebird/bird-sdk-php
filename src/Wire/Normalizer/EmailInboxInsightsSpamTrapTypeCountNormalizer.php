@@ -54,6 +54,9 @@ class EmailInboxInsightsSpamTrapTypeCountNormalizer implements DenormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsSpamTrapTypeCount.type missing');
+        }
         $dataArray['type'] = $data->getType();
         return $dataArray;
     }

@@ -48,6 +48,9 @@ class SuppressionCreateNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SuppressionCreate.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
         return $dataArray;
     }

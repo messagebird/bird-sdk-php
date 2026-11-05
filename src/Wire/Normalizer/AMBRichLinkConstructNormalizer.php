@@ -54,6 +54,9 @@ class AMBRichLinkConstructNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBRichLinkConstruct.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('storeRegion') && null !== $data->getStoreRegion()) {
             $dataArray['store_region'] = $data->getStoreRegion();

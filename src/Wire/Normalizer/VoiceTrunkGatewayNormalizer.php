@@ -103,11 +103,29 @@ class VoiceTrunkGatewayNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('trunkId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.trunk_id missing');
+        }
         $dataArray['trunk_id'] = $data->getTrunkId();
+        if (!$data->isInitialized('sipUri')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.sip_uri missing');
+        }
         $dataArray['sip_uri'] = $data->getSipUri();
+        if (!$data->isInitialized('priority')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.priority missing');
+        }
         $dataArray['priority'] = $data->getPriority();
+        if (!$data->isInitialized('originationFormat')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.origination_format missing');
+        }
         $dataArray['origination_format'] = $data->getOriginationFormat();
+        if (!$data->isInitialized('destinationFormat')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkGateway.destination_format missing');
+        }
         $dataArray['destination_format'] = $data->getDestinationFormat();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

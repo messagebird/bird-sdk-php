@@ -66,6 +66,9 @@ class AssetReferenceNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('usage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetReference.usage missing');
+        }
         $dataArray['usage'] = $data->getUsage();
         return $dataArray;
     }

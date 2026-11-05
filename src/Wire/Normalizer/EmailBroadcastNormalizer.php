@@ -123,6 +123,12 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('funding_hold', $data) && $data['funding_hold'] !== null) {
+            $object->setFundingHold($this->denormalizer->denormalize($data['funding_hold'], \MessageBird\Wire\Model\EmailBroadcastFundingHold::class, 'json', $context));
+        }
+        elseif (\array_key_exists('funding_hold', $data) && $data['funding_hold'] === null) {
+            $object->setFundingHold(null);
+        }
         if (\array_key_exists('next', $data) && $data['next'] !== null) {
             $values_2 = [];
             foreach ($data['next'] as $value_2) {
@@ -303,6 +309,9 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         if ($data->isInitialized('template')) {
             $dataArray['template'] = $this->normalizer->normalize($data->getTemplate(), 'json', $context);
         }
+        if (!$data->isInitialized('category')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcast.category missing');
+        }
         $dataArray['category'] = $data->getCategory();
         if ($data->isInitialized('ipPoolId') && null !== $data->getIpPoolId()) {
             $dataArray['ip_pool_id'] = $data->getIpPoolId();
@@ -335,7 +344,13 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
             }
             $dataArray['metadata'] = (object) $values_3;
         }
+        if (!$data->isInitialized('trackOpens')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcast.track_opens missing');
+        }
         $dataArray['track_opens'] = $data->getTrackOpens();
+        if (!$data->isInitialized('trackClicks')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcast.track_clicks missing');
+        }
         $dataArray['track_clicks'] = $data->getTrackClicks();
         if ($data->isInitialized('failureParameters') && null !== $data->getFailureParameters()) {
             $dataArray['failure_parameters'] = $this->normalizer->normalize($data->getFailureParameters(), 'json', $context);

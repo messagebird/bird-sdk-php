@@ -88,12 +88,27 @@ class EmailTemplateParameterNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameter.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameter.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('valueDomain')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameter.value_domain missing');
+        }
         $dataArray['value_domain'] = $data->getValueDomain();
+        if (!$data->isInitialized('required')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameter.required missing');
+        }
         $dataArray['required'] = $data->getRequired();
         if ($data->isInitialized('sensitive') && null !== $data->getSensitive()) {
             $dataArray['sensitive'] = $data->getSensitive();
+        }
+        if (!$data->isInitialized('useConstraints')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateParameter.use_constraints missing');
         }
         $values = [];
         foreach ($data->getUseConstraints() as $value) {

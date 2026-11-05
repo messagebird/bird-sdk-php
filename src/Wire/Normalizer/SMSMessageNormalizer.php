@@ -230,8 +230,17 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessage.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessage.to missing');
+        }
         $dataArray['to'] = $data->getTo();
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessage.from missing');
+        }
         $dataArray['from'] = $data->getFrom();
         if ($data->isInitialized('text') && null !== $data->getText()) {
             $dataArray['text'] = $data->getText();
@@ -241,6 +250,9 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         if ($data->isInitialized('messagingProfileId') && null !== $data->getMessagingProfileId()) {
             $dataArray['messaging_profile_id'] = $data->getMessagingProfileId();
+        }
+        if (!$data->isInitialized('segments')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessage.segments missing');
         }
         $dataArray['segments'] = $this->normalizer->normalize($data->getSegments(), 'json', $context);
         if ($data->isInitialized('cost')) {

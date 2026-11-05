@@ -60,8 +60,17 @@ class AudienceMembershipStatisticsPointNormalizer implements DenormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('bucket')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsPoint.bucket missing');
+        }
         $dataArray['bucket'] = $data->getBucket()->format('Y-m-d');
+        if (!$data->isInitialized('total')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsPoint.total missing');
+        }
         $dataArray['total'] = $data->getTotal();
+        if (!$data->isInitialized('observedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AudienceMembershipStatisticsPoint.observed_at missing');
+        }
         $dataArray['observed_at'] = $data->getObservedAt()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

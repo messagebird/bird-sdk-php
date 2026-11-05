@@ -118,10 +118,19 @@ class EmailStatsQueryRequestNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryRequest.from missing');
+        }
         $dataArray['from'] = $data->getFrom();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryRequest.to missing');
+        }
         $dataArray['to'] = $data->getTo();
         if ($data->isInitialized('timezone') && null !== $data->getTimezone()) {
             $dataArray['timezone'] = $data->getTimezone();
+        }
+        if (!$data->isInitialized('metrics')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryRequest.metrics missing');
         }
         $values = [];
         foreach ($data->getMetrics() as $value) {

@@ -54,6 +54,9 @@ class SMSCountryRegistrationCreateNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSCountryRegistrationCreate.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();

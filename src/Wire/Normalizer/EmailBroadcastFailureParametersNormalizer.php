@@ -82,7 +82,13 @@ class EmailBroadcastFailureParametersNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastFailureParameters.code missing');
+        }
         $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('phase')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastFailureParameters.phase missing');
+        }
         $dataArray['phase'] = $data->getPhase();
         if ($data->isInitialized('pointer') && null !== $data->getPointer()) {
             $dataArray['pointer'] = $data->getPointer();
@@ -96,6 +102,9 @@ class EmailBroadcastFailureParametersNormalizer implements DenormalizerInterface
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $dataArray['problems'] = $values;
+        }
+        if (!$data->isInitialized('failureCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailBroadcastFailureParameters.failure_count missing');
         }
         $dataArray['failure_count'] = $data->getFailureCount();
         return $dataArray;

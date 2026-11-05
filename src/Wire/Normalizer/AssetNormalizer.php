@@ -145,10 +145,25 @@ class AssetNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Asset.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Asset.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('kind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Asset.kind missing');
+        }
         $dataArray['kind'] = $data->getKind();
+        if (!$data->isInitialized('altText')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Asset.alt_text missing');
+        }
         $dataArray['alt_text'] = $data->getAltText();
+        if (!$data->isInitialized('folderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Asset.folder_id missing');
+        }
         $dataArray['folder_id'] = $data->getFolderId();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

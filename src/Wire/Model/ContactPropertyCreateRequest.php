@@ -28,7 +28,7 @@ class ContactPropertyCreateRequest
      */
     protected $type;
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime string matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Omit or set to `null` for no fallback.
      *
      * @var mixed|null
      */
@@ -84,7 +84,7 @@ class ContactPropertyCreateRequest
         return $this;
     }
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime string matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Omit or set to `null` for no fallback.
      *
      * @return mixed
      */
@@ -93,7 +93,7 @@ class ContactPropertyCreateRequest
         return $this->fallbackValue;
     }
     /**
-     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
+     * Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime string matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Omit or set to `null` for no fallback.
      *
      * @param mixed $fallbackValue
      *

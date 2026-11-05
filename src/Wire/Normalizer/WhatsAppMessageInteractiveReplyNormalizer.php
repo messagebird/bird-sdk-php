@@ -60,6 +60,9 @@ class WhatsAppMessageInteractiveReplyNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppMessageInteractiveReply.type missing');
+        }
         $dataArray['type'] = $data->getType();
         if ($data->isInitialized('button') && null !== $data->getButton()) {
             $dataArray['button'] = $this->normalizer->normalize($data->getButton(), 'json', $context);

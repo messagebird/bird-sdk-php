@@ -54,7 +54,13 @@ class QuotaErrorContextNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('quotaKey')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field QuotaErrorContext.quota_key missing');
+        }
         $dataArray['quota_key'] = $data->getQuotaKey();
+        if (!$data->isInitialized('scope')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field QuotaErrorContext.scope missing');
+        }
         $dataArray['scope'] = $data->getScope();
         return $dataArray;
     }

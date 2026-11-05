@@ -54,6 +54,9 @@ class VoiceSequenceSavedExecutionPartyNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('endpoint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedExecutionParty.endpoint missing');
+        }
         $dataArray['endpoint'] = $this->normalizer->normalize($data->getEndpoint(), 'json', $context);
         if ($data->isInitialized('address') && null !== $data->getAddress()) {
             $dataArray['address'] = $data->getAddress();

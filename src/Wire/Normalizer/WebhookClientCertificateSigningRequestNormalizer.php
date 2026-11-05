@@ -61,7 +61,13 @@ class WebhookClientCertificateSigningRequestNormalizer implements DenormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('csr')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateSigningRequest.csr missing');
+        }
         $dataArray['csr'] = $data->getCsr();
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookClientCertificateSigningRequest.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

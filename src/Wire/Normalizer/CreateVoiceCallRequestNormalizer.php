@@ -66,10 +66,19 @@ class CreateVoiceCallRequestNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field CreateVoiceCallRequest.from missing');
+        }
         $dataArray['from'] = $data->getFrom();
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field CreateVoiceCallRequest.to missing');
+        }
         $dataArray['to'] = $data->getTo();
         if ($data->isInitialized('ringingTimeoutSeconds') && null !== $data->getRingingTimeoutSeconds()) {
             $dataArray['ringing_timeout_seconds'] = $data->getRingingTimeoutSeconds();
+        }
+        if (!$data->isInitialized('sequence')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field CreateVoiceCallRequest.sequence missing');
         }
         $dataArray['sequence'] = $this->normalizer->normalize($data->getSequence(), 'json', $context);
         return $dataArray;

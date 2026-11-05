@@ -66,9 +66,21 @@ class AvailableNumberPricingWrapperNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('setupPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingWrapper.setup_price missing');
+        }
         $dataArray['setup_price'] = $this->normalizer->normalize($data->getSetupPrice(), 'json', $context);
+        if (!$data->isInitialized('recurringPrice')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingWrapper.recurring_price missing');
+        }
         $dataArray['recurring_price'] = $this->normalizer->normalize($data->getRecurringPrice(), 'json', $context);
+        if (!$data->isInitialized('recurringPeriod')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingWrapper.recurring_period missing');
+        }
         $dataArray['recurring_period'] = $this->normalizer->normalize($data->getRecurringPeriod(), 'json', $context);
+        if (!$data->isInitialized('intervalsPerCharge')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AvailableNumberPricingWrapper.intervals_per_charge missing');
+        }
         $dataArray['intervals_per_charge'] = $data->getIntervalsPerCharge();
         return $dataArray;
     }

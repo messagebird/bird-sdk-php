@@ -66,9 +66,21 @@ class EmailStatsQueryPeriodNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('from')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryPeriod.from missing');
+        }
         $dataArray['from'] = $data->getFrom()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryPeriod.to missing');
+        }
         $dataArray['to'] = $data->getTo()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('timezone')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryPeriod.timezone missing');
+        }
         $dataArray['timezone'] = $data->getTimezone();
+        if (!$data->isInitialized('grain')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailStatsQueryPeriod.grain missing');
+        }
         $dataArray['grain'] = $data->getGrain();
         return $dataArray;
     }

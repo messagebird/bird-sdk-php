@@ -63,6 +63,9 @@ class DestinationSettingNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field DestinationSetting.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
         if ($data->isInitialized('enabled') && null !== $data->getEnabled()) {
             $dataArray['enabled'] = $data->getEnabled();

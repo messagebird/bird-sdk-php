@@ -66,9 +66,21 @@ class AMBEntryPointNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBEntryPoint.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('group')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBEntryPoint.group missing');
+        }
         $dataArray['group'] = $data->getGroup();
+        if (!$data->isInitialized('intent')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBEntryPoint.intent missing');
+        }
         $dataArray['intent'] = $data->getIntent();
+        if (!$data->isInitialized('body')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBEntryPoint.body missing');
+        }
         $dataArray['body'] = $data->getBody();
         return $dataArray;
     }

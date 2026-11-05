@@ -68,7 +68,13 @@ class EmailTemplateVersionUpdatedByNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVersionUpdatedBy.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateVersionUpdatedBy.type missing');
+        }
         $dataArray['type'] = $data->getType();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

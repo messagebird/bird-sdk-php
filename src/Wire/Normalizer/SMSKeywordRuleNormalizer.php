@@ -137,7 +137,13 @@ class SMSKeywordRuleNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSKeywordRule.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('operation')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSKeywordRule.operation missing');
+        }
         $dataArray['operation'] = $data->getOperation();
         if ($data->isInitialized('country')) {
             $dataArray['country'] = $data->getCountry();
@@ -147,6 +153,9 @@ class SMSKeywordRuleNormalizer implements DenormalizerInterface, NormalizerInter
         }
         if ($data->isInitialized('number')) {
             $dataArray['number'] = $data->getNumber();
+        }
+        if (!$data->isInitialized('keywords')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSKeywordRule.keywords missing');
         }
         $values = [];
         foreach ($data->getKeywords() as $value) {

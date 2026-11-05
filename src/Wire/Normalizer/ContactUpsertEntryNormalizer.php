@@ -60,8 +60,17 @@ class ContactUpsertEntryNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertEntry.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertEntry.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
+        if (!$data->isInitialized('externalId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertEntry.external_id missing');
+        }
         $dataArray['external_id'] = $data->getExternalId();
         return $dataArray;
     }

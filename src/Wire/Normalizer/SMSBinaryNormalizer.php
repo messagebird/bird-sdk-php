@@ -57,6 +57,9 @@ class SMSBinaryNormalizer implements DenormalizerInterface, NormalizerInterface,
         if ($data->isInitialized('udh') && null !== $data->getUdh()) {
             $dataArray['udh'] = $data->getUdh();
         }
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSBinary.data missing');
+        }
         $dataArray['data'] = $data->getData();
         return $dataArray;
     }

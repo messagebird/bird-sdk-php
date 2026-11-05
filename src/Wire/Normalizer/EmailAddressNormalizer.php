@@ -54,6 +54,9 @@ class EmailAddressNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('email')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailAddress.email missing');
+        }
         $dataArray['email'] = $data->getEmail();
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();

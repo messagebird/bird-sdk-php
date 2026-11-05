@@ -48,6 +48,9 @@ class WebhookRotateSecretResponseNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('secret')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookRotateSecretResponse.secret missing');
+        }
         $dataArray['secret'] = $data->getSecret();
         return $dataArray;
     }

@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A change to how the trunk carries call audio. An omitted member is left unchanged.
+ * A change to how the trunk encrypts call audio.
  */
 class VoiceTrunkMediaUpdate
 {

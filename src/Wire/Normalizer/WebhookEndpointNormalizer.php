@@ -125,12 +125,24 @@ class WebhookEndpointNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpoint.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpoint.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
         }
+        if (!$data->isInitialized('filter')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpoint.filter missing');
+        }
         $dataArray['filter'] = $this->normalizer->normalize($data->getFilter(), 'json', $context);
+        if (!$data->isInitialized('events')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpoint.events missing');
+        }
         $values = [];
         foreach ($data->getEvents() as $value) {
             $values[] = $value;

@@ -98,7 +98,13 @@ class EmailCompetitiveBrandSeriesNormalizer implements DenormalizerInterface, No
         if ($data->isInitialized('watchlistBrandId') && null !== $data->getWatchlistBrandId()) {
             $dataArray['watchlist_brand_id'] = $data->getWatchlistBrandId();
         }
+        if (!$data->isInitialized('panelStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveBrandSeries.panel_status missing');
+        }
         $dataArray['panel_status'] = $data->getPanelStatus();
+        if (!$data->isInitialized('source')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveBrandSeries.source missing');
+        }
         $dataArray['source'] = $data->getSource();
         return $dataArray;
     }

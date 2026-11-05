@@ -82,6 +82,9 @@ class WhatsAppTemplateButtonWriteNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateButtonWrite.type missing');
+        }
         $dataArray['type'] = $data->getType();
         if ($data->isInitialized('otpType') && null !== $data->getOtpType()) {
             $dataArray['otp_type'] = $data->getOtpType();

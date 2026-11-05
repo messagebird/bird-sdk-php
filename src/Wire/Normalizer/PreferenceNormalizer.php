@@ -145,6 +145,9 @@ class PreferenceNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Preference.id missing');
+        }
         $dataArray['id'] = $data->getId();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

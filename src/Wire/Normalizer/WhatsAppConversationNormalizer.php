@@ -118,21 +118,57 @@ class WhatsAppConversationNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('businessPhoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.business_phone_number missing');
+        }
         $dataArray['business_phone_number'] = $data->getBusinessPhoneNumber();
+        if (!$data->isInitialized('recipient')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.recipient missing');
+        }
         $dataArray['recipient'] = $this->normalizer->normalize($data->getRecipient(), 'json', $context);
+        if (!$data->isInitialized('inboxStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.inbox_status missing');
+        }
         $dataArray['inbox_status'] = $data->getInboxStatus();
+        if (!$data->isInitialized('control')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.control missing');
+        }
         $dataArray['control'] = $data->getControl();
+        if (!$data->isInitialized('assignedTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.assigned_to missing');
+        }
         $dataArray['assigned_to'] = $data->getAssignedTo();
+        if (!$data->isInitialized('serviceWindow')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.service_window missing');
+        }
         $dataArray['service_window'] = $this->normalizer->normalize($data->getServiceWindow(), 'json', $context);
+        if (!$data->isInitialized('lastMessage')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.last_message missing');
+        }
         $dataArray['last_message'] = $this->normalizer->normalize($data->getLastMessage(), 'json', $context);
+        if (!$data->isInitialized('unreadCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.unread_count missing');
+        }
         $dataArray['unread_count'] = $data->getUnreadCount();
+        if (!$data->isInitialized('labels')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.labels missing');
+        }
         $values = [];
         foreach ($data->getLabels() as $value) {
             $values[] = $value;
         }
         $dataArray['labels'] = $values;
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppConversation.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

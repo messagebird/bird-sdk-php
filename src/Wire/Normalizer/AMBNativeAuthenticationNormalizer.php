@@ -48,6 +48,9 @@ class AMBNativeAuthenticationNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('authenticationId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeAuthentication.authentication_id missing');
+        }
         $dataArray['authentication_id'] = $data->getAuthenticationId();
         return $dataArray;
     }

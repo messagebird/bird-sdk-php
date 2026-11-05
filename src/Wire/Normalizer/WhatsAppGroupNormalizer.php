@@ -167,6 +167,9 @@ class WhatsAppGroupNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppGroup.subject missing');
+        }
         $dataArray['subject'] = $data->getSubject();
         if ($data->isInitialized('description')) {
             $dataArray['description'] = $data->getDescription();

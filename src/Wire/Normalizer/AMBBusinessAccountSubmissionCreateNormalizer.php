@@ -60,8 +60,17 @@ class AMBBusinessAccountSubmissionCreateNormalizer implements DenormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('readinessAttachmentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccountSubmissionCreate.readiness_attachment_id missing');
+        }
         $dataArray['readiness_attachment_id'] = $data->getReadinessAttachmentId();
+        if (!$data->isInitialized('useCasesAttachmentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccountSubmissionCreate.use_cases_attachment_id missing');
+        }
         $dataArray['use_cases_attachment_id'] = $data->getUseCasesAttachmentId();
+        if (!$data->isInitialized('videoAttachmentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccountSubmissionCreate.video_attachment_id missing');
+        }
         $dataArray['video_attachment_id'] = $data->getVideoAttachmentId();
         return $dataArray;
     }

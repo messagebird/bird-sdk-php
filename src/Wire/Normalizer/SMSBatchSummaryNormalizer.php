@@ -48,6 +48,9 @@ class SMSBatchSummaryNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('acceptedCount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSBatchSummary.accepted_count missing');
+        }
         $dataArray['accepted_count'] = $data->getAcceptedCount();
         return $dataArray;
     }

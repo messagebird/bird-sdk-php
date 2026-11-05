@@ -113,6 +113,9 @@ class EsimOrderCreateNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('offerId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimOrderCreate.offer_id missing');
+        }
         $dataArray['offer_id'] = $data->getOfferId();
         if ($data->isInitialized('esimId') && null !== $data->getEsimId()) {
             $dataArray['esim_id'] = $data->getEsimId();

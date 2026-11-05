@@ -135,20 +135,65 @@ class BillingWalletNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('currencyCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.currency_code missing');
+        }
         $dataArray['currency_code'] = $data->getCurrencyCode();
+        if (!$data->isInitialized('balance')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.balance missing');
+        }
         $dataArray['balance'] = $data->getBalance();
+        if (!$data->isInitialized('settledBalance')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.settled_balance missing');
+        }
         $dataArray['settled_balance'] = $data->getSettledBalance();
+        if (!$data->isInitialized('renewalReserved')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.renewal_reserved missing');
+        }
         $dataArray['renewal_reserved'] = $data->getRenewalReserved();
+        if (!$data->isInitialized('renewalRequired')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.renewal_required missing');
+        }
         $dataArray['renewal_required'] = $data->getRenewalRequired();
+        if (!$data->isInitialized('collectionStatus')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.collection_status missing');
+        }
         $dataArray['collection_status'] = $data->getCollectionStatus();
+        if (!$data->isInitialized('collectionRenewal')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.collection_renewal missing');
+        }
         $dataArray['collection_renewal'] = $data->getCollectionRenewal();
+        if (!$data->isInitialized('collectionRequired')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.collection_required missing');
+        }
         $dataArray['collection_required'] = $data->getCollectionRequired();
+        if (!$data->isInitialized('collectionUsageBuffer')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.collection_usage_buffer missing');
+        }
         $dataArray['collection_usage_buffer'] = $data->getCollectionUsageBuffer();
+        if (!$data->isInitialized('collectionDeficit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.collection_deficit missing');
+        }
         $dataArray['collection_deficit'] = $data->getCollectionDeficit();
+        if (!$data->isInitialized('creditLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.credit_limit missing');
+        }
         $dataArray['credit_limit'] = $data->getCreditLimit();
+        if (!$data->isInitialized('provisional')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.provisional missing');
+        }
         $dataArray['provisional'] = $data->getProvisional();
+        if (!$data->isInitialized('createdAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.created_at missing');
+        }
         $dataArray['created_at'] = $data->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field BillingWallet.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }

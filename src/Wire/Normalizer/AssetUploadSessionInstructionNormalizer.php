@@ -128,15 +128,45 @@ class AssetUploadSessionInstructionNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('state')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.state missing');
+        }
         $dataArray['state'] = $data->getState();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('altText')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.alt_text missing');
+        }
         $dataArray['alt_text'] = $data->getAltText();
+        if (!$data->isInitialized('folderId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.folder_id missing');
+        }
         $dataArray['folder_id'] = $data->getFolderId();
+        if (!$data->isInitialized('file')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.file missing');
+        }
         $dataArray['file'] = $this->normalizer->normalize($data->getFile(), 'json', $context);
+        if (!$data->isInitialized('result')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.result missing');
+        }
         $dataArray['result'] = $this->normalizer->normalize($data->getResult(), 'json', $context);
+        if (!$data->isInitialized('lastError')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.last_error missing');
+        }
         $dataArray['last_error'] = $this->normalizer->normalize($data->getLastError(), 'json', $context);
+        if (!$data->isInitialized('next')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AssetUploadSessionInstruction.next missing');
+        }
         $values = [];
         foreach ($data->getNext() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

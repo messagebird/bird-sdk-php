@@ -48,6 +48,9 @@ class AMBNativeDynamicNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeDynamic.data missing');
+        }
         $dataArray['data'] = $this->normalizer->normalize($data->getData(), 'json', $context);
         return $dataArray;
     }

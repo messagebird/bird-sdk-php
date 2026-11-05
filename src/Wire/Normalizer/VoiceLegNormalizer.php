@@ -184,7 +184,13 @@ class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceLeg.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('workspaceId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceLeg.workspace_id missing');
+        }
         $dataArray['workspace_id'] = $data->getWorkspaceId();
         if ($data->isInitialized('mediaQuality') && null !== $data->getMediaQuality()) {
             $dataArray['media_quality'] = $this->normalizer->normalize($data->getMediaQuality(), 'json', $context);

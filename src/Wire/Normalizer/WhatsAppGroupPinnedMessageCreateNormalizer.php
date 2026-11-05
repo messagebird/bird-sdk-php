@@ -54,6 +54,9 @@ class WhatsAppGroupPinnedMessageCreateNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('messageId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppGroupPinnedMessageCreate.message_id missing');
+        }
         $dataArray['message_id'] = $data->getMessageId();
         if ($data->isInitialized('durationDays') && null !== $data->getDurationDays()) {
             $dataArray['duration_days'] = $data->getDurationDays();

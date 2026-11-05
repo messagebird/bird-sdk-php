@@ -61,7 +61,13 @@ class EsimRecurringSubscriptionPriceNormalizer implements DenormalizerInterface,
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('amount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionPrice.amount missing');
+        }
         $dataArray['amount'] = $data->getAmount();
+        if (!$data->isInitialized('currencyCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimRecurringSubscriptionPrice.currency_code missing');
+        }
         $dataArray['currency_code'] = $data->getCurrencyCode();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

@@ -160,7 +160,13 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         if ($data->isInitialized('messageSendTtlSeconds')) {
             $dataArray['message_send_ttl_seconds'] = $data->getMessageSendTtlSeconds();
         }
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguage.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
+        if (!$data->isInitialized('components')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguage.components missing');
+        }
         $values = [];
         foreach ($data->getComponents() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
@@ -168,6 +174,9 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         $dataArray['components'] = $values;
         if ($data->isInitialized('status') && null !== $data->getStatus()) {
             $dataArray['status'] = $data->getStatus();
+        }
+        if (!$data->isInitialized('revision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppTemplateLanguage.revision missing');
         }
         $dataArray['revision'] = $data->getRevision();
         if ($data->isInitialized('category') && null !== $data->getCategory()) {

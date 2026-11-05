@@ -72,8 +72,17 @@ class ContactUpsertResultItemNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('entry')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertResultItem.entry missing');
+        }
         $dataArray['entry'] = $this->normalizer->normalize($data->getEntry(), 'json', $context);
+        if (!$data->isInitialized('matchedOn')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertResultItem.matched_on missing');
+        }
         $dataArray['matched_on'] = $data->getMatchedOn();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertResultItem.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
             $dataArray['contact_id'] = $data->getContactId();

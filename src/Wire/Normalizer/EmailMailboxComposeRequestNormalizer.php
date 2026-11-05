@@ -154,6 +154,9 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
         if ($data->isInitialized('scheduledAt') && null !== $data->getScheduledAt()) {
             $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
         }
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxComposeRequest.to missing');
+        }
         $values = [];
         foreach ($data->getTo() as $value) {
             $values[] = $value;
@@ -172,6 +175,9 @@ class EmailMailboxComposeRequestNormalizer implements DenormalizerInterface, Nor
                 $values_2[] = $value_2;
             }
             $dataArray['bcc'] = $values_2;
+        }
+        if (!$data->isInitialized('subject')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailMailboxComposeRequest.subject missing');
         }
         $dataArray['subject'] = $data->getSubject();
         if ($data->isInitialized('html') && null !== $data->getHtml()) {

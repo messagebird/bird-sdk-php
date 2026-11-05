@@ -98,9 +98,15 @@ class WhatsAppInteractiveNormalizer implements DenormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractive.type missing');
+        }
         $dataArray['type'] = $data->getType();
         if ($data->isInitialized('header') && null !== $data->getHeader()) {
             $dataArray['header'] = $this->normalizer->normalize($data->getHeader(), 'json', $context);
+        }
+        if (!$data->isInitialized('bodyText')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppInteractive.body_text missing');
         }
         $dataArray['body_text'] = $data->getBodyText();
         if ($data->isInitialized('footerText') && null !== $data->getFooterText()) {

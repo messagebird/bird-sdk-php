@@ -76,6 +76,9 @@ class WhatsAppKeywordRuleCreateNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('operation')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRuleCreate.operation missing');
+        }
         $dataArray['operation'] = $data->getOperation();
         if ($data->isInitialized('country') && null !== $data->getCountry()) {
             $dataArray['country'] = $data->getCountry();

@@ -79,6 +79,9 @@ class AMBNativeInboundListPickerSectionNormalizer implements DenormalizerInterfa
         if ($data->isInitialized('order')) {
             $dataArray['order'] = $data->getOrder();
         }
+        if (!$data->isInitialized('items')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeInboundListPickerSection.items missing');
+        }
         $values = [];
         foreach ($data->getItems() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);

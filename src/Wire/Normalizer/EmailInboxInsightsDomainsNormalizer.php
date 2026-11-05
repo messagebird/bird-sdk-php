@@ -79,8 +79,17 @@ class EmailInboxInsightsDomainsNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('nextCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsDomains.next_cursor missing');
+        }
         $dataArray['next_cursor'] = $data->getNextCursor();
+        if (!$data->isInitialized('prevCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsDomains.prev_cursor missing');
+        }
         $dataArray['prev_cursor'] = $data->getPrevCursor();
+        if (!$data->isInitialized('refreshCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsDomains.refresh_cursor missing');
+        }
         $dataArray['refresh_cursor'] = $data->getRefreshCursor();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

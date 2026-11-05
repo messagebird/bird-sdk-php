@@ -54,6 +54,9 @@ class AMBNativeRichLinkAssetsNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('image')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBNativeRichLinkAssets.image missing');
+        }
         $dataArray['image'] = $this->normalizer->normalize($data->getImage(), 'json', $context);
         if ($data->isInitialized('video') && null !== $data->getVideo()) {
             $dataArray['video'] = $this->normalizer->normalize($data->getVideo(), 'json', $context);

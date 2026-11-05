@@ -58,6 +58,9 @@ class PhoneNumberLookupRequestNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('phoneNumber')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field PhoneNumberLookupRequest.phone_number missing');
+        }
         $dataArray['phone_number'] = $data->getPhoneNumber();
         if ($data->isInitialized('type') && null !== $data->getType()) {
             $values = [];

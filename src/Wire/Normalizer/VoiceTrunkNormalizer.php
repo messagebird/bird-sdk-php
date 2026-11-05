@@ -180,9 +180,21 @@ class VoiceTrunkNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunk.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('workspaceId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunk.workspace_id missing');
+        }
         $dataArray['workspace_id'] = $data->getWorkspaceId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunk.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('media')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunk.media missing');
+        }
         $dataArray['media'] = $this->normalizer->normalize($data->getMedia(), 'json', $context);
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

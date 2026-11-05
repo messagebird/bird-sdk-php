@@ -190,6 +190,9 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('to')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SMSMessageSendRequest.to missing');
+        }
         $dataArray['to'] = $data->getTo();
         if ($data->isInitialized('toCountryCode') && null !== $data->getToCountryCode()) {
             $dataArray['to_country_code'] = $data->getToCountryCode();

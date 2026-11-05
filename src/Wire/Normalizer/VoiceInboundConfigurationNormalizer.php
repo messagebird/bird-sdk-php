@@ -64,6 +64,9 @@ class VoiceInboundConfigurationNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('route')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceInboundConfiguration.route missing');
+        }
         $dataArray['route'] = $data->getRoute();
         if ($data->isInitialized('configurationError') && null !== $data->getConfigurationError()) {
             $dataArray['configuration_error'] = $data->getConfigurationError();

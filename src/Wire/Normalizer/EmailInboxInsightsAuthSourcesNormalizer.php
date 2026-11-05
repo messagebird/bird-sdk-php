@@ -64,6 +64,9 @@ class EmailInboxInsightsAuthSourcesNormalizer implements DenormalizerInterface, 
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsAuthSources.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         return $dataArray;
     }

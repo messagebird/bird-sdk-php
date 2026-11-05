@@ -74,7 +74,13 @@ class VoiceSequenceSavedPreviewNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('triggerNodeId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedPreview.trigger_node_id missing');
+        }
         $dataArray['trigger_node_id'] = $data->getTriggerNodeId();
+        if (!$data->isInitialized('triggerData')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceSequenceSavedPreview.trigger_data missing');
+        }
         $values = [];
         foreach ($data->getTriggerData() as $key => $value) {
             $values[$key] = $value;

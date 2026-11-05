@@ -88,15 +88,30 @@ class ComplianceSubmissionCreateNormalizer implements DenormalizerInterface, Nor
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('subjectKind')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceSubmissionCreate.subject_kind missing');
+        }
         $dataArray['subject_kind'] = $data->getSubjectKind();
+        if (!$data->isInitialized('subjectId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceSubmissionCreate.subject_id missing');
+        }
         $dataArray['subject_id'] = $data->getSubjectId();
+        if (!$data->isInitialized('program')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceSubmissionCreate.program missing');
+        }
         $dataArray['program'] = $data->getProgram();
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceSubmissionCreate.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
         if ($data->isInitialized('identityId') && null !== $data->getIdentityId()) {
             $dataArray['identity_id'] = $data->getIdentityId();
         }
         if ($data->isInitialized('identity') && null !== $data->getIdentity()) {
             $dataArray['identity'] = $this->normalizer->normalize($data->getIdentity(), 'json', $context);
+        }
+        if (!$data->isInitialized('answers')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ComplianceSubmissionCreate.answers missing');
         }
         $values = [];
         foreach ($data->getAnswers() as $value) {

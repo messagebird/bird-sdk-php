@@ -102,6 +102,9 @@ class VoiceDestinationNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('enabled')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceDestination.enabled missing');
+        }
         $dataArray['enabled'] = $data->getEnabled();
         return $dataArray;
     }

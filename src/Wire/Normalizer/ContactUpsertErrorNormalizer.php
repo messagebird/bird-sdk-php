@@ -76,8 +76,17 @@ class ContactUpsertErrorNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertError.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertError.code missing');
+        }
         $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('message')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field ContactUpsertError.message missing');
+        }
         $dataArray['message'] = $data->getMessage();
         if ($data->isInitialized('param') && null !== $data->getParam()) {
             $dataArray['param'] = $data->getParam();

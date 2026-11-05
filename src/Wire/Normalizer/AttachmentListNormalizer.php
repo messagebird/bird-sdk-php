@@ -86,13 +86,25 @@ class AttachmentListNormalizer implements DenormalizerInterface, NormalizerInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AttachmentList.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('nextCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AttachmentList.next_cursor missing');
+        }
         $dataArray['next_cursor'] = $data->getNextCursor();
+        if (!$data->isInitialized('prevCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AttachmentList.prev_cursor missing');
+        }
         $dataArray['prev_cursor'] = $data->getPrevCursor();
+        if (!$data->isInitialized('refreshCursor')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AttachmentList.refresh_cursor missing');
+        }
         $dataArray['refresh_cursor'] = $data->getRefreshCursor();
         if ($data->isInitialized('total')) {
             $dataArray['total'] = $data->getTotal();

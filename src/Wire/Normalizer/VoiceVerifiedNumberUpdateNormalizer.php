@@ -48,9 +48,10 @@ class VoiceVerifiedNumberUpdateNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('name')) {
-            $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceVerifiedNumberUpdate.name missing');
         }
+        $dataArray['name'] = $data->getName();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

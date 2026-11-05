@@ -88,6 +88,9 @@ class EmailTemplateLanguageNormalizer implements DenormalizerInterface, Normaliz
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('language')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateLanguage.language missing');
+        }
         $dataArray['language'] = $data->getLanguage();
         if ($data->isInitialized('content') && null !== $data->getContent()) {
             $dataArray['content'] = $this->normalizer->normalize($data->getContent(), 'json', $context);

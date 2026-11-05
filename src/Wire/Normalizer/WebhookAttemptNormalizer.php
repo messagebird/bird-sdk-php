@@ -105,15 +105,30 @@ class WebhookAttemptNormalizer implements DenormalizerInterface, NormalizerInter
         if ($data->isInitialized('eventId')) {
             $dataArray['event_id'] = $data->getEventId();
         }
+        if (!$data->isInitialized('eventType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookAttempt.event_type missing');
+        }
         $dataArray['event_type'] = $data->getEventType();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookAttempt.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookAttempt.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('failureReason') && null !== $data->getFailureReason()) {
             $dataArray['failure_reason'] = $data->getFailureReason();
         }
+        if (!$data->isInitialized('responseStatusCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookAttempt.response_status_code missing');
+        }
         $dataArray['response_status_code'] = $data->getResponseStatusCode();
         if ($data->isInitialized('responseBody') && null !== $data->getResponseBody()) {
             $dataArray['response_body'] = $data->getResponseBody();
+        }
+        if (!$data->isInitialized('responseDurationMs')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookAttempt.response_duration_ms missing');
         }
         $dataArray['response_duration_ms'] = $data->getResponseDurationMs();
         return $dataArray;

@@ -78,6 +78,9 @@ class EmailCompetitiveSendTimeCellNormalizer implements DenormalizerInterface, N
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('weekday')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailCompetitiveSendTimeCell.weekday missing');
+        }
         $dataArray['weekday'] = $data->getWeekday();
         return $dataArray;
     }

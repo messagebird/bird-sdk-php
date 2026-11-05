@@ -132,12 +132,24 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreated.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('url')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreated.url missing');
+        }
         $dataArray['url'] = $data->getUrl();
         if ($data->isInitialized('description') && null !== $data->getDescription()) {
             $dataArray['description'] = $data->getDescription();
         }
+        if (!$data->isInitialized('filter')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreated.filter missing');
+        }
         $dataArray['filter'] = $this->normalizer->normalize($data->getFilter(), 'json', $context);
+        if (!$data->isInitialized('events')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreated.events missing');
+        }
         $values = [];
         foreach ($data->getEvents() as $value) {
             $values[] = $value;
@@ -145,6 +157,9 @@ class WebhookEndpointCreatedNormalizer implements DenormalizerInterface, Normali
         $dataArray['events'] = $values;
         if ($data->isInitialized('destination') && null !== $data->getDestination()) {
             $dataArray['destination'] = $data->getDestination();
+        }
+        if (!$data->isInitialized('secret')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WebhookEndpointCreated.secret missing');
         }
         $dataArray['secret'] = $data->getSecret();
         foreach ($data as $key => $value_1) {

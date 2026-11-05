@@ -54,6 +54,9 @@ class VoiceCallSequenceNormalizer implements DenormalizerInterface, NormalizerIn
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('runId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceCallSequence.run_id missing');
+        }
         $dataArray['run_id'] = $data->getRunId();
         return $dataArray;
     }

@@ -54,7 +54,13 @@ class EsimPackagePriceNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('amount')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimPackagePrice.amount missing');
+        }
         $dataArray['amount'] = $data->getAmount();
+        if (!$data->isInitialized('currencyCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimPackagePrice.currency_code missing');
+        }
         $dataArray['currency_code'] = $data->getCurrencyCode();
         return $dataArray;
     }

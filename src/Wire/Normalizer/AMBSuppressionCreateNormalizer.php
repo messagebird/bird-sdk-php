@@ -63,7 +63,13 @@ class AMBSuppressionCreateNormalizer implements DenormalizerInterface, Normalize
         if ($data->isInitialized('businessAccountId') && null !== $data->getBusinessAccountId()) {
             $dataArray['business_account_id'] = $data->getBusinessAccountId();
         }
+        if (!$data->isInitialized('address')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppressionCreate.address missing');
+        }
         $dataArray['address'] = $data->getAddress();
+        if (!$data->isInitialized('addressType')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppressionCreate.address_type missing');
+        }
         $dataArray['address_type'] = $data->getAddressType();
         return $dataArray;
     }

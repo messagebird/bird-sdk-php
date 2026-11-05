@@ -54,7 +54,13 @@ class SuppressionScopeNormalizer implements DenormalizerInterface, NormalizerInt
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SuppressionScope.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field SuppressionScope.id missing');
+        }
         $dataArray['id'] = $data->getId();
         return $dataArray;
     }

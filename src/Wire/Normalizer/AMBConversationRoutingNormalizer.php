@@ -66,9 +66,21 @@ class AMBConversationRoutingNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('groupId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRouting.group_id missing');
+        }
         $dataArray['group_id'] = $data->getGroupId();
+        if (!$data->isInitialized('intentId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRouting.intent_id missing');
+        }
         $dataArray['intent_id'] = $data->getIntentId();
+        if (!$data->isInitialized('entryPoint')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRouting.entry_point missing');
+        }
         $dataArray['entry_point'] = $data->getEntryPoint();
+        if (!$data->isInitialized('queue')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRouting.queue missing');
+        }
         $dataArray['queue'] = $data->getQueue();
         return $dataArray;
     }

@@ -58,11 +58,17 @@ class WorkspaceQuotaListNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('data')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaList.data missing');
+        }
         $values = [];
         foreach ($data->getData() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
         $dataArray['data'] = $values;
+        if (!$data->isInitialized('configuration')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceQuotaList.configuration missing');
+        }
         $dataArray['configuration'] = $data->getConfiguration();
         return $dataArray;
     }

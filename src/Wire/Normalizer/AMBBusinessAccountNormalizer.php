@@ -115,8 +115,17 @@ class AMBBusinessAccountNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('id')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccount.id missing');
+        }
         $dataArray['id'] = $data->getId();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccount.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBBusinessAccount.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
         if ($data->isInitialized('accountReviewStatus') && null !== $data->getAccountReviewStatus()) {
             $dataArray['account_review_status'] = $data->getAccountReviewStatus();

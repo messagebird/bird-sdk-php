@@ -138,15 +138,36 @@ class EmailInboxInsightsPlacementNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('measurement')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.measurement missing');
+        }
         $dataArray['measurement'] = $this->normalizer->normalize($data->getMeasurement(), 'json', $context);
+        if (!$data->isInitialized('freshness')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.freshness missing');
+        }
         $dataArray['freshness'] = $this->normalizer->normalize($data->getFreshness(), 'json', $context);
+        if (!$data->isInitialized('window')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.window missing');
+        }
         $dataArray['window'] = $this->normalizer->normalize($data->getWindow(), 'json', $context);
         if ($data->isInitialized('comparedTo') && null !== $data->getComparedTo()) {
             $dataArray['compared_to'] = $this->normalizer->normalize($data->getComparedTo(), 'json', $context);
         }
+        if (!$data->isInitialized('summary')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.summary missing');
+        }
         $dataArray['summary'] = $this->normalizer->normalize($data->getSummary(), 'json', $context);
+        if (!$data->isInitialized('providers')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.providers missing');
+        }
         $dataArray['providers'] = $this->normalizer->normalize($data->getProviders(), 'json', $context);
+        if (!$data->isInitialized('series')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.series missing');
+        }
         $dataArray['series'] = $this->normalizer->normalize($data->getSeries(), 'json', $context);
+        if (!$data->isInitialized('gmailTabs')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailInboxInsightsPlacement.gmail_tabs missing');
+        }
         $dataArray['gmail_tabs'] = $this->normalizer->normalize($data->getGmailTabs(), 'json', $context);
         if ($data->isInitialized('ipDetails') && null !== $data->getIpDetails()) {
             $dataArray['ip_details'] = $this->normalizer->normalize($data->getIpDetails(), 'json', $context);

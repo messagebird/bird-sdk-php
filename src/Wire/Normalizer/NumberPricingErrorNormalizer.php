@@ -146,14 +146,32 @@ class NumberPricingErrorNormalizer implements DenormalizerInterface, NormalizerI
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.type missing');
+        }
         $dataArray['type'] = $data->getType();
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.code missing');
+        }
         $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('name')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.name missing');
+        }
         $dataArray['name'] = $data->getName();
+        if (!$data->isInitialized('message')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.message missing');
+        }
         $dataArray['message'] = $data->getMessage();
         if ($data->isInitialized('param') && null !== $data->getParam()) {
             $dataArray['param'] = $data->getParam();
         }
+        if (!$data->isInitialized('docUrl')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.doc_url missing');
+        }
         $dataArray['doc_url'] = $data->getDocUrl();
+        if (!$data->isInitialized('requestId')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberPricingError.request_id missing');
+        }
         $dataArray['request_id'] = $data->getRequestId();
         if ($data->isInitialized('vendorCode') && null !== $data->getVendorCode()) {
             $dataArray['vendor_code'] = $data->getVendorCode();

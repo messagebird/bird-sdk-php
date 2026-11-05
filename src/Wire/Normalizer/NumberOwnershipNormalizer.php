@@ -103,6 +103,9 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('satisfied')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberOwnership.satisfied missing');
+        }
         $dataArray['satisfied'] = $data->getSatisfied();
         if ($data->isInitialized('blockedAt')) {
             $dataArray['blocked_at'] = $data->getBlockedAt()?->format('Y-m-d\TH:i:sP');
@@ -112,6 +115,9 @@ class NumberOwnershipNormalizer implements DenormalizerInterface, NormalizerInte
         }
         if ($data->isInitialized('registrationDueAt') && null !== $data->getRegistrationDueAt()) {
             $dataArray['registration_due_at'] = $data->getRegistrationDueAt()->format('Y-m-d\TH:i:sP');
+        }
+        if (!$data->isInitialized('next')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field NumberOwnership.next missing');
         }
         $values = [];
         foreach ($data->getNext() as $value) {

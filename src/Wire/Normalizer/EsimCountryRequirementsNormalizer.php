@@ -64,8 +64,17 @@ class EsimCountryRequirementsNormalizer implements DenormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('countryCode')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCountryRequirements.country_code missing');
+        }
         $dataArray['country_code'] = $data->getCountryCode();
+        if (!$data->isInitialized('schemaRevision')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCountryRequirements.schema_revision missing');
+        }
         $dataArray['schema_revision'] = $data->getSchemaRevision();
+        if (!$data->isInitialized('schema')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EsimCountryRequirements.schema missing');
+        }
         $values = [];
         foreach ($data->getSchema() as $key => $value) {
             $values[$key] = $value;

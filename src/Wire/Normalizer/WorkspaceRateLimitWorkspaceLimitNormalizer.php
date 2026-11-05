@@ -75,9 +75,21 @@ class WorkspaceRateLimitWorkspaceLimitNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('value')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitWorkspaceLimit.value missing');
+        }
         $dataArray['value'] = $data->getValue();
+        if (!$data->isInitialized('status')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitWorkspaceLimit.status missing');
+        }
         $dataArray['status'] = $data->getStatus();
+        if (!$data->isInitialized('expiresAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitWorkspaceLimit.expires_at missing');
+        }
         $dataArray['expires_at'] = $data->getExpiresAt()?->format('Y-m-d\TH:i:sP');
+        if (!$data->isInitialized('updatedAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimitWorkspaceLimit.updated_at missing');
+        }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
