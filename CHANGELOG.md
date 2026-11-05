@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.104.0
+
+- Voice leg `rejection_reason` accepts values added later, so treat a value you don't recognize as a new reason. It gains `emergency_number_inactive`, `emergency_cap_exceeded` and `emergency_carrier_unavailable`.
+
 ## 0.103.0
 
 - **Breaking:** ContactPropertyCreateRequest and ContactPropertyUpdateRequest preserve explicit null for `fallback_value`; RealtimePublish, RealtimeBatchEvent and RealtimeMemberPublish preserve null for `data`. Leave the setter uncalled to omit the field; set null to clear a contact fallback or deliver a null payload.
