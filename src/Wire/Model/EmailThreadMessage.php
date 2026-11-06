@@ -66,6 +66,12 @@ class EmailThreadMessage
      */
     protected $from;
     /**
+     * Display name in the sender's From header, such as `Ada Lovelace`. The sender chooses it and it is not verified, so identify the sender by `from`. Null when the sender gave no name or the name is not available.
+     *
+     * @var string|null
+     */
+    protected $fromName;
+    /**
      * Recipient addresses on the To line.
      *
      * @var list<string>|null
@@ -405,6 +411,28 @@ class EmailThreadMessage
     {
         $this->initialized['from'] = true;
         $this->from = $from;
+        return $this;
+    }
+    /**
+     * Display name in the sender's From header, such as `Ada Lovelace`. The sender chooses it and it is not verified, so identify the sender by `from`. Null when the sender gave no name or the name is not available.
+     *
+     * @return string|null
+     */
+    public function getFromName(): ?string
+    {
+        return $this->fromName;
+    }
+    /**
+     * Display name in the sender's From header, such as `Ada Lovelace`. The sender chooses it and it is not verified, so identify the sender by `from`. Null when the sender gave no name or the name is not available.
+     *
+     * @param string|null $fromName
+     *
+     * @return self
+     */
+    public function setFromName(?string $fromName): self
+    {
+        $this->initialized['fromName'] = true;
+        $this->fromName = $fromName;
         return $this;
     }
     /**

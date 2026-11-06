@@ -100,6 +100,12 @@ class EmailThreadMessageNormalizer implements DenormalizerInterface, NormalizerI
         elseif (\array_key_exists('from', $data) && $data['from'] === null) {
             $object->setFrom(null);
         }
+        if (\array_key_exists('from_name', $data) && $data['from_name'] !== null) {
+            $object->setFromName($data['from_name']);
+        }
+        elseif (\array_key_exists('from_name', $data) && $data['from_name'] === null) {
+            $object->setFromName(null);
+        }
         if (\array_key_exists('to', $data) && $data['to'] !== null) {
             $values = [];
             foreach ($data['to'] as $value) {

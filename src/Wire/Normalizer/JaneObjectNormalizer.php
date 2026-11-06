@@ -1934,6 +1934,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\ReceiveRuleCreate::class => \MessageBird\Wire\Normalizer\ReceiveRuleCreateNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailThreadParticipantName::class => \MessageBird\Wire\Normalizer\EmailThreadParticipantNameNormalizer::class,
+
         \MessageBird\Wire\Model\EmailThreadHighlights::class => \MessageBird\Wire\Normalizer\EmailThreadHighlightsNormalizer::class,
 
         \MessageBird\Wire\Model\EmailThread::class => \MessageBird\Wire\Normalizer\EmailThreadNormalizer::class,
@@ -3390,6 +3392,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ReceiveRule::class => false,
             \MessageBird\Wire\Model\ReceiveRuleList::class => false,
             \MessageBird\Wire\Model\ReceiveRuleCreate::class => false,
+            \MessageBird\Wire\Model\EmailThreadParticipantName::class => false,
             \MessageBird\Wire\Model\EmailThreadHighlights::class => false,
             \MessageBird\Wire\Model\EmailThread::class => false,
             \MessageBird\Wire\Model\EmailThreadList::class => false,

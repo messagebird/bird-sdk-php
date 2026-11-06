@@ -80,6 +80,16 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         elseif (\array_key_exists('participants', $data) && $data['participants'] === null) {
             $object->setParticipants(null);
         }
+        if (\array_key_exists('participant_names', $data) && $data['participant_names'] !== null) {
+            $values_1 = [];
+            foreach ($data['participant_names'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\EmailThreadParticipantName::class, 'json', $context);
+            }
+            $object->setParticipantNames($values_1);
+        }
+        elseif (\array_key_exists('participant_names', $data) && $data['participant_names'] === null) {
+            $object->setParticipantNames(null);
+        }
         if (\array_key_exists('message_count', $data) && $data['message_count'] !== null) {
             $object->setMessageCount($data['message_count']);
         }
@@ -117,11 +127,11 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setRead(null);
         }
         if (\array_key_exists('labels', $data) && $data['labels'] !== null) {
-            $values_1 = [];
-            foreach ($data['labels'] as $value_1) {
-                $values_1[] = $value_1;
+            $values_2 = [];
+            foreach ($data['labels'] as $value_2) {
+                $values_2[] = $value_2;
             }
-            $object->setLabels($values_1);
+            $object->setLabels($values_2);
         }
         elseif (\array_key_exists('labels', $data) && $data['labels'] === null) {
             $object->setLabels(null);
@@ -189,6 +199,14 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
             $values[] = $value;
         }
         $dataArray['participants'] = $values;
+        if (!$data->isInitialized('participantNames')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.participant_names missing');
+        }
+        $values_1 = [];
+        foreach ($data->getParticipantNames() as $value_1) {
+            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+        }
+        $dataArray['participant_names'] = $values_1;
         if (!$data->isInitialized('messageCount')) {
             throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.message_count missing');
         }
@@ -216,11 +234,11 @@ class EmailThreadNormalizer implements DenormalizerInterface, NormalizerInterfac
         if (!$data->isInitialized('labels')) {
             throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.labels missing');
         }
-        $values_1 = [];
-        foreach ($data->getLabels() as $value_1) {
-            $values_1[] = $value_1;
+        $values_2 = [];
+        foreach ($data->getLabels() as $value_2) {
+            $values_2[] = $value_2;
         }
-        $dataArray['labels'] = $values_1;
+        $dataArray['labels'] = $values_2;
         if (!$data->isInitialized('createdAt')) {
             throw new \MessageBird\Exception\RequestValidationException('required field EmailThread.created_at missing');
         }

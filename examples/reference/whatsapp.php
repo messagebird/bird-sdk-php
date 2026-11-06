@@ -19,8 +19,6 @@ use MessageBird\Wire\Model\WhatsAppGroupPinnedMessageCreate;
 use MessageBird\Wire\Model\WhatsAppGroupUpdate;
 use MessageBird\Wire\Model\WhatsAppKeywordRuleCreate;
 use MessageBird\Wire\Model\WhatsAppKeywordRuleUpdate;
-use MessageBird\Wire\Model\WhatsAppMessageTemplateComponent;
-use MessageBird\Wire\Model\WhatsAppMessageTemplateComponentParameter;
 use MessageBird\Wire\Model\WhatsAppReactionUpsert;
 use MessageBird\Wire\Model\WhatsAppReadReceiptRequest;
 use MessageBird\Wire\Model\WhatsAppSuppressionCreate;
@@ -39,13 +37,7 @@ $message = $bird->whatsapp->send(
     to: '+15551234567',
     template: 'bird_otp',
     language: 'en',
-    components: [
-        (new WhatsAppMessageTemplateComponent())
-            ->setType('body')
-            ->setParameters([
-                (new WhatsAppMessageTemplateComponentParameter())->setType('text')->setText('123456'),
-            ]),
-    ],
+    parameters: ['code' => '123456'],
 );
 echo $message->getId(), ' ', $message->getStatus();
 

@@ -48,6 +48,12 @@ class EmailThread
      */
     protected $participants;
     /**
+     * Display names for participants, taken from this conversation's messages. A name is either the one a sender gave in their From header or the one your mailbox gave a To or Cc recipient when sending. When a participant was named more than once, the most recent name is shown. Names are not verified, so identify participants by address. A participant without a name is absent.
+     *
+     * @var list<EmailThreadParticipantName>|null
+     */
+    protected $participantNames;
+    /**
      * Number of retained messages in this conversation, both directions.
      *
      * @var int|null
@@ -242,6 +248,28 @@ class EmailThread
     {
         $this->initialized['participants'] = true;
         $this->participants = $participants;
+        return $this;
+    }
+    /**
+     * Display names for participants, taken from this conversation's messages. A name is either the one a sender gave in their From header or the one your mailbox gave a To or Cc recipient when sending. When a participant was named more than once, the most recent name is shown. Names are not verified, so identify participants by address. A participant without a name is absent.
+     *
+     * @return list<EmailThreadParticipantName>|null
+     */
+    public function getParticipantNames(): ?array
+    {
+        return $this->participantNames;
+    }
+    /**
+     * Display names for participants, taken from this conversation's messages. A name is either the one a sender gave in their From header or the one your mailbox gave a To or Cc recipient when sending. When a participant was named more than once, the most recent name is shown. Names are not verified, so identify participants by address. A participant without a name is absent.
+     *
+     * @param list<EmailThreadParticipantName>|null $participantNames
+     *
+     * @return self
+     */
+    public function setParticipantNames(?array $participantNames): self
+    {
+        $this->initialized['participantNames'] = true;
+        $this->participantNames = $participantNames;
         return $this;
     }
     /**
