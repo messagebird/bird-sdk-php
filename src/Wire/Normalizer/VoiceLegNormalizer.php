@@ -137,6 +137,12 @@ class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, 
         elseif (\array_key_exists('answered_at', $data) && $data['answered_at'] === null) {
             $object->setAnsweredAt(null);
         }
+        if (\array_key_exists('answered_by', $data) && $data['answered_by'] !== null) {
+            $object->setAnsweredBy($data['answered_by']);
+        }
+        elseif (\array_key_exists('answered_by', $data) && $data['answered_by'] === null) {
+            $object->setAnsweredBy(null);
+        }
         if (\array_key_exists('ended_at', $data) && $data['ended_at'] !== null) {
             $object->setEndedAt(new \DateTime($data['ended_at']));
         }

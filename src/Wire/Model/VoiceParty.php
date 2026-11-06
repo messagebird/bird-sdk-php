@@ -34,6 +34,12 @@ class VoiceParty
      */
     protected $trunkId;
     /**
+     * The workspace user this side acted for, such as a user's browser, the ring group member whose side a recording captured, or the user who started a sequence call. `null` for every other participant, including an API key.
+     *
+     * @var string|null
+     */
+    protected $userId;
+    /**
      * What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
      * 
      * `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
@@ -103,6 +109,28 @@ class VoiceParty
     {
         $this->initialized['trunkId'] = true;
         $this->trunkId = $trunkId;
+        return $this;
+    }
+    /**
+     * The workspace user this side acted for, such as a user's browser, the ring group member whose side a recording captured, or the user who started a sequence call. `null` for every other participant, including an API key.
+     *
+     * @return string|null
+     */
+    public function getUserId(): ?string
+    {
+        return $this->userId;
+    }
+    /**
+     * The workspace user this side acted for, such as a user's browser, the ring group member whose side a recording captured, or the user who started a sequence call. `null` for every other participant, including an API key.
+     *
+     * @param string|null $userId
+     *
+     * @return self
+     */
+    public function setUserId(?string $userId): self
+    {
+        $this->initialized['userId'] = true;
+        $this->userId = $userId;
         return $this;
     }
 }

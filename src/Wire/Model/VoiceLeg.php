@@ -37,7 +37,7 @@ class VoiceLeg
      */
     protected $from;
     /**
-     * Called party number in E.164 format.
+     * The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
      *
      * @var string|null
      */
@@ -107,6 +107,12 @@ class VoiceLeg
      * @var \DateTime|null
      */
     protected $answeredAt;
+    /**
+     * Who answered when Bird rang your workspace users for this leg, through a ring group or a browser call to a user or a ring group. When a sequence rings more than once, it names who answered the latest ring. `null` when no workspace user answered, and on legs recorded before this field existed. Handle unknown `type` values as future answerer kinds.
+     *
+     * @var mixed|null
+     */
+    protected $answeredBy;
     /**
      * When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
      *
@@ -248,7 +254,7 @@ class VoiceLeg
         return $this;
     }
     /**
-     * Called party number in E.164 format.
+     * The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
      *
      * @return string|null
      */
@@ -257,7 +263,7 @@ class VoiceLeg
         return $this->to;
     }
     /**
-     * Called party number in E.164 format.
+     * The dialled destination: an E.164 number, a SIP extension such as `1001` on a trunk call, or the `usr_` or `vrg_` ID of the workspace user or ring group a browser called.
      *
      * @param string|null $to
      *
@@ -497,6 +503,28 @@ class VoiceLeg
     {
         $this->initialized['answeredAt'] = true;
         $this->answeredAt = $answeredAt;
+        return $this;
+    }
+    /**
+     * Who answered when Bird rang your workspace users for this leg, through a ring group or a browser call to a user or a ring group. When a sequence rings more than once, it names who answered the latest ring. `null` when no workspace user answered, and on legs recorded before this field existed. Handle unknown `type` values as future answerer kinds.
+     *
+     * @return mixed
+     */
+    public function getAnsweredBy()
+    {
+        return $this->answeredBy;
+    }
+    /**
+     * Who answered when Bird rang your workspace users for this leg, through a ring group or a browser call to a user or a ring group. When a sequence rings more than once, it names who answered the latest ring. `null` when no workspace user answered, and on legs recorded before this field existed. Handle unknown `type` values as future answerer kinds.
+     *
+     * @param mixed $answeredBy
+     *
+     * @return self
+     */
+    public function setAnsweredBy($answeredBy): self
+    {
+        $this->initialized['answeredBy'] = true;
+        $this->answeredBy = $answeredBy;
         return $this;
     }
     /**

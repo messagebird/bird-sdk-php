@@ -55,6 +55,12 @@ class VoicePartyNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('trunk_id', $data) && $data['trunk_id'] === null) {
             $object->setTrunkId(null);
         }
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
+            $object->setUserId($data['user_id']);
+        }
+        elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
+            $object->setUserId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
