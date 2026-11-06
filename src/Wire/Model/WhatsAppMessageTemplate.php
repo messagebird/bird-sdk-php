@@ -42,6 +42,13 @@ class WhatsAppMessageTemplate
      */
     protected $bidMultiplier;
     /**
+     * The `template.parameters` map the message was sent with, keeping only the keys the template language reads; keys the send ignored are dropped. `components` shows the values the template rendered from it. Absent for a `components` send, for an authentication template, and for messages sent before Bird stored it.
+     * 
+     *
+     * @var array<string, mixed>|null
+     */
+    protected $parameters;
+    /**
      * The values that filled the template's placeholders. Empty for an authentication template, whose content is never returned.
      * 
      *
@@ -136,6 +143,29 @@ class WhatsAppMessageTemplate
     {
         $this->initialized['bidMultiplier'] = true;
         $this->bidMultiplier = $bidMultiplier;
+        return $this;
+    }
+    /**
+     * The `template.parameters` map the message was sent with, keeping only the keys the template language reads; keys the send ignored are dropped. `components` shows the values the template rendered from it. Absent for a `components` send, for an authentication template, and for messages sent before Bird stored it.
+     * 
+     *
+     * @return array<string, mixed>|null
+     */
+    public function getParameters(): ?iterable
+    {
+        return $this->parameters;
+    }
+    /**
+     * The `template.parameters` map the message was sent with, keeping only the keys the template language reads; keys the send ignored are dropped. `components` shows the values the template rendered from it. Absent for a `components` send, for an authentication template, and for messages sent before Bird stored it.
+     *
+     * @param array<string, mixed>|null $parameters
+     *
+     * @return self
+     */
+    public function setParameters(?iterable $parameters): self
+    {
+        $this->initialized['parameters'] = true;
+        $this->parameters = $parameters;
         return $this;
     }
     /**

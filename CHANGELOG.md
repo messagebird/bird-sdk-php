@@ -2,6 +2,14 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.105.0
+
+- Add `assets.uploads.handoff` to return a browser upload page for an existing session when direct transfer is blocked. A signed-in person with asset write access selects the original file and publishes it; read the saved result with `assets.uploads.get` using the original connection.
+- `Whatsapp::send` gains a `$parameters` argument to fill a template by name instead of `$components`. A template language with parameter bindings can only be sent this way.
+- WhatsApp template version reads now return `variables`, the inputs a template `parameters` send fills by name. Template languages now read and write `parameter_bindings`: set them to fill a placeholder from Liquid, omit them to keep the stored bindings, or send `null` to clear them. Message reads now return the `parameters` a template send carried.
+- Add `limit_source`, `automatic_limit`, and `allocation_enabled` to workspace rate-limit reads. These fields are present for organizations with one workspace too; without a workspace limit or allocation, their values are `organization`, `null`, and `false`. Workspace rate-limit controls apply to organizations with several workspaces, or a manual limit or enabled allocation retained after deletion.
+- An empty map nested in a request model, such as an empty `parameter_bindings`, now reaches the API as `{}` instead of `[]`.
+
 ## 0.104.0
 
 - Voice leg `rejection_reason` accepts values added later, so treat a value you don't recognize as a new reason. It gains `emergency_number_inactive`, `emergency_cap_exceeded` and `emergency_carrier_unavailable`.

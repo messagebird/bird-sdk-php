@@ -37,6 +37,12 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('parameter_bindings', $data) && $data['parameter_bindings'] !== null) {
+            $object->setParameterBindings($this->denormalizer->denormalize($data['parameter_bindings'], \MessageBird\Wire\Model\WhatsAppTemplateLanguageParameterBindings::class, 'json', $context));
+        }
+        elseif (\array_key_exists('parameter_bindings', $data) && $data['parameter_bindings'] === null) {
+            $object->setParameterBindings(null);
+        }
         if (\array_key_exists('optimization_spec', $data) && $data['optimization_spec'] !== null) {
             $object->setOptimizationSpec($this->denormalizer->denormalize($data['optimization_spec'], \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class, 'json', $context));
         }
@@ -154,6 +160,9 @@ class WhatsAppTemplateLanguageNormalizer implements DenormalizerInterface, Norma
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('parameterBindings') && null !== $data->getParameterBindings()) {
+            $dataArray['parameter_bindings'] = $this->normalizer->normalize($data->getParameterBindings(), 'json', $context);
+        }
         if ($data->isInitialized('optimizationSpec')) {
             $dataArray['optimization_spec'] = $this->normalizer->normalize($data->getOptimizationSpec(), 'json', $context);
         }

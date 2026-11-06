@@ -64,12 +64,22 @@ class WhatsAppMessageTemplateWrapperNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] === null) {
             $object->setBidMultiplier(null);
         }
-        if (\array_key_exists('components', $data) && $data['components'] !== null) {
-            $values = [];
-            foreach ($data['components'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
+        if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameters'] as $key => $value) {
+                $values[$key] = $value;
             }
-            $object->setComponents($values);
+            $object->setParameters($values);
+        }
+        elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
+            $object->setParameters(null);
+        }
+        if (\array_key_exists('components', $data) && $data['components'] !== null) {
+            $values_1 = [];
+            foreach ($data['components'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
+            }
+            $object->setComponents($values_1);
         }
         elseif (\array_key_exists('components', $data) && $data['components'] === null) {
             $object->setComponents(null);

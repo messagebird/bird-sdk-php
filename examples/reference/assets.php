@@ -70,3 +70,8 @@ echo $upload->getState();
 
 $upload = $bird->assets->uploads->cancel('aus_01krdgeqcxet5s7t44vh8rt9mg');
 echo $upload->getState();
+
+$handoff = $bird->assets->uploads->handoff('aus_01krdgeqcxet5s7t44vh8rt9mg');
+if ($handoff->getBrowserUrl() !== null) {
+    echo $handoff->getBrowserUrl();
+}

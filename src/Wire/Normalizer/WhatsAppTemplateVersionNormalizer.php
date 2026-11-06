@@ -61,12 +61,22 @@ class WhatsAppTemplateVersionNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('submitted_at', $data) && $data['submitted_at'] === null) {
             $object->setSubmittedAt(null);
         }
-        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['languages'] as $key => $value) {
-                $values[$key] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class, 'json', $context);
+        if (\array_key_exists('variables', $data) && $data['variables'] !== null) {
+            $values = [];
+            foreach ($data['variables'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\TemplateVariable::class, 'json', $context);
             }
-            $object->setLanguages($values);
+            $object->setVariables($values);
+        }
+        elseif (\array_key_exists('variables', $data) && $data['variables'] === null) {
+            $object->setVariables(null);
+        }
+        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['languages'] as $key => $value_1) {
+                $values_1[$key] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class, 'json', $context);
+            }
+            $object->setLanguages($values_1);
         }
         elseif (\array_key_exists('languages', $data) && $data['languages'] === null) {
             $object->setLanguages(null);

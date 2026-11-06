@@ -78,10 +78,12 @@ final class Whatsapp extends WhatsappBase
      * every send but a Bird-managed template needs $from. Pass
      * $inReplyToMessageId to quote an earlier message from the same
      * conversation. $bidMultiplier scales a marketing language's maximum price
-     * for this message only.
+     * for this message only. $parameters fills the template by name instead of
+     * $components; a language with parameter bindings takes only $parameters.
      *
      * @param string|null                                 $template   the template's id (`wat_…`) or its stable handle (e.g. `bird_otp`)
      * @param list<WhatsAppMessageTemplateComponent>|null $components fills the template's placeholders
+     * @param array<string, mixed>|null                   $parameters the template's inputs by name, instead of $components
      * @param list<WhatsAppContactCardSend>|null          $contactCards
      * @param list<Tag>|null                              $tags
      * @param array<string, mixed>|null                   $metadata
@@ -107,9 +109,10 @@ final class Whatsapp extends WhatsappBase
         ?RequestOptions $options = null,
         // Last, so a caller passing every earlier argument positionally keeps working.
         ?float $bidMultiplier = null,
+        ?array $parameters = null,
     ): WhatsAppMessage {
         $request = (new WhatsAppMessageSendRequest())->setTo($to);
-        if ($template !== null || $language !== null || $components !== null || $bidMultiplier !== null) {
+        if ($template !== null || $language !== null || $components !== null || $parameters !== null || $bidMultiplier !== null) {
             $tmpl = new WhatsAppMessageSendRequestTemplate();
             // A wat_-prefixed value is the id; anything else is the slug handle.
             if ($template !== null && str_starts_with($template, 'wat_')) {
@@ -122,6 +125,9 @@ final class Whatsapp extends WhatsappBase
             }
             if ($components !== null) {
                 $tmpl->setComponents($components);
+            }
+            if ($parameters !== null) {
+                $tmpl->setParameters($parameters);
             }
             if ($bidMultiplier !== null) {
                 $tmpl->setBidMultiplier($bidMultiplier);

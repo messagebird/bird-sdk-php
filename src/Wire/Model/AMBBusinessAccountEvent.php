@@ -25,7 +25,7 @@ class AMBBusinessAccountEvent
      */
     protected $summary;
     /**
-     * Details of the change. source identifies whether a customer or Bird staff recorded it.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
      *
      * @var array<string, mixed>|null
      */
@@ -89,7 +89,7 @@ class AMBBusinessAccountEvent
         return $this;
     }
     /**
-     * Details of the change. source identifies whether a customer or Bird staff recorded it.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
      *
      * @return array<string, mixed>|null
      */
@@ -98,7 +98,7 @@ class AMBBusinessAccountEvent
         return $this->metadata;
     }
     /**
-     * Details of the change. source identifies whether a customer or Bird staff recorded it.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
      *
      * @param array<string, mixed>|null $metadata
      *

@@ -44,13 +44,13 @@ class WorkspaceRateLimitUsage
      */
     protected $organizationRemaining;
     /**
-     * The workspace's own limit requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
+     * The workspace's own limit or automatic share requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
      *
      * @var int|null
      */
     protected $workspaceLimit;
     /**
-     * Units this workspace can still use under its own limit. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
+     * Units this workspace can still use under its own limit or automatic share. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
      *
      * @var int|null
      */
@@ -158,7 +158,7 @@ class WorkspaceRateLimitUsage
         return $this;
     }
     /**
-     * The workspace's own limit requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
+     * The workspace's own limit or automatic share requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
      *
      * @return int|null
      */
@@ -167,7 +167,7 @@ class WorkspaceRateLimitUsage
         return $this->workspaceLimit;
     }
     /**
-     * The workspace's own limit requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
+     * The workspace's own limit or automatic share requests were checked against when usage was read. `null` when no workspace limit applied or usage is unavailable.
      *
      * @param int|null $workspaceLimit
      *
@@ -180,7 +180,7 @@ class WorkspaceRateLimitUsage
         return $this;
     }
     /**
-     * Units this workspace can still use under its own limit. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
+     * Units this workspace can still use under its own limit or automatic share. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
      *
      * @return int|null
      */
@@ -189,7 +189,7 @@ class WorkspaceRateLimitUsage
         return $this->workspaceRemaining;
     }
     /**
-     * Units this workspace can still use under its own limit. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
+     * Units this workspace can still use under its own limit or automatic share. `null` when no workspace limit applied, usage is unavailable, or workspace usage is not yet measured for long enough.
      *
      * @param int|null $workspaceRemaining
      *

@@ -682,6 +682,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AssetUploadSessionPreparedUpload::class => \MessageBird\Wire\Normalizer\AssetUploadSessionPreparedUploadNormalizer::class,
 
+        \MessageBird\Wire\Model\AssetUploadBrowserHandoff::class => \MessageBird\Wire\Normalizer\AssetUploadBrowserHandoffNormalizer::class,
+
+        \MessageBird\Wire\Model\AssetUploadBrowserHandoffSession::class => \MessageBird\Wire\Normalizer\AssetUploadBrowserHandoffSessionNormalizer::class,
+
         \MessageBird\Wire\Model\AssetList::class => \MessageBird\Wire\Normalizer\AssetListNormalizer::class,
 
         \MessageBird\Wire\Model\AssetUpload::class => \MessageBird\Wire\Normalizer\AssetUploadNormalizer::class,
@@ -824,8 +828,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VerificationNextChannelRequest::class => \MessageBird\Wire\Normalizer\VerificationNextChannelRequestNormalizer::class,
 
-        \MessageBird\Wire\Model\WhatsAppError::class => \MessageBird\Wire\Normalizer\WhatsAppErrorNormalizer::class,
-
         \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateExampleParameterNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateButton::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateButtonNormalizer::class,
@@ -921,6 +923,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppReactionFrom::class => \MessageBird\Wire\Normalizer\WhatsAppReactionFromNormalizer::class,
 
         \MessageBird\Wire\Model\Actor::class => \MessageBird\Wire\Normalizer\ActorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppError::class => \MessageBird\Wire\Normalizer\WhatsAppErrorNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppMessage::class => \MessageBird\Wire\Normalizer\WhatsAppMessageNormalizer::class,
 
@@ -1130,6 +1134,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageUpsertNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertParameterBindings::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageUpsertParameterBindingsNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageUpsertOptimizationSpecNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateCreateNormalizer::class,
@@ -1143,6 +1149,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppTemplateVersionList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionListNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageParameterBindings::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageParameterBindingsNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionLanguageRejectionNormalizer::class,
 
@@ -1167,6 +1175,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppTemplatePause::class => \MessageBird\Wire\Normalizer\WhatsAppTemplatePauseNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateLanguageParameterBindings::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageParameterBindingsNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageOptimizationSpecNormalizer::class,
 
@@ -2754,6 +2764,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AssetUploadSessionDetails::class => false,
             \MessageBird\Wire\Model\AssetUploadSessionPrepared::class => false,
             \MessageBird\Wire\Model\AssetUploadSessionPreparedUpload::class => false,
+            \MessageBird\Wire\Model\AssetUploadBrowserHandoff::class => false,
+            \MessageBird\Wire\Model\AssetUploadBrowserHandoffSession::class => false,
             \MessageBird\Wire\Model\AssetList::class => false,
             \MessageBird\Wire\Model\AssetUpload::class => false,
             \MessageBird\Wire\Model\AssetUpdate::class => false,
@@ -2825,7 +2837,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VerificationCheckRequest::class => false,
             \MessageBird\Wire\Model\VerificationCheckResult::class => false,
             \MessageBird\Wire\Model\VerificationNextChannelRequest::class => false,
-            \MessageBird\Wire\Model\WhatsAppError::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateButton::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCardComponent::class => false,
@@ -2874,6 +2885,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppReaction::class => false,
             \MessageBird\Wire\Model\WhatsAppReactionFrom::class => false,
             \MessageBird\Wire\Model\Actor::class => false,
+            \MessageBird\Wire\Model\WhatsAppError::class => false,
             \MessageBird\Wire\Model\WhatsAppMessage::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageFrom::class => false,
             \MessageBird\Wire\Model\WhatsAppMessageTo::class => false,
@@ -2978,6 +2990,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateCardWrite::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateComponentWrite::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsert::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertParameterBindings::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageUpsertOptimizationSpec::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateCreate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmitProblem::class => false,
@@ -2985,6 +2998,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateVersionSummary::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionList::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguage::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageParameterBindings::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageError::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => false,
@@ -2997,6 +3011,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplatePause::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateLanguageParameterBindings::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageOptimizationSpec::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageError::class => false,

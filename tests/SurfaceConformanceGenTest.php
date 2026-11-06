@@ -461,6 +461,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->esim->recurringSubscriptions->cancel(...),
             $bird->esim->recurringSubscriptions->periods(...),
             $bird->assets->uploads->create(...),
+            $bird->assets->uploads->handoff(...),
             $bird->assets->uploads->get(...),
             $bird->assets->uploads->prepare(...),
             $bird->assets->uploads->complete(...),
@@ -482,7 +483,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(460, $surface);
+        self::assertCount(461, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

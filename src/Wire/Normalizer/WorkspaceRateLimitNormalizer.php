@@ -37,6 +37,9 @@ class WorkspaceRateLimitNormalizer implements DenormalizerInterface, NormalizerI
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('allocation_enabled', $data) && \is_int($data['allocation_enabled'])) {
+            $data['allocation_enabled'] = (bool) $data['allocation_enabled'];
+        }
         if (\array_key_exists('key', $data) && $data['key'] !== null) {
             $object->setKey($data['key']);
         }
@@ -84,6 +87,24 @@ class WorkspaceRateLimitNormalizer implements DenormalizerInterface, NormalizerI
         }
         elseif (\array_key_exists('limit', $data) && $data['limit'] === null) {
             $object->setLimit(null);
+        }
+        if (\array_key_exists('limit_source', $data) && $data['limit_source'] !== null) {
+            $object->setLimitSource($data['limit_source']);
+        }
+        elseif (\array_key_exists('limit_source', $data) && $data['limit_source'] === null) {
+            $object->setLimitSource(null);
+        }
+        if (\array_key_exists('automatic_limit', $data) && $data['automatic_limit'] !== null) {
+            $object->setAutomaticLimit($data['automatic_limit']);
+        }
+        elseif (\array_key_exists('automatic_limit', $data) && $data['automatic_limit'] === null) {
+            $object->setAutomaticLimit(null);
+        }
+        if (\array_key_exists('allocation_enabled', $data) && $data['allocation_enabled'] !== null) {
+            $object->setAllocationEnabled($data['allocation_enabled']);
+        }
+        elseif (\array_key_exists('allocation_enabled', $data) && $data['allocation_enabled'] === null) {
+            $object->setAllocationEnabled(null);
         }
         if (\array_key_exists('attribution', $data) && $data['attribution'] !== null) {
             $object->setAttribution($this->denormalizer->denormalize($data['attribution'], \MessageBird\Wire\Model\WorkspaceRateLimitAttribution::class, 'json', $context));
@@ -134,6 +155,18 @@ class WorkspaceRateLimitNormalizer implements DenormalizerInterface, NormalizerI
             throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.limit missing');
         }
         $dataArray['limit'] = $data->getLimit();
+        if (!$data->isInitialized('limitSource')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.limit_source missing');
+        }
+        $dataArray['limit_source'] = $data->getLimitSource();
+        if (!$data->isInitialized('automaticLimit')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.automatic_limit missing');
+        }
+        $dataArray['automatic_limit'] = $data->getAutomaticLimit();
+        if (!$data->isInitialized('allocationEnabled')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.allocation_enabled missing');
+        }
+        $dataArray['allocation_enabled'] = $data->getAllocationEnabled();
         if (!$data->isInitialized('attribution')) {
             throw new \MessageBird\Exception\RequestValidationException('required field WorkspaceRateLimit.attribution missing');
         }

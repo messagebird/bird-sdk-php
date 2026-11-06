@@ -38,6 +38,13 @@ class WhatsAppTemplateVersion
      */
     protected $submittedAt;
     /**
+     * The variable slots this version's content fills in from the values you supply when sending. Combined across every language, because languages need not declare the same slots: if the English body uses `first_name` and the French one uses `last_name`, both appear here. A template with named parameters keys them by name; a positional one keys them by their `{{n}}` position, as `1`, `2` and so on. Supply the slots the language you send declares, by these keys in `template.parameters` or through `components`.
+     * 
+     *
+     * @var list<TemplateVariable>|null
+     */
+    protected $variables;
+    /**
      * This version's content, keyed by BCP-47 language tag, with what its submission did with each language.
      * 
      *
@@ -131,6 +138,29 @@ class WhatsAppTemplateVersion
     {
         $this->initialized['submittedAt'] = true;
         $this->submittedAt = $submittedAt;
+        return $this;
+    }
+    /**
+     * The variable slots this version's content fills in from the values you supply when sending. Combined across every language, because languages need not declare the same slots: if the English body uses `first_name` and the French one uses `last_name`, both appear here. A template with named parameters keys them by name; a positional one keys them by their `{{n}}` position, as `1`, `2` and so on. Supply the slots the language you send declares, by these keys in `template.parameters` or through `components`.
+     * 
+     *
+     * @return list<TemplateVariable>|null
+     */
+    public function getVariables(): ?array
+    {
+        return $this->variables;
+    }
+    /**
+     * The variable slots this version's content fills in from the values you supply when sending. Combined across every language, because languages need not declare the same slots: if the English body uses `first_name` and the French one uses `last_name`, both appear here. A template with named parameters keys them by name; a positional one keys them by their `{{n}}` position, as `1`, `2` and so on. Supply the slots the language you send declares, by these keys in `template.parameters` or through `components`.
+     *
+     * @param list<TemplateVariable>|null $variables
+     *
+     * @return self
+     */
+    public function setVariables(?array $variables): self
+    {
+        $this->initialized['variables'] = true;
+        $this->variables = $variables;
         return $this;
     }
     /**

@@ -51,11 +51,17 @@ class AMBBusinessAccountSubmission
      */
     protected $status;
     /**
-     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     * Review feedback on this attempt, such as the automated review's feedback or the reason Apple rejected it. May contain basic Markdown, such as emphasis, lists and links.
      *
      * @var string|null
      */
     protected $statusReason;
+    /**
+     * Who recorded this attempt's outcome, `automated_review` when Bird's automated review rejected it or `staff`. Null while the attempt waits, and for outcomes recorded before automated reviews.
+     *
+     * @var string|null
+     */
+    protected $decidedBy;
     /**
      * @var \DateTime|null
      */
@@ -227,7 +233,7 @@ class AMBBusinessAccountSubmission
         return $this;
     }
     /**
-     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     * Review feedback on this attempt, such as the automated review's feedback or the reason Apple rejected it. May contain basic Markdown, such as emphasis, lists and links.
      *
      * @return string|null
      */
@@ -236,7 +242,7 @@ class AMBBusinessAccountSubmission
         return $this->statusReason;
     }
     /**
-     * Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+     * Review feedback on this attempt, such as the automated review's feedback or the reason Apple rejected it. May contain basic Markdown, such as emphasis, lists and links.
      *
      * @param string|null $statusReason
      *
@@ -246,6 +252,28 @@ class AMBBusinessAccountSubmission
     {
         $this->initialized['statusReason'] = true;
         $this->statusReason = $statusReason;
+        return $this;
+    }
+    /**
+     * Who recorded this attempt's outcome, `automated_review` when Bird's automated review rejected it or `staff`. Null while the attempt waits, and for outcomes recorded before automated reviews.
+     *
+     * @return string|null
+     */
+    public function getDecidedBy(): ?string
+    {
+        return $this->decidedBy;
+    }
+    /**
+     * Who recorded this attempt's outcome, `automated_review` when Bird's automated review rejected it or `staff`. Null while the attempt waits, and for outcomes recorded before automated reviews.
+     *
+     * @param string|null $decidedBy
+     *
+     * @return self
+     */
+    public function setDecidedBy(?string $decidedBy): self
+    {
+        $this->initialized['decidedBy'] = true;
+        $this->decidedBy = $decidedBy;
         return $this;
     }
     /**

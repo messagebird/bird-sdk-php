@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 
 /**
  * Wraps the generated jane wire layer's serializer. The assembly is a fixed
- * two-normalizer stack (ArrayDenormalizer + the dispatching JaneObjectNormalizer)
+ * normalizer stack (ArrayDenormalizer, EmptyMapNormalizer, the dispatching JaneObjectNormalizer)
  * that handles every generated model, so it does not grow as resources are added.
  * The models' `$initialized` tracking gives missing/null/present three-way
  * serialization on writes.
@@ -25,7 +25,7 @@ final class Serializer
     public function __construct()
     {
         $this->inner = new SymfonySerializer(
-            [new ArrayDenormalizer(), new JaneObjectNormalizer()],
+            [new ArrayDenormalizer(), new EmptyMapNormalizer(), new JaneObjectNormalizer()],
             [new JsonEncoder(new JsonEncode(), new JsonDecode(['json_decode_associative' => true]))],
         );
     }
@@ -61,6 +61,9 @@ final class Serializer
         // Only when it is empty: the escape-hatch verbs take an object body, so a
         // wire model nested under a non-empty one still needs completing or it
         // encodes as `{}` from its protected properties.
+        if ($value instanceof \ArrayObject && $value::class === \ArrayObject::class && $value->count() === 0) {
+            return new \stdClass();
+        }
         if ($value instanceof \stdClass) {
             $properties = get_object_vars($value);
 

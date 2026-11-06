@@ -91,6 +91,12 @@ class AMBBusinessAccountSubmissionNormalizer implements DenormalizerInterface, N
         elseif (\array_key_exists('status_reason', $data) && $data['status_reason'] === null) {
             $object->setStatusReason(null);
         }
+        if (\array_key_exists('decided_by', $data) && $data['decided_by'] !== null) {
+            $object->setDecidedBy($data['decided_by']);
+        }
+        elseif (\array_key_exists('decided_by', $data) && $data['decided_by'] === null) {
+            $object->setDecidedBy(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
         }

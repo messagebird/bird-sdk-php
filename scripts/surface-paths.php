@@ -337,6 +337,7 @@ return [
     "/v1/esim/subscriptions/{subscription_id}/cancel",
     "/v1/esim/subscriptions/{subscription_id}/periods",
     "/v1/asset-upload-sessions",
+    "/v1/asset-upload-sessions/{upload_id}/browser",
     "/v1/asset-upload-sessions/{upload_id}",
     "/v1/asset-upload-sessions/{upload_id}/prepare",
     "/v1/asset-upload-sessions/{upload_id}/complete",

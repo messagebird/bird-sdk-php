@@ -16,6 +16,13 @@ class WhatsAppTemplateLanguageUpsert
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
+     * 
+     *
+     * @var WhatsAppTemplateLanguageUpsertParameterBindings|null
+     */
+    protected $parameterBindings;
+    /**
      * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
      * 
      *
@@ -43,6 +50,29 @@ class WhatsAppTemplateLanguageUpsert
      * @var int|null
      */
     protected $revision;
+    /**
+     * Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
+     * 
+     *
+     * @return WhatsAppTemplateLanguageUpsertParameterBindings|null
+     */
+    public function getParameterBindings(): ?WhatsAppTemplateLanguageUpsertParameterBindings
+    {
+        return $this->parameterBindings;
+    }
+    /**
+     * Liquid that computes this language's send values from the send's `template.parameters`. Omit it to keep the current bindings, and send `null` to remove them. Changing only the bindings never needs a new review.
+     *
+     * @param WhatsAppTemplateLanguageUpsertParameterBindings|null $parameterBindings
+     *
+     * @return self
+     */
+    public function setParameterBindings(?WhatsAppTemplateLanguageUpsertParameterBindings $parameterBindings): self
+    {
+        $this->initialized['parameterBindings'] = true;
+        $this->parameterBindings = $parameterBindings;
+        return $this;
+    }
     /**
      * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
      * 

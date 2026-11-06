@@ -64,12 +64,22 @@ class WhatsAppMessageSendRequestTemplateNormalizer implements DenormalizerInterf
         elseif (\array_key_exists('bid_multiplier', $data) && $data['bid_multiplier'] === null) {
             $object->setBidMultiplier(null);
         }
-        if (\array_key_exists('components', $data) && $data['components'] !== null) {
-            $values = [];
-            foreach ($data['components'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
+        if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['parameters'] as $key => $value) {
+                $values[$key] = $value;
             }
-            $object->setComponents($values);
+            $object->setParameters($values);
+        }
+        elseif (\array_key_exists('parameters', $data) && $data['parameters'] === null) {
+            $object->setParameters(null);
+        }
+        if (\array_key_exists('components', $data) && $data['components'] !== null) {
+            $values_1 = [];
+            foreach ($data['components'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppMessageTemplateComponent::class, 'json', $context);
+            }
+            $object->setComponents($values_1);
         }
         elseif (\array_key_exists('components', $data) && $data['components'] === null) {
             $object->setComponents(null);
@@ -91,12 +101,19 @@ class WhatsAppMessageSendRequestTemplateNormalizer implements DenormalizerInterf
         if ($data->isInitialized('bidMultiplier') && null !== $data->getBidMultiplier()) {
             $dataArray['bid_multiplier'] = $data->getBidMultiplier();
         }
-        if ($data->isInitialized('components') && null !== $data->getComponents()) {
+        if ($data->isInitialized('parameters') && null !== $data->getParameters()) {
             $values = [];
-            foreach ($data->getComponents() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            foreach ($data->getParameters() as $key => $value) {
+                $values[$key] = $value;
             }
-            $dataArray['components'] = $values;
+            $dataArray['parameters'] = (object) $values;
+        }
+        if ($data->isInitialized('components') && null !== $data->getComponents()) {
+            $values_1 = [];
+            foreach ($data->getComponents() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            }
+            $dataArray['components'] = $values_1;
         }
         return $dataArray;
     }

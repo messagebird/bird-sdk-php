@@ -16,6 +16,12 @@ class WhatsAppTemplateLanguage
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * This language's bindings, absent when it has none.
+     *
+     * @var WhatsAppTemplateLanguageParameterBindings|null
+     */
+    protected $parameterBindings;
+    /**
      * This language's maximum price, or `null` when Meta's standard rate applies.
      *
      * @var WhatsAppTemplateLanguageOptimizationSpec|null
@@ -162,6 +168,28 @@ class WhatsAppTemplateLanguage
      * @var string|null
      */
     protected $updatedBy;
+    /**
+     * This language's bindings, absent when it has none.
+     *
+     * @return WhatsAppTemplateLanguageParameterBindings|null
+     */
+    public function getParameterBindings(): ?WhatsAppTemplateLanguageParameterBindings
+    {
+        return $this->parameterBindings;
+    }
+    /**
+     * This language's bindings, absent when it has none.
+     *
+     * @param WhatsAppTemplateLanguageParameterBindings|null $parameterBindings
+     *
+     * @return self
+     */
+    public function setParameterBindings(?WhatsAppTemplateLanguageParameterBindings $parameterBindings): self
+    {
+        $this->initialized['parameterBindings'] = true;
+        $this->parameterBindings = $parameterBindings;
+        return $this;
+    }
     /**
      * This language's maximum price, or `null` when Meta's standard rate applies.
      *

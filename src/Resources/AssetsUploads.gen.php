@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\AssetUploadBrowserHandoff;
 use MessageBird\Wire\Model\AssetUploadSessionCreate;
 use MessageBird\Wire\Model\AssetUploadSessionDetails;
 use MessageBird\Wire\Model\AssetUploadSessionInstruction;
@@ -36,6 +37,20 @@ final class AssetsUploads extends Resource
     public function create(AssetUploadSessionCreate $params, ?RequestOptions $options = null): AssetUploadSessionInstruction
     {
         return $this->single('POST', '/v1/asset-upload-sessions', AssetUploadSessionInstruction::class, $params, null, $options);
+    }
+
+    /**
+     * Use assets.uploads.handoff only when the code environment cannot PUT to the upload hostname and the customer cannot or does not want to change its network settings. It returns a Bird page where an authorized person selects the original file and publishes it. A generated file must first be downloaded. The person's browser still needs access to the storage hostname. Opening the page does not finish the upload; use assets.uploads.get with the original connection to read the saved result.
+     *
+     * @example
+     * $handoff = $bird->assets->uploads->handoff('aus_01krdgeqcxet5s7t44vh8rt9mg');
+     * if ($handoff->getBrowserUrl() !== null) {
+     *     echo $handoff->getBrowserUrl();
+     * }
+     */
+    public function handoff(string $uploadId, ?RequestOptions $options = null): AssetUploadBrowserHandoff
+    {
+        return $this->single('POST', '/v1/asset-upload-sessions/' . rawurlencode($uploadId) . '/browser', AssetUploadBrowserHandoff::class, null, null, $options);
     }
 
     /**

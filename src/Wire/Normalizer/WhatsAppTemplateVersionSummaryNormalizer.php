@@ -61,12 +61,22 @@ class WhatsAppTemplateVersionSummaryNormalizer implements DenormalizerInterface,
         elseif (\array_key_exists('submitted_at', $data) && $data['submitted_at'] === null) {
             $object->setSubmittedAt(null);
         }
-        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['languages'] as $key => $value) {
-                $values[$key] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateLanguageState::class, 'json', $context);
+        if (\array_key_exists('variables', $data) && $data['variables'] !== null) {
+            $values = [];
+            foreach ($data['variables'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\TemplateVariable::class, 'json', $context);
             }
-            $object->setLanguages($values);
+            $object->setVariables($values);
+        }
+        elseif (\array_key_exists('variables', $data) && $data['variables'] === null) {
+            $object->setVariables(null);
+        }
+        if (\array_key_exists('languages', $data) && $data['languages'] !== null) {
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['languages'] as $key => $value_1) {
+                $values_1[$key] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppTemplateLanguageState::class, 'json', $context);
+            }
+            $object->setLanguages($values_1);
         }
         elseif (\array_key_exists('languages', $data) && $data['languages'] === null) {
             $object->setLanguages(null);
@@ -78,11 +88,11 @@ class WhatsAppTemplateVersionSummaryNormalizer implements DenormalizerInterface,
             $object->setCreatedAt(null);
         }
         if (\array_key_exists('next', $data) && $data['next'] !== null) {
-            $values_1 = [];
-            foreach ($data['next'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
+            $values_2 = [];
+            foreach ($data['next'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\NextAction::class, 'json', $context);
             }
-            $object->setNext($values_1);
+            $object->setNext($values_2);
         }
         elseif (\array_key_exists('next', $data) && $data['next'] === null) {
             $object->setNext(null);

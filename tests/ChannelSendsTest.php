@@ -146,6 +146,16 @@ final class ChannelSendsTest extends TestCase
         self::assertSame(['id' => 'wat_01krdgeqcxet5s7t44vh8rt9mg'], $body['template']);
     }
 
+    // An empty map is a valid parameters value and must stay a JSON object.
+    public function testWhatsappSendKeepsEmptyParametersAnObject(): void
+    {
+        $recording = $this->recording();
+        $this->bird($recording)->whatsapp->send(to: '+15551234567', template: 'order_update', from: '+13124495648', parameters: []);
+
+        self::assertNotNull($recording->lastRequest);
+        self::assertStringContainsString('"parameters":{}', (string) $recording->lastRequest->getBody());
+    }
+
     public function testWhatsappSendKeepsBidMultiplierWithoutTemplate(): void
     {
         $recording = $this->recording();

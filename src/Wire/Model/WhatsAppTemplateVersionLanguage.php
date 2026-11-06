@@ -16,6 +16,12 @@ class WhatsAppTemplateVersionLanguage
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * This language's bindings in this version, absent when it has none.
+     *
+     * @var WhatsAppTemplateVersionLanguageParameterBindings|null
+     */
+    protected $parameterBindings;
+    /**
      * This language's content in this version, in display order.
      *
      * @var list<WhatsAppTemplateComponent>|null
@@ -42,6 +48,28 @@ class WhatsAppTemplateVersionLanguage
      * @var WhatsAppTemplateVersionLanguageError|null
      */
     protected $error;
+    /**
+     * This language's bindings in this version, absent when it has none.
+     *
+     * @return WhatsAppTemplateVersionLanguageParameterBindings|null
+     */
+    public function getParameterBindings(): ?WhatsAppTemplateVersionLanguageParameterBindings
+    {
+        return $this->parameterBindings;
+    }
+    /**
+     * This language's bindings in this version, absent when it has none.
+     *
+     * @param WhatsAppTemplateVersionLanguageParameterBindings|null $parameterBindings
+     *
+     * @return self
+     */
+    public function setParameterBindings(?WhatsAppTemplateVersionLanguageParameterBindings $parameterBindings): self
+    {
+        $this->initialized['parameterBindings'] = true;
+        $this->parameterBindings = $parameterBindings;
+        return $this;
+    }
     /**
      * This language's content in this version, in display order.
      *
