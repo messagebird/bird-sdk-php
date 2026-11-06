@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.106.1
+
+- The voice legs `to` filter documents that a `vsq_` ID matches a browser call to that workspace sequence, as a `usr_` or `vrg_` ID does for a user or ring group.
+
 ## 0.106.0
 
 - Apple Messages for Business submissions now have `decided_by`: `automated_review` when the automated review rejected the submission, or `staff` when Bird staff recorded its outcome. It is null while the submission waits for a decision, and for outcomes recorded before automated reviews.
