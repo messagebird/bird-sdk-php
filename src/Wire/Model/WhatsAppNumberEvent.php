@@ -29,7 +29,7 @@ class WhatsAppNumberEvent
      */
     protected $summary;
     /**
-     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
+     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. For `whatsapp_number.profile_name_update`, `decision: available_without_review` means Meta accepted the requested name without review; `approved` records approval. Older events also used `approved` for acceptance without review, so those historical events cannot establish approval. Read `display_name_status` from `GET /v1/whatsapp/numbers/{number_id}/profile` for the current name's approval. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
      *
      * @var array<string, mixed>|null
      */
@@ -103,7 +103,7 @@ class WhatsAppNumberEvent
         return $this;
     }
     /**
-     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
+     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. For `whatsapp_number.profile_name_update`, `decision: available_without_review` means Meta accepted the requested name without review; `approved` records approval. Older events also used `approved` for acceptance without review, so those historical events cannot establish approval. Read `display_name_status` from `GET /v1/whatsapp/numbers/{number_id}/profile` for the current name's approval. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
      *
      * @return array<string, mixed>|null
      */
@@ -112,7 +112,7 @@ class WhatsAppNumberEvent
         return $this->metadata;
     }
     /**
-     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
+     * Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. For `whatsapp_number.profile_name_update`, `decision: available_without_review` means Meta accepted the requested name without review; `approved` records approval. Older events also used `approved` for acceptance without review, so those historical events cannot establish approval. Read `display_name_status` from `GET /v1/whatsapp/numbers/{number_id}/profile` for the current name's approval. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
      *
      * @param array<string, mixed>|null $metadata
      *

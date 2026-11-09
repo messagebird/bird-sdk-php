@@ -23,7 +23,7 @@ class WhatsAppNumberProfile
      */
     protected $displayName;
     /**
-     * Where WhatsApp's review of the display name stands. A name still under review is not yet shown at the top of a chat.
+     * Where WhatsApp's review of the current display name stands. `available_without_review` means the name was accepted without review, and `approved` means it passed review. A virtual +1 555 or +1 711 number still has a daily sending limit while its current name is unapproved. See [virtual-number display name review](/docs/knowledge-base/whatsapp/virtual-numbers#display-name-review).
      * 
      *
      * @var string|null
@@ -37,7 +37,7 @@ class WhatsAppNumberProfile
      */
     protected $newDisplayName;
     /**
-     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted for immediate use without a review. Absent when no change is pending. If WhatsApp accepts the name it becomes `display_name`. Every other outcome leaves the number on the name it already had: `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
+     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted without a review. Absent when no change is pending. An accepted name becomes `display_name` once the change is applied. This status belongs to the requested name; check `display_name_status` for approval of the current name. Applying a name accepted without review does not establish display name approval. `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
      * 
      *
      * @var string|null
@@ -123,7 +123,7 @@ class WhatsAppNumberProfile
         return $this;
     }
     /**
-     * Where WhatsApp's review of the display name stands. A name still under review is not yet shown at the top of a chat.
+     * Where WhatsApp's review of the current display name stands. `available_without_review` means the name was accepted without review, and `approved` means it passed review. A virtual +1 555 or +1 711 number still has a daily sending limit while its current name is unapproved. See [virtual-number display name review](/docs/knowledge-base/whatsapp/virtual-numbers#display-name-review).
      * 
      *
      * @return string|null
@@ -133,7 +133,7 @@ class WhatsAppNumberProfile
         return $this->displayNameStatus;
     }
     /**
-     * Where WhatsApp's review of the display name stands. A name still under review is not yet shown at the top of a chat.
+     * Where WhatsApp's review of the current display name stands. `available_without_review` means the name was accepted without review, and `approved` means it passed review. A virtual +1 555 or +1 711 number still has a daily sending limit while its current name is unapproved. See [virtual-number display name review](/docs/knowledge-base/whatsapp/virtual-numbers#display-name-review).
      *
      * @param string|null $displayNameStatus
      *
@@ -169,7 +169,7 @@ class WhatsAppNumberProfile
         return $this;
     }
     /**
-     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted for immediate use without a review. Absent when no change is pending. If WhatsApp accepts the name it becomes `display_name`. Every other outcome leaves the number on the name it already had: `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
+     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted without a review. Absent when no change is pending. An accepted name becomes `display_name` once the change is applied. This status belongs to the requested name; check `display_name_status` for approval of the current name. Applying a name accepted without review does not establish display name approval. `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
      * 
      *
      * @return string|null
@@ -179,7 +179,7 @@ class WhatsAppNumberProfile
         return $this->newDisplayNameStatus;
     }
     /**
-     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted for immediate use without a review. Absent when no change is pending. If WhatsApp accepts the name it becomes `display_name`. Every other outcome leaves the number on the name it already had: `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
+     * Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted without a review. Absent when no change is pending. An accepted name becomes `display_name` once the change is applied. This status belongs to the requested name; check `display_name_status` for approval of the current name. Applying a name accepted without review does not establish display name approval. `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
      *
      * @param string|null $newDisplayNameStatus
      *

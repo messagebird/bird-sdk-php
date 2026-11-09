@@ -31,7 +31,7 @@ class VoiceLeg
      */
     protected $direction;
     /**
-     * Calling party number in E.164 format.
+     * The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
      *
      * @var string|null
      */
@@ -232,7 +232,7 @@ class VoiceLeg
         return $this;
     }
     /**
-     * Calling party number in E.164 format.
+     * The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
      *
      * @return string|null
      */
@@ -241,7 +241,7 @@ class VoiceLeg
         return $this->from;
     }
     /**
-     * Calling party number in E.164 format.
+     * The calling party: an E.164 number, a SIP extension on a trunk call, or the `usr_` ID of a browser caller to a workspace user or ring group. A withheld caller may be `anonymous`.
      *
      * @param string|null $from
      *
