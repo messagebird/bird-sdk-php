@@ -14,7 +14,7 @@ use MessageBird\Wire\Model\EmailTemplateBroadcastSummary;
 final class EmailTemplatesBroadcasts extends Resource
 {
     /**
-     * List the broadcasts that block deleting a template, newest first.
+     * List the broadcasts that block deleting a template, newest first. A Verify configuration pinning the template as its custom email sender's body also blocks the delete but is not listed here; it is cleared in the dashboard's Verify settings.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

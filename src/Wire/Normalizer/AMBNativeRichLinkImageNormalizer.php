@@ -49,6 +49,12 @@ class AMBNativeRichLinkImageNormalizer implements DenormalizerInterface, Normali
         elseif (\array_key_exists('mime_type', $data) && $data['mime_type'] === null) {
             $object->setMimeType(null);
         }
+        if (\array_key_exists('layout', $data) && $data['layout'] !== null) {
+            $object->setLayout($data['layout']);
+        }
+        elseif (\array_key_exists('layout', $data) && $data['layout'] === null) {
+            $object->setLayout(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -60,6 +66,9 @@ class AMBNativeRichLinkImageNormalizer implements DenormalizerInterface, Normali
         $dataArray['source_url'] = $data->getSourceUrl();
         if ($data->isInitialized('mimeType') && null !== $data->getMimeType()) {
             $dataArray['mime_type'] = $data->getMimeType();
+        }
+        if ($data->isInitialized('layout') && null !== $data->getLayout()) {
+            $dataArray['layout'] = $data->getLayout();
         }
         return $dataArray;
     }

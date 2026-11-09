@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` sent first as its own bubble), or `template` (a stored template, whose category is derived).
+ * A message to send. Supply `text`, `rich_link` or `interactive` (the last two optionally with `text` to introduce them), or `template` (a stored template, whose category is derived).
  */
 class AMBMessageSendRequest
 {
@@ -46,7 +46,7 @@ class AMBMessageSendRequest
      */
     protected $source;
     /**
-     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
+     * A text message. Alongside `interactive`, it is sent first as its own text bubble, in the same message. Alongside `rich_link`, the card takes the place of the first copy of its URL in `body`, splitting the text around it, or follows the text when `body` does not contain that URL. Later copies of that URL are removed.
      *
      * @var AMBMessageSendRequestText|null
      */
@@ -211,7 +211,7 @@ class AMBMessageSendRequest
         return $this;
     }
     /**
-     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
+     * A text message. Alongside `interactive`, it is sent first as its own text bubble, in the same message. Alongside `rich_link`, the card takes the place of the first copy of its URL in `body`, splitting the text around it, or follows the text when `body` does not contain that URL. Later copies of that URL are removed.
      *
      * @return AMBMessageSendRequestText|null
      */
@@ -220,7 +220,7 @@ class AMBMessageSendRequest
         return $this->text;
     }
     /**
-     * A text message. Alongside `rich_link` or `interactive`, it is sent first as its own text bubble, in the same message.
+     * A text message. Alongside `interactive`, it is sent first as its own text bubble, in the same message. Alongside `rich_link`, the card takes the place of the first copy of its URL in `body`, splitting the text around it, or follows the text when `body` does not contain that URL. Later copies of that URL are removed.
      *
      * @param AMBMessageSendRequestText|AMBText|array|null $text
      *

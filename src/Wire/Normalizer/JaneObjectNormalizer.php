@@ -1280,6 +1280,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBNativeAttachment::class => \MessageBird\Wire\Normalizer\AMBNativeAttachmentNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBLinkPreviews::class => \MessageBird\Wire\Normalizer\AMBLinkPreviewsNormalizer::class,
+
         \MessageBird\Wire\Model\AMBText::class => \MessageBird\Wire\Normalizer\AMBTextNormalizer::class,
 
         \MessageBird\Wire\Model\AMBNativeRichLinkImage::class => \MessageBird\Wire\Normalizer\AMBNativeRichLinkImageNormalizer::class,
@@ -3065,6 +3067,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBRoutingRuleCreate::class => false,
             \MessageBird\Wire\Model\AMBRoutingRuleUpdate::class => false,
             \MessageBird\Wire\Model\AMBNativeAttachment::class => false,
+            \MessageBird\Wire\Model\AMBLinkPreviews::class => false,
             \MessageBird\Wire\Model\AMBText::class => false,
             \MessageBird\Wire\Model\AMBNativeRichLinkImage::class => false,
             \MessageBird\Wire\Model\AMBNativeRichLinkVideo::class => false,

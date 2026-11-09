@@ -59,6 +59,12 @@ class AMBMessageTextNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('attachments', $data) && $data['attachments'] === null) {
             $object->setAttachments(null);
         }
+        if (\array_key_exists('link_previews', $data) && $data['link_previews'] !== null) {
+            $object->setLinkPreviews($this->denormalizer->denormalize($data['link_previews'], \MessageBird\Wire\Model\AMBLinkPreviews::class, 'json', $context));
+        }
+        elseif (\array_key_exists('link_previews', $data) && $data['link_previews'] === null) {
+            $object->setLinkPreviews(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -76,6 +82,9 @@ class AMBMessageTextNormalizer implements DenormalizerInterface, NormalizerInter
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $dataArray['attachments'] = $values;
+        }
+        if ($data->isInitialized('linkPreviews') && null !== $data->getLinkPreviews()) {
+            $dataArray['link_previews'] = $this->normalizer->normalize($data->getLinkPreviews(), 'json', $context);
         }
         return $dataArray;
     }
