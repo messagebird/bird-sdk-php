@@ -73,6 +73,12 @@ class VoiceLegNormalizer implements DenormalizerInterface, NormalizerInterface, 
         elseif (\array_key_exists('to', $data) && $data['to'] === null) {
             $object->setTo(null);
         }
+        if (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] !== null) {
+            $object->setOverdialSuffix($data['overdial_suffix']);
+        }
+        elseif (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] === null) {
+            $object->setOverdialSuffix(null);
+        }
         if (\array_key_exists('actor', $data) && $data['actor'] !== null) {
             $object->setActor($this->denormalizer->denormalize($data['actor'], \MessageBird\Wire\Model\VoiceLegActor::class, 'json', $context));
         }

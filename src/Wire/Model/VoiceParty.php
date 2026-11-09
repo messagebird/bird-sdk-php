@@ -28,6 +28,12 @@ class VoiceParty
      */
     protected $address;
     /**
+     * Digits dialled after this party's number, including leading zeroes. Absent when no overdial was received.
+     *
+     * @var string|null
+     */
+    protected $overdialSuffix;
+    /**
      * The workspace trunk on this side of the leg. `null` when this side sat behind no trunk.
      *
      * @var string|null
@@ -87,6 +93,28 @@ class VoiceParty
     {
         $this->initialized['address'] = true;
         $this->address = $address;
+        return $this;
+    }
+    /**
+     * Digits dialled after this party's number, including leading zeroes. Absent when no overdial was received.
+     *
+     * @return string|null
+     */
+    public function getOverdialSuffix(): ?string
+    {
+        return $this->overdialSuffix;
+    }
+    /**
+     * Digits dialled after this party's number, including leading zeroes. Absent when no overdial was received.
+     *
+     * @param string|null $overdialSuffix
+     *
+     * @return self
+     */
+    public function setOverdialSuffix(?string $overdialSuffix): self
+    {
+        $this->initialized['overdialSuffix'] = true;
+        $this->overdialSuffix = $overdialSuffix;
         return $this;
     }
     /**

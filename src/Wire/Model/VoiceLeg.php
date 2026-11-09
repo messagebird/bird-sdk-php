@@ -43,6 +43,12 @@ class VoiceLeg
      */
     protected $to;
     /**
+     * Digits appended to this leg's destination number, preserving leading zeroes. Absent for a call without overdial.
+     *
+     * @var string|null
+     */
+    protected $overdialSuffix;
+    /**
      * Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
      *
      * @var VoiceLegActor|null
@@ -273,6 +279,28 @@ class VoiceLeg
     {
         $this->initialized['to'] = true;
         $this->to = $to;
+        return $this;
+    }
+    /**
+     * Digits appended to this leg's destination number, preserving leading zeroes. Absent for a call without overdial.
+     *
+     * @return string|null
+     */
+    public function getOverdialSuffix(): ?string
+    {
+        return $this->overdialSuffix;
+    }
+    /**
+     * Digits appended to this leg's destination number, preserving leading zeroes. Absent for a call without overdial.
+     *
+     * @param string|null $overdialSuffix
+     *
+     * @return self
+     */
+    public function setOverdialSuffix(?string $overdialSuffix): self
+    {
+        $this->initialized['overdialSuffix'] = true;
+        $this->overdialSuffix = $overdialSuffix;
         return $this;
     }
     /**

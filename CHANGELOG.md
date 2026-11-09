@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.110.0
+
+- Expose `overdial_suffix` on voice-leg responses.
+
 ## 0.109.0
 
 - **Breaking:** automatic link previews in an Apple Messages `text` now skip page images over 6 megapixels, or 3 megapixels for a 16-bit PNG. Use smaller preview images on the linked page.

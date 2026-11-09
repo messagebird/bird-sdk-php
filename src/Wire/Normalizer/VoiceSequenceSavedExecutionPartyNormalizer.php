@@ -49,6 +49,12 @@ class VoiceSequenceSavedExecutionPartyNormalizer implements DenormalizerInterfac
         elseif (\array_key_exists('address', $data) && $data['address'] === null) {
             $object->setAddress(null);
         }
+        if (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] !== null) {
+            $object->setOverdialSuffix($data['overdial_suffix']);
+        }
+        elseif (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] === null) {
+            $object->setOverdialSuffix(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -60,6 +66,9 @@ class VoiceSequenceSavedExecutionPartyNormalizer implements DenormalizerInterfac
         $dataArray['endpoint'] = $this->normalizer->normalize($data->getEndpoint(), 'json', $context);
         if ($data->isInitialized('address') && null !== $data->getAddress()) {
             $dataArray['address'] = $data->getAddress();
+        }
+        if ($data->isInitialized('overdialSuffix') && null !== $data->getOverdialSuffix()) {
+            $dataArray['overdial_suffix'] = $data->getOverdialSuffix();
         }
         return $dataArray;
     }

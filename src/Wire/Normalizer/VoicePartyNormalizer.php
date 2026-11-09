@@ -49,6 +49,12 @@ class VoicePartyNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('address', $data) && $data['address'] === null) {
             $object->setAddress(null);
         }
+        if (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] !== null) {
+            $object->setOverdialSuffix($data['overdial_suffix']);
+        }
+        elseif (\array_key_exists('overdial_suffix', $data) && $data['overdial_suffix'] === null) {
+            $object->setOverdialSuffix(null);
+        }
         if (\array_key_exists('trunk_id', $data) && $data['trunk_id'] !== null) {
             $object->setTrunkId($data['trunk_id']);
         }

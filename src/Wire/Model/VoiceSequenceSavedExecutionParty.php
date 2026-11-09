@@ -24,6 +24,12 @@ class VoiceSequenceSavedExecutionParty
      */
     protected $address;
     /**
+     * Digits appended to the destination number; leading zeroes are preserved. Only the destination party supplies this fact; a value on the origin is ignored.
+     *
+     * @var string|null
+     */
+    protected $overdialSuffix;
+    /**
      * @return VoiceSequenceSavedExecutionEndpoint|null
      */
     public function getEndpoint(): ?VoiceSequenceSavedExecutionEndpoint
@@ -57,6 +63,28 @@ class VoiceSequenceSavedExecutionParty
     {
         $this->initialized['address'] = true;
         $this->address = $address;
+        return $this;
+    }
+    /**
+     * Digits appended to the destination number; leading zeroes are preserved. Only the destination party supplies this fact; a value on the origin is ignored.
+     *
+     * @return string|null
+     */
+    public function getOverdialSuffix(): ?string
+    {
+        return $this->overdialSuffix;
+    }
+    /**
+     * Digits appended to the destination number; leading zeroes are preserved. Only the destination party supplies this fact; a value on the origin is ignored.
+     *
+     * @param string|null $overdialSuffix
+     *
+     * @return self
+     */
+    public function setOverdialSuffix(?string $overdialSuffix): self
+    {
+        $this->initialized['overdialSuffix'] = true;
+        $this->overdialSuffix = $overdialSuffix;
         return $this;
     }
 }
