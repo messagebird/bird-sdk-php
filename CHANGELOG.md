@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.112.0
+
+- Add `suspended_at` to workspaces: when Bird suspended the workspace, or `null` while it is active.
+
 ## 0.111.1
 
 - Creating a number order now documents one exception to the non-refundable setup fee: it is refunded when the carrier delivers the number but it cannot be charged and is released, no sooner than 72 hours after the order was placed.

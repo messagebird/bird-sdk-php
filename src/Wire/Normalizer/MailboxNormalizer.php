@@ -152,6 +152,12 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
         elseif (\array_key_exists('local_part_generated', $data) && $data['local_part_generated'] === null) {
             $object->setLocalPartGenerated(null);
         }
+        if (\array_key_exists('last_message_at', $data) && $data['last_message_at'] !== null) {
+            $object->setLastMessageAt(new \DateTime($data['last_message_at']));
+        }
+        elseif (\array_key_exists('last_message_at', $data) && $data['last_message_at'] === null) {
+            $object->setLastMessageAt(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
         }
@@ -225,6 +231,10 @@ class MailboxNormalizer implements DenormalizerInterface, NormalizerInterface, D
             $values[$key] = $value;
         }
         $dataArray['metadata'] = (object) $values;
+        if (!$data->isInitialized('lastMessageAt')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field Mailbox.last_message_at missing');
+        }
+        $dataArray['last_message_at'] = $data->getLastMessageAt()?->format('Y-m-d\TH:i:sP');
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

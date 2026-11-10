@@ -130,6 +130,12 @@ class Mailbox
      */
     protected $localPartGenerated;
     /**
+     * When the mailbox last sent or received a message. Bird records this activity from 26 August 2026, so compare `null` with `created_at`: a mailbox created after that date has had no activity, while an older one has had none since that date.
+     *
+     * @var \DateTime|null
+     */
+    protected $lastMessageAt;
+    /**
      * When the mailbox was created.
      *
      * @var \DateTime|null
@@ -558,6 +564,28 @@ class Mailbox
     {
         $this->initialized['localPartGenerated'] = true;
         $this->localPartGenerated = $localPartGenerated;
+        return $this;
+    }
+    /**
+     * When the mailbox last sent or received a message. Bird records this activity from 26 August 2026, so compare `null` with `created_at`: a mailbox created after that date has had no activity, while an older one has had none since that date.
+     *
+     * @return \DateTime|null
+     */
+    public function getLastMessageAt(): ?\DateTime
+    {
+        return $this->lastMessageAt;
+    }
+    /**
+     * When the mailbox last sent or received a message. Bird records this activity from 26 August 2026, so compare `null` with `created_at`: a mailbox created after that date has had no activity, while an older one has had none since that date.
+     *
+     * @param \DateTime|null $lastMessageAt
+     *
+     * @return self
+     */
+    public function setLastMessageAt(?\DateTime $lastMessageAt): self
+    {
+        $this->initialized['lastMessageAt'] = true;
+        $this->lastMessageAt = $lastMessageAt;
         return $this;
     }
     /**
