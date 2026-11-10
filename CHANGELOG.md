@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.111.1
+
+- Creating a number order now documents one exception to the non-refundable setup fee: it is refunded when the carrier delivers the number but it cannot be charged and is released, no sooner than 72 hours after the order was placed.
+- Creating an SMS sender registration (`POST /v1/sms/senders/{sender_id}/registrations`) now documents that a `409` can mean the contract's billing frequency changed just before the call, which still charges the setup fee without keeping a registration, and to contact support instead of retrying.
+
 ## 0.111.0
 
 - **Breaking:** adding a custom label to a mailbox conversation (`$bird->email->threads->update`) now fails with E17058 when the label is new to the workspace and the workspace already uses 100 distinct labels. Applying a label the workspace already has keeps working, so a caller that reaches the cap can reuse one of the workspace's custom labels: listing a mailbox's labels (`$bird->email->mailboxes->labels`) returns them beside built-in labels such as `inbox` and `unread`, which label updates refuse, and getting a conversation (`$bird->email->threads->get`) shows its current labels.
