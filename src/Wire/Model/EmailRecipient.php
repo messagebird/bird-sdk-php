@@ -79,6 +79,7 @@ class EmailRecipient
      * - `quota_exceeded`: The organization's send quota was reached.
      * - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      *   onboarding-domain sends, recipients must be verified workspace members).
+     * - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @var string|null
@@ -347,6 +348,7 @@ class EmailRecipient
      * - `quota_exceeded`: The organization's send quota was reached.
      * - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      *   onboarding-domain sends, recipients must be verified workspace members).
+     * - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @return string|null
@@ -368,6 +370,7 @@ class EmailRecipient
     - `quota_exceeded`: The organization's send quota was reached.
     - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
      onboarding-domain sends, recipients must be verified workspace members).
+    - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
     
     *
     * @param string|null $rejectionReason

@@ -57,6 +57,16 @@ class EmailThreadLabelsUpdateNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('remove', $data) && $data['remove'] === null) {
             $object->setRemove(null);
         }
+        if (\array_key_exists('set', $data) && $data['set'] !== null) {
+            $values_2 = [];
+            foreach ($data['set'] as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $object->setSet($values_2);
+        }
+        elseif (\array_key_exists('set', $data) && $data['set'] === null) {
+            $object->setSet(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -75,6 +85,13 @@ class EmailThreadLabelsUpdateNormalizer implements DenormalizerInterface, Normal
                 $values_1[] = $value_1;
             }
             $dataArray['remove'] = $values_1;
+        }
+        if ($data->isInitialized('set') && null !== $data->getSet()) {
+            $values_2 = [];
+            foreach ($data->getSet() as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $dataArray['set'] = $values_2;
         }
         return $dataArray;
     }

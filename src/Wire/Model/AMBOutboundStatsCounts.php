@@ -28,13 +28,13 @@ class AMBOutboundStatsCounts
      */
     protected $sent;
     /**
-     * Distinct accepted messages that Apple refused or that exhausted their send attempts. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
+     * Distinct accepted messages that Apple refused, that exhausted their send attempts, or that a workspace suspension stopped. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
      *
      * @var int|null
      */
     protected $sendFailed;
     /**
-     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
+     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, the workspace is suspended, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
      *
      * @var int|null
      */
@@ -96,7 +96,7 @@ class AMBOutboundStatsCounts
         return $this;
     }
     /**
-     * Distinct accepted messages that Apple refused or that exhausted their send attempts. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
+     * Distinct accepted messages that Apple refused, that exhausted their send attempts, or that a workspace suspension stopped. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
      *
      * @return int|null
      */
@@ -105,7 +105,7 @@ class AMBOutboundStatsCounts
         return $this->sendFailed;
     }
     /**
-     * Distinct accepted messages that Apple refused or that exhausted their send attempts. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
+     * Distinct accepted messages that Apple refused, that exhausted their send attempts, or that a workspace suspension stopped. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
      *
      * @param int|null $sendFailed
      *
@@ -118,7 +118,7 @@ class AMBOutboundStatsCounts
         return $this;
     }
     /**
-     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
+     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, the workspace is suspended, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
      *
      * @return int|null
      */
@@ -127,7 +127,7 @@ class AMBOutboundStatsCounts
         return $this->rejected;
     }
     /**
-     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
+     * Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, the workspace is suspended, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
      *
      * @param int|null $rejected
      *

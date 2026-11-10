@@ -72,6 +72,13 @@ class WorkspaceNormalizer implements DenormalizerInterface, NormalizerInterface,
         elseif (\array_key_exists('logo_url', $data) && $data['logo_url'] === null) {
             $object->setLogoUrl(null);
         }
+        if (\array_key_exists('suspended_at', $data) && $data['suspended_at'] !== null) {
+            $object->setSuspendedAt(new \DateTime($data['suspended_at']));
+            unset($data['suspended_at']);
+        }
+        elseif (\array_key_exists('suspended_at', $data) && $data['suspended_at'] === null) {
+            $object->setSuspendedAt(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);

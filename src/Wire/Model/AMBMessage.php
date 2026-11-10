@@ -54,12 +54,15 @@ class AMBMessage
      *   channel, so `sent` is the furthest an outbound message's status
      *   advances.
      * - `send_failed`: Sending stopped because of a business or conversation
-     *   restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
-     *   An earlier attempt may have reached Apple if its response or the local
-     *   record of success was lost. See `last_error` for why sending stopped.
+     *   restriction, a recipient opt-out, an Apple refusal, a workspace
+     *   suspension, or exhausted attempts. A message stopped after it was charged
+     *   keeps its charge. An earlier attempt may have reached Apple if its
+     *   response or the local record of success was lost. See `last_error` for
+     *   why sending stopped.
      * - `rejected`: Refused by Bird before any send attempt and never charged:
-     *   the destination has no price, the wallet could not fund the send, or the
-     *   content cannot be sent yet. See `last_error`.
+     *   the destination has no price, the wallet could not fund the send, the
+     *   workspace is suspended, or the content cannot be sent yet. See
+     *   `last_error`.
      * - `received`: Received as an inbound message.
      * 
      *
@@ -376,12 +379,15 @@ class AMBMessage
      *   channel, so `sent` is the furthest an outbound message's status
      *   advances.
      * - `send_failed`: Sending stopped because of a business or conversation
-     *   restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
-     *   An earlier attempt may have reached Apple if its response or the local
-     *   record of success was lost. See `last_error` for why sending stopped.
+     *   restriction, a recipient opt-out, an Apple refusal, a workspace
+     *   suspension, or exhausted attempts. A message stopped after it was charged
+     *   keeps its charge. An earlier attempt may have reached Apple if its
+     *   response or the local record of success was lost. See `last_error` for
+     *   why sending stopped.
      * - `rejected`: Refused by Bird before any send attempt and never charged:
-     *   the destination has no price, the wallet could not fund the send, or the
-     *   content cannot be sent yet. See `last_error`.
+     *   the destination has no price, the wallet could not fund the send, the
+     *   workspace is suspended, or the content cannot be sent yet. See
+     *   `last_error`.
      * - `received`: Received as an inbound message.
      * 
      *
@@ -399,12 +405,15 @@ class AMBMessage
      channel, so `sent` is the furthest an outbound message's status
      advances.
     - `send_failed`: Sending stopped because of a business or conversation
-     restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
-     An earlier attempt may have reached Apple if its response or the local
-     record of success was lost. See `last_error` for why sending stopped.
+     restriction, a recipient opt-out, an Apple refusal, a workspace
+     suspension, or exhausted attempts. A message stopped after it was charged
+     keeps its charge. An earlier attempt may have reached Apple if its
+     response or the local record of success was lost. See `last_error` for
+     why sending stopped.
     - `rejected`: Refused by Bird before any send attempt and never charged:
-     the destination has no price, the wallet could not fund the send, or the
-     content cannot be sent yet. See `last_error`.
+     the destination has no price, the wallet could not fund the send, the
+     workspace is suspended, or the content cannot be sent yet. See
+     `last_error`.
     - `received`: Received as an inbound message.
     
     *

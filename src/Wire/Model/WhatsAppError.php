@@ -26,6 +26,7 @@ class WhatsAppError
      * - `rate_limited`: The send was throttled.
      * - `recipient_suppressed`: The recipient is on the workspace suppression list.
      * - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
+     * - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -62,6 +63,7 @@ class WhatsAppError
      * - `rate_limited`: The send was throttled.
      * - `recipient_suppressed`: The recipient is on the workspace suppression list.
      * - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
+     * - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
      * 
      * This is an open enum. Accept unrecognized values.
      * 
@@ -83,6 +85,7 @@ class WhatsAppError
     - `rate_limited`: The send was throttled.
     - `recipient_suppressed`: The recipient is on the workspace suppression list.
     - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
+    - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
     
     This is an open enum. Accept unrecognized values.
     

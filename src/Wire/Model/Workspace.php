@@ -35,6 +35,13 @@ class Workspace extends \ArrayObject
      */
     protected $logoUrl;
     /**
+     * When Bird suspended the workspace. `null` while the workspace is active. A suspended workspace cannot send messages, place calls other than emergency calls, or buy numbers or eSIMs. Its members can still sign in, read it and change its configuration.
+     * 
+     *
+     * @var \DateTime|null
+     */
+    protected $suspendedAt;
+    /**
      * @var \DateTime|null
      */
     protected $createdAt;
@@ -134,6 +141,29 @@ class Workspace extends \ArrayObject
     {
         $this->initialized['logoUrl'] = true;
         $this->logoUrl = $logoUrl;
+        return $this;
+    }
+    /**
+     * When Bird suspended the workspace. `null` while the workspace is active. A suspended workspace cannot send messages, place calls other than emergency calls, or buy numbers or eSIMs. Its members can still sign in, read it and change its configuration.
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getSuspendedAt(): ?\DateTime
+    {
+        return $this->suspendedAt;
+    }
+    /**
+     * When Bird suspended the workspace. `null` while the workspace is active. A suspended workspace cannot send messages, place calls other than emergency calls, or buy numbers or eSIMs. Its members can still sign in, read it and change its configuration.
+     *
+     * @param \DateTime|null $suspendedAt
+     *
+     * @return self
+     */
+    public function setSuspendedAt(?\DateTime $suspendedAt): self
+    {
+        $this->initialized['suspendedAt'] = true;
+        $this->suspendedAt = $suspendedAt;
         return $this;
     }
     /**

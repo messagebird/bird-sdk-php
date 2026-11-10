@@ -96,6 +96,7 @@ class EmailEvent
      * - `domain_unverified`: The sending domain was not verified.
      * - `quota_exceeded`: The organization's send quota was reached.
      * - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+     * - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @var string|null
@@ -395,6 +396,7 @@ class EmailEvent
      * - `domain_unverified`: The sending domain was not verified.
      * - `quota_exceeded`: The organization's send quota was reached.
      * - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+     * - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @return string|null
@@ -413,6 +415,7 @@ class EmailEvent
     - `domain_unverified`: The sending domain was not verified.
     - `quota_exceeded`: The organization's send quota was reached.
     - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
+    - `workspace_suspended`: The workspace is suspended, so this mail was not sent and will not be sent after reactivation. Contact Bird support to reactivate the workspace.
     
     *
     * @param string|null $rejectionReason

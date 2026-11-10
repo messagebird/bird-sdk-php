@@ -40,6 +40,13 @@ class WhatsAppNumber
      */
     protected $numberId;
     /**
+     * WhatsApp's own id for the number while we prepare it for you. We hand it to WhatsApp when you finish signing up, so WhatsApp knows this is the number we already verified for you. Absent for a number you brought yourself. WhatsApp discards the id once signup claims it, so an id still shown here on a connected number no longer names anything.
+     * 
+     *
+     * @var string|null
+     */
+    protected $metaPreverifiedId;
+    /**
      * When we expect WhatsApp to release this pre-verified number if you have not finished signup by then. Present only while the number is `awaiting_signup`. Absent for a number pre-verified before we started recording this moment, and for a number you brought yourself.
      * 
      *
@@ -243,6 +250,29 @@ class WhatsAppNumber
     {
         $this->initialized['numberId'] = true;
         $this->numberId = $numberId;
+        return $this;
+    }
+    /**
+     * WhatsApp's own id for the number while we prepare it for you. We hand it to WhatsApp when you finish signing up, so WhatsApp knows this is the number we already verified for you. Absent for a number you brought yourself. WhatsApp discards the id once signup claims it, so an id still shown here on a connected number no longer names anything.
+     * 
+     *
+     * @return string|null
+     */
+    public function getMetaPreverifiedId(): ?string
+    {
+        return $this->metaPreverifiedId;
+    }
+    /**
+     * WhatsApp's own id for the number while we prepare it for you. We hand it to WhatsApp when you finish signing up, so WhatsApp knows this is the number we already verified for you. Absent for a number you brought yourself. WhatsApp discards the id once signup claims it, so an id still shown here on a connected number no longer names anything.
+     *
+     * @param string|null $metaPreverifiedId
+     *
+     * @return self
+     */
+    public function setMetaPreverifiedId(?string $metaPreverifiedId): self
+    {
+        $this->initialized['metaPreverifiedId'] = true;
+        $this->metaPreverifiedId = $metaPreverifiedId;
         return $this;
     }
     /**

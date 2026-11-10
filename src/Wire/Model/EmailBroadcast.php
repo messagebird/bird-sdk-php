@@ -41,7 +41,7 @@ class EmailBroadcast
      */
     protected $template;
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      * 
      *
      * @var int|null
@@ -73,7 +73,7 @@ class EmailBroadcast
      */
     protected $replyTo;
     /**
-     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
+     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending, resuming or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
      *
      * @var array<string, string>|null
      */
@@ -88,9 +88,9 @@ class EmailBroadcast
     /**
      * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
      * 
-     * Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
      * 
-     * The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+     * Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
      * 
      *
      * @var EmailBroadcastFundingHold|null
@@ -98,8 +98,8 @@ class EmailBroadcast
     protected $fundingHold;
     /**
      * What to do next about this broadcast, given the state it is in. Each entry names one action and
-     * says why it is worth taking. Present on reads that compute it: an empty list means there is
-     * nothing to do, and the field is absent entirely on responses that do not report next actions.
+     * says why it is worth taking. Responses that compute next actions include this field: an empty list means there is
+     * nothing to do. Other responses omit it.
      * 
      *
      * @var list<NextAction>|null
@@ -122,6 +122,7 @@ class EmailBroadcast
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
      * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+     * - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @var string|null
@@ -140,7 +141,7 @@ class EmailBroadcast
      */
     protected $recipientCount = 0;
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
      *
      * @var int|null
      */
@@ -176,7 +177,7 @@ class EmailBroadcast
      */
     protected $clickCount;
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      * 
      *
      * @var list<string>|null
@@ -373,7 +374,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      * 
      *
      * @return int|null
@@ -383,7 +384,7 @@ class EmailBroadcast
         return $this->htmlBytes;
     }
     /**
-     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+     * Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
      *
      * @param int|null $htmlBytes
      *
@@ -485,7 +486,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
+     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending, resuming or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
      *
      * @return array<string, string>|null
      */
@@ -494,7 +495,7 @@ class EmailBroadcast
         return $this->headers;
     }
     /**
-     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
+     * Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending, resuming or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
      *
      * @param array<string, string>|null $headers
      *
@@ -532,9 +533,9 @@ class EmailBroadcast
     /**
      * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
      * 
-     * Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
      * 
-     * The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+     * Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
      * 
      *
      * @return EmailBroadcastFundingHold|null
@@ -546,9 +547,9 @@ class EmailBroadcast
     /**
     * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
     
-    Funding recovery is declared ahead of server support. The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+    The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
     
-    The automatic wait lasts at most 20 minutes from the first time sending stops for funds. Later stops and top-ups do not extend it. Resuming a paused broadcast starts a new wait for any later stop.
+    Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
     
     *
     * @param EmailBroadcastFundingHold|null $fundingHold
@@ -563,8 +564,8 @@ class EmailBroadcast
     }
     /**
      * What to do next about this broadcast, given the state it is in. Each entry names one action and
-     * says why it is worth taking. Present on reads that compute it: an empty list means there is
-     * nothing to do, and the field is absent entirely on responses that do not report next actions.
+     * says why it is worth taking. Responses that compute next actions include this field: an empty list means there is
+     * nothing to do. Other responses omit it.
      * 
      *
      * @return list<NextAction>|null
@@ -575,8 +576,8 @@ class EmailBroadcast
     }
     /**
     * What to do next about this broadcast, given the state it is in. Each entry names one action and
-    says why it is worth taking. Present on reads that compute it: an empty list means there is
-    nothing to do, and the field is absent entirely on responses that do not report next actions.
+    says why it is worth taking. Responses that compute next actions include this field: an empty list means there is
+    nothing to do. Other responses omit it.
     
     *
     * @param list<NextAction>|null $next
@@ -606,6 +607,7 @@ class EmailBroadcast
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
      * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+     * - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
      * @return string|null
@@ -631,6 +633,7 @@ class EmailBroadcast
     - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
     - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
     - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+    - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
     
     *
     * @param string|null $failureReason
@@ -688,7 +691,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
      *
      * @return int|null
      */
@@ -697,7 +700,7 @@ class EmailBroadcast
         return $this->sentCount;
     }
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
      *
      * @param int|null $sentCount
      *
@@ -820,7 +823,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      * 
      *
      * @return list<string>|null
@@ -830,7 +833,7 @@ class EmailBroadcast
         return $this->sendingIps;
     }
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      *
      * @param list<string>|null $sendingIps
      *

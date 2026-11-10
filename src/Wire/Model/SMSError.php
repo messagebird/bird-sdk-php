@@ -29,6 +29,7 @@ class SMSError
      * - `recipient_opted_out`: The recipient is on a suppression list.
      * - `provider_unavailable`: The provider remained unavailable after retries.
      * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
      * - `unknown`: The failure could not be classified.
      * 
      * This is an open enum. Accept unrecognized values.
@@ -76,6 +77,7 @@ class SMSError
      * - `recipient_opted_out`: The recipient is on a suppression list.
      * - `provider_unavailable`: The provider remained unavailable after retries.
      * - `insufficient_balance`: The workspace wallet could not fund the send.
+     * - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
      * - `unknown`: The failure could not be classified.
      * 
      * This is an open enum. Accept unrecognized values.
@@ -101,6 +103,7 @@ class SMSError
     - `recipient_opted_out`: The recipient is on a suppression list.
     - `provider_unavailable`: The provider remained unavailable after retries.
     - `insufficient_balance`: The workspace wallet could not fund the send.
+    - `workspace_suspended`: The workspace is suspended, so Bird stopped this message and will not send it after reactivation. In rare cases an earlier attempt that Bird could not confirm may still have been delivered. A message refused after it was charged keeps its charge. Contact Bird support to reactivate the workspace.
     - `unknown`: The failure could not be classified.
     
     This is an open enum. Accept unrecognized values.
