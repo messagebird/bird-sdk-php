@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.113.0
+
+- Mailboxes return `last_message_at`, when the mailbox last sent or received a message, recorded from 26 August 2026. On a mailbox created before that date, `null` means no activity since then, not that it never had any.
+
 ## 0.112.0
 
 - Add `suspended_at` to workspaces: when Bird suspended the workspace, or `null` while it is active.
