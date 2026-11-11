@@ -18,6 +18,8 @@ class ComplianceSubmissionCreate
      * - `sms_sender`: a sender registered to send to one country.
      * - `number`: a phone number you hold that needs ownership paperwork before it
      *   can carry traffic.
+     * - `number_emergency`: emergency calling on a dedicated number you hold. The
+     *   subject is created by turning emergency calling on for the number.
      * - `identity`: a business you operate as, registered once and reused by
      *   later registrations that name it.
      * 
@@ -26,7 +28,7 @@ class ComplianceSubmissionCreate
      */
     protected $subjectKind;
     /**
-     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. For `number_emergency`, it is the `nes_` ID of the emergency service being registered. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
      * 
      *
      * @var string|null
@@ -78,6 +80,8 @@ class ComplianceSubmissionCreate
      * - `sms_sender`: a sender registered to send to one country.
      * - `number`: a phone number you hold that needs ownership paperwork before it
      *   can carry traffic.
+     * - `number_emergency`: emergency calling on a dedicated number you hold. The
+     *   subject is created by turning emergency calling on for the number.
      * - `identity`: a business you operate as, registered once and reused by
      *   later registrations that name it.
      * 
@@ -94,6 +98,8 @@ class ComplianceSubmissionCreate
     - `sms_sender`: a sender registered to send to one country.
     - `number`: a phone number you hold that needs ownership paperwork before it
      can carry traffic.
+    - `number_emergency`: emergency calling on a dedicated number you hold. The
+     subject is created by turning emergency calling on for the number.
     - `identity`: a business you operate as, registered once and reused by
      later registrations that name it.
     
@@ -109,7 +115,7 @@ class ComplianceSubmissionCreate
         return $this;
     }
     /**
-     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. For `number_emergency`, it is the `nes_` ID of the emergency service being registered. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
      * 
      *
      * @return string|null
@@ -119,7 +125,7 @@ class ComplianceSubmissionCreate
         return $this->subjectId;
     }
     /**
-     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
+     * What is being registered. For `sms_sender` this is the `scr_` id returned when you register a sender for a country. For `number` it is the `nda_` id of a dedicated number you hold, as returned by `GET /v1/numbers`. For `number_emergency`, it is the `nes_` ID of the emergency service being registered. A shared short code (`nal_`) is not accepted: it is shared, so its ownership paperwork is not yours to file. For `identity` it is the `cid_` id of the party being registered, picked from the parties your workspace holds, as returned by `GET /v1/compliance/identities`.
      *
      * @param string|null $subjectId
      *

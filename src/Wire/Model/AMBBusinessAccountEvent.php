@@ -25,7 +25,7 @@ class AMBBusinessAccountEvent
      */
     protected $summary;
     /**
-     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`. Status, review and suspension events have `from` and `to`, and `reason` when Bird staff recorded one. An automated review event has `submission_id` instead, and its feedback is on that submission. An invitation access event has `enabled`.
      *
      * @var array<string, mixed>|null
      */
@@ -89,7 +89,7 @@ class AMBBusinessAccountEvent
         return $this;
     }
     /**
-     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`. Status, review and suspension events have `from` and `to`, and `reason` when Bird staff recorded one. An automated review event has `submission_id` instead, and its feedback is on that submission. An invitation access event has `enabled`.
      *
      * @return array<string, mixed>|null
      */
@@ -98,7 +98,7 @@ class AMBBusinessAccountEvent
         return $this->metadata;
     }
     /**
-     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`.
+     * Details of the change. `source` identifies who recorded it, `customer`, `staff` or `automated_review`. Status, review and suspension events have `from` and `to`, and `reason` when Bird staff recorded one. An automated review event has `submission_id` instead, and its feedback is on that submission. An invitation access event has `enabled`.
      *
      * @param array<string, mixed>|null $metadata
      *

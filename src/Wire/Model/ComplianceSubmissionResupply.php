@@ -9,7 +9,8 @@ namespace MessageBird\Wire\Model;
  * submission; send only the ones you change. With `submission_id` null, create a new submission instead.
  * 
  * When the requirements response marks an accepted answer as `editable_for_verifier_repair`,
- * you can replace it during that open correction and before its deadline. Accepted-answer
+ * you can replace it during an open correction and before its deadline, or update an
+ * approved emergency service address. Accepted-answer
  * repairs must change content; unchanged accepted entries are ignored. Rejected, expired,
  * or missing answers follow the ordinary resupply rules, including same-value retries
  * after a grant is withdrawn. Supplied replacements are reviewed again.

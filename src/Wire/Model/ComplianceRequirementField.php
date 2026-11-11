@@ -157,7 +157,7 @@ class ComplianceRequirementField
      */
     protected $expiresAt;
     /**
-     * Whether you may replace this accepted answer to correct the submission after external verification. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
+     * Whether you may replace this accepted answer to correct the submission after external verification or update an approved emergency service address. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
      * 
      *
      * @var bool|null
@@ -676,7 +676,7 @@ class ComplianceRequirementField
         return $this;
     }
     /**
-     * Whether you may replace this accepted answer to correct the submission after external verification. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
+     * Whether you may replace this accepted answer to correct the submission after external verification or update an approved emergency service address. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
      * 
      *
      * @return bool|null
@@ -686,7 +686,7 @@ class ComplianceRequirementField
         return $this->editableForVerifierRepair;
     }
     /**
-     * Whether you may replace this accepted answer to correct the submission after external verification. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
+     * Whether you may replace this accepted answer to correct the submission after external verification or update an approved emergency service address. This permission does not change its `state` or `reason`. Submit only answers whose content or attachment identity you change.
      *
      * @param bool|null $editableForVerifierRepair
      *

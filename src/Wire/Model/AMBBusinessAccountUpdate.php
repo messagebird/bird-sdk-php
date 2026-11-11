@@ -19,7 +19,7 @@ class AMBBusinessAccountUpdate
      */
     protected $name;
     /**
-     * The Business ID Apple issued for this brand. Accepted only while the account has not yet been submitted and is connected. Updating it does not submit the business.
+     * The Business ID Apple issued for this brand. Accepted only while the account is a draft and connected, including after Bird staff return it to draft. Updating it does not submit the business.
      *
      * @var string|null
      */
@@ -47,7 +47,7 @@ class AMBBusinessAccountUpdate
         return $this;
     }
     /**
-     * The Business ID Apple issued for this brand. Accepted only while the account has not yet been submitted and is connected. Updating it does not submit the business.
+     * The Business ID Apple issued for this brand. Accepted only while the account is a draft and connected, including after Bird staff return it to draft. Updating it does not submit the business.
      *
      * @return string|null
      */
@@ -56,7 +56,7 @@ class AMBBusinessAccountUpdate
         return $this->appleBusinessId;
     }
     /**
-     * The Business ID Apple issued for this brand. Accepted only while the account has not yet been submitted and is connected. Updating it does not submit the business.
+     * The Business ID Apple issued for this brand. Accepted only while the account is a draft and connected, including after Bird staff return it to draft. Updating it does not submit the business.
      *
      * @param string|null $appleBusinessId
      *

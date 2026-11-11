@@ -16,13 +16,13 @@ class MailboxUpdate
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`.
      *
      * @var string|null
      */
@@ -60,7 +60,7 @@ class MailboxUpdate
      */
     protected $metadata;
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
      *
      * @return string|null
      */
@@ -69,7 +69,7 @@ class MailboxUpdate
         return $this->name;
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds. `null` clears it.
      *
      * @param string|null $name
      *
@@ -82,7 +82,7 @@ class MailboxUpdate
         return $this;
     }
     /**
-     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`.
      *
      * @return string|null
      */
@@ -91,7 +91,7 @@ class MailboxUpdate
         return $this->displayName;
     }
     /**
-     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. `null` clears the override and uses `name`.
      *
      * @param string|null $displayName
      *

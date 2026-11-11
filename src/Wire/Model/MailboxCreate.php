@@ -28,13 +28,13 @@ class MailboxCreate
      */
     protected $domain = 'inbox.ai';
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted.
      *
      * @var string|null
      */
@@ -116,7 +116,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
      *
      * @return string|null
      */
@@ -125,7 +125,7 @@ class MailboxCreate
         return $this->name;
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. Must contain a non-whitespace character and cannot contain carriage returns or line feeds.
      *
      * @param string|null $name
      *
@@ -138,7 +138,7 @@ class MailboxCreate
         return $this;
     }
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted.
      *
      * @return string|null
      */
@@ -147,7 +147,7 @@ class MailboxCreate
         return $this->displayName;
     }
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when omitted.
      *
      * @param string|null $displayName
      *

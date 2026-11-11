@@ -71,19 +71,22 @@ class VoiceLeg
      */
     protected $status;
     /**
-     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code for the leg. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @var int|null
      */
     protected $sipResponseCode;
     /**
-     * Why we rejected the leg. Absent on connected legs and legs rejected
+     * Why we rejected the leg. Sequence-state reasons require
+     * `voice_management:read`; the field is absent without that permission.
+     * Also absent on connected legs and legs rejected
      * by the carrier or recipient. For carrier or recipient rejections, see
      * `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
      * 
-     * Read alongside `route` when present. A refusal caused by the number's
-     * configuration has no rejection reason; the route records that
-     * configuration.
+     * Read alongside `route` when present. A number's own configured rejection
+     * has no rejection reason; the route records that configuration. An
+     * unavailable sequence has a reason identifying its state when you have
+     * that permission.
      * 
      *
      * @var string|null
@@ -388,7 +391,7 @@ class VoiceLeg
         return $this;
     }
     /**
-     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code for the leg. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @return int|null
      */
@@ -397,7 +400,7 @@ class VoiceLeg
         return $this->sipResponseCode;
     }
     /**
-     * Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
+     * Final SIP response code for the leg. `null` when no SIP response was received, for example on timeout or DNS failure.
      *
      * @param int|null $sipResponseCode
      *
@@ -410,13 +413,16 @@ class VoiceLeg
         return $this;
     }
     /**
-     * Why we rejected the leg. Absent on connected legs and legs rejected
+     * Why we rejected the leg. Sequence-state reasons require
+     * `voice_management:read`; the field is absent without that permission.
+     * Also absent on connected legs and legs rejected
      * by the carrier or recipient. For carrier or recipient rejections, see
      * `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
      * 
-     * Read alongside `route` when present. A refusal caused by the number's
-     * configuration has no rejection reason; the route records that
-     * configuration.
+     * Read alongside `route` when present. A number's own configured rejection
+     * has no rejection reason; the route records that configuration. An
+     * unavailable sequence has a reason identifying its state when you have
+     * that permission.
      * 
      *
      * @return string|null
@@ -426,13 +432,16 @@ class VoiceLeg
         return $this->rejectionReason;
     }
     /**
-    * Why we rejected the leg. Absent on connected legs and legs rejected
+    * Why we rejected the leg. Sequence-state reasons require
+    `voice_management:read`; the field is absent without that permission.
+    Also absent on connected legs and legs rejected
     by the carrier or recipient. For carrier or recipient rejections, see
     `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
     
-    Read alongside `route` when present. A refusal caused by the number's
-    configuration has no rejection reason; the route records that
-    configuration.
+    Read alongside `route` when present. A number's own configured rejection
+    has no rejection reason; the route records that configuration. An
+    unavailable sequence has a reason identifying its state when you have
+    that permission.
     
     *
     * @param string|null $rejectionReason

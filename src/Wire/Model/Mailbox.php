@@ -32,13 +32,13 @@ class Mailbox
      */
     protected $forwardingAddress;
     /**
-     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. `null` when unset.
      *
      * @var string|null
      */
     protected $name;
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set.
      *
      * @var string|null
      */
@@ -154,7 +154,7 @@ class Mailbox
      */
     protected $deletedAt;
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Create and update responses recommend setting the sender name when it is unset. Other single-mailbox responses return an empty list, and lists omit this field.
      *
      * @var list<NextAction>|null
      */
@@ -222,7 +222,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. `null` when unset.
      *
      * @return string|null
      */
@@ -231,7 +231,7 @@ class Mailbox
         return $this->name;
     }
     /**
-     * Sender name shown alongside the address in outgoing mail. `null` when unset.
+     * Optional sender name recipients see in the From header of outgoing mail. We recommend setting it so recipients can recognize the sender. `null` when unset.
      *
      * @param string|null $name
      *
@@ -244,7 +244,7 @@ class Mailbox
         return $this;
     }
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set.
      *
      * @return string|null
      */
@@ -253,7 +253,7 @@ class Mailbox
         return $this->displayName;
     }
     /**
-     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set. When `name` is unset, outgoing mail uses this value as the sender name.
+     * Name shown to your team in the dashboard and tools. Defaults to `name` when no override is set.
      *
      * @param string|null $displayName
      *
@@ -655,7 +655,7 @@ class Mailbox
         return $this;
     }
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Create and update responses recommend setting the sender name when it is unset. Other single-mailbox responses return an empty list, and lists omit this field.
      *
      * @return list<NextAction>|null
      */
@@ -664,7 +664,7 @@ class Mailbox
         return $this->next;
     }
     /**
-     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Other reads of one mailbox return an empty list, and lists omit it.
+     * What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives. Forwarding-address setup suggests configuring the email provider. Create and update responses recommend setting the sender name when it is unset. Other single-mailbox responses return an empty list, and lists omit this field.
      *
      * @param list<NextAction>|null $next
      *

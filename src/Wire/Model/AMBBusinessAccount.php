@@ -35,7 +35,7 @@ class AMBBusinessAccount
      */
     protected $status;
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
+     * Reason for the current rejection or suspension, when recorded. A rejection's feedback is here even when no submission carries it. May contain basic Markdown, such as emphasis and lists.
      *
      * @var string|null
      */
@@ -65,7 +65,7 @@ class AMBBusinessAccount
      */
     protected $next;
     /**
-     * Latest review outcome recorded by Bird staff.
+     * Latest review outcome, recorded by Bird staff or Bird's automated review. Absent while the business is a draft. `approved` can come without a submission, such as for a business that Apple approved under another messaging service provider before it moved to Bird.
      *
      * @var string|null
      */
@@ -161,7 +161,7 @@ class AMBBusinessAccount
         return $this;
     }
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
+     * Reason for the current rejection or suspension, when recorded. A rejection's feedback is here even when no submission carries it. May contain basic Markdown, such as emphasis and lists.
      *
      * @return string|null
      */
@@ -170,7 +170,7 @@ class AMBBusinessAccount
         return $this->statusReason;
     }
     /**
-     * Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
+     * Reason for the current rejection or suspension, when recorded. A rejection's feedback is here even when no submission carries it. May contain basic Markdown, such as emphasis and lists.
      *
      * @param string|null $statusReason
      *
@@ -271,7 +271,7 @@ class AMBBusinessAccount
         return $this;
     }
     /**
-     * Latest review outcome recorded by Bird staff.
+     * Latest review outcome, recorded by Bird staff or Bird's automated review. Absent while the business is a draft. `approved` can come without a submission, such as for a business that Apple approved under another messaging service provider before it moved to Bird.
      *
      * @return string|null
      */
@@ -280,7 +280,7 @@ class AMBBusinessAccount
         return $this->accountReviewStatus;
     }
     /**
-     * Latest review outcome recorded by Bird staff.
+     * Latest review outcome, recorded by Bird staff or Bird's automated review. Absent while the business is a draft. `approved` can come without a submission, such as for a business that Apple approved under another messaging service provider before it moved to Bird.
      *
      * @param string|null $accountReviewStatus
      *
