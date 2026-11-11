@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use MessageBird\Bird;
 use MessageBird\Wire\Model\OrganizationWorkspaceUpdate;
+use MessageBird\Wire\Model\OrganizationWorkspaceWhatsAppNumberCreate;
 use MessageBird\Wire\Model\WorkspaceCreate;
 
 $bird = new Bird(getenv('BIRD_MASTER_KEY') ?: '');
@@ -23,3 +24,6 @@ $workspace = $bird->organization->workspaces->update('ws_01krdgeqcxet5s7t44vh8rt
 echo $workspace->getName() . PHP_EOL;
 
 $bird->organization->workspaces->delete('ws_01krdgeqcxet5s7t44vh8rt9mg');
+
+$number = $bird->organization->workspaces->whatsappNumbers->create('ws_01krdgeqcxet5s7t44vh8rt9mg', (new OrganizationWorkspaceWhatsAppNumberCreate())->setWaba('102290129340398')->setMetaPhoneNumberId('109364591979012')->setName('Northwind Support'));
+echo $number->getId(), ' ', $number->getStatus(), PHP_EOL;

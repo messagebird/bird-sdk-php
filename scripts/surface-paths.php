@@ -256,6 +256,7 @@ return [
     "/v1/email/threads/{thread_id}/messages/{message_id}/attachments",
     "/v1/organization/workspaces",
     "/v1/organization/workspaces/{workspace_id}",
+    "/v1/organization/workspaces/{workspace_id}/whatsapp/numbers",
     "/v1/email/messages/{message_id}/content",
     "/v1/email/messages/{message_id}/recipients",
     "/v1/realtime/apps/{realtime_app_id}/events",

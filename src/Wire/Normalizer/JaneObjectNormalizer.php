@@ -382,6 +382,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\OrganizationWorkspaceUpdate::class => \MessageBird\Wire\Normalizer\OrganizationWorkspaceUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\OrganizationWorkspaceWhatsAppNumberCreate::class => \MessageBird\Wire\Normalizer\OrganizationWorkspaceWhatsAppNumberCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppNumberError::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppNumber::class => \MessageBird\Wire\Normalizer\WhatsAppNumberNormalizer::class,
+
         \MessageBird\Wire\Model\RealtimePublish::class => \MessageBird\Wire\Normalizer\RealtimePublishNormalizer::class,
 
         \MessageBird\Wire\Model\RealtimeChannelListItem::class => \MessageBird\Wire\Normalizer\RealtimeChannelListItemNormalizer::class,
@@ -1225,10 +1231,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationListNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationCreateNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppNumberError::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppNumber::class => \MessageBird\Wire\Normalizer\WhatsAppNumberNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppNumberList::class => \MessageBird\Wire\Normalizer\WhatsAppNumberListNormalizer::class,
 
@@ -2372,6 +2374,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInboundStatsComparisonDeltaWrapperNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorWrapperNormalizer::class,
+
         \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => \MessageBird\Wire\Normalizer\SMSSenderDestinationsWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppInteractiveHeaderWrapperNormalizer::class,
@@ -2385,8 +2389,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppConversationRecipientWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppConversationRecipientWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorWrapperNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppNumberErrorWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanWrapperNormalizer::class,
 
@@ -2618,6 +2620,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\OrganizationWorkspaceList::class => false,
             \MessageBird\Wire\Model\WorkspaceCreate::class => false,
             \MessageBird\Wire\Model\OrganizationWorkspaceUpdate::class => false,
+            \MessageBird\Wire\Model\OrganizationWorkspaceWhatsAppNumberCreate::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberError::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumber::class => false,
             \MessageBird\Wire\Model\RealtimePublish::class => false,
             \MessageBird\Wire\Model\RealtimeChannelListItem::class => false,
             \MessageBird\Wire\Model\RealtimePublishResult::class => false,
@@ -3040,8 +3045,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppAgentNotification::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationList::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationCreate::class => false,
-            \MessageBird\Wire\Model\WhatsAppNumberError::class => false,
-            \MessageBird\Wire\Model\WhatsAppNumber::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberList::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEvent::class => false,
             \MessageBird\Wire\Model\WhatsAppNumberEventList::class => false,
@@ -3613,6 +3616,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSInboundStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsComparisonDeltaWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInboundStatsComparisonDeltaWrapper::class => false,
+            \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => false,
             \MessageBird\Wire\Model\SMSSenderDestinationsWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveHeaderWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppInteractiveListWrapper::class => false,
@@ -3620,7 +3624,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageTemplateWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppConversationRecipientWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => false,
-            \MessageBird\Wire\Model\WhatsAppNumberErrorWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => false,
             \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class => false,

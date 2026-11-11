@@ -22,7 +22,7 @@ class AssetUploadSessionCreate
      */
     protected $clientReference;
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @var AssetUploadFile|null
      */
@@ -66,7 +66,7 @@ class AssetUploadSessionCreate
         return $this;
     }
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @return AssetUploadFile|null
      */
@@ -75,7 +75,7 @@ class AssetUploadSessionCreate
         return $this->file;
     }
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @param AssetUploadFile|null $file
      *

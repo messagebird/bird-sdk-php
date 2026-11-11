@@ -13,7 +13,7 @@ use MessageBird\Wire\Model\OrganizationWorkspaceUpdate;
 use MessageBird\Wire\Model\Workspace;
 use MessageBird\Wire\Model\WorkspaceCreate;
 
-final class OrganizationWorkspaces extends Resource
+class OrganizationWorkspacesBase extends Resource
 {
     /**
      * List the organization's workspaces as a page, newest first by default.

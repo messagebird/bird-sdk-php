@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * An upload session owned by the workspace and the OAuth connection or API key that created it. Its file and metadata are frozen. Sessions expire after one hour; receipts remain available for at least 24 hours after expiry while cleanup finishes.
+ * An upload session owned by the workspace and the OAuth connection or API key that created it. Its metadata is frozen. The file identifies the active upload source; a signed-in person can bind their selected file when preparing the browser fallback. Completion validates the bytes against the active source. Sessions expire after one hour; receipts remain available for at least 24 hours after expiry while cleanup finishes.
  */
 class AssetUploadSessionInstruction extends \ArrayObject
 {
@@ -50,7 +50,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
      */
     protected $folderId;
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @var AssetUploadFile|null
      */
@@ -74,7 +74,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
      */
     protected $next;
     /**
-     * Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+     * Send the active source bytes described by the session to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
      *
      * @var AssetUploadInstruction|null
      */
@@ -208,7 +208,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
         return $this;
     }
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @return AssetUploadFile|null
      */
@@ -217,7 +217,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
         return $this->file;
     }
     /**
-     * Exact properties of the original file. Calculate size and SHA-256 from its bytes before creating a session. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
+     * Exact properties of the active source file. Calculate size and SHA-256 from its bytes before creating a session or preparing a browser-selected source. Images allow up to 5,242,880 bytes; other supported media allow up to 25,000,000 bytes.
      *
      * @param AssetUploadFile|null $file
      *
@@ -296,7 +296,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
         return $this;
     }
     /**
-     * Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+     * Send the active source bytes described by the session to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
      *
      * @return AssetUploadInstruction|null
      */
@@ -305,7 +305,7 @@ class AssetUploadSessionInstruction extends \ArrayObject
         return $this->upload;
     }
     /**
-     * Send the original file bytes to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
+     * Send the active source bytes described by the session to this URL with the exact headers and content length. Send no Bird credentials or cookies. Keep the URL private and call complete after the PUT succeeds.
      *
      * @param AssetUploadInstruction|null $upload
      *

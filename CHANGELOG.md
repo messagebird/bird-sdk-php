@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.114.0
+
+- Add a method that connects a number your own Embedded Signup onboarded through your multi-partner solution with Bird into one of your workspaces: `Organization.Workspaces.WhatsappNumbers.Create` in Go, `organization.workspaces.whatsappNumbers.create` in TypeScript, `$bird->organization->workspaces->whatsappNumbers->create` in PHP, and `organization.workspaces.whatsapp_numbers.create` in Python. Only organizations with an active multi-partner solution can call it, with an organization credential: a master key, or a signed-in owner or organization admin. A workspace API key gets a 403.
+
 ## 0.113.0
 
 - Mailboxes return `last_message_at`, when the mailbox last sent or received a message, recorded from 26 August 2026. On a mailbox created before that date, `null` means no activity since then, not that it never had any.
