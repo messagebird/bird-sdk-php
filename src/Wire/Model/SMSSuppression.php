@@ -97,7 +97,7 @@ class SMSSuppression
      */
     protected $createdAt;
     /**
-     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again while already suppressed, which adds no new record but does earn another confirmation reply.
+     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again, or your workspace added it again, while already suppressed. A repeat adds no new record; a repeated stop keyword also earns another confirmation reply.
      * 
      *
      * @var \DateTime|null
@@ -401,7 +401,7 @@ class SMSSuppression
         return $this;
     }
     /**
-     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again while already suppressed, which adds no new record but does earn another confirmation reply.
+     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again, or your workspace added it again, while already suppressed. A repeat adds no new record; a repeated stop keyword also earns another confirmation reply.
      * 
      *
      * @return \DateTime|null
@@ -411,7 +411,7 @@ class SMSSuppression
         return $this->lastAssertedAt;
     }
     /**
-     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again while already suppressed, which adds no new record but does earn another confirmation reply.
+     * When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again, or your workspace added it again, while already suppressed. A repeat adds no new record; a repeated stop keyword also earns another confirmation reply.
      *
      * @param \DateTime|null $lastAssertedAt
      *

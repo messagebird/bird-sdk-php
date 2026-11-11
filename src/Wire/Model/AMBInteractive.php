@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Something for the customer to tap: exactly one of `quick_reply`, `list_picker`, `event` (a time picker), `dynamic` (a form) or `imessage_app`. To introduce it with text or files, send `text` alongside it; that text arrives as its own bubble first. Apple Pay and identity verification requests are created through their conversation endpoints and read back here as `payment` and `authenticate`.
+ * Something for the customer to tap: exactly one of `quick_reply`, `list_picker`, `event` (a time picker), `dynamic` (a form) or `imessage_app`. To introduce it with text or files, send `text` alongside it; that text arrives as its own bubble first. `payment` and `authenticate` are read-only. They appear on existing messages that contain an Apple Pay or identity verification request. Sends and templates do not accept them.
  */
 class AMBInteractive
 {
@@ -66,13 +66,13 @@ class AMBInteractive
      */
     protected $imessageApp;
     /**
-     * Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+     * An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
      *
      * @var AMBNativePayment|null
      */
     protected $payment;
     /**
-     * Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+     * An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
      *
      * @var AMBNativeAuthentication|null
      */
@@ -278,7 +278,7 @@ class AMBInteractive
         return $this;
     }
     /**
-     * Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+     * An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
      *
      * @return AMBNativePayment|null
      */
@@ -287,7 +287,7 @@ class AMBInteractive
         return $this->payment;
     }
     /**
-     * Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+     * An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
      *
      * @param AMBNativePayment|null $payment
      *
@@ -300,7 +300,7 @@ class AMBInteractive
         return $this;
     }
     /**
-     * Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+     * An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
      *
      * @return AMBNativeAuthentication|null
      */
@@ -309,7 +309,7 @@ class AMBInteractive
         return $this->authenticate;
     }
     /**
-     * Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+     * An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
      *
      * @param AMBNativeAuthentication|null $authenticate
      *

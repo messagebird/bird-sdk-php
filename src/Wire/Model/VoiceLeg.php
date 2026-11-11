@@ -158,7 +158,7 @@ class VoiceLeg
      */
     protected $media;
     /**
-     * What was charged for a leg, split into the components that make it up.
+     * The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
      * 
      *
      * @var VoiceLegCost|null
@@ -694,7 +694,7 @@ class VoiceLeg
         return $this;
     }
     /**
-     * What was charged for a leg, split into the components that make it up.
+     * The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
      * 
      *
      * @return VoiceLegCost|null
@@ -704,7 +704,7 @@ class VoiceLeg
         return $this->cost;
     }
     /**
-     * What was charged for a leg, split into the components that make it up.
+     * The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
      *
      * @param VoiceLegCost|null $cost
      *

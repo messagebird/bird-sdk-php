@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * What was charged for a leg, split into the components that make it up.
+ * The rated Voice charges for a leg, split into their components. For Flash calling (coming soon), this covers only network usage and excludes the verification attempt fee. A Flash leg that rang without an answer has a total of zero and a null `outbound_amount` because there was no connected usage to charge. The Verify attempt cost includes both charges.
  */
 class VoiceLegCost
 {
@@ -16,7 +16,7 @@ class VoiceLegCost
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+     * Sum of the Voice components below, as a decimal string. Net of tax, which applies to your wallet balance rather than to an individual charge. For Flash calling (coming soon), this excludes the verification attempt fee and can be `0.000000` for a rated, unanswered leg.
      * 
      *
      * @var string|null
@@ -64,7 +64,7 @@ class VoiceLegCost
      */
     protected $transcriptionAmount;
     /**
-     * Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+     * Sum of the Voice components below, as a decimal string. Net of tax, which applies to your wallet balance rather than to an individual charge. For Flash calling (coming soon), this excludes the verification attempt fee and can be `0.000000` for a rated, unanswered leg.
      * 
      *
      * @return string|null
@@ -74,7 +74,7 @@ class VoiceLegCost
         return $this->amount;
     }
     /**
-     * Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+     * Sum of the Voice components below, as a decimal string. Net of tax, which applies to your wallet balance rather than to an individual charge. For Flash calling (coming soon), this excludes the verification attempt fee and can be `0.000000` for a rated, unanswered leg.
      *
      * @param string|null $amount
      *

@@ -82,7 +82,7 @@ class AMBTemplate
      */
     protected $category;
     /**
-     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -93,8 +93,8 @@ class AMBTemplate
      * - form: A multi-page form.
      * - imessage_app: A custom iMessage app interaction on a compatible device.
      * - interactive: An opaque interactive reference whose subtype is unknown.
-     * - apple_pay: An Apple Pay request created through the conversation payment operations.
-     * - authenticate: An identity verification request created through the conversation authentication operations.
+     * - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+     * - authenticate: An identity verification request, or the customer's response to one.
      *
      * @var string|null
      */
@@ -393,7 +393,7 @@ class AMBTemplate
         return $this;
     }
     /**
-     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -404,8 +404,8 @@ class AMBTemplate
      * - form: A multi-page form.
      * - imessage_app: A custom iMessage app interaction on a compatible device.
      * - interactive: An opaque interactive reference whose subtype is unknown.
-     * - apple_pay: An Apple Pay request created through the conversation payment operations.
-     * - authenticate: An identity verification request created through the conversation authentication operations.
+     * - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+     * - authenticate: An identity verification request, or the customer's response to one.
      *
      * @return string|null
      */
@@ -414,7 +414,7 @@ class AMBTemplate
         return $this->contentKind;
     }
     /**
-    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
     
     - text: Text, optionally with a subject.
     - attachment: One or more files, images, audio clips, or videos.
@@ -425,8 +425,8 @@ class AMBTemplate
     - form: A multi-page form.
     - imessage_app: A custom iMessage app interaction on a compatible device.
     - interactive: An opaque interactive reference whose subtype is unknown.
-    - apple_pay: An Apple Pay request created through the conversation payment operations.
-    - authenticate: An identity verification request created through the conversation authentication operations.
+    - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
+    - authenticate: An identity verification request, or the customer's response to one.
     *
     * @param string|null $contentKind
     *

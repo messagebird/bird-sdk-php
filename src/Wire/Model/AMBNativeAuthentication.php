@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+ * An identity verification request. Read-only. It appears on existing messages, and sends and templates do not accept it. Contains no authorization parameters or credentials.
  */
 class AMBNativeAuthentication
 {

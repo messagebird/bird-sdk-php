@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+ * An Apple Pay request. Read-only. It appears on existing messages, and sends and templates do not accept it. Apple Pay requests are in preview. Contains no payment token or provider credentials.
  */
 class AMBNativePayment
 {
