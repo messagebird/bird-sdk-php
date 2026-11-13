@@ -28,9 +28,9 @@ class AMBConversationUpdate extends \ArrayObject
      */
     protected $inboxStatus;
     /**
-     * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+     * Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
      * 
-     * Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+     * A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
      * 
      *
      * @var list<string>|null
@@ -99,9 +99,9 @@ class AMBConversationUpdate extends \ArrayObject
         return $this;
     }
     /**
-     * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+     * Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
      * 
-     * Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+     * A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
      * 
      *
      * @return list<string>|null
@@ -111,9 +111,9 @@ class AMBConversationUpdate extends \ArrayObject
         return $this->labels;
     }
     /**
-    * Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+    * Labels from your workspace's label list. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
     
-    Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+    A name matches the workspace's labels in any casing: adding "Urgent" where the workspace has "urgent" applies "urgent", and responses return the workspace's spelling. A name the workspace doesn't have yet becomes a new label. It must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace, and can't take the workspace past its limit of 100 labels. A new label can't use a reserved name: `all`, `archive`, `archived`, `assigned`, `blocked`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `outbox`, `pinned`, `read`, `scheduled`, `sent`, `snoozed`, `spam`, `starred`, `trash` or `unread`, in any casing. A label the workspace already has keeps working even if its name is reserved.
     
     *
     * @param list<string>|null $labels

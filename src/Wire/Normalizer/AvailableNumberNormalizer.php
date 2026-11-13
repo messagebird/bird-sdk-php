@@ -80,6 +80,12 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('ownership_address_scope', $data) && $data['ownership_address_scope'] === null) {
             $object->setOwnershipAddressScope(null);
         }
+        if (\array_key_exists('ownership_address_area_name', $data) && $data['ownership_address_area_name'] !== null) {
+            $object->setOwnershipAddressAreaName($data['ownership_address_area_name']);
+        }
+        elseif (\array_key_exists('ownership_address_area_name', $data) && $data['ownership_address_area_name'] === null) {
+            $object->setOwnershipAddressAreaName(null);
+        }
         if (\array_key_exists('pricing', $data) && $data['pricing'] !== null) {
             $object->setPricing($this->denormalizer->denormalize($data['pricing'], \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class, 'json', $context));
         }
@@ -117,6 +123,9 @@ class AvailableNumberNormalizer implements DenormalizerInterface, NormalizerInte
         $dataArray['ownership_registration_required'] = $data->getOwnershipRegistrationRequired();
         if ($data->isInitialized('ownershipAddressScope') && null !== $data->getOwnershipAddressScope()) {
             $dataArray['ownership_address_scope'] = $data->getOwnershipAddressScope();
+        }
+        if ($data->isInitialized('ownershipAddressAreaName') && null !== $data->getOwnershipAddressAreaName()) {
+            $dataArray['ownership_address_area_name'] = $data->getOwnershipAddressAreaName();
         }
         if ($data->isInitialized('pricing') && null !== $data->getPricing()) {
             $dataArray['pricing'] = $this->normalizer->normalize($data->getPricing(), 'json', $context);

@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use MessageBird\Bird;
+use MessageBird\Wire\Model\EmailBroadcastResume;
 
 $bird = new Bird(getenv('BIRD_API_KEY') ?: '');
 
@@ -40,6 +41,13 @@ echo $broadcast->getStatus(); // "accepted"
 
 $broadcast = $bird->broadcasts->cancel('eb_01krdgeqcxet5s7t44vh8rt9mg');
 echo $broadcast->getStatus(); // "canceling" or "canceled"
+
+// Confirm only after verifying the content remaining recipients will receive and started_at. Leave unverifiable content paused.
+$broadcast = $bird->broadcasts->resume(
+    'eb_01krdgeqcxet5s7t44vh8rt9mg',
+    (new EmailBroadcastResume())->setConfirm(true),
+);
+echo $broadcast->getStatus(); // "sending"
 
 $quota = $bird->broadcasts->sendQuota('eb_01krdgeqcxet5s7t44vh8rt9mg');
 if ($quota->getAllowed() < $quota->getRecipients()) {

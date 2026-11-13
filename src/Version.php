@@ -7,5 +7,5 @@ namespace MessageBird;
 final class Version
 {
     // Read by the surface-release registry (backend/surfaces/surface-release.yaml).
-    public const VERSION = '0.115.2';
+    public const VERSION = '0.116.0';
 }

@@ -45,18 +45,27 @@ class AvailableNumber
     /**
      * Where the carrier requires the business address on this number's ownership registration
      * to be. Present only when the carrier itself registers the number before it carries
-     * traffic and states a rule; omitted otherwise. An address that does not meet the rule
+     * traffic, as `anywhere` when it restricts no address; omitted otherwise. An address that does not meet the rule
      * is refused after purchase, and only an address that meets it can fix the registration.
+     * If the paperwork is not approved by the registration deadline, the number is removed:
+     * any setup fee is credited back, and the first recurring charge is not refunded.
      * 
      * - `anywhere`: any business address.
      * - `country`: a business address in the number's country.
      * - `number_area`: a business address inside the number's own area code, for example in
-     *   Amsterdam for an Amsterdam (020) number.
+     *   Amsterdam for an Amsterdam (020) number. `ownership_address_area_name` names the area
+     *   when it is known.
      * 
      *
      * @var string|null
      */
     protected $ownershipAddressScope;
+    /**
+     * Name of the area this local number belongs to, for example `Amsterdam`: the area a `number_area` `ownership_address_scope` refers to. Text for display; the address is not checked against it before purchase. Omitted when the number has no `number_area` rule or the area is not known.
+     *
+     * @var string|null
+     */
+    protected $ownershipAddressAreaName;
     /**
      * What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
      *
@@ -176,13 +185,16 @@ class AvailableNumber
     /**
      * Where the carrier requires the business address on this number's ownership registration
      * to be. Present only when the carrier itself registers the number before it carries
-     * traffic and states a rule; omitted otherwise. An address that does not meet the rule
+     * traffic, as `anywhere` when it restricts no address; omitted otherwise. An address that does not meet the rule
      * is refused after purchase, and only an address that meets it can fix the registration.
+     * If the paperwork is not approved by the registration deadline, the number is removed:
+     * any setup fee is credited back, and the first recurring charge is not refunded.
      * 
      * - `anywhere`: any business address.
      * - `country`: a business address in the number's country.
      * - `number_area`: a business address inside the number's own area code, for example in
-     *   Amsterdam for an Amsterdam (020) number.
+     *   Amsterdam for an Amsterdam (020) number. `ownership_address_area_name` names the area
+     *   when it is known.
      * 
      *
      * @return string|null
@@ -194,13 +206,16 @@ class AvailableNumber
     /**
     * Where the carrier requires the business address on this number's ownership registration
     to be. Present only when the carrier itself registers the number before it carries
-    traffic and states a rule; omitted otherwise. An address that does not meet the rule
+    traffic, as `anywhere` when it restricts no address; omitted otherwise. An address that does not meet the rule
     is refused after purchase, and only an address that meets it can fix the registration.
+    If the paperwork is not approved by the registration deadline, the number is removed:
+    any setup fee is credited back, and the first recurring charge is not refunded.
     
     - `anywhere`: any business address.
     - `country`: a business address in the number's country.
     - `number_area`: a business address inside the number's own area code, for example in
-     Amsterdam for an Amsterdam (020) number.
+     Amsterdam for an Amsterdam (020) number. `ownership_address_area_name` names the area
+     when it is known.
     
     *
     * @param string|null $ownershipAddressScope
@@ -211,6 +226,28 @@ class AvailableNumber
     {
         $this->initialized['ownershipAddressScope'] = true;
         $this->ownershipAddressScope = $ownershipAddressScope;
+        return $this;
+    }
+    /**
+     * Name of the area this local number belongs to, for example `Amsterdam`: the area a `number_area` `ownership_address_scope` refers to. Text for display; the address is not checked against it before purchase. Omitted when the number has no `number_area` rule or the area is not known.
+     *
+     * @return string|null
+     */
+    public function getOwnershipAddressAreaName(): ?string
+    {
+        return $this->ownershipAddressAreaName;
+    }
+    /**
+     * Name of the area this local number belongs to, for example `Amsterdam`: the area a `number_area` `ownership_address_scope` refers to. Text for display; the address is not checked against it before purchase. Omitted when the number has no `number_area` rule or the area is not known.
+     *
+     * @param string|null $ownershipAddressAreaName
+     *
+     * @return self
+     */
+    public function setOwnershipAddressAreaName(?string $ownershipAddressAreaName): self
+    {
+        $this->initialized['ownershipAddressAreaName'] = true;
+        $this->ownershipAddressAreaName = $ownershipAddressAreaName;
         return $this;
     }
     /**

@@ -66,6 +66,7 @@ return [
     "/v1/email/broadcasts/{broadcast_id}",
     "/v1/email/broadcasts/{broadcast_id}/send",
     "/v1/email/broadcasts/{broadcast_id}/cancel",
+    "/v1/email/broadcasts/{broadcast_id}/resume",
     "/v1/email/broadcasts/{broadcast_id}/events",
     "/v1/email/broadcasts/{broadcast_id}/recipients",
     "/v1/email/broadcasts/{broadcast_id}/counts",

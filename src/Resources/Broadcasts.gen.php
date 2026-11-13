@@ -12,6 +12,7 @@ use MessageBird\Wire\Model\EmailBroadcast;
 use MessageBird\Wire\Model\EmailBroadcastClickedLinkList;
 use MessageBird\Wire\Model\EmailBroadcastCounts;
 use MessageBird\Wire\Model\EmailBroadcastList;
+use MessageBird\Wire\Model\EmailBroadcastResume;
 use MessageBird\Wire\Model\EmailBroadcastSendQuota;
 use MessageBird\Wire\Model\EmailEvent;
 use MessageBird\Wire\Model\EmailEventList;
@@ -83,6 +84,22 @@ class BroadcastsBase extends Resource
     public function cancel(string $broadcastId, ?RequestOptions $options = null): EmailBroadcast
     {
         return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/cancel', EmailBroadcast::class, null, null, $options);
+    }
+
+    /**
+     * Resume a `paused` broadcast using its saved template references and recipient list. Current consent and suppression checks still apply. Resuming uses no additional monthly broadcast allowance. At 24 hours or more after sending started, set `confirm: true` to acknowledge late delivery. Without `started_at`, the threshold uses send authorization, or creation if neither timestamp was recorded. Read `started_at` and `template` with `broadcasts.get`. For workspace templates, use `email.templates.versions.get` with `template.id` and `template.version_id` to inspect the pinned content, including after deletion. Check `template.language` or the version's `default_language`. Built-in lookups (`scope: system`) return current catalogue content. Broadcasts with frozen content keep it, but older broadcasts can read the catalogue again when resumed. Neither the current lookup nor an earlier message alone proves what remaining recipients will receive. Leave it paused unless you can verify that content. Reading templates requires `email_management:read`; ask an authorized teammate if you lack it. A `403` can indicate suspension now or since send authorization. Reactivation does not restore an older authorization; cancel that broadcast. `402` means funds are still short; `409` means it is not paused or needs late confirmation. A `422` can mean concurrency is full or the sender or IP pool needs repair; read the error details to decide whether to wait or repair. A `429` can indicate a sending limit; `503` means balance or limits could not be checked. These refusals leave a paused broadcast unchanged. A `202` returns a `sending` snapshot, not completed delivery. Poll `broadcasts.get` for progress and later funding holds or terminal status.
+     *
+     * @example Resume a paused broadcast after adding funds
+     * // Confirm only after verifying the content remaining recipients will receive and started_at. Leave unverifiable content paused.
+     * $broadcast = $bird->broadcasts->resume(
+     *     'eb_01krdgeqcxet5s7t44vh8rt9mg',
+     *     (new EmailBroadcastResume())->setConfirm(true),
+     * );
+     * echo $broadcast->getStatus(); // "sending"
+     */
+    public function resume(string $broadcastId, EmailBroadcastResume $params, ?RequestOptions $options = null): EmailBroadcast
+    {
+        return $this->single('POST', '/v1/email/broadcasts/' . rawurlencode($broadcastId) . '/resume', EmailBroadcast::class, $params, null, $options);
     }
 
     /**
@@ -173,7 +190,7 @@ class BroadcastsBase extends Resource
     }
 
     /**
-     * Check how many recipients a broadcast could reach within your organization's daily and monthly email limits. `recipients` is the current sendable count. `allowed` is the count covered by the email send allowance. `limited_by` identifies the email limit that prevents the rest from receiving the broadcast. Before scheduling, pass your intended `scheduled_at` as `send_at`. If a daily or monthly window resets by that time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The response identifies the email limit that still restricts the send at that time. The check estimates your send quota using current limits without subtracting broadcasts that are scheduled but have not sent yet, so broadcasts scheduled for the same period may together exceed the limit even if each check shows enough quota. Without `send_at`, it checks a send now, even if the broadcast is already scheduled. An audience larger than a full daily or funded monthly limit cannot send in any window with that limit. A reported monthly `limit` can instead be a temporary funding restriction. When present, use `can_start` to decide whether the email limits permit starting, even when `allowed` or `remaining` is 0. For example, 60,000 recipients can exceed a temporary unfunded `limit` of 50,000 yet have `can_start: true` if the daily and funded monthly limits permit them. The broadcast can then start and wait for funds. If `can_start` is absent, use `allowed` and do not assume waiting is supported. Other send checks still apply. This check reserves nothing. The email send allowance is checked again when the broadcast sends, using what remains after other sends. `limit_reason` explains the monthly email limit if you can read the organization's billing. `broadcasts` reports the separate broadcast count allowance. It is checked when you send or schedule, so `send_at` does not change it. If `broadcasts.remaining` is 0, you cannot send or schedule a draft. The broadcast must have an audience selected.
+     * Check how many recipients a broadcast could reach within your organization's daily and monthly email limits. `recipients` is the current sendable count. `allowed` is the count covered by the email send allowance. `limited_by` identifies the email limit that prevents the rest from receiving the broadcast. Before scheduling, pass your intended `scheduled_at` as `send_at`. If a daily or monthly window resets by that time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The response identifies the email limit that still restricts the send at that time. Scheduled broadcasts do not reserve allowance, so broadcasts in the same period may together exceed the limit even when each check shows enough quota. Without `send_at`, it checks a send now, even if the broadcast is already scheduled. An audience larger than a full daily or funded monthly limit cannot send in any window with that limit. A reported monthly `limit` can instead be a temporary funding restriction. When present, use `can_start` to decide whether the email limits permit starting, even when `allowed` or `remaining` is 0. For example, 60,000 recipients can exceed a temporary unfunded `limit` of 50,000 yet have `can_start: true` if the daily and funded monthly limits permit them. The broadcast can then start and wait for funds. If `can_start` is absent, use `allowed` and do not assume waiting is supported. Other send checks still apply. A `503` means email limits are unreadable; retry the check. It reserves nothing. The email send allowance is checked again when the broadcast sends, using what remains after other sends. `limit_reason` explains the monthly email limit if you can read the organization's billing. `broadcasts` reports the separate broadcast count allowance. It is checked when you send or schedule, so `send_at` does not change it. If `broadcasts.remaining` is 0, you cannot send or schedule a draft. The broadcast must have an audience selected.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
