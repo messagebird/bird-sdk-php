@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
-use MessageBird\Bird;
 use MessageBird\Exception\ConnectionException;
 use MessageBird\RequestOptions;
 use MessageBird\WhatsAppMedia;
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -48,34 +46,7 @@ final class WhatsappMessages extends Resource
             throw new ConnectionException('media redirect carried no Location header');
         }
 
-        return self::fetchStored($this->client, $location);
-    }
-
-    /**
-     * The second leg. Its failures surface as ConnectionException rather than
-     * through ApiException::fromResponse — a storage XML body is no Bird error
-     * envelope, and a 403 mapped that way would report the caller's own key as
-     * lacking permission.
-     */
-    private static function fetchStored(Bird $client, string $location): WhatsAppMedia
-    {
-        try {
-            $stored = $client->sendUnauthenticated($location);
-        } catch (ClientExceptionInterface $e) {
-            throw new ConnectionException(
-                'downloading media failed: ' . $e->getMessage() . '; call media again for a fresh link',
-                0,
-                $e,
-            );
-        }
-        if ($stored->getStatusCode() >= 300) {
-            throw new ConnectionException(\sprintf(
-                'storage refused the download link (status %d): the link expired or was refused, call media again for a fresh link',
-                $stored->getStatusCode(),
-            ));
-        }
-
-        return self::mediaFrom($stored);
+        return self::mediaFrom($this->fetchStored($location, 'media'));
     }
 
     private static function mediaFrom(ResponseInterface $response): WhatsAppMedia

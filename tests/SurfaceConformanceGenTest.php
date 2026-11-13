@@ -228,8 +228,11 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->whatsapp->stats->inbound->hourly(...),
             $bird->whatsapp->stats->inbound->byPhoneNumber(...),
             $bird->voice->calls->create(...),
+            $bird->voice->calls->recordings->list(...),
+            $bird->voice->calls->transcript(...),
             $bird->voice->legs->list(...),
             $bird->voice->legs->get(...),
+            $bird->voice->legs->recordings->audio(...),
             $bird->voice->sessionCredentials->create(...),
             $bird->voice->trunks->list(...),
             $bird->voice->trunks->get(...),
@@ -485,7 +488,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(463, $surface);
+        self::assertCount(466, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

@@ -6,7 +6,10 @@ namespace MessageBird\Resources;
 
 use MessageBird\Bird;
 use MessageBird\Core\Page;
+use MessageBird\Exception\ConnectionException;
 use MessageBird\RequestOptions;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Base of every resource facade. Holds the client and exposes the request
@@ -17,6 +20,35 @@ abstract class Resource
 {
     public function __construct(protected readonly Bird $client)
     {
+    }
+
+    /**
+     * The second leg of a redirect download, taken without credentials. Its
+     * failures surface as ConnectionException rather than through
+     * ApiException::fromResponse — a storage XML body is no Bird error
+     * envelope, and a 403 mapped that way would report the caller's own key as
+     * lacking permission. $method is the SDK method that mints a fresh link.
+     */
+    protected function fetchStored(string $location, string $method): ResponseInterface
+    {
+        try {
+            $stored = $this->client->sendUnauthenticated($location);
+        } catch (ClientExceptionInterface $e) {
+            throw new ConnectionException(
+                'downloading media failed: ' . $e->getMessage() . '; call ' . $method . ' again for a fresh link',
+                0,
+                $e,
+            );
+        }
+        if ($stored->getStatusCode() >= 300) {
+            throw new ConnectionException(\sprintf(
+                'storage refused the download link (status %d): the link expired or was refused, call %s again for a fresh link',
+                $stored->getStatusCode(),
+                $method,
+            ));
+        }
+
+        return $stored;
     }
 
     /**

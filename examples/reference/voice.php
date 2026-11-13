@@ -167,3 +167,19 @@ $call = $bird->voice->calls->create(
         ),
 );
 echo $call->getId(), ' ', $call->getInitialLegId();
+
+$inventory = $bird->voice->calls->recordings->list('vcs_01krdgeqcxet5s7t44vh8rt9mg');
+foreach ($inventory->getRecordings() ?? [] as $recording) {
+    echo $recording->getLegId(), ' ', $recording->getId(), PHP_EOL;
+}
+
+$transcript = $bird->voice->calls->transcript('vcs_01krdgeqcxet5s7t44vh8rt9mg');
+foreach ($transcript->getCues() ?? [] as $cue) {
+    echo $cue->getText(), PHP_EOL;
+}
+
+$audio = $bird->voice->legs->recordings->audio(
+    'vcl_01krdgeqcxet5s7t44vh8rt9mg',
+    'vrc_01krdgeqcxet5s7t44vh8rt9mg',
+);
+file_put_contents('recording.wav', $audio->data);

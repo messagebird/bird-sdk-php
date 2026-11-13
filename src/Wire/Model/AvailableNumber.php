@@ -37,7 +37,7 @@ class AvailableNumber
      */
     protected $capabilities;
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged at assignment for Bird stock and usually on delivery for a carrier number, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @var bool|null
      */
@@ -161,7 +161,7 @@ class AvailableNumber
         return $this;
     }
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged at assignment for Bird stock and usually on delivery for a carrier number, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @return bool|null
      */
@@ -170,7 +170,7 @@ class AvailableNumber
         return $this->ownershipRegistrationRequired;
     }
     /**
-     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
+     * Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged at assignment for Bird stock and usually on delivery for a carrier number, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
      *
      * @param bool|null $ownershipRegistrationRequired
      *

@@ -2048,6 +2048,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceParty::class => \MessageBird\Wire\Normalizer\VoicePartyNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceLegTranscriptCue::class => \MessageBird\Wire\Normalizer\VoiceLegTranscriptCueNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceSessionCredential::class => \MessageBird\Wire\Normalizer\VoiceSessionCredentialNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceMediaQuality::class => \MessageBird\Wire\Normalizer\VoiceMediaQualityNormalizer::class,
@@ -2230,6 +2232,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\VoiceLegList::class => \MessageBird\Wire\Normalizer\VoiceLegListNormalizer::class,
 
+        \MessageBird\Wire\Model\VoiceLegRecordingMedia::class => \MessageBird\Wire\Normalizer\VoiceLegRecordingMediaNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegRecordingMediaSourceParty::class => \MessageBird\Wire\Normalizer\VoiceLegRecordingMediaSourcePartyNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegRecording::class => \MessageBird\Wire\Normalizer\VoiceLegRecordingNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegTranscript::class => \MessageBird\Wire\Normalizer\VoiceLegTranscriptNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegTranscriptSourceParty::class => \MessageBird\Wire\Normalizer\VoiceLegTranscriptSourcePartyNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceLegRecordings::class => \MessageBird\Wire\Normalizer\VoiceLegRecordingsNormalizer::class,
+
         \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionEndpointNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => \MessageBird\Wire\Normalizer\VoiceSequenceSavedExecutionPartyNormalizer::class,
@@ -2253,6 +2267,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class => \MessageBird\Wire\Normalizer\CreateVoiceCallSequenceRequestDefinitionNormalizer::class,
 
         \MessageBird\Wire\Model\CreateVoiceCallRequest::class => \MessageBird\Wire\Normalizer\CreateVoiceCallRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallTranscriptCue::class => \MessageBird\Wire\Normalizer\VoiceCallTranscriptCueNormalizer::class,
+
+        \MessageBird\Wire\Model\VoiceCallTranscript::class => \MessageBird\Wire\Normalizer\VoiceCallTranscriptNormalizer::class,
 
         \MessageBird\Wire\Model\VoiceDestinationDailySpendLimit::class => \MessageBird\Wire\Normalizer\VoiceDestinationDailySpendLimitNormalizer::class,
 
@@ -3455,6 +3473,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VoicePartyBridgeSIPEndpoint::class => false,
             \MessageBird\Wire\Model\VoicePartyEndpoint::class => false,
             \MessageBird\Wire\Model\VoiceParty::class => false,
+            \MessageBird\Wire\Model\VoiceLegTranscriptCue::class => false,
             \MessageBird\Wire\Model\VoiceSessionCredential::class => false,
             \MessageBird\Wire\Model\VoiceMediaQuality::class => false,
             \MessageBird\Wire\Model\VoiceLegMediaPath::class => false,
@@ -3546,6 +3565,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EsimOrderPrice::class => false,
             \MessageBird\Wire\Model\EsimOrderDelivery::class => false,
             \MessageBird\Wire\Model\VoiceLegList::class => false,
+            \MessageBird\Wire\Model\VoiceLegRecordingMedia::class => false,
+            \MessageBird\Wire\Model\VoiceLegRecordingMediaSourceParty::class => false,
+            \MessageBird\Wire\Model\VoiceLegRecording::class => false,
+            \MessageBird\Wire\Model\VoiceLegTranscript::class => false,
+            \MessageBird\Wire\Model\VoiceLegTranscriptSourceParty::class => false,
+            \MessageBird\Wire\Model\VoiceLegRecordings::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionEndpoint::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionParty::class => false,
             \MessageBird\Wire\Model\VoiceSequenceSavedExecutionCallSample::class => false,
@@ -3558,6 +3583,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequest::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallSequenceRequestDefinition::class => false,
             \MessageBird\Wire\Model\CreateVoiceCallRequest::class => false,
+            \MessageBird\Wire\Model\VoiceCallTranscriptCue::class => false,
+            \MessageBird\Wire\Model\VoiceCallTranscript::class => false,
             \MessageBird\Wire\Model\VoiceDestinationDailySpendLimit::class => false,
             \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitLimit::class => false,
             \MessageBird\Wire\Model\VoiceDestinationDailySpendLimitUsed::class => false,

@@ -9,11 +9,12 @@ namespace MessageBird\Resources;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\CreateVoiceCallRequest;
 use MessageBird\Wire\Model\VoiceCall;
+use MessageBird\Wire\Model\VoiceCallTranscript;
 
-final class VoiceCalls extends Resource
+class VoiceCallsBase extends Resource
 {
     /**
-     * Proposes a real outbound call for browser confirmation. Requires voice_management:write and voice:write; normal calling charges apply. Set `sequence.id` to run a saved sequence's active publication, or `sequence.definition` to run a complete definition once without saving it; never both. An inline definition must pass publication checks; an invalid one is refused with a 422 naming its first problem under `/sequence/definition` only when the person runs the call. An inline run executes at most 16 commands. Supply a stable idempotency_key and reuse it with identical input for retries. The confirmation expires after 90 minutes. After the person places the call, a 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
+     * Places a real outbound call that runs a voice sequence after the recipient answers. Requires voice_management:write and voice:write; normal calling charges apply. Set `sequence.id` to run a saved sequence's active publication, or `sequence.definition` to run a complete definition once without saving it; never both. An inline definition must pass publication checks; an invalid one is refused with a 422 naming its first problem under `/sequence/definition`. An inline run executes at most 16 commands. Supply a stable idempotency_key and reuse it with identical input for retries. The same key replays the original acceptance for three hours, and a new key places another charged call. A 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
      *
      * @example Start a published sequence call
      * $call = $bird->voice->calls->create(
@@ -32,5 +33,19 @@ final class VoiceCalls extends Resource
     public function create(CreateVoiceCallRequest $params, ?RequestOptions $options = null): VoiceCall
     {
         return $this->single('POST', '/v1/voice/calls', VoiceCall::class, $params, null, $options);
+    }
+
+    /**
+     * Read a whole call as one script: `cues` in spoken order, each with `party` (an index into `parties`, `null` when unknown), `start_at`, `end_at` and `text`. Cues of an untimed transcript have null times and sit at their stream's start. `complete: false` means a stream's every transcription failed or the read was cut. An unknown call returns no cues, not 404.
+     *
+     * @example Read a call's transcript
+     * $transcript = $bird->voice->calls->transcript('vcs_01krdgeqcxet5s7t44vh8rt9mg');
+     * foreach ($transcript->getCues() ?? [] as $cue) {
+     *     echo $cue->getText(), PHP_EOL;
+     * }
+     */
+    public function transcript(string $callId, ?RequestOptions $options = null): VoiceCallTranscript
+    {
+        return $this->single('GET', '/v1/voice/calls/' . rawurlencode($callId) . '/transcript', VoiceCallTranscript::class, null, null, $options);
     }
 }
