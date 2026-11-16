@@ -13,7 +13,7 @@ class AMBSuppressionList extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Active suppression episodes for the workspace, most recently effective first. Episodes that have ended are left out; fetch one by ID to read it.
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
      * 
      *
      * @var list<AMBSuppression>|null
@@ -38,7 +38,7 @@ class AMBSuppressionList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
-     * Active suppression episodes for the workspace, most recently effective first. Episodes that have ended are left out; fetch one by ID to read it.
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
      * 
      *
      * @return list<AMBSuppression>|null
@@ -48,7 +48,7 @@ class AMBSuppressionList extends \ArrayObject
         return $this->data;
     }
     /**
-     * Active suppression episodes for the workspace, most recently effective first. Episodes that have ended are left out; fetch one by ID to read it.
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
      *
      * @param list<AMBSuppression>|null $data
      *

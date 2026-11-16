@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One retained suppression episode for an address. A null account scope covers the same address in every account in the workspace; it does not link different opaque identities.
+ * One period during which messages to an address are stopped: when it started, what started it, and what ended it. The address is a phone number or the opaque identifier Apple assigns to a customer's conversation with a business. A customer who closes a conversation, returns, and closes it again has two of these on record rather than one current state, the first ended and the second in force, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
  */
 class AMBSuppression
 {
@@ -20,11 +20,15 @@ class AMBSuppression
      */
     protected $id;
     /**
+     * The business account this stops. Null when it stops the address for every account in the workspace. A workspace-wide suppression covers the same address everywhere; it does not link the different opaque identifiers one person holds with different accounts.
+     * 
+     *
      * @var string|null
      */
     protected $businessAccountId;
     /**
-     * Canonical E.164 phone number, or the exact opaque identifier Apple supplied.
+     * The customer: a phone number in E.164 format, or the exact opaque identifier Apple supplied. `address_type` says which.
+     * 
      *
      * @var string|null
      */
@@ -40,66 +44,93 @@ class AMBSuppression
      */
     protected $addressType;
     /**
-     * Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * Why messages are stopped. `manual` means your workspace added it through this API or the dashboard. `opted_out` means the customer or Apple signaled they should not be contacted, such as a close of the conversation. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
      * 
      *
      * @var string|null
      */
     protected $reason;
     /**
-     * Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
+     * How the suppression came to exist:
+     * 
+     * - `user`: someone acting in the dashboard.
+     * - `api_key`: an API call.
+     * - `close_session`: Apple reporting that the customer closed the conversation.
+     * - `gone`: Apple refusing a send because the customer had closed the conversation.
+     * 
+     * `user` and `api_key` are the manual suppressions, the ones you can end. The two closes are
+     * the customer's own statement and end when they return. A customer declining or opting out of
+     * invitations by phone number is recorded as a preference rather than here.
+     * 
      *
      * @var string|null
      */
     protected $origin;
     /**
-     * Paths blocked by this episode. Treat unknown values as blocking.
+     * What this stops. `all` stops every outbound path to the address: operator and automated replies, API sends, typing indicators and invitations. `invitations` stops invitations to the phone number and leaves an open conversation reachable. Treat unrecognized values as stopping everything.
+     * 
      *
      * @var string|null
      */
     protected $appliesTo;
     /**
+     * Whether this is stopping messages right now; `applies_to` says what it stops. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $blocking;
+    /**
+     * The outbound message Apple refused because the customer had closed the conversation, when that is what opened this. Null for a close Apple reported and for a manual suppression.
+     * 
+     *
      * @var string|null
      */
     protected $sourceMessageId;
     /**
+     * The conversation event recording the close Apple reported, when that is what opened this. Null for a refused send and for a manual suppression.
+     * 
+     *
      * @var string|null
      */
     protected $sourceEventId;
     /**
-     * @var string|null
-     */
-    protected $sourceEndMessageId;
-    /**
-     * When the blocking state took effect.
+     * When the customer closed the conversation, as reported by Apple; when Apple refused a send because the conversation was closed; or when a manual suppression was added. This is what orders the list, and it can differ from `created_at`: earlier when a close reached us late, later when the customer closed the conversation again while this was in force, which moves it to that later close.
+     * 
      *
      * @var \DateTime|null
      */
     protected $effectiveAt;
     /**
-     * When Bird recorded this episode.
+     * When we recorded it.
      *
      * @var \DateTime|null
      */
     protected $createdAt;
     /**
-     * When Bird recorded the end, or null while active.
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @var \DateTime|null
      */
     protected $endedAt;
     /**
-     * What ended the episode, or null while active. Customers can end only manual episodes.
-     *
      * @var string|null
      */
     protected $endedReason;
     /**
-     * When the end took effect, or null while active.
+     * When the customer returned to the conversation, as reported by Apple, or when your workspace ended it. Null while it is still stopping messages.
+     * 
      *
      * @var \DateTime|null
      */
     protected $endedEffectiveAt;
+    /**
+     * The message the customer returned with, when there was one. Null while it is still stopping messages, and when something other than a customer message ended it: your workspace ending it, or the customer returning by accepting an invitation.
+     * 
+     *
+     * @var string|null
+     */
+    protected $sourceEndMessageId;
     /**
      * @return string|null
      */
@@ -119,6 +150,9 @@ class AMBSuppression
         return $this;
     }
     /**
+     * The business account this stops. Null when it stops the address for every account in the workspace. A workspace-wide suppression covers the same address everywhere; it does not link the different opaque identifiers one person holds with different accounts.
+     * 
+     *
      * @return string|null
      */
     public function getBusinessAccountId(): ?string
@@ -126,6 +160,8 @@ class AMBSuppression
         return $this->businessAccountId;
     }
     /**
+     * The business account this stops. Null when it stops the address for every account in the workspace. A workspace-wide suppression covers the same address everywhere; it does not link the different opaque identifiers one person holds with different accounts.
+     *
      * @param string|null $businessAccountId
      *
      * @return self
@@ -137,7 +173,8 @@ class AMBSuppression
         return $this;
     }
     /**
-     * Canonical E.164 phone number, or the exact opaque identifier Apple supplied.
+     * The customer: a phone number in E.164 format, or the exact opaque identifier Apple supplied. `address_type` says which.
+     * 
      *
      * @return string|null
      */
@@ -146,7 +183,7 @@ class AMBSuppression
         return $this->address;
     }
     /**
-     * Canonical E.164 phone number, or the exact opaque identifier Apple supplied.
+     * The customer: a phone number in E.164 format, or the exact opaque identifier Apple supplied. `address_type` says which.
      *
      * @param string|null $address
      *
@@ -189,7 +226,7 @@ class AMBSuppression
         return $this;
     }
     /**
-     * Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * Why messages are stopped. `manual` means your workspace added it through this API or the dashboard. `opted_out` means the customer or Apple signaled they should not be contacted, such as a close of the conversation. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
      * 
      *
      * @return string|null
@@ -199,7 +236,7 @@ class AMBSuppression
         return $this->reason;
     }
     /**
-     * Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * Why messages are stopped. `manual` means your workspace added it through this API or the dashboard. `opted_out` means the customer or Apple signaled they should not be contacted, such as a close of the conversation. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
      *
      * @param string|null $reason
      *
@@ -212,7 +249,17 @@ class AMBSuppression
         return $this;
     }
     /**
-     * Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
+     * How the suppression came to exist:
+     * 
+     * - `user`: someone acting in the dashboard.
+     * - `api_key`: an API call.
+     * - `close_session`: Apple reporting that the customer closed the conversation.
+     * - `gone`: Apple refusing a send because the customer had closed the conversation.
+     * 
+     * `user` and `api_key` are the manual suppressions, the ones you can end. The two closes are
+     * the customer's own statement and end when they return. A customer declining or opting out of
+     * invitations by phone number is recorded as a preference rather than here.
+     * 
      *
      * @return string|null
      */
@@ -221,12 +268,22 @@ class AMBSuppression
         return $this->origin;
     }
     /**
-     * Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
-     *
-     * @param string|null $origin
-     *
-     * @return self
-     */
+    * How the suppression came to exist:
+    
+    - `user`: someone acting in the dashboard.
+    - `api_key`: an API call.
+    - `close_session`: Apple reporting that the customer closed the conversation.
+    - `gone`: Apple refusing a send because the customer had closed the conversation.
+    
+    `user` and `api_key` are the manual suppressions, the ones you can end. The two closes are
+    the customer's own statement and end when they return. A customer declining or opting out of
+    invitations by phone number is recorded as a preference rather than here.
+    
+    *
+    * @param string|null $origin
+    *
+    * @return self
+    */
     public function setOrigin(?string $origin): self
     {
         $this->initialized['origin'] = true;
@@ -234,7 +291,8 @@ class AMBSuppression
         return $this;
     }
     /**
-     * Paths blocked by this episode. Treat unknown values as blocking.
+     * What this stops. `all` stops every outbound path to the address: operator and automated replies, API sends, typing indicators and invitations. `invitations` stops invitations to the phone number and leaves an open conversation reachable. Treat unrecognized values as stopping everything.
+     * 
      *
      * @return string|null
      */
@@ -243,7 +301,7 @@ class AMBSuppression
         return $this->appliesTo;
     }
     /**
-     * Paths blocked by this episode. Treat unknown values as blocking.
+     * What this stops. `all` stops every outbound path to the address: operator and automated replies, API sends, typing indicators and invitations. `invitations` stops invitations to the phone number and leaves an open conversation reachable. Treat unrecognized values as stopping everything.
      *
      * @param string|null $appliesTo
      *
@@ -256,6 +314,32 @@ class AMBSuppression
         return $this;
     }
     /**
+     * Whether this is stopping messages right now; `applies_to` says what it stops. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getBlocking(): ?bool
+    {
+        return $this->blocking;
+    }
+    /**
+     * Whether this is stopping messages right now; `applies_to` says what it stops. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     *
+     * @param bool|null $blocking
+     *
+     * @return self
+     */
+    public function setBlocking(?bool $blocking): self
+    {
+        $this->initialized['blocking'] = true;
+        $this->blocking = $blocking;
+        return $this;
+    }
+    /**
+     * The outbound message Apple refused because the customer had closed the conversation, when that is what opened this. Null for a close Apple reported and for a manual suppression.
+     * 
+     *
      * @return string|null
      */
     public function getSourceMessageId(): ?string
@@ -263,6 +347,8 @@ class AMBSuppression
         return $this->sourceMessageId;
     }
     /**
+     * The outbound message Apple refused because the customer had closed the conversation, when that is what opened this. Null for a close Apple reported and for a manual suppression.
+     *
      * @param string|null $sourceMessageId
      *
      * @return self
@@ -274,6 +360,9 @@ class AMBSuppression
         return $this;
     }
     /**
+     * The conversation event recording the close Apple reported, when that is what opened this. Null for a refused send and for a manual suppression.
+     * 
+     *
      * @return string|null
      */
     public function getSourceEventId(): ?string
@@ -281,6 +370,8 @@ class AMBSuppression
         return $this->sourceEventId;
     }
     /**
+     * The conversation event recording the close Apple reported, when that is what opened this. Null for a refused send and for a manual suppression.
+     *
      * @param string|null $sourceEventId
      *
      * @return self
@@ -292,25 +383,8 @@ class AMBSuppression
         return $this;
     }
     /**
-     * @return string|null
-     */
-    public function getSourceEndMessageId(): ?string
-    {
-        return $this->sourceEndMessageId;
-    }
-    /**
-     * @param string|null $sourceEndMessageId
-     *
-     * @return self
-     */
-    public function setSourceEndMessageId(?string $sourceEndMessageId): self
-    {
-        $this->initialized['sourceEndMessageId'] = true;
-        $this->sourceEndMessageId = $sourceEndMessageId;
-        return $this;
-    }
-    /**
-     * When the blocking state took effect.
+     * When the customer closed the conversation, as reported by Apple; when Apple refused a send because the conversation was closed; or when a manual suppression was added. This is what orders the list, and it can differ from `created_at`: earlier when a close reached us late, later when the customer closed the conversation again while this was in force, which moves it to that later close.
+     * 
      *
      * @return \DateTime|null
      */
@@ -319,7 +393,7 @@ class AMBSuppression
         return $this->effectiveAt;
     }
     /**
-     * When the blocking state took effect.
+     * When the customer closed the conversation, as reported by Apple; when Apple refused a send because the conversation was closed; or when a manual suppression was added. This is what orders the list, and it can differ from `created_at`: earlier when a close reached us late, later when the customer closed the conversation again while this was in force, which moves it to that later close.
      *
      * @param \DateTime|null $effectiveAt
      *
@@ -332,7 +406,7 @@ class AMBSuppression
         return $this;
     }
     /**
-     * When Bird recorded this episode.
+     * When we recorded it.
      *
      * @return \DateTime|null
      */
@@ -341,7 +415,7 @@ class AMBSuppression
         return $this->createdAt;
     }
     /**
-     * When Bird recorded this episode.
+     * When we recorded it.
      *
      * @param \DateTime|null $createdAt
      *
@@ -354,7 +428,7 @@ class AMBSuppression
         return $this;
     }
     /**
-     * When Bird recorded the end, or null while active.
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @return \DateTime|null
      */
@@ -363,7 +437,7 @@ class AMBSuppression
         return $this->endedAt;
     }
     /**
-     * When Bird recorded the end, or null while active.
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @param \DateTime|null $endedAt
      *
@@ -376,8 +450,6 @@ class AMBSuppression
         return $this;
     }
     /**
-     * What ended the episode, or null while active. Customers can end only manual episodes.
-     *
      * @return string|null
      */
     public function getEndedReason(): ?string
@@ -385,8 +457,6 @@ class AMBSuppression
         return $this->endedReason;
     }
     /**
-     * What ended the episode, or null while active. Customers can end only manual episodes.
-     *
      * @param string|null $endedReason
      *
      * @return self
@@ -398,7 +468,8 @@ class AMBSuppression
         return $this;
     }
     /**
-     * When the end took effect, or null while active.
+     * When the customer returned to the conversation, as reported by Apple, or when your workspace ended it. Null while it is still stopping messages.
+     * 
      *
      * @return \DateTime|null
      */
@@ -407,7 +478,7 @@ class AMBSuppression
         return $this->endedEffectiveAt;
     }
     /**
-     * When the end took effect, or null while active.
+     * When the customer returned to the conversation, as reported by Apple, or when your workspace ended it. Null while it is still stopping messages.
      *
      * @param \DateTime|null $endedEffectiveAt
      *
@@ -417,6 +488,29 @@ class AMBSuppression
     {
         $this->initialized['endedEffectiveAt'] = true;
         $this->endedEffectiveAt = $endedEffectiveAt;
+        return $this;
+    }
+    /**
+     * The message the customer returned with, when there was one. Null while it is still stopping messages, and when something other than a customer message ended it: your workspace ending it, or the customer returning by accepting an invitation.
+     * 
+     *
+     * @return string|null
+     */
+    public function getSourceEndMessageId(): ?string
+    {
+        return $this->sourceEndMessageId;
+    }
+    /**
+     * The message the customer returned with, when there was one. Null while it is still stopping messages, and when something other than a customer message ended it: your workspace ending it, or the customer returning by accepting an invitation.
+     *
+     * @param string|null $sourceEndMessageId
+     *
+     * @return self
+     */
+    public function setSourceEndMessageId(?string $sourceEndMessageId): self
+    {
+        $this->initialized['sourceEndMessageId'] = true;
+        $this->sourceEndMessageId = $sourceEndMessageId;
         return $this;
     }
 }

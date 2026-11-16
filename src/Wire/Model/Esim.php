@@ -101,7 +101,7 @@ class Esim extends \ArrayObject
      */
     protected $balanceReporting;
     /**
-     * Activate (first network use) before this moment or the eSIM expires. Null once activated.
+     * Guaranteed deadline for first network use, derived from the initial purchase's accepted activation window. The activation window is separate from package validity. Null when the window is unconfirmed, first use has been reported, or the eSIM has been released. Top-ups do not restart this deadline.
      *
      * @var \DateTime|null
      */
@@ -480,7 +480,7 @@ class Esim extends \ArrayObject
         return $this;
     }
     /**
-     * Activate (first network use) before this moment or the eSIM expires. Null once activated.
+     * Guaranteed deadline for first network use, derived from the initial purchase's accepted activation window. The activation window is separate from package validity. Null when the window is unconfirmed, first use has been reported, or the eSIM has been released. Top-ups do not restart this deadline.
      *
      * @return \DateTime|null
      */
@@ -489,7 +489,7 @@ class Esim extends \ArrayObject
         return $this->readyUntil;
     }
     /**
-     * Activate (first network use) before this moment or the eSIM expires. Null once activated.
+     * Guaranteed deadline for first network use, derived from the initial purchase's accepted activation window. The activation window is separate from package validity. Null when the window is unconfirmed, first use has been reported, or the eSIM has been released. Top-ups do not restart this deadline.
      *
      * @param \DateTime|null $readyUntil
      *

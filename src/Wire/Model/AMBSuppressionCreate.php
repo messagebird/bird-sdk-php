@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * Stops messages to one address, for one business account or for every account in the workspace.
+ */
 class AMBSuppressionCreate
 {
     /**
@@ -17,7 +20,7 @@ class AMBSuppressionCreate
      */
     protected $businessAccountId;
     /**
-     * The phone number or opaque identifier to suppress. For a phone number, supply canonical E.164 with a leading plus sign.
+     * The customer to stop messaging: a phone number in E.164 format with a leading plus sign, or the exact opaque identifier Apple supplied. `address_type` says which.
      * 
      *
      * @var string|null
@@ -52,7 +55,7 @@ class AMBSuppressionCreate
         return $this;
     }
     /**
-     * The phone number or opaque identifier to suppress. For a phone number, supply canonical E.164 with a leading plus sign.
+     * The customer to stop messaging: a phone number in E.164 format with a leading plus sign, or the exact opaque identifier Apple supplied. `address_type` says which.
      * 
      *
      * @return string|null
@@ -62,7 +65,7 @@ class AMBSuppressionCreate
         return $this->address;
     }
     /**
-     * The phone number or opaque identifier to suppress. For a phone number, supply canonical E.164 with a leading plus sign.
+     * The customer to stop messaging: a phone number in E.164 format with a leading plus sign, or the exact opaque identifier Apple supplied. `address_type` says which.
      *
      * @param string|null $address
      *

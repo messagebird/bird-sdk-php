@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One period during which an address is suppressed: when it started and, once it is over, what ended it. An address suppressed, ended and suppressed again has two of these on record rather than one current state. The list returns the periods in force; fetch one by ID to read one that has ended.
+ * One period during which messages to a WhatsApp address are stopped: when it started, what started it, and what ended it. An address suppressed, ended and suppressed again has two of these on record rather than one current state, the first ended and the second in force, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
  */
 class WhatsAppSuppression
 {
@@ -27,55 +27,80 @@ class WhatsAppSuppression
      */
     protected $address;
     /**
-     * The WhatsApp Business Account the suppression is limited to, identified by its WhatsApp-issued account ID, or null when it covers the whole workspace.
+     * The WhatsApp Business Account this stops, identified by its WhatsApp-issued account ID. Null when it stops the address for every account in the workspace, whichever one sends.
      * 
      *
      * @var string|null
      */
     protected $waba;
     /**
-     * Why the address is suppressed. `manual` means it was added directly rather than created automatically from a delivery outcome. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * Why the address cannot be messaged:
+     * 
+     * - `manual`: Your workspace added the suppression through the API or the dashboard, and can end it.
      * 
      *
      * @var string|null
      */
     protected $reason;
     /**
-     * How the suppression came to exist: `api_key` (added through the API with an API key) or `user` (added by a user in the dashboard). This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * How the suppression came to exist:
+     * 
+     * - `api_key`: an API call.
+     * - `user`: someone acting in the dashboard.
+     * 
+     * Kept beside the reason because one reason can arrive by more than one route.
      * 
      *
      * @var string|null
      */
     protected $origin;
     /**
-     * Blocking policy. `all` blocks every message category. Treat an unrecognized value as blocking.
+     * Message categories blocked for this address. `all` blocks every category, including authentication and transactional messages, and is the only value in use. Treat unrecognized values as blocking every category.
      * 
      *
      * @var string|null
      */
     protected $appliesTo;
     /**
-     * ID of the WhatsApp message that caused this address to be suppressed, when the suppression was created automatically. Omitted for addresses added manually.
+     * Whether this is stopping messages right now. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $blocking;
+    /**
+     * The WhatsApp message a suppression was opened from. Null for a manual suppression, and Bird records no other kind today, so this is null on every record.
+     * 
      *
      * @var string|null
      */
     protected $sourceWhatsappId;
     /**
-     * When this stopped applying. Null while it is still stopping messages, which is the case for every record in the list.
+     * When the suppression took effect. For one added through the API or the dashboard this is when it was added, so it matches `created_at`. This is what orders the list.
      * 
+     *
+     * @var \DateTime|null
+     */
+    protected $effectiveAt;
+    /**
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @var \DateTime|null
      */
     protected $endedAt;
     /**
-     * What ended it: `api_key` (deleted through the API with an API key) or `user` (deleted by a user in the dashboard). Null while it is still stopping messages. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
-     * 
-     *
      * @var string|null
      */
     protected $endedReason;
     /**
-     * When the suppression was created.
+     * When the end took effect. For one ended through the API or the dashboard this matches `ended_at`. Null while it is still stopping messages.
+     * 
+     *
+     * @var \DateTime|null
+     */
+    protected $endedEffectiveAt;
+    /**
+     * When we recorded it.
      *
      * @var \DateTime|null
      */
@@ -122,7 +147,7 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * The WhatsApp Business Account the suppression is limited to, identified by its WhatsApp-issued account ID, or null when it covers the whole workspace.
+     * The WhatsApp Business Account this stops, identified by its WhatsApp-issued account ID. Null when it stops the address for every account in the workspace, whichever one sends.
      * 
      *
      * @return string|null
@@ -132,7 +157,7 @@ class WhatsAppSuppression
         return $this->waba;
     }
     /**
-     * The WhatsApp Business Account the suppression is limited to, identified by its WhatsApp-issued account ID, or null when it covers the whole workspace.
+     * The WhatsApp Business Account this stops, identified by its WhatsApp-issued account ID. Null when it stops the address for every account in the workspace, whichever one sends.
      *
      * @param string|null $waba
      *
@@ -145,7 +170,9 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * Why the address is suppressed. `manual` means it was added directly rather than created automatically from a delivery outcome. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * Why the address cannot be messaged:
+     * 
+     * - `manual`: Your workspace added the suppression through the API or the dashboard, and can end it.
      * 
      *
      * @return string|null
@@ -155,12 +182,15 @@ class WhatsAppSuppression
         return $this->reason;
     }
     /**
-     * Why the address is suppressed. `manual` means it was added directly rather than created automatically from a delivery outcome. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
-     *
-     * @param string|null $reason
-     *
-     * @return self
-     */
+    * Why the address cannot be messaged:
+    
+    - `manual`: Your workspace added the suppression through the API or the dashboard, and can end it.
+    
+    *
+    * @param string|null $reason
+    *
+    * @return self
+    */
     public function setReason(?string $reason): self
     {
         $this->initialized['reason'] = true;
@@ -168,7 +198,12 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * How the suppression came to exist: `api_key` (added through the API with an API key) or `user` (added by a user in the dashboard). This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+     * How the suppression came to exist:
+     * 
+     * - `api_key`: an API call.
+     * - `user`: someone acting in the dashboard.
+     * 
+     * Kept beside the reason because one reason can arrive by more than one route.
      * 
      *
      * @return string|null
@@ -178,12 +213,18 @@ class WhatsAppSuppression
         return $this->origin;
     }
     /**
-     * How the suppression came to exist: `api_key` (added through the API with an API key) or `user` (added by a user in the dashboard). This list grows over time, so treat an unknown value as informational rather than rejecting the record.
-     *
-     * @param string|null $origin
-     *
-     * @return self
-     */
+    * How the suppression came to exist:
+    
+    - `api_key`: an API call.
+    - `user`: someone acting in the dashboard.
+    
+    Kept beside the reason because one reason can arrive by more than one route.
+    
+    *
+    * @param string|null $origin
+    *
+    * @return self
+    */
     public function setOrigin(?string $origin): self
     {
         $this->initialized['origin'] = true;
@@ -191,7 +232,7 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * Blocking policy. `all` blocks every message category. Treat an unrecognized value as blocking.
+     * Message categories blocked for this address. `all` blocks every category, including authentication and transactional messages, and is the only value in use. Treat unrecognized values as blocking every category.
      * 
      *
      * @return string|null
@@ -201,7 +242,7 @@ class WhatsAppSuppression
         return $this->appliesTo;
     }
     /**
-     * Blocking policy. `all` blocks every message category. Treat an unrecognized value as blocking.
+     * Message categories blocked for this address. `all` blocks every category, including authentication and transactional messages, and is the only value in use. Treat unrecognized values as blocking every category.
      *
      * @param string|null $appliesTo
      *
@@ -214,7 +255,31 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * ID of the WhatsApp message that caused this address to be suppressed, when the suppression was created automatically. Omitted for addresses added manually.
+     * Whether this is stopping messages right now. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getBlocking(): ?bool
+    {
+        return $this->blocking;
+    }
+    /**
+     * Whether this is stopping messages right now. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+     *
+     * @param bool|null $blocking
+     *
+     * @return self
+     */
+    public function setBlocking(?bool $blocking): self
+    {
+        $this->initialized['blocking'] = true;
+        $this->blocking = $blocking;
+        return $this;
+    }
+    /**
+     * The WhatsApp message a suppression was opened from. Null for a manual suppression, and Bird records no other kind today, so this is null on every record.
+     * 
      *
      * @return string|null
      */
@@ -223,7 +288,7 @@ class WhatsAppSuppression
         return $this->sourceWhatsappId;
     }
     /**
-     * ID of the WhatsApp message that caused this address to be suppressed, when the suppression was created automatically. Omitted for addresses added manually.
+     * The WhatsApp message a suppression was opened from. Null for a manual suppression, and Bird records no other kind today, so this is null on every record.
      *
      * @param string|null $sourceWhatsappId
      *
@@ -236,8 +301,30 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * When this stopped applying. Null while it is still stopping messages, which is the case for every record in the list.
+     * When the suppression took effect. For one added through the API or the dashboard this is when it was added, so it matches `created_at`. This is what orders the list.
      * 
+     *
+     * @return \DateTime|null
+     */
+    public function getEffectiveAt(): ?\DateTime
+    {
+        return $this->effectiveAt;
+    }
+    /**
+     * When the suppression took effect. For one added through the API or the dashboard this is when it was added, so it matches `created_at`. This is what orders the list.
+     *
+     * @param \DateTime|null $effectiveAt
+     *
+     * @return self
+     */
+    public function setEffectiveAt(?\DateTime $effectiveAt): self
+    {
+        $this->initialized['effectiveAt'] = true;
+        $this->effectiveAt = $effectiveAt;
+        return $this;
+    }
+    /**
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @return \DateTime|null
      */
@@ -246,7 +333,7 @@ class WhatsAppSuppression
         return $this->endedAt;
     }
     /**
-     * When this stopped applying. Null while it is still stopping messages, which is the case for every record in the list.
+     * When this stopped applying. Null while it is still stopping messages.
      *
      * @param \DateTime|null $endedAt
      *
@@ -259,9 +346,6 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * What ended it: `api_key` (deleted through the API with an API key) or `user` (deleted by a user in the dashboard). Null while it is still stopping messages. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
-     * 
-     *
      * @return string|null
      */
     public function getEndedReason(): ?string
@@ -269,8 +353,6 @@ class WhatsAppSuppression
         return $this->endedReason;
     }
     /**
-     * What ended it: `api_key` (deleted through the API with an API key) or `user` (deleted by a user in the dashboard). Null while it is still stopping messages. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
-     *
      * @param string|null $endedReason
      *
      * @return self
@@ -282,7 +364,30 @@ class WhatsAppSuppression
         return $this;
     }
     /**
-     * When the suppression was created.
+     * When the end took effect. For one ended through the API or the dashboard this matches `ended_at`. Null while it is still stopping messages.
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getEndedEffectiveAt(): ?\DateTime
+    {
+        return $this->endedEffectiveAt;
+    }
+    /**
+     * When the end took effect. For one ended through the API or the dashboard this matches `ended_at`. Null while it is still stopping messages.
+     *
+     * @param \DateTime|null $endedEffectiveAt
+     *
+     * @return self
+     */
+    public function setEndedEffectiveAt(?\DateTime $endedEffectiveAt): self
+    {
+        $this->initialized['endedEffectiveAt'] = true;
+        $this->endedEffectiveAt = $endedEffectiveAt;
+        return $this;
+    }
+    /**
+     * When we recorded it.
      *
      * @return \DateTime|null
      */
@@ -291,7 +396,7 @@ class WhatsAppSuppression
         return $this->createdAt;
     }
     /**
-     * When the suppression was created.
+     * When we recorded it.
      *
      * @param \DateTime|null $createdAt
      *

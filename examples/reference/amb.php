@@ -113,13 +113,13 @@ $bird->amb->stats->byTag(['limit' => '2']);
 
 $bird->amb->suppressions->get('asp_01krdgeqcxet5s7t44vh8rt9mg');
 
-$bird->amb->suppressions->delete('asp_01krdgeqcxet5s7t44vh8rt9mg');
+$bird->amb->suppressions->remove('asp_01krdgeqcxet5s7t44vh8rt9mg');
 
 foreach ($bird->amb->suppressions->list(['business_account_id' => 'abz_01krdgeqcxet5s7t44vh8rt9mg', 'limit' => '2']) as $item) {
     var_dump($item);
 }
 
-$bird->amb->suppressions->create((new Model\AMBSuppressionCreate())->setAddress('opaque-customer')->setAddressType('opaque_user_id'));
+$bird->amb->suppressions->add((new Model\AMBSuppressionCreate())->setAddress('opaque-customer')->setAddressType('opaque_user_id'));
 
 foreach ($bird->amb->templates->list(['scope' => 'system']) as $template) {
     echo $template->getId(), ' ', $template->getSlug(), "\n";

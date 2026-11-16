@@ -37,6 +37,9 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('blocking', $data) && \is_int($data['blocking'])) {
+            $data['blocking'] = (bool) $data['blocking'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -79,6 +82,12 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('applies_to', $data) && $data['applies_to'] === null) {
             $object->setAppliesTo(null);
         }
+        if (\array_key_exists('blocking', $data) && $data['blocking'] !== null) {
+            $object->setBlocking($data['blocking']);
+        }
+        elseif (\array_key_exists('blocking', $data) && $data['blocking'] === null) {
+            $object->setBlocking(null);
+        }
         if (\array_key_exists('source_message_id', $data) && $data['source_message_id'] !== null) {
             $object->setSourceMessageId($data['source_message_id']);
         }
@@ -90,12 +99,6 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
         }
         elseif (\array_key_exists('source_event_id', $data) && $data['source_event_id'] === null) {
             $object->setSourceEventId(null);
-        }
-        if (\array_key_exists('source_end_message_id', $data) && $data['source_end_message_id'] !== null) {
-            $object->setSourceEndMessageId($data['source_end_message_id']);
-        }
-        elseif (\array_key_exists('source_end_message_id', $data) && $data['source_end_message_id'] === null) {
-            $object->setSourceEndMessageId(null);
         }
         if (\array_key_exists('effective_at', $data) && $data['effective_at'] !== null) {
             $object->setEffectiveAt(new \DateTime($data['effective_at']));
@@ -127,6 +130,12 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('ended_effective_at', $data) && $data['ended_effective_at'] === null) {
             $object->setEndedEffectiveAt(null);
         }
+        if (\array_key_exists('source_end_message_id', $data) && $data['source_end_message_id'] !== null) {
+            $object->setSourceEndMessageId($data['source_end_message_id']);
+        }
+        elseif (\array_key_exists('source_end_message_id', $data) && $data['source_end_message_id'] === null) {
+            $object->setSourceEndMessageId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -152,15 +161,10 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
             throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.origin missing');
         }
         $dataArray['origin'] = $data->getOrigin();
-        if ($data->isInitialized('sourceMessageId') && null !== $data->getSourceMessageId()) {
-            $dataArray['source_message_id'] = $data->getSourceMessageId();
+        if (!$data->isInitialized('appliesTo')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AMBSuppression.applies_to missing');
         }
-        if ($data->isInitialized('sourceEventId') && null !== $data->getSourceEventId()) {
-            $dataArray['source_event_id'] = $data->getSourceEventId();
-        }
-        if ($data->isInitialized('sourceEndMessageId') && null !== $data->getSourceEndMessageId()) {
-            $dataArray['source_end_message_id'] = $data->getSourceEndMessageId();
-        }
+        $dataArray['applies_to'] = $data->getAppliesTo();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

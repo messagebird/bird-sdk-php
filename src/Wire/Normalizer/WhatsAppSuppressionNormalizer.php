@@ -37,6 +37,9 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('blocking', $data) && \is_int($data['blocking'])) {
+            $data['blocking'] = (bool) $data['blocking'];
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -73,11 +76,23 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('applies_to', $data) && $data['applies_to'] === null) {
             $object->setAppliesTo(null);
         }
+        if (\array_key_exists('blocking', $data) && $data['blocking'] !== null) {
+            $object->setBlocking($data['blocking']);
+        }
+        elseif (\array_key_exists('blocking', $data) && $data['blocking'] === null) {
+            $object->setBlocking(null);
+        }
         if (\array_key_exists('source_whatsapp_id', $data) && $data['source_whatsapp_id'] !== null) {
             $object->setSourceWhatsappId($data['source_whatsapp_id']);
         }
         elseif (\array_key_exists('source_whatsapp_id', $data) && $data['source_whatsapp_id'] === null) {
             $object->setSourceWhatsappId(null);
+        }
+        if (\array_key_exists('effective_at', $data) && $data['effective_at'] !== null) {
+            $object->setEffectiveAt(new \DateTime($data['effective_at']));
+        }
+        elseif (\array_key_exists('effective_at', $data) && $data['effective_at'] === null) {
+            $object->setEffectiveAt(null);
         }
         if (\array_key_exists('ended_at', $data) && $data['ended_at'] !== null) {
             $object->setEndedAt(new \DateTime($data['ended_at']));
@@ -90,6 +105,12 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
         }
         elseif (\array_key_exists('ended_reason', $data) && $data['ended_reason'] === null) {
             $object->setEndedReason(null);
+        }
+        if (\array_key_exists('ended_effective_at', $data) && $data['ended_effective_at'] !== null) {
+            $object->setEndedEffectiveAt(new \DateTime($data['ended_effective_at']));
+        }
+        elseif (\array_key_exists('ended_effective_at', $data) && $data['ended_effective_at'] === null) {
+            $object->setEndedEffectiveAt(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
@@ -122,9 +143,6 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
             throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppSuppression.applies_to missing');
         }
         $dataArray['applies_to'] = $data->getAppliesTo();
-        if ($data->isInitialized('sourceWhatsappId') && null !== $data->getSourceWhatsappId()) {
-            $dataArray['source_whatsapp_id'] = $data->getSourceWhatsappId();
-        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

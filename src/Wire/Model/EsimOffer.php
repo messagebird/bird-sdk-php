@@ -16,6 +16,13 @@ class EsimOffer
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Guaranteed days from purchase (order acceptance) to first network use for a new eSIM. The activation window is separate from package validity. Null means the activation window is unconfirmed, not unlimited. This window does not restart when topping up an existing eSIM.
+     * 
+     *
+     * @var int|null
+     */
+    protected $activationWindowDays;
+    /**
      * @var string|null
      */
     protected $id;
@@ -83,6 +90,29 @@ class EsimOffer
      * @var \DateTime|null
      */
     protected $createdAt;
+    /**
+     * Guaranteed days from purchase (order acceptance) to first network use for a new eSIM. The activation window is separate from package validity. Null means the activation window is unconfirmed, not unlimited. This window does not restart when topping up an existing eSIM.
+     * 
+     *
+     * @return int|null
+     */
+    public function getActivationWindowDays(): ?int
+    {
+        return $this->activationWindowDays;
+    }
+    /**
+     * Guaranteed days from purchase (order acceptance) to first network use for a new eSIM. The activation window is separate from package validity. Null means the activation window is unconfirmed, not unlimited. This window does not restart when topping up an existing eSIM.
+     *
+     * @param int|null $activationWindowDays
+     *
+     * @return self
+     */
+    public function setActivationWindowDays(?int $activationWindowDays): self
+    {
+        $this->initialized['activationWindowDays'] = true;
+        $this->activationWindowDays = $activationWindowDays;
+        return $this;
+    }
     /**
      * @return string|null
      */

@@ -13,6 +13,9 @@ class WhatsAppSuppressionList extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
+     * 
+     *
      * @var list<WhatsAppSuppression>|null
      */
     protected $data;
@@ -35,6 +38,9 @@ class WhatsAppSuppressionList extends \ArrayObject
      */
     protected $refreshCursor;
     /**
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
+     * 
+     *
      * @return list<WhatsAppSuppression>|null
      */
     public function getData(): ?array
@@ -42,6 +48,8 @@ class WhatsAppSuppressionList extends \ArrayObject
         return $this->data;
     }
     /**
+     * Page of suppressions in force, most recent first by `effective_at`. Ended suppressions are left out; fetch one by ID to read it.
+     *
      * @param list<WhatsAppSuppression>|null $data
      *
      * @return self

@@ -15,15 +15,15 @@ use MessageBird\Wire\Model\WhatsAppSuppressionList;
 final class WhatsappSuppressions extends Resource
 {
     /**
-     * List the workspace's recorded WhatsApp suppression addresses as a cursor page.
+     * List the workspace's WhatsApp suppressions (addresses blocked for one business account or for the whole workspace) as a cursor page.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
      * @return Page<WhatsAppSuppression>
      *
      * @example See who you will not message
-     * // address is a prefix, so a partial value matches every address under it.
-     * foreach ($bird->whatsapp->suppressions->list(['address' => '+1555']) as $suppression) {
+     * // address matches one complete address exactly; a partial number returns nothing.
+     * foreach ($bird->whatsapp->suppressions->list(['address' => '+15550001234']) as $suppression) {
      *     echo $suppression->getAddress(), ' ', $suppression->getWaba() ?? 'every account', PHP_EOL;
      * }
      */
@@ -59,7 +59,7 @@ final class WhatsappSuppressions extends Resource
     }
 
     /**
-     * Record a WhatsApp address on the workspace suppression list.
+     * Stop messages to one WhatsApp address, for one business account or for the whole workspace.
      *
      * @example Stop messaging an address
      * // Omit setWaba to block the address for the whole workspace, whichever account

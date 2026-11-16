@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\AMBSuppressionList;
 final class AmbSuppressions extends Resource
 {
     /**
-     * Returns the suppression episode for the given ID, including one that has already ended. An ended episode keeps its dates and reports when and how it ended.
+     * Read one Apple Messages for Business suppression: the address and account it covers, why messages are stopped, what it stops, and whether it is still in force. To check whether you may message someone, list suppressions filtered by their address instead.
      *
      * @example Example
      * $bird->amb->suppressions->get('asp_01krdgeqcxet5s7t44vh8rt9mg');
@@ -26,18 +26,18 @@ final class AmbSuppressions extends Resource
     }
 
     /**
-     * Ends a manual suppression while retaining its history. Recipient opt-outs and automatic conversation facts cannot be ended through this endpoint.
+     * End a manual Apple Messages for Business suppression. Only reason `manual` can be ended this way: a customer's own close is refused. Messages stay blocked while another suppression covers the address, while the conversation is closed, or while phone invitation consent is revoked in preferences.
      *
      * @example Example
-     * $bird->amb->suppressions->delete('asp_01krdgeqcxet5s7t44vh8rt9mg');
+     * $bird->amb->suppressions->remove('asp_01krdgeqcxet5s7t44vh8rt9mg');
      */
-    public function delete(string $suppressionId, ?RequestOptions $options = null): void
+    public function remove(string $suppressionId, ?RequestOptions $options = null): void
     {
         $this->none('DELETE', '/v1/amb/suppressions/' . rawurlencode($suppressionId), null, null, $options);
     }
 
     /**
-     * Returns a paginated list of the workspace's active Apple Messages for Business suppressions: customers who have opted out of one brand, or of the whole workspace. Episodes that have ended are left out; fetch one by ID to read it. Filter by `business_account_id` to see one brand's suppressions, including the workspace-wide ones that block it too.
+     * List the workspace's Apple Messages for Business suppressions (addresses blocked for one business account or for the whole workspace) as a cursor page.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *
@@ -67,12 +67,12 @@ final class AmbSuppressions extends Resource
     }
 
     /**
-     * Manually opens a suppression episode for a address, blocking every outbound path to it: operator and automated replies, API sends, typing indicators, and invitations. Set `business_account_id` to block the address for one brand only, or omit it to block the address for every brand in the workspace. If the address already has an active episode with reason `manual`, the API returns `200` with the existing episode instead of creating a second one.
+     * Stop messages to one address, for one business account or for the whole workspace. Blocks every outbound path to it: replies, API sends, typing indicators and invitations.
      *
      * @example Example
-     * $bird->amb->suppressions->create((new Model\AMBSuppressionCreate())->setAddress('opaque-customer')->setAddressType('opaque_user_id'));
+     * $bird->amb->suppressions->add((new Model\AMBSuppressionCreate())->setAddress('opaque-customer')->setAddressType('opaque_user_id'));
      */
-    public function create(AMBSuppressionCreate $params, ?RequestOptions $options = null): AMBSuppression
+    public function add(AMBSuppressionCreate $params, ?RequestOptions $options = null): AMBSuppression
     {
         return $this->single('POST', '/v1/amb/suppressions', AMBSuppression::class, $params, null, $options);
     }

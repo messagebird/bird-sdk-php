@@ -40,6 +40,12 @@ class EsimOfferSummaryNormalizer implements DenormalizerInterface, NormalizerInt
         if (\array_key_exists('stackable', $data) && \is_int($data['stackable'])) {
             $data['stackable'] = (bool) $data['stackable'];
         }
+        if (\array_key_exists('activation_window_days', $data) && $data['activation_window_days'] !== null) {
+            $object->setActivationWindowDays($data['activation_window_days']);
+        }
+        elseif (\array_key_exists('activation_window_days', $data) && $data['activation_window_days'] === null) {
+            $object->setActivationWindowDays(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }

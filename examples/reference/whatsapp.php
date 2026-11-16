@@ -350,8 +350,8 @@ echo implode(',', $rule->getEffectiveKeywords() ?? []);
 // The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one; STOP never stops working.
 $bird->whatsapp->keywordRules->delete('wkr_01m2kj8x4te9p0rr7e5w2n1abc');
 
-// address is a prefix, so a partial value matches every address under it.
-foreach ($bird->whatsapp->suppressions->list(['address' => '+1555']) as $suppression) {
+// address matches one complete address exactly; a partial number returns nothing.
+foreach ($bird->whatsapp->suppressions->list(['address' => '+15550001234']) as $suppression) {
     echo $suppression->getAddress(), ' ', $suppression->getWaba() ?? 'every account', PHP_EOL;
 }
 
