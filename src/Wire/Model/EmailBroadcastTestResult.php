@@ -256,6 +256,13 @@ class EmailBroadcastTestResult extends \ArrayObject
      */
     protected $scheduledAt;
     /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     * 
+     *
+     * @var string|null
+     */
+    protected $brandId;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -1113,6 +1120,29 @@ class EmailBroadcastTestResult extends \ArrayObject
     {
         $this->initialized['scheduledAt'] = true;
         $this->scheduledAt = $scheduledAt;
+        return $this;
+    }
+    /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     * 
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
         return $this;
     }
 }

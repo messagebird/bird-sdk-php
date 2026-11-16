@@ -143,6 +143,12 @@ class EmailMessageSendRequest
      */
     protected $scheduledAt;
     /**
+     * Preview: selects the business whose email preferences and unsubscribe page apply; explicit input returns `422` when selection is unavailable. When selection is available, omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`. Omitted or null values preserve existing sending behavior while selection is unavailable.
+     *
+     * @var string|null
+     */
+    protected $brandId;
+    /**
      * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 
      *
@@ -594,6 +600,28 @@ class EmailMessageSendRequest
     {
         $this->initialized['scheduledAt'] = true;
         $this->scheduledAt = $scheduledAt;
+        return $this;
+    }
+    /**
+     * Preview: selects the business whose email preferences and unsubscribe page apply; explicit input returns `422` when selection is unavailable. When selection is available, omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`. Omitted or null values preserve existing sending behavior while selection is unavailable.
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * Preview: selects the business whose email preferences and unsubscribe page apply; explicit input returns `422` when selection is unavailable. When selection is available, omission or null selects the workspace's default Brand. The selection stays fixed for scheduled sends and retries. An explicit ID must belong to this workspace and must not be archived. An unknown, foreign or archived Brand returns `422`. Omitted or null values preserve existing sending behavior while selection is unavailable.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
         return $this;
     }
 }

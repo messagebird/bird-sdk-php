@@ -25,8 +25,8 @@ jobs:
         # pass on 8.2 (composer.json's `php` constraint) and not rot on newer.
         php: ["8.2", "8.4"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@v7.0.1
+      - uses: shivammathur/setup-php@2.40.0
         with:
           php-version: ${{ matrix.php }}
           coverage: none

@@ -348,6 +348,13 @@ class EmailBroadcastTestResultNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
             $object->setScheduledAt(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+            unset($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         foreach ($data as $key_2 => $value_8) {
             if (preg_match('/.*/', (string) $key_2)) {
                 $object[$key_2] = $value_8;

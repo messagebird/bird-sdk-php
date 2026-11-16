@@ -6,6 +6,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Bird;
 use MessageBird\EmailDefaults;
+use MessageBird\Omit;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailAttachment;
@@ -61,6 +62,7 @@ final class Email extends EmailBase
      * @param array<string, mixed>|null                                 $metadata
      * @param array<string, mixed>|null                                 $parameters inline {{ … }} personalization variables
      * @param list<EmailAttachment>|null                                $attachments
+     * @param string|Omit|null                                          $brandId preview business selection; explicit input returns `422` when selection is unavailable; omitted or null selects the workspace default when Brand selection is available, and preserves existing behavior otherwise
      */
     public function send(
         string|array|EmailAddress|null $from = null,
@@ -85,6 +87,7 @@ final class Email extends EmailBase
         ?EmailTemplateSend $template = null,
         ?\DateTimeInterface $scheduledAt = null,
         ?RequestOptions $options = null,
+        string|Omit|null $brandId = Omit::Value,
     ): EmailMessage {
         $defaults = $this->client->emailDefaults;
         if ($defaults !== null) {
@@ -106,6 +109,9 @@ final class Email extends EmailBase
         }
 
         $request = (new EmailMessageSendRequest())->setFrom($from)->setTo($to);
+        if (!($brandId instanceof Omit)) {
+            $request->setBrandId($brandId);
+        }
         if ($subject !== null) {
             $request->setSubject($subject);
         }

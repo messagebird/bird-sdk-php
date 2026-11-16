@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.118.0
+
+- Add optional `brand_id` to individual and batch email requests. Brand selection is in preview. Explicit input returns `422` when selection is unavailable; omitted or null input preserves existing behavior.
+- Expose `brand_id` on email message responses and outbound lifecycle events. Brand attribution is in preview.
+
 ## 0.117.0
 
 - Add `voice.calls.recordings.list` and `voice.calls.transcript`, which read what a call recorded and its transcript, and `voice.legs.recordings.audio`, which downloads a recording as a WAV file and takes the redirect hop for you without sending your API key to storage.

@@ -309,6 +309,12 @@ class EmailMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
         elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
             $object->setScheduledAt(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
