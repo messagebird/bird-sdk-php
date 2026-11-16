@@ -115,6 +115,16 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('interactive_reply', $data) && $data['interactive_reply'] === null) {
             $object->setInteractiveReply(null);
         }
+        if (\array_key_exists('parts', $data) && $data['parts'] !== null) {
+            $values = [];
+            foreach ($data['parts'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\AMBMessagePart::class, 'json', $context);
+            }
+            $object->setParts($values);
+        }
+        elseif (\array_key_exists('parts', $data) && $data['parts'] === null) {
+            $object->setParts(null);
+        }
         if (\array_key_exists('in_reply_to_message_id', $data) && $data['in_reply_to_message_id'] !== null) {
             $object->setInReplyToMessageId($data['in_reply_to_message_id']);
         }
@@ -146,21 +156,21 @@ class AMBMessageNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setCategory(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['metadata'] as $key => $value) {
-                $values[$key] = $value;
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data['metadata'] as $key => $value_1) {
+                $values_1[$key] = $value_1;
             }
-            $object->setMetadata($values);
+            $object->setMetadata($values_1);
         }
         elseif (\array_key_exists('metadata', $data) && $data['metadata'] === null) {
             $object->setMetadata(null);
         }
         if (\array_key_exists('tags', $data) && $data['tags'] !== null) {
-            $values_1 = [];
-            foreach ($data['tags'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\Tag::class, 'json', $context);
+            $values_2 = [];
+            foreach ($data['tags'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\Tag::class, 'json', $context);
             }
-            $object->setTags($values_1);
+            $object->setTags($values_2);
         }
         elseif (\array_key_exists('tags', $data) && $data['tags'] === null) {
             $object->setTags(null);

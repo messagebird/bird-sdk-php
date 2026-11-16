@@ -48,7 +48,7 @@ class ComplianceSubmissionCreate
      */
     protected $countryCode;
     /**
-     * An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+     * An existing party this registration is for. It fills in the business details you left out from what that party already holds (except `business_website` on a business verification), and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
      *
      * @var string|null
      */
@@ -68,7 +68,7 @@ class ComplianceSubmissionCreate
      */
     protected $identity;
     /**
-     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds. A business verification never fills in `business_website`: when you send it, its domain is the one your organization proves and `contact_email` must be on, so leave it out if the business's website is on another domain.
      * 
      *
      * @var list<ComplianceAnswer>|null
@@ -183,7 +183,7 @@ class ComplianceSubmissionCreate
         return $this;
     }
     /**
-     * An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+     * An existing party this registration is for. It fills in the business details you left out from what that party already holds (except `business_website` on a business verification), and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
      *
      * @return string|null
      */
@@ -192,7 +192,7 @@ class ComplianceSubmissionCreate
         return $this->identityId;
     }
     /**
-     * An existing party this registration is for. It fills in the business details you left out from what that party already holds, and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
+     * An existing party this registration is for. It fills in the business details you left out from what that party already holds (except `business_website` on a business verification), and each single-value answer you file about the party is written back onto it for next time, whatever the verdict. Documents and multi-value answers are asked fresh each time. Send this or `identity`, never both. An id belonging to another organization is rejected; nothing is created here. When `subject_kind` is `identity`, send neither: `subject_id` already names the party.
      *
      * @param string|null $identityId
      *
@@ -243,7 +243,7 @@ class ComplianceSubmissionCreate
         return $this;
     }
     /**
-     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds. A business verification never fills in `business_website`: when you send it, its domain is the one your organization proves and `contact_email` must be on, so leave it out if the business's website is on another domain.
      * 
      *
      * @return list<ComplianceAnswer>|null
@@ -253,7 +253,7 @@ class ComplianceSubmissionCreate
         return $this->answers;
     }
     /**
-     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds.
+     * Every answer at once. Because submissions have no multi-call draft, send a complete set. Anything missing or malformed comes back named. A requirement the named party already answers may be left out; one you send anyway wins over what the party holds. A business verification never fills in `business_website`: when you send it, its domain is the one your organization proves and `contact_email` must be on, so leave it out if the business's website is on another domain.
      *
      * @param list<ComplianceAnswer>|null $answers
      *

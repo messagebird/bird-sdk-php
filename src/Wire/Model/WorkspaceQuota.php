@@ -85,7 +85,7 @@ class WorkspaceQuota
      */
     protected $maximumValue;
     /**
-     * The organization's limit, shared by all its workspaces.
+     * The organization's limit, shared by all its workspaces. The value `9223372036854775807` represents no limit.
      *
      * @var int|null
      */
@@ -108,7 +108,7 @@ class WorkspaceQuota
      */
     protected $workspaceLimit;
     /**
-     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit. The value `9223372036854775807` represents no limit.
      *
      * @var int|null
      */
@@ -371,7 +371,7 @@ class WorkspaceQuota
         return $this;
     }
     /**
-     * The organization's limit, shared by all its workspaces.
+     * The organization's limit, shared by all its workspaces. The value `9223372036854775807` represents no limit.
      *
      * @return int|null
      */
@@ -380,7 +380,7 @@ class WorkspaceQuota
         return $this->organizationLimit;
     }
     /**
-     * The organization's limit, shared by all its workspaces.
+     * The organization's limit, shared by all its workspaces. The value `9223372036854775807` represents no limit.
      *
      * @param int|null $organizationLimit
      *
@@ -447,7 +447,7 @@ class WorkspaceQuota
         return $this;
     }
     /**
-     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit. The value `9223372036854775807` represents no limit.
      *
      * @return int|null
      */
@@ -456,7 +456,7 @@ class WorkspaceQuota
         return $this->limit;
     }
     /**
-     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+     * The lower of the organization limit currently applied to requests and the workspace's active limit or automatic share. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit. The value `9223372036854775807` represents no limit.
      *
      * @param int|null $limit
      *

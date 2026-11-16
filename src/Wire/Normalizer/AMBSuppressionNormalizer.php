@@ -112,6 +112,12 @@ class AMBSuppressionNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
             $object->setCreatedAt(null);
         }
+        if (\array_key_exists('last_asserted_at', $data) && $data['last_asserted_at'] !== null) {
+            $object->setLastAssertedAt(new \DateTime($data['last_asserted_at']));
+        }
+        elseif (\array_key_exists('last_asserted_at', $data) && $data['last_asserted_at'] === null) {
+            $object->setLastAssertedAt(null);
+        }
         if (\array_key_exists('ended_at', $data) && $data['ended_at'] !== null) {
             $object->setEndedAt(new \DateTime($data['ended_at']));
         }

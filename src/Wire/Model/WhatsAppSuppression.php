@@ -106,6 +106,13 @@ class WhatsAppSuppression
      */
     protected $createdAt;
     /**
+     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     * 
+     *
+     * @var \DateTime|null
+     */
+    protected $lastAssertedAt;
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -406,6 +413,29 @@ class WhatsAppSuppression
     {
         $this->initialized['createdAt'] = true;
         $this->createdAt = $createdAt;
+        return $this;
+    }
+    /**
+     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     * 
+     *
+     * @return \DateTime|null
+     */
+    public function getLastAssertedAt(): ?\DateTime
+    {
+        return $this->lastAssertedAt;
+    }
+    /**
+     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     *
+     * @param \DateTime|null $lastAssertedAt
+     *
+     * @return self
+     */
+    public function setLastAssertedAt(?\DateTime $lastAssertedAt): self
+    {
+        $this->initialized['lastAssertedAt'] = true;
+        $this->lastAssertedAt = $lastAssertedAt;
         return $this;
     }
 }

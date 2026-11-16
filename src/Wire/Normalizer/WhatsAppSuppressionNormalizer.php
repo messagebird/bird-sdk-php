@@ -118,6 +118,12 @@ class WhatsAppSuppressionNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
             $object->setCreatedAt(null);
         }
+        if (\array_key_exists('last_asserted_at', $data) && $data['last_asserted_at'] !== null) {
+            $object->setLastAssertedAt(new \DateTime($data['last_asserted_at']));
+        }
+        elseif (\array_key_exists('last_asserted_at', $data) && $data['last_asserted_at'] === null) {
+            $object->setLastAssertedAt(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

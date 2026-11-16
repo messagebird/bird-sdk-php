@@ -86,6 +86,18 @@ class ComplianceSubmissionNormalizer implements DenormalizerInterface, Normalize
         elseif (\array_key_exists('identity_id', $data) && $data['identity_id'] === null) {
             $object->setIdentityId(null);
         }
+        if (\array_key_exists('domain_proof', $data) && $data['domain_proof'] !== null) {
+            $object->setDomainProof($this->denormalizer->denormalize($data['domain_proof'], \MessageBird\Wire\Model\ComplianceSubmissionDomainProof::class, 'json', $context));
+        }
+        elseif (\array_key_exists('domain_proof', $data) && $data['domain_proof'] === null) {
+            $object->setDomainProof(null);
+        }
+        if (\array_key_exists('verifying_user_id', $data) && $data['verifying_user_id'] !== null) {
+            $object->setVerifyingUserId($data['verifying_user_id']);
+        }
+        elseif (\array_key_exists('verifying_user_id', $data) && $data['verifying_user_id'] === null) {
+            $object->setVerifyingUserId(null);
+        }
         if (\array_key_exists('satisfied', $data) && $data['satisfied'] !== null) {
             $object->setSatisfied($data['satisfied']);
         }

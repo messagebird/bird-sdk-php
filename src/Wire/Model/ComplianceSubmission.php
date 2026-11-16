@@ -53,6 +53,18 @@ class ComplianceSubmission
      */
     protected $identityId;
     /**
+     * For a business verification, how your organization proved it controls the business's domain. Absent otherwise.
+     *
+     * @var ComplianceSubmissionDomainProof|null
+     */
+    protected $domainProof;
+    /**
+     * For a business verification, the member who acts for the business. Absent otherwise.
+     *
+     * @var string|null
+     */
+    protected $verifyingUserId;
+    /**
      * Whether this country's requirements are met. `true` once the submission is approved and every required requirement is approved or marked not applicable. This can remain true when an external verifier requests a correction. Once you submit that correction, it must pass review before this becomes true again, including any optional answers you change.
      * 
      *
@@ -237,6 +249,50 @@ class ComplianceSubmission
     {
         $this->initialized['identityId'] = true;
         $this->identityId = $identityId;
+        return $this;
+    }
+    /**
+     * For a business verification, how your organization proved it controls the business's domain. Absent otherwise.
+     *
+     * @return ComplianceSubmissionDomainProof|null
+     */
+    public function getDomainProof(): ?ComplianceSubmissionDomainProof
+    {
+        return $this->domainProof;
+    }
+    /**
+     * For a business verification, how your organization proved it controls the business's domain. Absent otherwise.
+     *
+     * @param ComplianceSubmissionDomainProof|ComplianceDomainProof|array|null $domainProof
+     *
+     * @return self
+     */
+    public function setDomainProof($domainProof): self
+    {
+        $this->initialized['domainProof'] = true;
+        $this->domainProof = \MessageBird\Core\ModelWrapper::normalize($domainProof, ComplianceSubmissionDomainProof::class);
+        return $this;
+    }
+    /**
+     * For a business verification, the member who acts for the business. Absent otherwise.
+     *
+     * @return string|null
+     */
+    public function getVerifyingUserId(): ?string
+    {
+        return $this->verifyingUserId;
+    }
+    /**
+     * For a business verification, the member who acts for the business. Absent otherwise.
+     *
+     * @param string|null $verifyingUserId
+     *
+     * @return self
+     */
+    public function setVerifyingUserId(?string $verifyingUserId): self
+    {
+        $this->initialized['verifyingUserId'] = true;
+        $this->verifyingUserId = $verifyingUserId;
         return $this;
     }
     /**

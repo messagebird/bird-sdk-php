@@ -722,9 +722,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\ComplianceSubmissionCreate::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionCreateNormalizer::class,
 
+        \MessageBird\Wire\Model\ComplianceDomainProof::class => \MessageBird\Wire\Normalizer\ComplianceDomainProofNormalizer::class,
+
         \MessageBird\Wire\Model\ComplianceSubmissionItem::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionItemNormalizer::class,
 
         \MessageBird\Wire\Model\ComplianceSubmission::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionNormalizer::class,
+
+        \MessageBird\Wire\Model\ComplianceSubmissionDomainProof::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionDomainProofNormalizer::class,
 
         \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => \MessageBird\Wire\Normalizer\ComplianceSubmissionResupplyNormalizer::class,
 
@@ -1359,6 +1363,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBInboundIMessageApp::class => \MessageBird\Wire\Normalizer\AMBInboundIMessageAppNormalizer::class,
 
         \MessageBird\Wire\Model\AMBInteractiveReply::class => \MessageBird\Wire\Normalizer\AMBInteractiveReplyNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBMessagePart::class => \MessageBird\Wire\Normalizer\AMBMessagePartNormalizer::class,
 
         \MessageBird\Wire\Model\AMBError::class => \MessageBird\Wire\Normalizer\AMBErrorNormalizer::class,
 
@@ -2810,8 +2816,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\ComplianceSubmissionIdentity::class => false,
             \MessageBird\Wire\Model\ComplianceAnswer::class => false,
             \MessageBird\Wire\Model\ComplianceSubmissionCreate::class => false,
+            \MessageBird\Wire\Model\ComplianceDomainProof::class => false,
             \MessageBird\Wire\Model\ComplianceSubmissionItem::class => false,
             \MessageBird\Wire\Model\ComplianceSubmission::class => false,
+            \MessageBird\Wire\Model\ComplianceSubmissionDomainProof::class => false,
             \MessageBird\Wire\Model\ComplianceSubmissionResupply::class => false,
             \MessageBird\Wire\Model\SMSStatsSeriesPeriod::class => false,
             \MessageBird\Wire\Model\SMSStatsResponse::class => false,
@@ -3129,6 +3137,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBNativeInboundAuthentication::class => false,
             \MessageBird\Wire\Model\AMBInboundIMessageApp::class => false,
             \MessageBird\Wire\Model\AMBInteractiveReply::class => false,
+            \MessageBird\Wire\Model\AMBMessagePart::class => false,
             \MessageBird\Wire\Model\AMBError::class => false,
             \MessageBird\Wire\Model\AMBMessage::class => false,
             \MessageBird\Wire\Model\AMBMessageText::class => false,

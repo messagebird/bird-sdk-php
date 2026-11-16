@@ -32,7 +32,7 @@ class WorkspaceQuotaUsage extends \ArrayObject
      */
     protected $observedAt;
     /**
-     * The organization limit requests were checked against when usage was read.
+     * The organization limit requests were checked against when usage was read. The value `9223372036854775807` represents no limit.
      *
      * @var int|null
      */
@@ -120,7 +120,7 @@ class WorkspaceQuotaUsage extends \ArrayObject
         return $this;
     }
     /**
-     * The organization limit requests were checked against when usage was read.
+     * The organization limit requests were checked against when usage was read. The value `9223372036854775807` represents no limit.
      *
      * @return int|null
      */
@@ -129,7 +129,7 @@ class WorkspaceQuotaUsage extends \ArrayObject
         return $this->organizationLimit;
     }
     /**
-     * The organization limit requests were checked against when usage was read.
+     * The organization limit requests were checked against when usage was read. The value `9223372036854775807` represents no limit.
      *
      * @param int|null $organizationLimit
      *
