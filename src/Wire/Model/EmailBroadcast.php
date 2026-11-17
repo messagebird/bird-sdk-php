@@ -268,6 +268,12 @@ class EmailBroadcast
      */
     protected $failureParameters;
     /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     *
+     * @var string|null
+     */
+    protected $brandId;
+    /**
      * Broadcast ID.
      *
      * @return string|null
@@ -1151,6 +1157,28 @@ class EmailBroadcast
     {
         $this->initialized['failureParameters'] = true;
         $this->failureParameters = $failureParameters;
+        return $this;
+    }
+    /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
         return $this;
     }
 }

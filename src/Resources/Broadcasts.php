@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MessageBird\Resources;
 
+use MessageBird\Omit;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailAddress;
 use MessageBird\Wire\Model\EmailBroadcast;
@@ -27,6 +28,7 @@ final class Broadcasts extends BroadcastsBase
      * than saved as a draft.
      *
      * @param string|array<string, string>|EmailAddress|null $from the address the broadcast sends from: a plain email string, an RFC 5322 mailbox string, an `['email' => …, 'name' => …]` array, or an EmailAddress
+     * @param string|Omit|null $brandId preview business selection; omitted or null uses the default Brand at first scheduling or sending when available
      * @param string|null $template the template's id (`emt_…`)
      * @param array<string, mixed>|\stdClass|null $parameters complete authored input map; an empty array sends an empty object
      * @param array<string, array<string, mixed>|\stdClass>|\stdClass|null $parameterOverrides complete per-language override map keyed by language tag; a name a language leaves out uses `$parameters`, and empty arrays send empty objects
@@ -56,6 +58,7 @@ final class Broadcasts extends BroadcastsBase
         ?string $language = null,
         array|\stdClass|null $parameters = null,
         array|\stdClass|null $parameterOverrides = null,
+        string|Omit|null $brandId = Omit::Value,
     ): EmailBroadcast {
         // A per-call value always wins; an unset field falls back to the client
         // default, so a broadcast sends under the same policy as the client's
@@ -80,6 +83,9 @@ final class Broadcasts extends BroadcastsBase
         // which PHP renders as "+00:00" for UTC where every other surface — and
         // the shared conformance vector — writes "Z".
         $body = [];
+        if (!($brandId instanceof Omit)) {
+            $body['brand_id'] = $brandId;
+        }
         if ($from !== null) {
             $body['from'] = $from;
         }
@@ -155,6 +161,7 @@ final class Broadcasts extends BroadcastsBase
      * @param array{
      *     from?: string|array<string, mixed>|EmailAddress,
      *     audience_id?: string,
+     *     brand_id?: string|null,
      *     template?: array{id?: string, language?: string|null, parameters?: array<string, mixed>|\stdClass, parameter_overrides?: array<string, array<string, mixed>|\stdClass>|\stdClass}|null,
      *     reply_to?: list<string|array<string, string>|EmailAddress>|null,
      *     headers?: array<string, string>,

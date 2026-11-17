@@ -16,7 +16,7 @@ class EmailBroadcastValidationResult
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender and audience can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
+     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender, audience and selected Brand can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
      *
      * @var bool|null
      */
@@ -53,7 +53,7 @@ class EmailBroadcastValidationResult
      */
     protected $overrideParameters;
     /**
-     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender and audience can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
+     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender, audience and selected Brand can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
      *
      * @return bool|null
      */
@@ -62,7 +62,7 @@ class EmailBroadcastValidationResult
         return $this->readyForAdmission;
     }
     /**
-     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender and audience can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
+     * Whether the current template and supplied broadcast inputs pass validation, including checks that the sender, audience and selected Brand can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
      *
      * @param bool|null $readyForAdmission
      *

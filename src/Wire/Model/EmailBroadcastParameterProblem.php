@@ -35,6 +35,7 @@ class EmailBroadcastParameterProblem
      * - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
      * - `language_unavailable`: the published version has no content in the selected language.
      * - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+     * - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
      * - `audience_unavailable`: the broadcast's audience cannot be used for this send.
      * - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
      * - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
@@ -122,6 +123,7 @@ class EmailBroadcastParameterProblem
      * - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
      * - `language_unavailable`: the published version has no content in the selected language.
      * - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+     * - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
      * - `audience_unavailable`: the broadcast's audience cannot be used for this send.
      * - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
      * - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
@@ -155,6 +157,7 @@ class EmailBroadcastParameterProblem
     - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
     - `language_unavailable`: the published version has no content in the selected language.
     - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+    - `brand_unavailable`: the saved Brand is archived or unavailable for selection. Preview with an available Brand override before sending a test.
     - `audience_unavailable`: the broadcast's audience cannot be used for this send.
     - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
     - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.

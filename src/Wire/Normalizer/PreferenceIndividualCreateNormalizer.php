@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class PreferenceIndividualCreateNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\PreferenceCreate::class;
+        return $type === \MessageBird\Wire\Model\PreferenceIndividualCreate::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\PreferenceCreate::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\PreferenceIndividualCreate::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\PreferenceCreate();
+        $object = new \MessageBird\Wire\Model\PreferenceIndividualCreate();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -86,6 +86,13 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
         elseif (\array_key_exists('consented_at', $data) && $data['consented_at'] === null) {
             $object->setConsentedAt(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+            unset($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value;
@@ -97,15 +104,15 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
     {
         $dataArray = [];
         if (!$data->isInitialized('handle')) {
-            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.handle missing');
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceIndividualCreate.handle missing');
         }
         $dataArray['handle'] = $data->getHandle();
         if (!$data->isInitialized('channel')) {
-            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.channel missing');
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceIndividualCreate.channel missing');
         }
         $dataArray['channel'] = $data->getChannel();
         if (!$data->isInitialized('status')) {
-            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceCreate.status missing');
+            throw new \MessageBird\Exception\RequestValidationException('required field PreferenceIndividualCreate.status missing');
         }
         $dataArray['status'] = $data->getStatus();
         if ($data->isInitialized('coverage') && null !== $data->getCoverage()) {
@@ -120,6 +127,9 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
         if ($data->isInitialized('consentedAt') && null !== $data->getConsentedAt()) {
             $dataArray['consented_at'] = $data->getConsentedAt()->format('Y-m-d\TH:i:sP');
         }
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
@@ -129,6 +139,6 @@ class PreferenceCreateNormalizer implements DenormalizerInterface, NormalizerInt
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\PreferenceCreate::class => false];
+        return [\MessageBird\Wire\Model\PreferenceIndividualCreate::class => false];
     }
 }

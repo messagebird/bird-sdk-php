@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One person's current stated preference for one channel: whether they have consented to or opted out of receiving messages at a handle, and how much traffic the statement covers. A key holds one current statement (a newer statement replaces it, an older one is refused), and the full history behind the current state is kept internally. `sender_scope` and `topic_id` are part of the key: a preference with both null applies channel-wide.
+ * One person's current stated preference for one channel: whether they have consented to or opted out of receiving messages at a handle, and how much traffic the statement covers. A key holds one current statement (a newer statement replaces it, an older one is refused), and the full history behind the current state is kept internally. `sender_scope` and `topic_id` are part of the key: a preference with both null applies to the selected email Brand, or channel-wide for other channels.
  */
 class Preference extends \ArrayObject
 {
@@ -30,7 +30,7 @@ class Preference extends \ArrayObject
      */
     protected $handle;
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences use brand_id instead, so sender_scope is always null there.
      *
      * @var string|null
      */
@@ -77,6 +77,12 @@ class Preference extends \ArrayObject
      * @var string|null
      */
     protected $contactId;
+    /**
+     * The business this email preference belongs to. Brand attribution is in preview.
+     *
+     * @var string|null
+     */
+    protected $brandId;
     /**
      * @var \DateTime|null
      */
@@ -144,7 +150,7 @@ class Preference extends \ArrayObject
         return $this;
     }
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences use brand_id instead, so sender_scope is always null there.
      *
      * @return string|null
      */
@@ -153,7 +159,7 @@ class Preference extends \ArrayObject
         return $this->senderScope;
     }
     /**
-     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
+     * The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences use brand_id instead, so sender_scope is always null there.
      *
      * @param string|null $senderScope
      *
@@ -327,6 +333,28 @@ class Preference extends \ArrayObject
     {
         $this->initialized['contactId'] = true;
         $this->contactId = $contactId;
+        return $this;
+    }
+    /**
+     * The business this email preference belongs to. Brand attribution is in preview.
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * The business this email preference belongs to. Brand attribution is in preview.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
         return $this;
     }
     /**

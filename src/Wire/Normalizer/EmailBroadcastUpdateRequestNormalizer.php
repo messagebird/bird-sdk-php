@@ -125,6 +125,12 @@ class EmailBroadcastUpdateRequestNormalizer implements DenormalizerInterface, No
         elseif (\array_key_exists('category', $data) && $data['category'] === null) {
             $object->setCategory(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -182,6 +188,9 @@ class EmailBroadcastUpdateRequestNormalizer implements DenormalizerInterface, No
         }
         if ($data->isInitialized('category') && null !== $data->getCategory()) {
             $dataArray['category'] = $data->getCategory();
+        }
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
         }
         return $dataArray;
     }

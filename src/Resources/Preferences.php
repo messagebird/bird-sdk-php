@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
+use MessageBird\Omit;
 use MessageBird\Wire\Model\Preference;
 use MessageBird\Wire\Model\PreferenceWriteResult;
 
@@ -23,14 +24,19 @@ final class Preferences extends PreferencesBase
      * The write is an ordered upsert keyed on channel + handle (+ sender_scope):
      * a statement dated before the key's current one is refused rather than
      * applied, which is why the result — not the bare Preference — comes back
-     * either way. Returns the same PreferenceWriteResult shape whether the key
-     * was fresh (201) or already had a record (200).
+     * either way. A 201 creates a live record; 200 covers updates and refusals.
+     * Complaint protection can also return applied: false. Inspect preference
+     * alongside applied: a newer opt-out or deletion returns applied: false,
+     * with the revoked preference or null, even when consent history is retained. Only this individual operation
+     * can clear an email Brand complaint with newer consentedAt; bulk writes and
+     * imports cannot. Other opt-outs and delivery blocks still apply.
      *
+     * @param string|Omit|null $brandId preview email business selection; returns 422 where unavailable
      * @param string $channel one of `email`, `sms`, `whatsapp`
      * @param string $status  `granted` records consent; `revoked` records an opt-out
      * @param string|null $coverage how much traffic the statement covers (`all` or `non_transactional`); defaults server-side to `non_transactional`
      * @param string|null $senderScope limit the statement to one sender instead of the whole channel; not supported on email
-     * @param string|null $source free-form note on where the statement came from
+     * @param string|null $source free-form note on where the statement came from, such as how consent was collected
      * @param \DateTimeInterface|null $consentedAt when the person consented, required evidence when granting over a stored opt-out; serialized as RFC 3339
      */
     public function create(
@@ -42,8 +48,9 @@ final class Preferences extends PreferencesBase
         ?string $source = null,
         ?\DateTimeInterface $consentedAt = null,
         ?RequestOptions $options = null,
+        string|Omit|null $brandId = Omit::Value,
     ): PreferenceWriteResult {
-        // Built as a plain array rather than the generated PreferenceCreate model:
+        // Built as a plain array rather than the generated PreferenceIndividualCreate model:
         // that model's normalizer formats a date via `format('Y-m-d\TH:i:sP')`,
         // which PHP renders as "+00:00" for UTC. RFC 3339 allows that, but every
         // other surface writes "Z" for a UTC instant, so a shared corpus vector
@@ -54,6 +61,9 @@ final class Preferences extends PreferencesBase
             'handle' => $handle,
             'status' => $status,
         ];
+        if (!($brandId instanceof Omit)) {
+            $body['brand_id'] = $brandId;
+        }
         if ($coverage !== null) {
             $body['coverage'] = $coverage;
         }
@@ -97,7 +107,9 @@ final class Preferences extends PreferencesBase
      * means a newer statement survived the request, which `preference` then
      * carries. A void return here would read that refusal as success, so the
      * generated void delete does not fit and this hand method returns the
-     * result instead.
+     * result instead. Recipient-origin opt-outs and active Brand complaints
+     * cannot be deleted (422 E25005). Only individual opt-in with newer consent
+     * can clear a Brand complaint; other blocks still apply.
      */
     public function delete(string $preferenceId, ?RequestOptions $options = null): PreferenceWriteResult
     {

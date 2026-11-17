@@ -73,6 +73,13 @@ class EmailBroadcastTestRequestNormalizer implements DenormalizerInterface, Norm
         elseif (\array_key_exists('headers', $data) && $data['headers'] === null) {
             $object->setHeaders(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+            unset($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         if (\array_key_exists('contact_id', $data) && $data['contact_id'] !== null) {
             $object->setContactId($data['contact_id']);
             unset($data['contact_id']);
@@ -127,6 +134,9 @@ class EmailBroadcastTestRequestNormalizer implements DenormalizerInterface, Norm
                 $values_1[$key] = $value_1;
             }
             $dataArray['headers'] = (object) $values_1;
+        }
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
         }
         if ($data->isInitialized('contactId') && null !== $data->getContactId()) {
             $dataArray['contact_id'] = $data->getContactId();

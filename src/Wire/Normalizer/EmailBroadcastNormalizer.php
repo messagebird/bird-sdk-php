@@ -295,6 +295,12 @@ class EmailBroadcastNormalizer implements DenormalizerInterface, NormalizerInter
         elseif (\array_key_exists('failure_parameters', $data) && $data['failure_parameters'] === null) {
             $object->setFailureParameters(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null

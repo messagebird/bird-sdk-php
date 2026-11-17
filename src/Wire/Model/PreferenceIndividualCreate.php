@@ -3,9 +3,9 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Records one preference statement for a handle. Writing is an upsert by key (channel, handle, sender scope, and topic), and statements are causally ordered: a statement dated older than the key's current one is refused and returned with `applied: false` rather than applied out of order.
+ * Records one recipient's preference. For email, a granted statement with consented_at strictly later than a Brand complaint can clear that complaint. Bulk writes and imports cannot clear complaints. Other applicable opt-outs and delivery blocks still apply.
  */
-class PreferenceCreate extends \ArrayObject
+class PreferenceIndividualCreate extends \ArrayObject
 {
     /**
      * @var array
@@ -40,13 +40,13 @@ class PreferenceCreate extends \ArrayObject
      */
     protected $coverage = 'non_transactional';
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences belong to the selected Brand.
      *
      * @var string|null
      */
     protected $senderScope;
     /**
-     * Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+     * Free-form note on where the statement came from: a form name, an import batch, a campaign. For a grant, it can describe how you collected consent. Stored verbatim and returned on the preference; Bird does not verify this note. It does not grant permission to clear a complaint.
      *
      * @var string|null
      */
@@ -57,6 +57,12 @@ class PreferenceCreate extends \ArrayObject
      * @var \DateTime|null
      */
     protected $consentedAt;
+    /**
+     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     *
+     * @var string|null
+     */
+    protected $brandId;
     /**
      * Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
      *
@@ -146,7 +152,7 @@ class PreferenceCreate extends \ArrayObject
         return $this;
     }
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences belong to the selected Brand.
      *
      * @return string|null
      */
@@ -155,7 +161,7 @@ class PreferenceCreate extends \ArrayObject
         return $this->senderScope;
     }
     /**
-     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
+     * Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences belong to the selected Brand.
      *
      * @param string|null $senderScope
      *
@@ -168,7 +174,7 @@ class PreferenceCreate extends \ArrayObject
         return $this;
     }
     /**
-     * Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+     * Free-form note on where the statement came from: a form name, an import batch, a campaign. For a grant, it can describe how you collected consent. Stored verbatim and returned on the preference; Bird does not verify this note. It does not grant permission to clear a complaint.
      *
      * @return string|null
      */
@@ -177,7 +183,7 @@ class PreferenceCreate extends \ArrayObject
         return $this->source;
     }
     /**
-     * Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+     * Free-form note on where the statement came from: a form name, an import batch, a campaign. For a grant, it can describe how you collected consent. Stored verbatim and returned on the preference; Bird does not verify this note. It does not grant permission to clear a complaint.
      *
      * @param string|null $source
      *
@@ -209,6 +215,28 @@ class PreferenceCreate extends \ArrayObject
     {
         $this->initialized['consentedAt'] = true;
         $this->consentedAt = $consentedAt;
+        return $this;
+    }
+    /**
+     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
         return $this;
     }
 }

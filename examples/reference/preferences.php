@@ -28,7 +28,10 @@ $result = $bird->preferences->create(
     source: 'signup-form-v2',
     consentedAt: new DateTimeImmutable('2026-08-20T14:03:10Z'),
 );
-echo var_export($result->getApplied(), true);
+$preference = $result->getPreference();
+if ($result->getApplied() && $preference?->getStatus() === 'granted') {
+    echo 'grant recorded';
+}
 
 // applied:false means a newer statement survived the request; the surviving
 // record comes back on the result rather than being deleted out from under it.

@@ -73,6 +73,13 @@ class EmailBroadcastValidationRequestNormalizer implements DenormalizerInterface
         elseif (\array_key_exists('headers', $data) && $data['headers'] === null) {
             $object->setHeaders(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+            unset($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         foreach ($data as $key_1 => $value_2) {
             if (preg_match('/.*/', (string) $key_1)) {
                 $object[$key_1] = $value_2;
@@ -106,6 +113,9 @@ class EmailBroadcastValidationRequestNormalizer implements DenormalizerInterface
                 $values_1[$key] = $value_1;
             }
             $dataArray['headers'] = (object) $values_1;
+        }
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
         }
         foreach ($data as $key_1 => $value_2) {
             if (preg_match('/.*/', (string) $key_1)) {

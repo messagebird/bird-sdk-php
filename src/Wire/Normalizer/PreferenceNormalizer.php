@@ -121,6 +121,13 @@ class PreferenceNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('contact_id', $data) && $data['contact_id'] === null) {
             $object->setContactId(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+            unset($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
             unset($data['created_at']);

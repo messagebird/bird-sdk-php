@@ -140,6 +140,12 @@ class EmailBroadcastCreateRequestNormalizer implements DenormalizerInterface, No
         elseif (\array_key_exists('scheduled_at', $data) && $data['scheduled_at'] === null) {
             $object->setScheduledAt(null);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -199,6 +205,9 @@ class EmailBroadcastCreateRequestNormalizer implements DenormalizerInterface, No
         }
         if ($data->isInitialized('scheduledAt') && null !== $data->getScheduledAt()) {
             $dataArray['scheduled_at'] = $data->getScheduledAt()->format('Y-m-d\TH:i:sP');
+        }
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
         }
         return $dataArray;
     }

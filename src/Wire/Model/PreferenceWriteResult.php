@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * The outcome of one preference write or delete. `applied: true` means the request took effect: either it changed the record, or an identical statement already had. `applied: false` means it was refused as older than the key's current statement; `preference` then carries the statement that survived, and `transition_id` identifies the refusal on the key's record.
+ * The outcome of one preference write or delete. `applied: true` means the request took effect, including an identical repeat. `applied: false` means it was refused because a newer statement or protected complaint survives; `preference` carries the statement that survived, and `transition_id` identifies the operation on the key's record.
  */
 class PreferenceWriteResult
 {
@@ -16,7 +16,7 @@ class PreferenceWriteResult
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Whether the request took effect. False only when it was refused as out of order; the surviving, newer statement is returned in `preference`.
+     * Whether the request took effect. False when causal ordering or protected complaint rules refuse the request; the surviving statement is returned in `preference`. A grant returns false when a newer opt-out or deletion survives, even if its consent history is retained.
      *
      * @var bool|null
      */
@@ -28,13 +28,13 @@ class PreferenceWriteResult
      */
     protected $transitionId;
     /**
-     * The key's surviving statement. Null after an applied delete, when the key is back to having no record.
+     * The key's surviving statement. Null after an applied delete, when the key is back to having no record. It is also null after a refused grant when a later deletion remains in force.
      *
      * @var mixed|null
      */
     protected $preference;
     /**
-     * Whether the request took effect. False only when it was refused as out of order; the surviving, newer statement is returned in `preference`.
+     * Whether the request took effect. False when causal ordering or protected complaint rules refuse the request; the surviving statement is returned in `preference`. A grant returns false when a newer opt-out or deletion survives, even if its consent history is retained.
      *
      * @return bool|null
      */
@@ -43,7 +43,7 @@ class PreferenceWriteResult
         return $this->applied;
     }
     /**
-     * Whether the request took effect. False only when it was refused as out of order; the surviving, newer statement is returned in `preference`.
+     * Whether the request took effect. False when causal ordering or protected complaint rules refuse the request; the surviving statement is returned in `preference`. A grant returns false when a newer opt-out or deletion survives, even if its consent history is retained.
      *
      * @param bool|null $applied
      *
@@ -78,7 +78,7 @@ class PreferenceWriteResult
         return $this;
     }
     /**
-     * The key's surviving statement. Null after an applied delete, when the key is back to having no record.
+     * The key's surviving statement. Null after an applied delete, when the key is back to having no record. It is also null after a refused grant when a later deletion remains in force.
      *
      * @return mixed
      */
@@ -87,7 +87,7 @@ class PreferenceWriteResult
         return $this->preference;
     }
     /**
-     * The key's surviving statement. Null after an applied delete, when the key is back to having no record.
+     * The key's surviving statement. Null after an applied delete, when the key is back to having no record. It is also null after a refused grant when a later deletion remains in force.
      *
      * @param mixed $preference
      *

@@ -526,7 +526,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\PreferenceList::class => \MessageBird\Wire\Normalizer\PreferenceListNormalizer::class,
 
-        \MessageBird\Wire\Model\PreferenceCreate::class => \MessageBird\Wire\Normalizer\PreferenceCreateNormalizer::class,
+        \MessageBird\Wire\Model\PreferenceIndividualCreate::class => \MessageBird\Wire\Normalizer\PreferenceIndividualCreateNormalizer::class,
 
         \MessageBird\Wire\Model\PreferenceWriteResult::class => \MessageBird\Wire\Normalizer\PreferenceWriteResultNormalizer::class,
 
@@ -2718,7 +2718,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AudienceList::class => false,
             \MessageBird\Wire\Model\Preference::class => false,
             \MessageBird\Wire\Model\PreferenceList::class => false,
-            \MessageBird\Wire\Model\PreferenceCreate::class => false,
+            \MessageBird\Wire\Model\PreferenceIndividualCreate::class => false,
             \MessageBird\Wire\Model\PreferenceWriteResult::class => false,
             \MessageBird\Wire\Model\ContactProperty::class => false,
             \MessageBird\Wire\Model\ContactPropertyList::class => false,

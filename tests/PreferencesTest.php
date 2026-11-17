@@ -125,6 +125,7 @@ final class PreferencesTest extends TestCase
                 "preference": {
                     "id": "prf_01krdgeqcxet5s7t44vh8rt9mg",
                     "channel": "sms",
+                    "brand_id": null,
                     "handle": "+15550001234",
                     "sender_scope": null,
                     "topic_id": null,
@@ -144,6 +145,7 @@ final class PreferencesTest extends TestCase
         self::assertFalse($result->getApplied());
         $preference = $result->getPreference();
         self::assertInstanceOf(Preference::class, $preference);
+        self::assertNull($preference->getBrandId());
         self::assertSame('+15550001234', $preference->getHandle());
         self::assertSame('revoked', $preference->getStatus());
     }
@@ -167,6 +169,7 @@ final class PreferencesTest extends TestCase
                 "preference": {
                     "id": "prf_1",
                     "channel": "email",
+                    "brand_id": "bnd_01krdgeqcxet5s7t44vh8rt9mg",
                     "handle": "recipient@example.com",
                     "sender_scope": null,
                     "topic_id": null,
@@ -185,10 +188,13 @@ final class PreferencesTest extends TestCase
             channel: 'email',
             handle: 'recipient@example.com',
             status: 'revoked',
+            brandId: 'bnd_01krdgeqcxet5s7t44vh8rt9mg',
         );
 
         $preference = $result->getPreference();
         self::assertInstanceOf(Preference::class, $preference);
+        self::assertSame('bnd_01krdgeqcxet5s7t44vh8rt9mg', $this->sentBody($recording)['brand_id']);
+        self::assertSame('bnd_01krdgeqcxet5s7t44vh8rt9mg', $preference->getBrandId());
         self::assertSame('recipient@example.com', $preference->getHandle());
     }
 }
