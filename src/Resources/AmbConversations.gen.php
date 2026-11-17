@@ -8,6 +8,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\AMBAuthentication;
 use MessageBird\Wire\Model\AMBConversation;
 use MessageBird\Wire\Model\AMBConversationList;
 use MessageBird\Wire\Model\AMBConversationTypingRequest;
@@ -66,6 +67,22 @@ class AmbConversationsBase extends Resource
     public function typing(string $conversationId, AMBConversationTypingRequest $params, ?RequestOptions $options = null): void
     {
         $this->none('POST', '/v1/amb/conversations/' . rawurlencode($conversationId) . '/typing', $params, null, $options);
+    }
+
+    /**
+     * Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
+     */
+    public function requestAuthentication(string $conversationId, ?RequestOptions $options = null): AMBAuthentication
+    {
+        return $this->single('POST', '/v1/amb/conversations/' . rawurlencode($conversationId) . '/authentications', AMBAuthentication::class, null, null, $options);
+    }
+
+    /**
+     * Reads one authentication request by its conversation and request IDs. A succeeded request includes the verified identity. Use it when the amb.authentication.updated webhook event has not arrived by expires_at; the read can briefly trail the event.
+     */
+    public function getAuthentication(string $conversationId, string $authenticationId, ?RequestOptions $options = null): AMBAuthentication
+    {
+        return $this->single('GET', '/v1/amb/conversations/' . rawurlencode($conversationId) . '/authentications/' . rawurlencode($authenticationId), AMBAuthentication::class, null, null, $options);
     }
 
     /**

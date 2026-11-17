@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A message to send. Supply exactly one of `text` (free-text, which also requires `category` unless a messaging profile supplies a default), `template` (a stored template, whose category is derived), or `binary` (which also requires `category`). Supplying more than one, or none, is rejected.
+ * A message to send. Supply direct content (`text` and/or `media_urls`, with an optional `subject`), a stored `template`, or `binary`. A nonempty subject or media list selects MMS, which requires a recipient with calling code +1 and is charged as one message. Direct content requires `category` unless a messaging profile supplies a default. A subject alone is rejected.
  */
 class SMSMessageSendRequest
 {
@@ -36,7 +36,7 @@ class SMSMessageSendRequest
      */
     protected $from;
     /**
-     * Free-text message body, required unless `template` is set; the two are mutually exclusive. From 1 character up to 12 segments, roughly 1836 GSM-7 or 804 UCS-2 characters, since the two encodings fit different numbers of characters in a segment. Bird does not truncate: a longer body returns `422`.
+     * Message body. Required for direct content unless `media_urls` is nonempty. Text-only SMS allows up to 12 segments; longer SMS returns `422`. MMS text is sent without SMS segmentation or smart encoding.
      *
      * @var string|null
      */
@@ -96,11 +96,18 @@ class SMSMessageSendRequest
      */
     protected $options;
     /**
-     * Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+     * Absolute HTTP(S) attachment URLs accessible without authentication. A nonempty list selects MMS. Keep URLs accessible through delivery retries. The carrier checks downloads after acceptance: each file may be at most 600 KiB and the total at most 900 KiB. Unreachable, nonpublic or oversized media fails asynchronously through delivery status.
+     * 
      *
      * @var list<string>|null
      */
     protected $mediaUrls;
+    /**
+     * MMS subject. A nonempty subject selects MMS and requires text or media. Cannot accompany a template or binary payload.
+     *
+     * @var string|null
+     */
+    protected $subject;
     /**
      * The messaging profile that supplies this message's sender and defaults. Without `from`, Bird sends from the profile's sender for the destination country, or its default sender. An omitted `category` on a free-text send, `smart_encoding`, `cost_center`, `validity_period`, `options.callback_url` and `options.ignore_suppression` take the profile's settings, and values set on the message take precedence. A built-in template sends from Bird's system sender and ignores the profile's senders. A profile that does not exist in this workspace returns `422` `SMSMessagingProfileNotFound`, and a `from` bound to a different profile returns `422` `SMSMessagingProfileSenderBound`.
      *
@@ -114,7 +121,7 @@ class SMSMessageSendRequest
      */
     protected $scheduledAt;
     /**
-     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category`, `subject` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      * 
      *
      * @var SMSMessageSendRequestTemplate|null
@@ -225,7 +232,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Free-text message body, required unless `template` is set; the two are mutually exclusive. From 1 character up to 12 segments, roughly 1836 GSM-7 or 804 UCS-2 characters, since the two encodings fit different numbers of characters in a segment. Bird does not truncate: a longer body returns `422`.
+     * Message body. Required for direct content unless `media_urls` is nonempty. Text-only SMS allows up to 12 segments; longer SMS returns `422`. MMS text is sent without SMS segmentation or smart encoding.
      *
      * @return string|null
      */
@@ -234,7 +241,7 @@ class SMSMessageSendRequest
         return $this->text;
     }
     /**
-     * Free-text message body, required unless `template` is set; the two are mutually exclusive. From 1 character up to 12 segments, roughly 1836 GSM-7 or 804 UCS-2 characters, since the two encodings fit different numbers of characters in a segment. Bird does not truncate: a longer body returns `422`.
+     * Message body. Required for direct content unless `media_urls` is nonempty. Text-only SMS allows up to 12 segments; longer SMS returns `422`. MMS text is sent without SMS segmentation or smart encoding.
      *
      * @param string|null $text
      *
@@ -429,7 +436,8 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+     * Absolute HTTP(S) attachment URLs accessible without authentication. A nonempty list selects MMS. Keep URLs accessible through delivery retries. The carrier checks downloads after acceptance: each file may be at most 600 KiB and the total at most 900 KiB. Unreachable, nonpublic or oversized media fails asynchronously through delivery status.
+     * 
      *
      * @return list<string>|null
      */
@@ -438,7 +446,7 @@ class SMSMessageSendRequest
         return $this->mediaUrls;
     }
     /**
-     * Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+     * Absolute HTTP(S) attachment URLs accessible without authentication. A nonempty list selects MMS. Keep URLs accessible through delivery retries. The carrier checks downloads after acceptance: each file may be at most 600 KiB and the total at most 900 KiB. Unreachable, nonpublic or oversized media fails asynchronously through delivery status.
      *
      * @param list<string>|null $mediaUrls
      *
@@ -448,6 +456,28 @@ class SMSMessageSendRequest
     {
         $this->initialized['mediaUrls'] = true;
         $this->mediaUrls = $mediaUrls;
+        return $this;
+    }
+    /**
+     * MMS subject. A nonempty subject selects MMS and requires text or media. Cannot accompany a template or binary payload.
+     *
+     * @return string|null
+     */
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+    /**
+     * MMS subject. A nonempty subject selects MMS and requires text or media. Cannot accompany a template or binary payload.
+     *
+     * @param string|null $subject
+     *
+     * @return self
+     */
+    public function setSubject(?string $subject): self
+    {
+        $this->initialized['subject'] = true;
+        $this->subject = $subject;
         return $this;
     }
     /**
@@ -495,7 +525,7 @@ class SMSMessageSendRequest
         return $this;
     }
     /**
-     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category`, `subject` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      * 
      *
      * @return SMSMessageSendRequestTemplate|null
@@ -505,7 +535,7 @@ class SMSMessageSendRequest
         return $this->template;
     }
     /**
-     * Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
+     * Send using a stored template instead of free text. The category is derived from the template, so `category`, `subject` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
      *
      * @param SMSMessageSendRequestTemplate|SMSTemplateSend|array|null $template
      *

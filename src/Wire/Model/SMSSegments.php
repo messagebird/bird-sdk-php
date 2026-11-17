@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Segment breakdown for the message body. Segment count drives billing.
+ * Billable SMS segments, or one unit for MMS.
  */
 class SMSSegments
 {
@@ -16,7 +16,7 @@ class SMSSegments
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Number of segments the body is split into. Each segment is a billable unit.
+     * Number of billable units. MMS always has one unit and is not split into SMS segments.
      *
      * @var int|null
      */
@@ -35,6 +35,8 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
+     * `MMS` marks a multimedia message billed as one unit; `characters` counts text code points.
+     * 
      * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
      * 
      *
@@ -49,7 +51,7 @@ class SMSSegments
      */
     protected $characters;
     /**
-     * Number of segments the body is split into. Each segment is a billable unit.
+     * Number of billable units. MMS always has one unit and is not split into SMS segments.
      *
      * @return int|null
      */
@@ -58,7 +60,7 @@ class SMSSegments
         return $this->count;
     }
     /**
-     * Number of segments the body is split into. Each segment is a billable unit.
+     * Number of billable units. MMS always has one unit and is not split into SMS segments.
      *
      * @param int|null $count
      *
@@ -84,6 +86,8 @@ class SMSSegments
      * outside the Basic Multilingual Plane is a surrogate pair costing two code
      * units, so 35 of those fill a single segment.
      * 
+     * `MMS` marks a multimedia message billed as one unit; `characters` counts text code points.
+     * 
      * `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
      * 
      *
@@ -106,6 +110,8 @@ class SMSSegments
     feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
     outside the Basic Multilingual Plane is a surrogate pair costing two code
     units, so 35 of those fill a single segment.
+    
+    `MMS` marks a multimedia message billed as one unit; `characters` counts text code points.
     
     `BINARY` marks an 8-bit binary payload, sent as one segment, where `characters` counts its octets. Only a binary send produces it.
     

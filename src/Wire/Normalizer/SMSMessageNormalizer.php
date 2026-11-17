@@ -37,6 +37,12 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('content_type', $data) && $data['content_type'] !== null) {
+            $object->setContentType($data['content_type']);
+        }
+        elseif (\array_key_exists('content_type', $data) && $data['content_type'] === null) {
+            $object->setContentType(null);
+        }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
         }
@@ -207,6 +213,22 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
         elseif (\array_key_exists('in_reply_to_message', $data) && $data['in_reply_to_message'] === null) {
             $object->setInReplyToMessage(null);
         }
+        if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
+            $object->setSubject($data['subject']);
+        }
+        elseif (\array_key_exists('subject', $data) && $data['subject'] === null) {
+            $object->setSubject(null);
+        }
+        if (\array_key_exists('media', $data) && $data['media'] !== null) {
+            $values_2 = [];
+            foreach ($data['media'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \MessageBird\Wire\Model\SMSMedia::class, 'json', $context);
+            }
+            $object->setMedia($values_2);
+        }
+        elseif (\array_key_exists('media', $data) && $data['media'] === null) {
+            $object->setMedia(null);
+        }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
             $object->setCreatedAt(new \DateTime($data['created_at']));
         }
@@ -230,6 +252,9 @@ class SMSMessageNormalizer implements DenormalizerInterface, NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('contentType') && null !== $data->getContentType()) {
+            $dataArray['content_type'] = $data->getContentType();
+        }
         if (!$data->isInitialized('id')) {
             throw new \MessageBird\Exception\RequestValidationException('required field SMSMessage.id missing');
         }

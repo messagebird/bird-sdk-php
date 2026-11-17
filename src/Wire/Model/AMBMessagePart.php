@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * One part of the split an outbound message was sent in. `title`, `image_url` and `layout` record what a card showed, as measured when the part was sent, not what a request chose. They are absent when an earlier attempt of a retried send sent the part.
+ * One part of the split an outbound message was sent in. `title`, `image_url` and `layout` record what a card showed, not what a request chose. Bird reads them when it sends the part, except on a `rich_link` Apple built from its URL, where it reads the linked page around the time Apple accepts the part. They can be absent, as each field says.
  */
 class AMBMessagePart
 {
@@ -52,13 +52,13 @@ class AMBMessagePart
      */
     protected $url;
     /**
-     * The title a `link_preview` part showed, read from the page when the part was sent. A title longer than 512 bytes is cut to that length. Absent when an earlier attempt of a retried send sent the part.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @var string|null
      */
     protected $title;
     /**
-     * The page image a `link_preview` part showed, as the address it was fetched from when the part was sent. Absent when the address is longer than 2,048 bytes, and when an earlier attempt of a retried send sent the part.
+     * The address of the image a card showed. On a `link_preview` part it is the page image Bird fetched and sent. On a `rich_link` part Apple built from its URL it is the image the linked page offers, read around the time Apple accepted the part. Apple builds that card on the device, so the image it shows can differ. On both kinds the address is the page's own. Bird keeps no copy of the image, and the address can stop serving it later. Absent on other parts, on a part Apple did not accept, when the address is longer than 2,048 bytes, and when Bird could not read the page or the page offers no image. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @var string|null
      */
@@ -205,7 +205,7 @@ class AMBMessagePart
         return $this;
     }
     /**
-     * The title a `link_preview` part showed, read from the page when the part was sent. A title longer than 512 bytes is cut to that length. Absent when an earlier attempt of a retried send sent the part.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @return string|null
      */
@@ -214,7 +214,7 @@ class AMBMessagePart
         return $this->title;
     }
     /**
-     * The title a `link_preview` part showed, read from the page when the part was sent. A title longer than 512 bytes is cut to that length. Absent when an earlier attempt of a retried send sent the part.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @param string|null $title
      *
@@ -227,7 +227,7 @@ class AMBMessagePart
         return $this;
     }
     /**
-     * The page image a `link_preview` part showed, as the address it was fetched from when the part was sent. Absent when the address is longer than 2,048 bytes, and when an earlier attempt of a retried send sent the part.
+     * The address of the image a card showed. On a `link_preview` part it is the page image Bird fetched and sent. On a `rich_link` part Apple built from its URL it is the image the linked page offers, read around the time Apple accepted the part. Apple builds that card on the device, so the image it shows can differ. On both kinds the address is the page's own. Bird keeps no copy of the image, and the address can stop serving it later. Absent on other parts, on a part Apple did not accept, when the address is longer than 2,048 bytes, and when Bird could not read the page or the page offers no image. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @return string|null
      */
@@ -236,7 +236,7 @@ class AMBMessagePart
         return $this->imageUrl;
     }
     /**
-     * The page image a `link_preview` part showed, as the address it was fetched from when the part was sent. Absent when the address is longer than 2,048 bytes, and when an earlier attempt of a retried send sent the part.
+     * The address of the image a card showed. On a `link_preview` part it is the page image Bird fetched and sent. On a `rich_link` part Apple built from its URL it is the image the linked page offers, read around the time Apple accepted the part. Apple builds that card on the device, so the image it shows can differ. On both kinds the address is the page's own. Bird keeps no copy of the image, and the address can stop serving it later. Absent on other parts, on a part Apple did not accept, when the address is longer than 2,048 bytes, and when Bird could not read the page or the page offers no image. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @param string|null $imageUrl
      *

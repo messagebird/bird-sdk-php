@@ -51,6 +51,9 @@ $submission = $bird->complianceSubmissions->resupply(
 );
 echo $submission->getSatisfied() ? 'satisfied' : 'outstanding', "\n";
 
+$submission = $bird->complianceSubmissions->sendContactConfirmation('csb_01krdgeqcxet5s7t44vh8rt9mg');
+echo $submission->getId(), "\n";
+
 foreach ($bird->complianceAttachments->list() as $attachment) {
     echo $attachment->getId(), ' ', $attachment->getFilename(), ' ', $attachment->getStatus(), "\n";
 }

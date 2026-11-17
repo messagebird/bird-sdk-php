@@ -133,6 +133,12 @@ class AMBConversation
      */
     protected $updatedAt;
     /**
+     * Latest authentication request and the last verified identity. Included when you read one conversation, not in list results.
+     *
+     * @var AMBConversationAuthenticationWrapper|null
+     */
+    protected $authentication;
+    /**
      * Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
      *
      * @return string|null
@@ -547,6 +553,28 @@ class AMBConversation
     {
         $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+    /**
+     * Latest authentication request and the last verified identity. Included when you read one conversation, not in list results.
+     *
+     * @return AMBConversationAuthenticationWrapper|null
+     */
+    public function getAuthentication(): ?AMBConversationAuthenticationWrapper
+    {
+        return $this->authentication;
+    }
+    /**
+     * Latest authentication request and the last verified identity. Included when you read one conversation, not in list results.
+     *
+     * @param AMBConversationAuthenticationWrapper|AMBConversationAuthentication|array|null $authentication
+     *
+     * @return self
+     */
+    public function setAuthentication($authentication): self
+    {
+        $this->initialized['authentication'] = true;
+        $this->authentication = \MessageBird\Core\ModelWrapper::normalize($authentication, AMBConversationAuthenticationWrapper::class);
         return $this;
     }
 }

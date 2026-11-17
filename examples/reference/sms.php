@@ -201,3 +201,6 @@ $rule = $bird->smsKeywordRules->update(
 echo $rule->getReply();
 
 $bird->smsKeywordRules->delete('skr_abc123');
+
+$media = $bird->sms->messages->media('sms_01krdgeqcxet5s7t44vh8rt9mg', 'smf_01krdgeqcxet5s7t44vh8rt9mg');
+echo $media->contentType, ' ', $media->contentLength;

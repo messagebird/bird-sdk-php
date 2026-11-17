@@ -72,6 +72,26 @@ final class WhatsappMessagesMediaTest extends TestCase
         self::assertSame(self::STORAGE, (string) $client->requests[1]->getUri());
     }
 
+    public function testSMSDownloadStripsCredentials(): void
+    {
+        [$bird, $client] = $this->bird($this->redirect(), $this->stored());
+
+        $media = $bird->sms->messages->media('sms_1', 'smf_1');
+
+        self::assertSame(self::PNG, $media->data);
+        self::assertSame('image/png', $media->contentType);
+        self::assertSame(\strlen(self::PNG), $media->contentLength);
+        self::assertCount(2, $client->requests);
+        self::assertSame('/v1/sms/messages/sms_1/media/smf_1', $client->requests[0]->getUri()->getPath());
+        self::assertSame('Bearer bk_test', $client->requests[0]->getHeaderLine('Authorization'));
+        self::assertSame(self::STORAGE, (string) $client->requests[1]->getUri());
+        self::assertFalse($client->requests[1]->hasHeader('Authorization'));
+        self::assertFalse($client->requests[1]->hasHeader('Cookie'));
+        foreach (array_keys($client->requests[1]->getHeaders()) as $name) {
+            self::assertStringStartsNotWith('bird-', strtolower((string) $name));
+        }
+    }
+
     // The assertion the whole two-leg design exists for.
     public function testSendsNoCredentialsToStorage(): void
     {

@@ -28,6 +28,12 @@ class AMBConversationRecipient
      */
     protected $phoneNumber;
     /**
+     * Name from the last successful identity verification, or null when none was collected. It can refer to a previous verification and does not establish a current login session.
+     *
+     * @var string|null
+     */
+    protected $displayName;
+    /**
      * Apple's opaque identifier for this customer with this business. Null when no identifier is recorded.
      *
      * @return string|null
@@ -69,6 +75,28 @@ class AMBConversationRecipient
     {
         $this->initialized['phoneNumber'] = true;
         $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+    /**
+     * Name from the last successful identity verification, or null when none was collected. It can refer to a previous verification and does not establish a current login session.
+     *
+     * @return string|null
+     */
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+    /**
+     * Name from the last successful identity verification, or null when none was collected. It can refer to a previous verification and does not establish a current login session.
+     *
+     * @param string|null $displayName
+     *
+     * @return self
+     */
+    public function setDisplayName(?string $displayName): self
+    {
+        $this->initialized['displayName'] = true;
+        $this->displayName = $displayName;
         return $this;
     }
 }

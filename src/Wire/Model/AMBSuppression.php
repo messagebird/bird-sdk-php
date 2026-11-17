@@ -108,7 +108,7 @@ class AMBSuppression
      */
     protected $createdAt;
     /**
-     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     * When we last recorded this suppression being stated. Later than `created_at` when it was stated again while already in force: your workspace adding it again, or the customer closing the conversation again. A repeat adds no new record.
      * 
      *
      * @var \DateTime|null
@@ -435,7 +435,7 @@ class AMBSuppression
         return $this;
     }
     /**
-     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     * When we last recorded this suppression being stated. Later than `created_at` when it was stated again while already in force: your workspace adding it again, or the customer closing the conversation again. A repeat adds no new record.
      * 
      *
      * @return \DateTime|null
@@ -445,7 +445,7 @@ class AMBSuppression
         return $this->lastAssertedAt;
     }
     /**
-     * When we last recorded this suppression being stated. Later than `created_at` when your workspace added it again while it was already in force; a repeat adds no new record.
+     * When we last recorded this suppression being stated. Later than `created_at` when it was stated again while already in force: your workspace adding it again, or the customer closing the conversation again. A repeat adds no new record.
      *
      * @param \DateTime|null $lastAssertedAt
      *

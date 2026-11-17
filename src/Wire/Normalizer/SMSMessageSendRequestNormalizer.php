@@ -127,6 +127,12 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('media_urls', $data) && $data['media_urls'] === null) {
             $object->setMediaUrls(null);
         }
+        if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
+            $object->setSubject($data['subject']);
+        }
+        elseif (\array_key_exists('subject', $data) && $data['subject'] === null) {
+            $object->setSubject(null);
+        }
         if (\array_key_exists('messaging_profile_id', $data) && $data['messaging_profile_id'] !== null) {
             $object->setMessagingProfileId($data['messaging_profile_id']);
         }
@@ -241,6 +247,9 @@ class SMSMessageSendRequestNormalizer implements DenormalizerInterface, Normaliz
                 $values_2[] = $value_2;
             }
             $dataArray['media_urls'] = $values_2;
+        }
+        if ($data->isInitialized('subject') && null !== $data->getSubject()) {
+            $dataArray['subject'] = $data->getSubject();
         }
         if ($data->isInitialized('messagingProfileId') && null !== $data->getMessagingProfileId()) {
             $dataArray['messaging_profile_id'] = $data->getMessagingProfileId();

@@ -49,6 +49,12 @@ class AMBConversationRecipientNormalizer implements DenormalizerInterface, Norma
         elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
             $object->setPhoneNumber(null);
         }
+        if (\array_key_exists('display_name', $data) && $data['display_name'] !== null) {
+            $object->setDisplayName($data['display_name']);
+        }
+        elseif (\array_key_exists('display_name', $data) && $data['display_name'] === null) {
+            $object->setDisplayName(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -62,6 +68,9 @@ class AMBConversationRecipientNormalizer implements DenormalizerInterface, Norma
             throw new \MessageBird\Exception\RequestValidationException('required field AMBConversationRecipient.phone_number missing');
         }
         $dataArray['phone_number'] = $data->getPhoneNumber();
+        if ($data->isInitialized('displayName')) {
+            $dataArray['display_name'] = $data->getDisplayName();
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

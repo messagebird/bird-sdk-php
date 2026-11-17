@@ -574,6 +574,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSInReplyToMessage::class => \MessageBird\Wire\Normalizer\SMSInReplyToMessageNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSMedia::class => \MessageBird\Wire\Normalizer\SMSMediaNormalizer::class,
+
         \MessageBird\Wire\Model\SMSMessage::class => \MessageBird\Wire\Normalizer\SMSMessageNormalizer::class,
 
         \MessageBird\Wire\Model\SMSMessageBinary::class => \MessageBird\Wire\Normalizer\SMSMessageBinaryNormalizer::class,
@@ -1403,6 +1405,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBConversationRoutingChange::class => \MessageBird\Wire\Normalizer\AMBConversationRoutingChangeNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversationLastMessage::class => \MessageBird\Wire\Normalizer\AMBConversationLastMessageNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBVerifiedIdentity::class => \MessageBird\Wire\Normalizer\AMBVerifiedIdentityNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBAuthentication::class => \MessageBird\Wire\Normalizer\AMBAuthenticationNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationVerifiedIdentity::class => \MessageBird\Wire\Normalizer\AMBConversationVerifiedIdentityNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBConversationAuthentication::class => \MessageBird\Wire\Normalizer\AMBConversationAuthenticationNormalizer::class,
 
         \MessageBird\Wire\Model\AMBConversation::class => \MessageBird\Wire\Normalizer\AMBConversationNormalizer::class,
 
@@ -2416,6 +2426,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppAgentNotificationErrorWrapperNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBConversationAuthenticationWrapper::class => \MessageBird\Wire\Normalizer\AMBConversationAuthenticationWrapperNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessAccountBanWrapperNormalizer::class,
 
         \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => \MessageBird\Wire\Normalizer\EmailHealthSignalThresholdsWrapperNormalizer::class,
@@ -2742,6 +2754,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSMessageEffectiveOptions::class => false,
             \MessageBird\Wire\Model\SMSError::class => false,
             \MessageBird\Wire\Model\SMSInReplyToMessage::class => false,
+            \MessageBird\Wire\Model\SMSMedia::class => false,
             \MessageBird\Wire\Model\SMSMessage::class => false,
             \MessageBird\Wire\Model\SMSMessageBinary::class => false,
             \MessageBird\Wire\Model\SMSMessageOptions::class => false,
@@ -3157,6 +3170,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBConversationRouting::class => false,
             \MessageBird\Wire\Model\AMBConversationRoutingChange::class => false,
             \MessageBird\Wire\Model\AMBConversationLastMessage::class => false,
+            \MessageBird\Wire\Model\AMBVerifiedIdentity::class => false,
+            \MessageBird\Wire\Model\AMBAuthentication::class => false,
+            \MessageBird\Wire\Model\AMBConversationVerifiedIdentity::class => false,
+            \MessageBird\Wire\Model\AMBConversationAuthentication::class => false,
             \MessageBird\Wire\Model\AMBConversation::class => false,
             \MessageBird\Wire\Model\AMBConversationList::class => false,
             \MessageBird\Wire\Model\AMBConversationRoutingChangeDecision::class => false,
@@ -3663,6 +3680,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppMessageTemplateWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppConversationRecipientWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppAgentNotificationErrorWrapper::class => false,
+            \MessageBird\Wire\Model\AMBConversationAuthenticationWrapper::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBanWrapper::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholdsWrapper::class => false,
             \MessageBird\Wire\Model\AvailableNumberPricingWrapper::class => false,

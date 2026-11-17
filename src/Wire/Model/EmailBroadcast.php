@@ -141,7 +141,10 @@ class EmailBroadcast
      */
     protected $recipientCount = 0;
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+     * Saved count of recipients whose status is `processed` or later. Counters refresh periodically and can change after the broadcast reaches `sent`. Read the broadcast again to get the latest saved totals. These counts use exact retained delivery and engagement records; the email stats endpoints report approximate totals.
+     * 
+     * List and single-broadcast reads return the last saved values during refresh delays or failures. A new broadcast starts with saved zero counters, which remain until its first refresh. Counters are absent while historical totals have not been calculated or their retained history is incomplete. A failure to read saved counters fails the request. Creating, updating, sending, resuming, and canceling a broadcast return no counters.
+     * 
      *
      * @var int|null
      */
@@ -177,7 +180,7 @@ class EmailBroadcast
      */
     protected $clickCount;
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The saved IP addresses this broadcast's messages went out from, up to 100 of them. These refresh with the counters and stay absent when the saved counters are unavailable or incomplete. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      * 
      *
      * @var list<string>|null
@@ -697,7 +700,10 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
+     * Saved count of recipients whose status is `processed` or later. Counters refresh periodically and can change after the broadcast reaches `sent`. Read the broadcast again to get the latest saved totals. These counts use exact retained delivery and engagement records; the email stats endpoints report approximate totals.
+     * 
+     * List and single-broadcast reads return the last saved values during refresh delays or failures. A new broadcast starts with saved zero counters, which remain until its first refresh. Counters are absent while historical totals have not been calculated or their retained history is incomplete. A failure to read saved counters fails the request. Creating, updating, sending, resuming, and canceling a broadcast return no counters.
+     * 
      *
      * @return int|null
      */
@@ -706,12 +712,15 @@ class EmailBroadcast
         return $this->sentCount;
     }
     /**
-     * How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending, resuming or canceling it, none of which read the counters. List and single-broadcast reads return 0 when no delivery events are recorded. When counters are unavailable, those reads still return 200 and omit the counters. Read the broadcast again for the numbers.
-     *
-     * @param int|null $sentCount
-     *
-     * @return self
-     */
+    * Saved count of recipients whose status is `processed` or later. Counters refresh periodically and can change after the broadcast reaches `sent`. Read the broadcast again to get the latest saved totals. These counts use exact retained delivery and engagement records; the email stats endpoints report approximate totals.
+    
+    List and single-broadcast reads return the last saved values during refresh delays or failures. A new broadcast starts with saved zero counters, which remain until its first refresh. Counters are absent while historical totals have not been calculated or their retained history is incomplete. A failure to read saved counters fails the request. Creating, updating, sending, resuming, and canceling a broadcast return no counters.
+    
+    *
+    * @param int|null $sentCount
+    *
+    * @return self
+    */
     public function setSentCount(?int $sentCount): self
     {
         $this->initialized['sentCount'] = true;
@@ -829,7 +838,7 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The saved IP addresses this broadcast's messages went out from, up to 100 of them. These refresh with the counters and stay absent when the saved counters are unavailable or incomplete. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      * 
      *
      * @return list<string>|null
@@ -839,7 +848,7 @@ class EmailBroadcast
         return $this->sendingIps;
     }
     /**
-     * The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+     * The saved IP addresses this broadcast's messages went out from, up to 100 of them. These refresh with the counters and stay absent when the saved counters are unavailable or incomplete. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending, resuming or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
      *
      * @param list<string>|null $sendingIps
      *

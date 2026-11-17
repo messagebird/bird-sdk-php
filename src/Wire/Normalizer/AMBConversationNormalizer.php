@@ -163,6 +163,12 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
+        if (\array_key_exists('authentication', $data) && $data['authentication'] !== null) {
+            $object->setAuthentication($this->denormalizer->denormalize($data['authentication'], \MessageBird\Wire\Model\AMBConversationAuthenticationWrapper::class, 'json', $context));
+        }
+        elseif (\array_key_exists('authentication', $data) && $data['authentication'] === null) {
+            $object->setAuthentication(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -248,6 +254,9 @@ class AMBConversationNormalizer implements DenormalizerInterface, NormalizerInte
             throw new \MessageBird\Exception\RequestValidationException('required field AMBConversation.updated_at missing');
         }
         $dataArray['updated_at'] = $data->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        if ($data->isInitialized('authentication') && null !== $data->getAuthentication()) {
+            $dataArray['authentication'] = $this->normalizer->normalize($data->getAuthentication(), 'json', $context);
+        }
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

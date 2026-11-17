@@ -20,6 +20,7 @@ class ComplianceDomainProof
      * 
      * - `member_login`: a member of this workspace signs in with a verified address at the domain.
      * - `sso_domain`: the domain is your organization's verified single sign-on domain.
+     * - `contact_confirmation`: the business contact confirmed a link we emailed to their address at the domain.
      * 
      *
      * @var string|null
@@ -36,6 +37,7 @@ class ComplianceDomainProof
      * 
      * - `member_login`: a member of this workspace signs in with a verified address at the domain.
      * - `sso_domain`: the domain is your organization's verified single sign-on domain.
+     * - `contact_confirmation`: the business contact confirmed a link we emailed to their address at the domain.
      * 
      *
      * @return string|null
@@ -49,6 +51,7 @@ class ComplianceDomainProof
     
     - `member_login`: a member of this workspace signs in with a verified address at the domain.
     - `sso_domain`: the domain is your organization's verified single sign-on domain.
+    - `contact_confirmation`: the business contact confirmed a link we emailed to their address at the domain.
     
     *
     * @param string|null $method

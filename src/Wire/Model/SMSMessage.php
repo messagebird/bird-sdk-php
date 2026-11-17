@@ -13,6 +13,12 @@ class SMSMessage
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Message content type. A nonempty subject or media list selects MMS.
+     *
+     * @var string|null
+     */
+    protected $contentType;
+    /**
      * @var string|null
      */
     protected $id;
@@ -41,7 +47,7 @@ class SMSMessage
      */
     protected $from;
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
+     * The message body. Absent on media-only or subject-only MMS and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      * 
      *
      * @var string|null
@@ -97,7 +103,7 @@ class SMSMessage
      */
     protected $messagingProfileId;
     /**
-     * Segment breakdown for the message body. Segment count drives billing.
+     * Billable SMS segments, or one unit for MMS.
      *
      * @var SMSSegments|null
      */
@@ -179,6 +185,19 @@ class SMSMessage
      */
     protected $inReplyToMessage;
     /**
+     * MMS subject. Absent on any message that carries none.
+     *
+     * @var string|null
+     */
+    protected $subject;
+    /**
+     * MMS attachments. Omitted when absent or redacted for an authentication send. Outbound entries retain submitted URLs; inbound entries describe stored attachments.
+     * 
+     *
+     * @var list<SMSMedia>|null
+     */
+    protected $media;
+    /**
      * When the message was accepted (outbound) or received (inbound).
      *
      * @var \DateTime|null
@@ -196,6 +215,28 @@ class SMSMessage
      * @var \DateTime|null
      */
     protected $deliveredAt;
+    /**
+     * Message content type. A nonempty subject or media list selects MMS.
+     *
+     * @return string|null
+     */
+    public function getContentType(): ?string
+    {
+        return $this->contentType;
+    }
+    /**
+     * Message content type. A nonempty subject or media list selects MMS.
+     *
+     * @param string|null $contentType
+     *
+     * @return self
+     */
+    public function setContentType(?string $contentType): self
+    {
+        $this->initialized['contentType'] = true;
+        $this->contentType = $contentType;
+        return $this;
+    }
     /**
      * @return string|null
      */
@@ -301,7 +342,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
+     * The message body. Absent on media-only or subject-only MMS and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      * 
      *
      * @return string|null
@@ -311,7 +352,7 @@ class SMSMessage
         return $this->text;
     }
     /**
-     * The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text, and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
+     * The message body. Absent on media-only or subject-only MMS and on a binary message, which returns `binary` instead. For a template send, this is the rendered text after parameter substitution. System template messages preserve the surrounding text and mask sensitive codes with one asterisk per digit. Authentication messages without declared sensitive variables return `**REDACTED**`. The recipient receives the real code; message history retains only its masked representation.
      *
      * @param string|null $text
      *
@@ -499,7 +540,7 @@ class SMSMessage
         return $this;
     }
     /**
-     * Segment breakdown for the message body. Segment count drives billing.
+     * Billable SMS segments, or one unit for MMS.
      *
      * @return SMSSegments|null
      */
@@ -508,7 +549,7 @@ class SMSMessage
         return $this->segments;
     }
     /**
-     * Segment breakdown for the message body. Segment count drives billing.
+     * Billable SMS segments, or one unit for MMS.
      *
      * @param SMSSegments|null $segments
      *
@@ -786,6 +827,51 @@ class SMSMessage
     {
         $this->initialized['inReplyToMessage'] = true;
         $this->inReplyToMessage = \MessageBird\Core\ModelWrapper::normalize($inReplyToMessage, SMSMessageInReplyToMessage::class);
+        return $this;
+    }
+    /**
+     * MMS subject. Absent on any message that carries none.
+     *
+     * @return string|null
+     */
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+    /**
+     * MMS subject. Absent on any message that carries none.
+     *
+     * @param string|null $subject
+     *
+     * @return self
+     */
+    public function setSubject(?string $subject): self
+    {
+        $this->initialized['subject'] = true;
+        $this->subject = $subject;
+        return $this;
+    }
+    /**
+     * MMS attachments. Omitted when absent or redacted for an authentication send. Outbound entries retain submitted URLs; inbound entries describe stored attachments.
+     * 
+     *
+     * @return list<SMSMedia>|null
+     */
+    public function getMedia(): ?array
+    {
+        return $this->media;
+    }
+    /**
+     * MMS attachments. Omitted when absent or redacted for an authentication send. Outbound entries retain submitted URLs; inbound entries describe stored attachments.
+     *
+     * @param list<SMSMedia>|null $media
+     *
+     * @return self
+     */
+    public function setMedia(?array $media): self
+    {
+        $this->initialized['media'] = true;
+        $this->media = $media;
         return $this;
     }
     /**

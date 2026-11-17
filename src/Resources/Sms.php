@@ -23,23 +23,30 @@ use MessageBird\Wire\Model\Tag;
 final class Sms extends SmsBase
 {
     public readonly SmsStats $stats;
+    public readonly SmsMessages $messages;
 
     public function __construct(Bird $client)
     {
         parent::__construct($client);
         $this->stats = new SmsStats($client);
+        $this->messages = new SmsMessages($client);
     }
 
     /**
-     * Send an SMS and return the created message.
+     * Send an SMS or MMS and return the created message.
      *
-     * Provide one of $text (with $category and $from), a $template (by id
+     * Provide direct content ($text and/or $mediaUrls, with $category and $from),
+     * a $template (by id
      * `smt_…` or slug, with $parameters), or a $binary payload (with the
      * `transactional` $category). A workspace template requires an owned $from;
      * a built-in template selects its sender and rejects $from. The content
      * forms are mutually exclusive. An unset optional argument is omitted from
      * the request.
      *
+     * A subject or media URLs selects MMS for +1 recipients. Supply text or at
+     * least one absolute HTTP(S) media URL; templates and binary cannot carry MMS fields.
+     *
+     * @param list<string>|null          $mediaUrls absolute HTTP(S) media URLs
      * @param string|null                $template   stored template id (`smt_…`) or slug
      * @param array<string, mixed>|null  $parameters template variable values; template sends only
      * @param list<Tag>|null             $tags
@@ -72,6 +79,8 @@ final class Sms extends SmsBase
         ?string $costCenter = null,
         ?SMSMessageSendRequestBinary $binary = null,
         ?SMSMessageSendRequestOptions $sendOptions = null,
+        ?string $subject = null,
+        ?array $mediaUrls = null,
     ): SMSMessage {
         $request = (new SMSMessageSendRequest())->setTo($to);
         if ($from !== null) {
@@ -79,6 +88,12 @@ final class Sms extends SmsBase
         }
         if ($text !== null) {
             $request->setText($text);
+        }
+        if ($subject !== null) {
+            $request->setSubject($subject);
+        }
+        if ($mediaUrls !== null) {
+            $request->setMediaUrls($mediaUrls);
         }
         if ($category !== null) {
             $request->setCategory($category);
