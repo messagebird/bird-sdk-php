@@ -47,12 +47,19 @@ class WhatsAppKeywordRuleCreate
      */
     protected $waba;
     /**
-     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
      * 
      *
      * @var list<string>|null
      */
     protected $keywords;
+    /**
+     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $excludedKeywords;
     /**
      * The message to send back when a keyword matches. Omit it to send nothing.
      * 
@@ -157,7 +164,7 @@ class WhatsAppKeywordRuleCreate
         return $this;
     }
     /**
-     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
      * 
      *
      * @return list<string>|null
@@ -167,7 +174,7 @@ class WhatsAppKeywordRuleCreate
         return $this->keywords;
     }
     /**
-     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+     * Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. Use `excluded_keywords` to remove one of Bird's. A keyword Bird has bound to the other operation cannot be reused here.
      *
      * @param list<string>|null $keywords
      *
@@ -177,6 +184,29 @@ class WhatsAppKeywordRuleCreate
     {
         $this->initialized['keywords'] = true;
         $this->keywords = $keywords;
+        return $this;
+    }
+    /**
+     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getExcludedKeywords(): ?array
+    {
+        return $this->excludedKeywords;
+    }
+    /**
+     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     *
+     * @param list<string>|null $excludedKeywords
+     *
+     * @return self
+     */
+    public function setExcludedKeywords(?array $excludedKeywords): self
+    {
+        $this->initialized['excludedKeywords'] = true;
+        $this->excludedKeywords = $excludedKeywords;
         return $this;
     }
     /**

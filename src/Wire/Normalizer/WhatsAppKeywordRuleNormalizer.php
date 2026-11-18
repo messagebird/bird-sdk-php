@@ -77,12 +77,22 @@ class WhatsAppKeywordRuleNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('keywords', $data) && $data['keywords'] === null) {
             $object->setKeywords(null);
         }
-        if (\array_key_exists('effective_keywords', $data) && $data['effective_keywords'] !== null) {
+        if (\array_key_exists('excluded_keywords', $data) && $data['excluded_keywords'] !== null) {
             $values_1 = [];
-            foreach ($data['effective_keywords'] as $value_1) {
+            foreach ($data['excluded_keywords'] as $value_1) {
                 $values_1[] = $value_1;
             }
-            $object->setEffectiveKeywords($values_1);
+            $object->setExcludedKeywords($values_1);
+        }
+        elseif (\array_key_exists('excluded_keywords', $data) && $data['excluded_keywords'] === null) {
+            $object->setExcludedKeywords(null);
+        }
+        if (\array_key_exists('effective_keywords', $data) && $data['effective_keywords'] !== null) {
+            $values_2 = [];
+            foreach ($data['effective_keywords'] as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $object->setEffectiveKeywords($values_2);
         }
         elseif (\array_key_exists('effective_keywords', $data) && $data['effective_keywords'] === null) {
             $object->setEffectiveKeywords(null);
@@ -136,14 +146,22 @@ class WhatsAppKeywordRuleNormalizer implements DenormalizerInterface, Normalizer
             $values[] = $value;
         }
         $dataArray['keywords'] = $values;
+        if (!$data->isInitialized('excludedKeywords')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.excluded_keywords missing');
+        }
+        $values_1 = [];
+        foreach ($data->getExcludedKeywords() as $value_1) {
+            $values_1[] = $value_1;
+        }
+        $dataArray['excluded_keywords'] = $values_1;
         if (!$data->isInitialized('effectiveKeywords')) {
             throw new \MessageBird\Exception\RequestValidationException('required field WhatsAppKeywordRule.effective_keywords missing');
         }
-        $values_1 = [];
-        foreach ($data->getEffectiveKeywords() as $value_1) {
-            $values_1[] = $value_1;
+        $values_2 = [];
+        foreach ($data->getEffectiveKeywords() as $value_2) {
+            $values_2[] = $value_2;
         }
-        $dataArray['effective_keywords'] = $values_1;
+        $dataArray['effective_keywords'] = $values_2;
         if ($data->isInitialized('reply')) {
             $dataArray['reply'] = $data->getReply();
         }

@@ -18,7 +18,7 @@ use MessageBird\Wire\Model\EmailRecipientList;
 class EmailBase extends Resource
 {
     /**
-     * Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
+     * Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`. For Automatic Email Seeding, this original message's status does not establish seed-copy delivery.
      *
      * @example Fetch a message by id
      * $message = $bird->email->get('em_01krdgeqcxet5s7t44vh8rt9mg');

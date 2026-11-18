@@ -12,7 +12,7 @@ parameters:
         # wire — the same guard the TS SDK gets from compiling its examples.
         - examples
     excludePaths:
-        # Generated wire layer (jane-php). Never hand-edited, not our style bar.
+        # Generated wire layer (emitted by beak). Never hand-edited, not our style bar.
         - src/Wire
     scanFiles:
         # WordPress ships no Composer autoloader, so its symbols (used only by the

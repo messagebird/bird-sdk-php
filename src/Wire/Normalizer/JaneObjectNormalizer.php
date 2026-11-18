@@ -204,6 +204,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByCategoryResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\SMSContentTypeStatsPoint::class => \MessageBird\Wire\Normalizer\SMSContentTypeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSContentTypeStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSContentTypeStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSContentTypeStatsPointLatency::class => \MessageBird\Wire\Normalizer\SMSContentTypeStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSStatsByContentTypeResponse::class => \MessageBird\Wire\Normalizer\SMSStatsByContentTypeResponseNormalizer::class,
+
         \MessageBird\Wire\Model\SMSTagStatsPoint::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => \MessageBird\Wire\Normalizer\SMSTagStatsPointDeliveryNormalizer::class,
@@ -233,6 +241,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundCountryStatsPointNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByCountryResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundContentTypeStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundContentTypeStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\SMSInboundStatsByContentTypeResponse::class => \MessageBird\Wire\Normalizer\SMSInboundStatsByContentTypeResponseNormalizer::class,
 
         \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => \MessageBird\Wire\Normalizer\SMSInboundOperatorStatsPointNormalizer::class,
 
@@ -2569,6 +2581,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSCategoryStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\SMSCategoryStatsPointLatency::class => false,
             \MessageBird\Wire\Model\SMSStatsByCategoryResponse::class => false,
+            \MessageBird\Wire\Model\SMSContentTypeStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSContentTypeStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\SMSContentTypeStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\SMSStatsByContentTypeResponse::class => false,
             \MessageBird\Wire\Model\SMSTagStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSTagStatsPointDelivery::class => false,
             \MessageBird\Wire\Model\SMSTagStatsPointLatency::class => false,
@@ -2584,6 +2600,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\SMSInboundStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundCountryStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByCountryResponse::class => false,
+            \MessageBird\Wire\Model\SMSInboundContentTypeStatsPoint::class => false,
+            \MessageBird\Wire\Model\SMSInboundStatsByContentTypeResponse::class => false,
             \MessageBird\Wire\Model\SMSInboundOperatorStatsPoint::class => false,
             \MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse::class => false,
             \MessageBird\Wire\Model\WhatsAppStatsSummaryPeriod::class => false,

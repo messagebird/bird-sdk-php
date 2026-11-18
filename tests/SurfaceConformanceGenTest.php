@@ -118,6 +118,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->sms->stats->byCountry(...),
             $bird->sms->stats->byCarrier(...),
             $bird->sms->stats->byCategory(...),
+            $bird->sms->stats->byContentType(...),
             $bird->sms->stats->byOriginator(...),
             $bird->sms->stats->byStatus(...),
             $bird->sms->stats->byErrorCode(...),
@@ -127,6 +128,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->sms->stats->inbound->daily(...),
             $bird->sms->stats->inbound->hourly(...),
             $bird->sms->stats->inbound->byCountry(...),
+            $bird->sms->stats->inbound->byContentType(...),
             $bird->sms->stats->inbound->byOperator(...),
             $bird->sms->stats->inbound->byNumber(...),
             $bird->smsSuppressions->list(...),
@@ -492,7 +494,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(470, $surface);
+        self::assertCount(472, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

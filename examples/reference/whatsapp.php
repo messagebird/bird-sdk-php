@@ -347,7 +347,7 @@ $rule = $bird->whatsapp->keywordRules->update(
 );
 echo implode(',', $rule->getEffectiveKeywords() ?? []);
 
-// The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one; STOP never stops working.
+// The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one.
 $bird->whatsapp->keywordRules->delete('wkr_01m2kj8x4te9p0rr7e5w2n1abc');
 
 // address matches one complete address exactly; a partial number returns nothing.

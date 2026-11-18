@@ -47,6 +47,16 @@ class WhatsAppKeywordRuleUpdateNormalizer implements DenormalizerInterface, Norm
         elseif (\array_key_exists('keywords', $data) && $data['keywords'] === null) {
             $object->setKeywords(null);
         }
+        if (\array_key_exists('excluded_keywords', $data) && $data['excluded_keywords'] !== null) {
+            $values_1 = [];
+            foreach ($data['excluded_keywords'] as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $object->setExcludedKeywords($values_1);
+        }
+        elseif (\array_key_exists('excluded_keywords', $data) && $data['excluded_keywords'] === null) {
+            $object->setExcludedKeywords(null);
+        }
         if (\array_key_exists('reply', $data) && $data['reply'] !== null) {
             $object->setReply($data['reply']);
         }
@@ -64,6 +74,13 @@ class WhatsAppKeywordRuleUpdateNormalizer implements DenormalizerInterface, Norm
                 $values[] = $value;
             }
             $dataArray['keywords'] = $values;
+        }
+        if ($data->isInitialized('excludedKeywords') && null !== $data->getExcludedKeywords()) {
+            $values_1 = [];
+            foreach ($data->getExcludedKeywords() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['excluded_keywords'] = $values_1;
         }
         if ($data->isInitialized('reply')) {
             $dataArray['reply'] = $data->getReply();

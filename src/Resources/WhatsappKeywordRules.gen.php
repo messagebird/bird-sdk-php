@@ -44,7 +44,7 @@ final class WhatsappKeywordRules extends Resource
     }
 
     /**
-     * Replace the reply Bird sends for opt-out or opt-in, or add keywords of your own. Your rule takes precedence over Bird's at the same grain and keeps Bird's keywords unless you add more. A keyword Bird has bound to one operation cannot be reused for the other.
+     * Replace the reply Bird sends for opt-out or opt-in, add keywords of your own, or remove some of Bird's with `excluded_keywords`. Your rule takes precedence over Bird's at the same grain and keeps Bird's keywords unless you exclude them. A keyword Bird has bound to one operation cannot be reused for the other.
      *
      * @example Override Bird's opt-out reply
      * $rule = $bird->whatsapp->keywordRules->create(
@@ -62,7 +62,7 @@ final class WhatsappKeywordRules extends Resource
     }
 
     /**
-     * Change one of your own keyword rules: its reply or its extra keywords. Bird's own rules cannot be changed; create your own instead with `whatsapp.keyword_rules.create`. Omitting `keywords` leaves the set alone, while sending an empty list clears your additions back to Bird's.
+     * Change one of your own keyword rules: its reply, its extra keywords or its excluded ones. Bird's own rules cannot be changed; create your own instead with `whatsapp.keyword_rules.create`. Omitting `keywords` leaves the set alone, while sending an empty list clears your additions back to Bird's.
      *
      * @example Change a rule you created
      * // Omitting keywords leaves the set alone; an empty array clears your additions
@@ -82,7 +82,7 @@ final class WhatsappKeywordRules extends Resource
      * Delete one of your own keyword rules. The next rule in the ladder answers that scope instead, which is not always one of yours: Bird's rule for the sender's country outranks your worldwide rule. The keywords the deleted rule added go with it, so a word only it matched stops matching. List the rules to read the order. Bird's rules cannot be deleted.
      *
      * @example Drop your override
-     * // The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one; STOP never stops working.
+     * // The next rule in the ladder answers the scope, which is another rule of yours if you hold a less specific one.
      * $bird->whatsapp->keywordRules->delete('wkr_01m2kj8x4te9p0rr7e5w2n1abc');
      */
     public function delete(string $id, ?RequestOptions $options = null): void

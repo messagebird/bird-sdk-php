@@ -58,14 +58,21 @@ class WhatsAppKeywordRule
      */
     protected $waba;
     /**
-     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates Bird's keywords, so `effective_keywords` is what actually matches.
      * 
      *
      * @var list<string>|null
      */
     protected $keywords;
     /**
-     * Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+     * Bird's keywords this rule removes from the set it inherits. A message that is exactly one of them opts no one in or out and gets no reply for the people the rule covers, and Bird's own rule does not act on it instead. Excluding every one of Bird's keywords switches them off, though a keyword Bird adds later still matches. It removes only from the Bird rule this rule inherits from: a keyword another rule of yours adds, or one Bird ships only in another country's rule, is unaffected. Always empty on one of Bird's own rules.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $excludedKeywords;
+    /**
+     * Every keyword that matches this rule: Bird's keywords for the same operation and country, minus `excluded_keywords`, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
      * 
      * For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
      * 
@@ -230,7 +237,7 @@ class WhatsAppKeywordRule
         return $this;
     }
     /**
-     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates Bird's keywords, so `effective_keywords` is what actually matches.
      * 
      *
      * @return list<string>|null
@@ -240,7 +247,7 @@ class WhatsAppKeywordRule
         return $this->keywords;
     }
     /**
-     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+     * The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates Bird's keywords, so `effective_keywords` is what actually matches.
      *
      * @param list<string>|null $keywords
      *
@@ -253,7 +260,30 @@ class WhatsAppKeywordRule
         return $this;
     }
     /**
-     * Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+     * Bird's keywords this rule removes from the set it inherits. A message that is exactly one of them opts no one in or out and gets no reply for the people the rule covers, and Bird's own rule does not act on it instead. Excluding every one of Bird's keywords switches them off, though a keyword Bird adds later still matches. It removes only from the Bird rule this rule inherits from: a keyword another rule of yours adds, or one Bird ships only in another country's rule, is unaffected. Always empty on one of Bird's own rules.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getExcludedKeywords(): ?array
+    {
+        return $this->excludedKeywords;
+    }
+    /**
+     * Bird's keywords this rule removes from the set it inherits. A message that is exactly one of them opts no one in or out and gets no reply for the people the rule covers, and Bird's own rule does not act on it instead. Excluding every one of Bird's keywords switches them off, though a keyword Bird adds later still matches. It removes only from the Bird rule this rule inherits from: a keyword another rule of yours adds, or one Bird ships only in another country's rule, is unaffected. Always empty on one of Bird's own rules.
+     *
+     * @param list<string>|null $excludedKeywords
+     *
+     * @return self
+     */
+    public function setExcludedKeywords(?array $excludedKeywords): self
+    {
+        $this->initialized['excludedKeywords'] = true;
+        $this->excludedKeywords = $excludedKeywords;
+        return $this;
+    }
+    /**
+     * Every keyword that matches this rule: Bird's keywords for the same operation and country, minus `excluded_keywords`, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
      * 
      * For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
      * 
@@ -265,7 +295,7 @@ class WhatsAppKeywordRule
         return $this->effectiveKeywords;
     }
     /**
-    * Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+    * Every keyword that matches this rule: Bird's keywords for the same operation and country, minus `excluded_keywords`, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
     
     For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
     

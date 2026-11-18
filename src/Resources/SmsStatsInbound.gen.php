@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace MessageBird\Resources;
 
 use MessageBird\RequestOptions;
+use MessageBird\Wire\Model\SMSInboundStatsByContentTypeResponse;
 use MessageBird\Wire\Model\SMSInboundStatsByCountryResponse;
 use MessageBird\Wire\Model\SMSInboundStatsByNumberResponse;
 use MessageBird\Wire\Model\SMSInboundStatsByOperatorResponse;
@@ -78,6 +79,22 @@ final class SmsStatsInbound extends Resource
     public function byCountry(?array $query = null, ?RequestOptions $options = null): SMSInboundStatsByCountryResponse
     {
         return $this->single('GET', '/v1/sms/stats/inbound/countries', SMSInboundStatsByCountryResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Compare SMS and MMS received-message counts. Omit content_type for both; previously recorded counts remain attributed to SMS.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Compare received SMS and MMS
+     * $inboundByContentType = $bird->sms->stats->inbound->byContentType(['from' => '2026-05-01', 'to' => '2026-05-31']);
+     * foreach ($inboundByContentType->getData() ?? [] as $row) {
+     *     echo $row->getContentType(), ' ', $row->getReceived(), PHP_EOL;
+     * }
+     */
+    public function byContentType(?array $query = null, ?RequestOptions $options = null): SMSInboundStatsByContentTypeResponse
+    {
+        return $this->single('GET', '/v1/sms/stats/inbound/content-types', SMSInboundStatsByContentTypeResponse::class, null, $query, $options);
     }
 
     /**

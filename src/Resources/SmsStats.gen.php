@@ -9,6 +9,7 @@ namespace MessageBird\Resources;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\SMSStatsByCarrierResponse;
 use MessageBird\Wire\Model\SMSStatsByCategoryResponse;
+use MessageBird\Wire\Model\SMSStatsByContentTypeResponse;
 use MessageBird\Wire\Model\SMSStatsByCostCenterResponse;
 use MessageBird\Wire\Model\SMSStatsByCountryResponse;
 use MessageBird\Wire\Model\SMSStatsByErrorCodeResponse;
@@ -116,6 +117,22 @@ class SmsStatsBase extends Resource
     public function byCategory(?array $query = null, ?RequestOptions $options = null): SMSStatsByCategoryResponse
     {
         return $this->single('GET', '/v1/sms/stats/categories', SMSStatsByCategoryResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Compare SMS and MMS delivery counts, rates and latency. Omit content_type for both; previously recorded counts remain attributed to SMS.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Split a window by content_type
+     * $byContentType = $bird->sms->stats->byContentType(['from' => '2026-05-01', 'to' => '2026-05-31']);
+     * foreach ($byContentType->getData() ?? [] as $row) {
+     *     echo $row->getContentType(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+     * }
+     */
+    public function byContentType(?array $query = null, ?RequestOptions $options = null): SMSStatsByContentTypeResponse
+    {
+        return $this->single('GET', '/v1/sms/stats/content-types', SMSStatsByContentTypeResponse::class, null, $query, $options);
     }
 
     /**

@@ -93,6 +93,11 @@ foreach ($byCategory->getData() ?? [] as $row) {
     echo $row->getCategory(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
 }
 
+$byContentType = $bird->sms->stats->byContentType(['from' => '2026-05-01', 'to' => '2026-05-31']);
+foreach ($byContentType->getData() ?? [] as $row) {
+    echo $row->getContentType(), ' ', $row->getDelivery()?->getAccepted(), PHP_EOL;
+}
+
 $byOriginator = $bird->sms->stats->byOriginator(['from' => '2026-05-01', 'to' => '2026-05-31']);
 foreach ($byOriginator->getData() ?? [] as $row) {
     echo $row->getOriginator(), ' ', $row->getDelivery()?->getDeliveryRate(), PHP_EOL;
@@ -142,6 +147,11 @@ foreach ($inboundHourly->getData() ?? [] as $point) {
 $inboundByCountry = $bird->sms->stats->inbound->byCountry(['from' => '2026-05-01', 'to' => '2026-05-31']);
 foreach ($inboundByCountry->getData() ?? [] as $row) {
     echo $row->getCountry(), ' ', $row->getReceived(), PHP_EOL;
+}
+
+$inboundByContentType = $bird->sms->stats->inbound->byContentType(['from' => '2026-05-01', 'to' => '2026-05-31']);
+foreach ($inboundByContentType->getData() ?? [] as $row) {
+    echo $row->getContentType(), ' ', $row->getReceived(), PHP_EOL;
 }
 
 $inboundByOperator = $bird->sms->stats->inbound->byOperator(['from' => '2026-05-01', 'to' => '2026-05-31']);
