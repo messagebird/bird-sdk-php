@@ -21,7 +21,8 @@ final class Preferences extends PreferencesBase
     /**
      * Record a messaging preference statement and return the write result.
      *
-     * The write is an ordered upsert keyed on channel + handle (+ sender_scope):
+     * The write is an ordered upsert keyed on channel, handle, sender scope,
+     * topic and email Brand:
      * a statement dated before the key's current one is refused rather than
      * applied, which is why the result — not the bare Preference — comes back
      * either way. A 201 creates a live record; 200 covers updates and refusals.
@@ -31,7 +32,13 @@ final class Preferences extends PreferencesBase
      * can clear an email Brand complaint with newer consentedAt; bulk writes and
      * imports cannot. Other opt-outs and delivery blocks still apply.
      *
-     * @param string|Omit|null $brandId preview email business selection; returns 422 where unavailable
+     * A disallowed Brand selection or grant can return 422 before a write,
+     * rather than a result with applied: false. A grant can be rejected even
+     * when an opt-out for the same Brand was accepted. If the Brand is not found
+     * (404), check the workspace and intended Brand ID. Do not omit brandId or
+     * pass null just to bypass an error: that targets the original business instead.
+     *
+     * @param string|Omit|null $brandId Brand for the email preference; omitted or null targets the original business
      * @param string $channel one of `email`, `sms`, `whatsapp`
      * @param string $status  `granted` records consent; `revoked` records an opt-out
      * @param string|null $coverage how much traffic the statement covers (`all` or `non_transactional`); defaults server-side to `non_transactional`

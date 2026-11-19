@@ -256,7 +256,7 @@ class EmailBroadcastTestResult extends \ArrayObject
      */
     protected $scheduledAt;
     /**
-     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     * The business whose email preferences and unsubscribe page apply.
      * 
      *
      * @var string|null
@@ -1123,7 +1123,7 @@ class EmailBroadcastTestResult extends \ArrayObject
         return $this;
     }
     /**
-     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     * The business whose email preferences and unsubscribe page apply.
      * 
      *
      * @return string|null
@@ -1133,7 +1133,7 @@ class EmailBroadcastTestResult extends \ArrayObject
         return $this->brandId;
     }
     /**
-     * The business whose email preferences and unsubscribe page apply. Brand attribution is in preview.
+     * The business whose email preferences and unsubscribe page apply.
      *
      * @param string|null $brandId
      *

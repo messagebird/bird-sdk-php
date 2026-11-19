@@ -58,7 +58,7 @@ class PreferenceIndividualCreate extends \ArrayObject
      */
     protected $consentedAt;
     /**
-     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     * Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. A Brand not found in this workspace returns 404.
      *
      * @var string|null
      */
@@ -218,7 +218,7 @@ class PreferenceIndividualCreate extends \ArrayObject
         return $this;
     }
     /**
-     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     * Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. A Brand not found in this workspace returns 404.
      *
      * @return string|null
      */
@@ -227,7 +227,7 @@ class PreferenceIndividualCreate extends \ArrayObject
         return $this->brandId;
     }
     /**
-     * Brand selection is in preview. Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Explicit selection returns 422 when unavailable. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. Consent grants for active additional Brands return 422 when unavailable. A Brand not found in this workspace returns 404.
+     * Select the business for an email preference. Omitted or null selects the original business. Unsupported on other channels. An additional Brand supports non_transactional coverage only. Existing opt-outs can be recorded for archived Brands; grants to archived Brands return 422. A Brand not found in this workspace returns 404.
      *
      * @param string|null $brandId
      *

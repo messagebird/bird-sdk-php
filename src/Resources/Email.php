@@ -64,7 +64,7 @@ final class Email extends EmailBase
      * @param array<string, mixed>|null                                 $metadata
      * @param array<string, mixed>|null                                 $parameters inline {{ … }} personalization variables
      * @param list<EmailAttachment>|null                                $attachments
-     * @param string|Omit|null                                          $brandId preview business selection; explicit input returns `422` when selection is unavailable; omitted or null selects the workspace default when Brand selection is available, and preserves existing behavior otherwise
+     * @param string|Omit|null                                          $brandId Brand selection; omitted or null selects the workspace default Brand
      */
     public function send(
         string|array|EmailAddress|null $from = null,

@@ -78,7 +78,7 @@ class Preference extends \ArrayObject
      */
     protected $contactId;
     /**
-     * The business this email preference belongs to. Brand attribution is in preview.
+     * The business this email preference belongs to.
      *
      * @var string|null
      */
@@ -336,7 +336,7 @@ class Preference extends \ArrayObject
         return $this;
     }
     /**
-     * The business this email preference belongs to. Brand attribution is in preview.
+     * The business this email preference belongs to.
      *
      * @return string|null
      */
@@ -345,7 +345,7 @@ class Preference extends \ArrayObject
         return $this->brandId;
     }
     /**
-     * The business this email preference belongs to. Brand attribution is in preview.
+     * The business this email preference belongs to.
      *
      * @param string|null $brandId
      *

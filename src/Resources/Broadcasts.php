@@ -28,7 +28,7 @@ final class Broadcasts extends BroadcastsBase
      * than saved as a draft.
      *
      * @param string|array<string, string>|EmailAddress|null $from the address the broadcast sends from: a plain email string, an RFC 5322 mailbox string, an `['email' => …, 'name' => …]` array, or an EmailAddress
-     * @param string|Omit|null $brandId preview business selection; omitted or null uses the default Brand at first scheduling or sending when available
+     * @param string|Omit|null $brandId Brand selection; omitted or null uses the workspace default Brand at first scheduling or sending
      * @param string|null $template the template's id (`emt_…`)
      * @param array<string, mixed>|\stdClass|null $parameters complete authored input map; an empty array sends an empty object
      * @param array<string, array<string, mixed>|\stdClass>|\stdClass|null $parameterOverrides complete per-language override map keyed by language tag; a name a language leaves out uses `$parameters`, and empty arrays send empty objects
