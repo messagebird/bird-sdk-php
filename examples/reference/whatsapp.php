@@ -192,6 +192,10 @@ echo $template->getSlug(), ' ', $template->getName(), "\n";
 
 $bird->whatsapp->templates->delete('order_update');
 
+foreach ($bird->whatsapp->templates->listEvents('order_update', ['language' => 'en-US']) as $event) {
+    echo $event->getCreatedAt()?->format(DATE_ATOM), ' ', $event->getType(), ' ', $event->getSummary(), "\n";
+}
+
 $copy = $bird->whatsapp->templates->duplicate(
     'bird_otp',
     (new WhatsAppTemplateDuplicate())->setWaba('102290129340398')->setSlug('acme_otp'),

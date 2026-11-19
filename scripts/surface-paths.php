@@ -135,6 +135,7 @@ return [
     "/v1/whatsapp/messages/{message_id}/media/{media_id}",
     "/v1/whatsapp/templates",
     "/v1/whatsapp/templates/{template_ref}",
+    "/v1/whatsapp/templates/{template_ref}/events",
     "/v1/whatsapp/templates/{template_ref}/duplicate",
     "/v1/whatsapp/templates/{template_ref}/versions",
     "/v1/whatsapp/templates/{template_ref}/versions/{version_id}",

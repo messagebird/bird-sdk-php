@@ -11,6 +11,8 @@ use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\WhatsAppTemplate;
 use MessageBird\Wire\Model\WhatsAppTemplateCreate;
 use MessageBird\Wire\Model\WhatsAppTemplateDuplicate;
+use MessageBird\Wire\Model\WhatsAppTemplateEvent;
+use MessageBird\Wire\Model\WhatsAppTemplateEventList;
 use MessageBird\Wire\Model\WhatsAppTemplateList;
 use MessageBird\Wire\Model\WhatsAppTemplateUpdate;
 
@@ -108,6 +110,36 @@ class WhatsappTemplatesBase extends Resource
     public function delete(string $templateRef, ?RequestOptions $options = null): void
     {
         $this->none('DELETE', '/v1/whatsapp/templates/' . rawurlencode($templateRef), null, null, $options);
+    }
+
+    /**
+     * The history of a WhatsApp template's languages as a cursor page, newest first: each status WhatsApp gave a language, such as an approval, a rejection, a pause, or a reinstatement, and each change of its quality rating, since Bird began recording them. Pass `language` to read one language. Use it to see when Bird recorded a pause or a rating drop; `whatsapp.templates.get` gives only the current values. A repeated pause on a language that is still paused is listed only when WhatsApp reports it, so the count can be lower than the number of pauses WhatsApp applied. A Bird-managed template returns an empty page. An unknown template returns `404`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<WhatsAppTemplateEvent>
+     *
+     * @example See when a language was paused or its quality changed
+     * foreach ($bird->whatsapp->templates->listEvents('order_update', ['language' => 'en-US']) as $event) {
+     *     echo $event->getCreatedAt()?->format(DATE_ATOM), ' ', $event->getType(), ' ', $event->getSummary(), "\n";
+     * }
+     */
+    public function listEvents(string $templateRef, ?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            WhatsAppTemplateEvent::class,
+            fn (?string $cursor): WhatsAppTemplateEventList => $this->single('GET', '/v1/whatsapp/templates/' . rawurlencode($templateRef) . '/events', WhatsAppTemplateEventList::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof WhatsAppTemplateEventList);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof WhatsAppTemplateEventList);
+
+                return $page->getNextCursor();
+            },
+        );
     }
 
     /**

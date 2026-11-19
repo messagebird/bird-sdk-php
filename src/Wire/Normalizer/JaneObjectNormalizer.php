@@ -1192,6 +1192,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateVersionNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateEvent::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateEventNormalizer::class,
+
+        \MessageBird\Wire\Model\WhatsAppTemplateEventList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateEventListNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateDuplicate::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateDuplicateNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateSubmit::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmitNormalizer::class,
@@ -3109,6 +3113,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersionLanguageError::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateVersion::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateEvent::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateEventList::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateDuplicate::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmit::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmitResult::class => false,
