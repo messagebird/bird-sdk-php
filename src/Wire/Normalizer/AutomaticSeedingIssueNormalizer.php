@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class EmailMailboxLabelNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class AutomaticSeedingIssueNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -19,15 +19,15 @@ class EmailMailboxLabelNormalizer implements DenormalizerInterface, NormalizerIn
     use ValidatorTrait;
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === \MessageBird\Wire\Model\EmailMailboxLabel::class;
+        return $type === \MessageBird\Wire\Model\AutomaticSeedingIssue::class;
     }
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\EmailMailboxLabel::class;
+        return is_object($data) && get_class($data) === \MessageBird\Wire\Model\AutomaticSeedingIssue::class;
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $object = new \MessageBird\Wire\Model\EmailMailboxLabel();
+        $object = new \MessageBird\Wire\Model\AutomaticSeedingIssue();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -37,27 +37,35 @@ class EmailMailboxLabelNormalizer implements DenormalizerInterface, NormalizerIn
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        if (\array_key_exists('name', $data) && $data['name'] !== null) {
-            $object->setName($data['name']);
+        if (\array_key_exists('code', $data) && $data['code'] !== null) {
+            $object->setCode($data['code']);
         }
-        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
-            $object->setName(null);
+        elseif (\array_key_exists('code', $data) && $data['code'] === null) {
+            $object->setCode(null);
         }
-        if (\array_key_exists('type', $data) && $data['type'] !== null) {
-            $object->setType($data['type']);
+        if (\array_key_exists('count', $data) && $data['count'] !== null) {
+            $object->setCount($data['count']);
         }
-        elseif (\array_key_exists('type', $data) && $data['type'] === null) {
-            $object->setType(null);
+        elseif (\array_key_exists('count', $data) && $data['count'] === null) {
+            $object->setCount(null);
         }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('code')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AutomaticSeedingIssue.code missing');
+        }
+        $dataArray['code'] = $data->getCode();
+        if (!$data->isInitialized('count')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field AutomaticSeedingIssue.count missing');
+        }
+        $dataArray['count'] = $data->getCount();
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [\MessageBird\Wire\Model\EmailMailboxLabel::class => false];
+        return [\MessageBird\Wire\Model\AutomaticSeedingIssue::class => false];
     }
 }

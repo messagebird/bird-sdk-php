@@ -52,7 +52,7 @@ class AMBMessagePart
      */
     protected $url;
     /**
-     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card. When Apple returned none, or returned a web address in its place, it is the linked page's title. Apple builds that card on the device, so the title it shows can differ. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when Apple supplied no title or only a web address and the linked page supplied none or Bird could not read it. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @var string|null
      */
@@ -205,7 +205,7 @@ class AMBMessagePart
         return $this;
     }
     /**
-     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card. When Apple returned none, or returned a web address in its place, it is the linked page's title. Apple builds that card on the device, so the title it shows can differ. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when Apple supplied no title or only a web address and the linked page supplied none or Bird could not read it. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @return string|null
      */
@@ -214,7 +214,7 @@ class AMBMessagePart
         return $this->title;
     }
     /**
-     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card, or the linked page's title when Apple returned none. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when neither Apple nor a page Bird could read supplied a title. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
+     * The title a card showed. On a `link_preview` part it is the page's title, read when the part was sent. On a `rich_link` part Apple built from its URL it is the title Apple returned for the card. When Apple returned none, or returned a web address in its place, it is the linked page's title. Apple builds that card on the device, so the title it shows can differ. A title longer than 512 bytes is cut to that length. Absent on other parts, on a part Apple did not accept, and on a `rich_link` Apple built when Apple supplied no title or only a web address and the linked page supplied none or Bird could not read it. On a `link_preview` part it is also absent when Bird sent the part in an earlier attempt of a retried send, or had to save the send's result again.
      *
      * @param string|null $title
      *

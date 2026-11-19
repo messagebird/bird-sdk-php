@@ -25,6 +25,7 @@ final class ErrorRecoveryTest extends TestCase
         'next' => 'next',
         'rateLimit' => 'rateLimit',
         'quota' => 'quota',
+        'param' => 'param',
     ];
 
     /**
@@ -35,7 +36,7 @@ final class ErrorRecoveryTest extends TestCase
      *
      * @var list<string>
      */
-    private const NOT_YET_SURFACED = ['name', 'param', 'docUrl', 'requestId', 'vendorCode', 'details'];
+    private const NOT_YET_SURFACED = ['name', 'docUrl', 'requestId', 'vendorCode', 'details'];
 
     /**
      * The guard that would have caught `next` never reaching a PHP caller at all:
@@ -79,6 +80,20 @@ final class ErrorRecoveryTest extends TestCase
         foreach (self::NOT_YET_SURFACED as $field) {
             self::assertContains($field, $wire, "'{$field}' is not an ErrorBody field — drop it from NOT_YET_SURFACED");
         }
+    }
+
+    /** The refusing input pointer is read from the body and is absent when none was sent. */
+    public function testFromResponseSurfacesRefusedParam(): void
+    {
+        $refused = ApiException::fromResponse(
+            422,
+            '{"error":{"type":"validation_error","code":"E04104","message":"parameter value cannot contain Liquid","param":"/template/parameter_overrides/fr/greeting"}}',
+        );
+        self::assertSame('E04104', $refused->errorCode);
+        self::assertSame('/template/parameter_overrides/fr/greeting', $refused->param);
+
+        self::assertNull(ApiException::fromResponse(422, '{"error":{"type":"validation_error","code":"E04104","message":"x"}}')->param);
+        self::assertNull(ApiException::fromResponse(422, '{"error":{"type":"validation_error","code":"E04104","message":"x","param":123}}')->param);
     }
 
     /** The refusing quota limit is read from the body and is absent when none was sent. */

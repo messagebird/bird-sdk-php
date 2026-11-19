@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * Asks Apple to build the rich link preview when the message is sent. Use `POST /v1/amb/messages/construct-payload` beforehand only to check the URL and see the preview's title.
+ * Asks Apple to build the rich link preview from `url` when the message is sent.
  */
 class AMBRichLinkConstruct
 {

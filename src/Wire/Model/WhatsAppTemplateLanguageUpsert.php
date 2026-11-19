@@ -23,7 +23,7 @@ class WhatsAppTemplateLanguageUpsert
      */
     protected $parameterBindings;
     /**
-     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review.
      * 
      *
      * @var WhatsAppTemplateLanguageUpsertOptimizationSpec|null
@@ -74,7 +74,7 @@ class WhatsAppTemplateLanguageUpsert
         return $this;
     }
     /**
-     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review.
      * 
      *
      * @return WhatsAppTemplateLanguageUpsertOptimizationSpec|null
@@ -84,7 +84,7 @@ class WhatsAppTemplateLanguageUpsert
         return $this->optimizationSpec;
     }
     /**
-     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review. A send at a maximum price needs the business account's `marketing_messages_onboarding_status` to be `onboarded`. Otherwise it fails with WhatsApp error 131061.
+     * This language's maximum price. Omit it to keep the current one. A new language written without it uses Meta's standard rate. Send `null` to return to the standard rate. Changing only the price updates Meta without a new review.
      *
      * @param WhatsAppTemplateLanguageUpsertOptimizationSpec|null $optimizationSpec
      *

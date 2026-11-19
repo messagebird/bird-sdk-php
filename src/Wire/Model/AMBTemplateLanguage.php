@@ -40,6 +40,12 @@ class AMBTemplateLanguage
      */
     protected $interactive;
     /**
+     * Stored sign-in message. Includes its `{{ variable }}` placeholders.
+     *
+     * @var AMBTemplateLanguageSignIn|null
+     */
+    protected $signIn;
+    /**
      * This language's revision counter, used for concurrent-edit checks on draft writes.
      *
      * @var int|null
@@ -144,6 +150,28 @@ class AMBTemplateLanguage
     {
         $this->initialized['interactive'] = true;
         $this->interactive = \MessageBird\Core\ModelWrapper::normalize($interactive, AMBTemplateLanguageInteractive::class);
+        return $this;
+    }
+    /**
+     * Stored sign-in message. Includes its `{{ variable }}` placeholders.
+     *
+     * @return AMBTemplateLanguageSignIn|null
+     */
+    public function getSignIn(): ?AMBTemplateLanguageSignIn
+    {
+        return $this->signIn;
+    }
+    /**
+     * Stored sign-in message. Includes its `{{ variable }}` placeholders.
+     *
+     * @param AMBTemplateLanguageSignIn|AMBSignInMessage|array|null $signIn
+     *
+     * @return self
+     */
+    public function setSignIn($signIn): self
+    {
+        $this->initialized['signIn'] = true;
+        $this->signIn = \MessageBird\Core\ModelWrapper::normalize($signIn, AMBTemplateLanguageSignIn::class);
         return $this;
     }
     /**

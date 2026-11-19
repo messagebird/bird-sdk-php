@@ -2,10 +2,7 @@
 
 namespace MessageBird\Wire\Model;
 
-/**
- * The labels available in a mailbox.
- */
-class EmailMailboxLabelList
+class LabelList
 {
     /**
      * @var array
@@ -16,18 +13,24 @@ class EmailMailboxLabelList
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * @var list<EmailMailboxLabel>|null
+     * Every label in the workspace, ordered by name.
+     *
+     * @var list<Label>|null
      */
     protected $data;
     /**
-     * @return list<EmailMailboxLabel>|null
+     * Every label in the workspace, ordered by name.
+     *
+     * @return list<Label>|null
      */
     public function getData(): ?array
     {
         return $this->data;
     }
     /**
-     * @param list<EmailMailboxLabel>|null $data
+     * Every label in the workspace, ordered by name.
+     *
+     * @param list<Label>|null $data
      *
      * @return self
      */

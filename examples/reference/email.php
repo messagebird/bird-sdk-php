@@ -272,11 +272,6 @@ $stats = $bird->email->mailboxes->stats(
 );
 echo $stats->getSummary()?->getReceived();
 
-$labels = $bird->email->mailboxes->labels('mbx_01krdgeqcxet5s7t44vh8rt9mg');
-foreach ($labels->getData() ?? [] as $label) {
-    echo $label->getName(), "\n";
-}
-
 $rule = $bird->email->mailboxes->receiveRules->create(
     'mbx_01krdgeqcxet5s7t44vh8rt9mg',
     (new ReceiveRuleCreate())
@@ -716,3 +711,45 @@ $params = (new \MessageBird\Wire\Model\EmailInboxInsightsSeedTestCreate())
 
 $report = $bird->email->inboxInsights->seedTests->create($params, new RequestOptions(idempotencyKey: $idempotencyKey));
 var_dump($report);
+
+// Requires inbox_insights:read permission in the target workspace.
+$settings = $bird->email->seeding->settings->get();
+var_dump($settings);
+
+// Requires inbox_insights:write permission in the target workspace.
+$current = $bird->email->seeding->settings->get();
+$params = (new \MessageBird\Wire\Model\AutomaticSeedingSettingsUpdate())
+    ->setExpectedRevision($current->getRevision())
+    ->setEnabled(true)
+    ->setListType('private')
+    ->setEngagementProfile('all')
+    ->setRegions(['North America - US']);
+
+$settings = $bird->email->seeding->settings->update($params);
+var_dump($settings);
+
+// Requires inbox_insights:write permission in the target workspace.
+$current = $bird->email->seeding->settings->get();
+$params = (new \MessageBird\Wire\Model\AutomaticSeedingRotate())
+    ->setExpectedRevision($current->getRevision());
+
+$settings = $bird->email->seeding->address->rotate($params);
+var_dump($settings->getTriggerAddress());
+
+// Requires inbox_insights:read permission in the target workspace.
+foreach ($bird->email->seeding->runs->list(['limit' => 25]) as $run) {
+    var_dump($run->getId());
+}
+
+// Requires inbox_insights:read permission in the target workspace.
+$run = $bird->email->seeding->runs->get('esrun_01krdgeqcxet5s7t44vh8rt9mg');
+var_dump($run);
+
+// Requires inbox_insights:write permission in the target workspace.
+$run = $bird->email->seeding->runs->cancel('esrun_01krdgeqcxet5s7t44vh8rt9mg');
+var_dump($run);
+
+// Requires inbox_insights:read permission in the target workspace.
+foreach ($bird->email->seeding->sources->list(['limit' => 25]) as $source) {
+    var_dump($source);
+}

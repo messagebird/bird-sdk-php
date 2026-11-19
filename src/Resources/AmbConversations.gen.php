@@ -9,6 +9,7 @@ namespace MessageBird\Resources;
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\AMBAuthentication;
+use MessageBird\Wire\Model\AMBAuthenticationCreate;
 use MessageBird\Wire\Model\AMBConversation;
 use MessageBird\Wire\Model\AMBConversationList;
 use MessageBird\Wire\Model\AMBConversationTypingRequest;
@@ -70,11 +71,18 @@ class AmbConversationsBase extends Resource
     }
 
     /**
-     * Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
+     * Sends a native sign-in request to an open conversation whose device_capabilities include AUTH2. Sends the business's sign-in message unless the body names a sign-in message template. Returns the request as pending; keep its id. The outcome arrives as an amb.authentication.updated webhook event, or read the request. A new request supersedes an unfinished one in the same conversation, so retry with the same idempotency key.
+     *
+     * @example Example
+     * $auth = $bird->amb->conversations->requestAuthentication(
+     *     'acv_01krdgeqcxet5s7t44vh8rt9mg',
+     *     new Model\AMBAuthenticationCreate(),
+     * );
+     * echo $auth->getId(), ' ', $auth->getStatus();
      */
-    public function requestAuthentication(string $conversationId, ?RequestOptions $options = null): AMBAuthentication
+    public function requestAuthentication(string $conversationId, AMBAuthenticationCreate $params, ?RequestOptions $options = null): AMBAuthentication
     {
-        return $this->single('POST', '/v1/amb/conversations/' . rawurlencode($conversationId) . '/authentications', AMBAuthentication::class, null, null, $options);
+        return $this->single('POST', '/v1/amb/conversations/' . rawurlencode($conversationId) . '/authentications', AMBAuthentication::class, $params, null, $options);
     }
 
     /**

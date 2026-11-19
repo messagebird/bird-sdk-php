@@ -61,6 +61,12 @@ class AMBTemplateLanguageNormalizer implements DenormalizerInterface, Normalizer
         elseif (\array_key_exists('interactive', $data) && $data['interactive'] === null) {
             $object->setInteractive(null);
         }
+        if (\array_key_exists('sign_in', $data) && $data['sign_in'] !== null) {
+            $object->setSignIn($this->denormalizer->denormalize($data['sign_in'], \MessageBird\Wire\Model\AMBTemplateLanguageSignIn::class, 'json', $context));
+        }
+        elseif (\array_key_exists('sign_in', $data) && $data['sign_in'] === null) {
+            $object->setSignIn(null);
+        }
         if (\array_key_exists('revision', $data) && $data['revision'] !== null) {
             $object->setRevision($data['revision']);
         }

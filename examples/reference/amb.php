@@ -52,6 +52,12 @@ foreach ($bird->amb->conversations->listMessages('acv_01krdgeqcxet5s7t44vh8rt9mg
 
 $bird->amb->conversations->typing('acv_01krdgeqcxet5s7t44vh8rt9mg', (new Model\AMBConversationTypingRequest())->setEvent('typing_start'));
 
+$auth = $bird->amb->conversations->requestAuthentication(
+    'acv_01krdgeqcxet5s7t44vh8rt9mg',
+    new Model\AMBAuthenticationCreate(),
+);
+echo $auth->getId(), ' ', $auth->getStatus();
+
 foreach ($bird->amb->conversations->list(['business_account_id' => 'abz_01krdgeqcxet5s7t44vh8rt9mg', 'limit' => '2']) as $item) {
     var_dump($item);
 }

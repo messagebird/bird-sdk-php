@@ -22,6 +22,7 @@ class EmailBroadcastFailureParameters
      * - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
      * - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
      * - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+     * - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
      * - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
      * - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
      * - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
@@ -86,6 +87,7 @@ class EmailBroadcastFailureParameters
      * - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
      * - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
      * - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+     * - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
      * - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
      * - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
      * - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
@@ -120,6 +122,7 @@ class EmailBroadcastFailureParameters
     - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
     - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
     - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+    - `parameter_liquid_unsupported`: an input value the email uses contains Liquid, such as `{{` or `{%`. Values are sent as written, so the broadcast cannot send; put Liquid in the template instead.
     - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
     - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
     - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.

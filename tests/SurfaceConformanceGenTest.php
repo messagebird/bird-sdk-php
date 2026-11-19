@@ -65,6 +65,13 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->inboxInsights->seedTests->configuration->get(...),
             $bird->email->inboxInsights->seedTests->create(...),
             $bird->email->inboxInsights->seedTests->list(...),
+            $bird->email->seeding->settings->get(...),
+            $bird->email->seeding->settings->update(...),
+            $bird->email->seeding->address->rotate(...),
+            $bird->email->seeding->runs->list(...),
+            $bird->email->seeding->runs->get(...),
+            $bird->email->seeding->runs->cancel(...),
+            $bird->email->seeding->sources->list(...),
             $bird->email->templates->create(...),
             $bird->email->templates->list(...),
             $bird->email->templates->get(...),
@@ -325,6 +332,11 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->contactProperties->update(...),
             $bird->contactProperties->archive(...),
             $bird->contactProperties->unarchive(...),
+            $bird->labels->list(...),
+            $bird->labels->get(...),
+            $bird->labels->create(...),
+            $bird->labels->update(...),
+            $bird->labels->delete(...),
             $bird->audiences->list(...),
             $bird->audiences->get(...),
             $bird->audiences->create(...),
@@ -349,7 +361,6 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->email->mailboxes->scheduledMessages->get(...),
             $bird->email->mailboxes->scheduledMessages->cancel(...),
             $bird->email->mailboxes->messages->create(...),
-            $bird->email->mailboxes->labels(...),
             $bird->email->mailboxes->receiveRules->list(...),
             $bird->email->mailboxes->receiveRules->create(...),
             $bird->email->mailboxes->receiveRules->delete(...),
@@ -494,7 +505,7 @@ final class SurfaceConformanceGenTest extends TestCase
             $bird->billingWallets->list(...),
         ];
 
-        self::assertCount(472, $surface);
+        self::assertCount(483, $surface);
         self::assertContainsOnlyInstancesOf(\Closure::class, $surface);
     }
 }

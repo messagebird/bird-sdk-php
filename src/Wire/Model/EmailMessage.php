@@ -201,7 +201,7 @@ class EmailMessage
      */
     protected $reference;
     /**
-     * The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+     * Public substitution values used for the subject and message bodies, whether supplied inline or through a template. Reserved internal keys and the exact top-level `bird_unsub_token` key are omitted, even if caller-supplied. Returns null when no public values remain.
      * 
      *
      * @var array<string, mixed>|null
@@ -924,7 +924,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+     * Public substitution values used for the subject and message bodies, whether supplied inline or through a template. Reserved internal keys and the exact top-level `bird_unsub_token` key are omitted, even if caller-supplied. Returns null when no public values remain.
      * 
      *
      * @return array<string, mixed>|null
@@ -934,7 +934,7 @@ class EmailMessage
         return $this->parameters;
     }
     /**
-     * The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+     * Public substitution values used for the subject and message bodies, whether supplied inline or through a template. Reserved internal keys and the exact top-level `bird_unsub_token` key are omitted, even if caller-supplied. Returns null when no public values remain.
      *
      * @param array<string, mixed>|null $parameters
      *

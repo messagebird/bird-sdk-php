@@ -30,6 +30,8 @@ final class ApiException extends BirdException
      * @param RateLimitErrorContext|null $rateLimit the rate-limit policy limit that refused the
      *                                     request; null except on a `rate_limit_error` from
      *                                     a policy. Its scope is `organization` or `workspace`.
+     * @param string|null $param           the request input or pointer that caused the refusal;
+     *                                     null when the error does not name a specific input.
      */
     public function __construct(
         string $message,
@@ -41,6 +43,7 @@ final class ApiException extends BirdException
         public readonly array $next = [],
         public readonly ?QuotaErrorContext $quota = null,
         public readonly ?RateLimitErrorContext $rateLimit = null,
+        public readonly ?string $param = null,
     ) {
         parent::__construct($message);
     }
@@ -54,6 +57,7 @@ final class ApiException extends BirdException
         $next = [];
         $rateLimit = null;
         $quota = null;
+        $param = null;
 
         $decoded = json_decode($body, true);
         if (is_array($decoded) && isset($decoded['error']) && is_array($decoded['error'])) {
@@ -64,6 +68,7 @@ final class ApiException extends BirdException
                 $message = $error['message'];
             }
             $remediation = isset($error['remediation']) && is_string($error['remediation']) ? $error['remediation'] : null;
+            $param = isset($error['param']) && is_string($error['param']) ? $error['param'] : null;
 
             $serializer = new Serializer();
             $next = self::wireList($serializer, $error['next'] ?? null, NextAction::class);
@@ -71,7 +76,7 @@ final class ApiException extends BirdException
             $quota = self::wireObject($serializer, $error['quota'] ?? null, QuotaErrorContext::class);
         }
 
-        return new self($message, $status, $type, $errorCode, $remediation, $next, $quota, $rateLimit);
+        return new self($message, $status, $type, $errorCode, $remediation, $next, $quota, $rateLimit, $param);
     }
 
     /**

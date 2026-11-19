@@ -16,7 +16,7 @@ class AMBMessageKindStatsPoint
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -28,7 +28,7 @@ class AMBMessageKindStatsPoint
      * - imessage_app: A custom iMessage app interaction on a compatible device.
      * - interactive: An opaque interactive reference whose subtype is unknown.
      * - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-     * - authenticate: An identity verification request, or the customer's response to one.
+     * - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
      *
      * @var string|null
      */
@@ -55,7 +55,7 @@ class AMBMessageKindStatsPoint
      */
     protected $firstResponse;
     /**
-     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+     * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
      * 
      * - text: Text, optionally with a subject.
      * - attachment: One or more files, images, audio clips, or videos.
@@ -67,7 +67,7 @@ class AMBMessageKindStatsPoint
      * - imessage_app: A custom iMessage app interaction on a compatible device.
      * - interactive: An opaque interactive reference whose subtype is unknown.
      * - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-     * - authenticate: An identity verification request, or the customer's response to one.
+     * - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
      *
      * @return string|null
      */
@@ -76,7 +76,7 @@ class AMBMessageKindStatsPoint
         return $this->messageKind;
     }
     /**
-    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends and templates do not accept them.
+    * Derived message classification for filtering and statistics. Send requests use the `text`, `rich_link` and `interactive` keys. `apple_pay` and `authenticate` appear on existing messages. Sends do not accept them, and templates do not accept `apple_pay`. A sign-in message template has the kind `authenticate`.
     
     - text: Text, optionally with a subject.
     - attachment: One or more files, images, audio clips, or videos.
@@ -88,7 +88,7 @@ class AMBMessageKindStatsPoint
     - imessage_app: A custom iMessage app interaction on a compatible device.
     - interactive: An opaque interactive reference whose subtype is unknown.
     - apple_pay: An Apple Pay request, or the customer's response to one. Apple Pay requests are in preview.
-    - authenticate: An identity verification request, or the customer's response to one.
+    - authenticate: A sign-in request, the customer's response to one, or a sign-in message template.
     *
     * @param string|null $messageKind
     *

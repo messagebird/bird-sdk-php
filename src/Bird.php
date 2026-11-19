@@ -30,6 +30,7 @@ use MessageBird\Resources\Domains;
 use MessageBird\Resources\Email;
 use MessageBird\Resources\Lookup;
 use MessageBird\Resources\Numbers;
+use MessageBird\Resources\Labels;
 use MessageBird\Resources\Preferences;
 use MessageBird\Resources\WorkspaceResource;
 use MessageBird\Resources\Organization;
@@ -82,6 +83,8 @@ final class Bird
     private readonly int $maxRetries;
 
     public readonly Preferences $preferences;
+
+    public readonly Labels $labels;
 
     public readonly Assets $assets;
     public readonly Broadcasts $broadcasts;
@@ -173,6 +176,7 @@ final class Bird
         $this->serializer = new Serializer();
 
         $this->preferences = new Preferences($this);
+        $this->labels = new Labels($this);
         $this->assets = new Assets($this);
         $this->broadcasts = new Broadcasts($this);
         $this->workspace = new WorkspaceResource($this);

@@ -21,7 +21,7 @@ use MessageBird\Wire\Model\Tag;
  * The email channel. Most operations (get, list, cancel, sendBatch) are generated
  * on EmailBase; this parent hand-writes the flagship `send` with ergonomic named
  * arguments, and adds the nested resources reached as `$bird->email->stats`,
- * `->mailboxes`, `->threads`, and `->templates`.
+ * `->mailboxes`, `->threads`, `->templates`, and `->seeding`.
  */
 final class Email extends EmailBase
 {
@@ -31,6 +31,7 @@ final class Email extends EmailBase
     public readonly EmailTemplates $templates;
     public readonly EmailCompetitive $competitive;
     public readonly EmailInboxInsights $inboxInsights;
+    public readonly EmailSeeding $seeding;
 
     public function __construct(Bird $client)
     {
@@ -41,6 +42,7 @@ final class Email extends EmailBase
         $this->templates = new EmailTemplates($client);
         $this->competitive = new EmailCompetitive($client);
         $this->inboxInsights = new EmailInboxInsights($client);
+        $this->seeding = new EmailSeeding($client);
     }
 
     /**

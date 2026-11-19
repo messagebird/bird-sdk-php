@@ -6,6 +6,7 @@ namespace MessageBird\Tests;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use MessageBird\Bird;
+use MessageBird\Exception\ApiException;
 use MessageBird\RequestOptions;
 use MessageBird\Tests\Support\RecordingClient;
 use PHPUnit\Framework\TestCase;
@@ -20,11 +21,11 @@ final class BroadcastsRequestTest extends TestCase
     /**
      * @return array{Bird, RecordingClient}
      */
-    private function makeClient(string $body = '{"id":"eb_01krdgeqcxet5s7t44vh8rt9mg"}'): array
+    private function makeClient(string $body = '{"id":"eb_01krdgeqcxet5s7t44vh8rt9mg"}', int $status = 200): array
     {
         $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
         $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
-        $response = $responseFactory->createResponse(200)->withBody($streamFactory->createStream($body));
+        $response = $responseFactory->createResponse($status)->withBody($streamFactory->createStream($body));
         $recording = new RecordingClient($response);
 
         return [new Bird('bk_test', 'https://api.example.test', $recording), $recording];
@@ -137,6 +138,22 @@ final class BroadcastsRequestTest extends TestCase
                 self::assertStringContainsString('idempotency', $error->getMessage());
             }
             self::assertNull($recording->lastRequest);
+        }
+    }
+
+    public function testSendSurfacesLiquidRefusalCodeAndLocalizedParam(): void
+    {
+        $body = '{"error":{"type":"validation_error","code":"E04104","message":"parameter value cannot contain Liquid","param":"/template/parameter_overrides/fr/greeting"}}';
+        [$bird] = $this->makeClient($body, 422);
+
+        try {
+            $bird->broadcasts->send('eb_01krdgeqcxet5s7t44vh8rt9mg');
+            self::fail('Expected ApiException for E04104 refusal');
+        } catch (ApiException $error) {
+            self::assertSame(422, $error->status);
+            self::assertSame('validation_error', $error->type);
+            self::assertSame('E04104', $error->errorCode);
+            self::assertSame('/template/parameter_overrides/fr/greeting', $error->param);
         }
     }
 }

@@ -54,7 +54,7 @@ class WhatsAppKeywordRuleCreate
      */
     protected $keywords;
     /**
-     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     * Bird's keywords to remove for the people this rule covers. Rules are tried most specific first: a more specific rule of yours answers before this one, and with neither `country` nor `waba` so does Bird's rule for the sender's country. When this rule answers a message that is exactly an excluded keyword, no one is opted in or out, no reply is sent, and no less specific rule acts on it, so you must honour opt-outs it carries yourself. Without a `country`, the rule inherits Bird's keywords for each sender's country, so an exclusion covers only senders whose set has that keyword. Exclude every one of Bird's keywords to switch them off where this rule answers; a keyword Bird adds later still matches unless it is already excluded. It changes none of your other rules. A keyword cannot be both added and excluded.
      * 
      *
      * @var list<string>|null
@@ -187,7 +187,7 @@ class WhatsAppKeywordRuleCreate
         return $this;
     }
     /**
-     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     * Bird's keywords to remove for the people this rule covers. Rules are tried most specific first: a more specific rule of yours answers before this one, and with neither `country` nor `waba` so does Bird's rule for the sender's country. When this rule answers a message that is exactly an excluded keyword, no one is opted in or out, no reply is sent, and no less specific rule acts on it, so you must honour opt-outs it carries yourself. Without a `country`, the rule inherits Bird's keywords for each sender's country, so an exclusion covers only senders whose set has that keyword. Exclude every one of Bird's keywords to switch them off where this rule answers; a keyword Bird adds later still matches unless it is already excluded. It changes none of your other rules. A keyword cannot be both added and excluded.
      * 
      *
      * @return list<string>|null
@@ -197,7 +197,7 @@ class WhatsAppKeywordRuleCreate
         return $this->excludedKeywords;
     }
     /**
-     * Bird's keywords to remove for the people this rule covers. A message that is exactly one of them then opts no one in or out and gets no reply, and you must honour opt-outs it carries yourself. Exclude every one of Bird's keywords to switch them off; a keyword Bird adds later still matches. It removes only from the Bird rule this one inherits from, not from your other rules. A keyword cannot be both added and excluded.
+     * Bird's keywords to remove for the people this rule covers. Rules are tried most specific first: a more specific rule of yours answers before this one, and with neither `country` nor `waba` so does Bird's rule for the sender's country. When this rule answers a message that is exactly an excluded keyword, no one is opted in or out, no reply is sent, and no less specific rule acts on it, so you must honour opt-outs it carries yourself. Without a `country`, the rule inherits Bird's keywords for each sender's country, so an exclusion covers only senders whose set has that keyword. Exclude every one of Bird's keywords to switch them off where this rule answers; a keyword Bird adds later still matches unless it is already excluded. It changes none of your other rules. A keyword cannot be both added and excluded.
      *
      * @param list<string>|null $excludedKeywords
      *

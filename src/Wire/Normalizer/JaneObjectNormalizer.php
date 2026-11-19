@@ -508,6 +508,14 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastResume::class => \MessageBird\Wire\Normalizer\EmailBroadcastResumeNormalizer::class,
 
+        \MessageBird\Wire\Model\Label::class => \MessageBird\Wire\Normalizer\LabelNormalizer::class,
+
+        \MessageBird\Wire\Model\LabelList::class => \MessageBird\Wire\Normalizer\LabelListNormalizer::class,
+
+        \MessageBird\Wire\Model\LabelCreate::class => \MessageBird\Wire\Normalizer\LabelCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\LabelUpdate::class => \MessageBird\Wire\Normalizer\LabelUpdateNormalizer::class,
+
         \MessageBird\Wire\Model\AudienceRef::class => \MessageBird\Wire\Normalizer\AudienceRefNormalizer::class,
 
         \MessageBird\Wire\Model\Contact::class => \MessageBird\Wire\Normalizer\ContactNormalizer::class,
@@ -1434,6 +1442,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBConversationUpdate::class => \MessageBird\Wire\Normalizer\AMBConversationUpdateNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBAuthenticationTemplate::class => \MessageBird\Wire\Normalizer\AMBAuthenticationTemplateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBAuthenticationCreate::class => \MessageBird\Wire\Normalizer\AMBAuthenticationCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBAuthenticationCreateTemplate::class => \MessageBird\Wire\Normalizer\AMBAuthenticationCreateTemplateNormalizer::class,
+
         \MessageBird\Wire\Model\AMBConversationTypingRequest::class => \MessageBird\Wire\Normalizer\AMBConversationTypingRequestNormalizer::class,
 
         \MessageBird\Wire\Model\AMBSuppressionList::class => \MessageBird\Wire\Normalizer\AMBSuppressionListNormalizer::class,
@@ -1474,6 +1488,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBTemplateList::class => \MessageBird\Wire\Normalizer\AMBTemplateListNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBSignInMessage::class => \MessageBird\Wire\Normalizer\AMBSignInMessageNormalizer::class,
+
         \MessageBird\Wire\Model\AMBTemplate::class => \MessageBird\Wire\Normalizer\AMBTemplateNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateVersionSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionSummaryNormalizer::class,
@@ -1488,6 +1504,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AMBTemplateVersionLanguageInteractive::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageInteractiveNormalizer::class,
 
+        \MessageBird\Wire\Model\AMBTemplateVersionLanguageSignIn::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionLanguageSignInNormalizer::class,
+
         \MessageBird\Wire\Model\AMBTemplateVersion::class => \MessageBird\Wire\Normalizer\AMBTemplateVersionNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageSummaryNormalizer::class,
@@ -1501,6 +1519,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\AMBTemplateLanguageRichLink::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageRichLinkNormalizer::class,
 
         \MessageBird\Wire\Model\AMBTemplateLanguageInteractive::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageInteractiveNormalizer::class,
+
+        \MessageBird\Wire\Model\AMBTemplateLanguageSignIn::class => \MessageBird\Wire\Normalizer\AMBTemplateLanguageSignInNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => \MessageBird\Wire\Normalizer\WhatsAppBusinessPortfolioNormalizer::class,
 
@@ -1613,6 +1633,24 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmark::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsIndustryBenchmarkNormalizer::class,
 
         \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmarkIndustry::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsIndustryBenchmarkIndustryNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingSettings::class => \MessageBird\Wire\Normalizer\AutomaticSeedingSettingsNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingSettingsUpdate::class => \MessageBird\Wire\Normalizer\AutomaticSeedingSettingsUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingRotate::class => \MessageBird\Wire\Normalizer\AutomaticSeedingRotateNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingProgress::class => \MessageBird\Wire\Normalizer\AutomaticSeedingProgressNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingIssue::class => \MessageBird\Wire\Normalizer\AutomaticSeedingIssueNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingRun::class => \MessageBird\Wire\Normalizer\AutomaticSeedingRunNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingRunList::class => \MessageBird\Wire\Normalizer\AutomaticSeedingRunListNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingSourceObservation::class => \MessageBird\Wire\Normalizer\AutomaticSeedingSourceObservationNormalizer::class,
+
+        \MessageBird\Wire\Model\AutomaticSeedingSourceList::class => \MessageBird\Wire\Normalizer\AutomaticSeedingSourceListNormalizer::class,
 
         \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRow::class => \MessageBird\Wire\Normalizer\EmailInboxInsightsSeedTestRowNormalizer::class,
 
@@ -2005,10 +2043,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailMailboxScheduledMessageList::class => \MessageBird\Wire\Normalizer\EmailMailboxScheduledMessageListNormalizer::class,
 
         \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => \MessageBird\Wire\Normalizer\EmailMailboxComposeRequestNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxLabel::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelNormalizer::class,
-
-        \MessageBird\Wire\Model\EmailMailboxLabelList::class => \MessageBird\Wire\Normalizer\EmailMailboxLabelListNormalizer::class,
 
         \MessageBird\Wire\Model\WebhookFilter::class => \MessageBird\Wire\Normalizer\WebhookFilterNormalizer::class,
 
@@ -2733,6 +2767,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailBroadcastTestResult::class => false,
             \MessageBird\Wire\Model\EmailBroadcastSendNowRequest::class => false,
             \MessageBird\Wire\Model\EmailBroadcastResume::class => false,
+            \MessageBird\Wire\Model\Label::class => false,
+            \MessageBird\Wire\Model\LabelList::class => false,
+            \MessageBird\Wire\Model\LabelCreate::class => false,
+            \MessageBird\Wire\Model\LabelUpdate::class => false,
             \MessageBird\Wire\Model\AudienceRef::class => false,
             \MessageBird\Wire\Model\Contact::class => false,
             \MessageBird\Wire\Model\ContactList::class => false,
@@ -3196,6 +3234,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBConversationList::class => false,
             \MessageBird\Wire\Model\AMBConversationRoutingChangeDecision::class => false,
             \MessageBird\Wire\Model\AMBConversationUpdate::class => false,
+            \MessageBird\Wire\Model\AMBAuthenticationTemplate::class => false,
+            \MessageBird\Wire\Model\AMBAuthenticationCreate::class => false,
+            \MessageBird\Wire\Model\AMBAuthenticationCreateTemplate::class => false,
             \MessageBird\Wire\Model\AMBConversationTypingRequest::class => false,
             \MessageBird\Wire\Model\AMBSuppressionList::class => false,
             \MessageBird\Wire\Model\AMBSuppressionCreate::class => false,
@@ -3216,6 +3257,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\AMBTemplateSummary::class => false,
             \MessageBird\Wire\Model\AMBTemplateList::class => false,
+            \MessageBird\Wire\Model\AMBSignInMessage::class => false,
             \MessageBird\Wire\Model\AMBTemplate::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionSummary::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionList::class => false,
@@ -3223,6 +3265,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBTemplateVersionLanguageText::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionLanguageRichLink::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersionLanguageInteractive::class => false,
+            \MessageBird\Wire\Model\AMBTemplateVersionLanguageSignIn::class => false,
             \MessageBird\Wire\Model\AMBTemplateVersion::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageSummary::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageList::class => false,
@@ -3230,6 +3273,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AMBTemplateLanguageText::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageRichLink::class => false,
             \MessageBird\Wire\Model\AMBTemplateLanguageInteractive::class => false,
+            \MessageBird\Wire\Model\AMBTemplateLanguageSignIn::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessPortfolio::class => false,
             \MessageBird\Wire\Model\WhatsAppBusinessAccountBan::class => false,
             \MessageBird\Wire\Model\WhatsAppMetaHealthError::class => false,
@@ -3286,6 +3330,15 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailInboxInsightsBlocklists::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmark::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsIndustryBenchmarkIndustry::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingSettings::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingSettingsUpdate::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingRotate::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingProgress::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingIssue::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingRun::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingRunList::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingSourceObservation::class => false,
+            \MessageBird\Wire\Model\AutomaticSeedingSourceList::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsSeedTestRow::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsSeedTestList::class => false,
             \MessageBird\Wire\Model\EmailInboxInsightsGmailCategory::class => false,
@@ -3482,8 +3535,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailMailboxScheduledMessage::class => false,
             \MessageBird\Wire\Model\EmailMailboxScheduledMessageList::class => false,
             \MessageBird\Wire\Model\EmailMailboxComposeRequest::class => false,
-            \MessageBird\Wire\Model\EmailMailboxLabel::class => false,
-            \MessageBird\Wire\Model\EmailMailboxLabelList::class => false,
             \MessageBird\Wire\Model\WebhookFilter::class => false,
             \MessageBird\Wire\Model\WebhookEndpoint::class => false,
             \MessageBird\Wire\Model\WebhookEndpointFilter::class => false,

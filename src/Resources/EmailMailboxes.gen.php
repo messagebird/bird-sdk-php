@@ -8,7 +8,6 @@ namespace MessageBird\Resources;
 
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
-use MessageBird\Wire\Model\EmailMailboxLabelList;
 use MessageBird\Wire\Model\Mailbox;
 use MessageBird\Wire\Model\MailboxCreate;
 use MessageBird\Wire\Model\MailboxList;
@@ -140,19 +139,5 @@ class EmailMailboxesBase extends Resource
     public function stats(string $mailboxId, ?array $query = null, ?RequestOptions $options = null): MailboxStatsResponse
     {
         return $this->single('GET', '/v1/email/mailboxes/' . rawurlencode($mailboxId) . '/stats', MailboxStatsResponse::class, null, $query, $options);
-    }
-
-    /**
-     * List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in the workspace, which all its mailboxes share.
-     *
-     * @example List the labels a mailbox's threads can carry
-     * $labels = $bird->email->mailboxes->labels('mbx_01krdgeqcxet5s7t44vh8rt9mg');
-     * foreach ($labels->getData() ?? [] as $label) {
-     *     echo $label->getName(), "\n";
-     * }
-     */
-    public function labels(string $mailboxId, ?RequestOptions $options = null): EmailMailboxLabelList
-    {
-        return $this->single('GET', '/v1/email/mailboxes/' . rawurlencode($mailboxId) . '/labels', EmailMailboxLabelList::class, null, null, $options);
     }
 }
