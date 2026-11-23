@@ -16,6 +16,10 @@ class EmailTemplateLanguageSaved
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * @var EmailTemplateLanguageSavedSharedBlocks|null
+     */
+    protected $sharedBlocks;
+    /**
      * A language tag in BCP-47 form, for example `en` or `pt-BR`.
      *
      * @var string|null
@@ -28,6 +32,12 @@ class EmailTemplateLanguageSaved
      * @var int|null
      */
     protected $revision;
+    /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @var string|null
+     */
+    protected $authoringMode;
     /**
      * The draft's new revision. Saving a language moves it, so any template update you make next must send this value instead of the revision you read before the save.
      * 
@@ -94,6 +104,24 @@ class EmailTemplateLanguageSaved
      */
     protected $compatibility;
     /**
+     * @return EmailTemplateLanguageSavedSharedBlocks|null
+     */
+    public function getSharedBlocks(): ?EmailTemplateLanguageSavedSharedBlocks
+    {
+        return $this->sharedBlocks;
+    }
+    /**
+     * @param EmailTemplateLanguageSavedSharedBlocks|EmailTemplateSharedBlocks|array|null $sharedBlocks
+     *
+     * @return self
+     */
+    public function setSharedBlocks($sharedBlocks): self
+    {
+        $this->initialized['sharedBlocks'] = true;
+        $this->sharedBlocks = \MessageBird\Core\ModelWrapper::normalize($sharedBlocks, EmailTemplateLanguageSavedSharedBlocks::class);
+        return $this;
+    }
+    /**
      * A language tag in BCP-47 form, for example `en` or `pt-BR`.
      *
      * @return string|null
@@ -136,6 +164,28 @@ class EmailTemplateLanguageSaved
     {
         $this->initialized['revision'] = true;
         $this->revision = $revision;
+        return $this;
+    }
+    /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @return string|null
+     */
+    public function getAuthoringMode(): ?string
+    {
+        return $this->authoringMode;
+    }
+    /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @param string|null $authoringMode
+     *
+     * @return self
+     */
+    public function setAuthoringMode(?string $authoringMode): self
+    {
+        $this->initialized['authoringMode'] = true;
+        $this->authoringMode = $authoringMode;
         return $this;
     }
     /**

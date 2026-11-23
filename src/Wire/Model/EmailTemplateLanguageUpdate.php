@@ -29,13 +29,14 @@ class EmailTemplateLanguageUpdate
      */
     protected $previewText;
     /**
-     * A new HTML body for this language.
+     * A new HTML body for this language. Refused on a language that links blocks; change its body with a full save that includes `shared_blocks`.
+     * 
      *
      * @var string|null
      */
     protected $html;
     /**
-     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit. Refused on a language that links blocks, which always derives its text.
      * 
      *
      * @var string|null
@@ -94,7 +95,8 @@ class EmailTemplateLanguageUpdate
         return $this;
     }
     /**
-     * A new HTML body for this language.
+     * A new HTML body for this language. Refused on a language that links blocks; change its body with a full save that includes `shared_blocks`.
+     * 
      *
      * @return string|null
      */
@@ -103,7 +105,7 @@ class EmailTemplateLanguageUpdate
         return $this->html;
     }
     /**
-     * A new HTML body for this language.
+     * A new HTML body for this language. Refused on a language that links blocks; change its body with a full save that includes `shared_blocks`.
      *
      * @param string|null $html
      *
@@ -116,7 +118,7 @@ class EmailTemplateLanguageUpdate
         return $this;
     }
     /**
-     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit. Refused on a language that links blocks, which always derives its text.
      * 
      *
      * @return string|null
@@ -126,7 +128,7 @@ class EmailTemplateLanguageUpdate
         return $this->text;
     }
     /**
-     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+     * A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit. Refused on a language that links blocks, which always derives its text.
      *
      * @param string|null $text
      *

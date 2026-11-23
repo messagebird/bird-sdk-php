@@ -13,7 +13,7 @@ class NumbersOrder
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Identifier of this purchase order.
+     * Identifier of this number order.
      *
      * @var string|null
      */
@@ -39,7 +39,7 @@ class NumbersOrder
      */
     protected $status;
     /**
-     * Identifier of the number this order produced, set when `status` is `completed`. Pass it as `number_id` to `GET /v1/numbers/{number_id}` or `DELETE /v1/numbers/{number_id}`. `null` until the order completes.
+     * Identifier of the workspace allocation associated with this completed order. Multiple orders can refer to the same allocation. This historical association remains after release; `GET /v1/numbers/{number_id}` returns its current holding state and can return not found after release. `null` until the order completes.
      * 
      *
      * @var string|null
@@ -53,7 +53,7 @@ class NumbersOrder
      */
     protected $failureReason;
     /**
-     * When the purchase completed and the number became owned (status completed). `null` for orders still in progress or failed.
+     * When this order completed (status completed). Completion records the associated allocation and does not establish its current holding state. `null` for orders still in progress or failed.
      * 
      *
      * @var \DateTime|null
@@ -68,7 +68,7 @@ class NumbersOrder
      */
     protected $updatedAt;
     /**
-     * Identifier of this purchase order.
+     * Identifier of this number order.
      *
      * @return string|null
      */
@@ -77,7 +77,7 @@ class NumbersOrder
         return $this->id;
     }
     /**
-     * Identifier of this purchase order.
+     * Identifier of this number order.
      *
      * @param string|null $id
      *
@@ -170,7 +170,7 @@ class NumbersOrder
         return $this;
     }
     /**
-     * Identifier of the number this order produced, set when `status` is `completed`. Pass it as `number_id` to `GET /v1/numbers/{number_id}` or `DELETE /v1/numbers/{number_id}`. `null` until the order completes.
+     * Identifier of the workspace allocation associated with this completed order. Multiple orders can refer to the same allocation. This historical association remains after release; `GET /v1/numbers/{number_id}` returns its current holding state and can return not found after release. `null` until the order completes.
      * 
      *
      * @return string|null
@@ -180,7 +180,7 @@ class NumbersOrder
         return $this->numberId;
     }
     /**
-     * Identifier of the number this order produced, set when `status` is `completed`. Pass it as `number_id` to `GET /v1/numbers/{number_id}` or `DELETE /v1/numbers/{number_id}`. `null` until the order completes.
+     * Identifier of the workspace allocation associated with this completed order. Multiple orders can refer to the same allocation. This historical association remains after release; `GET /v1/numbers/{number_id}` returns its current holding state and can return not found after release. `null` until the order completes.
      *
      * @param string|null $numberId
      *
@@ -216,7 +216,7 @@ class NumbersOrder
         return $this;
     }
     /**
-     * When the purchase completed and the number became owned (status completed). `null` for orders still in progress or failed.
+     * When this order completed (status completed). Completion records the associated allocation and does not establish its current holding state. `null` for orders still in progress or failed.
      * 
      *
      * @return \DateTime|null
@@ -226,7 +226,7 @@ class NumbersOrder
         return $this->completedAt;
     }
     /**
-     * When the purchase completed and the number became owned (status completed). `null` for orders still in progress or failed.
+     * When this order completed (status completed). Completion records the associated allocation and does not establish its current holding state. `null` for orders still in progress or failed.
      *
      * @param \DateTime|null $completedAt
      *

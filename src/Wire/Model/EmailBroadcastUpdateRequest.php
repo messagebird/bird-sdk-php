@@ -16,6 +16,13 @@ class EmailBroadcastUpdateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Replaces the broadcast's automatic seeding choice. Leave it out to keep the saved choice. Send null to start a seed test only when the audience contains a contact at the workspace's trigger address. An object without `example_contact_id` removes the example contact, so seed copies use fallback values. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on, or changing it while it is on, returns `404 not_found` while automatic seeding is unavailable to the workspace. Resending the saved choice, turning it off and sending null still succeed.
+     * 
+     *
+     * @var EmailBroadcastUpdateRequestAutomaticSeeding|null
+     */
+    protected $automaticSeeding;
+    /**
      * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 
      *
@@ -90,6 +97,29 @@ class EmailBroadcastUpdateRequest
      * @var string|null
      */
     protected $brandId;
+    /**
+     * Replaces the broadcast's automatic seeding choice. Leave it out to keep the saved choice. Send null to start a seed test only when the audience contains a contact at the workspace's trigger address. An object without `example_contact_id` removes the example contact, so seed copies use fallback values. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on, or changing it while it is on, returns `404 not_found` while automatic seeding is unavailable to the workspace. Resending the saved choice, turning it off and sending null still succeed.
+     * 
+     *
+     * @return EmailBroadcastUpdateRequestAutomaticSeeding|null
+     */
+    public function getAutomaticSeeding(): ?EmailBroadcastUpdateRequestAutomaticSeeding
+    {
+        return $this->automaticSeeding;
+    }
+    /**
+     * Replaces the broadcast's automatic seeding choice. Leave it out to keep the saved choice. Send null to start a seed test only when the audience contains a contact at the workspace's trigger address. An object without `example_contact_id` removes the example contact, so seed copies use fallback values. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on, or changing it while it is on, returns `404 not_found` while automatic seeding is unavailable to the workspace. Resending the saved choice, turning it off and sending null still succeed.
+     *
+     * @param EmailBroadcastUpdateRequestAutomaticSeeding|null $automaticSeeding
+     *
+     * @return self
+     */
+    public function setAutomaticSeeding(?EmailBroadcastUpdateRequestAutomaticSeeding $automaticSeeding): self
+    {
+        $this->initialized['automaticSeeding'] = true;
+        $this->automaticSeeding = $automaticSeeding;
+        return $this;
+    }
     /**
      * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 

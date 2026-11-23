@@ -39,6 +39,7 @@ final class Broadcasts extends BroadcastsBase
      * @param array<string, mixed>|null $metadata arbitrary JSON kept on the broadcast, up to 2 KB serialized
      * @param string|null $category `marketing` or `transactional`; decides which suppressions apply and whether the unsubscribe headers are added
      * @param \DateTimeInterface|null $scheduledAt when to send: at least 30 seconds and at most 365 days out, and only meaningful alongside `$send`
+     * @param array{enabled: bool, example_contact_id?: string}|Omit $automaticSeeding sends seed copies with the broadcast for an automatic seed test; without `example_contact_id` personal fields use their fallback values, and `['enabled' => false]` sends no seed copies
      */
     public function create(
         string|array|EmailAddress|null $from = null,
@@ -59,6 +60,7 @@ final class Broadcasts extends BroadcastsBase
         array|\stdClass|null $parameters = null,
         array|\stdClass|null $parameterOverrides = null,
         string|Omit|null $brandId = Omit::Value,
+        array|Omit $automaticSeeding = Omit::Value,
     ): EmailBroadcast {
         // A per-call value always wins; an unset field falls back to the client
         // default, so a broadcast sends under the same policy as the client's
@@ -85,6 +87,9 @@ final class Broadcasts extends BroadcastsBase
         $body = [];
         if (!($brandId instanceof Omit)) {
             $body['brand_id'] = $brandId;
+        }
+        if (!($automaticSeeding instanceof Omit)) {
+            $body['automatic_seeding'] = $automaticSeeding;
         }
         if ($from !== null) {
             $body['from'] = $from;
@@ -153,6 +158,8 @@ final class Broadcasts extends BroadcastsBase
      * keeps the template and the version the broadcast is fixed to, while an
      * `id` moves the broadcast and lets the next send fix on that template's
      * published version.
+     * `automatic_seeding` replaces the saved seeding choice, and `null` seeds
+     * only when the audience contains a contact at the trigger address.
      * An absent key leaves the stored value alone. Taken as an array rather
      * than named parameters because these fields need all three states,
      * which a nullable PHP parameter cannot express. A broadcast that has
@@ -171,6 +178,7 @@ final class Broadcasts extends BroadcastsBase
      *     track_clicks?: bool,
      *     ip_pool_id?: string|null,
      *     category?: string,
+     *     automatic_seeding?: array{enabled: bool, example_contact_id?: string}|null,
      * } $changes
      */
     public function update(string $broadcastId, array $changes, ?RequestOptions $options = null): EmailBroadcast

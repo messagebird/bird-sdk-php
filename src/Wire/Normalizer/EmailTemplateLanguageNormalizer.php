@@ -49,6 +49,12 @@ class EmailTemplateLanguageNormalizer implements DenormalizerInterface, Normaliz
         elseif (\array_key_exists('revision', $data) && $data['revision'] === null) {
             $object->setRevision(null);
         }
+        if (\array_key_exists('authoring_mode', $data) && $data['authoring_mode'] !== null) {
+            $object->setAuthoringMode($data['authoring_mode']);
+        }
+        elseif (\array_key_exists('authoring_mode', $data) && $data['authoring_mode'] === null) {
+            $object->setAuthoringMode(null);
+        }
         if (\array_key_exists('content_hash', $data) && $data['content_hash'] !== null) {
             $object->setContentHash($data['content_hash']);
         }

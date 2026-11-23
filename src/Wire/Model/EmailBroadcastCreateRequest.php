@@ -18,6 +18,13 @@ class EmailBroadcastCreateRequest
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Whether this broadcast sends seed copies for an automatic seed test. Leave it out to start a seed test only when the audience contains a contact at the workspace's trigger address. Send `enabled: false` to send no seed copies at all. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on returns `404 not_found` while automatic seeding is unavailable to the workspace.
+     * 
+     *
+     * @var EmailBroadcastCreateRequestAutomaticSeeding|null
+     */
+    protected $automaticSeeding;
+    /**
      * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 
      *
@@ -105,6 +112,29 @@ class EmailBroadcastCreateRequest
      * @var string|null
      */
     protected $brandId;
+    /**
+     * Whether this broadcast sends seed copies for an automatic seed test. Leave it out to start a seed test only when the audience contains a contact at the workspace's trigger address. Send `enabled: false` to send no seed copies at all. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on returns `404 not_found` while automatic seeding is unavailable to the workspace.
+     * 
+     *
+     * @return EmailBroadcastCreateRequestAutomaticSeeding|null
+     */
+    public function getAutomaticSeeding(): ?EmailBroadcastCreateRequestAutomaticSeeding
+    {
+        return $this->automaticSeeding;
+    }
+    /**
+     * Whether this broadcast sends seed copies for an automatic seed test. Leave it out to start a seed test only when the audience contains a contact at the workspace's trigger address. Send `enabled: false` to send no seed copies at all. Needs Inbox Insights write permission, and contact read permission to choose an example contact. Turning seeding on returns `404 not_found` while automatic seeding is unavailable to the workspace.
+     *
+     * @param EmailBroadcastCreateRequestAutomaticSeeding|EmailBroadcastAutomaticSeedingInput|array|null $automaticSeeding
+     *
+     * @return self
+     */
+    public function setAutomaticSeeding($automaticSeeding): self
+    {
+        $this->initialized['automaticSeeding'] = true;
+        $this->automaticSeeding = \MessageBird\Core\ModelWrapper::normalize($automaticSeeding, EmailBroadcastCreateRequestAutomaticSeeding::class);
+        return $this;
+    }
     /**
      * A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
      * 

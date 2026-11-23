@@ -28,7 +28,7 @@ class EmailBroadcastValidationResult
      */
     protected $resolution;
     /**
-     * The problems found. Empty when `ready_for_admission` is true.
+     * The problems found. Problems with severity `error` block sending, and none remain when `ready_for_admission` is true. Problems with severity `warning` do not block sending.
      *
      * @var list<EmailBroadcastParameterProblem>|null
      */
@@ -97,7 +97,7 @@ class EmailBroadcastValidationResult
         return $this;
     }
     /**
-     * The problems found. Empty when `ready_for_admission` is true.
+     * The problems found. Problems with severity `error` block sending, and none remain when `ready_for_admission` is true. Problems with severity `warning` do not block sending.
      *
      * @return list<EmailBroadcastParameterProblem>|null
      */
@@ -106,7 +106,7 @@ class EmailBroadcastValidationResult
         return $this->problems;
     }
     /**
-     * The problems found. Empty when `ready_for_admission` is true.
+     * The problems found. Problems with severity `error` block sending, and none remain when `ready_for_admission` is true. Problems with severity `warning` do not block sending.
      *
      * @param list<EmailBroadcastParameterProblem>|null $problems
      *

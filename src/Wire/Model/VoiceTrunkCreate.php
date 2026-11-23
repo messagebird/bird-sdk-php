@@ -46,7 +46,7 @@ class VoiceTrunkCreate
      */
     protected $media;
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
      * 
      *
      * @var list<string>|null
@@ -173,7 +173,7 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
      * 
      *
      * @return list<string>|null
@@ -183,7 +183,7 @@ class VoiceTrunkCreate
         return $this->digestAlgorithms;
     }
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
      *
      * @param list<string>|null $digestAlgorithms
      *

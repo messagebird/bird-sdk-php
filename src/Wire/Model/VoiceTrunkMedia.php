@@ -43,6 +43,13 @@ class VoiceTrunkMedia
      */
     protected $encryption;
     /**
+     * The sites the trunk-facing leg may use for call audio. The trunk's home site is always included. Carrier availability can further limit those sites; a separate carrier-facing leg may use another site. A trunk whose media sites aren't set reports its home site; until they're saved, Bird may also anchor audio at an exit gateway's or a bridged call's site.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $sites;
+    /**
      * Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
      * (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
      * plain RTP.
@@ -104,6 +111,29 @@ class VoiceTrunkMedia
     {
         $this->initialized['encryption'] = true;
         $this->encryption = $encryption;
+        return $this;
+    }
+    /**
+     * The sites the trunk-facing leg may use for call audio. The trunk's home site is always included. Carrier availability can further limit those sites; a separate carrier-facing leg may use another site. A trunk whose media sites aren't set reports its home site; until they're saved, Bird may also anchor audio at an exit gateway's or a bridged call's site.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getSites(): ?array
+    {
+        return $this->sites;
+    }
+    /**
+     * The sites the trunk-facing leg may use for call audio. The trunk's home site is always included. Carrier availability can further limit those sites; a separate carrier-facing leg may use another site. A trunk whose media sites aren't set reports its home site; until they're saved, Bird may also anchor audio at an exit gateway's or a bridged call's site.
+     *
+     * @param list<string>|null $sites
+     *
+     * @return self
+     */
+    public function setSites(?array $sites): self
+    {
+        $this->initialized['sites'] = true;
+        $this->sites = $sites;
         return $this;
     }
 }

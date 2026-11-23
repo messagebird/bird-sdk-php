@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A change to how the trunk encrypts call audio.
+ * A change to how the trunk carries call audio.
  */
 class VoiceTrunkMediaUpdate
 {
@@ -42,6 +42,13 @@ class VoiceTrunkMediaUpdate
      * @var string|null
      */
     protected $encryption;
+    /**
+     * Replace the permitted media sites. The list must include the trunk's home site. Omit this field to keep the current sites.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $sites;
     /**
      * Controls SRTP encryption between your equipment and Bird. SRTP keys use SDES
      * (`a=crypto`) over TLS signalling. Audio between Bird and the carrier uses
@@ -104,6 +111,29 @@ class VoiceTrunkMediaUpdate
     {
         $this->initialized['encryption'] = true;
         $this->encryption = $encryption;
+        return $this;
+    }
+    /**
+     * Replace the permitted media sites. The list must include the trunk's home site. Omit this field to keep the current sites.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getSites(): ?array
+    {
+        return $this->sites;
+    }
+    /**
+     * Replace the permitted media sites. The list must include the trunk's home site. Omit this field to keep the current sites.
+     *
+     * @param list<string>|null $sites
+     *
+     * @return self
+     */
+    public function setSites(?array $sites): self
+    {
+        $this->initialized['sites'] = true;
+        $this->sites = $sites;
         return $this;
     }
 }

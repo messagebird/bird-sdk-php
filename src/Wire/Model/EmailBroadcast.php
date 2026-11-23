@@ -13,6 +13,13 @@ class EmailBroadcast
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * The broadcast's automatic seeding choice, or null when a seed test starts only from a contact at the workspace's trigger address in the audience. Returned on single-broadcast reads and on create and update responses to callers with Inbox Insights read and contact read permission. Not included in lists.
+     * 
+     *
+     * @var EmailBroadcastAutomaticSeeding|null
+     */
+    protected $automaticSeeding;
+    /**
      * Broadcast ID.
      *
      * @var string|null
@@ -276,6 +283,29 @@ class EmailBroadcast
      * @var string|null
      */
     protected $brandId;
+    /**
+     * The broadcast's automatic seeding choice, or null when a seed test starts only from a contact at the workspace's trigger address in the audience. Returned on single-broadcast reads and on create and update responses to callers with Inbox Insights read and contact read permission. Not included in lists.
+     * 
+     *
+     * @return EmailBroadcastAutomaticSeeding|null
+     */
+    public function getAutomaticSeeding(): ?EmailBroadcastAutomaticSeeding
+    {
+        return $this->automaticSeeding;
+    }
+    /**
+     * The broadcast's automatic seeding choice, or null when a seed test starts only from a contact at the workspace's trigger address in the audience. Returned on single-broadcast reads and on create and update responses to callers with Inbox Insights read and contact read permission. Not included in lists.
+     *
+     * @param EmailBroadcastAutomaticSeeding|null $automaticSeeding
+     *
+     * @return self
+     */
+    public function setAutomaticSeeding(?EmailBroadcastAutomaticSeeding $automaticSeeding): self
+    {
+        $this->initialized['automaticSeeding'] = true;
+        $this->automaticSeeding = $automaticSeeding;
+        return $this;
+    }
     /**
      * Broadcast ID.
      *

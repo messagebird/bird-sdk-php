@@ -37,6 +37,12 @@ class EmailTemplateLanguageSavedNormalizer implements DenormalizerInterface, Nor
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] !== null) {
+            $object->setSharedBlocks($this->denormalizer->denormalize($data['shared_blocks'], \MessageBird\Wire\Model\EmailTemplateLanguageSavedSharedBlocks::class, 'json', $context));
+        }
+        elseif (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] === null) {
+            $object->setSharedBlocks(null);
+        }
         if (\array_key_exists('language', $data) && $data['language'] !== null) {
             $object->setLanguage($data['language']);
         }
@@ -48,6 +54,12 @@ class EmailTemplateLanguageSavedNormalizer implements DenormalizerInterface, Nor
         }
         elseif (\array_key_exists('revision', $data) && $data['revision'] === null) {
             $object->setRevision(null);
+        }
+        if (\array_key_exists('authoring_mode', $data) && $data['authoring_mode'] !== null) {
+            $object->setAuthoringMode($data['authoring_mode']);
+        }
+        elseif (\array_key_exists('authoring_mode', $data) && $data['authoring_mode'] === null) {
+            $object->setAuthoringMode(null);
         }
         if (\array_key_exists('draft_revision', $data) && $data['draft_revision'] !== null) {
             $object->setDraftRevision($data['draft_revision']);

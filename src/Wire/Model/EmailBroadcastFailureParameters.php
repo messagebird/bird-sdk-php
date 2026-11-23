@@ -42,6 +42,9 @@ class EmailBroadcastFailureParameters
      * - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
      * - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
      * - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+     * - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+     * - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+     * - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
      * 
      *
      * @var string|null
@@ -107,6 +110,9 @@ class EmailBroadcastFailureParameters
      * - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
      * - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
      * - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+     * - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+     * - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+     * - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
      * 
      *
      * @return string|null
@@ -142,6 +148,9 @@ class EmailBroadcastFailureParameters
     - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
     - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
     - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+    - `seed_example_value_missing`: automatic seeding has no example contact, and the template requires the contact field at `pointer`, which has no fallback value. Choose an example contact or give the field a fallback value. Seed copies are not sent until then.
+    - `seeding_not_configured`: automatic seeding is on, but the workspace's automatic seeding settings are not saved or are turned off. Save them before sending, or no seed copies are sent.
+    - `seed_tests_exhausted`: automatic seeding is on, but the organization has no seed tests left this period, so no seed copies are sent.
     
     *
     * @param string|null $code

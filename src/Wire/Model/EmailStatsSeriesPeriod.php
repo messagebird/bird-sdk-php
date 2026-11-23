@@ -34,7 +34,7 @@ class EmailStatsSeriesPeriod
      */
     protected $grain;
     /**
-     * The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+     * The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
      * 
      *
      * @var \DateTime|null
@@ -107,7 +107,7 @@ class EmailStatsSeriesPeriod
         return $this;
     }
     /**
-     * The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+     * The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
      * 
      *
      * @return \DateTime|null
@@ -117,7 +117,7 @@ class EmailStatsSeriesPeriod
         return $this->dataAsOf;
     }
     /**
-     * The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+     * The best-effort refresh time of the statistics in this response; when they come from several rollups, it is the oldest of their latest refreshes. Events recorded before roughly this time are usually reflected, while more recent events may not be yet. Statistics are served from rolling aggregations that usually refresh within a minute, so a response can trail the latest events by a minute or more. Use this field to label data freshness rather than assuming the numbers are up to the second. Null when the freshness boundary is not being reported.
      *
      * @param \DateTime|null $dataAsOf
      *

@@ -16,6 +16,19 @@ class EmailTemplateLanguageContent
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Whether this language links reusable blocks. On ordinary reads, the HTML shows each linked block's current published content and changes when a linked block is published; copying it to a new template creates independent content. Read the language with `authoring=true` for its HTML with block markers and its `shared_blocks`.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $hasSharedBlocks;
+    /**
+     * The language's block links. Returned only by `authoring=true` reads.
+     *
+     * @var EmailTemplateLanguageContentSharedBlocks|null
+     */
+    protected $sharedBlocks;
+    /**
      * The email subject line for this language.
      *
      * @var string|null
@@ -41,6 +54,51 @@ class EmailTemplateLanguageContent
      * @var string|null
      */
     protected $text;
+    /**
+     * Whether this language links reusable blocks. On ordinary reads, the HTML shows each linked block's current published content and changes when a linked block is published; copying it to a new template creates independent content. Read the language with `authoring=true` for its HTML with block markers and its `shared_blocks`.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getHasSharedBlocks(): ?bool
+    {
+        return $this->hasSharedBlocks;
+    }
+    /**
+     * Whether this language links reusable blocks. On ordinary reads, the HTML shows each linked block's current published content and changes when a linked block is published; copying it to a new template creates independent content. Read the language with `authoring=true` for its HTML with block markers and its `shared_blocks`.
+     *
+     * @param bool|null $hasSharedBlocks
+     *
+     * @return self
+     */
+    public function setHasSharedBlocks(?bool $hasSharedBlocks): self
+    {
+        $this->initialized['hasSharedBlocks'] = true;
+        $this->hasSharedBlocks = $hasSharedBlocks;
+        return $this;
+    }
+    /**
+     * The language's block links. Returned only by `authoring=true` reads.
+     *
+     * @return EmailTemplateLanguageContentSharedBlocks|null
+     */
+    public function getSharedBlocks(): ?EmailTemplateLanguageContentSharedBlocks
+    {
+        return $this->sharedBlocks;
+    }
+    /**
+     * The language's block links. Returned only by `authoring=true` reads.
+     *
+     * @param EmailTemplateLanguageContentSharedBlocks|EmailTemplateSharedBlocks|array|null $sharedBlocks
+     *
+     * @return self
+     */
+    public function setSharedBlocks($sharedBlocks): self
+    {
+        $this->initialized['sharedBlocks'] = true;
+        $this->sharedBlocks = \MessageBird\Core\ModelWrapper::normalize($sharedBlocks, EmailTemplateLanguageContentSharedBlocks::class);
+        return $this;
+    }
     /**
      * The email subject line for this language.
      *

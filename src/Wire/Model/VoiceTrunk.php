@@ -79,7 +79,7 @@ class VoiceTrunk extends \ArrayObject
      */
     protected $ineligibleApiKeyIds;
     /**
-     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
      * 
      *
      * @var list<string>|null
@@ -326,7 +326,7 @@ class VoiceTrunk extends \ArrayObject
         return $this;
     }
     /**
-     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
      * 
      *
      * @return list<string>|null
@@ -336,7 +336,7 @@ class VoiceTrunk extends \ArrayObject
         return $this->digestAlgorithms;
     }
     /**
-     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+     * The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. The list governs clients that authenticate with an API key: their answer with an algorithm that is not on it is rejected, so narrowing the list also narrows what the trunk accepts from them. Session credentials, which the dashboard phone uses and `POST /v1/voice/session-credentials` creates, are the exception: with `session_credentials_enabled`, the challenge always ends with an MD5 line, after the list in its own order, and a valid session credential is accepted with MD5 or SHA-256. An API-key answer with that extra MD5 is still rejected. Replace `digest_algorithms` through the trunk update operation.
      *
      * @param list<string>|null $digestAlgorithms
      *

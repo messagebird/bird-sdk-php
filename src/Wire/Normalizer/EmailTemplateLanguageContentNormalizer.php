@@ -37,6 +37,21 @@ class EmailTemplateLanguageContentNormalizer implements DenormalizerInterface, N
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('has_shared_blocks', $data) && \is_int($data['has_shared_blocks'])) {
+            $data['has_shared_blocks'] = (bool) $data['has_shared_blocks'];
+        }
+        if (\array_key_exists('has_shared_blocks', $data) && $data['has_shared_blocks'] !== null) {
+            $object->setHasSharedBlocks($data['has_shared_blocks']);
+        }
+        elseif (\array_key_exists('has_shared_blocks', $data) && $data['has_shared_blocks'] === null) {
+            $object->setHasSharedBlocks(null);
+        }
+        if (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] !== null) {
+            $object->setSharedBlocks($this->denormalizer->denormalize($data['shared_blocks'], \MessageBird\Wire\Model\EmailTemplateLanguageContentSharedBlocks::class, 'json', $context));
+        }
+        elseif (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] === null) {
+            $object->setSharedBlocks(null);
+        }
         if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
             $object->setSubject($data['subject']);
         }

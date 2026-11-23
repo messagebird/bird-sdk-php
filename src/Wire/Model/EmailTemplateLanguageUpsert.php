@@ -16,6 +16,20 @@ class EmailTemplateLanguageUpsert
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Links reusable blocks into this language. Send the complete language with it: `html` with one HTML comment `bird:shared-block:OCCURRENCE_UUID` per binding, placed where a section can stand (between block-level elements, not inside a paragraph or a table row), empty `text`, and the `revision` you read (0 to create the language). Key each binding by a lowercase UUID for that occurrence. A newly linked block must be unarchived and published in this exact language. Keep an occurrence's UUID to move it, use a new one to add another, and delete both its marker and its binding to remove it. To remove every link, send HTML without markers and empty `bindings`. A language edited in the Bird dashboard's visual editor cannot be saved this way from outside the dashboard (`E04108`).
+     * 
+     *
+     * @var EmailTemplateLanguageUpsertSharedBlocks|null
+     */
+    protected $sharedBlocks;
+    /**
+     * Confirms replacing the language's custom plain-text body with text derived from the linked HTML, in the same save that links its first block. Requires `shared_blocks` and the language `revision`.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $replaceCustomText;
+    /**
      * The email subject line. It may be empty in a draft but is required to publish.
      *
      * @var string|null
@@ -29,7 +43,8 @@ class EmailTemplateLanguageUpsert
      */
     protected $previewText;
     /**
-     * The HTML body for this language.
+     * The HTML body for this language. On a language that links blocks, a save without `shared_blocks` is refused (`E04109`); read it with `authoring=true` for the HTML with its block markers first.
+     * 
      *
      * @var string|null
      */
@@ -48,6 +63,52 @@ class EmailTemplateLanguageUpsert
      * @var int|null
      */
     protected $revision;
+    /**
+     * Links reusable blocks into this language. Send the complete language with it: `html` with one HTML comment `bird:shared-block:OCCURRENCE_UUID` per binding, placed where a section can stand (between block-level elements, not inside a paragraph or a table row), empty `text`, and the `revision` you read (0 to create the language). Key each binding by a lowercase UUID for that occurrence. A newly linked block must be unarchived and published in this exact language. Keep an occurrence's UUID to move it, use a new one to add another, and delete both its marker and its binding to remove it. To remove every link, send HTML without markers and empty `bindings`. A language edited in the Bird dashboard's visual editor cannot be saved this way from outside the dashboard (`E04108`).
+     * 
+     *
+     * @return EmailTemplateLanguageUpsertSharedBlocks|null
+     */
+    public function getSharedBlocks(): ?EmailTemplateLanguageUpsertSharedBlocks
+    {
+        return $this->sharedBlocks;
+    }
+    /**
+     * Links reusable blocks into this language. Send the complete language with it: `html` with one HTML comment `bird:shared-block:OCCURRENCE_UUID` per binding, placed where a section can stand (between block-level elements, not inside a paragraph or a table row), empty `text`, and the `revision` you read (0 to create the language). Key each binding by a lowercase UUID for that occurrence. A newly linked block must be unarchived and published in this exact language. Keep an occurrence's UUID to move it, use a new one to add another, and delete both its marker and its binding to remove it. To remove every link, send HTML without markers and empty `bindings`. A language edited in the Bird dashboard's visual editor cannot be saved this way from outside the dashboard (`E04108`).
+     *
+     * @param EmailTemplateLanguageUpsertSharedBlocks|EmailTemplateSharedBlocks|array|null $sharedBlocks
+     *
+     * @return self
+     */
+    public function setSharedBlocks($sharedBlocks): self
+    {
+        $this->initialized['sharedBlocks'] = true;
+        $this->sharedBlocks = \MessageBird\Core\ModelWrapper::normalize($sharedBlocks, EmailTemplateLanguageUpsertSharedBlocks::class);
+        return $this;
+    }
+    /**
+     * Confirms replacing the language's custom plain-text body with text derived from the linked HTML, in the same save that links its first block. Requires `shared_blocks` and the language `revision`.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getReplaceCustomText(): ?bool
+    {
+        return $this->replaceCustomText;
+    }
+    /**
+     * Confirms replacing the language's custom plain-text body with text derived from the linked HTML, in the same save that links its first block. Requires `shared_blocks` and the language `revision`.
+     *
+     * @param bool|null $replaceCustomText
+     *
+     * @return self
+     */
+    public function setReplaceCustomText(?bool $replaceCustomText): self
+    {
+        $this->initialized['replaceCustomText'] = true;
+        $this->replaceCustomText = $replaceCustomText;
+        return $this;
+    }
     /**
      * The email subject line. It may be empty in a draft but is required to publish.
      *
@@ -94,7 +155,8 @@ class EmailTemplateLanguageUpsert
         return $this;
     }
     /**
-     * The HTML body for this language.
+     * The HTML body for this language. On a language that links blocks, a save without `shared_blocks` is refused (`E04109`); read it with `authoring=true` for the HTML with its block markers first.
+     * 
      *
      * @return string|null
      */
@@ -103,7 +165,7 @@ class EmailTemplateLanguageUpsert
         return $this->html;
     }
     /**
-     * The HTML body for this language.
+     * The HTML body for this language. On a language that links blocks, a save without `shared_blocks` is refused (`E04109`); read it with `authoring=true` for the HTML with its block markers first.
      *
      * @param string|null $html
      *

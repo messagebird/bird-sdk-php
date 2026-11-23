@@ -37,6 +37,21 @@ class EmailTemplateLanguageUpsertNormalizer implements DenormalizerInterface, No
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('replace_custom_text', $data) && \is_int($data['replace_custom_text'])) {
+            $data['replace_custom_text'] = (bool) $data['replace_custom_text'];
+        }
+        if (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] !== null) {
+            $object->setSharedBlocks($this->denormalizer->denormalize($data['shared_blocks'], \MessageBird\Wire\Model\EmailTemplateLanguageUpsertSharedBlocks::class, 'json', $context));
+        }
+        elseif (\array_key_exists('shared_blocks', $data) && $data['shared_blocks'] === null) {
+            $object->setSharedBlocks(null);
+        }
+        if (\array_key_exists('replace_custom_text', $data) && $data['replace_custom_text'] !== null) {
+            $object->setReplaceCustomText($data['replace_custom_text']);
+        }
+        elseif (\array_key_exists('replace_custom_text', $data) && $data['replace_custom_text'] === null) {
+            $object->setReplaceCustomText(null);
+        }
         if (\array_key_exists('subject', $data) && $data['subject'] !== null) {
             $object->setSubject($data['subject']);
         }
@@ -72,6 +87,12 @@ class EmailTemplateLanguageUpsertNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('sharedBlocks') && null !== $data->getSharedBlocks()) {
+            $dataArray['shared_blocks'] = $this->normalizer->normalize($data->getSharedBlocks(), 'json', $context);
+        }
+        if ($data->isInitialized('replaceCustomText') && null !== $data->getReplaceCustomText()) {
+            $dataArray['replace_custom_text'] = $data->getReplaceCustomText();
+        }
         if (!$data->isInitialized('subject')) {
             throw new \MessageBird\Exception\RequestValidationException('required field EmailTemplateLanguageUpsert.subject missing');
         }

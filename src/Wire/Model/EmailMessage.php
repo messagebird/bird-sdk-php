@@ -172,7 +172,7 @@ class EmailMessage
      */
     protected $templateId;
     /**
-     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
+     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this identifies the source of the send, together with `resolved_language`. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      * 
      *
      * @var string|null
@@ -817,7 +817,7 @@ class EmailMessage
         return $this;
     }
     /**
-     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
+     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this identifies the source of the send, together with `resolved_language`. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      * 
      *
      * @return string|null
@@ -827,7 +827,7 @@ class EmailMessage
         return $this->templateVersionId;
     }
     /**
-     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
+     * The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this identifies the source of the send, together with `resolved_language`. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      *
      * @param string|null $templateVersionId
      *

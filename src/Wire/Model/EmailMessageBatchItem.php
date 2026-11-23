@@ -50,7 +50,7 @@ class EmailMessageBatchItem
      */
     protected $templateId;
     /**
-     * The exact template version this item rendered from, or null for an inline item. Record it if you need to reproduce what was sent: a template's live version changes every time you submit it.
+     * The exact template version this item rendered from, or null for an inline item. Record it to know which version a message came from: a template's live version changes every time you submit it. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      * 
      *
      * @var string|null
@@ -202,7 +202,7 @@ class EmailMessageBatchItem
         return $this;
     }
     /**
-     * The exact template version this item rendered from, or null for an inline item. Record it if you need to reproduce what was sent: a template's live version changes every time you submit it.
+     * The exact template version this item rendered from, or null for an inline item. Record it to know which version a message came from: a template's live version changes every time you submit it. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      * 
      *
      * @return string|null
@@ -212,7 +212,7 @@ class EmailMessageBatchItem
         return $this->templateVersionId;
     }
     /**
-     * The exact template version this item rendered from, or null for an inline item. Record it if you need to reproduce what was sent: a template's live version changes every time you submit it.
+     * The exact template version this item rendered from, or null for an inline item. Record it to know which version a message came from: a template's live version changes every time you submit it. Reading that version later does not reproduce the delivered wording when the template links a reusable block, because the block shows its latest published content. The stored message content holds the delivered body while it is available.
      *
      * @param string|null $templateVersionId
      *

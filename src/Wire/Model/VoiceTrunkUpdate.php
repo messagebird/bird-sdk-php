@@ -50,7 +50,7 @@ class VoiceTrunkUpdate
      */
     protected $mediaBypass;
     /**
-     * A change to how the trunk encrypts call audio.
+     * A change to how the trunk carries call audio.
      *
      * @var VoiceTrunkMediaUpdate|null
      */
@@ -70,7 +70,7 @@ class VoiceTrunkUpdate
      */
     protected $allowedApiKeyIds;
     /**
-     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
      * 
      *
      * @var list<string>|null
@@ -175,7 +175,7 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * A change to how the trunk encrypts call audio.
+     * A change to how the trunk carries call audio.
      *
      * @return VoiceTrunkMediaUpdate|null
      */
@@ -184,7 +184,7 @@ class VoiceTrunkUpdate
         return $this->media;
     }
     /**
-     * A change to how the trunk encrypts call audio.
+     * A change to how the trunk carries call audio.
      *
      * @param VoiceTrunkMediaUpdate|null $media
      *
@@ -243,7 +243,7 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
      * 
      *
      * @return list<string>|null
@@ -253,7 +253,7 @@ class VoiceTrunkUpdate
         return $this->digestAlgorithms;
     }
     /**
-     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+     * Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. The list governs clients that authenticate with an API key, and narrowing it also narrows what the trunk accepts from them: an answer using an algorithm no longer offered is rejected. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
      *
      * @param list<string>|null $digestAlgorithms
      *

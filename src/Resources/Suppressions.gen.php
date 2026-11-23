@@ -15,7 +15,7 @@ use MessageBird\Wire\Model\SuppressionList;
 final class Suppressions extends Resource
 {
     /**
-     * List the workspace's email suppressions as a cursor page. A suppression blocks delivery to an address. The `email` parameter filters by prefix, so compare the complete addresses you get back before treating one as a match.
+     * List the workspace's email suppressions as a cursor page. A suppression blocks delivery to an address. The `email` parameter filters by prefix, so compare the complete addresses you get back before treating one as a match. No match does not establish sendability: check preferences for the exact channel and handle, including their Brand and sender scope. Bird evaluates delivery policy after accepting a send.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

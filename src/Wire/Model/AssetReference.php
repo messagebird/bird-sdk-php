@@ -22,7 +22,7 @@ class AssetReference
      */
     protected $resourceType;
     /**
-     * The resource's own identifier, carrying that resource's prefix (`emt_` for an email template), for linking straight to it.
+     * The resource's own identifier, carrying that resource's prefix: `emt_` for an email template, `ebl_` for a reusable email block. A reusable block is identified here by ID and name; the API does not yet return its content.
      *
      * @var string|null
      */
@@ -67,7 +67,7 @@ class AssetReference
         return $this;
     }
     /**
-     * The resource's own identifier, carrying that resource's prefix (`emt_` for an email template), for linking straight to it.
+     * The resource's own identifier, carrying that resource's prefix: `emt_` for an email template, `ebl_` for a reusable email block. A reusable block is identified here by ID and name; the API does not yet return its content.
      *
      * @return string|null
      */
@@ -76,7 +76,7 @@ class AssetReference
         return $this->resourceId;
     }
     /**
-     * The resource's own identifier, carrying that resource's prefix (`emt_` for an email template), for linking straight to it.
+     * The resource's own identifier, carrying that resource's prefix: `emt_` for an email template, `ebl_` for a reusable email block. A reusable block is identified here by ID and name; the API does not yet return its content.
      *
      * @param string|null $resourceId
      *

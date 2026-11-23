@@ -46,6 +46,12 @@ class EmailBroadcastCreateRequestNormalizer implements DenormalizerInterface, No
         if (\array_key_exists('send', $data) && \is_int($data['send'])) {
             $data['send'] = (bool) $data['send'];
         }
+        if (\array_key_exists('automatic_seeding', $data) && $data['automatic_seeding'] !== null) {
+            $object->setAutomaticSeeding($this->denormalizer->denormalize($data['automatic_seeding'], \MessageBird\Wire\Model\EmailBroadcastCreateRequestAutomaticSeeding::class, 'json', $context));
+        }
+        elseif (\array_key_exists('automatic_seeding', $data) && $data['automatic_seeding'] === null) {
+            $object->setAutomaticSeeding(null);
+        }
         if (\array_key_exists('from', $data) && $data['from'] !== null) {
             $object->setFrom($data['from']);
         }
@@ -151,6 +157,9 @@ class EmailBroadcastCreateRequestNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('automaticSeeding') && null !== $data->getAutomaticSeeding()) {
+            $dataArray['automatic_seeding'] = $this->normalizer->normalize($data->getAutomaticSeeding(), 'json', $context);
+        }
         if ($data->isInitialized('from') && null !== $data->getFrom()) {
             $dataArray['from'] = $data->getFrom();
         }

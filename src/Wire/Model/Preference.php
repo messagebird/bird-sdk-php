@@ -78,6 +78,12 @@ class Preference extends \ArrayObject
      */
     protected $contactId;
     /**
+     * The email that caused the most recent recorded spam complaint for this preference. Null when no complaint is recorded. Retained after a newer individual opt-in clears complaint protection; check status and origin for the current preference.
+     *
+     * @var string|null
+     */
+    protected $complaintMessageId;
+    /**
      * The business this email preference belongs to.
      *
      * @var string|null
@@ -333,6 +339,28 @@ class Preference extends \ArrayObject
     {
         $this->initialized['contactId'] = true;
         $this->contactId = $contactId;
+        return $this;
+    }
+    /**
+     * The email that caused the most recent recorded spam complaint for this preference. Null when no complaint is recorded. Retained after a newer individual opt-in clears complaint protection; check status and origin for the current preference.
+     *
+     * @return string|null
+     */
+    public function getComplaintMessageId(): ?string
+    {
+        return $this->complaintMessageId;
+    }
+    /**
+     * The email that caused the most recent recorded spam complaint for this preference. Null when no complaint is recorded. Retained after a newer individual opt-in clears complaint protection; check status and origin for the current preference.
+     *
+     * @param string|null $complaintMessageId
+     *
+     * @return self
+     */
+    public function setComplaintMessageId(?string $complaintMessageId): self
+    {
+        $this->initialized['complaintMessageId'] = true;
+        $this->complaintMessageId = $complaintMessageId;
         return $this;
     }
     /**

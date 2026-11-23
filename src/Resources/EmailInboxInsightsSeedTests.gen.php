@@ -55,7 +55,7 @@ class EmailInboxInsightsSeedTestsResourceBase extends Resource
     }
 
     /**
-     * Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail. registration_id cannot locate a history row, and absent history does not prove a registration failed.
+     * Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail here; read another test's by its test_id. registration_id cannot locate a history row, and absent history does not prove a registration failed.
      *
      * @param array<string, mixed>|null $query query parameters (untyped for now)
      *

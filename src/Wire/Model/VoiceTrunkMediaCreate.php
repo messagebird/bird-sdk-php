@@ -23,6 +23,13 @@ class VoiceTrunkMediaCreate
      */
     protected $encryption = 'preferred';
     /**
+     * The sites this trunk may use for call audio, including its home site. Omit this field to allow every media site.
+     * 
+     *
+     * @var list<string>|null
+     */
+    protected $sites;
+    /**
      * Omit it for `preferred`, which encrypts whenever your equipment and gateways allow and otherwise carries calls as before.
      * 
      *
@@ -43,6 +50,29 @@ class VoiceTrunkMediaCreate
     {
         $this->initialized['encryption'] = true;
         $this->encryption = $encryption;
+        return $this;
+    }
+    /**
+     * The sites this trunk may use for call audio, including its home site. Omit this field to allow every media site.
+     * 
+     *
+     * @return list<string>|null
+     */
+    public function getSites(): ?array
+    {
+        return $this->sites;
+    }
+    /**
+     * The sites this trunk may use for call audio, including its home site. Omit this field to allow every media site.
+     *
+     * @param list<string>|null $sites
+     *
+     * @return self
+     */
+    public function setSites(?array $sites): self
+    {
+        $this->initialized['sites'] = true;
+        $this->sites = $sites;
         return $this;
     }
 }

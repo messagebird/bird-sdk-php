@@ -458,6 +458,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailMessageContent::class => \MessageBird\Wire\Normalizer\EmailMessageContentNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastAutomaticSeeding::class => \MessageBird\Wire\Normalizer\EmailBroadcastAutomaticSeedingNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastFundingHold::class => \MessageBird\Wire\Normalizer\EmailBroadcastFundingHoldNormalizer::class,
@@ -470,11 +472,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailBroadcastList::class => \MessageBird\Wire\Normalizer\EmailBroadcastListNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastAutomaticSeedingInput::class => \MessageBird\Wire\Normalizer\EmailBroadcastAutomaticSeedingInputNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class => \MessageBird\Wire\Normalizer\EmailBroadcastTemplateCreateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastCreateRequestNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBroadcastCreateRequestAutomaticSeeding::class => \MessageBird\Wire\Normalizer\EmailBroadcastCreateRequestAutomaticSeedingNormalizer::class,
+
         \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBroadcastUpdateRequestAutomaticSeeding::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestAutomaticSeedingNormalizer::class,
 
         \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => \MessageBird\Wire\Normalizer\EmailBroadcastUpdateRequestTemplateNormalizer::class,
 
@@ -1904,13 +1912,59 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailCompetitiveVolumeSeries::class => \MessageBird\Wire\Normalizer\EmailCompetitiveVolumeSeriesNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailBlock::class => \MessageBird\Wire\Normalizer\EmailBlockNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockList::class => \MessageBird\Wire\Normalizer\EmailBlockListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockFragment::class => \MessageBird\Wire\Normalizer\EmailBlockFragmentNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockCreate::class => \MessageBird\Wire\Normalizer\EmailBlockCreateNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockFragmentValidationRequest::class => \MessageBird\Wire\Normalizer\EmailBlockFragmentValidationRequestNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockFragmentValidation::class => \MessageBird\Wire\Normalizer\EmailBlockFragmentValidationNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockUpdate::class => \MessageBird\Wire\Normalizer\EmailBlockUpdateNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockDuplicate::class => \MessageBird\Wire\Normalizer\EmailBlockDuplicateNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockPublishLanguage::class => \MessageBird\Wire\Normalizer\EmailBlockPublishLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockPublish::class => \MessageBird\Wire\Normalizer\EmailBlockPublishNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockSubmissionLanguage::class => \MessageBird\Wire\Normalizer\EmailBlockSubmissionLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockPublishedRevision::class => \MessageBird\Wire\Normalizer\EmailBlockPublishedRevisionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockSubmission::class => \MessageBird\Wire\Normalizer\EmailBlockSubmissionNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockLanguageSummary::class => \MessageBird\Wire\Normalizer\EmailBlockLanguageSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockLanguageList::class => \MessageBird\Wire\Normalizer\EmailBlockLanguageListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockLanguage::class => \MessageBird\Wire\Normalizer\EmailBlockLanguageNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockLanguageUpsert::class => \MessageBird\Wire\Normalizer\EmailBlockLanguageUpsertNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockRevisionSummary::class => \MessageBird\Wire\Normalizer\EmailBlockRevisionSummaryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockRevisionList::class => \MessageBird\Wire\Normalizer\EmailBlockRevisionListNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBlockRevision::class => \MessageBird\Wire\Normalizer\EmailBlockRevisionNormalizer::class,
+
         \MessageBird\Wire\Model\EmailTemplateLanguageState::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageStateNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplateSummary::class => \MessageBird\Wire\Normalizer\EmailTemplateSummaryNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplateList::class => \MessageBird\Wire\Normalizer\EmailTemplateListNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailTemplateSharedBlockBinding::class => \MessageBird\Wire\Normalizer\EmailTemplateSharedBlockBindingNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateSharedBlocks::class => \MessageBird\Wire\Normalizer\EmailTemplateSharedBlocksNormalizer::class,
+
         \MessageBird\Wire\Model\EmailTemplateLanguageContent::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageContentNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateLanguageContentSharedBlocks::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageContentSharedBlocksNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplateCreate::class => \MessageBird\Wire\Normalizer\EmailTemplateCreateNormalizer::class,
 
@@ -1962,7 +2016,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailTemplateLanguageUpsert::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageUpsertNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailTemplateLanguageUpsertSharedBlocks::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageUpsertSharedBlocksNormalizer::class,
+
         \MessageBird\Wire\Model\EmailTemplateLanguageSaved::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageSavedNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailTemplateLanguageSavedSharedBlocks::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageSavedSharedBlocksNormalizer::class,
 
         \MessageBird\Wire\Model\EmailTemplateLanguageUpdate::class => \MessageBird\Wire\Normalizer\EmailTemplateLanguageUpdateNormalizer::class,
 
@@ -2746,15 +2804,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailEvent::class => false,
             \MessageBird\Wire\Model\EmailEventList::class => false,
             \MessageBird\Wire\Model\EmailMessageContent::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastAutomaticSeeding::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastFundingHold::class => false,
             \MessageBird\Wire\Model\EmailBroadcastParameterProblem::class => false,
             \MessageBird\Wire\Model\EmailBroadcastFailureParameters::class => false,
             \MessageBird\Wire\Model\EmailBroadcast::class => false,
             \MessageBird\Wire\Model\EmailBroadcastList::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastAutomaticSeedingInput::class => false,
             \MessageBird\Wire\Model\EmailBroadcastTemplateCreate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastCreateRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastCreateRequestAutomaticSeeding::class => false,
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequest::class => false,
+            \MessageBird\Wire\Model\EmailBroadcastUpdateRequestAutomaticSeeding::class => false,
             \MessageBird\Wire\Model\EmailBroadcastUpdateRequestTemplate::class => false,
             \MessageBird\Wire\Model\EmailBroadcastCounts::class => false,
             \MessageBird\Wire\Model\EmailBroadcastCountAllowance::class => false,
@@ -3469,10 +3531,33 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailCompetitiveVolumePoint::class => false,
             \MessageBird\Wire\Model\EmailCompetitiveBrandSeries::class => false,
             \MessageBird\Wire\Model\EmailCompetitiveVolumeSeries::class => false,
+            \MessageBird\Wire\Model\EmailBlock::class => false,
+            \MessageBird\Wire\Model\EmailBlockList::class => false,
+            \MessageBird\Wire\Model\EmailBlockFragment::class => false,
+            \MessageBird\Wire\Model\EmailBlockCreate::class => false,
+            \MessageBird\Wire\Model\EmailBlockFragmentValidationRequest::class => false,
+            \MessageBird\Wire\Model\EmailBlockFragmentValidation::class => false,
+            \MessageBird\Wire\Model\EmailBlockUpdate::class => false,
+            \MessageBird\Wire\Model\EmailBlockDuplicate::class => false,
+            \MessageBird\Wire\Model\EmailBlockPublishLanguage::class => false,
+            \MessageBird\Wire\Model\EmailBlockPublish::class => false,
+            \MessageBird\Wire\Model\EmailBlockSubmissionLanguage::class => false,
+            \MessageBird\Wire\Model\EmailBlockPublishedRevision::class => false,
+            \MessageBird\Wire\Model\EmailBlockSubmission::class => false,
+            \MessageBird\Wire\Model\EmailBlockLanguageSummary::class => false,
+            \MessageBird\Wire\Model\EmailBlockLanguageList::class => false,
+            \MessageBird\Wire\Model\EmailBlockLanguage::class => false,
+            \MessageBird\Wire\Model\EmailBlockLanguageUpsert::class => false,
+            \MessageBird\Wire\Model\EmailBlockRevisionSummary::class => false,
+            \MessageBird\Wire\Model\EmailBlockRevisionList::class => false,
+            \MessageBird\Wire\Model\EmailBlockRevision::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguageState::class => false,
             \MessageBird\Wire\Model\EmailTemplateSummary::class => false,
             \MessageBird\Wire\Model\EmailTemplateList::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSharedBlockBinding::class => false,
+            \MessageBird\Wire\Model\EmailTemplateSharedBlocks::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguageContent::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageContentSharedBlocks::class => false,
             \MessageBird\Wire\Model\EmailTemplateCreate::class => false,
             \MessageBird\Wire\Model\EmailTemplate::class => false,
             \MessageBird\Wire\Model\EmailTemplatePreviewContent::class => false,
@@ -3498,7 +3583,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailTemplateLanguageList::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguage::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguageUpsert::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageUpsertSharedBlocks::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguageSaved::class => false,
+            \MessageBird\Wire\Model\EmailTemplateLanguageSavedSharedBlocks::class => false,
             \MessageBird\Wire\Model\EmailTemplateLanguageUpdate::class => false,
             \MessageBird\Wire\Model\EmailTemplateRollback::class => false,
             \MessageBird\Wire\Model\EmailTemplateSubmit::class => false,

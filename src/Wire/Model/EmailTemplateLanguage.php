@@ -29,6 +29,12 @@ class EmailTemplateLanguage
      */
     protected $revision;
     /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @var string|null
+     */
+    protected $authoringMode;
+    /**
      * A hash over this language's content, prefixed with the algorithm that produced it (`sha256:`), so the algorithm can change without the field becoming ambiguous. It tells you whether a language differs without transferring the content, and is comparable only within one version of this API. Null for a language saved before fingerprints were recorded.
      * 
      *
@@ -112,6 +118,28 @@ class EmailTemplateLanguage
     {
         $this->initialized['revision'] = true;
         $this->revision = $revision;
+        return $this;
+    }
+    /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @return string|null
+     */
+    public function getAuthoringMode(): ?string
+    {
+        return $this->authoringMode;
+    }
+    /**
+     * How this language is edited. `html` content is written as HTML and can be changed through the API, CLI and MCP. `visual` content is built in the Bird dashboard's visual editor; outside the dashboard, a visual section can still be copied by duplicating its block or restoring a published revision. The mode follows from the stored content and cannot be set directly. New values may be added; treat an unknown value as content you cannot edit through the API, CLI or MCP.
+     *
+     * @param string|null $authoringMode
+     *
+     * @return self
+     */
+    public function setAuthoringMode(?string $authoringMode): self
+    {
+        $this->initialized['authoringMode'] = true;
+        $this->authoringMode = $authoringMode;
         return $this;
     }
     /**

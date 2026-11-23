@@ -43,6 +43,16 @@ class VoiceTrunkMediaNormalizer implements DenormalizerInterface, NormalizerInte
         elseif (\array_key_exists('encryption', $data) && $data['encryption'] === null) {
             $object->setEncryption(null);
         }
+        if (\array_key_exists('sites', $data) && $data['sites'] !== null) {
+            $values = [];
+            foreach ($data['sites'] as $value) {
+                $values[] = $value;
+            }
+            $object->setSites($values);
+        }
+        elseif (\array_key_exists('sites', $data) && $data['sites'] === null) {
+            $object->setSites(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
@@ -52,6 +62,14 @@ class VoiceTrunkMediaNormalizer implements DenormalizerInterface, NormalizerInte
             throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkMedia.encryption missing');
         }
         $dataArray['encryption'] = $data->getEncryption();
+        if (!$data->isInitialized('sites')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkMedia.sites missing');
+        }
+        $values = [];
+        foreach ($data->getSites() as $value) {
+            $values[] = $value;
+        }
+        $dataArray['sites'] = $values;
         return $dataArray;
     }
     public function getSupportedTypes(?string $format = null): array

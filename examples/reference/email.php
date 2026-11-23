@@ -753,3 +753,114 @@ var_dump($run);
 foreach ($bird->email->seeding->sources->list(['limit' => 25]) as $source) {
     var_dump($source);
 }
+
+// Requires email_management:read permission in the target workspace.
+foreach ($bird->email->blocks->list(['q' => 'footer', 'archived' => false]) as $block) {
+    echo $block->getId(), ' ', $block->getName(), ' ', $block->getSourceLanguage(), "\n";
+}
+
+// Requires email_management:read permission in the target workspace.
+$block = $bird->email->blocks->get('ebl_01krdgeqcxet5s7t44vh8rt9mg');
+echo $block->getName(), ' ', $block->getRevision();
+
+// Requires email_management:write permission in the target workspace.
+$section = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>'
+    . '<td lang="en" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; '
+    . 'line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">'
+    . '<p style="margin: 0;">Offer valid until {{ expiry_date }}.</p></td></tr></tbody></table>';
+$params = (new \MessageBird\Wire\Model\EmailBlockCreate())
+    ->setName('Legal footer')
+    ->setSourceLanguage('en')
+    ->setFragment((new \MessageBird\Wire\Model\EmailBlockFragment())
+        ->setSerializerVersion(2)
+        ->setFragmentHtml($section));
+
+$block = $bird->email->blocks->create($params);
+echo $block->getId(), ' ', $block->getRevision();
+
+// Requires email_management:write permission in the target workspace.
+$blockId = 'ebl_01krdgeqcxet5s7t44vh8rt9mg';
+$current = $bird->email->blocks->get($blockId);
+$params = (new \MessageBird\Wire\Model\EmailBlockUpdate())
+    ->setRevision($current->getRevision())
+    ->setArchived(true);
+
+$block = $bird->email->blocks->update($blockId, $params);
+var_dump($block->getArchivedAt());
+
+// Requires email_management:write permission in the target workspace.
+$blockId = 'ebl_01krdgeqcxet5s7t44vh8rt9mg';
+$source = $bird->email->blocks->get($blockId);
+$params = (new \MessageBird\Wire\Model\EmailBlockDuplicate())
+    ->setRevision($source->getRevision())
+    ->setName('Legal footer (EU)');
+
+$copy = $bird->email->blocks->duplicate($blockId, $params);
+echo $copy->getId();
+
+// Requires email_management:read permission in the target workspace.
+$section = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>'
+    . '<td lang="en" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; '
+    . 'line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">'
+    . '<p style="margin: 0;">Offer valid until {{ expiry_date }}.</p></td></tr></tbody></table>';
+$params = (new \MessageBird\Wire\Model\EmailBlockFragmentValidationRequest())
+    ->setLanguage('en')
+    ->setFragment((new \MessageBird\Wire\Model\EmailBlockFragment())
+        ->setSerializerVersion(2)
+        ->setFragmentHtml($section));
+
+$result = $bird->email->blocks->validate($params);
+echo $result->getText();
+
+// Requires email_management:write permission in the target workspace.
+$blockId = 'ebl_01krdgeqcxet5s7t44vh8rt9mg';
+$draft = $bird->email->blocks->languages->get($blockId, 'en');
+$params = (new \MessageBird\Wire\Model\EmailBlockPublish())
+    ->setLanguages([
+        (new \MessageBird\Wire\Model\EmailBlockPublishLanguage())
+            ->setLanguage('en')
+            ->setRevision($draft->getRevision()),
+    ]);
+
+$submission = $bird->email->blocks->publish($blockId, $params);
+echo $submission->getStatus();
+
+// Requires email_management:read permission in the target workspace.
+$languages = $bird->email->blocks->languages->list('ebl_01krdgeqcxet5s7t44vh8rt9mg');
+foreach ($languages->getData() ?? [] as $language) {
+    echo $language->getLanguage(), ' ', $language->getRevision(), "\n";
+}
+
+// Requires email_management:read permission in the target workspace.
+$draft = $bird->email->blocks->languages->get('ebl_01krdgeqcxet5s7t44vh8rt9mg', 'en');
+echo $draft->getAuthoringMode(), ' ', $draft->getRevision(), ' ', $draft->getFragment()?->getFragmentHtml();
+
+// Requires email_management:write permission in the target workspace.
+$section = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr>'
+    . '<td lang="fr" style="font-family: Arial, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; '
+    . 'line-height: 20px; letter-spacing: normal; text-align: left; text-transform: none; color: #333333; margin: 0; padding: 16px;">'
+    . '<p style="margin: 0;">Offre valable jusqu\'au {{ expiry_date }}.</p></td></tr></tbody></table>';
+$params = (new \MessageBird\Wire\Model\EmailBlockLanguageUpsert())
+    ->setRevision(0)
+    ->setFragment((new \MessageBird\Wire\Model\EmailBlockFragment())
+        ->setSerializerVersion(2)
+        ->setFragmentHtml($section));
+
+$draft = $bird->email->blocks->languages->set('ebl_01krdgeqcxet5s7t44vh8rt9mg', 'fr', $params);
+echo $draft->getRevision();
+
+// Requires email_management:write permission in the target workspace.
+$bird->email->blocks->languages->delete('ebl_01krdgeqcxet5s7t44vh8rt9mg', 'fr');
+
+// Requires email_management:read permission in the target workspace.
+foreach ($bird->email->blocks->languages->revisions->list('ebl_01krdgeqcxet5s7t44vh8rt9mg', 'en') as $revision) {
+    echo $revision->getId(), ' ', $revision->getVersionNumber(), "\n";
+}
+
+// Requires email_management:read permission in the target workspace.
+$revision = $bird->email->blocks->languages->revisions->get(
+    'ebl_01krdgeqcxet5s7t44vh8rt9mg',
+    'en',
+    'ebr_01krdgeqcxet5s7t44vh8rt9mg',
+);
+echo $revision->getVersionNumber(), ' ', $revision->getFragment()?->getFragmentHtml();
