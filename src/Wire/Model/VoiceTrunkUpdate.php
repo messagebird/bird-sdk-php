@@ -3,14 +3,15 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A change to the trunk's directions, name, access control, and Digest algorithm
- * offer. Every field is optional. An omitted field is left unchanged. The
+ * A change to the trunk's caller switches, name, access control, and Digest
+ * algorithm offer. Every field is optional. An omitted field is left unchanged. The
  * `ip_acls`, `allowed_api_key_ids`, and `digest_algorithms` fields each replace
  * their whole list when present. Send an empty array to clear one. This lets you
  * commit the trunk's entire access configuration in one update.
  * 
- * A direction has to be enabled before its settings can be set, but one update
- * can do both: enable a direction and send its configuration together.
+ * The access control and Digest settings need a switch that places calls, and
+ * `media_bypass` needs `did_delivery_enabled`. One update can do both: turn the
+ * switch on and send its configuration together.
  */
 class VoiceTrunkUpdate
 {
@@ -29,21 +30,46 @@ class VoiceTrunkUpdate
      */
     protected $name;
     /**
-     * Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+     * Whether your PBX may place calls through this trunk. Turning it off stops the allow lists admitting calls at the next call setup and leaves them stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
      * 
+     *
+     * @var bool|null
+     */
+    protected $sipTrunkingEnabled;
+    /**
+     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning it off. The gateways remain configured. Omit the field to leave it unchanged.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $didDeliveryEnabled;
+    /**
+     * Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Turning it off stops those calls at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $workspaceUsersEnabled;
+    /**
+     * Deprecated: use `sip_trunking_enabled` and `workspace_users_enabled`. `true` turns on `sip_trunking_enabled`. `false` stops every caller placing calls through this trunk. A request that also turns one of those switches the other way is rejected.
+     * 
+     *
+     * @deprecated
      *
      * @var bool|null
      */
     protected $outboundEnabled;
     /**
-     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @var bool|null
      */
     protected $inboundEnabled;
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `did_delivery_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
      * 
      *
      * @var bool|null
@@ -77,8 +103,10 @@ class VoiceTrunkUpdate
      */
     protected $digestAlgorithms;
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @var bool|null
      */
@@ -106,8 +134,79 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+     * Whether your PBX may place calls through this trunk. Turning it off stops the allow lists admitting calls at the next call setup and leaves them stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
      * 
+     *
+     * @return bool|null
+     */
+    public function getSipTrunkingEnabled(): ?bool
+    {
+        return $this->sipTrunkingEnabled;
+    }
+    /**
+     * Whether your PBX may place calls through this trunk. Turning it off stops the allow lists admitting calls at the next call setup and leaves them stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+     *
+     * @param bool|null $sipTrunkingEnabled
+     *
+     * @return self
+     */
+    public function setSipTrunkingEnabled(?bool $sipTrunkingEnabled): self
+    {
+        $this->initialized['sipTrunkingEnabled'] = true;
+        $this->sipTrunkingEnabled = $sipTrunkingEnabled;
+        return $this;
+    }
+    /**
+     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning it off. The gateways remain configured. Omit the field to leave it unchanged.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getDidDeliveryEnabled(): ?bool
+    {
+        return $this->didDeliveryEnabled;
+    }
+    /**
+     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning it off. The gateways remain configured. Omit the field to leave it unchanged.
+     *
+     * @param bool|null $didDeliveryEnabled
+     *
+     * @return self
+     */
+    public function setDidDeliveryEnabled(?bool $didDeliveryEnabled): self
+    {
+        $this->initialized['didDeliveryEnabled'] = true;
+        $this->didDeliveryEnabled = $didDeliveryEnabled;
+        return $this;
+    }
+    /**
+     * Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Turning it off stops those calls at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getWorkspaceUsersEnabled(): ?bool
+    {
+        return $this->workspaceUsersEnabled;
+    }
+    /**
+     * Whether people in this workspace may place calls through this trunk with a session credential, from the dashboard phone, the CLI or MCP. Turning it off stops those calls at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     *
+     * @param bool|null $workspaceUsersEnabled
+     *
+     * @return self
+     */
+    public function setWorkspaceUsersEnabled(?bool $workspaceUsersEnabled): self
+    {
+        $this->initialized['workspaceUsersEnabled'] = true;
+        $this->workspaceUsersEnabled = $workspaceUsersEnabled;
+        return $this;
+    }
+    /**
+     * Deprecated: use `sip_trunking_enabled` and `workspace_users_enabled`. `true` turns on `sip_trunking_enabled`. `false` stops every caller placing calls through this trunk. A request that also turns one of those switches the other way is rejected.
+     * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -116,9 +215,11 @@ class VoiceTrunkUpdate
         return $this->outboundEnabled;
     }
     /**
-     * Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+     * Deprecated: use `sip_trunking_enabled` and `workspace_users_enabled`. `true` turns on `sip_trunking_enabled`. `false` stops every caller placing calls through this trunk. A request that also turns one of those switches the other way is rejected.
      *
      * @param bool|null $outboundEnabled
+     *
+     * @deprecated
      *
      * @return self
      */
@@ -129,8 +230,10 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -139,9 +242,11 @@ class VoiceTrunkUpdate
         return $this->inboundEnabled;
     }
     /**
-     * Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Clear an attached emergency number in the dashboard before turning inbound off. The gateways remain configured. Omit the field to leave it unchanged.
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
      *
      * @param bool|null $inboundEnabled
+     *
+     * @deprecated
      *
      * @return self
      */
@@ -152,7 +257,7 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `did_delivery_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
      * 
      *
      * @return bool|null
@@ -162,7 +267,7 @@ class VoiceTrunkUpdate
         return $this->mediaBypass;
     }
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `did_delivery_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
      *
      * @param bool|null $mediaBypass
      *
@@ -266,8 +371,10 @@ class VoiceTrunkUpdate
         return $this;
     }
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -276,9 +383,11 @@ class VoiceTrunkUpdate
         return $this->sessionCredentialsEnabled;
     }
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      *
      * @param bool|null $sessionCredentialsEnabled
+     *
+     * @deprecated
      *
      * @return self
      */

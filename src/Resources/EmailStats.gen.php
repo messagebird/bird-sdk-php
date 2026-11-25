@@ -9,6 +9,7 @@ namespace MessageBird\Resources;
 use MessageBird\Core\Page;
 use MessageBird\RequestOptions;
 use MessageBird\Wire\Model\EmailBounceCodeStatsPoint;
+use MessageBird\Wire\Model\EmailBrandStatsPoint;
 use MessageBird\Wire\Model\EmailBroadcastStatsPoint;
 use MessageBird\Wire\Model\EmailCategoryStatsPoint;
 use MessageBird\Wire\Model\EmailClientStatsPoint;
@@ -20,6 +21,7 @@ use MessageBird\Wire\Model\EmailRecipientDomainStatsPoint;
 use MessageBird\Wire\Model\EmailSendingDomainStatsPoint;
 use MessageBird\Wire\Model\EmailSendingIpStatsPoint;
 use MessageBird\Wire\Model\EmailStatsByBounceCodeResponse;
+use MessageBird\Wire\Model\EmailStatsByBrandResponse;
 use MessageBird\Wire\Model\EmailStatsByBroadcastResponse;
 use MessageBird\Wire\Model\EmailStatsByCategoryResponse;
 use MessageBird\Wire\Model\EmailStatsByClientResponse;
@@ -43,7 +45,7 @@ use MessageBird\Wire\Model\EmailTemplateStatsPoint;
 final class EmailStats extends Resource
 {
     /**
-     * Query email analytics for marketing and transactional delivery, bounces, opens, clicks, engagement rates, and latency percentiles: comparisons, combined filters, groups ranked by template, campaign tag, recipient domain, or mailbox provider, and complete time series. With a known tag name, filter on filters.tag directly; use `email.stats.by_tag` only to discover unknown tags. Select grain=quarter_hour for 15-minute activity; omit group_by for a summary. Use `email.stats.summary` for a single-filter aggregate with built-in comparison. Every selected metric must support every grouping and filter dimension: country, region, city, and device/client support engagement counts only, not delivered or open_rate. Unsupported combinations and unavailable history return 422; explain the limitation before changing the population or period. Events are selected by when they occurred, so a window includes engagement on earlier sends and cannot select a send-date cohort. Compare periods independently with the same filters and metrics. Distinct counts need not add up across buckets or groups, and engagement cannot establish a human count. Delivery describes mail-server acceptance, not inbox placement. Follow cursors by replaying the original body with new cursor fields and a new idempotency key per page; the response period has an exclusive end and must not replace the request end.
+     * Query email analytics for marketing and transactional delivery, bounces, opens, clicks, engagement rates, and latency percentiles: comparisons, combined filters, groups ranked by Brand, template, campaign tag, recipient domain, or mailbox provider, and complete time series. With a known tag name, filter on filters.tag directly; use `email.stats.by_tag` only to discover unknown tags. Select grain=quarter_hour for 15-minute activity; omit group_by for a summary. Use `email.stats.summary` only for a single-filter aggregate with built-in comparison on filters it supports (category, sending_domain, recipient_domain, tag, template, or sending_ip). `email.stats.summary` does not accept `brand_id`; for Brand-filtered aggregates or comparisons, call `email.stats.query` without `group_by` and compare periods independently with the same `filters.brand_id`. Brand listing is dashboard-only, so ask the user for the Brand ID (from Brands > More actions > Copy brand ID) when only a Brand name is known. Every selected metric must support every grouping and filter dimension: country, region, city, and device/client support engagement counts only, not delivered or open_rate. Unsupported combinations and unavailable history return 422; explain the limitation before changing the population or period. Events are selected by when they occurred, so a window includes engagement on earlier sends and cannot select a send-date cohort. Compare periods independently with the same filters and metrics. Distinct counts need not add up across buckets or groups, and engagement cannot establish a human count. Delivery describes mail-server acceptance, not inbox placement. Follow cursors by replaying the original body with new cursor fields and a new idempotency key per page; the response period has an exclusive end and must not replace the request end.
      *
      * @return Page<EmailStatsQueryGroup>
      *
@@ -487,6 +489,50 @@ final class EmailStats extends Resource
             },
             static function (object $page): ?string {
                 \assert($page instanceof EmailStatsByTemplateResponse);
+
+                return $page->getNextCursor();
+            },
+        );
+    }
+
+    /**
+     * Email delivery, engagement, and latency stats grouped by the send-time Brand ID (`bnd_…`). Archived Brands remain keyed by their ID, and historical unbranded messages appear in a separate `brand_id: null` row distinct from the default Brand. Reads retained reporting events directly (last 180 days, on or after `2026-09-23T00:00:00Z`; `data_as_of` is `null`). Brand listing is dashboard-only, so this breakdown discovers Brand IDs with activity in the requested period; to map a Brand name to its ID or inspect a Brand with no activity, ask the caller for the Brand ID (copyable from Brands > More actions > Copy brand ID). For a single Brand's time series, period comparisons, or combined filters (such as Brand + template or category), use `email.stats.query` with `filters.brand_id`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @example Brands by open rate
+     * $stats = $bird->email->stats->byBrand([
+     *     'sort' => 'open_rate',
+     *     'limit' => 25,
+     * ]);
+     * foreach ($stats->getData() ?? [] as $row) {
+     *     echo $row->getBrandId(), ' ', $row->getEngagement()?->getOpenRate(), "\n";
+     * }
+     */
+    public function byBrand(?array $query = null, ?RequestOptions $options = null): EmailStatsByBrandResponse
+    {
+        return $this->single('GET', '/v1/email/stats/brands', EmailStatsByBrandResponse::class, null, $query, $options);
+    }
+
+    /**
+     * Email delivery, engagement, and latency stats grouped by the send-time Brand ID (`bnd_…`). Archived Brands remain keyed by their ID, and historical unbranded messages appear in a separate `brand_id: null` row distinct from the default Brand. Reads retained reporting events directly (last 180 days, on or after `2026-09-23T00:00:00Z`; `data_as_of` is `null`). Brand listing is dashboard-only, so this breakdown discovers Brand IDs with activity in the requested period; to map a Brand name to its ID or inspect a Brand with no activity, ask the caller for the Brand ID (copyable from Brands > More actions > Copy brand ID). For a single Brand's time series, period comparisons, or combined filters (such as Brand + template or category), use `email.stats.query` with `filters.brand_id`.
+     *
+     * @param array<string, mixed>|null $query query parameters (untyped for now)
+     *
+     * @return Page<EmailBrandStatsPoint>
+     */
+    public function byBrandAll(?array $query = null, ?RequestOptions $options = null): Page
+    {
+        return $this->paginate(
+            EmailBrandStatsPoint::class,
+            fn (?string $cursor): EmailStatsByBrandResponse => $this->single('GET', '/v1/email/stats/brands', EmailStatsByBrandResponse::class, null, $cursor === null ? ($query ?? []) : array_merge(array_diff_key($query ?? [], ['ending_before' => true]), ['starting_after' => $cursor]), $options),
+            static function (object $page): iterable {
+                \assert($page instanceof EmailStatsByBrandResponse);
+
+                return $page->getData() ?? [];
+            },
+            static function (object $page): ?string {
+                \assert($page instanceof EmailStatsByBrandResponse);
 
                 return $page->getNextCursor();
             },

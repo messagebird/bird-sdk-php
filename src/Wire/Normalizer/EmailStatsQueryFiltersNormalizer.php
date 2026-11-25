@@ -37,6 +37,12 @@ class EmailStatsQueryFiltersNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($this->denormalizer->denormalize($data['brand_id'], \MessageBird\Wire\Model\EmailStatsQueryBrandFilter::class, 'json', $context));
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         if (\array_key_exists('sending_domain', $data) && $data['sending_domain'] !== null) {
             $object->setSendingDomain($this->denormalizer->denormalize($data['sending_domain'], \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class, 'json', $context));
         }
@@ -150,6 +156,9 @@ class EmailStatsQueryFiltersNormalizer implements DenormalizerInterface, Normali
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('brandId') && null !== $data->getBrandId()) {
+            $dataArray['brand_id'] = $this->normalizer->normalize($data->getBrandId(), 'json', $context);
+        }
         if ($data->isInitialized('sendingDomain') && null !== $data->getSendingDomain()) {
             $dataArray['sending_domain'] = $this->normalizer->normalize($data->getSendingDomain(), 'json', $context);
         }

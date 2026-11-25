@@ -88,12 +88,6 @@ class EmailBroadcastSendQuotaNormalizer implements DenormalizerInterface, Normal
         elseif (\array_key_exists('broadcasts', $data) && $data['broadcasts'] === null) {
             $object->setBroadcasts(null);
         }
-        if (\array_key_exists('on_insufficient_funds', $data) && $data['on_insufficient_funds'] !== null) {
-            $object->setOnInsufficientFunds($data['on_insufficient_funds']);
-        }
-        elseif (\array_key_exists('on_insufficient_funds', $data) && $data['on_insufficient_funds'] === null) {
-            $object->setOnInsufficientFunds(null);
-        }
         if (\array_key_exists('can_start', $data) && $data['can_start'] !== null) {
             $object->setCanStart($data['can_start']);
         }
@@ -111,9 +105,6 @@ class EmailBroadcastSendQuotaNormalizer implements DenormalizerInterface, Normal
         $dataArray['limited_by'] = $data->getLimitedBy();
         if ($data->isInitialized('limitReason') && null !== $data->getLimitReason()) {
             $dataArray['limit_reason'] = $data->getLimitReason();
-        }
-        if ($data->isInitialized('onInsufficientFunds') && null !== $data->getOnInsufficientFunds()) {
-            $dataArray['on_insufficient_funds'] = $data->getOnInsufficientFunds();
         }
         return $dataArray;
     }

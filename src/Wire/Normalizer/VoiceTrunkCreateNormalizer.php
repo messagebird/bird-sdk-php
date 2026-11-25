@@ -37,6 +37,15 @@ class VoiceTrunkCreateNormalizer implements DenormalizerInterface, NormalizerInt
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('sip_trunking_enabled', $data) && \is_int($data['sip_trunking_enabled'])) {
+            $data['sip_trunking_enabled'] = (bool) $data['sip_trunking_enabled'];
+        }
+        if (\array_key_exists('did_delivery_enabled', $data) && \is_int($data['did_delivery_enabled'])) {
+            $data['did_delivery_enabled'] = (bool) $data['did_delivery_enabled'];
+        }
+        if (\array_key_exists('workspace_users_enabled', $data) && \is_int($data['workspace_users_enabled'])) {
+            $data['workspace_users_enabled'] = (bool) $data['workspace_users_enabled'];
+        }
         if (\array_key_exists('outbound_enabled', $data) && \is_int($data['outbound_enabled'])) {
             $data['outbound_enabled'] = (bool) $data['outbound_enabled'];
         }
@@ -54,6 +63,24 @@ class VoiceTrunkCreateNormalizer implements DenormalizerInterface, NormalizerInt
         }
         elseif (\array_key_exists('name', $data) && $data['name'] === null) {
             $object->setName(null);
+        }
+        if (\array_key_exists('sip_trunking_enabled', $data) && $data['sip_trunking_enabled'] !== null) {
+            $object->setSipTrunkingEnabled($data['sip_trunking_enabled']);
+        }
+        elseif (\array_key_exists('sip_trunking_enabled', $data) && $data['sip_trunking_enabled'] === null) {
+            $object->setSipTrunkingEnabled(null);
+        }
+        if (\array_key_exists('did_delivery_enabled', $data) && $data['did_delivery_enabled'] !== null) {
+            $object->setDidDeliveryEnabled($data['did_delivery_enabled']);
+        }
+        elseif (\array_key_exists('did_delivery_enabled', $data) && $data['did_delivery_enabled'] === null) {
+            $object->setDidDeliveryEnabled(null);
+        }
+        if (\array_key_exists('workspace_users_enabled', $data) && $data['workspace_users_enabled'] !== null) {
+            $object->setWorkspaceUsersEnabled($data['workspace_users_enabled']);
+        }
+        elseif (\array_key_exists('workspace_users_enabled', $data) && $data['workspace_users_enabled'] === null) {
+            $object->setWorkspaceUsersEnabled(null);
         }
         if (\array_key_exists('outbound_enabled', $data) && $data['outbound_enabled'] !== null) {
             $object->setOutboundEnabled($data['outbound_enabled']);
@@ -104,6 +131,15 @@ class VoiceTrunkCreateNormalizer implements DenormalizerInterface, NormalizerInt
             throw new \MessageBird\Exception\RequestValidationException('required field VoiceTrunkCreate.name missing');
         }
         $dataArray['name'] = $data->getName();
+        if ($data->isInitialized('sipTrunkingEnabled') && null !== $data->getSipTrunkingEnabled()) {
+            $dataArray['sip_trunking_enabled'] = $data->getSipTrunkingEnabled();
+        }
+        if ($data->isInitialized('didDeliveryEnabled') && null !== $data->getDidDeliveryEnabled()) {
+            $dataArray['did_delivery_enabled'] = $data->getDidDeliveryEnabled();
+        }
+        if ($data->isInitialized('workspaceUsersEnabled') && null !== $data->getWorkspaceUsersEnabled()) {
+            $dataArray['workspace_users_enabled'] = $data->getWorkspaceUsersEnabled();
+        }
         if ($data->isInitialized('outboundEnabled') && null !== $data->getOutboundEnabled()) {
             $dataArray['outbound_enabled'] = $data->getOutboundEnabled();
         }

@@ -22,6 +22,7 @@ return [
     "/v1/email/stats/mailbox-providers",
     "/v1/email/stats/mailbox-provider-regions",
     "/v1/email/stats/templates",
+    "/v1/email/stats/brands",
     "/v1/email/stats/locations",
     "/v1/email/stats/clients",
     "/v1/email/stats/bounce-codes",

@@ -37,6 +37,12 @@ class EmailStatsQueryDimensionsNormalizer implements DenormalizerInterface, Norm
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $object->setBrandId($data['brand_id']);
+        }
+        elseif (\array_key_exists('brand_id', $data) && $data['brand_id'] === null) {
+            $object->setBrandId(null);
+        }
         if (\array_key_exists('sending_domain', $data) && $data['sending_domain'] !== null) {
             $object->setSendingDomain($data['sending_domain']);
         }
@@ -150,6 +156,9 @@ class EmailStatsQueryDimensionsNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if ($data->isInitialized('brandId')) {
+            $dataArray['brand_id'] = $data->getBrandId();
+        }
         if ($data->isInitialized('sendingDomain')) {
             $dataArray['sending_domain'] = $data->getSendingDomain();
         }

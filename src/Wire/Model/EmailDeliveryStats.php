@@ -12,7 +12,7 @@ namespace MessageBird\Wire\Model;
  * - `bounced`: A delivery failure, with its own hard, soft, admin, block, and undetermined sub-types.
  * - `complained`: Post-delivery spam feedback.
  * 
- * Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
+ * Each rate is a fraction and is null when its denominator is zero. `delivery_rate` and `bounce_rate` fall in the range 0 to 1, while event-time `complaint_rate` and `oob_rate` can exceed 1 when late signals outnumber attempts in a narrow window. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
  */
 class EmailDeliveryStats
 {
@@ -93,7 +93,8 @@ class EmailDeliveryStats
      */
     protected $allBounces;
     /**
-     * Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
+     * Out-of-band bounce events in this scope relative to delivery attempts, computed as `oob_bounces / (delivered + bounced)`. Because out-of-band bounces are attributed by event time as distinct events, a scope can record more of them than it attempted, pushing the rate above 1. Null when there were no attempts.
+     * 
      *
      * @var float|null
      */
@@ -362,7 +363,8 @@ class EmailDeliveryStats
         return $this;
     }
     /**
-     * Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
+     * Out-of-band bounce events in this scope relative to delivery attempts, computed as `oob_bounces / (delivered + bounced)`. Because out-of-band bounces are attributed by event time as distinct events, a scope can record more of them than it attempted, pushing the rate above 1. Null when there were no attempts.
+     * 
      *
      * @return float|null
      */
@@ -371,7 +373,7 @@ class EmailDeliveryStats
         return $this->oobRate;
     }
     /**
-     * Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
+     * Out-of-band bounce events in this scope relative to delivery attempts, computed as `oob_bounces / (delivered + bounced)`. Because out-of-band bounces are attributed by event time as distinct events, a scope can record more of them than it attempted, pushing the rate above 1. Null when there were no attempts.
      *
      * @param float|null $oobRate
      *

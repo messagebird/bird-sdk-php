@@ -56,7 +56,7 @@ class EmailStatsQueryRequest
      * Every selected metric must support the grouping dimension and every filter dimension.
      * Unsupported combinations return validation error `E04074`, even when the workspace has no events.
      * 
-     * - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+     * - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand.
      * - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
      * - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
      * - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
@@ -226,7 +226,7 @@ class EmailStatsQueryRequest
      * Every selected metric must support the grouping dimension and every filter dimension.
      * Unsupported combinations return validation error `E04074`, even when the workspace has no events.
      * 
-     * - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+     * - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand.
      * - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
      * - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
      * - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
@@ -255,7 +255,7 @@ class EmailStatsQueryRequest
     Every selected metric must support the grouping dimension and every filter dimension.
     Unsupported combinations return validation error `E04074`, even when the workspace has no events.
     
-    - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+    - `brand_id`, `sending_domain`, `category`, `template_id`, `tag`: all metrics. A null `brand_id` represents historical or unattributed traffic recorded without a Brand and is distinct from the workspace's default Brand.
     - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
     - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
     - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,

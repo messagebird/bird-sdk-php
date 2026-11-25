@@ -54,12 +54,12 @@ $credential = $bird->voice->sessionCredentials->create();
 echo $credential->getUsername(), ' ', $credential->getRealm(), "\n";
 
 $trunk = $bird->voice->trunks->create(
-    (new VoiceTrunkCreate())->setName('Lisbon office')->setOutboundEnabled(true)->setInboundEnabled(true),
+    (new VoiceTrunkCreate())->setName('Lisbon office')->setSipTrunkingEnabled(true)->setDidDeliveryEnabled(true),
 );
 echo $trunk->getId(), ' ', $trunk->getDomain(), "\n";
 
 $trunk = $bird->voice->trunks->get('trunk-id');
-echo $trunk->getName(), ' ', $trunk->getInboundEnabled() ? 'in' : '-', "\n";
+echo $trunk->getName(), ' ', $trunk->getDidDeliveryEnabled() ? 'in' : '-', "\n";
 
 $bird->voice->trunks->delete('trunk-id');
 

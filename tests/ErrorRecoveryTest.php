@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace MessageBird\Tests;
 
+use Http\Discovery\Psr17FactoryDiscovery;
+use MessageBird\Bird;
 use MessageBird\Exception\ApiException;
 use MessageBird\Wire\Model\ErrorBody;
+use MessageBird\Wire\Model\ErrorDetail;
 use MessageBird\Wire\Model\NextAction;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class ErrorRecoveryTest extends TestCase
 {
@@ -26,6 +32,7 @@ final class ErrorRecoveryTest extends TestCase
         'rateLimit' => 'rateLimit',
         'quota' => 'quota',
         'param' => 'param',
+        'details' => 'details',
     ];
 
     /**
@@ -36,7 +43,7 @@ final class ErrorRecoveryTest extends TestCase
      *
      * @var list<string>
      */
-    private const NOT_YET_SURFACED = ['name', 'docUrl', 'requestId', 'vendorCode', 'details'];
+    private const NOT_YET_SURFACED = ['name', 'docUrl', 'requestId', 'vendorCode'];
 
     /**
      * The guard that would have caught `next` never reaching a PHP caller at all:
@@ -105,6 +112,65 @@ final class ErrorRecoveryTest extends TestCase
         self::assertSame('workspace', $refused->quota->getScope());
 
         self::assertNull(ApiException::fromResponse(422, '{"error":{"type":"validation_error","code":"E06009","message":"x"}}')->quota);
+    }
+
+    /** E04072 history boundary details survive on ApiException so callers can retry from the returned date. */
+    public function testByBrandHistoryUnavailableExposesFromBoundaryAndRetries(): void
+    {
+        $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
+        $responses = [
+            $responseFactory->createResponse(422)->withBody($streamFactory->createStream(
+                '{"error":{"type":"validation_error","code":"E04072","message":"Requested period starts before available email reporting history.","details":[{"param":"from","message":"Must be on or after 2026-09-23."}]}}',
+            )),
+            $responseFactory->createResponse(200)->withBody($streamFactory->createStream(
+                '{"period":{"from":"2026-09-23","to":"2026-10-15","data_as_of":null},"data":[{"brand_id":"bnd_01krdgeqcxet5s7t44vh8rt9mg","delivery":{"processed":10,"delivered":10,"bounced":0,"bounces":{"hard":0,"soft":0,"admin":0,"block":0,"undetermined":0,"hard_rate":null,"soft_rate":null,"admin_rate":null,"block_rate":null,"undetermined_rate":null},"complained":0,"deferred":0,"rejected":0,"oob_bounces":0,"effective_delivered":10,"all_bounces":0,"oob_rate":0,"delivery_rate":1,"bounce_rate":0,"complaint_rate":0},"engagement":{"opens":2,"opens_non_prefetched":2,"unique_opens":2,"unique_opens_non_prefetched":2,"clicks":1,"unique_clicks":1,"unsubscribes":0,"open_rate":0.2,"click_rate":0.1,"unsubscribe_rate":0},"latency":{"processing":{"p50_ms":20,"p95_ms":40,"p99_ms":50},"delivery":{"p50_ms":null,"p95_ms":null,"p99_ms":null},"total":{"p50_ms":100,"p95_ms":150,"p99_ms":200}}}],"total":1,"next_cursor":null,"prev_cursor":null,"refresh_cursor":"ref"}',
+            )),
+        ];
+        $requests = [];
+        $http = new class ($responses, $requests) implements ClientInterface {
+            /**
+             * @param list<ResponseInterface> $responses
+             * @param list<RequestInterface>  $requests
+             */
+            public function __construct(private array $responses, public array &$requests)
+            {
+            }
+
+            public function sendRequest(RequestInterface $request): ResponseInterface
+            {
+                $this->requests[] = $request;
+                $next = array_shift($this->responses);
+                if (!$next instanceof ResponseInterface) {
+                    throw new \RuntimeException('No queued response');
+                }
+
+                return $next;
+            }
+        };
+        $bird = new Bird('bk_test', 'https://api.example.test', $http);
+
+        $boundary = null;
+        try {
+            $bird->email->stats->byBrand(['from' => '2026-09-01', 'to' => '2026-10-15']);
+            self::fail('Expected ApiException for E04072');
+        } catch (ApiException $e) {
+            self::assertSame('E04072', $e->errorCode);
+            self::assertCount(1, $e->details);
+            self::assertInstanceOf(ErrorDetail::class, $e->details[0]);
+            self::assertSame('from', $e->details[0]->getParam());
+            self::assertSame('Must be on or after 2026-09-23.', $e->details[0]->getMessage());
+            preg_match('/\d{4}-\d{2}-\d{2}/', (string) $e->details[0]->getMessage(), $m);
+            $boundary = $m[0] ?? null;
+        }
+
+        self::assertSame('2026-09-23', $boundary);
+        $recovered = $bird->email->stats->byBrand(['from' => $boundary, 'to' => '2026-10-15']);
+        $rows = $recovered->getData() ?? [];
+        self::assertCount(1, $rows);
+        self::assertSame('bnd_01krdgeqcxet5s7t44vh8rt9mg', $rows[0]->getBrandId());
+        self::assertCount(2, $requests);
+        self::assertSame('from=2026-09-23&to=2026-10-15', $requests[1]->getUri()->getQuery());
     }
 
     public function testFromResponseSurfacesRecoverySteps(): void

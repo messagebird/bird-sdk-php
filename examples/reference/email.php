@@ -194,6 +194,14 @@ foreach ($stats->getData() ?? [] as $row) {
     echo $row->getTemplateId(), ' ', $row->getEngagement()?->getOpenRate(), "\n";
 }
 
+$stats = $bird->email->stats->byBrand([
+    'sort' => 'open_rate',
+    'limit' => 25,
+]);
+foreach ($stats->getData() ?? [] as $row) {
+    echo $row->getBrandId(), ' ', $row->getEngagement()?->getOpenRate(), "\n";
+}
+
 $stats = $bird->email->stats->byLocation([
     'from' => '2026-05-01',
     'to' => '2026-05-31',

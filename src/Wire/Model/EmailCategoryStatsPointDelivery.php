@@ -12,7 +12,7 @@ namespace MessageBird\Wire\Model;
  * - `bounced`: A delivery failure, with its own hard, soft, admin, block, and undetermined sub-types.
  * - `complained`: Post-delivery spam feedback.
  * 
- * Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
+ * Each rate is a fraction and is null when its denominator is zero. `delivery_rate` and `bounce_rate` fall in the range 0 to 1, while event-time `complaint_rate` and `oob_rate` can exceed 1 when late signals outnumber attempts in a narrow window. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
  */
 class EmailCategoryStatsPointDelivery extends EmailDeliveryStats
 {

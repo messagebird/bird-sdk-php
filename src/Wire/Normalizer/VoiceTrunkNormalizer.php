@@ -37,6 +37,15 @@ class VoiceTrunkNormalizer implements DenormalizerInterface, NormalizerInterface
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('sip_trunking_enabled', $data) && \is_int($data['sip_trunking_enabled'])) {
+            $data['sip_trunking_enabled'] = (bool) $data['sip_trunking_enabled'];
+        }
+        if (\array_key_exists('did_delivery_enabled', $data) && \is_int($data['did_delivery_enabled'])) {
+            $data['did_delivery_enabled'] = (bool) $data['did_delivery_enabled'];
+        }
+        if (\array_key_exists('workspace_users_enabled', $data) && \is_int($data['workspace_users_enabled'])) {
+            $data['workspace_users_enabled'] = (bool) $data['workspace_users_enabled'];
+        }
         if (\array_key_exists('outbound_enabled', $data) && \is_int($data['outbound_enabled'])) {
             $data['outbound_enabled'] = (bool) $data['outbound_enabled'];
         }
@@ -76,6 +85,27 @@ class VoiceTrunkNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         elseif (\array_key_exists('domain', $data) && $data['domain'] === null) {
             $object->setDomain(null);
+        }
+        if (\array_key_exists('sip_trunking_enabled', $data) && $data['sip_trunking_enabled'] !== null) {
+            $object->setSipTrunkingEnabled($data['sip_trunking_enabled']);
+            unset($data['sip_trunking_enabled']);
+        }
+        elseif (\array_key_exists('sip_trunking_enabled', $data) && $data['sip_trunking_enabled'] === null) {
+            $object->setSipTrunkingEnabled(null);
+        }
+        if (\array_key_exists('did_delivery_enabled', $data) && $data['did_delivery_enabled'] !== null) {
+            $object->setDidDeliveryEnabled($data['did_delivery_enabled']);
+            unset($data['did_delivery_enabled']);
+        }
+        elseif (\array_key_exists('did_delivery_enabled', $data) && $data['did_delivery_enabled'] === null) {
+            $object->setDidDeliveryEnabled(null);
+        }
+        if (\array_key_exists('workspace_users_enabled', $data) && $data['workspace_users_enabled'] !== null) {
+            $object->setWorkspaceUsersEnabled($data['workspace_users_enabled']);
+            unset($data['workspace_users_enabled']);
+        }
+        elseif (\array_key_exists('workspace_users_enabled', $data) && $data['workspace_users_enabled'] === null) {
+            $object->setWorkspaceUsersEnabled(null);
         }
         if (\array_key_exists('outbound_enabled', $data) && $data['outbound_enabled'] !== null) {
             $object->setOutboundEnabled($data['outbound_enabled']);

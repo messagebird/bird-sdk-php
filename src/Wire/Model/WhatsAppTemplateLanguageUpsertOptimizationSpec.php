@@ -16,7 +16,7 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpec extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery. At most 50000, which is 0.50 per delivery.
      * 
      *
      * @var int|null
@@ -32,14 +32,14 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpec extends \ArrayObject
      */
     protected $bidStrategy;
     /**
-     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map.
+     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map. `bid_amount` times a country's multiplier must also be at most 50000.
      * 
      *
      * @var array<string, float>|null
      */
     protected $bidCountryMultiplierOverrides;
     /**
-     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery. At most 50000, which is 0.50 per delivery.
      * 
      *
      * @return int|null
@@ -49,7 +49,7 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpec extends \ArrayObject
         return $this->bidAmount;
     }
     /**
-     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery.
+     * The maximum price per 1,000 deliveries, in the smallest unit of the account's currency. The reach estimate returns that currency as `currency_code`. 5000 is USD 0.05 per delivery. At most 50000, which is 0.50 per delivery.
      *
      * @param int|null $bidAmount
      *
@@ -90,7 +90,7 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpec extends \ArrayObject
         return $this;
     }
     /**
-     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map.
+     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map. `bid_amount` times a country's multiplier must also be at most 50000.
      * 
      *
      * @return array<string, float>|null
@@ -100,7 +100,7 @@ class WhatsAppTemplateLanguageUpsertOptimizationSpec extends \ArrayObject
         return $this->bidCountryMultiplierOverrides;
     }
     /**
-     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map.
+     * Scales the bid for recipients in a country, keyed by ISO 3166-1 alpha-2 code. A country you leave out uses 1. Each write replaces the whole map. `bid_amount` times a country's multiplier must also be at most 50000.
      *
      * @param array<string, float>|null $bidCountryMultiplierOverrides
      *

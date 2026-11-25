@@ -19,21 +19,46 @@ class VoiceTrunkCreate
      */
     protected $name;
     /**
-     * Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+     * Whether your PBX may place calls through the new trunk. Omit it to create a trunk that carries no calls yet, and turn on what you need once you know what the trunk is for.
      * 
      *
      * @var bool|null
      */
-    protected $outboundEnabled = false;
+    protected $sipTrunkingEnabled = false;
     /**
-     * Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+     * Whether the new trunk may receive calls. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
      * 
      *
      * @var bool|null
      */
-    protected $inboundEnabled = false;
+    protected $didDeliveryEnabled = false;
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+     * Whether people in this workspace may place calls through the new trunk with a session credential, from the dashboard phone, the CLI or MCP. Omit it for a trunk reached only by a PBX.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $workspaceUsersEnabled = false;
+    /**
+     * Deprecated: use `sip_trunking_enabled`. `true` turns on `sip_trunking_enabled`; a request that also sends `sip_trunking_enabled: false` is rejected.
+     * 
+     *
+     * @deprecated
+     *
+     * @var bool|null
+     */
+    protected $outboundEnabled;
+    /**
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
+     * 
+     *
+     * @deprecated
+     *
+     * @var bool|null
+     */
+    protected $inboundEnabled;
+    /**
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `did_delivery_enabled: true`; `false` is always accepted. It can be changed later.
      * 
      *
      * @var bool|null
@@ -46,19 +71,21 @@ class VoiceTrunkCreate
      */
     protected $media;
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. It applies to calls the trunk places, so send it alongside `sip_trunking_enabled` or `workspace_users_enabled` set to `true`. This can be changed later without re-issuing credentials.
      * 
      *
      * @var list<string>|null
      */
     protected $digestAlgorithms;
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @var bool|null
      */
-    protected $sessionCredentialsEnabled = false;
+    protected $sessionCredentialsEnabled;
     /**
      * A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
      *
@@ -82,8 +109,79 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+     * Whether your PBX may place calls through the new trunk. Omit it to create a trunk that carries no calls yet, and turn on what you need once you know what the trunk is for.
      * 
+     *
+     * @return bool|null
+     */
+    public function getSipTrunkingEnabled(): ?bool
+    {
+        return $this->sipTrunkingEnabled;
+    }
+    /**
+     * Whether your PBX may place calls through the new trunk. Omit it to create a trunk that carries no calls yet, and turn on what you need once you know what the trunk is for.
+     *
+     * @param bool|null $sipTrunkingEnabled
+     *
+     * @return self
+     */
+    public function setSipTrunkingEnabled(?bool $sipTrunkingEnabled): self
+    {
+        $this->initialized['sipTrunkingEnabled'] = true;
+        $this->sipTrunkingEnabled = $sipTrunkingEnabled;
+        return $this;
+    }
+    /**
+     * Whether the new trunk may receive calls. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getDidDeliveryEnabled(): ?bool
+    {
+        return $this->didDeliveryEnabled;
+    }
+    /**
+     * Whether the new trunk may receive calls. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+     *
+     * @param bool|null $didDeliveryEnabled
+     *
+     * @return self
+     */
+    public function setDidDeliveryEnabled(?bool $didDeliveryEnabled): self
+    {
+        $this->initialized['didDeliveryEnabled'] = true;
+        $this->didDeliveryEnabled = $didDeliveryEnabled;
+        return $this;
+    }
+    /**
+     * Whether people in this workspace may place calls through the new trunk with a session credential, from the dashboard phone, the CLI or MCP. Omit it for a trunk reached only by a PBX.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getWorkspaceUsersEnabled(): ?bool
+    {
+        return $this->workspaceUsersEnabled;
+    }
+    /**
+     * Whether people in this workspace may place calls through the new trunk with a session credential, from the dashboard phone, the CLI or MCP. Omit it for a trunk reached only by a PBX.
+     *
+     * @param bool|null $workspaceUsersEnabled
+     *
+     * @return self
+     */
+    public function setWorkspaceUsersEnabled(?bool $workspaceUsersEnabled): self
+    {
+        $this->initialized['workspaceUsersEnabled'] = true;
+        $this->workspaceUsersEnabled = $workspaceUsersEnabled;
+        return $this;
+    }
+    /**
+     * Deprecated: use `sip_trunking_enabled`. `true` turns on `sip_trunking_enabled`; a request that also sends `sip_trunking_enabled: false` is rejected.
+     * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -92,9 +190,11 @@ class VoiceTrunkCreate
         return $this->outboundEnabled;
     }
     /**
-     * Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+     * Deprecated: use `sip_trunking_enabled`. `true` turns on `sip_trunking_enabled`; a request that also sends `sip_trunking_enabled: false` is rejected.
      *
      * @param bool|null $outboundEnabled
+     *
+     * @deprecated
      *
      * @return self
      */
@@ -105,8 +205,10 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -115,9 +217,11 @@ class VoiceTrunkCreate
         return $this->inboundEnabled;
     }
     /**
-     * Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+     * Deprecated: use `did_delivery_enabled`. A request that sends both with different values is rejected.
      *
      * @param bool|null $inboundEnabled
+     *
+     * @deprecated
      *
      * @return self
      */
@@ -128,7 +232,7 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `did_delivery_enabled: true`; `false` is always accepted. It can be changed later.
      * 
      *
      * @return bool|null
@@ -138,7 +242,7 @@ class VoiceTrunkCreate
         return $this->mediaBypass;
     }
     /**
-     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+     * Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `did_delivery_enabled: true`; `false` is always accepted. It can be changed later.
      *
      * @param bool|null $mediaBypass
      *
@@ -173,7 +277,7 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. It applies to calls the trunk places, so send it alongside `sip_trunking_enabled` or `workspace_users_enabled` set to `true`. This can be changed later without re-issuing credentials.
      * 
      *
      * @return list<string>|null
@@ -183,7 +287,7 @@ class VoiceTrunkCreate
         return $this->digestAlgorithms;
     }
     /**
-     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. This can be changed later without re-issuing credentials.
+     * The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This governs clients that authenticate with an API key. Session credentials, including the dashboard phone's, are always offered MD5 as well and accepted with MD5 or SHA-256. It applies to calls the trunk places, so send it alongside `sip_trunking_enabled` or `workspace_users_enabled` set to `true`. This can be changed later without re-issuing credentials.
      *
      * @param list<string>|null $digestAlgorithms
      *
@@ -196,8 +300,10 @@ class VoiceTrunkCreate
         return $this;
     }
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      * 
+     *
+     * @deprecated
      *
      * @return bool|null
      */
@@ -206,9 +312,11 @@ class VoiceTrunkCreate
         return $this->sessionCredentialsEnabled;
     }
     /**
-     * Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+     * Deprecated: use `workspace_users_enabled`. A request that sends both with different values is rejected.
      *
      * @param bool|null $sessionCredentialsEnabled
+     *
+     * @deprecated
      *
      * @return self
      */

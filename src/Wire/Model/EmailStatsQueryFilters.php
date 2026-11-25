@@ -16,6 +16,12 @@ class EmailStatsQueryFilters
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Match recorded Brand IDs using include or exclude. Include values combine with OR; exclusions remove matches. Missing values (`brand_id` null) survive exclude-only predicates. Brand listing is dashboard-only; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+     *
+     * @var EmailStatsQueryBrandFilter|null
+     */
+    protected $brandId;
+    /**
      * Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
      *
      * @var EmailStatsQueryStringFilter|null
@@ -123,6 +129,28 @@ class EmailStatsQueryFilters
      * @var EmailStatsQueryStringFilter|null
      */
     protected $feedbackType;
+    /**
+     * Match recorded Brand IDs using include or exclude. Include values combine with OR; exclusions remove matches. Missing values (`brand_id` null) survive exclude-only predicates. Brand listing is dashboard-only; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+     *
+     * @return EmailStatsQueryBrandFilter|null
+     */
+    public function getBrandId(): ?EmailStatsQueryBrandFilter
+    {
+        return $this->brandId;
+    }
+    /**
+     * Match recorded Brand IDs using include or exclude. Include values combine with OR; exclusions remove matches. Missing values (`brand_id` null) survive exclude-only predicates. Brand listing is dashboard-only; copy a Brand ID from Brands > More actions > Copy brand ID in the dashboard, or ask the caller for the ID when only a Brand name is known. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+     *
+     * @param EmailStatsQueryBrandFilter|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?EmailStatsQueryBrandFilter $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
+        return $this;
+    }
     /**
      * Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
      *

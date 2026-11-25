@@ -860,13 +860,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\Verification::class => \MessageBird\Wire\Normalizer\VerificationNormalizer::class,
 
+        \MessageBird\Wire\Model\VerificationCheckResult::class => \MessageBird\Wire\Normalizer\VerificationCheckResultNormalizer::class,
+
         \MessageBird\Wire\Model\VerificationOptions::class => \MessageBird\Wire\Normalizer\VerificationOptionsNormalizer::class,
 
         \MessageBird\Wire\Model\VerificationCreateRequest::class => \MessageBird\Wire\Normalizer\VerificationCreateRequestNormalizer::class,
 
         \MessageBird\Wire\Model\VerificationCheckRequest::class => \MessageBird\Wire\Normalizer\VerificationCheckRequestNormalizer::class,
-
-        \MessageBird\Wire\Model\VerificationCheckResult::class => \MessageBird\Wire\Normalizer\VerificationCheckResultNormalizer::class,
 
         \MessageBird\Wire\Model\VerificationNextChannelRequest::class => \MessageBird\Wire\Normalizer\VerificationNextChannelRequestNormalizer::class,
 
@@ -1712,6 +1712,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\EmailStatsResponse::class => \MessageBird\Wire\Normalizer\EmailStatsResponseNormalizer::class,
 
+        \MessageBird\Wire\Model\EmailStatsQueryBrandFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryBrandFilterNormalizer::class,
+
         \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryStringFilterNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsQueryCategoryFilter::class => \MessageBird\Wire\Normalizer\EmailStatsQueryCategoryFilterNormalizer::class,
@@ -1811,6 +1813,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\EmailBroadcastStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailBroadcastStatsPointLatencyNormalizer::class,
 
         \MessageBird\Wire\Model\EmailStatsByBroadcastResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByBroadcastResponseNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsBrandPeriod::class => \MessageBird\Wire\Normalizer\EmailStatsBrandPeriodNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBrandStatsPoint::class => \MessageBird\Wire\Normalizer\EmailBrandStatsPointNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBrandStatsPointDelivery::class => \MessageBird\Wire\Normalizer\EmailBrandStatsPointDeliveryNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBrandStatsPointEngagement::class => \MessageBird\Wire\Normalizer\EmailBrandStatsPointEngagementNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailBrandStatsPointLatency::class => \MessageBird\Wire\Normalizer\EmailBrandStatsPointLatencyNormalizer::class,
+
+        \MessageBird\Wire\Model\EmailStatsByBrandResponse::class => \MessageBird\Wire\Normalizer\EmailStatsByBrandResponseNormalizer::class,
 
         \MessageBird\Wire\Model\EmailHealthSignalThresholds::class => \MessageBird\Wire\Normalizer\EmailHealthSignalThresholdsNormalizer::class,
 
@@ -3005,10 +3019,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\VerificationTo::class => false,
             \MessageBird\Wire\Model\VerificationChannelEntry::class => false,
             \MessageBird\Wire\Model\Verification::class => false,
+            \MessageBird\Wire\Model\VerificationCheckResult::class => false,
             \MessageBird\Wire\Model\VerificationOptions::class => false,
             \MessageBird\Wire\Model\VerificationCreateRequest::class => false,
             \MessageBird\Wire\Model\VerificationCheckRequest::class => false,
-            \MessageBird\Wire\Model\VerificationCheckResult::class => false,
             \MessageBird\Wire\Model\VerificationNextChannelRequest::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateButton::class => false,
@@ -3431,6 +3445,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailInboxInsightsDomainMonitoringResult::class => false,
             \MessageBird\Wire\Model\EmailStatsSeriesPeriod::class => false,
             \MessageBird\Wire\Model\EmailStatsResponse::class => false,
+            \MessageBird\Wire\Model\EmailStatsQueryBrandFilter::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryStringFilter::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryCategoryFilter::class => false,
             \MessageBird\Wire\Model\EmailStatsQueryTemplateFilter::class => false,
@@ -3481,6 +3496,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\EmailBroadcastStatsPointEngagement::class => false,
             \MessageBird\Wire\Model\EmailBroadcastStatsPointLatency::class => false,
             \MessageBird\Wire\Model\EmailStatsByBroadcastResponse::class => false,
+            \MessageBird\Wire\Model\EmailStatsBrandPeriod::class => false,
+            \MessageBird\Wire\Model\EmailBrandStatsPoint::class => false,
+            \MessageBird\Wire\Model\EmailBrandStatsPointDelivery::class => false,
+            \MessageBird\Wire\Model\EmailBrandStatsPointEngagement::class => false,
+            \MessageBird\Wire\Model\EmailBrandStatsPointLatency::class => false,
+            \MessageBird\Wire\Model\EmailStatsByBrandResponse::class => false,
             \MessageBird\Wire\Model\EmailHealthSignalThresholds::class => false,
             \MessageBird\Wire\Model\EmailHealthSignal::class => false,
             \MessageBird\Wire\Model\EmailHealth::class => false,

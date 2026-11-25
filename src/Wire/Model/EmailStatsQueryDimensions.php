@@ -16,6 +16,12 @@ class EmailStatsQueryDimensions
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Recorded Brand id value. Null represents historical or unattributed traffic recorded without a Brand and is distinct from the default Brand.
+     *
+     * @var string|null
+     */
+    protected $brandId;
+    /**
      * Recorded sending domain value. Null represents missing context and differs from an empty string.
      *
      * @var string|null
@@ -123,6 +129,28 @@ class EmailStatsQueryDimensions
      * @var string|null
      */
     protected $feedbackType;
+    /**
+     * Recorded Brand id value. Null represents historical or unattributed traffic recorded without a Brand and is distinct from the default Brand.
+     *
+     * @return string|null
+     */
+    public function getBrandId(): ?string
+    {
+        return $this->brandId;
+    }
+    /**
+     * Recorded Brand id value. Null represents historical or unattributed traffic recorded without a Brand and is distinct from the default Brand.
+     *
+     * @param string|null $brandId
+     *
+     * @return self
+     */
+    public function setBrandId(?string $brandId): self
+    {
+        $this->initialized['brandId'] = true;
+        $this->brandId = $brandId;
+        return $this;
+    }
     /**
      * Recorded sending domain value. Null represents missing context and differs from an empty string.
      *

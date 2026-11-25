@@ -32,7 +32,7 @@ class WhatsAppTemplateSend
      */
     protected $language;
     /**
-     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.1–2; default 1. Requires `optimization_spec` on a marketing template language. The result must stay at most 50000 (0.50 per delivery) for the recipient's country; a recipient without a known country is checked against the language's highest.
      *
      * @var float|null
      */
@@ -113,7 +113,7 @@ class WhatsAppTemplateSend
         return $this;
     }
     /**
-     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.1–2; default 1. Requires `optimization_spec` on a marketing template language. The result must stay at most 50000 (0.50 per delivery) for the recipient's country; a recipient without a known country is checked against the language's highest.
      *
      * @return float|null
      */
@@ -122,7 +122,7 @@ class WhatsAppTemplateSend
         return $this->bidMultiplier;
     }
     /**
-     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.01–100; default 1. Requires `optimization_spec` on a marketing template language.
+     * Multiplies `optimization_spec.bid_amount` × country multiplier for this message. Range 0.1–2; default 1. Requires `optimization_spec` on a marketing template language. The result must stay at most 50000 (0.50 per delivery) for the recipient's country; a recipient without a known country is checked against the language's highest.
      *
      * @param float|null $bidMultiplier
      *

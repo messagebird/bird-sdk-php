@@ -93,11 +93,11 @@ class EmailBroadcast
      */
     protected $status;
     /**
-     * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+     * Why sending stopped for funds or a sending limit, and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
      * 
-     * The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * For a funds hold, add funds during the wait to let sending continue automatically. After the broadcast pauses, check the balance and add funds if it is still short, then resume it explicitly. For `send_limit_reached`, adding funds does not help: sending continues when the limit allows more email, and after a pause you resume it once it does. Resume is refused while the next batch still cannot be paid for or would go over a sending limit. A failed broadcast cannot resume.
      * 
-     * Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
+     * Each interruption can wait up to 20 minutes for funds. An interruption for a sending limit (`send_limit_reached`) waits until 10 minutes after the next midnight UTC, when the daily limit resets. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops again, a new wait begins.
      * 
      *
      * @var EmailBroadcastFundingHold|null
@@ -113,22 +113,22 @@ class EmailBroadcast
      */
     protected $next;
     /**
-     * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+     * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time. A failed broadcast cannot be sent again; once the cause is fixed, create a new broadcast.
      * 
      * - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
      * - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
      * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
-     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template for the new broadcast.
      *   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
      *   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
-     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` on the new broadcast to one of the template's languages.
      *   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
      *   - The sending domain is no longer verified. Verify the domain again.
      *   - The configured IP pool has no usable IP address.
      *   - We could not hand the prepared message to the delivery system. This is a problem on our side.
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
-     * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+     * - `internal_error`: Something went wrong on our side. Open a support ticket if it keeps happening.
      * - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
@@ -570,11 +570,11 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+     * Why sending stopped for funds or a sending limit, and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
      * 
-     * The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+     * For a funds hold, add funds during the wait to let sending continue automatically. After the broadcast pauses, check the balance and add funds if it is still short, then resume it explicitly. For `send_limit_reached`, adding funds does not help: sending continues when the limit allows more email, and after a pause you resume it once it does. Resume is refused while the next batch still cannot be paid for or would go over a sending limit. A failed broadcast cannot resume.
      * 
-     * Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
+     * Each interruption can wait up to 20 minutes for funds. An interruption for a sending limit (`send_limit_reached`) waits until 10 minutes after the next midnight UTC, when the daily limit resets. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops again, a new wait begins.
      * 
      *
      * @return EmailBroadcastFundingHold|null
@@ -584,11 +584,11 @@ class EmailBroadcast
         return $this->fundingHold;
     }
     /**
-    * Why sending stopped for funds and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
+    * Why sending stopped for funds or a sending limit, and what happens next. Present only while `status` is `waiting_for_funds` or `paused`.
     
-    The send-allowance response includes `can_start` when waiting and resuming are available. If `can_start` is absent, do not assume a top-up can recover a broadcast or that a failed broadcast can resume.
+    For a funds hold, add funds during the wait to let sending continue automatically. After the broadcast pauses, check the balance and add funds if it is still short, then resume it explicitly. For `send_limit_reached`, adding funds does not help: sending continues when the limit allows more email, and after a pause you resume it once it does. Resume is refused while the next batch still cannot be paid for or would go over a sending limit. A failed broadcast cannot resume.
     
-    Each interruption can wait up to 20 minutes for funds. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops for funds again, a new 20-minute wait begins.
+    Each interruption can wait up to 20 minutes for funds. An interruption for a sending limit (`send_limit_reached`) waits until 10 minutes after the next midnight UTC, when the daily limit resets. Checks, refused batches and partial top-ups during the same interruption do not extend its deadline. Automatic continuation or an explicit resume clears the hold; if sending later stops again, a new wait begins.
     
     *
     * @param EmailBroadcastFundingHold|null $fundingHold
@@ -630,22 +630,22 @@ class EmailBroadcast
         return $this;
     }
     /**
-     * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+     * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time. A failed broadcast cannot be sent again; once the cause is fixed, create a new broadcast.
      * 
      * - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
      * - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
      * - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
-     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     *   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template for the new broadcast.
      *   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
      *   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
-     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     *   - The template requires a language, but the broadcast has not selected one. Set `template.language` on the new broadcast to one of the template's languages.
      *   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
      *   - The sending domain is no longer verified. Verify the domain again.
      *   - The configured IP pool has no usable IP address.
      *   - We could not hand the prepared message to the delivery system. This is a problem on our side.
      * - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
      * - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
-     * - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+     * - `internal_error`: Something went wrong on our side. Open a support ticket if it keeps happening.
      * - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
      * 
      *
@@ -656,22 +656,22 @@ class EmailBroadcast
         return $this->failureReason;
     }
     /**
-    * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+    * Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time. A failed broadcast cannot be sent again; once the cause is fixed, create a new broadcast.
     
     - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
     - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
     - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
-     - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+     - The broadcast has no template, or the template it uses no longer exists. Choose an existing template for the new broadcast.
      - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
      - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
-     - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+     - The template requires a language, but the broadcast has not selected one. Set `template.language` on the new broadcast to one of the template's languages.
      - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
      - The sending domain is no longer verified. Verify the domain again.
      - The configured IP pool has no usable IP address.
      - We could not hand the prepared message to the delivery system. This is a problem on our side.
     - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
     - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
-    - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+    - `internal_error`: Something went wrong on our side. Open a support ticket if it keeps happening.
     - `workspace_suspended`: The workspace is suspended, so the broadcast stopped sending. Recipients not yet sent to are not sent to, even after reactivation. Contact Bird support to reactivate the workspace.
     
     *

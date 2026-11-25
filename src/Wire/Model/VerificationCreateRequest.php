@@ -26,7 +26,7 @@ class VerificationCreateRequest
      */
     protected $options;
     /**
-     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification and copied onto the SMS, WhatsApp or email message that carries the code, so reads of that message and its webhooks return it too. The copy is skipped when the object is larger than 2 KB serialized.
      *
      * @var array<string, mixed>|null
      */
@@ -77,7 +77,7 @@ class VerificationCreateRequest
         return $this;
     }
     /**
-     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification and copied onto the SMS, WhatsApp or email message that carries the code, so reads of that message and its webhooks return it too. The copy is skipped when the object is larger than 2 KB serialized.
      *
      * @return array<string, mixed>|null
      */
@@ -86,7 +86,7 @@ class VerificationCreateRequest
         return $this->metadata;
     }
     /**
-     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+     * Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification and copied onto the SMS, WhatsApp or email message that carries the code, so reads of that message and its webhooks return it too. The copy is skipped when the object is larger than 2 KB serialized.
      *
      * @param array<string, mixed>|null $metadata
      *
