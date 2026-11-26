@@ -2,6 +2,10 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.129.0
+
+- Voice sequence dial traces can include the selected SIP user ID on the command span.
+
 ## 0.128.0
 
 - **Breaking:** removing a ring group member names its second argument after `member_id` instead of `user_id`, so rename it where you pass it as a named argument.
