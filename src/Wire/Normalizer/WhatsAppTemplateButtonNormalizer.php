@@ -37,6 +37,9 @@ class WhatsAppTemplateButtonNormalizer implements DenormalizerInterface, Normali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('zero_tap_terms_accepted', $data) && \is_int($data['zero_tap_terms_accepted'])) {
+            $data['zero_tap_terms_accepted'] = (bool) $data['zero_tap_terms_accepted'];
+        }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
         }
@@ -48,6 +51,28 @@ class WhatsAppTemplateButtonNormalizer implements DenormalizerInterface, Normali
         }
         elseif (\array_key_exists('otp_type', $data) && $data['otp_type'] === null) {
             $object->setOtpType(null);
+        }
+        if (\array_key_exists('autofill_text', $data) && $data['autofill_text'] !== null) {
+            $object->setAutofillText($data['autofill_text']);
+        }
+        elseif (\array_key_exists('autofill_text', $data) && $data['autofill_text'] === null) {
+            $object->setAutofillText(null);
+        }
+        if (\array_key_exists('supported_apps', $data) && $data['supported_apps'] !== null) {
+            $values = [];
+            foreach ($data['supported_apps'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateSupportedApp::class, 'json', $context);
+            }
+            $object->setSupportedApps($values);
+        }
+        elseif (\array_key_exists('supported_apps', $data) && $data['supported_apps'] === null) {
+            $object->setSupportedApps(null);
+        }
+        if (\array_key_exists('zero_tap_terms_accepted', $data) && $data['zero_tap_terms_accepted'] !== null) {
+            $object->setZeroTapTermsAccepted($data['zero_tap_terms_accepted']);
+        }
+        elseif (\array_key_exists('zero_tap_terms_accepted', $data) && $data['zero_tap_terms_accepted'] === null) {
+            $object->setZeroTapTermsAccepted(null);
         }
         if (\array_key_exists('text', $data) && $data['text'] !== null) {
             $object->setText($data['text']);
@@ -68,11 +93,11 @@ class WhatsAppTemplateButtonNormalizer implements DenormalizerInterface, Normali
             $object->setPhoneNumber(null);
         }
         if (\array_key_exists('example_parameters', $data) && $data['example_parameters'] !== null) {
-            $values = [];
-            foreach ($data['example_parameters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class, 'json', $context);
+            $values_1 = [];
+            foreach ($data['example_parameters'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppTemplateExampleParameter::class, 'json', $context);
             }
-            $object->setExampleParameters($values);
+            $object->setExampleParameters($values_1);
         }
         elseif (\array_key_exists('example_parameters', $data) && $data['example_parameters'] === null) {
             $object->setExampleParameters(null);

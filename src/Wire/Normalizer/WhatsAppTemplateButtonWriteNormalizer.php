@@ -37,6 +37,9 @@ class WhatsAppTemplateButtonWriteNormalizer implements DenormalizerInterface, No
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('zero_tap_terms_accepted', $data) && \is_int($data['zero_tap_terms_accepted'])) {
+            $data['zero_tap_terms_accepted'] = (bool) $data['zero_tap_terms_accepted'];
+        }
         if (\array_key_exists('type', $data) && $data['type'] !== null) {
             $object->setType($data['type']);
         }
@@ -67,12 +70,28 @@ class WhatsAppTemplateButtonWriteNormalizer implements DenormalizerInterface, No
         elseif (\array_key_exists('phone_number', $data) && $data['phone_number'] === null) {
             $object->setPhoneNumber(null);
         }
-        if (\array_key_exists('example_parameters', $data) && $data['example_parameters'] !== null) {
+        if (\array_key_exists('supported_apps', $data) && $data['supported_apps'] !== null) {
             $values = [];
-            foreach ($data['example_parameters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateExampleParameterWrite::class, 'json', $context);
+            foreach ($data['supported_apps'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \MessageBird\Wire\Model\WhatsAppTemplateSupportedAppWrite::class, 'json', $context);
             }
-            $object->setExampleParameters($values);
+            $object->setSupportedApps($values);
+        }
+        elseif (\array_key_exists('supported_apps', $data) && $data['supported_apps'] === null) {
+            $object->setSupportedApps(null);
+        }
+        if (\array_key_exists('zero_tap_terms_accepted', $data) && $data['zero_tap_terms_accepted'] !== null) {
+            $object->setZeroTapTermsAccepted($data['zero_tap_terms_accepted']);
+        }
+        elseif (\array_key_exists('zero_tap_terms_accepted', $data) && $data['zero_tap_terms_accepted'] === null) {
+            $object->setZeroTapTermsAccepted(null);
+        }
+        if (\array_key_exists('example_parameters', $data) && $data['example_parameters'] !== null) {
+            $values_1 = [];
+            foreach ($data['example_parameters'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \MessageBird\Wire\Model\WhatsAppTemplateExampleParameterWrite::class, 'json', $context);
+            }
+            $object->setExampleParameters($values_1);
         }
         elseif (\array_key_exists('example_parameters', $data) && $data['example_parameters'] === null) {
             $object->setExampleParameters(null);
@@ -98,12 +117,22 @@ class WhatsAppTemplateButtonWriteNormalizer implements DenormalizerInterface, No
         if ($data->isInitialized('phoneNumber') && null !== $data->getPhoneNumber()) {
             $dataArray['phone_number'] = $data->getPhoneNumber();
         }
-        if ($data->isInitialized('exampleParameters') && null !== $data->getExampleParameters()) {
+        if ($data->isInitialized('supportedApps') && null !== $data->getSupportedApps()) {
             $values = [];
-            foreach ($data->getExampleParameters() as $value) {
+            foreach ($data->getSupportedApps() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $dataArray['example_parameters'] = $values;
+            $dataArray['supported_apps'] = $values;
+        }
+        if ($data->isInitialized('zeroTapTermsAccepted') && null !== $data->getZeroTapTermsAccepted()) {
+            $dataArray['zero_tap_terms_accepted'] = $data->getZeroTapTermsAccepted();
+        }
+        if ($data->isInitialized('exampleParameters') && null !== $data->getExampleParameters()) {
+            $values_1 = [];
+            foreach ($data->getExampleParameters() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            }
+            $dataArray['example_parameters'] = $values_1;
         }
         return $dataArray;
     }

@@ -18,8 +18,13 @@ class WhatsAppTemplateButton
      * - `url`: opens a link.
      * - `quick_reply`: sends its own label back to you as an inbound message.
      * - `phone_number`: dials the number it carries.
-     * - `otp`: copies a one-time passcode. It belongs only on an authentication
-     *   template, and that template takes no other button type.
+     * - `otp`: delivers a one-time passcode, in the way its `otp_type` names.
+     *   It belongs only on an authentication template, and that template
+     *   takes no other button type. Once the language is submitted, WhatsApp
+     *   returns this button as a `url` button whose address names the
+     *   delivery type, so a submitted language reads back with `url`. It
+     *   also adds a `quick_reply` button labeled `I didn't request a code`,
+     *   which the preview shows too.
      * - `copy_code`: copies a coupon code to the recipient's clipboard. It
      *   belongs only on a marketing template, which takes at most one.
      * - `request_contact_info`: asks the recipient to share the phone number
@@ -33,11 +38,34 @@ class WhatsAppTemplateButton
      */
     protected $type;
     /**
-     * How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
+     * How the recipient receives the one-time passcode: `copy_code`, `one_tap` or `zero_tap`. Present on an `otp` button.
+     * This is an open enum. Accept unrecognized values.
+     * 
      *
      * @var string|null
      */
     protected $otpType;
+    /**
+     * The label WhatsApp writes on the autofill button. Present on a `one_tap` or `zero_tap` preview.
+     * 
+     *
+     * @var string|null
+     */
+    protected $autofillText;
+    /**
+     * The Android apps that receive the passcode. Present on a `one_tap` or `zero_tap` button in a draft. Once the language is submitted, the apps appear only in the button's `url`.
+     * 
+     *
+     * @var list<WhatsAppTemplateSupportedApp>|null
+     */
+    protected $supportedApps;
+    /**
+     * Whether you accepted WhatsApp's zero-tap terms. Present on a `zero_tap` button in a draft. WhatsApp does not return it, so a submitted language reads back without it.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $zeroTapTermsAccepted;
     /**
      * The button's label. Absent on an authentication template's passcode button until the language has been submitted, since WhatsApp writes that label itself. Absent on a `request_contact_info` draft for a related reason: WhatsApp fixes that label, so a draft that carried it reads back without it. Once the language is submitted, this carries the label WhatsApp wrote, which is `Share Contact Info` in every language today.
      * 
@@ -70,8 +98,13 @@ class WhatsAppTemplateButton
      * - `url`: opens a link.
      * - `quick_reply`: sends its own label back to you as an inbound message.
      * - `phone_number`: dials the number it carries.
-     * - `otp`: copies a one-time passcode. It belongs only on an authentication
-     *   template, and that template takes no other button type.
+     * - `otp`: delivers a one-time passcode, in the way its `otp_type` names.
+     *   It belongs only on an authentication template, and that template
+     *   takes no other button type. Once the language is submitted, WhatsApp
+     *   returns this button as a `url` button whose address names the
+     *   delivery type, so a submitted language reads back with `url`. It
+     *   also adds a `quick_reply` button labeled `I didn't request a code`,
+     *   which the preview shows too.
      * - `copy_code`: copies a coupon code to the recipient's clipboard. It
      *   belongs only on a marketing template, which takes at most one.
      * - `request_contact_info`: asks the recipient to share the phone number
@@ -93,8 +126,13 @@ class WhatsAppTemplateButton
     - `url`: opens a link.
     - `quick_reply`: sends its own label back to you as an inbound message.
     - `phone_number`: dials the number it carries.
-    - `otp`: copies a one-time passcode. It belongs only on an authentication
-     template, and that template takes no other button type.
+    - `otp`: delivers a one-time passcode, in the way its `otp_type` names.
+     It belongs only on an authentication template, and that template
+     takes no other button type. Once the language is submitted, WhatsApp
+     returns this button as a `url` button whose address names the
+     delivery type, so a submitted language reads back with `url`. It
+     also adds a `quick_reply` button labeled `I didn't request a code`,
+     which the preview shows too.
     - `copy_code`: copies a coupon code to the recipient's clipboard. It
      belongs only on a marketing template, which takes at most one.
     - `request_contact_info`: asks the recipient to share the phone number
@@ -115,7 +153,9 @@ class WhatsAppTemplateButton
         return $this;
     }
     /**
-     * How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
+     * How the recipient receives the one-time passcode: `copy_code`, `one_tap` or `zero_tap`. Present on an `otp` button.
+     * This is an open enum. Accept unrecognized values.
+     * 
      *
      * @return string|null
      */
@@ -124,16 +164,87 @@ class WhatsAppTemplateButton
         return $this->otpType;
     }
     /**
-     * How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
-     *
-     * @param string|null $otpType
-     *
-     * @return self
-     */
+    * How the recipient receives the one-time passcode: `copy_code`, `one_tap` or `zero_tap`. Present on an `otp` button.
+    This is an open enum. Accept unrecognized values.
+    
+    *
+    * @param string|null $otpType
+    *
+    * @return self
+    */
     public function setOtpType(?string $otpType): self
     {
         $this->initialized['otpType'] = true;
         $this->otpType = $otpType;
+        return $this;
+    }
+    /**
+     * The label WhatsApp writes on the autofill button. Present on a `one_tap` or `zero_tap` preview.
+     * 
+     *
+     * @return string|null
+     */
+    public function getAutofillText(): ?string
+    {
+        return $this->autofillText;
+    }
+    /**
+     * The label WhatsApp writes on the autofill button. Present on a `one_tap` or `zero_tap` preview.
+     *
+     * @param string|null $autofillText
+     *
+     * @return self
+     */
+    public function setAutofillText(?string $autofillText): self
+    {
+        $this->initialized['autofillText'] = true;
+        $this->autofillText = $autofillText;
+        return $this;
+    }
+    /**
+     * The Android apps that receive the passcode. Present on a `one_tap` or `zero_tap` button in a draft. Once the language is submitted, the apps appear only in the button's `url`.
+     * 
+     *
+     * @return list<WhatsAppTemplateSupportedApp>|null
+     */
+    public function getSupportedApps(): ?array
+    {
+        return $this->supportedApps;
+    }
+    /**
+     * The Android apps that receive the passcode. Present on a `one_tap` or `zero_tap` button in a draft. Once the language is submitted, the apps appear only in the button's `url`.
+     *
+     * @param list<WhatsAppTemplateSupportedApp>|null $supportedApps
+     *
+     * @return self
+     */
+    public function setSupportedApps(?array $supportedApps): self
+    {
+        $this->initialized['supportedApps'] = true;
+        $this->supportedApps = $supportedApps;
+        return $this;
+    }
+    /**
+     * Whether you accepted WhatsApp's zero-tap terms. Present on a `zero_tap` button in a draft. WhatsApp does not return it, so a submitted language reads back without it.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getZeroTapTermsAccepted(): ?bool
+    {
+        return $this->zeroTapTermsAccepted;
+    }
+    /**
+     * Whether you accepted WhatsApp's zero-tap terms. Present on a `zero_tap` button in a draft. WhatsApp does not return it, so a submitted language reads back without it.
+     *
+     * @param bool|null $zeroTapTermsAccepted
+     *
+     * @return self
+     */
+    public function setZeroTapTermsAccepted(?bool $zeroTapTermsAccepted): self
+    {
+        $this->initialized['zeroTapTermsAccepted'] = true;
+        $this->zeroTapTermsAccepted = $zeroTapTermsAccepted;
         return $this;
     }
     /**

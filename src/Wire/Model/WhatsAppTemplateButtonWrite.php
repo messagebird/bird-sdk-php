@@ -36,7 +36,8 @@ class WhatsAppTemplateButtonWrite
      */
     protected $type;
     /**
-     * How the recipient receives the passcode. Send it only on an `otp` button.
+     * How the recipient receives the passcode. Send it only on an `otp` button. `one_tap` and `zero_tap` work only on Android, with an app that has completed WhatsApp's handshake before you send. Otherwise WhatsApp shows the copy-code button instead and reports no error.
+     * 
      *
      * @var string|null
      */
@@ -45,8 +46,9 @@ class WhatsAppTemplateButtonWrite
      * The button's label, which each button type treats differently.
      * 
      * - `url`, `quick_reply`, `phone_number`: your own label. Required.
-     * - `otp`: omit it. WhatsApp writes this label itself and reveals it only
-     *   once the language has been submitted.
+     * - `otp`: omit it, whatever the `otp_type`. WhatsApp writes and
+     *   translates this label itself. The template preview shows it before
+     *   you submit.
      * - `copy_code`: omit it. WhatsApp fixes this label and does not let you
      *   change it.
      * - `request_contact_info`: omit it. WhatsApp fixes this label too and
@@ -77,6 +79,20 @@ class WhatsAppTemplateButtonWrite
      * @var string|null
      */
     protected $phoneNumber;
+    /**
+     * The Android apps that receive the passcode, up to five. Send it only on an `otp` button whose `otp_type` is `one_tap` or `zero_tap`, where at least one app is required before submission.
+     * 
+     *
+     * @var list<WhatsAppTemplateSupportedAppWrite>|null
+     */
+    protected $supportedApps;
+    /**
+     * Your acceptance of WhatsApp's terms for zero-tap, under which you make sure your users expect the code to be filled in automatically. Send it only on an `otp` button whose `otp_type` is `zero_tap`, where it must be `true` before submission.
+     * 
+     *
+     * @var bool|null
+     */
+    protected $zeroTapTermsAccepted;
     /**
      * The value that fills the variable in `url`, which WhatsApp reviews in the filled address. Send only the value, so a `{{1}}` standing for an order number takes `A-4192`. Required whenever `url` carries a variable. Also required on a `copy_code` button as one `text` entry. The entry carries a sample coupon code of at most 20 characters for WhatsApp to review. Each recipient copies the code you provide when sending the message.
      * 
@@ -135,7 +151,8 @@ class WhatsAppTemplateButtonWrite
         return $this;
     }
     /**
-     * How the recipient receives the passcode. Send it only on an `otp` button.
+     * How the recipient receives the passcode. Send it only on an `otp` button. `one_tap` and `zero_tap` work only on Android, with an app that has completed WhatsApp's handshake before you send. Otherwise WhatsApp shows the copy-code button instead and reports no error.
+     * 
      *
      * @return string|null
      */
@@ -144,7 +161,7 @@ class WhatsAppTemplateButtonWrite
         return $this->otpType;
     }
     /**
-     * How the recipient receives the passcode. Send it only on an `otp` button.
+     * How the recipient receives the passcode. Send it only on an `otp` button. `one_tap` and `zero_tap` work only on Android, with an app that has completed WhatsApp's handshake before you send. Otherwise WhatsApp shows the copy-code button instead and reports no error.
      *
      * @param string|null $otpType
      *
@@ -160,8 +177,9 @@ class WhatsAppTemplateButtonWrite
      * The button's label, which each button type treats differently.
      * 
      * - `url`, `quick_reply`, `phone_number`: your own label. Required.
-     * - `otp`: omit it. WhatsApp writes this label itself and reveals it only
-     *   once the language has been submitted.
+     * - `otp`: omit it, whatever the `otp_type`. WhatsApp writes and
+     *   translates this label itself. The template preview shows it before
+     *   you submit.
      * - `copy_code`: omit it. WhatsApp fixes this label and does not let you
      *   change it.
      * - `request_contact_info`: omit it. WhatsApp fixes this label too and
@@ -185,8 +203,9 @@ class WhatsAppTemplateButtonWrite
     * The button's label, which each button type treats differently.
     
     - `url`, `quick_reply`, `phone_number`: your own label. Required.
-    - `otp`: omit it. WhatsApp writes this label itself and reveals it only
-     once the language has been submitted.
+    - `otp`: omit it, whatever the `otp_type`. WhatsApp writes and
+     translates this label itself. The template preview shows it before
+     you submit.
     - `copy_code`: omit it. WhatsApp fixes this label and does not let you
      change it.
     - `request_contact_info`: omit it. WhatsApp fixes this label too and
@@ -254,6 +273,52 @@ class WhatsAppTemplateButtonWrite
     {
         $this->initialized['phoneNumber'] = true;
         $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+    /**
+     * The Android apps that receive the passcode, up to five. Send it only on an `otp` button whose `otp_type` is `one_tap` or `zero_tap`, where at least one app is required before submission.
+     * 
+     *
+     * @return list<WhatsAppTemplateSupportedAppWrite>|null
+     */
+    public function getSupportedApps(): ?array
+    {
+        return $this->supportedApps;
+    }
+    /**
+     * The Android apps that receive the passcode, up to five. Send it only on an `otp` button whose `otp_type` is `one_tap` or `zero_tap`, where at least one app is required before submission.
+     *
+     * @param list<WhatsAppTemplateSupportedAppWrite>|null $supportedApps
+     *
+     * @return self
+     */
+    public function setSupportedApps(?array $supportedApps): self
+    {
+        $this->initialized['supportedApps'] = true;
+        $this->supportedApps = $supportedApps;
+        return $this;
+    }
+    /**
+     * Your acceptance of WhatsApp's terms for zero-tap, under which you make sure your users expect the code to be filled in automatically. Send it only on an `otp` button whose `otp_type` is `zero_tap`, where it must be `true` before submission.
+     * 
+     *
+     * @return bool|null
+     */
+    public function getZeroTapTermsAccepted(): ?bool
+    {
+        return $this->zeroTapTermsAccepted;
+    }
+    /**
+     * Your acceptance of WhatsApp's terms for zero-tap, under which you make sure your users expect the code to be filled in automatically. Send it only on an `otp` button whose `otp_type` is `zero_tap`, where it must be `true` before submission.
+     *
+     * @param bool|null $zeroTapTermsAccepted
+     *
+     * @return self
+     */
+    public function setZeroTapTermsAccepted(?bool $zeroTapTermsAccepted): self
+    {
+        $this->initialized['zeroTapTermsAccepted'] = true;
+        $this->zeroTapTermsAccepted = $zeroTapTermsAccepted;
         return $this;
     }
     /**
