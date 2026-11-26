@@ -149,6 +149,57 @@ $inlineUntypedUnions = static function (array $node, int $depth = 0) use (&$inli
 };
 $document = $inlineUntypedUnions($document);
 
+// Jane emits no class for a pure oneOf, so a union returned as a response body
+// would leave the method's return type undefined. Model it as one class with
+// every branch's properties, required where every branch requires them. Unions
+// used only as properties keep Jane's untyped value.
+$responseUnions = [];
+foreach ($document['paths'] as $path) {
+    foreach (['get', 'put', 'post', 'delete', 'patch'] as $method) {
+        foreach ($path[$method]['responses'] ?? [] as $response) {
+            $schema = $resolve($response)['content']['application/json']['schema'] ?? [];
+            if (isset($schema['$ref']) && str_starts_with($schema['$ref'], '#/components/schemas/')) {
+                $responseUnions[substr($schema['$ref'], strlen('#/components/schemas/'))] = true;
+            }
+        }
+    }
+}
+foreach (array_keys($responseUnions) as $name) {
+    $union = $document['components']['schemas'][$name] ?? [];
+    if (!isset($union['oneOf']) || isset($union['type']) || isset($union['properties'])) {
+        continue;
+    }
+    $properties = [];
+    $required = null;
+    $closed = true;
+    foreach ($union['oneOf'] as $arm) {
+        $branch = isset($arm['$ref']) ? $resolve($arm) : $arm;
+        if (($branch['type'] ?? null) !== 'object') {
+            continue 2;
+        }
+        $closed = $closed && ($branch['additionalProperties'] ?? true) === false;
+        foreach ($branch['properties'] ?? [] as $field => $property) {
+            if (isset($properties[$field]['enum'], $property['enum'])) {
+                $property['enum'] = array_values(array_unique([...$properties[$field]['enum'], ...$property['enum']]));
+            }
+            $properties[$field] = $property;
+        }
+        $branchRequired = $branch['required'] ?? [];
+        $required = $required === null ? $branchRequired : array_values(array_intersect($required, $branchRequired));
+    }
+    $model = ['type' => 'object', 'properties' => $properties];
+    if ($required) {
+        $model['required'] = $required;
+    }
+    if (isset($union['description'])) {
+        $model['description'] = $union['description'];
+    }
+    if ($closed) {
+        $model['additionalProperties'] = false;
+    }
+    $document['components']['schemas'][$name] = $model;
+}
+
 foreach ($document['components']['schemas'] as &$schema) {
     if (!isset($schema['allOf'])) {
         continue;

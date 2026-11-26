@@ -3,7 +3,7 @@
 namespace MessageBird\Wire\Model;
 
 /**
- * A user added to a ring group. A member who later leaves the workspace stays listed until removed, but the group never rings them.
+ * A ring group member. `type` names what kind of member it is.
  */
 class VoiceRingGroupMember
 {
@@ -18,6 +18,10 @@ class VoiceRingGroupMember
     /**
      * @var string|null
      */
+    protected $type;
+    /**
+     * @var string|null
+     */
     protected $userId;
     /**
      * When the user joined the ring group. Null for the default group, whose members are the users online now.
@@ -25,6 +29,24 @@ class VoiceRingGroupMember
      * @var \DateTime|null
      */
     protected $createdAt;
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+    /**
+     * @param string|null $type
+     *
+     * @return self
+     */
+    public function setType(?string $type): self
+    {
+        $this->initialized['type'] = true;
+        $this->type = $type;
+        return $this;
+    }
     /**
      * @return string|null
      */

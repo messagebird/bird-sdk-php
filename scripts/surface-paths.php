@@ -209,7 +209,7 @@ return [
     "/v1/voice/ring-groups",
     "/v1/voice/ring-groups/{ring_group_id}",
     "/v1/voice/ring-groups/{ring_group_id}/members",
-    "/v1/voice/ring-groups/{ring_group_id}/members/{user_id}",
+    "/v1/voice/ring-groups/{ring_group_id}/members/{member_id}",
     "/v1/voice/verified-numbers",
     "/v1/voice/verified-numbers/{verified_number_id}",
     "/v1/voice/verified-numbers/{verified_number_id}/verify",

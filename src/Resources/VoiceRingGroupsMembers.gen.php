@@ -45,8 +45,8 @@ final class VoiceRingGroupsMembers extends Resource
      * @example Remove a member from a ring group
      * $bird->voice->ringGroups->members->delete('RING_GROUP_ID', 'USER_ID');
      */
-    public function delete(string $ringGroupId, string $userId, ?RequestOptions $options = null): void
+    public function delete(string $ringGroupId, string $memberId, ?RequestOptions $options = null): void
     {
-        $this->none('DELETE', '/v1/voice/ring-groups/' . rawurlencode($ringGroupId) . '/members/' . rawurlencode($userId), null, null, $options);
+        $this->none('DELETE', '/v1/voice/ring-groups/' . rawurlencode($ringGroupId) . '/members/' . rawurlencode($memberId), null, null, $options);
     }
 }

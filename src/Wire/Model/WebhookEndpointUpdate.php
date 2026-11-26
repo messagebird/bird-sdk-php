@@ -32,7 +32,7 @@ class WebhookEndpointUpdate
      */
     protected $filter;
     /**
-     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
+     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`, except a type the endpoint already subscribes to that has since left the catalog: it can stay in the list.
      * 
      *
      * @var list<string>|null
@@ -120,7 +120,7 @@ class WebhookEndpointUpdate
         return $this;
     }
     /**
-     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
+     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`, except a type the endpoint already subscribes to that has since left the catalog: it can stay in the list.
      * 
      *
      * @return list<string>|null
@@ -130,7 +130,7 @@ class WebhookEndpointUpdate
         return $this->events;
     }
     /**
-     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
+     * Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`, except a type the endpoint already subscribes to that has since left the catalog: it can stay in the list.
      *
      * @param list<string>|null $events
      *

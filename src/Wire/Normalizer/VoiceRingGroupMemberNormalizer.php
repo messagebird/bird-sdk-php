@@ -37,6 +37,12 @@ class VoiceRingGroupMemberNormalizer implements DenormalizerInterface, Normalize
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
+        if (\array_key_exists('type', $data) && $data['type'] !== null) {
+            $object->setType($data['type']);
+        }
+        elseif (\array_key_exists('type', $data) && $data['type'] === null) {
+            $object->setType(null);
+        }
         if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
         }
@@ -54,6 +60,10 @@ class VoiceRingGroupMemberNormalizer implements DenormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
+        if (!$data->isInitialized('type')) {
+            throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroupMember.type missing');
+        }
+        $dataArray['type'] = $data->getType();
         if (!$data->isInitialized('userId')) {
             throw new \MessageBird\Exception\RequestValidationException('required field VoiceRingGroupMember.user_id missing');
         }

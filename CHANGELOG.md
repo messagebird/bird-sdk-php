@@ -2,6 +2,11 @@
 
 All notable changes to `messagebird/sdk` are documented here. Versions are assigned by the surface changeset tooling; do not hand-edit this file.
 
+## 0.128.0
+
+- **Breaking:** removing a ring group member names its second argument after `member_id` instead of `user_id`, so rename it where you pass it as a named argument.
+- Ring group members now carry `type`, which is `user` for a workspace user.
+
 ## 0.127.0
 
 - **Breaking:** listing or exporting a broadcast's recipients, for email and WhatsApp, now fails with a gone error once the broadcast finished more than 30 days ago; save any recipient rows you need before then, and treat the error as permanent.

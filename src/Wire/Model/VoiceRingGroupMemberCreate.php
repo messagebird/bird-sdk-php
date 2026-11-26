@@ -2,6 +2,9 @@
 
 namespace MessageBird\Wire\Model;
 
+/**
+ * The member to add.
+ */
 class VoiceRingGroupMemberCreate
 {
     /**
