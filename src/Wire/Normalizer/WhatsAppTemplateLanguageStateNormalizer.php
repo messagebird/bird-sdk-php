@@ -43,6 +43,12 @@ class WhatsAppTemplateLanguageStateNormalizer implements DenormalizerInterface, 
         elseif (\array_key_exists('status', $data) && $data['status'] === null) {
             $object->setStatus(null);
         }
+        if (\array_key_exists('quality', $data) && $data['quality'] !== null) {
+            $object->setQuality($this->denormalizer->denormalize($data['quality'], \MessageBird\Wire\Model\WhatsAppTemplateQuality::class, 'json', $context));
+        }
+        elseif (\array_key_exists('quality', $data) && $data['quality'] === null) {
+            $object->setQuality(null);
+        }
         if (\array_key_exists('submitted_at', $data) && $data['submitted_at'] !== null) {
             $object->setSubmittedAt(new \DateTime($data['submitted_at']));
         }
@@ -74,6 +80,9 @@ class WhatsAppTemplateLanguageStateNormalizer implements DenormalizerInterface, 
         $dataArray = [];
         if ($data->isInitialized('status') && null !== $data->getStatus()) {
             $dataArray['status'] = $data->getStatus();
+        }
+        if ($data->isInitialized('quality') && null !== $data->getQuality()) {
+            $dataArray['quality'] = $this->normalizer->normalize($data->getQuality(), 'json', $context);
         }
         if ($data->isInitialized('rejection') && null !== $data->getRejection()) {
             $dataArray['rejection'] = $this->normalizer->normalize($data->getRejection(), 'json', $context);

@@ -68,6 +68,13 @@ class NumbersOrder
      */
     protected $updatedAt;
     /**
+     * Ownership paperwork and activation progress for the number this order bought: the same object `GET /v1/numbers/{number_id}` reports. Reported once the order is `completed`, when you create an order or read one. `null` when no ownership requirements, block or decision apply to the number, when requirements could not be read and no block or decision is recorded, and after the number is released. Absent from order lists and while the order is in progress or failed. Also absent when the number could not be read; read the order again then. Follow its `next` to see what the country requires and to send your answers.
+     * 
+     *
+     * @var NumbersOrderOwnership|null
+     */
+    protected $ownership;
+    /**
      * Identifier of this number order.
      *
      * @return string|null
@@ -272,6 +279,29 @@ class NumbersOrder
     {
         $this->initialized['updatedAt'] = true;
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+    /**
+     * Ownership paperwork and activation progress for the number this order bought: the same object `GET /v1/numbers/{number_id}` reports. Reported once the order is `completed`, when you create an order or read one. `null` when no ownership requirements, block or decision apply to the number, when requirements could not be read and no block or decision is recorded, and after the number is released. Absent from order lists and while the order is in progress or failed. Also absent when the number could not be read; read the order again then. Follow its `next` to see what the country requires and to send your answers.
+     * 
+     *
+     * @return NumbersOrderOwnership|null
+     */
+    public function getOwnership(): ?NumbersOrderOwnership
+    {
+        return $this->ownership;
+    }
+    /**
+     * Ownership paperwork and activation progress for the number this order bought: the same object `GET /v1/numbers/{number_id}` reports. Reported once the order is `completed`, when you create an order or read one. `null` when no ownership requirements, block or decision apply to the number, when requirements could not be read and no block or decision is recorded, and after the number is released. Absent from order lists and while the order is in progress or failed. Also absent when the number could not be read; read the order again then. Follow its `next` to see what the country requires and to send your answers.
+     *
+     * @param NumbersOrderOwnership|null $ownership
+     *
+     * @return self
+     */
+    public function setOwnership(?NumbersOrderOwnership $ownership): self
+    {
+        $this->initialized['ownership'] = true;
+        $this->ownership = $ownership;
         return $this;
     }
 }

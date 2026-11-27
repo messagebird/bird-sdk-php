@@ -1152,6 +1152,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecisionResult::class => \MessageBird\Wire\Normalizer\WhatsAppGroupJoinRequestDecisionResultNormalizer::class,
 
+        \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateQualityNormalizer::class,
+
         \MessageBird\Wire\Model\WhatsAppTemplateRejection::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateRejectionNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateSubmissionError::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateSubmissionErrorNormalizer::class,
@@ -1219,8 +1221,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageSummary::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageSummaryNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplateLanguageList::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateLanguageListNormalizer::class,
-
-        \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => \MessageBird\Wire\Normalizer\WhatsAppTemplateQualityNormalizer::class,
 
         \MessageBird\Wire\Model\WhatsAppTemplatePause::class => \MessageBird\Wire\Normalizer\WhatsAppTemplatePauseNormalizer::class,
 
@@ -2232,9 +2232,13 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \MessageBird\Wire\Model\AvailableNumber::class => \MessageBird\Wire\Normalizer\AvailableNumberNormalizer::class,
 
+        \MessageBird\Wire\Model\AvailableNumberOwnershipRequirements::class => \MessageBird\Wire\Normalizer\AvailableNumberOwnershipRequirementsNormalizer::class,
+
         \MessageBird\Wire\Model\AvailableNumberList::class => \MessageBird\Wire\Normalizer\AvailableNumberListNormalizer::class,
 
         \MessageBird\Wire\Model\NumbersOrder::class => \MessageBird\Wire\Normalizer\NumbersOrderNormalizer::class,
+
+        \MessageBird\Wire\Model\NumbersOrderOwnership::class => \MessageBird\Wire\Normalizer\NumbersOrderOwnershipNormalizer::class,
 
         \MessageBird\Wire\Model\NumbersOrderList::class => \MessageBird\Wire\Normalizer\NumbersOrderListNormalizer::class,
 
@@ -3169,6 +3173,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailure::class => false,
             \MessageBird\Wire\Model\WhatsAppGroupJoinRequestFailureError::class => false,
             \MessageBird\Wire\Model\WhatsAppGroupJoinRequestDecisionResult::class => false,
+            \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateRejection::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateSubmissionError::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageState::class => false,
@@ -3203,7 +3208,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\WhatsAppTemplateSubmitResultVersion::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageSummary::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageList::class => false,
-            \MessageBird\Wire\Model\WhatsAppTemplateQuality::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplatePause::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguage::class => false,
             \MessageBird\Wire\Model\WhatsAppTemplateLanguageParameterBindings::class => false,
@@ -3709,8 +3713,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \MessageBird\Wire\Model\AvailableNumberPricingRecurringPrice::class => false,
             \MessageBird\Wire\Model\AvailableNumberPricingRecurringPeriod::class => false,
             \MessageBird\Wire\Model\AvailableNumber::class => false,
+            \MessageBird\Wire\Model\AvailableNumberOwnershipRequirements::class => false,
             \MessageBird\Wire\Model\AvailableNumberList::class => false,
             \MessageBird\Wire\Model\NumbersOrder::class => false,
+            \MessageBird\Wire\Model\NumbersOrderOwnership::class => false,
             \MessageBird\Wire\Model\NumbersOrderList::class => false,
             \MessageBird\Wire\Model\NumbersOrderCompliance::class => false,
             \MessageBird\Wire\Model\NumbersOrderCreate::class => false,

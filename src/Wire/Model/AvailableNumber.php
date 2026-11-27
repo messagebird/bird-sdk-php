@@ -67,6 +67,12 @@ class AvailableNumber
      */
     protected $ownershipAddressAreaName;
     /**
+     * Where to read what this number's ownership paperwork asks for, before you buy it. Call the named operation with `params` to get the form for the number's country and number type: every field, the documents it takes and its guidance, unanswered. That read needs compliance read access, which this search does not. Present when a form is published for the number's country and number type, including when `ownership_registration_required` is false because your organization is exempt from the paperwork. Omitted when no form is published, when the form could not be looked up for this response, and on admin supplier searches.
+     *
+     * @var AvailableNumberOwnershipRequirements|null
+     */
+    protected $ownershipRequirements;
+    /**
      * What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
      *
      * @var AvailableNumberPricingWrapper|null
@@ -248,6 +254,28 @@ class AvailableNumber
     {
         $this->initialized['ownershipAddressAreaName'] = true;
         $this->ownershipAddressAreaName = $ownershipAddressAreaName;
+        return $this;
+    }
+    /**
+     * Where to read what this number's ownership paperwork asks for, before you buy it. Call the named operation with `params` to get the form for the number's country and number type: every field, the documents it takes and its guidance, unanswered. That read needs compliance read access, which this search does not. Present when a form is published for the number's country and number type, including when `ownership_registration_required` is false because your organization is exempt from the paperwork. Omitted when no form is published, when the form could not be looked up for this response, and on admin supplier searches.
+     *
+     * @return AvailableNumberOwnershipRequirements|null
+     */
+    public function getOwnershipRequirements(): ?AvailableNumberOwnershipRequirements
+    {
+        return $this->ownershipRequirements;
+    }
+    /**
+     * Where to read what this number's ownership paperwork asks for, before you buy it. Call the named operation with `params` to get the form for the number's country and number type: every field, the documents it takes and its guidance, unanswered. That read needs compliance read access, which this search does not. Present when a form is published for the number's country and number type, including when `ownership_registration_required` is false because your organization is exempt from the paperwork. Omitted when no form is published, when the form could not be looked up for this response, and on admin supplier searches.
+     *
+     * @param AvailableNumberOwnershipRequirements|NextAction|array|null $ownershipRequirements
+     *
+     * @return self
+     */
+    public function setOwnershipRequirements($ownershipRequirements): self
+    {
+        $this->initialized['ownershipRequirements'] = true;
+        $this->ownershipRequirements = \MessageBird\Core\ModelWrapper::normalize($ownershipRequirements, AvailableNumberOwnershipRequirements::class);
         return $this;
     }
     /**

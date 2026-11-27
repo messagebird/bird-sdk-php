@@ -23,6 +23,13 @@ class WhatsAppTemplateLanguageState
      */
     protected $status;
     /**
+     * Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
+     * 
+     *
+     * @var WhatsAppTemplateQuality|null
+     */
+    protected $quality;
+    /**
      * When this language's content was last submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's language, shipped already approved rather than submitted on your behalf.
      * 
      *
@@ -71,6 +78,29 @@ class WhatsAppTemplateLanguageState
     {
         $this->initialized['status'] = true;
         $this->status = $status;
+        return $this;
+    }
+    /**
+     * Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
+     * 
+     *
+     * @return WhatsAppTemplateQuality|null
+     */
+    public function getQuality(): ?WhatsAppTemplateQuality
+    {
+        return $this->quality;
+    }
+    /**
+     * Meta's quality rating for one language, with the rating it moved from and when it moved. Once Meta rates a language, list or get the template, or get the individual language on its live version, to read the rating. Version summaries always omit quality, including the live version's summary. Superseded versions carry no rating.
+     *
+     * @param WhatsAppTemplateQuality|null $quality
+     *
+     * @return self
+     */
+    public function setQuality(?WhatsAppTemplateQuality $quality): self
+    {
+        $this->initialized['quality'] = true;
+        $this->quality = $quality;
         return $this;
     }
     /**

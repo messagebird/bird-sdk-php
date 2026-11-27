@@ -97,6 +97,12 @@ class NumbersOrderNormalizer implements DenormalizerInterface, NormalizerInterfa
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
+        if (\array_key_exists('ownership', $data) && $data['ownership'] !== null) {
+            $object->setOwnership($this->denormalizer->denormalize($data['ownership'], \MessageBird\Wire\Model\NumbersOrderOwnership::class, 'json', $context));
+        }
+        elseif (\array_key_exists('ownership', $data) && $data['ownership'] === null) {
+            $object->setOwnership(null);
+        }
         return $object;
     }
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
